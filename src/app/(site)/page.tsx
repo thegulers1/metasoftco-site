@@ -1,8 +1,9 @@
 import HeroSection from "@/components/site/HeroSection";
 import ProjectShowcase from "@/components/site/ProjectShowcase";
-import BlogPosts from "@/components/site/BlogPosts";
+import AppleCardsCarouselDemo from "@/components/site/AppleCardsCarouselDemo";
 import InstagramFeed from "@/components/site/InstagramFeed";
-import ServicesSection from "@/components/site/ServicesSection";
+import { BentoServicesSection } from "@/components/site/BentoServicesSection";
+import { AboutSection } from "@/components/site/AboutSection";
 import { prisma } from "@/lib/db";
 import { getInstagramFeed } from "@/lib/instagram";
 
@@ -20,15 +21,16 @@ async function getServices() {
 
 export default async function HomePage() {
     const categories = await getServices();
-    const instagramPosts = await getInstagramFeed();
+    // const instagramPosts = await getInstagramFeed();
 
     return (
         <>
             <HeroSection />
-            <ServicesSection categories={categories} />
+            <AboutSection />
+            <BentoServicesSection categories={categories} />
             <ProjectShowcase />
-            <BlogPosts />
-            <InstagramFeed posts={instagramPosts} />
+            <AppleCardsCarouselDemo />
+            {/* <InstagramFeed posts={instagramPosts} /> */}
         </>
     );
 }

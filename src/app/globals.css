@@ -72,7 +72,7 @@
 
   /* Link Görüntüleme */
   .service-content a {
-    color: #2563eb;
+    color: #900a03;
     text-decoration: underline;
     word-break: break-all;
     /* Sadece linkleri kırabilirsin */
@@ -169,7 +169,7 @@
 }
 
 .dark {
-  --background: oklch(0.145 0 0);
+  --background: #1a0202;
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);

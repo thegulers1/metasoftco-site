@@ -4,6 +4,7 @@ generator client {
 
 datasource db {
   provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 // ============================================
@@ -131,4 +132,36 @@ model User {
   role      String   @default("admin")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+// ============================================
+// ANALİTİKS
+// ============================================
+
+// Sayfa görüntülemeleri
+model PageView {
+  id        String   @id @default(cuid())
+  path      String // Örn: /hizmetler/yapay-zeka/ai-photo
+  sessionId String // Browser fingerprint veya session ID
+  referer   String? // Nereden geldi
+  userAgent String? // Tarayıcı bilgisi
+  createdAt DateTime @default(now())
+
+  @@index([path, createdAt])
+  @@index([sessionId])
+  @@index([createdAt])
+}
+
+// Event tracking (menü tıklamaları, arama, vb.)
+model AnalyticsEvent {
+  id        String   @id @default(cuid())
+  eventType String // 'menu_click', 'search', 'service_view', 'category_view'
+  eventData String?  @db.Text // JSON - ek veriler
+  sessionId String
+  path      String // Hangi sayfada oldu
+  createdAt DateTime @default(now())
+
+  @@index([eventType, createdAt])
+  @@index([sessionId])
+  @@index([createdAt])
 }

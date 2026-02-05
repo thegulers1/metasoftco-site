@@ -121,7 +121,7 @@ export default function ProjectShowcase() {
                                 <span className="text-sm text-black/40">by</span>
                                 <div className="flex items-center gap-2">
                                     <div className="relative h-6 w-6 overflow-hidden rounded-full bg-black/10">
-                                        <div className="absolute inset-0 bg-gradient-to-br from-blue-400 to-purple-500" />
+                                        <div className="absolute inset-0 bg-gradient-to-br from-[#900a03] to-[#f87171]" />
                                     </div>
                                     <span className="text-sm font-medium text-black underline underline-offset-2">
                                         {project.author.name}
