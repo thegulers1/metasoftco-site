@@ -1,5 +1,92 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 @import "tw-animate-css";
+
+@layer utilities {
+
+  /* Hizmet Detay İçeriği - Temiz ve Standart CSS */
+  .service-content {
+    /* Container Yapısı */
+    width: 100%;
+    max-width: 100%;
+    display: block;
+
+    /* Typography */
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: rgba(0, 0, 0, 0.85);
+
+    /* Kritik Kelime Kırma Ayarları */
+    overflow-wrap: break-word;
+    /* Uzun kelimeleri (link vb) kır */
+    word-wrap: break-word;
+    /* Eski tarayıcı desteği */
+    word-break: normal;
+    /* Kelimeleri ortadan bölme */
+    white-space: normal;
+    /* Satır sonlarını doğal bırak */
+    text-align: left;
+    /* Varsayılan hizalama */
+  }
+
+  /* Quill Hizalama Sınıfları */
+  .service-content .ql-align-center {
+    text-align: center;
+    display: block;
+  }
+
+  .service-content .ql-align-right {
+    text-align: right;
+    display: block;
+  }
+
+  .service-content .ql-align-justify {
+    text-align: justify;
+    display: block;
+  }
+
+  /* Quill Editor Garipliklerini Düzeltme */
+  .service-content p {
+    margin-bottom: 1.5rem;
+    min-height: 1.5rem;
+    padding: 0;
+  }
+
+  /* Liste Görüntüleme */
+  .service-content ul {
+    list-style-type: disc;
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .service-content ol {
+    list-style-type: decimal;
+    padding-left: 1.5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .service-content li {
+    margin-bottom: 0.5rem;
+    padding-left: 0.5rem;
+  }
+
+  /* Link Görüntüleme */
+  .service-content a {
+    color: #2563eb;
+    text-decoration: underline;
+    word-break: break-all;
+    /* Sadece linkleri kırabilirsin */
+  }
+
+  /* Resimler */
+  .service-content img {
+    max-width: 100%;
+    height: auto;
+    margin: 2rem auto;
+    display: block;
+    border-radius: 0.5rem;
+  }
+}
 
 @custom-variant dark (&:is(.dark *));
 
@@ -119,7 +206,48 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+/* ===== TOP TICKER ===== */
+.ticker {
+  height: 45px;
+  width: 100%;
+  background: #000;
+  color: #fff;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.ticker__inner {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 40s linear infinite;
+}
+
+.ticker__inner span {
+  padding-right: 40px;
+  white-space: nowrap;
+}
+
+/* Hover olunca DUR */
+.ticker:hover .ticker__inner {
+  animation-play-state: paused;
+}
+
+@keyframes ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
   }
 }

@@ -1,0 +1,134 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ============================================
+// HİZMET KATEGORİLERİ
+// ============================================
+model ServiceCategory {
+  id                 String    @id @default(cuid())
+  name               String
+  slug               String    @unique
+  order              Int       @default(0)
+  // SEO Alanları
+  metaTitle          String?
+  metaDescription    String?
+  metaKeywords       String?
+  services           Service[]
+  // English Fields
+  name_en            String?
+  metaTitle_en       String?
+  metaDescription_en String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ============================================
+// HİZMETLER
+// ============================================
+model Service {
+  id                 String          @id @default(cuid())
+  title              String
+  slug               String
+  description        String?
+  content            String?         @db.Text
+  image              String? // Cover görsel
+  gallery            String?         @db.Text // JSON array - galeri görselleri
+  video              String? // Video URL (Cloudinary)
+  videoThumbnailTime Float? // Kapak fotoğrafı için saniye
+  size               String          @default("medium")
+  bgColor            String?
+  textColor          String          @default("light")
+  order              Int             @default(0)
+  categoryId         String
+  category           ServiceCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  // SEO Alanları
+  metaTitle          String?
+  metaDescription    String?
+  metaKeywords       String?
+  ogImage            String?
+  // English Fields
+  title_en           String?
+  description_en     String?
+  content_en         String?         @db.Text
+  metaTitle_en       String?
+  metaDescription_en String?
+  metaKeywords_en    String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([categoryId, slug])
+  @@index([categoryId])
+}
+
+// ============================================
+// BLOG YAZILARI
+// ============================================
+model BlogPost {
+  id                 String    @id @default(cuid())
+  title              String
+  slug               String    @unique
+  excerpt            String?
+  content            String?   @db.Text
+  image              String?
+  category           String?
+  author             String?
+  published          Boolean   @default(false)
+  publishedAt        DateTime?
+  // SEO Alanları
+  metaTitle          String?
+  metaDescription    String?
+  metaKeywords       String?
+  ogImage            String?
+  // English Fields
+  title_en           String?
+  excerpt_en         String?
+  content_en         String?   @db.Text
+  metaTitle_en       String?
+  metaDescription_en String?
+  metaKeywords_en    String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ============================================
+// SİTE AYARLARI (Global SEO)
+// ============================================
+model SiteSetting {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String?  @db.Text
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ============================================
+// İLETİŞİM FORMU
+// ============================================
+model ContactSubmission {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  message   String?
+  createdAt DateTime @default(now())
+}
+
+// ============================================
+// KULLANICILAR (Admin Panel)
+// ============================================
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  role      String   @default("admin")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
