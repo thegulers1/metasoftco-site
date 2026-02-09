@@ -76,9 +76,10 @@ export default function Footer() {
                                 {t("Adres", "Address")}
                             </h4>
                             <div className="text-gray-400">
-                                <p>Maslak Mah. Büyükdere Cad.</p>
-                                <p>Sarıyer / İstanbul</p>
-                                <p>Türkiye</p>
+                                <p>Zeytinlik Mah.</p>
+                                <p>Fişekhane Cad.</p>
+                                <p>Carousel Workinton 5/17</p>
+                                <p>Bakırköy / İstanbul</p>
                             </div>
                         </div>
                     </div>
