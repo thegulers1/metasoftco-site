@@ -4,7 +4,6 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 // ============================================
@@ -66,6 +65,47 @@ model Service {
 
   @@unique([categoryId, slug])
   @@index([categoryId])
+}
+
+// ============================================
+// PROJELER
+// ============================================
+model Project {
+  id           String    @id @default(cuid())
+  title        String
+  slug         String    @unique
+  description  String?
+  content      String?   @db.Text // Detaylı proje açıklaması
+  image        String? // Ana kapak görseli
+  gallery      String?   @db.Text // JSON array - galeri görselleri
+  category     String? // Proje kategorisi (Web, Mobil, AI, vb.)
+  client       String? // Müşteri adı
+  projectDate  DateTime? // Proje tamamlanma tarihi
+  technologies String?   @db.Text // JSON array - kullanılan teknolojiler
+  projectUrl   String? // Canlı proje linki
+  githubUrl    String? // GitHub linki (varsa)
+  featured     Boolean   @default(false) // Öne çıkan proje mi?
+  published    Boolean   @default(true) // Yayında mı?
+  order        Int       @default(0) // Sıralama
+
+  // SEO Alanları
+  metaTitle       String?
+  metaDescription String?
+  metaKeywords    String?
+  ogImage         String?
+
+  // English Fields
+  title_en           String?
+  description_en     String?
+  content_en         String? @db.Text
+  metaTitle_en       String?
+  metaDescription_en String?
+  metaKeywords_en    String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([published, featured, order])
 }
 
 // ============================================

@@ -9,8 +9,10 @@ import { CircularTextButton } from "@/components/ui/circular-text-button";
 
 const getMenu = (t: (tr: string, en: string) => string) => [
     { href: "/", label: t("Anasayfa", "Home") },
-    { href: "/hakkimizda", label: t("Hakkımızda", "About") },
+    { href: "/projeler", label: t("Projeler", "Projects") },
     { href: "/hizmetler", label: t("Hizmetler", "Services") },
+    { href: "/blog", label: t("Blog", "Blog") },
+    { href: "/hakkimizda", label: t("Hakkımızda", "About") },
     { href: "/ai-asistan", label: t("🤖 AI Asistan", "🤖 AI Assistant") },
 ];
 
@@ -36,25 +38,25 @@ export default function Navbar() {
     return (
         <>
             {/* Fixed Sticky Navbar */}
-            <header className={`fixed ${isScrolled ? 'top-0' : 'top-[48px]'} left-0 right-0 z-[100] w-full transition-all duration-300 ${isScrolled ? 'bg-white shadow-lg' : 'bg-transparent'
+            <header className={`fixed ${isScrolled ? 'top-0' : 'top-0 md:top-12'} left-0 right-0 z-[100] w-full transition-all duration-300 ${isScrolled ? 'bg-white shadow-sm' : 'bg-white/80 backdrop-blur-sm md:bg-transparent'
                 }`}>
                 <div className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
                     {/* Logo */}
-                    <Link href="/" className={`text-lg font-bold tracking-tight z-50 transition-colors duration-300 ${isScrolled ? 'text-black' : 'text-white'
-                        }`}>
-                        MetasoftCo
+                    <Link href="/" className="z-50 flex items-center">
+                        <img
+                            src="/blackLogo.png"
+                            alt="METASOFTCO"
+                            className="h-10 w-auto object-contain"
+                        />
                     </Link>
 
                     {/* Right Side - Actions & Menu Toggle */}
                     <div className="flex items-center gap-4">
                         {/* Desktop Actions */}
-                        <div className="hidden md:flex items-center gap-4">
+                        <div className="hidden md:flex items-center gap-4 text-black">
                             <button
                                 onClick={toggleLanguage}
-                                className={`flex items-center gap-2 px-3 py-1.5 rounded-full transition text-sm font-medium ${isScrolled
-                                    ? 'bg-black/10 hover:bg-black/20 text-black'
-                                    : 'bg-white/10 hover:bg-white/20 text-white'
-                                    }`}
+                                className="flex items-center gap-2 px-3 py-1.5 rounded-full transition text-sm font-medium bg-black/5 hover:bg-black/10"
                                 aria-label="Dil değiştir"
                             >
                                 <Globe className="w-4 h-4" />
@@ -74,12 +76,9 @@ export default function Navbar() {
                             className="flex flex-col justify-center items-end w-12 h-10 gap-1.5 group z-50"
                             aria-label="Menüyü aç"
                         >
-                            <span className={`w-8 h-0.5 rounded-full transition-all group-hover:w-6 ${isScrolled ? 'bg-black' : 'bg-white'
-                                }`} />
-                            <span className={`w-6 h-0.5 rounded-full transition-all group-hover:w-8 ${isScrolled ? 'bg-black' : 'bg-white'
-                                }`} />
-                            <span className={`w-4 h-0.5 rounded-full transition-all group-hover:w-6 ${isScrolled ? 'bg-black' : 'bg-white'
-                                }`} />
+                            <span className="w-8 h-0.5 rounded-full transition-all group-hover:w-6 bg-black" />
+                            <span className="w-6 h-0.5 rounded-full transition-all group-hover:w-8 bg-black" />
+                            <span className="w-4 h-0.5 rounded-full transition-all group-hover:w-6 bg-black" />
                         </button>
                     </div>
                 </div>
@@ -158,6 +157,8 @@ export default function Navbar() {
                                 <div className="flex flex-col gap-2">
                                     <span className="text-sm text-white/40 uppercase tracking-widest">{t("İletişim", "Contact")}</span>
                                     <a href="mailto:info@metasoftco.com" className="text-xl text-white hover:text-red-500 transition">info@metasoftco.com   </a>
+                                    <a href="tel:+905342334051" className="text-xl text-white hover:text-red-500 transition">+905342334051   </a>
+
                                 </div>
                                 <div className="md:hidden flex items-center gap-4">
                                     <button

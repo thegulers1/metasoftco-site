@@ -2,33 +2,47 @@ import HeroSection from "@/components/site/HeroSection";
 import ProjectShowcase from "@/components/site/ProjectShowcase";
 import AppleCardsCarouselDemo from "@/components/site/AppleCardsCarouselDemo";
 import InstagramFeed from "@/components/site/InstagramFeed";
-import { BentoServicesSection } from "@/components/site/BentoServicesSection";
+import { FeaturedServicesSection } from "@/components/site/FeaturedServicesSection";
+import { ReferencesSection } from "@/components/site/ReferencesSection";
 import { AboutSection } from "@/components/site/AboutSection";
 import { prisma } from "@/lib/db";
 import { getInstagramFeed } from "@/lib/instagram";
 
-async function getServices() {
-    const categories = await prisma.serviceCategory.findMany({
+async function getFeaturedServices() {
+    const services = await prisma.service.findMany({
         orderBy: { order: "asc" },
+        take: 6,
         include: {
-            services: {
-                orderBy: { order: "asc" },
-            },
-        },
+            category: true
+        }
     });
-    return categories;
+    return services;
+}
+
+async function getProjects() {
+    const projects = await prisma.project.findMany({
+        where: { published: true },
+        orderBy: [
+            { featured: "desc" },
+            { order: "asc" },
+            { createdAt: "desc" },
+        ],
+        take: 8, // 7 proje + 1 yedek
+    });
+    return projects;
 }
 
 export default async function HomePage() {
-    const categories = await getServices();
+    const services = await getFeaturedServices();
+    const projects = await getProjects();
     // const instagramPosts = await getInstagramFeed();
 
     return (
         <>
             <HeroSection />
-            <AboutSection />
-            <BentoServicesSection categories={categories} />
-            <ProjectShowcase />
+            <FeaturedServicesSection services={services} />
+            <ProjectShowcase projects={projects} />
+            <ReferencesSection />
             <AppleCardsCarouselDemo />
             {/* <InstagramFeed posts={instagramPosts} /> */}
         </>

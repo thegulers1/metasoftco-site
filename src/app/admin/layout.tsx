@@ -1,20 +1,10 @@
-import { getServerSession } from "next-auth";
-import { redirect } from "next/navigation";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
 import Link from "next/link";
 
-export default async function AdminLayout({
+export default function AdminLayout({
     children,
 }: {
     children: React.ReactNode;
 }) {
-    const session = await getServerSession(authOptions);
-
-    // Login sayfası hariç, session yoksa login'e yönlendir
-    if (!session) {
-        redirect("/admin/login");
-    }
-
     return (
         <div className="min-h-screen bg-[#f5f5f5]">
             {/* Sidebar */}
@@ -62,6 +52,15 @@ export default async function AdminLayout({
                         Blog
                     </Link>
                     <Link
+                        href="/admin/projects"
+                        className="flex items-center gap-3 px-4 py-2 text-sm text-black/70 hover:bg-black/5 rounded-lg transition"
+                    >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                        </svg>
+                        Projeler
+                    </Link>
+                    <Link
                         href="/admin/contacts"
                         className="flex items-center gap-3 px-4 py-2 text-sm text-black/70 hover:bg-black/5 rounded-lg transition"
                     >
@@ -72,18 +71,18 @@ export default async function AdminLayout({
                     </Link>
                 </nav>
 
-                {/* User Info */}
+                {/* User Info - Static for now */}
                 <div className="absolute bottom-6 left-6 right-6">
                     <div className="flex items-center gap-3 p-3 bg-black/5 rounded-lg">
                         <div className="w-8 h-8 bg-black text-white rounded-full flex items-center justify-center text-sm font-medium">
-                            {session.user?.name?.[0] || "A"}
+                            A
                         </div>
                         <div className="flex-1 min-w-0">
                             <p className="text-sm font-medium text-black truncate">
-                                {session.user?.name}
+                                Admin
                             </p>
                             <p className="text-xs text-black/50 truncate">
-                                {session.user?.email}
+                                admin@metasoftco.com
                             </p>
                         </div>
                     </div>
