@@ -34,6 +34,19 @@ export async function POST(request: Request) {
             resource_type: "auto", // Otomatik: image veya video
         });
 
+        // Veritabanına kaydet
+        const { prisma } = await import("@/lib/db");
+        await prisma.media.create({
+            data: {
+                url: result.secure_url,
+                publicId: result.public_id,
+                fileName: file.name,
+                fileType: file.type,
+                fileSize: file.size,
+                folder: folder,
+            },
+        });
+
         return NextResponse.json({
             url: result.secure_url,
             publicId: result.public_id,

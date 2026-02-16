@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/db";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import GalleryLightbox from "@/components/site/GalleryLightbox";
 
 async function getProject(slug: string) {
     const project = await prisma.project.findUnique({
@@ -136,32 +137,22 @@ export default async function ProjectDetailPage({
                     </div>
                 )}
 
-                {/* Gallery Carousel */}
+                {/* Project Gallery */}
                 {project.gallery && (
-                    <div className="mt-12 overflow-hidden -mx-4 px-4 sm:-mx-6 sm:px-6 lg:-mx-8 lg:px-8">
-                        <div className="flex items-center justify-between mb-6">
-                            <h3 className="text-sm uppercase tracking-widest text-black/40 font-medium">
+                    <div className="mt-12">
+                        <div className="flex items-center justify-between mb-8">
+                            <h3 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold">
                                 Proje Galerisi
                             </h3>
-                            <span className="text-xs text-black/30 bg-black/5 px-2 py-1 rounded">Kaydırınız →</span>
+                            <span className="text-[10px] uppercase tracking-widest text-black/30 bg-black/[0.03] px-3 py-1.5 rounded-full border border-black/5">
+                                Kaydırınız →
+                            </span>
                         </div>
 
-                        <div className="flex gap-4 overflow-x-auto pb-8 scrollbar-hide snap-x scroll-smooth">
-                            {(JSON.parse(project.gallery) as string[]).map(
-                                (img: string, i: number) => (
-                                    <div
-                                        key={i}
-                                        className="relative flex-none h-[500px] md:h-[700px] w-auto snap-center"
-                                    >
-                                        <img
-                                            src={img}
-                                            alt={`${project.title} - ${i + 1}`}
-                                            className="h-full w-auto object-contain rounded-2xl shadow-sm bg-black/[0.02]"
-                                        />
-                                    </div>
-                                )
-                            )}
-                        </div>
+                        <GalleryLightbox
+                            images={JSON.parse(project.gallery) as string[]}
+                            title={project.title}
+                        />
                     </div>
                 )}
 

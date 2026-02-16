@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useLanguage } from "@/providers/LanguageProvider";
+import InstagramFeed from "./InstagramFeed";
 
 export default function Footer() {
     const { t } = useLanguage();
@@ -9,6 +10,9 @@ export default function Footer() {
     return (
         <footer className="bg-[#1a0202] text-white pt-24 pb-12 overflow-hidden border-t border-white/10">
             <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
+                {/* Instagram Feed */}
+                <InstagramFeed />
+
                 {/* Top Section */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 mb-24">
                     {/* Left: CTA */}

@@ -8,6 +8,7 @@ export type CalendarProps = React.HTMLAttributes<HTMLDivElement> & {
     mode?: "single" | "range" | "multiple"
     selected?: Date
     onSelect?: (date: Date) => void
+    classNames?: any
 }
 
 function Calendar({

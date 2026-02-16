@@ -189,7 +189,7 @@ export function FeaturedServicesSection({ services }: FeaturedServicesSectionPro
                             <div className="relative h-full min-h-[280px] md:min-h-0 overflow-hidden bg-[#dc2626] flex items-center justify-center transition-colors duration-300 hover:bg-[#b91c1c]">
                                 <span className="text-white text-sm md:text-base font-bold uppercase tracking-[0.2em] text-center px-4 leading-relaxed whitespace-pre-line"
                                     style={{ fontFamily: "var(--font-lato)" }}>
-                                    {t("Diğer\nHizmetlerimiz", "View All\nServices")}
+                                    {t("Tüm\nHizmetlerimiz", "View All\nServices")}
                                 </span>
                             </div>
                         </Link>

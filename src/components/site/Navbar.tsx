@@ -40,20 +40,20 @@ export default function Navbar() {
             {/* Fixed Sticky Navbar */}
             <header className={`fixed ${isScrolled ? 'top-0' : 'top-0 md:top-12'} left-0 right-0 z-[100] w-full transition-all duration-300 ${isScrolled ? 'bg-white shadow-sm' : 'bg-white/80 backdrop-blur-sm md:bg-transparent'
                 }`}>
-                <div className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+                <div className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between px-6 sm:px-8">
                     {/* Logo */}
                     <Link href="/" className="z-50 flex items-center">
                         <img
                             src="/blackLogo.png"
                             alt="METASOFTCO"
-                            className="h-10 w-auto object-contain"
+                            className="h-8 md:h-10 w-auto object-contain"
                         />
                     </Link>
 
                     {/* Right Side - Actions & Menu Toggle */}
                     <div className="flex items-center gap-4">
                         {/* Desktop Actions */}
-                        <div className="hidden md:flex items-center gap-4 text-black">
+                        <div className="hidden lg:flex items-center gap-4 text-black">
                             <button
                                 onClick={toggleLanguage}
                                 className="flex items-center gap-2 px-3 py-1.5 rounded-full transition text-sm font-medium bg-black/5 hover:bg-black/10"
@@ -73,19 +73,19 @@ export default function Navbar() {
                         {/* Hamburger Button (Visible on All Screens) */}
                         <button
                             onClick={() => setIsOpen(true)}
-                            className="flex flex-col justify-center items-end w-12 h-10 gap-1.5 group z-50"
+                            className="flex flex-col justify-center items-end w-10 h-10 gap-1.5 group z-50 mr-[-8px]"
                             aria-label="Menüyü aç"
                         >
-                            <span className="w-8 h-0.5 rounded-full transition-all group-hover:w-6 bg-black" />
-                            <span className="w-6 h-0.5 rounded-full transition-all group-hover:w-8 bg-black" />
-                            <span className="w-4 h-0.5 rounded-full transition-all group-hover:w-6 bg-black" />
+                            <span className="w-7 h-0.5 rounded-full transition-all group-hover:w-5 bg-black" />
+                            <span className="w-5 h-0.5 rounded-full transition-all group-hover:w-7 bg-black" />
+                            <span className="w-3 h-0.5 rounded-full transition-all group-hover:w-5 bg-black" />
                         </button>
                     </div>
                 </div>
             </header>
 
             {/* Menu Overlay */}
-            <AnimatePresence>
+            <AnimatePresence mode="wait">
                 {isOpen && (
                     <>
                         {/* Backdrop (Left side blur) */}
@@ -94,7 +94,7 @@ export default function Navbar() {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.5 }}
-                            className="fixed inset-0 z-[110] bg-black/20 backdrop-blur-md"
+                            className="fixed inset-0 z-[110] bg-black/40 backdrop-blur-xl"
                             onClick={() => setIsOpen(false)}
                         />
 
@@ -103,42 +103,42 @@ export default function Navbar() {
                             initial={{ x: "100%" }}
                             animate={{ x: 0 }}
                             exit={{ x: "100%" }}
-                            transition={{ type: "spring", damping: 30, stiffness: 300 }}
-                            className="fixed top-0 right-0 h-full w-full md:w-1/2 z-[111] bg-black shadow-2xl flex flex-col"
+                            transition={{ type: "spring", damping: 30, stiffness: 200 }}
+                            className="fixed top-0 right-0 h-full w-full md:w-3/5 lg:w-1/2 z-[111] bg-black shadow-2xl flex flex-col"
                         >
                             {/* Close & Header */}
-                            <div className="flex items-center justify-end p-8 sm:p-12">
+                            <div className="flex items-center justify-end p-6 border-b border-white/5">
                                 <button
                                     onClick={() => setIsOpen(false)}
                                     className="flex items-center justify-center w-12 h-12 rounded-full hover:bg-white/10 transition text-white"
                                     aria-label="Menüyü kapat"
                                 >
-                                    <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                                     </svg>
                                 </button>
                             </div>
 
                             {/* Menu Items */}
-                            <nav className="flex-1 flex flex-col justify-center px-8 sm:px-12">
-                                <ul className="space-y-6 md:space-y-8">
+                            <nav className="flex-1 flex flex-col justify-center px-6 sm:px-12 py-12 overflow-y-auto">
+                                <ul className="space-y-4 md:space-y-6">
                                     {menu.map((m, index) => (
                                         <motion.li
                                             key={m.href}
-                                            initial={{ opacity: 0, y: 40, skewY: 5 }}
-                                            animate={{ opacity: 1, y: 0, skewY: 0 }}
-                                            exit={{ opacity: 0, y: 20 }}
+                                            initial={{ opacity: 0, x: 20 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            exit={{ opacity: 0, x: 20 }}
                                             transition={{
-                                                delay: 0.2 + index * 0.1,
-                                                duration: 0.6,
-                                                ease: [0.22, 1, 0.36, 1],
+                                                delay: 0.1 + index * 0.05,
+                                                duration: 0.5,
+                                                ease: "easeOut",
                                             }}
                                             className="overflow-hidden"
                                         >
                                             <Link
                                                 href={m.href}
                                                 onClick={() => setIsOpen(false)}
-                                                className="block text-4xl md:text-6xl lg:text-7xl font-bold text-white hover:text-red-500 transition-colors duration-300 font-[family-name:var(--font-dm-sans)]"
+                                                className="block text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white hover:text-red-500 transition-all duration-300 font-[family-name:var(--font-dm-sans)] tracking-tighter"
                                             >
                                                 {m.label}
                                             </Link>
@@ -151,22 +151,24 @@ export default function Navbar() {
                             <motion.div
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: 0.6, duration: 0.5 }}
-                                className="p-8 sm:p-12 border-t border-white/10 flex flex-col gap-6 md:flex-row md:items-center md:justify-between"
+                                transition={{ delay: 0.5, duration: 0.5 }}
+                                className="p-6 sm:p-12 bg-white/5 flex flex-col gap-6"
                             >
-                                <div className="flex flex-col gap-2">
-                                    <span className="text-sm text-white/40 uppercase tracking-widest">{t("İletişim", "Contact")}</span>
-                                    <a href="mailto:info@metasoftco.com" className="text-xl text-white hover:text-red-500 transition">info@metasoftco.com   </a>
-                                    <a href="tel:+905342334051" className="text-xl text-white hover:text-red-500 transition">+905342334051   </a>
-
+                                <div className="flex flex-col gap-1">
+                                    <span className="text-[10px] text-white/40 uppercase tracking-[0.2em] font-semibold">{t("İletişim", "Contact")}</span>
+                                    <div className="flex flex-col gap-1">
+                                        <a href="mailto:info@metasoftco.com" className="text-lg text-white hover:text-red-500 transition-colors w-fit">info@metasoftco.com</a>
+                                        <a href="tel:+905342334051" className="text-lg text-white hover:text-red-500 transition-colors w-fit">+905342334051</a>
+                                    </div>
                                 </div>
-                                <div className="md:hidden flex items-center gap-4">
+
+                                <div className="lg:hidden">
                                     <button
                                         onClick={toggleLanguage}
-                                        className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-white"
+                                        className="flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 text-white hover:bg-white/20 transition-colors"
                                     >
                                         <Globe className="w-4 h-4" />
-                                        <span className="uppercase">{language}</span>
+                                        <span className="uppercase text-sm font-medium">{language}</span>
                                     </button>
                                 </div>
                             </motion.div>

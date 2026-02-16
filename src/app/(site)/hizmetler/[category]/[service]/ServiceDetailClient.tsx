@@ -24,8 +24,13 @@ export default function ServiceDetailClient({
 }: ServiceDetailClientProps) {
     const { language, t } = useLanguage();
 
+    const title = language === "en" ? (service.title_en || service.title) : service.title;
+    const categoryName = language === "en" ? (categoryData.name_en || categoryData.name) : categoryData.name;
+    const description = language === "en" ? (service.description_en || service.description) : service.description;
+    const content = language === "en" ? (service.content_en || service.content) : service.content;
+
     return (
-        <>
+        <main className="min-h-screen bg-white pt-32 pb-20">
             {/* JSON-LD */}
             <script
                 type="application/ld+json"
@@ -34,170 +39,158 @@ export default function ServiceDetailClient({
                 }}
             />
 
-            <div className="min-h-screen bg-[#f5f5f5]">
-                {/* Hero Section */}
-                <section className="relative h-[50vh] min-h-[400px] flex items-end overflow-hidden">
-                    <div
-                        className="absolute inset-0"
-                        style={{
-                            background: service.bgColor
-                                ? service.bgColor
-                                : "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-                        }}
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-                    <div className="relative z-10 w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
-                        {/* Breadcrumb */}
-                        <nav className="mb-4 text-white/70 text-sm">
-                            <Link href="/" className="hover:text-white">
-                                {t("Ana Sayfa", "Home")}
-                            </Link>
-                            <span className="mx-2">/</span>
-                            <Link href="/hizmetler" className="hover:text-white">
-                                {t("Hizmetler", "Services")}
-                            </Link>
-                            <span className="mx-2">/</span>
-                            <Link
-                                href={`/hizmetler/${category}`}
-                                className="hover:text-white"
-                            >
-                                {language === "en" ? (categoryData.name_en || categoryData.name) : categoryData.name}
-                            </Link>
-                            <span className="mx-2">/</span>
-                            <span className="text-white">{language === "en" ? (service.title_en || service.title) : service.title}</span>
-                        </nav>
+            <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+                {/* Breadcrumb */}
+                <nav className="mb-8 flex items-center gap-2 text-sm text-black/50">
+                    <Link href="/" className="hover:text-black transition uppercase tracking-widest text-[10px] font-bold">
+                        {t("Ana Sayfa", "Home")}
+                    </Link>
+                    <span className="text-black/20">/</span>
+                    <Link href="/hizmetler" className="hover:text-black transition uppercase tracking-widest text-[10px] font-bold">
+                        {t("Hizmetler", "Services")}
+                    </Link>
+                    <span className="text-black/20">/</span>
+                    <span className="text-black font-bold uppercase tracking-widest text-[10px]">{title}</span>
+                </nav>
 
-                        <h1
-                            className="text-4xl md:text-5xl lg:text-6xl font-bold text-white"
-                            style={{ fontFamily: "var(--font-inter-tight)" }}
-                        >
-                            {language === "en" ? (service.title_en || service.title) : service.title}
-                        </h1>
-                        {(service.description || service.description_en) && (
-                            <p className="mt-4 text-lg text-white/80 max-w-2xl">
-                                {language === "en" ? (service.description_en || service.description) : service.description}
-                            </p>
-                        )}
-                    </div>
-                </section>
+                {/* Service Header */}
+                <div className="mb-10">
+                    <span className="inline-flex items-center gap-1.5 rounded-full bg-red-600/5 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-red-600 mb-4 border border-red-600/10">
+                        <span className="h-1.5 w-1.5 rounded-full bg-red-600" />
+                        {categoryName}
+                    </span>
+                    <h1
+                        className="text-4xl sm:text-6xl font-light text-black tracking-tighter mt-2 leading-[1.1] uppercase"
+                        style={{ fontFamily: "var(--font-inter-tight)" }}
+                    >
+                        {title}
+                    </h1>
+                    {description && (
+                        <p className="mt-6 text-xl text-black/60 leading-relaxed font-normal max-w-2xl">
+                            {description}
+                        </p>
+                    )}
+                </div>
 
                 {/* Video Section */}
                 {service.video && (
-                    <section className="py-16 bg-white">
-                        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                            <h2 className="text-2xl font-bold text-black mb-8 text-center">
+                    <div className="mb-16">
+                        <div className="flex items-center gap-4 mb-8">
+                            <h3 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold">
                                 {t("Tanıtım Videosu", "Promotional Video")}
-                            </h2>
-                            <VideoPlayer
-                                src={service.video}
-                                thumbnailTime={service.videoThumbnailTime}
-                                fallbackPoster={service.image}
-                                title={service.title}
-                            />
+                            </h3>
+                            <div className="h-[1px] flex-1 bg-black/5" />
                         </div>
-                    </section>
+                        <VideoPlayer
+                            src={service.video}
+                            thumbnailTime={service.videoThumbnailTime}
+                            fallbackPoster={service.image}
+                            title={service.title}
+                        />
+                    </div>
                 )}
 
                 {/* Content Section */}
-                <section className="py-16">
-                    <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                            {/* Main Content */}
-                            <div className="lg:col-span-2">
-                                <div className="bg-white rounded-2xl p-8 shadow-sm">
-                                    <h2 className="text-2xl font-bold text-black mb-6">
-                                        {t("Hizmet Detayları", "Service Details")}
-                                    </h2>
-                                    {(service.content || service.content_en) ? (
-                                        <div
-                                            className="service-content"
-                                            dangerouslySetInnerHTML={{
-                                                __html: (language === "en" ? (service.content_en || service.content) : service.content)?.replace(/&nbsp;/g, ' ') || ''
-                                            }}
-                                        />
-                                    ) : (
-                                        <p className="text-black/60">
-                                            {t(
-                                                "Bu hizmet hakkında detaylı bilgi yakında eklenecek.",
-                                                "Detailed information about this service will be added soon."
-                                            )}
-                                        </p>
-                                    )}
-                                </div>
-                            </div>
+                {content && (
+                    <div className="mb-20">
+                        <div className="flex items-center gap-4 mb-10">
+                            <h3 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold">
+                                {t("Hizmet Hakkında", "About Service")}
+                            </h3>
+                            <div className="h-[1px] flex-1 bg-black/5" />
+                        </div>
+                        <div
+                            className="prose prose-lg max-w-none text-black/80 leading-relaxed font-light"
+                            dangerouslySetInnerHTML={{
+                                __html: content?.replace(/&nbsp;/g, ' ') || ''
+                            }}
+                        />
+                    </div>
+                )}
 
-                            {/* Sidebar */}
-                            <div className="lg:col-span-1">
-                                {/* CTA Card */}
-                                <div className="bg-black text-white rounded-2xl p-8 mb-6">
-                                    <h3 className="text-xl font-bold mb-4">
-                                        {t("Bu Hizmeti Almak İster misiniz?", "Want This Service?")}
-                                    </h3>
-                                    <p className="text-white/70 mb-6">
-                                        {t(
-                                            "Projeniz hakkında bizimle iletişime geçin.",
-                                            "Contact us about your project."
-                                        )}
-                                    </p>
+                {/* Gallery Section */}
+                {gallery.length > 0 && (
+                    <div className="mb-20">
+                        <div className="flex items-center justify-between mb-8">
+                            <h3 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold">
+                                {t("Görsel Galeri", "Image Gallery")}
+                            </h3>
+                            <span className="text-[10px] uppercase tracking-widest text-black/30 bg-black/[0.03] px-3 py-1.5 rounded-full border border-black/5">
+                                {t("Kaydırınız →", "Swipe →")}
+                            </span>
+                        </div>
+                        <GalleryLightbox images={gallery} title={service.title} />
+                    </div>
+                )}
+
+                {/* CTA & Related Services */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-16 border-t border-black/10">
+                    <div>
+                        <h3 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold mb-6">
+                            {t("İletişime Geçin", "Get in Touch")}
+                        </h3>
+                        <p className="text-black/60 mb-8 leading-relaxed">
+                            {t(
+                                "Bu hizmet veya diğer çözümlerimiz hakkında daha fazla bilgi almak için bizimle iletişime geçebilirsiniz.",
+                                "You can contact us to get more information about this service or our other solutions."
+                            )}
+                        </p>
+                        <Link
+                            href="/iletisim"
+                            className="inline-flex items-center justify-center px-10 py-4 bg-red-600 text-white font-bold rounded-full hover:bg-red-700 transition uppercase tracking-widest text-xs"
+                        >
+                            {t("TEKLİF ALIN", "GET A QUOTE")}
+                        </Link>
+                    </div>
+
+                    {relatedServices.length > 0 && (
+                        <div>
+                            <h3 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold mb-6">
+                                {t("İlginizi Çekebilir", "You Might Like")}
+                            </h3>
+                            <div className="space-y-4">
+                                {relatedServices.slice(0, 3).map((related) => (
                                     <Link
-                                        href="/iletisim"
-                                        className="block w-full py-3 bg-white text-black font-medium text-center rounded-lg hover:bg-white/90 transition"
+                                        key={related.id}
+                                        href={`/hizmetler/${category}/${related.slug}`}
+                                        className="group block p-4 bg-black/[0.02] hover:bg-black/[0.05] transition border border-black/5"
                                     >
-                                        {t("İletişime Geç", "Get in Touch")}
+                                        <h4 className="font-bold text-black uppercase tracking-tight group-hover:text-red-600 transition">
+                                            {language === "en" ? (related.title_en || related.title) : related.title}
+                                        </h4>
+                                        <p className="text-xs text-black/40 mt-1 uppercase tracking-widest">
+                                            {categoryName}
+                                        </p>
                                     </Link>
-                                </div>
-
-                                {/* Category Info */}
-                                <div className="bg-white rounded-2xl p-6 shadow-sm">
-                                    <p className="text-xs uppercase tracking-widest text-black/50 mb-2">
-                                        {t("Kategori", "Category")}
-                                    </p>
-                                    <p className="font-semibold text-black">
-                                        {language === "en" ? (categoryData.name_en || categoryData.name) : categoryData.name}
-                                    </p>
-                                </div>
+                                ))}
                             </div>
                         </div>
+                    )}
+                </div>
 
-                        {/* Gallery Section */}
-                        {gallery.length > 0 && (
-                            <div className="mt-16">
-                                <h2 className="text-2xl font-bold text-black mb-8">
-                                    {t("Çalışma Örnekleri", "Work Samples")}
-                                </h2>
-                                <GalleryLightbox images={gallery} title={service.title} />
-                            </div>
-                        )}
-
-                        {/* Related Services */}
-                        {relatedServices.length > 0 && (
-                            <div className="mt-16">
-                                <h2 className="text-2xl font-bold text-black mb-8">
-                                    {t("Benzer Hizmetler", "Related Services")}
-                                </h2>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-                                    {relatedServices.map((related) => (
-                                        <Link
-                                            key={related.id}
-                                            href={`/hizmetler/${category}/${related.slug}`}
-                                            className="group bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition"
-                                        >
-                                            <h3 className="font-semibold text-black group-hover:text-black/70 transition">
-                                                {language === "en" ? (related.title_en || related.title) : related.title}
-                                            </h3>
-                                            {(related.description || related.description_en) && (
-                                                <p className="mt-2 text-sm text-black/50 line-clamp-2">
-                                                    {language === "en" ? (related.description_en || related.description) : related.description}
-                                                </p>
-                                            )}
-                                        </Link>
-                                    ))}
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                </section>
+                {/* Back Link */}
+                <div className="mt-20">
+                    <Link
+                        href="/hizmetler"
+                        className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-black/40 hover:text-black transition"
+                    >
+                        <svg
+                            className="w-3 h-3"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                        >
+                            <path
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                                strokeWidth={3}
+                                d="M15 19l-7-7 7-7"
+                            />
+                        </svg>
+                        {t("TÜM HİZMETLERE DÖN", "BACK TO ALL SERVICES")}
+                    </Link>
+                </div>
             </div>
-        </>
+        </main>
     );
 }

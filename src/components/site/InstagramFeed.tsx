@@ -1,127 +1,103 @@
-import Link from "next/link";
-import Image from "next/image";
+"use client";
 
-// ============================================
-// INSTAGRAM POST TİPİ
-// ============================================
+import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
+
 export interface InstagramPost {
     id: string;
-    permalink: string;
     mediaUrl: string;
-    mediaType: "IMAGE" | "VIDEO" | "CAROUSEL_ALBUM";
+    permalink: string;
     caption?: string;
-    timestamp: string;
+    mediaType: string;
+    thumbnailUrl?: string;
 }
 
-const mockPosts: InstagramPost[] = [];
+export default function InstagramFeed() {
+    const [posts, setPosts] = useState<InstagramPost[]>([]);
+    const [loading, setLoading] = useState(true);
 
-interface InstagramFeedProps {
-    posts?: InstagramPost[];
-    username?: string;
-}
+    useEffect(() => {
+        async function fetchPosts() {
+            try {
+                const response = await fetch("https://feeds.behold.so/bSMJyqgT2uDMBbrGiLtU");
+                const data = await response.json();
 
-export default function InstagramFeed({
-    posts = mockPosts,
-    username = "metasoftco",
-}: InstagramFeedProps) {
+                // Behold response structure is { username, posts: [] }
+                if (data && data.posts && Array.isArray(data.posts)) {
+                    setPosts(data.posts.slice(0, 6));
+                }
+            } catch (error) {
+                console.error("Error fetching Instagram feed:", error);
+            } finally {
+                setLoading(false);
+            }
+        }
+        fetchPosts();
+    }, []);
+
+    if (loading) {
+        return (
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-20 opacity-50">
+                {[...Array(6)].map((_, i) => (
+                    <div key={i} className="aspect-square bg-white/5 animate-pulse rounded-xl" />
+                ))}
+            </div>
+        );
+    }
+
+    if (posts.length === 0) return null;
+
     return (
-        <section className="bg-white py-16 sm:py-24">
-            <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8 pl-8 sm:pl-10 lg:pl-12">
-                {/* Section Header */}
-                <div className="mb-10 flex items-center justify-between">
-                    <div>
-                        <span className="text-xs uppercase tracking-widest text-black/50">
-                            Instagram
-                        </span>
-                        <h2
-                            className="mt-2 text-3xl font-bold tracking-tight text-black sm:text-4xl"
-                            style={{ fontFamily: "var(--font-inter-tight)" }}
-                        >
-                            @{username}
-                        </h2>
+        <div className="mb-20">
+            <div className="flex items-center justify-between mb-8">
+                <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 flex items-center justify-center p-1.5">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-white w-full h-full">
+                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                        </svg>
                     </div>
-                    <Link
-                        href={`https://instagram.com/${username}`}
+                    <h3 className="text-sm font-bold uppercase tracking-widest text-white/40">
+                        @metasoftco
+                    </h3>
+                </div>
+                <a
+                    href="https://instagram.com/metasoftco"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-bold uppercase tracking-widest text-white/20 hover:text-white transition-colors"
+                >
+                    Takip Et →
+                </a>
+            </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+                {posts.map((post, index) => (
+                    <motion.a
+                        key={post.id}
+                        href={post.permalink}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 rounded-full bg-black px-5 py-2.5 text-sm font-medium text-white transition hover:bg-black/80"
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: index * 0.05 }}
+                        className="group relative aspect-square overflow-hidden rounded-xl bg-white/5"
                     >
-                        <svg className="h-4 w-4" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                        </svg>
-                        Takip Et
-                    </Link>
-                </div>
-
-                {/* Instagram Grid */}
-                <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6">
-                    {posts.length > 0 ? (
-                        posts.map((post) => (
-                            <Link
-                                key={post.id}
-                                href={post.permalink}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="group relative aspect-square overflow-hidden rounded-xl bg-black/5"
-                            >
-                                <Image
-                                    src={post.mediaUrl}
-                                    alt={post.caption || "Instagram Post"}
-                                    fill
-                                    className="object-cover transition-transform duration-500 group-hover:scale-110"
-                                />
-
-                                {/* Hover Overlay */}
-                                <div className="absolute inset-0 flex items-center justify-center bg-black/50 opacity-0 transition-opacity group-hover:opacity-100">
-                                    <svg
-                                        className="h-8 w-8 text-white"
-                                        fill="currentColor"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-                                    </svg>
-                                </div>
-
-                                {/* Video indicator */}
-                                {post.mediaType === "VIDEO" && (
-                                    <div className="absolute top-2 right-2 z-10">
-                                        <svg
-                                            className="h-5 w-5 text-white drop-shadow-lg"
-                                            fill="currentColor"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <path d="M8 5v14l11-7z" />
-                                        </svg>
-                                    </div>
-                                )}
-
-                                {/* Carousel indicator */}
-                                {post.mediaType === "CAROUSEL_ALBUM" && (
-                                    <div className="absolute top-2 right-2 z-10">
-                                        <svg
-                                            className="h-5 w-5 text-white drop-shadow-lg"
-                                            fill="none"
-                                            stroke="currentColor"
-                                            viewBox="0 0 24 24"
-                                        >
-                                            <path
-                                                strokeLinecap="round"
-                                                strokeLinejoin="round"
-                                                strokeWidth={2}
-                                                d="M4 6h16M4 12h16m-7 6h7"
-                                            />
-                                        </svg>
-                                    </div>
-                                )}
-                            </Link>
-                        ))
-                    ) : (
-                        <div className="col-span-full py-12 text-center text-black/50">
-                            Instagram akışı yüklenemedi veya henüz gönderi yok.
+                        <img
+                            src={post.mediaType === "VIDEO" ? (post.thumbnailUrl || post.mediaUrl) : post.mediaUrl}
+                            alt={post.caption || "Instagram Post"}
+                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        />
+                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-white w-6 h-6">
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                            </svg>
                         </div>
-                    )}
-                </div>
+                    </motion.a>
+                ))}
             </div>
-        </section>
+        </div>
     );
 }

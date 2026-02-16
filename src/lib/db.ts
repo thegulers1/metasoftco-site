@@ -15,7 +15,12 @@ function createPrismaClient() {
     }
 
     if (!global.poolGlobal) {
-        global.poolGlobal = new Pool({ connectionString });
+        global.poolGlobal = new Pool({
+            connectionString,
+            max: 5,
+            idleTimeoutMillis: 30000,
+            connectionTimeoutMillis: 2000,
+        });
     }
 
     const adapter = new PrismaPg(global.poolGlobal);
