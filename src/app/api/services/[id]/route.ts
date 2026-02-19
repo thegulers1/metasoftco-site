@@ -58,6 +58,9 @@ export async function PUT(
             metaDescription,
             metaKeywords,
             ogImage,
+            // Featured
+            featured,
+            featuredOrder,
             // English fields
             title_en,
             description_en,
@@ -66,9 +69,6 @@ export async function PUT(
             metaDescription_en,
             metaKeywords_en,
         } = body;
-
-        // Debug log
-        console.log("Saving service with gallery:", gallery, "video:", video, "thumbnailTime:", videoThumbnailTime);
 
         const service = await prisma.service.update({
             where: { id },
@@ -85,6 +85,8 @@ export async function PUT(
                 bgColor,
                 textColor,
                 order,
+                featured,
+                featuredOrder,
                 categoryId,
                 metaTitle,
                 metaDescription,

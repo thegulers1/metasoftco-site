@@ -45,6 +45,8 @@ model Service {
   bgColor            String?
   textColor          String          @default("light")
   order              Int             @default(0)
+  featured           Boolean         @default(false) // Anasayfada göster
+  featuredOrder      Int             @default(0) // Anasayfa sırası
   categoryId         String
   category           ServiceCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   // SEO Alanları

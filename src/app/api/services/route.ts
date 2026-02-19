@@ -44,6 +44,9 @@ export async function POST(request: Request) {
             metaDescription,
             metaKeywords,
             ogImage,
+            // Featured
+            featured,
+            featuredOrder,
             // English fields
             title_en,
             description_en,
@@ -67,6 +70,8 @@ export async function POST(request: Request) {
                 bgColor,
                 textColor: textColor || "light",
                 order: order || 0,
+                featured: featured || false,
+                featuredOrder: featuredOrder || 0,
                 metaTitle,
                 metaDescription,
                 metaKeywords,

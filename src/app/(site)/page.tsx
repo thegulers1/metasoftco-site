@@ -10,8 +10,8 @@ import { getInstagramFeed } from "@/lib/instagram";
 
 async function getFeaturedServices() {
     const services = await prisma.service.findMany({
-        orderBy: { order: "asc" },
-        take: 6,
+        where: { featured: true },
+        orderBy: { featuredOrder: "asc" },
         include: {
             category: true
         }

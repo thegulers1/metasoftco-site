@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/db";
 import Link from "next/link";
+import { ServiceFeaturedToggle } from "./ServiceFeaturedToggle";
 
 async function getServicesWithCategories() {
     const categories = await prisma.serviceCategory.findMany({
@@ -46,6 +47,12 @@ export default async function AdminServicesPage() {
                                     <th className="text-left px-6 py-3 text-xs font-medium text-black/50 uppercase tracking-wider">
                                         Hizmet
                                     </th>
+                                    <th className="text-center px-6 py-3 text-xs font-medium text-black/50 uppercase tracking-wider">
+                                        Anasayfa
+                                    </th>
+                                    <th className="text-center px-6 py-3 text-xs font-medium text-black/50 uppercase tracking-wider">
+                                        A.Sayfa Sırası
+                                    </th>
                                     <th className="text-left px-6 py-3 text-xs font-medium text-black/50 uppercase tracking-wider">
                                         Boyut
                                     </th>
@@ -69,6 +76,21 @@ export default async function AdminServicesPage() {
                                                     {service.description || "-"}
                                                 </p>
                                             </div>
+                                        </td>
+                                        <td className="px-6 py-4 text-center">
+                                            <ServiceFeaturedToggle
+                                                serviceId={service.id}
+                                                initialFeatured={service.featured}
+                                                initialFeaturedOrder={service.featuredOrder}
+                                            />
+                                        </td>
+                                        <td className="px-6 py-4 text-center">
+                                            <ServiceFeaturedToggle
+                                                serviceId={service.id}
+                                                initialFeatured={service.featured}
+                                                initialFeaturedOrder={service.featuredOrder}
+                                                orderOnly
+                                            />
                                         </td>
                                         <td className="px-6 py-4">
                                             <span className="px-2 py-1 bg-black/5 rounded text-xs text-black/70">

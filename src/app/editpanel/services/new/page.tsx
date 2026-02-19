@@ -19,6 +19,8 @@ interface Service {
     bgColor: string | null;
     textColor: string;
     order: number;
+    featured: boolean;
+    featuredOrder: number;
     categoryId: string;
     // SEO fields
     metaTitle: string | null;
@@ -61,6 +63,8 @@ export default function NewServicePage() {
         bgColor: null,
         textColor: "light",
         order: 0,
+        featured: false,
+        featuredOrder: 0,
         categoryId: "",
         metaTitle: null,
         metaDescription: null,
@@ -392,6 +396,31 @@ export default function NewServicePage() {
                                     className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
                                 />
                             </div>
+                        </div>
+
+                        <div className="flex items-center gap-6 p-4 bg-[#f5f5f5] rounded-lg">
+                            <label className="flex items-center gap-3 cursor-pointer">
+                                <input
+                                    type="checkbox"
+                                    checked={service.featured}
+                                    onChange={(e) => setService({ ...service, featured: e.target.checked })}
+                                    className="w-4 h-4 accent-black cursor-pointer"
+                                />
+                                <span className="text-sm font-medium text-black/70">Anasayfada Göster</span>
+                            </label>
+                            {service.featured && (
+                                <div className="flex items-center gap-2">
+                                    <label className="text-sm font-medium text-black/70">
+                                        Anasayfa Sırası:
+                                    </label>
+                                    <input
+                                        type="number"
+                                        value={service.featuredOrder}
+                                        onChange={(e) => setService({ ...service, featuredOrder: parseInt(e.target.value) || 0 })}
+                                        className="w-20 px-3 py-2 bg-white border-0 rounded-lg text-black text-center focus:outline-none focus:ring-2 focus:ring-black"
+                                    />
+                                </div>
+                            )}
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">
