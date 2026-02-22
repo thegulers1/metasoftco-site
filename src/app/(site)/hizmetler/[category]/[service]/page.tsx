@@ -8,6 +8,7 @@ import GalleryLightbox from "@/components/site/GalleryLightbox";
 import VideoPlayer from "@/components/site/VideoPlayer";
 import { cache } from "react";
 import ServiceDetailClient from "./ServiceDetailClient";
+import { AdminEditUrlSetter } from "@/components/site/AdminBar";
 
 interface PageProps {
     params: Promise<{
@@ -136,13 +137,16 @@ export default async function ServiceDetailPage({ params }: PageProps) {
     });
 
     return (
-        <ServiceDetailClient
-            service={service}
-            categoryData={categoryData}
-            relatedServices={relatedServices}
-            gallery={gallery}
-            serviceSchema={serviceSchema}
-            category={category}
-        />
+        <>
+            <AdminEditUrlSetter url={`/editpanel/services/${service.id}/edit`} />
+            <ServiceDetailClient
+                service={service}
+                categoryData={categoryData}
+                relatedServices={relatedServices}
+                gallery={gallery}
+                serviceSchema={serviceSchema}
+                category={category}
+            />
+        </>
     );
 }

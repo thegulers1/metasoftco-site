@@ -2,6 +2,7 @@ import { prisma } from "@/lib/db";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import GalleryLightbox from "@/components/site/GalleryLightbox";
+import { AdminEditUrlSetter } from "@/components/site/AdminBar";
 
 async function getProject(slug: string) {
     const project = await prisma.project.findUnique({
@@ -27,6 +28,8 @@ export default async function ProjectDetailPage({
         : [];
 
     return (
+        <>
+        <AdminEditUrlSetter url={`/editpanel/projects/${project.id}/edit`} />
         <main className="min-h-screen bg-white pt-32 pb-20">
             <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
                 {/* Breadcrumb */}
@@ -180,5 +183,6 @@ export default async function ProjectDetailPage({
                 </div>
             </div>
         </main>
+        </>
     );
 }

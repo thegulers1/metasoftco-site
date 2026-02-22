@@ -67,6 +67,27 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         }
     }
 
+    // Projeler
+    const projects = await prisma.project.findMany({
+        where: { published: true },
+        select: { slug: true, updatedAt: true },
+    });
+
+    const projectPages: MetadataRoute.Sitemap = [
+        {
+            url: `${baseUrl}/projeler`,
+            lastModified: new Date(),
+            changeFrequency: "weekly",
+            priority: 0.8,
+        },
+        ...projects.map((p) => ({
+            url: `${baseUrl}/projeler/${p.slug}`,
+            lastModified: p.updatedAt,
+            changeFrequency: "monthly" as const,
+            priority: 0.6,
+        })),
+    ];
+
     // Blog yazıları
     const blogPosts = await prisma.blogPost.findMany({
         where: { published: true },
@@ -80,5 +101,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.6,
     }));
 
-    return [...staticPages, ...servicePages, ...blogPages];
+    return [...staticPages, ...servicePages, ...projectPages, ...blogPages];
 }

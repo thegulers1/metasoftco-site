@@ -17,9 +17,9 @@ function createPrismaClient() {
     if (!global.poolGlobal) {
         global.poolGlobal = new Pool({
             connectionString,
-            max: 5,
-            idleTimeoutMillis: 30000,
-            connectionTimeoutMillis: 2000,
+            max: 2,                         // Serverless'ta az bağlantı tut
+            idleTimeoutMillis: 10000,
+            connectionTimeoutMillis: 10000, // Timeout'u artır
         });
     }
 
@@ -30,6 +30,5 @@ function createPrismaClient() {
 
 export const prisma = global.prismaGlobal ?? createPrismaClient();
 
-if (process.env.NODE_ENV !== "production") {
-    global.prismaGlobal = prisma;
-}
+// Hem dev hem production'da cache - serverless'ta her istekte yeni bağlantı açılmasın
+global.prismaGlobal = prisma;

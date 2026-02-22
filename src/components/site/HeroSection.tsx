@@ -23,9 +23,9 @@ export default function HeroSection() {
                         className="text-4xl md:text-7xl lg:text-[88px] font-light uppercase tracking-tighter text-[#1a1a1a] mb-6 leading-[1.05]"
                         style={{ fontFamily: "var(--font-inter-tight)" }}
                     >
-                        {t("TEKNOLOJİ", "TECHNOLOGY")}
+                        {t("Fikirden Sahneye,", "From Idea to Stage,")}
                         <br />
-                        <span className="text-[#1a1a1a]/40 whitespace-nowrap">{t("DENEYİMLE BULUŞUYOR", "MEETS EXPERIENCE")}</span>
+                        <span className="text-[#1a1a1a]/40">{t("Yazılımdan Üretime.", "From Software to Production.")}</span>
                     </h1>
 
                     <div className="flex justify-center mt-4">
@@ -36,9 +36,9 @@ export default function HeroSection() {
                             className="text-sm md:text-base lg:text-lg text-[#1a1a1a]/60 font-normal leading-relaxed text-center px-4 max-w-[1000px]"
                         >
                             {language === "tr" ? (
-                                <>Metasoftco, markalar için en gelişmiş <span className="font-bold text-[#1a1a1a]/90">interaktif deneyimleri</span> tasarlayan ve hayalleri dijital gerçekliğe dönüştüren İstanbul merkezli bir kreatif teknoloji ajansıdır.</>
+                                <>MetasoftCo, markalar için sadece dijital dünyalar kurgulamakla kalmayan; <span className="font-bold text-[#1a1a1a]/90">özel yazılımları, interaktif teknolojileri, fiziksel stand üretimini</span> ve etkinlik prodüksiyonunu tek çatı altında buluşturan İstanbul merkezli uçtan uca deneyim ajansıdır.</>
                             ) : (
-                                <>Metasoftco is an Istanbul-based creative technology agency that designs advanced <span className="font-bold text-[#1a1a1a]/90">interaktif deneyimleri</span> for brands, turning imaginations into digital reality.</>
+                                <>MetasoftCo is an Istanbul-based end-to-end experience agency that goes beyond building digital worlds for brands — bringing together <span className="font-bold text-[#1a1a1a]/90">custom software, interactive technologies, physical stand production</span> and event production under one roof.</>
                             )}
                         </motion.p>
                     </div>

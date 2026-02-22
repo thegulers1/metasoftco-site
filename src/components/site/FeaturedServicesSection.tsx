@@ -21,7 +21,7 @@ interface FeaturedServicesSectionProps {
 }
 
 export function FeaturedServicesSection({ services }: FeaturedServicesSectionProps) {
-    const { language, t } = useLanguage();
+    const { t } = useLanguage();
 
     // First service = large featured (top row, right side)
     const featuredService = services[0];
@@ -67,7 +67,7 @@ export function FeaturedServicesSection({ services }: FeaturedServicesSectionPro
                     {/* Columns 2-3: Large featured image - h-full to match text column perfectly */}
                     {featuredService && (
                         <motion.div
-                            className="lg:col-span-2 flex"
+                            className="lg:col-span-2 flex min-h-0"
                             initial={{ opacity: 0, scale: 0.98 }}
                             whileInView={{ opacity: 1, scale: 1 }}
                             viewport={{ once: true }}
@@ -79,7 +79,7 @@ export function FeaturedServicesSection({ services }: FeaturedServicesSectionPro
                                         <img
                                             src={featuredService.image}
                                             alt={featuredService.title}
-                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                         />
                                     )}
 

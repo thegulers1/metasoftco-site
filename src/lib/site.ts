@@ -29,8 +29,8 @@ export const siteConfig = {
     // Contact
     contact: {
         email: "info@metasoftco.com",
-        phone: "+90 XXX XXX XX XX",
-        address: "İstanbul, Türkiye",
+        phone: "+90 534 233 4051",
+        address: "Zeytinlik Mah. Fişekhane Cd. 5/17 Bakırköy, İstanbul, Türkiye",
     },
 
     // Company Info (for structured data)
@@ -120,7 +120,10 @@ export function generateOrganizationSchema() {
         })),
         address: {
             "@type": "PostalAddress",
-            addressLocality: "İstanbul",
+            streetAddress: "Zeytinlik Mah. Fişekhane Cd. 5/17",
+            addressLocality: "Bakırköy",
+            addressRegion: "İstanbul",
+            postalCode: "34142",
             addressCountry: "TR",
         },
         contactPoint: {

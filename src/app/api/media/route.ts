@@ -8,30 +8,32 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET,
 });
 
-// GET: List all media items
+// GET: List all media items directly from Cloudinary
 export async function GET(request: Request) {
     try {
         const { searchParams } = new URL(request.url);
-        const folder = searchParams.get("folder");
-        const type = searchParams.get("type");
-        const search = searchParams.get("search");
+        const type = searchParams.get("type") === "video" ? "video" : "image";
 
-        const where: any = {};
-        if (folder) where.folder = folder;
-        if (type) where.fileType = { contains: type };
-        if (search) {
-            where.OR = [
-                { fileName: { contains: search, mode: 'insensitive' } },
-                { folder: { contains: search, mode: 'insensitive' } },
-            ];
-        }
-
-        const media = await prisma.media.findMany({
-            where,
-            orderBy: { createdAt: "desc" },
+        const result = await cloudinary.api.resources({
+            type: "upload",
+            prefix: "metasoftco/",
+            resource_type: type,
+            max_results: 500,
+            direction: "desc",
         });
 
-        console.log(`📊 API /media - Toplam ${media.length} medya döndürülüyor`);
+        const media = result.resources.map((r: any) => ({
+            id: r.public_id,
+            url: r.secure_url,
+            fileName: r.public_id.split("/").pop() || r.public_id,
+            fileType: type === "video" ? `video/${r.format}` : `image/${r.format}`,
+            folder: r.public_id.includes("/")
+                ? r.public_id.split("/").slice(0, -1).join("/")
+                : "",
+            createdAt: r.created_at,
+        }));
+
+        console.log(`📊 API /media - Cloudinary'den ${media.length} medya döndürülüyor (type: ${type})`);
 
         return NextResponse.json(media);
     } catch (error) {
@@ -43,11 +45,11 @@ export async function GET(request: Request) {
     }
 }
 
-// DELETE: Remove media from DB and Cloudinary
+// DELETE: Remove media from Cloudinary (and DB if exists)
 export async function DELETE(request: Request) {
     try {
         const { searchParams } = new URL(request.url);
-        const id = searchParams.get("id");
+        const id = searchParams.get("id"); // id = Cloudinary publicId
 
         if (!id) {
             return NextResponse.json(
@@ -56,24 +58,13 @@ export async function DELETE(request: Request) {
             );
         }
 
-        const media = await prisma.media.findUnique({
-            where: { id },
-        });
-
-        if (!media) {
-            return NextResponse.json(
-                { error: "Media not found" },
-                { status: 404 }
-            );
-        }
-
         // Cloudinary'den sil
-        await cloudinary.uploader.destroy(media.publicId);
+        await cloudinary.uploader.destroy(id);
 
-        // Veritabanından sil
-        await prisma.media.delete({
-            where: { id },
-        });
+        // DB'de kayıt varsa onu da sil (hata olursa görmezden gel)
+        try {
+            await prisma.media.deleteMany({ where: { publicId: id } });
+        } catch {}
 
         return NextResponse.json({ message: "Media deleted successfully" });
     } catch (error) {

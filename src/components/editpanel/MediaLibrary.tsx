@@ -157,6 +157,17 @@ export default function MediaLibrary({
                                                     src={item.url}
                                                     alt={item.fileName || "Media"}
                                                     className="w-full h-full object-cover"
+                                                    onError={(e) => {
+                                                        const t = e.currentTarget;
+                                                        t.style.display = "none";
+                                                        const parent = t.parentElement;
+                                                        if (parent && !parent.querySelector(".img-fallback")) {
+                                                            const fb = document.createElement("div");
+                                                            fb.className = "img-fallback absolute inset-0 flex flex-col items-center justify-center bg-black/5 text-black/30 text-center p-2";
+                                                            fb.innerHTML = `<svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span style="font-size:10px;margin-top:4px;word-break:break-all">${item.fileName || ""}</span>`;
+                                                            parent.appendChild(fb);
+                                                        }
+                                                    }}
                                                 />
                                                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
                                                     <button
