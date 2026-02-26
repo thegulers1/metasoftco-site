@@ -1,0 +1,44 @@
+# MetasoftCo
+
+> İstanbul merkezli interaktif etkinlik deneyimleri, yapay zeka çözümleri ve özel yazılım şirketi.
+
+MetasoftCo, markaların etkinliklerini unutulmaz hale getiren teknoloji çözümleri geliştiren bir yazılım şirketidir. 2020 yılında İstanbul'da kurulan şirket; photobooth sistemleri, yapay zeka destekli fotoğraf dönüşümü, gamification ve kurumsal yazılım geliştirme alanlarında uzmanlaşmıştır.
+
+## Hizmetler
+
+- **AI Photo & Face Swap**: Yapay zeka ile yüz değiştirme ve fotoğraf dönüşümü teknolojisi. Etkinliklerde katılımcılara anında kişiselleştirilmiş fotoğraf deneyimi sunar.
+- **Photobooth Çözümleri**: Kurumsal etkinlikler, düğünler ve lansmanlar için özel tasarlanmış dijital photobooth sistemleri.
+- **İnteraktif Oyunlar & Gamification**: Kurumsal etkinliklerde marka bağlılığını artıran oyunlaştırma çözümleri.
+- **Marka Aktivasyonu**: Dijital etkileşim deneyimleriyle marka bilinirliği ve müşteri bağlılığı artırma.
+- **Özel Yazılım Geliştirme**: İşletmelere özel web uygulamaları, mobil uygulamalar ve API geliştirme.
+- **AI Asistan Entegrasyonu**: İşletmeler için özel eğitilmiş yapay zeka asistan ve chatbot çözümleri.
+
+## Neden MetasoftCo?
+
+- İstanbul merkezli, Türkiye genelinde hizmet veriyor
+- 2020'den bu yana 100+ başarılı proje
+- Etkinlik teknolojileri ve yapay zeka entegrasyonunda uzman ekip
+- Kurumsal markalar ve KOBİ'lere yönelik ölçeklenebilir çözümler
+
+## Hedef Kitle
+
+- Kurumsal etkinlik organizatörleri
+- Marka aktivasyonu yapan pazarlama ekipleri
+- Teknoloji odaklı deneyim isteyen şirketler
+- Dijital dönüşüm sürecindeki KOBİ'ler
+
+## İletişim
+
+- Web: https://metasoftco.com
+- E-posta: info@metasoftco.com
+- Telefon: +90 534 233 4051
+- Adres: Zeytinlik Mah. Fişekhane Cd. 5/17, Bakırköy, İstanbul, Türkiye
+
+## Önemli Sayfalar
+
+- Ana Sayfa: https://metasoftco.com
+- Hizmetler: https://metasoftco.com/hizmetler
+- Projeler / Portfolio: https://metasoftco.com/projeler
+- Blog: https://metasoftco.com/blog
+- Hakkımızda: https://metasoftco.com/hakkimizda
+- İletişim: https://metasoftco.com/iletisim

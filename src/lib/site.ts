@@ -139,6 +139,93 @@ export function generateOrganizationSchema() {
     };
 }
 
+// JSON-LD structured data for LocalBusiness (AI aramaları için Organization'dan daha güçlü)
+export function generateLocalBusinessSchema() {
+    return {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "@id": `${siteConfig.url}/#localbusiness`,
+        name: siteConfig.name,
+        legalName: siteConfig.company.legalName,
+        description: siteConfig.description,
+        url: siteConfig.url,
+        logo: {
+            "@type": "ImageObject",
+            url: `${siteConfig.url}/logo.png`,
+        },
+        image: `${siteConfig.url}/og-image.jpg`,
+        foundingDate: siteConfig.company.foundingDate,
+        founders: siteConfig.company.founders.map((name) => ({
+            "@type": "Person",
+            name,
+        })),
+        address: {
+            "@type": "PostalAddress",
+            streetAddress: "Zeytinlik Mah. Fişekhane Cd. 5/17",
+            addressLocality: "Bakırköy",
+            addressRegion: "İstanbul",
+            postalCode: "34142",
+            addressCountry: "TR",
+        },
+        geo: {
+            "@type": "GeoCoordinates",
+            latitude: 40.9766,
+            longitude: 28.8572,
+        },
+        contactPoint: {
+            "@type": "ContactPoint",
+            telephone: siteConfig.contact.phone,
+            email: siteConfig.contact.email,
+            contactType: "customer service",
+            availableLanguage: ["Turkish", "English"],
+        },
+        areaServed: {
+            "@type": "Country",
+            name: "Turkey",
+        },
+        knowsAbout: [
+            "Interaktif Etkinlik Teknolojileri",
+            "Yapay Zeka Çözümleri",
+            "Photobooth Sistemleri",
+            "AI Yüz Değiştirme",
+            "Marka Aktivasyonu",
+            "Gamification",
+            "Özel Yazılım Geliştirme",
+        ],
+        hasOfferCatalog: {
+            "@type": "OfferCatalog",
+            name: "MetasoftCo Hizmetleri",
+            itemListElement: [
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "AI Photo & Face Swap" } },
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "Photobooth Çözümleri" } },
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "İnteraktif Oyunlar & Gamification" } },
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "Marka Aktivasyonu" } },
+                { "@type": "Offer", itemOffered: { "@type": "Service", name: "Özel Yazılım Geliştirme" } },
+            ],
+        },
+        sameAs: [
+            `https://instagram.com/${siteConfig.social.instagram.replace("@", "")}`,
+            `https://twitter.com/${siteConfig.social.twitter.replace("@", "")}`,
+        ],
+    };
+}
+
+// JSON-LD structured data for FAQPage
+export function generateFAQSchema(faqs: { question: string; answer: string }[]) {
+    return {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: faqs.map((faq) => ({
+            "@type": "Question",
+            name: faq.question,
+            acceptedAnswer: {
+                "@type": "Answer",
+                text: faq.answer,
+            },
+        })),
+    };
+}
+
 // JSON-LD structured data for service
 export function generateServiceSchema(service: {
     name: string;

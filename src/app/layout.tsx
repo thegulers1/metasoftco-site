@@ -1,7 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter_Tight, DM_Sans, Lato } from "next/font/google";
-import { siteConfig, generateMetaTags, generateOrganizationSchema } from "@/lib/site";
+import { siteConfig, generateMetaTags, generateOrganizationSchema, generateLocalBusinessSchema } from "@/lib/site";
 import { Providers } from "@/providers/Providers";
 
 const interTight = Inter_Tight({
@@ -35,15 +35,23 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   const organizationSchema = generateOrganizationSchema();
+  const localBusinessSchema = generateLocalBusinessSchema();
 
   return (
     <html lang="tr" className={`${interTight.variable} ${dmSans.variable} ${lato.variable}`}>
       <head>
-        {/* JSON-LD Structured Data */}
+        {/* JSON-LD Structured Data - Organization */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(organizationSchema),
+          }}
+        />
+        {/* JSON-LD Structured Data - LocalBusiness (AI aramaları için) */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(localBusinessSchema),
           }}
         />
       </head>
