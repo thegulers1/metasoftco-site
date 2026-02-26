@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import MediaLibrary from "./MediaLibrary";
+import { uploadToCloudinary } from "@/lib/cloudinaryUpload";
 
 interface ImageUploadProps {
     value?: string | null;
@@ -35,20 +36,7 @@ export default function ImageUpload({
         setUploading(true);
 
         try {
-            const formData = new FormData();
-            formData.append("file", file);
-            formData.append("folder", `metasoftco/${folder}`);
-
-            const res = await fetch("/api/upload", {
-                method: "POST",
-                body: formData,
-            });
-
-            if (!res.ok) {
-                throw new Error("Upload failed");
-            }
-
-            const data = await res.json();
+            const data = await uploadToCloudinary(file, `metasoftco/${folder}`);
             onChange(data.url);
         } catch (err) {
             setError("Yükleme başarısız oldu");

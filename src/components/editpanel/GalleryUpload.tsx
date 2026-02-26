@@ -2,6 +2,7 @@
 
 import { useState, useRef } from "react";
 import MediaLibrary from "./MediaLibrary";
+import { uploadToCloudinary } from "@/lib/cloudinaryUpload";
 
 interface GalleryUploadProps {
     value: string[]; // URL array
@@ -56,19 +57,8 @@ export default function GalleryUpload({
             }
 
             try {
-                const formData = new FormData();
-                formData.append("file", file);
-                formData.append("folder", `metasoftco/${folder}`);
-
-                const res = await fetch("/api/upload", {
-                    method: "POST",
-                    body: formData,
-                });
-
-                if (res.ok) {
-                    const data = await res.json();
-                    newUrls.push(data.url);
-                }
+                const data = await uploadToCloudinary(file, `metasoftco/${folder}`);
+                newUrls.push(data.url);
             } catch (err) {
                 console.error("Upload error:", err);
             }

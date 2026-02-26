@@ -177,10 +177,28 @@ export default function EditServicePage({
         return <div className="text-center py-8">Hizmet bulunamadı</div>;
     }
 
+    const categorySlug = categories.find((c) => c.id === service.categoryId)?.slug;
+    const serviceUrl = categorySlug ? `/hizmetler/${categorySlug}/${service.slug}` : null;
+
     return (
         <div>
             <div className="flex items-center justify-between mb-8">
-                <h1 className="text-2xl font-bold text-black">Hizmeti Düzenle</h1>
+                <div className="flex items-center gap-3">
+                    <h1 className="text-2xl font-bold text-black">Hizmeti Düzenle</h1>
+                    {serviceUrl && (
+                        <a
+                            href={serviceUrl}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-black/50 bg-black/5 hover:bg-black/10 hover:text-black rounded-lg transition"
+                        >
+                            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                            Sayfayı Görüntüle
+                        </a>
+                    )}
+                </div>
                 <button
                     type="button"
                     onClick={handleTranslate}

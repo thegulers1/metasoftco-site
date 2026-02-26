@@ -32,7 +32,7 @@ export default function Footer() {
                     </div>
 
                     {/* Right: Links */}
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 text-sm">
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 text-sm">
                         {/* Pages */}
                         <div className="space-y-4">
                             <h4 className="text-orange-500 font-medium">
@@ -68,10 +68,24 @@ export default function Footer() {
                                 {t("E-posta", "Email")}
                             </h4>
                             <a
-                                href="mailto:hello@metasoftco.com"
+                                href="mailto:info@metasoftco.com"
                                 className="block text-gray-400 hover:text-white transition-colors"
                             >
-                                info@metasoftco.com                            </a>
+                                info@metasoftco.com
+                            </a>
+                        </div>
+
+                        {/* Phone */}
+                        <div className="space-y-4">
+                            <h4 className="text-orange-500 font-medium">
+                                {t("Telefon", "Phone")}
+                            </h4>
+                            <a
+                                href="tel:+905342334051"
+                                className="block text-gray-400 hover:text-white transition-colors"
+                            >
+                                +90 534 233 4051
+                            </a>
                         </div>
 
                         {/* Address */}

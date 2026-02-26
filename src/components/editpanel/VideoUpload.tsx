@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useRef, useEffect } from "react";
+import { uploadToCloudinary } from "@/lib/cloudinaryUpload";
 
 interface VideoUploadProps {
     value?: string | null;
@@ -153,24 +154,8 @@ export default function VideoUpload({
         setProgress(10);
 
         try {
-            const formData = new FormData();
-            formData.append("file", file);
-            formData.append("folder", `metasoftco/${folder}`);
-
             setProgress(30);
-
-            const res = await fetch("/api/upload", {
-                method: "POST",
-                body: formData,
-            });
-
-            setProgress(80);
-
-            if (!res.ok) {
-                throw new Error("Upload failed");
-            }
-
-            const data = await res.json();
+            const data = await uploadToCloudinary(file, `metasoftco/${folder}`);
             setProgress(100);
             onChange(data.url);
         } catch (err) {

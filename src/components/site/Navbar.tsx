@@ -11,9 +11,7 @@ const getMenu = (t: (tr: string, en: string) => string) => [
     { href: "/", label: t("Anasayfa", "Home") },
     { href: "/projeler", label: t("Projeler", "Projects") },
     { href: "/hizmetler", label: t("Hizmetler", "Services") },
-    { href: "/blog", label: t("Blog", "Blog") },
     { href: "/hakkimizda", label: t("Hakkımızda", "About") },
-    { href: "/ai-asistan", label: t("🤖 AI Asistan", "🤖 AI Assistant") },
 ];
 
 export default function Navbar() {
