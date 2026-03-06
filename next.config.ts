@@ -2,6 +2,16 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   output: "standalone",
+
+  // Eski site URL'leri için kalıcı yönlendirmeler (301) — Google indexinden temizlemek için
+  async redirects() {
+    return [
+      { source: "/star-map", destination: "/", permanent: true },
+      // Buraya eski sitedeki diğer URL'leri ekleyebilirsiniz:
+      // { source: "/eski-sayfa", destination: "/", permanent: true },
+    ];
+  },
+
   images: {
     remotePatterns: [
       {
