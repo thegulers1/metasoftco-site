@@ -2,6 +2,8 @@ import { prisma } from "@/lib/db";
 import Link from "next/link";
 import { ServiceFeaturedToggle } from "./ServiceFeaturedToggle";
 
+export const dynamic = 'force-dynamic';
+
 async function getServicesWithCategories() {
     const categories = await prisma.serviceCategory.findMany({
         orderBy: { order: "asc" },

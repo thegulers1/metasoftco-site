@@ -3,6 +3,8 @@ import { prisma } from "@/lib/db";
 import { siteConfig, generateFAQSchema } from "@/lib/site";
 import ServicesListClient from "./ServicesListClient";
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
     title: "Hizmetlerimiz",
     description: "MetasoftCo'nun sunduğu yapay zeka, fotoğraf & video ve interaktif hizmetler. Etkinlikleriniz için profesyonel çözümler.",

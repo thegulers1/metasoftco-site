@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 
+export const dynamic = 'force-dynamic';
+
 // GET /api/blog - Tüm blog yazılarını getir
 export async function GET() {
     try {

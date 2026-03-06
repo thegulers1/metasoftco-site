@@ -3,6 +3,8 @@
 import { useState, useEffect } from "react";
 import MediaLibrary from "@/components/editpanel/MediaLibrary";
 
+export const dynamic = 'force-dynamic';
+
 export default function MediaPage() {
     const [isLibraryOpen, setIsLibraryOpen] = useState(false);
 

@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import { AdminEditUrlSetter } from "@/components/site/AdminBar";
 import ProjectDetailClient from "./ProjectDetailClient";
 
+export const dynamic = 'force-dynamic';
+
 async function getProject(slug: string) {
     return prisma.project.findUnique({
         where: { slug },

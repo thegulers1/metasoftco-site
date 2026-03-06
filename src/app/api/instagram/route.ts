@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 import { getInstagramFeed } from "@/lib/instagram";
 
+export const dynamic = 'force-dynamic';
+
 export async function GET() {
     try {
         const posts = await getInstagramFeed();

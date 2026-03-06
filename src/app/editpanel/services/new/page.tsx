@@ -7,6 +7,8 @@ import ImageUpload from "@/components/editpanel/ImageUpload";
 import GalleryUpload from "@/components/editpanel/GalleryUpload";
 import VideoUpload from "@/components/editpanel/VideoUpload";
 
+export const dynamic = 'force-dynamic';
+
 interface Service {
     title: string;
     slug: string;

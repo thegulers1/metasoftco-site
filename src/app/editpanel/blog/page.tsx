@@ -1,6 +1,8 @@
 import { prisma } from "@/lib/db";
 import Link from "next/link";
 
+export const dynamic = 'force-dynamic';
+
 async function getBlogPosts() {
     return prisma.blogPost.findMany({
         orderBy: { createdAt: "desc" },

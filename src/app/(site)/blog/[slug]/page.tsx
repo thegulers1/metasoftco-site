@@ -5,6 +5,8 @@ import { prisma } from "@/lib/db";
 import { siteConfig, generateFAQSchema } from "@/lib/site";
 import Container from "@/components/site/Container";
 
+export const dynamic = 'force-dynamic';
+
 interface Props {
     params: Promise<{ slug: string }>;
 }

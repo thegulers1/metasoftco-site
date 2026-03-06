@@ -9,6 +9,8 @@ import GalleryUpload from "@/components/editpanel/GalleryUpload";
 import VideoUpload from "@/components/editpanel/VideoUpload";
 import RichTextEditor from "@/components/editpanel/RichTextEditor";
 
+export const dynamic = 'force-dynamic';
+
 interface Service {
     id: string;
     title: string;

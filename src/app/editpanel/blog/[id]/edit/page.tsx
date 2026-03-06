@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import ImageUpload from "@/components/editpanel/ImageUpload";
 import RichTextEditor from "@/components/editpanel/RichTextEditor";
 
+export const dynamic = 'force-dynamic';
+
 interface BlogFormData {
     title: string;
     slug: string;

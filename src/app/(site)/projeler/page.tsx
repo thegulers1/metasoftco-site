@@ -2,6 +2,8 @@ import { prisma } from "@/lib/db";
 import ProjectsHero from "./ProjectsHero";
 import ProjectsListClient from "./ProjectsListClient";
 
+export const dynamic = 'force-dynamic';
+
 export default async function ProjectsPage() {
     const projects = await prisma.project.findMany({
         where: { published: true },

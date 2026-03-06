@@ -5,6 +5,8 @@ import { useRouter } from "next/navigation";
 import ImageUpload from "@/components/editpanel/ImageUpload";
 import GalleryUpload from "@/components/editpanel/GalleryUpload";
 
+export const dynamic = 'force-dynamic';
+
 interface Project {
     title: string;
     slug: string;

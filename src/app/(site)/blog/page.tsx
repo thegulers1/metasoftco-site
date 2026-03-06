@@ -4,6 +4,8 @@ import { prisma } from "@/lib/db";
 import { siteConfig } from "@/lib/site";
 import Container from "@/components/site/Container";
 
+export const dynamic = 'force-dynamic';
+
 export const metadata: Metadata = {
     title: "Blog",
     description: "Etkinlik teknolojileri, yapay zeka ve dijital deneyimler üzerine MetasoftCo blogu.",
