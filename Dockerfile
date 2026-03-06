@@ -16,6 +16,13 @@ RUN corepack enable pnpm
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# Build sırasında ESLint ve telemetry'yi devre dışı bırak
+ENV NEXT_DISABLE_ESLINT=1
+ENV NEXT_TELEMETRY_DISABLED=1
+# Prisma'nın DB'ye bağlanmadan client generate etmesi için dummy URL
+ENV DATABASE_URL="postgresql://build:build@localhost:5432/build"
+ENV DIRECT_URL="postgresql://build:build@localhost:5432/build"
+
 RUN pnpm build
 
 # Production runner
