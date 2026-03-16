@@ -50,7 +50,6 @@ jobs:
     steps:
       - name: Trigger Coolify redeploy
         run: |
-          curl -v \
-            -X GET \
+          curl -v --insecure \
             -H "Authorization: Bearer ${{ secrets.COOLIFY_TOKEN }}" \
             "${{ secrets.COOLIFY_WEBHOOK }}"
