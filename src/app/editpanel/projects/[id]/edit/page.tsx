@@ -238,26 +238,26 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
 
                         <div>
                             <label className="block text-sm font-medium text-black/70 mb-2">
-                                Slug (TR — Otomatik)
+                                Slug (TR)
                             </label>
                             <input
                                 type="text"
                                 value={project.slug}
-                                readOnly
-                                className="w-full px-4 py-3 bg-black/5 border-0 rounded-lg text-black/50 cursor-not-allowed"
+                                onChange={(e) => setProject({ ...project, slug: e.target.value })}
+                                className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
                             />
-                            <p className="text-xs text-black/40 mt-1">Türkçe başlıktan otomatik oluşturulur</p>
+                            <p className="text-xs text-black/40 mt-1">Türkçe başlıktan otomatik oluşturulur, düzenleyebilirsiniz</p>
                         </div>
 
                         <div>
                             <label className="block text-sm font-medium text-black/70 mb-2">
-                                Slug (EN — Otomatik)
+                                Slug (EN)
                             </label>
                             <input
                                 type="text"
                                 value={project.slug_en || ""}
-                                readOnly
-                                className="w-full px-4 py-3 bg-black/5 border-0 rounded-lg text-black/50 cursor-not-allowed"
+                                onChange={(e) => setProject({ ...project, slug_en: e.target.value || null })}
+                                className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
                             />
                             <p className="text-xs text-black/40 mt-1">İngilizce başlıktan otomatik oluşturulur · URL: /en/projects/{project.slug_en || "—"}</p>
                         </div>
