@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
+import { cloudinaryOptimize } from "@/lib/cloudinary";
 
 interface GalleryLightboxProps {
     images: string[];
@@ -61,9 +62,10 @@ export default function GalleryLightbox({ images, title }: GalleryLightboxProps)
                             transition={{ delay: index * 0.1 }}
                         >
                             <img
-                                src={imageUrl}
+                                src={cloudinaryOptimize(imageUrl, 1200)}
                                 alt={`${title} - ${index + 1}`}
                                 className="h-full w-auto object-contain bg-black/[0.02] pointer-events-none select-none"
+                                loading="lazy"
                             />
                             {/* Overlay on hover */}
                             <div className="absolute inset-0 bg-black/0 group-hover/item:bg-black/5 transition-colors duration-300 flex items-center justify-center">
@@ -123,7 +125,7 @@ export default function GalleryLightbox({ images, title }: GalleryLightboxProps)
                             }}
                         >
                             <img
-                                src={images[currentIndex]}
+                                src={cloudinaryOptimize(images[currentIndex], 2400)}
                                 alt={`${title} - ${currentIndex + 1}`}
                                 className="max-w-full max-h-[85vh] object-contain rounded-lg shadow-2xl pointer-events-none"
                             />

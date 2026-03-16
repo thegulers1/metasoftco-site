@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useLanguage } from "@/providers/LanguageProvider";
 import GalleryLightbox from "@/components/site/GalleryLightbox";
 
@@ -110,10 +111,13 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
                 {/* Hero Image */}
                 {project.image && (
                     <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl mb-10">
-                        <img
+                        <Image
+                            fill
                             src={project.image}
                             alt={title}
-                            className="w-full h-full object-cover"
+                            className="object-cover"
+                            sizes="(max-width: 1200px) 100vw, 896px"
+                            priority
                         />
                     </div>
                 )}
