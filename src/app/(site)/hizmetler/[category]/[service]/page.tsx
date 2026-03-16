@@ -82,27 +82,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     };
 }
 
-// Statik sayfa oluşturma için paths
-export async function generateStaticParams() {
-    const categories = await prisma.serviceCategory.findMany({
-        include: {
-            services: true,
-        },
-    });
-
-    const paths: { category: string; service: string }[] = [];
-
-    for (const cat of categories) {
-        for (const service of cat.services) {
-            paths.push({
-                category: cat.slug,
-                service: service.slug,
-            });
-        }
-    }
-
-    return paths;
-}
 
 export default async function ServiceDetailPage({ params }: PageProps) {
     const { category, service: serviceSlug } = await params;
