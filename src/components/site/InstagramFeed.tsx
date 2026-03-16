@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 
 export interface InstagramPost {
@@ -15,8 +15,23 @@ export interface InstagramPost {
 export default function InstagramFeed() {
     const [posts, setPosts] = useState<InstagramPost[]>([]);
     const [loading, setLoading] = useState(true);
+    const [visible, setVisible] = useState(false);
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    // Only start fetching when the component enters the viewport
+    useEffect(() => {
+        const el = containerRef.current;
+        if (!el) return;
+        const observer = new IntersectionObserver(
+            ([entry]) => { if (entry.isIntersecting) { setVisible(true); observer.disconnect(); } },
+            { rootMargin: "200px" }
+        );
+        observer.observe(el);
+        return () => observer.disconnect();
+    }, []);
 
     useEffect(() => {
+        if (!visible) return;
         async function fetchPosts() {
             try {
                 const response = await fetch("https://feeds.behold.so/bSMJyqgT2uDMBbrGiLtU");
@@ -33,11 +48,11 @@ export default function InstagramFeed() {
             }
         }
         fetchPosts();
-    }, []);
+    }, [visible]);
 
-    if (loading) {
+    if (!visible || loading) {
         return (
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-20 opacity-50">
+            <div ref={containerRef} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-20 opacity-50">
                 {[...Array(6)].map((_, i) => (
                     <div key={i} className="aspect-square bg-white/5 animate-pulse rounded-xl" />
                 ))}
@@ -48,7 +63,7 @@ export default function InstagramFeed() {
     if (posts.length === 0) return null;
 
     return (
-        <div className="mb-20">
+        <div ref={containerRef} className="mb-20">
             <div className="flex items-center justify-between mb-8">
                 <div className="flex items-center gap-3">
                     <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 flex items-center justify-center p-1.5">
@@ -88,6 +103,8 @@ export default function InstagramFeed() {
                             src={post.mediaType === "VIDEO" ? (post.thumbnailUrl || post.mediaUrl) : post.mediaUrl}
                             alt={post.caption || "Instagram Post"}
                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                            loading="lazy"
+                            decoding="async"
                         />
                         <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
                             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-white w-6 h-6">

@@ -14,42 +14,30 @@ export default function HeroSection() {
             </div>
 
             <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
-                <motion.div
-                    initial={{ opacity: 0, y: 30 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8, ease: "easeOut" }}
+                {/* h1 outside motion wrapper — renders immediately for LCP */}
+                <h1
+                    className="text-4xl md:text-7xl lg:text-[88px] font-light uppercase tracking-tighter text-[#1a1a1a] mb-6 leading-[1.05]"
+                    style={{ fontFamily: "var(--font-inter-tight)" }}
                 >
-                    <h1
-                        className="text-4xl md:text-7xl lg:text-[88px] font-light uppercase tracking-tighter text-[#1a1a1a] mb-6 leading-[1.05]"
-                        style={{ fontFamily: "var(--font-inter-tight)" }}
-                    >
-                        {t("Fikirden Sahneye,", "From Idea to Stage,")}
-                        <br />
-                        <span className="text-[#1a1a1a]/40">{t("Yazılımdan Üretime.", "From Software to Production.")}</span>
-                    </h1>
+                    {t("Fikirden Sahneye,", "From Idea to Stage,")}
+                    <br />
+                    <span className="text-[#1a1a1a]/40">{t("Yazılımdan Üretime.", "From Software to Production.")}</span>
+                </h1>
 
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
+                >
                     <div className="flex justify-center mt-4">
-                        <motion.p
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.5, duration: 1 }}
-                            className="text-sm md:text-base lg:text-lg text-[#1a1a1a]/60 font-normal leading-relaxed text-center px-4 max-w-[1000px]"
-                        >
+                        <p className="text-sm md:text-base lg:text-lg text-[#1a1a1a]/60 font-normal leading-relaxed text-center px-4 max-w-[1000px]">
                             {language === "tr" ? (
                                 <>MetasoftCo, markalar için sadece dijital dünyalar kurgulamakla kalmayan; <span className="font-bold text-[#1a1a1a]/90">özel yazılımları, interaktif teknolojileri, fiziksel stand üretimini</span> ve etkinlik prodüksiyonunu tek çatı altında buluşturan İstanbul merkezli uçtan uca deneyim ajansıdır.</>
                             ) : (
                                 <>MetasoftCo is an Istanbul-based end-to-end experience agency that goes beyond building digital worlds for brands — bringing together <span className="font-bold text-[#1a1a1a]/90">custom software, interactive technologies, physical stand production</span> and event production under one roof.</>
                             )}
-                        </motion.p>
+                        </p>
                     </div>
-
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.8, duration: 0.5 }}
-                        className="mt-16 flex justify-center gap-6"
-                    >
-                    </motion.div>
                 </motion.div>
             </div>
 
