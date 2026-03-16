@@ -2,10 +2,9 @@
     cursor: pointer;
     border: none;
     background: #900a03;
-    /* Use theme red instead of purple */
     color: #fff;
-    width: 100px;
-    height: 100px;
+    width: 75px;
+    height: 75px;
     border-radius: 50%;
     overflow: hidden;
     position: relative;
@@ -15,7 +14,6 @@
         background 300ms,
         transform 200ms;
     font-weight: 600;
-    /* Scale down for navbar fit if needed, handled in component via style or prop */
 }
 
 .buttonText {
@@ -28,21 +26,17 @@
 .buttonText span {
     position: absolute;
     transform-origin: center;
-    inset: 5px;
-    /* Decreased inset to move text outwards away from inner circle */
+    inset: 4px;
     text-align: center;
-    /* Crucial for alignment */
-    /* rotate calculated inline */
 }
 
 .buttonCircle {
     position: relative;
-    width: 40px;
-    height: 40px;
+    width: 30px;
+    height: 30px;
     overflow: hidden;
     background: #fff;
     color: #900a03;
-    /* Match theme red */
     border-radius: 50%;
     display: flex;
     align-items: center;
@@ -50,8 +44,8 @@
 }
 
 .buttonIcon {
-    width: 14px;
-    height: 14px;
+    width: 11px;
+    height: 11px;
     flex-shrink: 0;
 }
 

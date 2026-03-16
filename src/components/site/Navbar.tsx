@@ -68,7 +68,6 @@ export default function Navbar() {
                             <CircularTextButton
                                 text={t("İLETİŞİME GEÇ ", "GET IN TOUCH ")}
                                 href="/iletisim"
-                                style={{ width: "75px", height: "75px" }}
                             />
                         </div>
 
