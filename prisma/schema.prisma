@@ -20,6 +20,7 @@ model ServiceCategory {
   metaKeywords       String?
   services           Service[]
   // English Fields
+  slug_en            String?   @unique
   name_en            String?
   metaTitle_en       String?
   metaDescription_en String?
@@ -55,6 +56,7 @@ model Service {
   metaKeywords       String?
   ogImage            String?
   // English Fields
+  slug_en            String?
   title_en           String?
   description_en     String?
   content_en         String?         @db.Text
@@ -97,6 +99,7 @@ model Project {
   ogImage         String?
 
   // English Fields
+  slug_en            String?   @unique
   title_en           String?
   description_en     String?
   content_en         String? @db.Text
@@ -130,6 +133,7 @@ model BlogPost {
   metaKeywords       String?
   ogImage            String?
   // English Fields
+  slug_en            String?   @unique
   title_en           String?
   excerpt_en         String?
   content_en         String?   @db.Text

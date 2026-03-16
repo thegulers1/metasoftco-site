@@ -27,6 +27,7 @@ interface Project {
     metaDescription: string | null;
     metaKeywords: string | null;
     ogImage: string | null;
+    slug_en: string | null;
     title_en: string | null;
     description_en: string | null;
     content_en: string | null;
@@ -224,14 +225,20 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
                             <input
                                 type="text"
                                 value={project.title_en || ""}
-                                onChange={(e) => setProject({ ...project, title_en: e.target.value || null })}
+                                onChange={(e) => {
+                                    const title_en = e.target.value;
+                                    const slug_en = title_en
+                                        ? title_en.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
+                                        : null;
+                                    setProject({ ...project, title_en: title_en || null, slug_en });
+                                }}
                                 className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
                             />
                         </div>
 
                         <div>
                             <label className="block text-sm font-medium text-black/70 mb-2">
-                                Slug (Otomatik)
+                                Slug (TR — Otomatik)
                             </label>
                             <input
                                 type="text"
@@ -239,7 +246,20 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
                                 readOnly
                                 className="w-full px-4 py-3 bg-black/5 border-0 rounded-lg text-black/50 cursor-not-allowed"
                             />
-                            <p className="text-xs text-black/40 mt-1">Başlıktan otomatik oluşturulur</p>
+                            <p className="text-xs text-black/40 mt-1">Türkçe başlıktan otomatik oluşturulur</p>
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-black/70 mb-2">
+                                Slug (EN — Otomatik)
+                            </label>
+                            <input
+                                type="text"
+                                value={project.slug_en || ""}
+                                readOnly
+                                className="w-full px-4 py-3 bg-black/5 border-0 rounded-lg text-black/50 cursor-not-allowed"
+                            />
+                            <p className="text-xs text-black/40 mt-1">İngilizce başlıktan otomatik oluşturulur · URL: /en/projects/{project.slug_en || "—"}</p>
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">

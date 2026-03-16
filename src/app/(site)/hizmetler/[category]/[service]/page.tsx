@@ -78,6 +78,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         },
         alternates: {
             canonical: url,
+            ...(service.slug_en && categoryData.slug_en && {
+                languages: {
+                    "tr": url,
+                    "en": `${siteConfig.url}/en/services/${categoryData.slug_en}/${service.slug_en}`,
+                },
+            }),
         },
     };
 }

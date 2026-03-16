@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { prisma } from "@/lib/db";
-import { siteConfig, generateFAQSchema, generateBreadcrumbSchema } from "@/lib/site";
+import { siteConfig, generateBreadcrumbSchema } from "@/lib/site";
 import Container from "@/components/site/Container";
 
 export const dynamic = 'force-dynamic';
@@ -12,9 +12,9 @@ interface Props {
     params: Promise<{ slug: string }>;
 }
 
-async function getPost(slug: string) {
+async function getPost(slug_en: string) {
     return prisma.blogPost.findUnique({
-        where: { slug, published: true },
+        where: { slug_en, published: true },
     });
 }
 
@@ -23,53 +23,51 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const post = await getPost(slug);
     if (!post) return {};
 
-    const title = post.metaTitle || post.title;
-    const description = post.metaDescription || post.excerpt || siteConfig.description;
+    const title = post.metaTitle_en || post.metaTitle || post.title_en || post.title;
+    const description = post.metaDescription_en || post.metaDescription || post.excerpt_en || post.excerpt || siteConfig.description;
     const image = post.ogImage || post.image || `${siteConfig.url}/og`;
+    const url = `${siteConfig.url}/en/blog/${slug}`;
 
     return {
         title,
         description,
-        keywords: post.metaKeywords || undefined,
+        keywords: post.metaKeywords_en || post.metaKeywords || undefined,
         openGraph: {
             title,
             description,
-            url: `${siteConfig.url}/blog/${post.slug}`,
+            url,
             type: "article",
             publishedTime: post.publishedAt?.toISOString(),
             authors: post.author ? [post.author] : undefined,
             images: [{ url: image, width: 1200, height: 630, alt: title }],
+            locale: "en_US",
         },
-        twitter: {
-            card: "summary_large_image",
-            title,
-            description,
-            images: [image],
-        },
+        twitter: { card: "summary_large_image", title, description, images: [image] },
         alternates: {
-            canonical: `${siteConfig.url}/blog/${post.slug}`,
-            ...(post.slug_en && {
-                languages: {
-                    "tr": `${siteConfig.url}/blog/${post.slug}`,
-                    "en": `${siteConfig.url}/en/blog/${post.slug_en}`,
-                },
-            }),
+            canonical: url,
+            languages: {
+                "tr": `${siteConfig.url}/blog/${post.slug}`,
+                "en": url,
+            },
         },
     };
 }
 
-export default async function BlogPostPage({ params }: Props) {
+export default async function EnglishBlogPostPage({ params }: Props) {
     const { slug } = await params;
     const post = await getPost(slug);
 
     if (!post) notFound();
 
-    // BlogPosting JSON-LD schema
+    const title = post.title_en || post.title;
+    const excerpt = post.excerpt_en || post.excerpt;
+    const content = post.content_en || post.content;
+
     const blogPostingSchema = {
         "@context": "https://schema.org",
         "@type": "BlogPosting",
-        headline: post.title,
-        description: post.excerpt || post.metaDescription,
+        headline: title,
+        description: excerpt || post.metaDescription_en || post.metaDescription,
         image: post.image || post.ogImage || `${siteConfig.url}/og`,
         datePublished: post.publishedAt?.toISOString(),
         dateModified: post.updatedAt.toISOString(),
@@ -86,16 +84,16 @@ export default async function BlogPostPage({ params }: Props) {
         },
         mainEntityOfPage: {
             "@type": "WebPage",
-            "@id": `${siteConfig.url}/blog/${post.slug}`,
+            "@id": `${siteConfig.url}/en/blog/${slug}`,
         },
-        keywords: post.metaKeywords || undefined,
-        inLanguage: "tr-TR",
+        keywords: post.metaKeywords_en || post.metaKeywords || undefined,
+        inLanguage: "en-US",
     };
 
     const breadcrumbSchema = generateBreadcrumbSchema([
-        { name: "Anasayfa", url: siteConfig.url },
-        { name: "Blog", url: `${siteConfig.url}/blog` },
-        { name: post.title, url: `${siteConfig.url}/blog/${post.slug}` },
+        { name: "Home", url: siteConfig.url },
+        { name: "Blog", url: `${siteConfig.url}/en/blog` },
+        { name: title, url: `${siteConfig.url}/en/blog/${slug}` },
     ]);
 
     return (
@@ -111,20 +109,18 @@ export default async function BlogPostPage({ params }: Props) {
 
             <article className="py-24 bg-white min-h-screen">
                 <Container>
-                    {/* Geri Butonu */}
                     <div className="mb-10">
                         <Link
-                            href="/blog"
+                            href="/en/blog"
                             className="inline-flex items-center gap-2 text-sm text-black/50 hover:text-black transition-colors"
                         >
                             <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                             </svg>
-                            Blog&apos;a Dön
+                            Back to Blog
                         </Link>
                     </div>
 
-                    {/* Başlık Alanı */}
                     <header className="max-w-3xl mb-12">
                         {post.category && (
                             <span className="inline-block rounded-md bg-black/5 px-3 py-1 text-xs font-medium uppercase tracking-wider text-black/60 mb-4">
@@ -132,18 +128,16 @@ export default async function BlogPostPage({ params }: Props) {
                             </span>
                         )}
                         <h1 className="text-3xl md:text-5xl font-black tracking-tighter text-black leading-tight mb-6">
-                            {post.title}
+                            {title}
                         </h1>
-                        {post.excerpt && (
-                            <p className="text-lg text-black/60 leading-relaxed">
-                                {post.excerpt}
-                            </p>
+                        {excerpt && (
+                            <p className="text-lg text-black/60 leading-relaxed">{excerpt}</p>
                         )}
                         <div className="flex items-center gap-4 mt-6 pt-6 border-t border-black/5 text-sm text-black/40">
                             {post.author && <span>{post.author}</span>}
                             {post.publishedAt && (
                                 <span>
-                                    {new Date(post.publishedAt).toLocaleDateString("tr-TR", {
+                                    {new Date(post.publishedAt).toLocaleDateString("en-US", {
                                         year: "numeric",
                                         month: "long",
                                         day: "numeric",
@@ -153,13 +147,12 @@ export default async function BlogPostPage({ params }: Props) {
                         </div>
                     </header>
 
-                    {/* Kapak Görseli */}
                     {post.image && (
                         <div className="relative aspect-[16/7] w-full overflow-hidden rounded-2xl mb-14 bg-black/5">
                             <Image
                                 fill
                                 src={post.image}
-                                alt={post.title}
+                                alt={title}
                                 className="object-cover"
                                 sizes="(max-width: 1200px) 100vw, 1200px"
                                 priority
@@ -167,24 +160,22 @@ export default async function BlogPostPage({ params }: Props) {
                         </div>
                     )}
 
-                    {/* İçerik */}
-                    {post.content && (
+                    {content && (
                         <div
                             className="prose prose-lg max-w-3xl prose-headings:font-black prose-headings:tracking-tight prose-a:text-black prose-a:underline"
-                            dangerouslySetInnerHTML={{ __html: post.content }}
+                            dangerouslySetInnerHTML={{ __html: content }}
                         />
                     )}
 
-                    {/* Footer */}
                     <div className="max-w-3xl mt-16 pt-10 border-t border-black/10">
                         <Link
-                            href="/blog"
+                            href="/en/blog"
                             className="inline-flex items-center gap-2 text-sm font-medium text-black hover:underline underline-offset-4"
                         >
                             <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                             </svg>
-                            Tüm Yazılar
+                            All Posts
                         </Link>
                     </div>
                 </Container>

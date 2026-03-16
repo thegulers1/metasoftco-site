@@ -20,6 +20,7 @@ interface BlogFormData {
     metaDescription: string;
     metaKeywords: string;
     ogImage: string | null;
+    slug_en: string;
     title_en: string;
     excerpt_en: string;
     content_en: string;
@@ -52,6 +53,7 @@ export default function EditBlogPostPage({
         metaKeywords: "",
         ogImage: null,
         // English
+        slug_en: "",
         title_en: "",
         excerpt_en: "",
         content_en: "",
@@ -79,6 +81,7 @@ export default function EditBlogPostPage({
                         metaDescription: data.metaDescription || "",
                         metaKeywords: data.metaKeywords || "",
                         ogImage: data.ogImage || null,
+                        slug_en: data.slug_en || "",
                         title_en: data.title_en || "",
                         excerpt_en: data.excerpt_en || "",
                         content_en: data.content_en || "",
@@ -181,7 +184,7 @@ export default function EditBlogPostPage({
                         </div>
 
                         <div>
-                            <label className="block text-sm font-medium text-black/70 mb-2">Slug</label>
+                            <label className="block text-sm font-medium text-black/70 mb-2">Slug (TR)</label>
                             <input
                                 type="text"
                                 required
@@ -189,6 +192,18 @@ export default function EditBlogPostPage({
                                 onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
                                 className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
                             />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-black/70 mb-2">Slug (EN)</label>
+                            <input
+                                type="text"
+                                value={formData.slug_en}
+                                onChange={(e) => setFormData({ ...formData, slug_en: e.target.value })}
+                                placeholder="english-url-slug"
+                                className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
+                            />
+                            <p className="text-xs text-black/40 mt-1">URL: /en/blog/{formData.slug_en || "—"}</p>
                         </div>
 
                         <div>

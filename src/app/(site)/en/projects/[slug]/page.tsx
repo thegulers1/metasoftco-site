@@ -3,7 +3,7 @@ import { prisma } from "@/lib/db";
 import { siteConfig } from "@/lib/site";
 import { notFound } from "next/navigation";
 import { AdminEditUrlSetter } from "@/components/site/AdminBar";
-import ProjectDetailClient from "./ProjectDetailClient";
+import ProjectDetailClient from "@/app/(site)/projeler/[slug]/ProjectDetailClient";
 
 export const dynamic = 'force-dynamic';
 
@@ -14,15 +14,15 @@ export async function generateMetadata({
 }): Promise<Metadata> {
     const { slug } = await params;
     const project = await prisma.project.findUnique({
-        where: { slug },
-        select: { title: true, description: true, image: true, slug_en: true },
+        where: { slug_en: slug },
+        select: { title_en: true, title: true, description_en: true, description: true, image: true, slug_en: true },
     });
     if (!project) return {};
 
-    const title = `${project.title} | MetasoftCo`;
-    const description = project.description || siteConfig.description;
-    const image = project.image || `${siteConfig.url}/og?title=${encodeURIComponent(project.title)}`;
-    const url = `${siteConfig.url}/projeler/${slug}`;
+    const title = `${project.title_en || project.title} | MetasoftCo`;
+    const description = project.description_en || project.description || siteConfig.description;
+    const image = project.image || `${siteConfig.url}/og?title=${encodeURIComponent(project.title_en || project.title || "")}`;
+    const url = `${siteConfig.url}/en/projects/${slug}`;
 
     return {
         title,
@@ -33,28 +33,27 @@ export async function generateMetadata({
             url,
             siteName: siteConfig.name,
             images: [{ url: image, width: 1200, height: 630 }],
-            locale: siteConfig.locale,
+            locale: "en_US",
             type: "website",
         },
         twitter: { card: "summary_large_image", title, description, images: [image] },
         alternates: {
             canonical: url,
-            ...(project.slug_en && {
-                languages: {
-                    "tr": url,
-                    "en": `${siteConfig.url}/en/projects/${project.slug_en}`,
-                },
-            }),
+            languages: {
+                "tr": `${siteConfig.url}/projeler/${project.slug_en}`,
+                "en": url,
+            },
         },
     };
 }
 
-async function getProject(slug: string) {
+async function getProject(slug_en: string) {
     return prisma.project.findUnique({
-        where: { slug },
+        where: { slug_en },
         select: {
             id: true,
             slug: true,
+            slug_en: true,
             title: true,
             title_en: true,
             description: true,
@@ -71,7 +70,7 @@ async function getProject(slug: string) {
     });
 }
 
-export default async function ProjectDetailPage({
+export default async function EnglishProjectDetailPage({
     params,
 }: {
     params: Promise<{ slug: string }>;

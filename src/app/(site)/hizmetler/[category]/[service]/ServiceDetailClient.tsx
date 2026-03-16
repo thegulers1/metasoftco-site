@@ -168,8 +168,43 @@ export default function ServiceDetailClient({
                     )}
                 </div>
 
+                {/* Bottom CTA Banner */}
+                <div className="mt-20 bg-black rounded-2xl px-8 sm:px-14 py-14 text-center">
+                    <p className="text-[10px] uppercase tracking-[0.3em] text-white/30 font-semibold mb-4">
+                        {t("Etkinliğinizi Planlayalım", "Let's Plan Your Event")}
+                    </p>
+                    <h2
+                        className="text-3xl sm:text-4xl font-light text-white tracking-tighter leading-[1.1] uppercase mb-4"
+                        style={{ fontFamily: "var(--font-inter-tight)" }}
+                    >
+                        {t("Projeniz için", "Ready for your")}
+                        <br />
+                        <span className="font-bold">{t("Hemen Teklif Alın", "Get a Quote Now")}</span>
+                    </h2>
+                    <p className="text-white/40 text-sm leading-relaxed max-w-md mx-auto mb-8">
+                        {t(
+                            "Markanıza özel çözümler için ekibimizle hemen iletişime geçin. Size 24 saat içinde geri döneceğiz.",
+                            "Contact our team for custom solutions tailored to your brand. We'll get back to you within 24 hours."
+                        )}
+                    </p>
+                    <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                        <Link
+                            href="/iletisim"
+                            className="inline-flex items-center justify-center px-10 py-4 bg-red-600 text-white font-bold rounded-full hover:bg-red-700 transition uppercase tracking-widest text-xs"
+                        >
+                            {t("ETKİNLİĞİMİZİ PLANLAYALIM", "PLAN MY EVENT")}
+                        </Link>
+                        <a
+                            href="tel:+905342334051"
+                            className="inline-flex items-center justify-center px-10 py-4 bg-white/10 text-white font-bold rounded-full hover:bg-white/20 transition uppercase tracking-widest text-xs"
+                        >
+                            +90 534 233 4051
+                        </a>
+                    </div>
+                </div>
+
                 {/* Back Link */}
-                <div className="mt-20">
+                <div className="mt-10">
                     <Link
                         href="/hizmetler"
                         className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-black/40 hover:text-black transition"

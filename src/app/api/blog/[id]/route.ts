@@ -55,6 +55,7 @@ export async function PUT(
             metaKeywords,
             ogImage,
             // English
+            slug_en,
             title_en,
             excerpt_en,
             content_en,
@@ -87,6 +88,7 @@ export async function PUT(
                 metaKeywords,
                 ogImage,
                 // English
+                slug_en: slug_en || null,
                 title_en,
                 excerpt_en,
                 content_en,

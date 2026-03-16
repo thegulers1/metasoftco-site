@@ -8,18 +8,26 @@ import { useLanguage } from "@/providers/LanguageProvider";
 import { Globe } from "lucide-react";
 import { CircularTextButton } from "@/components/ui/circular-text-button";
 
-const getMenu = (t: (tr: string, en: string) => string) => [
-    { href: "/", label: t("Anasayfa", "Home") },
-    { href: "/projeler", label: t("Projeler", "Projects") },
-    { href: "/hizmetler", label: t("Hizmetler", "Services") },
-    { href: "/hakkimizda", label: t("Hakkımızda", "About") },
-];
+const getMenu = (t: (tr: string, en: string) => string, lang: "tr" | "en") =>
+    lang === "en"
+        ? [
+            { href: "/en", label: "Home" },
+            { href: "/en/projects", label: "Projects" },
+            { href: "/en/services", label: "Services" },
+            { href: "/hakkimizda", label: "About" },
+        ]
+        : [
+            { href: "/", label: "Anasayfa" },
+            { href: "/projeler", label: "Projeler" },
+            { href: "/hizmetler", label: "Hizmetler" },
+            { href: "/hakkimizda", label: "Hakkımızda" },
+        ];
 
 export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const { language, setLanguage, t } = useLanguage();
-    const menu = getMenu(t);
+    const menu = getMenu(t, language);
 
     useEffect(() => {
         const handleScroll = () => {
