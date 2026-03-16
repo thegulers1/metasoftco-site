@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { useLanguage } from "@/providers/LanguageProvider";
 
 interface Project {
@@ -96,10 +97,12 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
                             <Link href={`/projeler/${p(0)!.slug}`} className="group block h-full">
                                 <div className="relative h-full w-full overflow-hidden bg-[#f0f0f0]">
                                     {p(0)!.image ? (
-                                        <img
+                                        <Image
+                                            fill
                                             src={p(0)!.image!}
                                             alt={t(p(0)!.title, p(0)!.title_en || p(0)!.title)}
-                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                            sizes="(max-width: 768px) 100vw, 25vw"
                                         />
                                     ) : (
                                         <div className="absolute inset-0 bg-gradient-to-br from-gray-700 to-gray-900" />
@@ -154,10 +157,12 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
                             <Link href={`/projeler/${p(1)!.slug}`} className="group block h-full">
                                 <div className="relative h-full w-full overflow-hidden bg-[#f0f0f0]">
                                     {p(1)!.image ? (
-                                        <img
+                                        <Image
+                                            fill
                                             src={p(1)!.image!}
                                             alt={t(p(1)!.title, p(1)!.title_en || p(1)!.title)}
-                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                            sizes="(max-width: 768px) 100vw, 20vw"
                                         />
                                     ) : (
                                         <div className="absolute inset-0 bg-gradient-to-br from-gray-700 to-gray-900" />
@@ -208,10 +213,12 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
                             <Link href={`/projeler/${p(2)!.slug}`} className="group block h-full">
                                 <div className="relative h-full w-full overflow-hidden bg-[#f0f0f0]">
                                     {p(2)!.image ? (
-                                        <img
+                                        <Image
+                                            fill
                                             src={p(2)!.image!}
                                             alt={t(p(2)!.title, p(2)!.title_en || p(2)!.title)}
-                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                            sizes="(max-width: 768px) 100vw, 20vw"
                                         />
                                     ) : (
                                         <div className="absolute inset-0 bg-gradient-to-br from-gray-700 to-gray-900" />

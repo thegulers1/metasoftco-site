@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
+import Image from "next/image";
 import { useLanguage } from "@/providers/LanguageProvider";
 
 interface Service {
@@ -76,10 +77,12 @@ export function FeaturedServicesSection({ services }: FeaturedServicesSectionPro
                             <Link href={`/hizmetler/${featuredService.category?.slug}/${featuredService.slug}`} className="group block w-full h-full">
                                 <div className="relative h-full w-full overflow-hidden bg-[#f0f0f0]">
                                     {featuredService.image && (
-                                        <img
+                                        <Image
+                                            fill
                                             src={featuredService.image}
                                             alt={featuredService.title}
-                                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                            sizes="(max-width: 768px) 100vw, 66vw"
                                         />
                                     )}
 
@@ -114,10 +117,12 @@ export function FeaturedServicesSection({ services }: FeaturedServicesSectionPro
                             <Link href={`/hizmetler/${service.category?.slug}/${service.slug}`} className="group block">
                                 <div className="relative aspect-[4/3] overflow-hidden bg-[#f0f0f0]">
                                     {service.image && (
-                                        <img
+                                        <Image
+                                            fill
                                             src={service.image}
                                             alt={service.title}
-                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                            sizes="(max-width: 768px) 100vw, 33vw"
                                         />
                                     )}
 
@@ -153,10 +158,12 @@ export function FeaturedServicesSection({ services }: FeaturedServicesSectionPro
                             <Link href={`/hizmetler/${service.category?.slug}/${service.slug}`} className="group block">
                                 <div className="relative aspect-[4/3] overflow-hidden bg-[#f0f0f0]">
                                     {service.image && (
-                                        <img
+                                        <Image
+                                            fill
                                             src={service.image}
                                             alt={service.title}
-                                            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                            sizes="(max-width: 768px) 100vw, 33vw"
                                         />
                                     )}
 

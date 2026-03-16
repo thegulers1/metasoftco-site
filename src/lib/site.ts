@@ -55,7 +55,7 @@ export function generateMetaTags(page?: {
         : siteConfig.title;
     const description = page?.description || siteConfig.description;
     const keywords = [...siteConfig.keywords, ...(page?.keywords || [])].join(", ");
-    const image = page?.image || `${siteConfig.url}/og-image.jpg`;
+    const image = page?.image || `${siteConfig.url}/og`;
     const url = page?.url || siteConfig.url;
     const type = page?.type || "website";
 
@@ -153,7 +153,7 @@ export function generateLocalBusinessSchema() {
             "@type": "ImageObject",
             url: `${siteConfig.url}/logo.png`,
         },
-        image: `${siteConfig.url}/og-image.jpg`,
+        image: `${siteConfig.url}/og`,
         foundingDate: siteConfig.company.foundingDate,
         founders: siteConfig.company.founders.map((name) => ({
             "@type": "Person",
@@ -222,6 +222,20 @@ export function generateFAQSchema(faqs: { question: string; answer: string }[]) 
                 "@type": "Answer",
                 text: faq.answer,
             },
+        })),
+    };
+}
+
+// JSON-LD BreadcrumbList schema
+export function generateBreadcrumbSchema(items: { name: string; url: string }[]) {
+    return {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        itemListElement: items.map((item, index) => ({
+            "@type": "ListItem",
+            position: index + 1,
+            name: item.name,
+            item: item.url,
         })),
     };
 }

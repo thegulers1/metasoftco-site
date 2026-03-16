@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Metadata } from "next";
 import { prisma } from "@/lib/db";
 import { siteConfig } from "@/lib/site";
@@ -67,10 +68,12 @@ export default async function BlogPage() {
                                 {/* Kapak Görseli */}
                                 <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl bg-black/5">
                                     {post.image ? (
-                                        <img
+                                        <Image
+                                            fill
                                             src={post.image}
                                             alt={post.title}
-                                            className="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                                            className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                                         />
                                     ) : (
                                         <div className="absolute inset-0 bg-gradient-to-br from-orange-500 via-red-500 to-purple-600 transition-transform duration-500 group-hover:scale-105" />

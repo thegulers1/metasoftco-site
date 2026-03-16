@@ -1,5 +1,6 @@
 import { MetadataRoute } from "next";
 import { prisma } from "@/lib/db";
+import { sectors } from "./(site)/cozumler/data";
 
 // Build sırasında DB bağlantısı yok — request zamanında render et
 export const dynamic = "force-dynamic";
@@ -104,5 +105,21 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         priority: 0.6,
     }));
 
-    return [...staticPages, ...servicePages, ...projectPages, ...blogPages];
+    // Sektörel çözüm sayfaları (programatik SEO)
+    const sectorPages: MetadataRoute.Sitemap = [
+        {
+            url: `${baseUrl}/cozumler`,
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.8,
+        },
+        ...sectors.map((s) => ({
+            url: `${baseUrl}/cozumler/${s.slug}`,
+            lastModified: new Date(),
+            changeFrequency: "monthly" as const,
+            priority: 0.7,
+        })),
+    ];
+
+    return [...staticPages, ...sectorPages, ...servicePages, ...projectPages, ...blogPages];
 }

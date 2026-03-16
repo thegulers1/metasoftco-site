@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 import { useLanguage } from "@/providers/LanguageProvider";
 import { Globe } from "lucide-react";
@@ -41,10 +42,13 @@ export default function Navbar() {
                 <div className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between px-6 sm:px-8">
                     {/* Logo */}
                     <Link href="/" className="z-50 flex items-center">
-                        <img
+                        <Image
                             src="/blackLogo.png"
                             alt="METASOFTCO"
+                            width={160}
+                            height={40}
                             className="h-8 md:h-10 w-auto object-contain"
+                            priority
                         />
                     </Link>
 
@@ -64,7 +68,7 @@ export default function Navbar() {
                             <CircularTextButton
                                 text={t("İLETİŞİME GEÇ ", "GET IN TOUCH ")}
                                 href="/iletisim"
-                                className="scale-75 origin-center hover:scale-[0.8] transition-transform"
+                                style={{ width: "75px", height: "75px" }}
                             />
                         </div>
 

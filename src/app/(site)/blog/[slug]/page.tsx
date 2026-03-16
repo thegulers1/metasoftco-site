@@ -1,8 +1,9 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { prisma } from "@/lib/db";
-import { siteConfig, generateFAQSchema } from "@/lib/site";
+import { siteConfig, generateFAQSchema, generateBreadcrumbSchema } from "@/lib/site";
 import Container from "@/components/site/Container";
 
 export const dynamic = 'force-dynamic';
@@ -24,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     const title = post.metaTitle || post.title;
     const description = post.metaDescription || post.excerpt || siteConfig.description;
-    const image = post.ogImage || post.image || `${siteConfig.url}/og-image.jpg`;
+    const image = post.ogImage || post.image || `${siteConfig.url}/og`;
 
     return {
         title,
@@ -63,7 +64,7 @@ export default async function BlogPostPage({ params }: Props) {
         "@type": "BlogPosting",
         headline: post.title,
         description: post.excerpt || post.metaDescription,
-        image: post.image || post.ogImage || `${siteConfig.url}/og-image.jpg`,
+        image: post.image || post.ogImage || `${siteConfig.url}/og`,
         datePublished: post.publishedAt?.toISOString(),
         dateModified: post.updatedAt.toISOString(),
         author: {
@@ -85,11 +86,21 @@ export default async function BlogPostPage({ params }: Props) {
         inLanguage: "tr-TR",
     };
 
+    const breadcrumbSchema = generateBreadcrumbSchema([
+        { name: "Anasayfa", url: siteConfig.url },
+        { name: "Blog", url: `${siteConfig.url}/blog` },
+        { name: post.title, url: `${siteConfig.url}/blog/${post.slug}` },
+    ]);
+
     return (
         <>
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPostingSchema) }}
+            />
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
             />
 
             <article className="py-24 bg-white min-h-screen">
@@ -139,10 +150,13 @@ export default async function BlogPostPage({ params }: Props) {
                     {/* Kapak Görseli */}
                     {post.image && (
                         <div className="relative aspect-[16/7] w-full overflow-hidden rounded-2xl mb-14 bg-black/5">
-                            <img
+                            <Image
+                                fill
                                 src={post.image}
                                 alt={post.title}
-                                className="absolute inset-0 w-full h-full object-cover"
+                                className="object-cover"
+                                sizes="(max-width: 1200px) 100vw, 1200px"
+                                priority
                             />
                         </div>
                     )}

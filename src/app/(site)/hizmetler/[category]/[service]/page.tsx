@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
-import { siteConfig, generateServiceSchema } from "@/lib/site";
+import { siteConfig, generateServiceSchema, generateBreadcrumbSchema } from "@/lib/site";
 import Link from "next/link";
 import Image from "next/image";
 import GalleryLightbox from "@/components/site/GalleryLightbox";
@@ -117,8 +117,19 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         category: categoryData.name,
     });
 
+    const breadcrumbSchema = generateBreadcrumbSchema([
+        { name: "Anasayfa", url: siteConfig.url },
+        { name: "Hizmetler", url: `${siteConfig.url}/hizmetler` },
+        { name: categoryData.name, url: `${siteConfig.url}/hizmetler/${category}` },
+        { name: service.title, url: `${siteConfig.url}/hizmetler/${category}/${serviceSlug}` },
+    ]);
+
     return (
         <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+            />
             <AdminEditUrlSetter url={`/editpanel/services/${service.id}/edit`} />
             <ServiceDetailClient
                 service={service}

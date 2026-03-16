@@ -9,10 +9,11 @@ interface CircularTextButtonProps {
     text: string;
     href: string;
     className?: string;
+    style?: React.CSSProperties;
     onClick?: () => void;
 }
 
-export function CircularTextButton({ text, href, className, onClick }: CircularTextButtonProps) {
+export function CircularTextButton({ text, href, className, style, onClick }: CircularTextButtonProps) {
     const characters = text.split("");
     const angleStep = 360 / characters.length;
 
@@ -21,6 +22,7 @@ export function CircularTextButton({ text, href, className, onClick }: CircularT
             href={href}
             onClick={onClick}
             className={cn(styles.button, className)}
+            style={style}
         >
             <p className={styles.buttonText}>
                 {characters.map((char, i) => (

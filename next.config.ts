@@ -6,6 +6,21 @@ const nextConfig: NextConfig = {
   // Build sırasında TS hatalarının CI'ı kırmasını engelle
   typescript: { ignoreBuildErrors: true },
 
+  async headers() {
+    return [
+      {
+        source: "/(.*)",
+        headers: [
+          { key: "X-Content-Type-Options", value: "nosniff" },
+          { key: "X-Frame-Options", value: "SAMEORIGIN" },
+          { key: "X-XSS-Protection", value: "1; mode=block" },
+          { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+          { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+        ],
+      },
+    ];
+  },
+
   // Eski site URL'leri için kalıcı yönlendirmeler (301) — Google indexinden temizlemek için
   async redirects() {
     return [

@@ -1,9 +1,45 @@
+import { Metadata } from "next";
 import { prisma } from "@/lib/db";
+import { siteConfig } from "@/lib/site";
 import { notFound } from "next/navigation";
 import { AdminEditUrlSetter } from "@/components/site/AdminBar";
 import ProjectDetailClient from "./ProjectDetailClient";
 
 export const dynamic = 'force-dynamic';
+
+export async function generateMetadata({
+    params,
+}: {
+    params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+    const { slug } = await params;
+    const project = await prisma.project.findUnique({
+        where: { slug },
+        select: { title: true, description: true, image: true },
+    });
+    if (!project) return {};
+
+    const title = `${project.title} | MetasoftCo`;
+    const description = project.description || siteConfig.description;
+    const image = project.image || `${siteConfig.url}/og?title=${encodeURIComponent(project.title)}`;
+    const url = `${siteConfig.url}/projeler/${slug}`;
+
+    return {
+        title,
+        description,
+        openGraph: {
+            title,
+            description,
+            url,
+            siteName: siteConfig.name,
+            images: [{ url: image, width: 1200, height: 630 }],
+            locale: siteConfig.locale,
+            type: "website",
+        },
+        twitter: { card: "summary_large_image", title, description, images: [image] },
+        alternates: { canonical: url },
+    };
+}
 
 async function getProject(slug: string) {
     return prisma.project.findUnique({
