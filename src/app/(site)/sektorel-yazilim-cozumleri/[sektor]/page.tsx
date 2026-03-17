@@ -17,7 +17,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const sector = getSectorBySlug(sektor);
     if (!sector) return {};
 
-    const url = `${siteConfig.url}/cozumler/${sector.slug}`;
+    const url = `${siteConfig.url}/sektorel-yazilim-cozumleri/${sector.slug}`;
     const image = `${siteConfig.url}/og?title=${encodeURIComponent(sector.name)}&desc=${encodeURIComponent(sector.heroSubtitle)}`;
 
     return {
@@ -46,8 +46,8 @@ export default async function SektorPage({ params }: PageProps) {
     const faqSchema = generateFAQSchema(sector.faqs);
     const breadcrumbSchema = generateBreadcrumbSchema([
         { name: "Anasayfa", url: siteConfig.url },
-        { name: "Çözümler", url: `${siteConfig.url}/cozumler` },
-        { name: sector.name, url: `${siteConfig.url}/cozumler/${sector.slug}` },
+        { name: "Çözümler", url: `${siteConfig.url}/sektorel-yazilim-cozumleri` },
+        { name: sector.name, url: `${siteConfig.url}/sektorel-yazilim-cozumleri/${sector.slug}` },
     ]);
 
     return (
@@ -62,7 +62,7 @@ export default async function SektorPage({ params }: PageProps) {
                         <nav className="flex items-center gap-2 text-xs text-white/40 mb-8">
                             <Link href="/" className="hover:text-white transition-colors">Anasayfa</Link>
                             <span>/</span>
-                            <Link href="/cozumler" className="hover:text-white transition-colors">Çözümler</Link>
+                            <Link href="/sektorel-yazilim-cozumleri" className="hover:text-white transition-colors">Çözümler</Link>
                             <span>/</span>
                             <span className="text-white/70">{sector.name}</span>
                         </nav>

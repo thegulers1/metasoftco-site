@@ -1,6 +1,6 @@
 export const siteConfig = {
     name: "MetasoftCo",
-    title: "MetasoftCo | İnteraktif Etkinlik Deneyimleri, Yapay Zeka ve Yazılım",
+    title: "Metasoftco: İnteraktif Etkinlik Teknolojileri & Yazılım",
     description:
         "Etkinliklerde interaktif oyunlar, photobooth çözümleri, AI photo/face swap ve özel yazılımlar geliştiriyoruz. Markanızı unutulmaz deneyimlerle büyütün.",
     url: "https://metasoftco.com",

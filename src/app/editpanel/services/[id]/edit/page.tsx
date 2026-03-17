@@ -265,7 +265,7 @@ export default function EditServicePage({
                     <>
                         <div>
                             <label className="block text-sm font-medium text-black/70 mb-2">
-                                Başlık
+                                Başlık <span className="text-black/30 font-normal">(Sayfada H1 olarak görünür)</span>
                             </label>
                             <input
                                 type="text"
@@ -282,6 +282,7 @@ export default function EditServicePage({
                                 }}
                                 className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
                             />
+                            <p className="text-xs text-black/40 mt-1">Kısa ve vurucu tutun — örn: <em>Reflex Game</em></p>
                         </div>
 
                         <div>
@@ -347,15 +348,16 @@ export default function EditServicePage({
 
                         <div>
                             <label className="block text-sm font-medium text-black/70 mb-2">
-                                Açıklama
+                                Spot Metin <span className="text-black/30 font-normal">(Başlık altında görünür)</span>
                             </label>
                             <textarea
                                 value={service.description || ""}
                                 onChange={(e) => setService({ ...service, description: e.target.value })}
                                 rows={3}
                                 className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
-                                placeholder="Kısa açıklama (listelerde görünür)"
+                                placeholder="Örn: Hızın ve heyecanın zirvesini etkinliğinize taşıyoruz."
                             />
+                            <p className="text-xs text-black/40 mt-1">H1 başlığının hemen altında şık küçük bir font ile görünür</p>
                         </div>
 
                         <div>
@@ -377,7 +379,7 @@ export default function EditServicePage({
                             </label>
                             <RichTextEditor
                                 value={service.content || ""}
-                                onChange={(value) => setService({ ...service, content: value })}
+                                onChange={(value) => setService(prev => prev ? { ...prev, content: value } : prev)}
                                 placeholder="Hizmet detay sayfasında görünecek içerik..."
                             />
                             <p className="mt-1 text-xs text-black/40">
@@ -391,7 +393,7 @@ export default function EditServicePage({
                             </label>
                             <RichTextEditor
                                 value={service.content_en || ""}
-                                onChange={(value) => setService({ ...service, content_en: value })}
+                                onChange={(value) => setService(prev => prev ? { ...prev, content_en: value } : prev)}
                                 placeholder="Hizmet detay sayfasında görünecek içerik (İngilizce)..."
                             />
                         </div>
@@ -538,7 +540,7 @@ export default function EditServicePage({
 
                         <div>
                             <label className="block text-sm font-medium text-black/70 mb-2">
-                                Meta Başlık
+                                Meta Başlık <span className="text-black/30 font-normal">(Sadece Google görür)</span>
                             </label>
                             <input
                                 type="text"
@@ -548,7 +550,7 @@ export default function EditServicePage({
                                 className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
                             />
                             <p className="mt-1 text-xs text-black/40">
-                                Google sonuçlarında görünecek başlık (max 60 karakter)
+                                Sayfada görünmez — sadece arama sonuçlarında gösterilir. Uzun ve anahtar kelime dolu olabilir (max 60 karakter)
                             </p>
                         </div>
 

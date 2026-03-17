@@ -6,12 +6,19 @@ import ServicesListClient from "./ServicesListClient";
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-    title: "Hizmetlerimiz",
-    description: "MetasoftCo'nun sunduğu yapay zeka, fotoğraf & video ve interaktif hizmetler. Etkinlikleriniz için profesyonel çözümler.",
+    title: "İnteraktif Etkinlik Hizmetleri ve Dijital Aktivasyonlar | MetasoftCo",
+    description: "MetasoftCo'nun sunduğu yapay zeka, fotoğraf & video ve interaktif hizmetler. Etkinlikleriniz için profesyonel dijital aktivasyon çözümleri.",
     openGraph: {
-        title: "Hizmetlerimiz | MetasoftCo",
+        title: "İnteraktif Etkinlik Hizmetleri ve Dijital Aktivasyonlar | MetasoftCo",
         description: "Yapay zeka, fotoğraf & video ve interaktif hizmetlerimizi keşfedin.",
         url: `${siteConfig.url}/hizmetler`,
+    },
+    alternates: {
+        canonical: `${siteConfig.url}/hizmetler`,
+        languages: {
+            "tr": `${siteConfig.url}/hizmetler`,
+            "en": `${siteConfig.url}/en/services`,
+        },
     },
 };
 

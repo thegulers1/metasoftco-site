@@ -25,8 +25,37 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       { source: "/star-map", destination: "/", permanent: true },
-      // Buraya eski sitedeki diğer URL'leri ekleyebilirsiniz:
-      // { source: "/eski-sayfa", destination: "/", permanent: true },
+
+      // /cozumler → /sektorel-yazilim-cozumleri (301 kalıcı yönlendirme)
+      { source: "/cozumler", destination: "/sektorel-yazilim-cozumleri", permanent: true },
+      { source: "/cozumler/:path*", destination: "/sektorel-yazilim-cozumleri/:path*", permanent: true },
+
+      // Tekstil sektörü slug güncelleme
+      { source: "/sektorel-yazilim-cozumleri/tekstil-sektoru", destination: "/sektorel-yazilim-cozumleri/tekstil-sektoru-dijital-donusum", permanent: true },
+
+      // Kategori: yapay-zeka → yapay-zeka-etkinlik-cozumlari
+      { source: "/hizmetler/yapay-zeka", destination: "/hizmetler/yapay-zeka-etkinlik-cozumlari", permanent: true },
+      { source: "/hizmetler/yapay-zeka/:path*", destination: "/hizmetler/yapay-zeka-etkinlik-cozumlari/:path*", permanent: true },
+
+      // Hizmet slug güncellemeleri — yapay-zeka kategorisi
+      { source: "/hizmetler/yapay-zeka-etkinlik-cozumlari/ai-draw", destination: "/hizmetler/yapay-zeka-etkinlik-cozumlari/ai-draw-portre-cizim", permanent: true },
+      { source: "/hizmetler/yapay-zeka-etkinlik-cozumlari/ai-fashion-mirror", destination: "/hizmetler/yapay-zeka-etkinlik-cozumlari/ai-fashion-mirror-akilli-ayna", permanent: true },
+
+      // Hizmet slug güncellemeleri — interaktif kategorisi
+      // Reflex Game: tüm eski slug'lar → yeni final slug
+      { source: "/hizmetler/interaktif/reflex-game-interaktif-etkinlik-cozumu", destination: "/hizmetler/interaktif/reflex-game-hiz-ve-rekabet-oyunu", permanent: true },
+      { source: "/hizmetler/interaktif/reflex-game-interaktif-hiz-oyunu", destination: "/hizmetler/interaktif/reflex-game-hiz-ve-rekabet-oyunu", permanent: true },
+
+      // Dijital Hediye Çarkı: tüm eski slug'lar → yeni final slug
+      { source: "/hizmetler/interaktif/digital-gift-wheel", destination: "/hizmetler/interaktif/dijital-hediye-carki-aktivasyonu", permanent: true },
+      { source: "/hizmetler/interaktif/dijital-hediye-carki-etkinlik", destination: "/hizmetler/interaktif/dijital-hediye-carki-aktivasyonu", permanent: true },
+
+      // Diğer interaktif hizmet slug güncellemeleri
+      { source: "/hizmetler/interaktif/memory-game", destination: "/hizmetler/interaktif/interaktif-hafiza-oyunu-kiralama", permanent: true },
+      { source: "/hizmetler/interaktif/recycle-win", destination: "/hizmetler/interaktif/geri-donusum-oyunu-recycle-win", permanent: true },
+
+      // Blog yazısı slug güncelleme
+      { source: "/blog/etkinlikte-ai-photobooth-neden-kullanmali", destination: "/blog/etkinliklerde-ai-photobooth-avantajlari", permanent: true },
     ];
   },
 

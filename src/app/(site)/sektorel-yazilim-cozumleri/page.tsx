@@ -4,25 +4,32 @@ import { siteConfig } from "@/lib/site";
 import { sectors } from "./data";
 
 export const metadata: Metadata = {
-    title: "Sektörel Çözümler | MetasoftCo",
+    title: "Sektörel Yazılım Çözümleri ve Dijital Dönüşüm | MetasoftCo",
     description:
         "Tekstil, sağlık, gıda, otomotiv, perakende, finans ve teknoloji sektörlerine özel interaktif etkinlik teknolojileri ve yazılım çözümleri. MetasoftCo sektörünüzü anlıyor.",
     keywords: [
         "sektörel yazılım çözümleri",
+        "dijital dönüşüm",
         "sektöre özel etkinlik teknolojisi",
         "interaktif etkinlik çözümleri",
         "marka aktivasyonu çözümleri türkiye",
     ],
     openGraph: {
-        title: "Sektörel Çözümler | MetasoftCo",
+        title: "Sektörel Yazılım Çözümleri ve Dijital Dönüşüm | MetasoftCo",
         description: "Sektörünüze özel interaktif etkinlik ve yazılım çözümleri.",
-        url: `${siteConfig.url}/cozumler`,
+        url: `${siteConfig.url}/sektorel-yazilim-cozumleri`,
         siteName: siteConfig.name,
-        images: [{ url: `${siteConfig.url}/og?title=Sektörel+Çözümler&desc=Sektörünüze+özel+dijital+deneyimler`, width: 1200, height: 630 }],
+        images: [{ url: `${siteConfig.url}/og?title=Sektörel+Yazılım+Çözümleri&desc=Dijital+dönüşüm+ve+etkinlik+teknolojileri`, width: 1200, height: 630 }],
         locale: siteConfig.locale,
         type: "website",
     },
-    alternates: { canonical: `${siteConfig.url}/cozumler` },
+    alternates: {
+        canonical: `${siteConfig.url}/sektorel-yazilim-cozumleri`,
+        languages: {
+            "tr": `${siteConfig.url}/sektorel-yazilim-cozumleri`,
+            "en": `${siteConfig.url}/en/industry-software-solutions`,
+        },
+    },
 };
 
 export default function CozumlerPage() {
@@ -47,7 +54,7 @@ export default function CozumlerPage() {
                     {sectors.map((sector) => (
                         <Link
                             key={sector.slug}
-                            href={`/cozumler/${sector.slug}`}
+                            href={`/sektorel-yazilim-cozumleri/${sector.slug}`}
                             className="group block border border-black/10 p-6 hover:border-red-600 hover:bg-red-600 transition-all duration-300"
                         >
                             <h2 className="text-xl font-bold text-black group-hover:text-white mb-2 tracking-tight">

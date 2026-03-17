@@ -6,10 +6,10 @@ import ServicesListClient from "@/app/(site)/hizmetler/ServicesListClient";
 export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
-    title: "Our Services | MetasoftCo",
-    description: "AI-powered experiences, photobooth systems, interactive games and custom software by MetasoftCo. Professional solutions for your events.",
+    title: "Interactive Event Services & Digital Activations | MetasoftCo",
+    description: "AI-powered experiences, photobooth systems, interactive games and custom software by MetasoftCo. Professional digital activation solutions for your events.",
     openGraph: {
-        title: "Our Services | MetasoftCo",
+        title: "Interactive Event Services & Digital Activations | MetasoftCo",
         description: "Explore our AI, photo & video, and interactive event services.",
         url: `${siteConfig.url}/en/services`,
         siteName: siteConfig.name,

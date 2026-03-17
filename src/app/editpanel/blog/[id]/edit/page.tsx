@@ -230,7 +230,7 @@ export default function EditBlogPostPage({
                             <label className="block text-sm font-medium text-black/70 mb-2">İçerik (TR)</label>
                             <RichTextEditor
                                 value={formData.content}
-                                onChange={(val) => setFormData({ ...formData, content: val })}
+                                onChange={(val) => setFormData(prev => ({ ...prev, content: val }))}
                                 placeholder="Blog içeriği..."
                             />
                         </div>
@@ -239,7 +239,7 @@ export default function EditBlogPostPage({
                             <label className="block text-sm font-medium text-black/70 mb-2">İçerik (EN)</label>
                             <RichTextEditor
                                 value={formData.content_en}
-                                onChange={(val) => setFormData({ ...formData, content_en: val })}
+                                onChange={(val) => setFormData(prev => ({ ...prev, content_en: val }))}
                                 placeholder="Blog content in English..."
                             />
                         </div>

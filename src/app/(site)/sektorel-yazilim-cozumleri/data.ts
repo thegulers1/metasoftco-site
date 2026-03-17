@@ -14,10 +14,10 @@ export interface SectorData {
 
 export const sectors: SectorData[] = [
     {
-        slug: "tekstil-sektoru",
+        slug: "tekstil-sektoru-dijital-donusum",
         name: "Tekstil & Moda",
-        title: "Tekstil ve Moda Sektörü İçin İnteraktif Deneyimler",
-        metaTitle: "Tekstil Sektörü İçin İnteraktif Etkinlik & Dijital Çözümler | MetasoftCo",
+        title: "Tekstil Sektörü İçin Dijital Dönüşüm ve Yazılım Çözümleri",
+        metaTitle: "Tekstil Sektörü İçin Dijital Dönüşüm ve Yazılım Çözümleri | MetasoftCo",
         metaDescription:
             "Tekstil ve moda markalarına özel photobooth, AI yüz değiştirme, marka aktivasyonu ve interaktif etkinlik teknolojileri. Koleksiyonlarınızı unutulmaz deneyimlere dönüştürün.",
         keywords: [
