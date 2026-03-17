@@ -37,9 +37,17 @@ export default async function AdminServicesPage() {
                         <h2 className="text-lg font-semibold text-black">
                             {category.name}
                         </h2>
-                        <span className="text-sm text-black/50">
-                            {category.services.length} hizmet
-                        </span>
+                        <div className="flex items-center gap-3">
+                            <span className="text-sm text-black/50">
+                                {category.services.length} hizmet
+                            </span>
+                            <Link
+                                href={`/editpanel/services/categories/${category.id}/edit`}
+                                className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium bg-black/5 text-black/60 rounded-lg hover:bg-black/10 transition"
+                            >
+                                Kategoriyi Düzenle
+                            </Link>
+                        </div>
                     </div>
 
                     <div className="bg-white rounded-2xl shadow-sm overflow-hidden">

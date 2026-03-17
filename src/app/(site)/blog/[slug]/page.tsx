@@ -3,7 +3,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { prisma } from "@/lib/db";
-import { siteConfig, generateFAQSchema, generateBreadcrumbSchema } from "@/lib/site";
+import { siteConfig, generateBreadcrumbSchema } from "@/lib/site";
 import Container from "@/components/site/Container";
 
 export const dynamic = 'force-dynamic';
@@ -109,7 +109,7 @@ export default async function BlogPostPage({ params }: Props) {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
             />
 
-            <article className="py-24 bg-white min-h-screen">
+            <article className="py-24 bg-white min-h-screen overflow-x-hidden">
                 <Container>
                     {/* Geri Butonu */}
                     <div className="mb-10">
@@ -170,7 +170,7 @@ export default async function BlogPostPage({ params }: Props) {
                     {/* İçerik */}
                     {post.content && (
                         <div
-                            className="prose prose-lg max-w-3xl prose-headings:font-black prose-headings:tracking-tight prose-a:text-black prose-a:underline"
+                            className="prose prose-lg max-w-3xl prose-headings:font-black prose-headings:tracking-tight prose-a:text-black prose-a:underline overflow-x-hidden break-words"
                             dangerouslySetInnerHTML={{ __html: post.content }}
                         />
                     )}

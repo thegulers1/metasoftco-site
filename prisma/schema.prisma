@@ -14,6 +14,9 @@ model ServiceCategory {
   name               String
   slug               String    @unique
   order              Int       @default(0)
+  // Hub Sayfası İçerik Alanları
+  heroTitle          String?
+  heroContent        String?   @db.Text
   // SEO Alanları
   metaTitle          String?
   metaDescription    String?

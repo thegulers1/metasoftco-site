@@ -41,6 +41,7 @@ export async function PUT(
         const body = await request.json();
         const {
             name, slug, order,
+            heroTitle, heroContent,
             // SEO
             metaTitle, metaDescription, metaKeywords,
             // English
@@ -53,6 +54,8 @@ export async function PUT(
                 name,
                 slug,
                 order,
+                heroTitle,
+                heroContent,
                 // SEO
                 metaTitle,
                 metaDescription,
