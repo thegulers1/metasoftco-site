@@ -11,7 +11,7 @@ async function main() {
     console.log("🔄 SEO slug güncellemeleri başlıyor...\n");
 
     // ─────────────────────────────────────────────────────────────
-    // 1. ServiceCategory: yapay-zeka → yapay-zeka-etkinlik-cozumlari
+    // 1. ServiceCategory: yapay-zeka → yapay-zeka-etkinlik-cozumleri
     // ─────────────────────────────────────────────────────────────
     const yapayzeka = await prisma.serviceCategory.findUnique({
         where: { slug: "yapay-zeka" },
@@ -21,11 +21,11 @@ async function main() {
         await prisma.serviceCategory.update({
             where: { slug: "yapay-zeka" },
             data: {
-                slug: "yapay-zeka-etkinlik-cozumlari",
+                slug: "yapay-zeka-etkinlik-cozumleri",
                 metaTitle: "Yapay Zeka Destekli Etkinlik ve Deneyim Çözümleri | MetasoftCo",
             },
         });
-        console.log("✅ Kategori: yapay-zeka → yapay-zeka-etkinlik-cozumlari");
+        console.log("✅ Kategori: yapay-zeka → yapay-zeka-etkinlik-cozumleri");
     } else {
         console.log("⚠️  Kategori 'yapay-zeka' bulunamadı, atlanıyor.");
     }
@@ -35,7 +35,7 @@ async function main() {
     // ─────────────────────────────────────────────────────────────
     // Kategori artık güncellendi, yeni slug ile bul
     const yapayzeka2 = await prisma.serviceCategory.findUnique({
-        where: { slug: "yapay-zeka-etkinlik-cozumlari" },
+        where: { slug: "yapay-zeka-etkinlik-cozumleri" },
     });
 
     if (yapayzeka2) {

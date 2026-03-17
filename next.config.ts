@@ -33,13 +33,12 @@ const nextConfig: NextConfig = {
       // Tekstil sektörü slug güncelleme
       { source: "/sektorel-yazilim-cozumleri/tekstil-sektoru", destination: "/sektorel-yazilim-cozumleri/tekstil-sektoru-dijital-donusum", permanent: true },
 
-      // Kategori: yapay-zeka → yapay-zeka-etkinlik-cozumlari
-      { source: "/hizmetler/yapay-zeka", destination: "/hizmetler/yapay-zeka-etkinlik-cozumlari", permanent: true },
-      { source: "/hizmetler/yapay-zeka/:path*", destination: "/hizmetler/yapay-zeka-etkinlik-cozumlari/:path*", permanent: true },
-
+      // Kategori: yapay-zeka → yapay-zeka-etkinlik-cozumleri
+      { source: "/hizmetler/yapay-zeka", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri", permanent: true },
+      { source: "/hizmetler/yapay-zeka/:path*", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/:path*", permanent: true },
       // Hizmet slug güncellemeleri — yapay-zeka kategorisi
-      { source: "/hizmetler/yapay-zeka-etkinlik-cozumlari/ai-draw", destination: "/hizmetler/yapay-zeka-etkinlik-cozumlari/ai-draw-portre-cizim", permanent: true },
-      { source: "/hizmetler/yapay-zeka-etkinlik-cozumlari/ai-fashion-mirror", destination: "/hizmetler/yapay-zeka-etkinlik-cozumlari/ai-fashion-mirror-akilli-ayna", permanent: true },
+      { source: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-draw", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-draw-portre-cizim", permanent: true },
+      { source: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-fashion-mirror", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-fashion-mirror-akilli-ayna", permanent: true },
 
       // Hizmet slug güncellemeleri — interaktif kategorisi
       // Reflex Game: tüm eski slug'lar → yeni final slug
