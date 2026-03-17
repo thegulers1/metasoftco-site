@@ -9,6 +9,7 @@ type Language = "tr" | "en";
 interface LanguageContextType {
     language: Language;
     setLanguage: (lang: Language) => void;
+    setAlternateUrl: (trUrl: string, enUrl: string) => void;
     t: (tr: string, en: string) => string;
 }
 
@@ -21,19 +22,26 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     // Derive language from URL — /en/* → "en", everything else → "tr"
     const langFromUrl: Language = pathname?.startsWith("/en") ? "en" : "tr";
     const [language, setLanguageState] = useState<Language>(langFromUrl);
+    const [alternateUrls, setAlternateUrls] = useState<{ tr: string; en: string } | null>(null);
 
     // Keep state in sync when pathname changes (e.g. back/forward navigation)
     useEffect(() => {
         setLanguageState(langFromUrl);
         Cookies.set("NEXT_LOCALE", langFromUrl, { expires: 365 });
+        // Reset alternate URLs on navigation
+        setAlternateUrls(null);
     }, [langFromUrl]);
+
+    const setAlternateUrl = (trUrl: string, enUrl: string) => {
+        setAlternateUrls({ tr: trUrl, en: enUrl });
+    };
 
     const setLanguage = (lang: Language) => {
         if (lang === language) return;
         if (lang === "en") {
-            router.push("/en");
+            router.push(alternateUrls?.en ?? "/en");
         } else {
-            router.push("/");
+            router.push(alternateUrls?.tr ?? "/");
         }
     };
 
@@ -42,7 +50,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     };
 
     return (
-        <LanguageContext.Provider value={{ language, setLanguage, t }}>
+        <LanguageContext.Provider value={{ language, setLanguage, setAlternateUrl, t }}>
             {children}
         </LanguageContext.Provider>
     );

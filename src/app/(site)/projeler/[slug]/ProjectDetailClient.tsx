@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useLanguage } from "@/providers/LanguageProvider";
@@ -8,6 +9,7 @@ import GalleryLightbox from "@/components/site/GalleryLightbox";
 interface Project {
     id: string;
     slug: string;
+    slug_en?: string | null;
     title: string;
     title_en: string | null;
     description: string | null;
@@ -23,7 +25,13 @@ interface Project {
 }
 
 export default function ProjectDetailClient({ project }: { project: Project }) {
-    const { language, t } = useLanguage();
+    const { language, t, setAlternateUrl } = useLanguage();
+
+    useEffect(() => {
+        const trUrl = `/projeler/${project.slug}`;
+        const enUrl = project.slug_en ? `/en/projects/${project.slug_en}` : "/en/projects";
+        setAlternateUrl(trUrl, enUrl);
+    }, [project.slug, project.slug_en]);
 
     const title = language === "en" ? (project.title_en || project.title) : project.title;
     const description = language === "en" ? (project.description_en || project.description) : project.description;

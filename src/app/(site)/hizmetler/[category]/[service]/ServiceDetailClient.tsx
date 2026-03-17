@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import GalleryLightbox from "@/components/site/GalleryLightbox";
 import VideoPlayer from "@/components/site/VideoPlayer";
@@ -22,7 +23,15 @@ export default function ServiceDetailClient({
     serviceSchema,
     category,
 }: ServiceDetailClientProps) {
-    const { language, t } = useLanguage();
+    const { language, t, setAlternateUrl } = useLanguage();
+
+    useEffect(() => {
+        const trUrl = `/hizmetler/${categoryData.slug}/${service.slug}`;
+        const enUrl = (service.slug_en && categoryData.slug_en)
+            ? `/en/services/${categoryData.slug_en}/${service.slug_en}`
+            : "/en/services";
+        setAlternateUrl(trUrl, enUrl);
+    }, [service.slug, service.slug_en, categoryData.slug, categoryData.slug_en]);
 
     const title = language === "en" ? (service.title_en || service.title) : service.title;
     const categoryName = language === "en" ? (categoryData.name_en || categoryData.name) : categoryData.name;
