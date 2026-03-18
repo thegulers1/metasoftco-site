@@ -27,6 +27,7 @@ model ServiceCategory {
   name_en            String?
   metaTitle_en       String?
   metaDescription_en String?
+  metaKeywords_en    String?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

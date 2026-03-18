@@ -45,7 +45,7 @@ export async function PUT(
             // SEO
             metaTitle, metaDescription, metaKeywords,
             // English
-            name_en, metaTitle_en, metaDescription_en
+            name_en, metaTitle_en, metaDescription_en, metaKeywords_en
         } = body;
 
         const category = await prisma.serviceCategory.update({
@@ -64,6 +64,7 @@ export async function PUT(
                 name_en,
                 metaTitle_en,
                 metaDescription_en,
+                metaKeywords_en,
             },
         });
 

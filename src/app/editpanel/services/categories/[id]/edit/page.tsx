@@ -20,6 +20,7 @@ interface Category {
     name_en: string | null;
     metaTitle_en: string | null;
     metaDescription_en: string | null;
+    metaKeywords_en: string | null;
 }
 
 export default function EditCategoryPage({ params }: { params: Promise<{ id: string }> }) {
@@ -255,6 +256,18 @@ export default function EditCategoryPage({ params }: { params: Promise<{ id: str
                                             value={category.metaDescription_en || ""}
                                             onChange={(e) => setCategory({ ...category, metaDescription_en: e.target.value })}
                                             className="w-full px-4 py-2.5 bg-black/[0.03] border border-black/10 rounded-lg text-sm focus:outline-none focus:border-black/30 resize-none"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-medium text-black/60 mb-1.5 uppercase tracking-wider">
+                                            Anahtar Kelimeler (EN)
+                                        </label>
+                                        <input
+                                            type="text"
+                                            value={category.metaKeywords_en || ""}
+                                            onChange={(e) => setCategory({ ...category, metaKeywords_en: e.target.value })}
+                                            placeholder="keyword1, keyword2, keyword3"
+                                            className="w-full px-4 py-2.5 bg-black/[0.03] border border-black/10 rounded-lg text-sm focus:outline-none focus:border-black/30"
                                         />
                                     </div>
                                 </div>
