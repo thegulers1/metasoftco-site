@@ -182,14 +182,14 @@ export default function ServiceDetailClient({
                     <p className="text-[10px] uppercase tracking-[0.3em] text-white/30 font-semibold mb-4">
                         {t("Etkinliğinizi Planlayalım", "Let's Plan Your Event")}
                     </p>
-                    <h2
+                    <p
                         className="text-3xl sm:text-4xl font-light text-white tracking-tighter leading-[1.1] uppercase mb-4"
                         style={{ fontFamily: "var(--font-inter-tight)" }}
                     >
                         {t("Projeniz için", "Ready for your")}
                         <br />
                         <span className="font-bold">{t("Hemen Teklif Alın", "Get a Quote Now")}</span>
-                    </h2>
+                    </p>
                     <p className="text-white/40 text-sm leading-relaxed max-w-md mx-auto mb-8">
                         {t(
                             "Markanıza özel çözümler için ekibimizle hemen iletişime geçin. Size 24 saat içinde geri döneceğiz.",

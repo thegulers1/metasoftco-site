@@ -41,6 +41,7 @@ export async function generateMetadata({
             canonical: url,
             ...(project.slug_en && {
                 languages: {
+                    "x-default": url,
                     "tr": url,
                     "en": `${siteConfig.url}/en/projects/${project.slug_en}`,
                 },

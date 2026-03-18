@@ -41,6 +41,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         alternates: {
             canonical: url,
             languages: {
+                "x-default": `${siteConfig.url}/hizmetler/${category.slug}`,
                 tr: `${siteConfig.url}/hizmetler/${category.slug}`,
                 en: url,
             },
@@ -163,13 +164,13 @@ export default async function EnCategoryHubPage({ params }: PageProps) {
                         <p className="text-[10px] uppercase tracking-[0.3em] text-white/30 font-semibold mb-4">
                             Let&apos;s Plan Your Event
                         </p>
-                        <h2
+                        <p
                             className="text-3xl sm:text-4xl font-light text-white tracking-tighter leading-[1.1] uppercase mb-4"
                             style={{ fontFamily: "var(--font-inter-tight)" }}
                         >
                             Get a Quote <br />
                             <span className="font-bold">For Your Project</span>
-                        </h2>
+                        </p>
                         <p className="text-white/40 text-sm mb-8">
                             We&apos;ll get back to you within 24 hours.
                         </p>

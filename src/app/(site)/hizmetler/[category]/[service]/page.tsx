@@ -80,6 +80,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             canonical: url,
             ...(service.slug_en && categoryData.slug_en && {
                 languages: {
+                    "x-default": url,
                     "tr": url,
                     "en": `${siteConfig.url}/en/services/${categoryData.slug_en}/${service.slug_en}`,
                 },

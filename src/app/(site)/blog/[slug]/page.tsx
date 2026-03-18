@@ -50,6 +50,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
             canonical: `${siteConfig.url}/blog/${post.slug}`,
             ...(post.slug_en && {
                 languages: {
+                    "x-default": `${siteConfig.url}/blog/${post.slug}`,
                     "tr": `${siteConfig.url}/blog/${post.slug}`,
                     "en": `${siteConfig.url}/en/blog/${post.slug_en}`,
                 },

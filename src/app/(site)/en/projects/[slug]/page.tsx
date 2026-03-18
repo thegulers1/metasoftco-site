@@ -40,6 +40,7 @@ export async function generateMetadata({
         alternates: {
             canonical: url,
             languages: {
+                "x-default": `${siteConfig.url}/projeler/${project.slug}`,
                 "tr": `${siteConfig.url}/projeler/${project.slug}`,
                 "en": url,
             },

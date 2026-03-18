@@ -141,9 +141,9 @@ export default async function SektorPage({ params }: PageProps) {
                 <section className="py-20 bg-red-600 text-white">
                     <div className="mx-auto max-w-7xl px-6 sm:px-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
                         <div>
-                            <h2 className="text-4xl md:text-5xl font-black tracking-tighter leading-tight mb-3">
+                            <p className="text-4xl md:text-5xl font-black tracking-tighter leading-tight mb-3">
                                 Projenizi Hayata<br />Geçirelim
-                            </h2>
+                            </p>
                             <p className="text-white/80">{sector.cta}</p>
                         </div>
                         <Link

@@ -23,6 +23,7 @@ export const metadata: Metadata = {
     alternates: {
         canonical: `${siteConfig.url}/en/projects`,
         languages: {
+            "x-default": `${siteConfig.url}/projeler`,
             "tr": `${siteConfig.url}/projeler`,
             "en": `${siteConfig.url}/en/projects`,
         },

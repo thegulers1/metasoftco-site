@@ -45,6 +45,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             canonical: url,
             ...(category.slug_en && {
                 languages: {
+                    "x-default": url,
                     tr: url,
                     en: `${siteConfig.url}/en/services/${category.slug_en}`,
                 },
@@ -165,13 +166,13 @@ export default async function CategoryHubPage({ params }: PageProps) {
                         <p className="text-[10px] uppercase tracking-[0.3em] text-white/30 font-semibold mb-4">
                             Etkinliğinizi Planlayalım
                         </p>
-                        <h2
+                        <p
                             className="text-3xl sm:text-4xl font-light text-white tracking-tighter leading-[1.1] uppercase mb-4"
                             style={{ fontFamily: "var(--font-inter-tight)" }}
                         >
                             Projeniz için <br />
                             <span className="font-bold">Hemen Teklif Alın</span>
-                        </h2>
+                        </p>
                         <p className="text-white/40 text-sm mb-8">
                             Size 24 saat içinde geri döneceğiz.
                         </p>

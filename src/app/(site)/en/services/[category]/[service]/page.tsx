@@ -59,6 +59,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         alternates: {
             canonical: url,
             languages: {
+                "x-default": `${siteConfig.url}/hizmetler/${categoryData.slug}/${service.slug}`,
                 "tr": `${siteConfig.url}/hizmetler/${categoryData.slug}/${service.slug}`,
                 "en": url,
             },

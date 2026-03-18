@@ -5,6 +5,7 @@ export const metadata: Metadata = {
     alternates: {
         canonical: `${siteConfig.url}/en`,
         languages: {
+            "x-default": siteConfig.url,
             "tr": siteConfig.url,
             "en": `${siteConfig.url}/en`,
         },

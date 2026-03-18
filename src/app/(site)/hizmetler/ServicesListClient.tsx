@@ -158,9 +158,9 @@ export default function ServicesListClient({ categories }: ServicesListClientPro
             {/* Contact CTA */}
             <section className="py-32 bg-neutral-50 border-t border-black/5">
                 <div className="max-w-4xl mx-auto px-4 text-center">
-                    <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-black mb-8 uppercase">
+                    <p className="text-4xl md:text-6xl font-bold tracking-tighter text-black mb-8 uppercase">
                         {t("BİRLİKTE ÇALIŞALIM", "LET'S WORK TOGETHER")}
-                    </h2>
+                    </p>
                     <p className="text-lg text-black/60 mb-12 max-w-2xl mx-auto">
                         {t(
                             "Etkinliğiniz veya projeniz için en iyi interaktif çözümleri birlikte hayata geçirelim.",

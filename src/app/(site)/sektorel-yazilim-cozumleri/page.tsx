@@ -26,6 +26,7 @@ export const metadata: Metadata = {
     alternates: {
         canonical: `${siteConfig.url}/sektorel-yazilim-cozumleri`,
         languages: {
+            "x-default": `${siteConfig.url}/sektorel-yazilim-cozumleri`,
             "tr": `${siteConfig.url}/sektorel-yazilim-cozumleri`,
             "en": `${siteConfig.url}/en/industry-software-solutions`,
         },
