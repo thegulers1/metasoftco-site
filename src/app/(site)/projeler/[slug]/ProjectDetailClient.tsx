@@ -41,7 +41,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
     const galleryImages: string[] = project.gallery ? JSON.parse(project.gallery) : [];
 
     return (
-        <main className="min-h-screen bg-white pt-32 pb-20">
+        <div className="min-h-screen bg-white pt-32 pb-20">
             <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
                 {/* Breadcrumb */}
                 <nav className="mb-8 flex items-center gap-2 text-sm text-black/50">
@@ -133,9 +133,9 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
                 {/* Technologies */}
                 {technologies.length > 0 && (
                     <div className="mb-10">
-                        <h3 className="text-sm uppercase tracking-wider text-black/40 font-medium mb-3">
+                        <h2 className="text-sm uppercase tracking-wider text-black/40 font-medium mb-3">
                             {t("Kullanılan Teknolojiler", "Technologies Used")}
-                        </h3>
+                        </h2>
                         <div className="flex flex-wrap gap-2">
                             {technologies.map((tech: string, i: number) => (
                                 <span
@@ -151,20 +151,19 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
 
                 {/* Content */}
                 {content && (
-                    <div className="prose prose-lg max-w-none text-black/80 leading-relaxed mb-16 font-light">
-                        {content.split("\n").map((paragraph: string, i: number) => (
-                            <p key={i}>{paragraph}</p>
-                        ))}
-                    </div>
+                    <div
+                        className="prose prose-lg max-w-none text-black/80 leading-relaxed mb-16 font-light"
+                        dangerouslySetInnerHTML={{ __html: content.replace(/&nbsp;/g, ' ') }}
+                    />
                 )}
 
                 {/* Gallery */}
                 {galleryImages.length > 0 && (
                     <div className="mt-12">
                         <div className="flex items-center justify-between mb-8">
-                            <h3 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold">
+                            <h2 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold">
                                 {t("Proje Galerisi", "Project Gallery")}
-                            </h3>
+                            </h2>
                             <span className="text-[10px] uppercase tracking-widest text-black/30 bg-black/[0.03] px-3 py-1.5 rounded-full border border-black/5">
                                 {t("Kaydırınız →", "Scroll →")}
                             </span>
@@ -186,6 +185,6 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
                     </Link>
                 </div>
             </div>
-        </main>
+        </div>
     );
 }

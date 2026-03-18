@@ -22,6 +22,7 @@ export default function EditCategoryPage({
         metaDescription: "",
         metaKeywords: "",
         // English
+        slug_en: "",
         name_en: "",
         metaTitle_en: "",
         metaDescription_en: "",
@@ -41,6 +42,7 @@ export default function EditCategoryPage({
                         metaTitle: data.metaTitle || "",
                         metaDescription: data.metaDescription || "",
                         metaKeywords: data.metaKeywords || "",
+                        slug_en: data.slug_en || "",
                         name_en: data.name_en || "",
                         metaTitle_en: data.metaTitle_en || "",
                         metaDescription_en: data.metaDescription_en || "",
@@ -121,13 +123,25 @@ export default function EditCategoryPage({
                 <div className="grid grid-cols-2 gap-4">
                     <div>
                         <label className="block text-sm font-medium text-black/70 mb-2">
-                            Slug
+                            Slug (TR)
                         </label>
                         <input
                             type="text"
                             required
                             value={formData.slug}
                             onChange={(e) => setFormData({ ...formData, slug: e.target.value })}
+                            className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-black/70 mb-2">
+                            Slug (EN)
+                        </label>
+                        <input
+                            type="text"
+                            value={formData.slug_en}
+                            onChange={(e) => setFormData({ ...formData, slug_en: e.target.value })}
+                            placeholder="en-slug-here"
                             className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
                         />
                     </div>

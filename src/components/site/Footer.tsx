@@ -105,12 +105,12 @@ export default function Footer() {
 
                 {/* Bottom Branding */}
                 <div className="relative border-t border-white/10 pt-12">
-                    <h1
+                    <p
                         className="text-[12vw] sm:text-[14vw] font-bold leading-none tracking-tighter text-center text-white select-none whitespace-nowrap"
                         style={{ fontFamily: 'var(--font-inter-tight)' }}
                     >
                         METASOFTCO
-                    </h1>
+                    </p>
 
                     {/* Footer Bottom Links */}
                     <div className="flex flex-col md:flex-row items-center justify-between gap-4 mt-8 text-xs text-gray-500 uppercase tracking-wider">

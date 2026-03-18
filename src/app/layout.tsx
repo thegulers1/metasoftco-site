@@ -29,6 +29,7 @@ export const metadata: Metadata = {
   alternates: {
     canonical: siteConfig.url,
     languages: {
+      "x-default": siteConfig.url,
       "tr-TR": siteConfig.url,
     },
   },

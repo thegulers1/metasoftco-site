@@ -39,7 +39,7 @@ export default function ServiceDetailClient({
     const content = language === "en" ? (service.content_en || service.content) : service.content;
 
     return (
-        <main className="min-h-screen bg-white pt-32 pb-20">
+        <div className="min-h-screen bg-white pt-32 pb-20">
             {/* JSON-LD */}
             <script
                 type="application/ld+json"
@@ -85,9 +85,9 @@ export default function ServiceDetailClient({
                 {service.video && (
                     <div className="mb-16">
                         <div className="flex items-center gap-4 mb-8">
-                            <h3 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold">
+                            <h2 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold">
                                 {t("Tanıtım Videosu", "Promotional Video")}
-                            </h3>
+                            </h2>
                             <div className="h-[1px] flex-1 bg-black/5" />
                         </div>
                         <VideoPlayer
@@ -103,9 +103,9 @@ export default function ServiceDetailClient({
                 {content && (
                     <div className="mb-20">
                         <div className="flex items-center gap-4 mb-10">
-                            <h3 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold">
+                            <h2 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold">
                                 {t("Hizmet Hakkında", "About Service")}
-                            </h3>
+                            </h2>
                             <div className="h-[1px] flex-1 bg-black/5" />
                         </div>
                         <div
@@ -121,9 +121,9 @@ export default function ServiceDetailClient({
                 {gallery.length > 0 && (
                     <div className="mb-20">
                         <div className="flex items-center justify-between mb-8">
-                            <h3 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold">
+                            <h2 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold">
                                 {t("Görsel Galeri", "Image Gallery")}
-                            </h3>
+                            </h2>
                             <span className="text-[10px] uppercase tracking-widest text-black/30 bg-black/[0.03] px-3 py-1.5 rounded-full border border-black/5">
                                 {t("Kaydırınız →", "Swipe →")}
                             </span>
@@ -135,9 +135,9 @@ export default function ServiceDetailClient({
                 {/* CTA & Related Services */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-16 border-t border-black/10">
                     <div>
-                        <h3 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold mb-6">
+                        <h2 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold mb-6">
                             {t("İletişime Geçin", "Get in Touch")}
-                        </h3>
+                        </h2>
                         <p className="text-black/60 mb-8 leading-relaxed">
                             {t(
                                 "Bu hizmet veya diğer çözümlerimiz hakkında daha fazla bilgi almak için bizimle iletişime geçebilirsiniz.",
@@ -154,9 +154,9 @@ export default function ServiceDetailClient({
 
                     {relatedServices.length > 0 && (
                         <div>
-                            <h3 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold mb-6">
+                            <h2 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold mb-6">
                                 {t("İlginizi Çekebilir", "You Might Like")}
-                            </h3>
+                            </h2>
                             <div className="space-y-4">
                                 {relatedServices.slice(0, 3).map((related) => (
                                     <Link
@@ -235,6 +235,6 @@ export default function ServiceDetailClient({
                     </Link>
                 </div>
             </div>
-        </main>
+        </div>
     );
 }

@@ -73,7 +73,7 @@ export default async function CategoryHubPage({ params }: PageProps) {
             />
             <AdminEditUrlSetter url={`/editpanel/services/categories/${category.id}/edit`} />
 
-            <main className="min-h-screen bg-white">
+            <div className="min-h-screen bg-white">
                 {/* Hero */}
                 <section className="pt-36 pb-20 border-b border-black/5">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -191,7 +191,7 @@ export default async function CategoryHubPage({ params }: PageProps) {
                         </div>
                     </div>
                 </section>
-            </main>
+            </div>
         </>
     );
 }
