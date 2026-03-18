@@ -19,6 +19,7 @@ export default function NewCategoryPage() {
         name_en: "",
         metaTitle_en: "",
         metaDescription_en: "",
+        metaKeywords_en: "",
     });
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -164,6 +165,19 @@ export default function NewCategoryPage() {
                                 type="text"
                                 value={formData.metaKeywords}
                                 onChange={(e) => setFormData({ ...formData, metaKeywords: e.target.value })}
+                                className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-black/70 mb-2">
+                                Anahtar Kelimeler (EN)
+                            </label>
+                            <input
+                                type="text"
+                                value={formData.metaKeywords_en}
+                                onChange={(e) => setFormData({ ...formData, metaKeywords_en: e.target.value })}
+                                placeholder="keyword1, keyword2, keyword3"
                                 className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
                             />
                         </div>

@@ -25,6 +25,7 @@ export default function EditCategoryPage({
         name_en: "",
         metaTitle_en: "",
         metaDescription_en: "",
+        metaKeywords_en: "",
     });
 
     useEffect(() => {
@@ -43,6 +44,7 @@ export default function EditCategoryPage({
                         name_en: data.name_en || "",
                         metaTitle_en: data.metaTitle_en || "",
                         metaDescription_en: data.metaDescription_en || "",
+                        metaKeywords_en: data.metaKeywords_en || "",
                     });
                 } else {
                     alert("Kategori bulunamadı");
@@ -204,6 +206,19 @@ export default function EditCategoryPage({
                                 type="text"
                                 value={formData.metaKeywords}
                                 onChange={(e) => setFormData({ ...formData, metaKeywords: e.target.value })}
+                                className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-black/70 mb-2">
+                                Anahtar Kelimeler (EN)
+                            </label>
+                            <input
+                                type="text"
+                                value={formData.metaKeywords_en}
+                                onChange={(e) => setFormData({ ...formData, metaKeywords_en: e.target.value })}
+                                placeholder="keyword1, keyword2, keyword3"
                                 className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
                             />
                         </div>

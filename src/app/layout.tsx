@@ -46,7 +46,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const localBusinessSchema = generateLocalBusinessSchema();
 
   return (
-    <html lang="tr" className={`${interTight.variable} ${dmSans.variable} ${lato.variable}`}>
+    <html lang="tr" className={`${interTight.variable} ${dmSans.variable} ${lato.variable}`} suppressHydrationWarning>
       <head>
         {/* JSON-LD Structured Data - Organization */}
         <script
