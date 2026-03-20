@@ -15,7 +15,14 @@ export const metadata: Metadata = {
         type: "website",
     },
     twitter: { card: "summary_large_image", title: "İletişim | MetasoftCo" },
-    alternates: { canonical: `${siteConfig.url}/iletisim` },
+    alternates: {
+        canonical: `${siteConfig.url}/iletisim`,
+        languages: {
+            "x-default": `${siteConfig.url}/iletisim`,
+            "tr": `${siteConfig.url}/iletisim`,
+            "en": `${siteConfig.url}/en/contact`,
+        },
+    },
 };
 
 export default function IletisimLayout({ children }: { children: React.ReactNode }) {

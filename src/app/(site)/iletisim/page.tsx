@@ -1,11 +1,16 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Phone, Mail, MapPin, Send, CheckCircle, AlertCircle } from "lucide-react";
 import { useLanguage } from "@/providers/LanguageProvider";
 
 export default function ContactPage() {
-    const { t } = useLanguage();
+    const { t, setAlternateUrl } = useLanguage();
+
+    useEffect(() => {
+        setAlternateUrl("/iletisim", "/en/contact");
+    }, []);
+
     const [form, setForm] = useState({
         name: "",
         email: "",
