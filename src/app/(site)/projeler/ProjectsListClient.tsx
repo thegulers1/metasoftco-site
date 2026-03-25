@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import { useLanguage } from "@/providers/LanguageProvider";
 import Container from "@/components/site/Container";
@@ -7,6 +8,7 @@ import Container from "@/components/site/Container";
 interface Project {
     id: string;
     slug: string;
+    slug_en: string | null;
     image: string | null;
     title: string;
     title_en: string | null;
@@ -16,7 +18,11 @@ interface Project {
 }
 
 export default function ProjectsListClient({ projects }: { projects: Project[] }) {
-    const { language } = useLanguage();
+    const { language, setAlternateUrl } = useLanguage();
+
+    useEffect(() => {
+        setAlternateUrl("/projeler", "/en/projects");
+    }, []);
 
     return (
         <section className="pb-32 bg-white">
@@ -29,7 +35,7 @@ export default function ProjectsListClient({ projects }: { projects: Project[] }
                         return (
                             <Link
                                 key={project.id}
-                                href={`/projeler/${project.slug}`}
+                                href={language === "en" ? `/en/projects/${project.slug_en || project.slug}` : `/projeler/${project.slug}`}
                                 className="group block"
                             >
                                 <div className="relative aspect-[16/10] overflow-hidden rounded-2xl bg-black/5 mb-4">

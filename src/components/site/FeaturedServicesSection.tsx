@@ -8,12 +8,17 @@ import { useLanguage } from "@/providers/LanguageProvider";
 interface Service {
     id: string;
     title: string;
+    title_en: string | null;
     slug: string;
+    slug_en: string | null;
     description: string | null;
+    description_en: string | null;
     image: string | null;
     category?: {
         name: string;
+        name_en: string | null;
         slug: string;
+        slug_en: string | null;
     } | null;
 }
 
@@ -22,7 +27,8 @@ interface FeaturedServicesSectionProps {
 }
 
 export function FeaturedServicesSection({ services }: FeaturedServicesSectionProps) {
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
+    const serviceBase = language === "en" ? "/en/services" : "/hizmetler";
 
     // First service = large featured (top row, right side)
     const featuredService = services[0];
@@ -74,7 +80,7 @@ export function FeaturedServicesSection({ services }: FeaturedServicesSectionPro
                             viewport={{ once: true }}
                             transition={{ duration: 0.8 }}
                         >
-                            <Link href={`/hizmetler/${featuredService.category?.slug}/${featuredService.slug}`} className="group block w-full h-full">
+                            <Link href={language === "en" ? `${serviceBase}/${featuredService.category?.slug_en}/${featuredService.slug_en}` : `${serviceBase}/${featuredService.category?.slug}/${featuredService.slug}`} className="group block w-full h-full">
                                 <div className="relative h-full w-full overflow-hidden bg-[#f0f0f0]">
                                     {featuredService.image && (
                                         <Image
@@ -94,7 +100,7 @@ export function FeaturedServicesSection({ services }: FeaturedServicesSectionPro
                                         </h3>
                                         {featuredService.description && (
                                             <p className="text-xs text-[#1a1a1a]/50 leading-relaxed line-clamp-2">
-                                                {featuredService.description}
+                                                {language === "en" ? (featuredService.description_en || featuredService.description) : featuredService.description}
                                             </p>
                                         )}
                                     </div>
@@ -114,7 +120,7 @@ export function FeaturedServicesSection({ services }: FeaturedServicesSectionPro
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: index * 0.15 }}
                         >
-                            <Link href={`/hizmetler/${service.category?.slug}/${service.slug}`} className="group block">
+                            <Link href={language === "en" ? `${serviceBase}/${service.category?.slug_en}/${service.slug_en}` : `${serviceBase}/${service.category?.slug}/${service.slug}`} className="group block">
                                 <div className="relative aspect-[4/3] overflow-hidden bg-[#f0f0f0]">
                                     {service.image && (
                                         <Image
@@ -134,7 +140,7 @@ export function FeaturedServicesSection({ services }: FeaturedServicesSectionPro
                                         </h4>
                                         {service.category?.name && (
                                             <p className="text-[10px] text-[#1a1a1a]/40 uppercase tracking-widest font-medium">
-                                                {service.category.name}
+                                                {language === "en" ? (service.category.name_en || service.category.name) : service.category.name}
                                             </p>
                                         )}
                                     </div>
@@ -155,7 +161,7 @@ export function FeaturedServicesSection({ services }: FeaturedServicesSectionPro
                             viewport={{ once: true }}
                             transition={{ duration: 0.6, delay: index * 0.15 }}
                         >
-                            <Link href={`/hizmetler/${service.category?.slug}/${service.slug}`} className="group block">
+                            <Link href={language === "en" ? `${serviceBase}/${service.category?.slug_en}/${service.slug_en}` : `${serviceBase}/${service.category?.slug}/${service.slug}`} className="group block">
                                 <div className="relative aspect-[4/3] overflow-hidden bg-[#f0f0f0]">
                                     {service.image && (
                                         <Image
@@ -175,7 +181,7 @@ export function FeaturedServicesSection({ services }: FeaturedServicesSectionPro
                                         </h4>
                                         {service.category?.name && (
                                             <p className="text-[10px] text-[#1a1a1a]/40 uppercase tracking-widest font-medium">
-                                                {service.category.name}
+                                                {language === "en" ? (service.category.name_en || service.category.name) : service.category.name}
                                             </p>
                                         )}
                                     </div>
@@ -192,7 +198,7 @@ export function FeaturedServicesSection({ services }: FeaturedServicesSectionPro
                         viewport={{ once: true }}
                         transition={{ duration: 0.6, delay: 0.3 }}
                     >
-                        <Link href="/hizmetler" className="group block h-full">
+                        <Link href={serviceBase} className="group block h-full">
                             <div className="relative h-full min-h-[280px] md:min-h-0 overflow-hidden bg-[#dc2626] flex items-center justify-center transition-colors duration-300 hover:bg-[#b91c1c]">
                                 <span className="text-white text-sm md:text-base font-bold uppercase tracking-[0.2em] text-center px-4 leading-relaxed whitespace-pre-line"
                                     style={{ fontFamily: "var(--font-lato)" }}>

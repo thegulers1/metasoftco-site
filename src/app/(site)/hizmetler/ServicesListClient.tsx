@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useLanguage } from "@/providers/LanguageProvider";
 import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
@@ -13,6 +13,7 @@ interface Service {
     description: string | null;
     description_en: string | null;
     slug: string;
+    slug_en: string | null;
     image: string | null;
 }
 
@@ -21,6 +22,7 @@ interface ServiceCategory {
     name: string;
     name_en: string | null;
     slug: string;
+    slug_en: string | null;
     services: Service[];
 }
 
@@ -29,14 +31,19 @@ interface ServicesListClientProps {
 }
 
 export default function ServicesListClient({ categories }: ServicesListClientProps) {
-    const { language, t } = useLanguage();
+    const { language, t, setAlternateUrl } = useLanguage();
     const [activeCategory, setActiveCategory] = useState<string>("all");
+
+    useEffect(() => {
+        setAlternateUrl("/hizmetler", "/en/services");
+    }, []);
 
     const allServices = useMemo(() => {
         return categories.flatMap(cat => cat.services.map(s => ({
             ...s,
             categoryName: language === "en" ? (cat.name_en || cat.name) : cat.name,
-            categorySlug: cat.slug
+            categorySlug: cat.slug,
+            categorySlugEn: cat.slug_en,
         })));
     }, [categories, language]);
 
@@ -118,7 +125,7 @@ export default function ServicesListClient({ categories }: ServicesListClientPro
                                     transition={{ duration: 0.4 }}
                                 >
                                     <Link
-                                        href={`/hizmetler/${service.categorySlug}/${service.slug}`}
+                                        href={language === "en" ? `/en/services/${service.categorySlugEn}/${service.slug_en}` : `/hizmetler/${service.categorySlug}/${service.slug}`}
                                         className="group block relative aspect-[4/3] overflow-hidden bg-neutral-100 transition-all duration-500"
                                     >
                                         {service.image ? (
