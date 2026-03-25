@@ -31,7 +31,6 @@ async function getSectorPages() {
         select: {
             id: true,
             title: true,
-            title_en: true,
             slug: true,
             slug_en: true,
             h1: true,
@@ -49,7 +48,7 @@ export default async function SectorSolutionsEN() {
     // Map to English versions
     const enPages = pages.map((page: any) => ({
         id: page.id,
-        title: page.title_en || page.title,
+        title: page.title,
         slug: page.slug_en || page.slug,
         h1: page.h1_en || page.h1,
         excerpt: page.excerpt_en || page.excerpt,
