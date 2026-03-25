@@ -5,7 +5,7 @@ import { ReferencesSection } from "@/components/site/ReferencesSection";
 import { AboutSection } from "@/components/site/AboutSection";
 import { prisma } from "@/lib/db";
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 async function getFeaturedServices() {
     const services = await prisma.service.findMany({

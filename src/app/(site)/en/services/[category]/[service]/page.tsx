@@ -6,7 +6,7 @@ import { cache } from "react";
 import ServiceDetailClient from "@/app/(site)/hizmetler/[category]/[service]/ServiceDetailClient";
 import { AdminEditUrlSetter } from "@/components/site/AdminBar";
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 60;
 
 interface PageProps {
     params: Promise<{

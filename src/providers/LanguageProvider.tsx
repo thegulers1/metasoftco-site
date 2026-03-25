@@ -34,6 +34,9 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
 
     const setAlternateUrl = (trUrl: string, enUrl: string) => {
         setAlternateUrls({ tr: trUrl, en: enUrl });
+        // Karşı dil sayfasını önceden yükle
+        const prefetchUrl = language === "tr" ? enUrl : trUrl;
+        router.prefetch(prefetchUrl);
     };
 
     const setLanguage = (lang: Language) => {
