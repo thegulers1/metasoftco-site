@@ -103,33 +103,31 @@ export default function Footer() {
                     </div>
                 </div>
 
-                {/* Bottom Branding */}
-                <div className="relative border-t border-white/10 pt-12">
-                    <p
-                        className="text-[12vw] sm:text-[14vw] font-bold leading-none tracking-tighter text-center text-white select-none whitespace-nowrap"
-                        style={{ fontFamily: 'var(--font-inter-tight)' }}
-                    >
-                        METASOFTCO
-                    </p>
-
-                    {/* Footer Bottom Links */}
-                    <div className="flex flex-col md:flex-row items-center justify-between gap-4 mt-8 text-xs text-gray-500 uppercase tracking-wider">
-                        <p>© 2026 All rights reserved</p>
-                        <div className="flex gap-6">
-                            <Link href="https://www.linkedin.com/company/metasoftco" className="hover:text-white transition-colors">Linkedin</Link>
-                            <Link href="https://instagram.com/metasoftco" className="hover:text-white transition-colors">Instagram</Link>
-                        </div>
-                        <div className="flex gap-6">
-                            <Link href="/kullanim-kosullari" className="hover:text-white transition-colors">
-                                {t("Şartlar ve Koşullar", "Terms and conditions")}
-                            </Link>
-                            <Link href="/gizlilik" className="hover:text-white transition-colors">
-                                {t("Gizlilik Politikası", "Privacy policy")}
-                            </Link>
-                        </div>
+                {/* Footer Bottom Links */}
+                <div className="border-t border-white/10 pt-12 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-500 uppercase tracking-wider">
+                    <p>© 2026 All rights reserved</p>
+                    <div className="flex gap-6">
+                        <Link href="https://www.linkedin.com/company/metasoftco" className="hover:text-white transition-colors">Linkedin</Link>
+                        <Link href="https://instagram.com/metasoftco" className="hover:text-white transition-colors">Instagram</Link>
+                    </div>
+                    <div className="flex gap-6">
+                        <Link href="/kullanim-kosullari" className="hover:text-white transition-colors">
+                            {t("Şartlar ve Koşullar", "Terms and conditions")}
+                        </Link>
+                        <Link href="/gizlilik" className="hover:text-white transition-colors">
+                            {t("Gizlilik Politikası", "Privacy policy")}
+                        </Link>
                     </div>
                 </div>
             </div>
+
+            {/* Bottom Branding — full viewport width so text-center aligns to screen, not container */}
+            <p
+                className="w-full text-[12vw] sm:text-[14vw] font-bold leading-none tracking-tighter text-center text-white select-none whitespace-nowrap mt-8"
+                style={{ fontFamily: 'var(--font-inter-tight)' }}
+            >
+                METASOFTCO
+            </p>
         </footer>
     );
 }
