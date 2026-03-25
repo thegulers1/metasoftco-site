@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { siteConfig } from "@/lib/site";
-import { redirect } from "next/navigation";
+import SektorelYazilimClient from "@/app/(site)/sektorel-yazilim-cozumleri/SektorelYazilimClient";
 
 export const metadata: Metadata = {
     title: "Industry-Specific Software & Digital Transformation | MetasoftCo",
@@ -25,11 +25,12 @@ export const metadata: Metadata = {
         canonical: `${siteConfig.url}/en/industry-software-solutions`,
         languages: {
             "x-default": `${siteConfig.url}/sektorel-yazilim-cozumleri`,
-            "tr": `${siteConfig.url}/sektorel-yazilim-cozumleri`,
-            "en": `${siteConfig.url}/en/industry-software-solutions`,
+            tr: `${siteConfig.url}/sektorel-yazilim-cozumleri`,
+            en: `${siteConfig.url}/en/industry-software-solutions`,
         },
     },
 };
 
-// Render the same page content as TR version — LanguageProvider will show EN strings
-export { default } from "@/app/(site)/sektorel-yazilim-cozumleri/page";
+export default function EnPage() {
+    return <SektorelYazilimClient lang="en" />;
+}

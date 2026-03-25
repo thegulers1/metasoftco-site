@@ -217,6 +217,41 @@ model AnalyticsEvent {
 }
 
 // ============================================
+// SEKTÖREL ÇÖZÜM SAYFALARI
+// ============================================
+model SectorPage {
+  id              String   @id @default(cuid())
+  title           String   // Admin etiketi
+  slug            String   @unique
+  h1              String?
+  excerpt         String?  @db.Text
+  content         String?  @db.Text
+  images          String?  @db.Text // JSON: [{url, alt}]
+  published       Boolean  @default(false)
+  order           Int      @default(0)
+  // SEO (TR)
+  metaTitle       String?
+  metaDescription String?
+  metaKeywords    String?
+  ogImage         String?
+  // Özel Schema (JSON-LD)
+  customSchema    String?  @db.Text
+  // Önerilen Hizmetler (Service ID'leri JSON array)
+  serviceIds      String?  @db.Text
+  // English Fields
+  slug_en         String?  @unique
+  h1_en           String?
+  excerpt_en      String?  @db.Text
+  content_en      String?  @db.Text
+  metaTitle_en    String?
+  metaDescription_en String?
+  metaKeywords_en String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// ============================================
 // MEDYA KÜTÜPHANESİ
 // ============================================
 model Media {
