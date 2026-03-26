@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { siteConfig } from "@/lib/site";
 
-import SectorPageClient from "../../sektorel-cozumler/SectorPageClient";
+import SectorPageClient from "../../../sektorel-cozumler/SectorPageClient";
 
 export const revalidate = 60;
 
