@@ -5,7 +5,7 @@ import { prisma } from "@/lib/db";
 import { siteConfig } from "@/lib/site";
 import Container from "@/components/site/Container";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
     title: "Blog | MetasoftCo",

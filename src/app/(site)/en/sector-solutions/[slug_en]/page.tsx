@@ -5,7 +5,7 @@ import { siteConfig } from "@/lib/site";
 
 import SectorPageClient from "../../../sektorel-cozumler/SectorPageClient";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 interface PageProps { params: Promise<{ slug_en: string }> }
 

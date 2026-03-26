@@ -6,7 +6,7 @@ import { prisma } from "@/lib/db";
 import { siteConfig } from "@/lib/site";
 import { Metadata } from "next";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
     title: "Metasoftco: Interactive Event Tech & Software Solutions",

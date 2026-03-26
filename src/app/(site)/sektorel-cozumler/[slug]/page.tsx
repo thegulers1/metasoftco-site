@@ -4,7 +4,7 @@ import { prisma } from "@/lib/db";
 import { siteConfig } from "@/lib/site";
 import SectorPageClient from "../SectorPageClient";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 interface PageProps { params: Promise<{ slug: string }> }
 

@@ -6,7 +6,7 @@ import { prisma } from "@/lib/db";
 import { siteConfig, generateBreadcrumbSchema } from "@/lib/site";
 import Container from "@/components/site/Container";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 interface Props {
     params: Promise<{ slug: string }>;
