@@ -85,8 +85,8 @@ export default function ContactPage() {
                         <div>
                             <p className="text-[10px] uppercase tracking-[0.2em] text-white/50 mb-1">{t("Adres", "Address")}</p>
                             <p className="text-base font-medium leading-relaxed">
-                                Zeytinlik Mah. Fişekhane Cd.<br />
-                                5/17 Bakırköy, İstanbul
+                                Zeytinlik, Fişekhane Cd. 5/17<br />
+                                34140 Bakırköy / İstanbul
                             </p>
                         </div>
                     </div>

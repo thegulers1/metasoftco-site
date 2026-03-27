@@ -40,7 +40,7 @@ export const siteConfig = {
     contact: {
         email: "info@metasoftco.com",
         phone: "+90 534 233 4051",
-        address: "Zeytinlik Mah. Fişekhane Cd. 5/17 Bakırköy, İstanbul, Türkiye",
+        address: "Zeytinlik, Fişekhane Cd. 5/17, 34140 Bakırköy/İstanbul, Türkiye",
     },
 
     // Company Info (for structured data)
@@ -130,10 +130,10 @@ export function generateOrganizationSchema() {
         })),
         address: {
             "@type": "PostalAddress",
-            streetAddress: "Zeytinlik Mah. Fişekhane Cd. 5/17",
+            streetAddress: "Zeytinlik, Fişekhane Cd. 5/17",
             addressLocality: "Bakırköy",
             addressRegion: "İstanbul",
-            postalCode: "34142",
+            postalCode: "34140",
             addressCountry: "TR",
         },
         contactPoint: {
@@ -145,6 +145,7 @@ export function generateOrganizationSchema() {
         sameAs: [
             `https://instagram.com/${siteConfig.social.instagram.replace("@", "")}`,
             `https://twitter.com/${siteConfig.social.twitter.replace("@", "")}`,
+            "https://www.linkedin.com/company/metasoftco",
         ],
     };
 }
@@ -159,6 +160,8 @@ export function generateLocalBusinessSchema() {
         legalName: siteConfig.company.legalName,
         description: siteConfig.description,
         url: siteConfig.url,
+        telephone: siteConfig.contact.phone,
+        priceRange: "$$-$$$",
         logo: {
             "@type": "ImageObject",
             url: `${siteConfig.url}/logo.png`,
@@ -171,10 +174,10 @@ export function generateLocalBusinessSchema() {
         })),
         address: {
             "@type": "PostalAddress",
-            streetAddress: "Zeytinlik Mah. Fişekhane Cd. 5/17",
+            streetAddress: "Zeytinlik, Fişekhane Cd. 5/17",
             addressLocality: "Bakırköy",
             addressRegion: "İstanbul",
-            postalCode: "34142",
+            postalCode: "34140",
             addressCountry: "TR",
         },
         geo: {
@@ -286,6 +289,7 @@ export function generateLocalBusinessSchema() {
         sameAs: [
             `https://instagram.com/${siteConfig.social.instagram.replace("@", "")}`,
             `https://twitter.com/${siteConfig.social.twitter.replace("@", "")}`,
+            "https://www.linkedin.com/company/metasoftco",
         ],
     };
 }
