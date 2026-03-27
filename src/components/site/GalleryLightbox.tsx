@@ -5,13 +5,22 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { cloudinaryOptimize } from "@/lib/cloudinary";
 
+type GalleryImageInput = string | { url: string; alt?: string };
+
 interface GalleryLightboxProps {
-    images: string[];
+    images: GalleryImageInput[];
     title: string;
 }
 
 export default function GalleryLightbox({ images, title }: GalleryLightboxProps) {
     const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+
+    // Normalize to {url, alt}[]
+    const items = images.map((img, i) =>
+        typeof img === "string"
+            ? { url: img, alt: `${title} - ${i + 1}` }
+            : { url: img.url, alt: img.alt || `${title} - ${i + 1}` }
+    );
 
     const open = (i: number) => {
         setLightboxIndex(i);
@@ -24,12 +33,12 @@ export default function GalleryLightbox({ images, title }: GalleryLightboxProps)
     };
 
     const prev = useCallback(() => {
-        setLightboxIndex((i) => i === null ? null : (i - 1 + images.length) % images.length);
-    }, [images.length]);
+        setLightboxIndex((i) => i === null ? null : (i - 1 + items.length) % items.length);
+    }, [items.length]);
 
     const next = useCallback(() => {
-        setLightboxIndex((i) => i === null ? null : (i + 1) % images.length);
-    }, [images.length]);
+        setLightboxIndex((i) => i === null ? null : (i + 1) % items.length);
+    }, [items.length]);
 
     useEffect(() => {
         const handler = (e: KeyboardEvent) => {
@@ -46,17 +55,18 @@ export default function GalleryLightbox({ images, title }: GalleryLightboxProps)
         <>
             {/* ── MASONRY GRID ── */}
             <div className="columns-2 md:columns-3 gap-3 space-y-3">
-                {images.map((img, i) => (
+                {items.map((item, i) => (
                     <div
                         key={i}
                         className="break-inside-avoid cursor-zoom-in overflow-hidden group relative"
                         onClick={() => open(i)}
                     >
                         <img
-                            src={cloudinaryOptimize(img, 1000)}
-                            alt={`${title} - ${i + 1}`}
+                            src={cloudinaryOptimize(item.url, 1000)}
+                            alt={item.alt}
                             className="w-full h-auto block transition-transform duration-500 group-hover:scale-[1.03]"
-                            loading="lazy"
+                            loading={i === 0 ? "eager" : "lazy"}
+                            fetchPriority={i === 0 ? "high" : "auto"}
                         />
                         <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-300" />
                     </div>
@@ -71,7 +81,7 @@ export default function GalleryLightbox({ images, title }: GalleryLightboxProps)
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         transition={{ duration: 0.2 }}
-                        className="fixed inset-0 z-[300] bg-black/95 backdrop-blur-xl flex items-center justify-center"
+                        className="fixed inset-0 z-300 bg-black/95 backdrop-blur-xl flex items-center justify-center"
                         onClick={close}
                     >
                         {/* Close */}
@@ -84,11 +94,11 @@ export default function GalleryLightbox({ images, title }: GalleryLightboxProps)
 
                         {/* Counter */}
                         <div className="absolute top-6 left-1/2 -translate-x-1/2 z-20 px-4 py-1.5 bg-white/10 backdrop-blur-md rounded-full text-white text-xs font-mono tracking-widest pointer-events-none">
-                            {String(lightboxIndex + 1).padStart(2, "0")} / {String(images.length).padStart(2, "0")}
+                            {String(lightboxIndex + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
                         </div>
 
                         {/* Prev */}
-                        {images.length > 1 && (
+                        {items.length > 1 && (
                             <button
                                 onClick={(e) => { e.stopPropagation(); prev(); }}
                                 className="absolute left-4 md:left-8 z-20 p-3 text-white/50 hover:text-white hover:bg-white/10 rounded-full transition-all"
@@ -116,8 +126,8 @@ export default function GalleryLightbox({ images, title }: GalleryLightboxProps)
                                 }}
                             >
                                 <img
-                                    src={cloudinaryOptimize(images[lightboxIndex], 2400)}
-                                    alt={`${title} - ${lightboxIndex + 1}`}
+                                    src={cloudinaryOptimize(items[lightboxIndex].url, 2400)}
+                                    alt={items[lightboxIndex].alt}
                                     className="max-w-full max-h-[88vh] object-contain shadow-2xl pointer-events-none"
                                     draggable={false}
                                 />
@@ -125,7 +135,7 @@ export default function GalleryLightbox({ images, title }: GalleryLightboxProps)
                         </AnimatePresence>
 
                         {/* Next */}
-                        {images.length > 1 && (
+                        {items.length > 1 && (
                             <button
                                 onClick={(e) => { e.stopPropagation(); next(); }}
                                 className="absolute right-4 md:right-8 z-20 p-3 text-white/50 hover:text-white hover:bg-white/10 rounded-full transition-all"

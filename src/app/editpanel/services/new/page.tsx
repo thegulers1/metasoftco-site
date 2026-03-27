@@ -459,15 +459,63 @@ export default function NewServicePage() {
                 {activeTab === "media" && (
                     <>
                         <GalleryUpload
-                            value={
-                                typeof service.gallery === 'string'
-                                    ? JSON.parse(service.gallery)
-                                    : (service.gallery || [])
-                            } onChange={(urls) => setService({ ...service, gallery: urls.length > 0 ? JSON.stringify(urls) : null })}
+                            value={(() => {
+                                if (!service.gallery) return [];
+                                const parsed = JSON.parse(service.gallery) as (string | { url: string; alt?: string })[];
+                                return parsed.map((item) => typeof item === 'string' ? item : item.url);
+                            })()}
+                            onChange={(urls) => {
+                                const currentItems: { url: string; alt: string }[] = service.gallery
+                                    ? (JSON.parse(service.gallery) as (string | { url: string; alt?: string })[]).map(
+                                          (item) => typeof item === 'string' ? { url: item, alt: '' } : { url: item.url, alt: item.alt || '' }
+                                      )
+                                    : [];
+                                const newItems = urls.map((url) => ({
+                                    url,
+                                    alt: currentItems.find((i) => i.url === url)?.alt || '',
+                                }));
+                                setService({ ...service, gallery: newItems.length > 0 ? JSON.stringify(newItems) : null });
+                            }}
                             folder="services/gallery"
                             label="Galeri Görselleri"
                             maxImages={12}
                         />
+
+                        {/* Alt metin girdileri */}
+                        {service.gallery && JSON.parse(service.gallery).length > 0 && (
+                            <div>
+                                <label className="block text-sm font-medium text-black/70 mb-3">
+                                    Görsel Alt Metinleri <span className="text-black/30 font-normal">(SEO · boş bırakırsanız hizmet başlığı kullanılır)</span>
+                                </label>
+                                <div className="space-y-2">
+                                    {(JSON.parse(service.gallery) as (string | { url: string; alt?: string })[]).map((item, i) => {
+                                        const url = typeof item === 'string' ? item : item.url;
+                                        const alt = typeof item === 'string' ? '' : (item.alt || '');
+                                        return (
+                                            <div key={url} className="flex items-center gap-3">
+                                                <img src={url} alt="" className="w-12 h-12 object-cover rounded-lg shrink-0 bg-black/5" />
+                                                <input
+                                                    type="text"
+                                                    value={alt}
+                                                    onChange={(e) => {
+                                                        const items = (JSON.parse(service.gallery!) as (string | { url: string; alt?: string })[]).map(
+                                                            (it) => {
+                                                                const u = typeof it === 'string' ? it : it.url;
+                                                                const a = typeof it === 'string' ? '' : (it.alt || '');
+                                                                return u === url ? { url: u, alt: e.target.value } : { url: u, alt: a };
+                                                            }
+                                                        );
+                                                        setService({ ...service, gallery: JSON.stringify(items) });
+                                                    }}
+                                                    placeholder={`${service.title} - görsel ${i + 1}`}
+                                                    className="flex-1 px-3 py-2 bg-[#f5f5f5] border-0 rounded-lg text-sm text-black focus:outline-none focus:ring-2 focus:ring-black"
+                                                />
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        )}
 
                         <VideoUpload
                             value={service.video}

@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { siteConfig, generateServiceSchema, generateBreadcrumbSchema } from "@/lib/site";
+import { cloudinaryOgImage } from "@/lib/cloudinary";
 import Link from "next/link";
 import Image from "next/image";
 import GalleryLightbox from "@/components/site/GalleryLightbox";
@@ -47,7 +48,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const title = service.metaTitle || `${service.title} | ${categoryData.name}`;
     const description = service.metaDescription || service.description || siteConfig.description;
     const keywords = service.metaKeywords || "";
-    const image = service.ogImage || service.image || `${siteConfig.url}/og-image.jpg`;
+    const image = cloudinaryOgImage(service.ogImage || service.image) || `${siteConfig.url}/og-image.jpg`;
     const url = `${siteConfig.url}/hizmetler/${category}/${serviceSlug}`;
 
     return {
@@ -103,8 +104,15 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         notFound();
     }
 
-    // Galeri parse et
-    const gallery: string[] = service.gallery ? JSON.parse(service.gallery) : [];
+    // Galeri parse et (eski string[] formatını ve yeni {url,alt}[] formatını destekle)
+    const gallery: { url: string; alt: string }[] = service.gallery
+        ? (JSON.parse(service.gallery) as (string | { url: string; alt?: string })[]).map(
+              (item) =>
+                  typeof item === "string"
+                      ? { url: item, alt: service.title }
+                      : { url: item.url, alt: item.alt || service.title }
+          )
+        : [];
 
     // Aynı kategorideki diğer hizmetler
     const relatedServices = await prisma.service.findMany({

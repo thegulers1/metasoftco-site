@@ -10,7 +10,7 @@ interface ServiceDetailClientProps {
     service: any;
     categoryData: any;
     relatedServices: any[];
-    gallery: string[];
+    gallery: { url: string; alt?: string }[];
     serviceSchema: any;
     category: string;
 }
@@ -164,9 +164,9 @@ export default function ServiceDetailClient({
                                         href={`/hizmetler/${category}/${related.slug}`}
                                         className="group block p-4 bg-black/[0.02] hover:bg-black/[0.05] transition border border-black/5"
                                     >
-                                        <h4 className="font-bold text-black uppercase tracking-tight group-hover:text-red-600 transition">
+                                        <h3 className="font-bold text-black uppercase tracking-tight group-hover:text-red-600 transition">
                                             {language === "en" ? (related.title_en || related.title) : related.title}
-                                        </h4>
+                                        </h3>
                                         <p className="text-xs text-black/40 mt-1 uppercase tracking-widest">
                                             {categoryName}
                                         </p>
