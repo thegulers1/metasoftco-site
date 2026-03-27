@@ -103,6 +103,16 @@ export default function Footer() {
                     </div>
                 </div>
 
+                {/* Teknik Yetkinlikler */}
+                <div className="border-t border-white/10 pt-8 pb-6 text-xs text-white/20 leading-relaxed">
+                    <p>
+                        {t(
+                            "Teknolojiler: Stable Diffusion · LoRA Fine-tuning · ControlNet · Artırılmış Gerçeklik (AR) · Computer Vision · WebGL · Real-time Image Processing · Next.js · KVKK Uyumlu Veri İşleme",
+                            "Technologies: Stable Diffusion · LoRA Fine-tuning · ControlNet · Augmented Reality (AR) · Computer Vision · WebGL · Real-time Image Processing · Next.js · KVKK Compliant Data Processing"
+                        )}
+                    </p>
+                </div>
+
                 {/* Footer Bottom Links */}
                 <div className="border-t border-white/10 pt-12 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-500 uppercase tracking-wider">
                     <p>© 2026 All rights reserved</p>

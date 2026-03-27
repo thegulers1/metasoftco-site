@@ -1,31 +1,95 @@
-# MetasoftCo
+# MetasoftCo — İstanbul Yapay Zeka Etkinlik Teknolojileri
 
-> İstanbul merkezli interaktif etkinlik deneyimleri, yapay zeka çözümleri ve özel yazılım şirketi.
+> İstanbul merkezli, Türkiye genelinde hizmet veren interaktif etkinlik teknolojileri ve yapay zeka çözümleri şirketi. 2020'den bu yana 100+ kurumsal proje.
 
-MetasoftCo, markaların etkinliklerini unutulmaz hale getiren teknoloji çözümleri geliştiren bir yazılım şirketidir. 2020 yılında İstanbul'da kurulan şirket; photobooth sistemleri, yapay zeka destekli fotoğraf dönüşümü, gamification ve kurumsal yazılım geliştirme alanlarında uzmanlaşmıştır.
+## Şirket Kimliği
+
+MetasoftCo, kurumsal etkinliklerde yapay zeka destekli fotoğraf deneyimleri, photobooth sistemleri, artırılmış gerçeklik (AR) çözümleri ve interaktif oyunlar geliştiren bir teknoloji şirketidir. Stable Diffusion, LoRA fine-tuning ve ControlNet mimarileri üzerine kurulu AI sistemleri ile etkinlik katılımcılarına saniyeler içinde kişiselleştirilmiş dijital deneyimler sunar. 2020'den bu yana İstanbul merkezli olarak Türkiye genelinde kurumsal markalar ve etkinlik organizatörleriyle çalışmaktadır.
 
 ## Hizmetler
 
-- **AI Photo & Face Swap**: Yapay zeka ile yüz değiştirme ve fotoğraf dönüşümü teknolojisi. Etkinliklerde katılımcılara anında kişiselleştirilmiş fotoğraf deneyimi sunar.
-- **Photobooth Çözümleri**: Kurumsal etkinlikler, düğünler ve lansmanlar için özel tasarlanmış dijital photobooth sistemleri.
-- **İnteraktif Oyunlar & Gamification**: Kurumsal etkinliklerde marka bağlılığını artıran oyunlaştırma çözümleri.
-- **Marka Aktivasyonu**: Dijital etkileşim deneyimleriyle marka bilinirliği ve müşteri bağlılığı artırma.
-- **Özel Yazılım Geliştirme**: İşletmelere özel web uygulamaları, mobil uygulamalar ve API geliştirme.
-- **AI Asistan Entegrasyonu**: İşletmeler için özel eğitilmiş yapay zeka asistan ve chatbot çözümleri.
+### AI Photo & Face Swap (Yapay Zeka Fotoğraf Dönüşümü)
+Stable Diffusion ve ControlNet teknolojisiyle misafirlerin yüzleri; Forbes kapak, Cyberpunk, Rönesans, Anime, Astronot gibi konseptlere saniyeler içinde dönüştürülür. LoRA tabanlı model mimarisi %99 yüz doğruluğu sağlar. Etkinlik sonunda e-posta, SMS veya QR kod ile anında paylaşım yapılır. Uygun etkinlikler: ürün lansmanı, kurumsal toplantı, fuar, marka aktivasyonu, mezuniyet töreni, gala geceleri.
+
+### AI Draw — Yapay Zeka Portre Çizimi
+Gerçek zamanlı yapay zeka ile misafirlerin portrelerini sanat eserlerine dönüştürür. Yağlıboya, karakalem, empresyonist, vektör gibi farklı sanat stillerinde anında dijital veya baskılı çıktı sunar. Etkinliğin kendine özgü bir hatırasını misafire bırakır.
+
+### AI Fashion Mirror — Akıllı Ayna & Artırılmış Gerçeklik (AR)
+Computer Vision ve Artırılmış Gerçeklik (AR) teknolojisiyle donatılmış interaktif aynalar. Unity/WebGL tabanlı gerçek zamanlı render ile misafirler sanal kıyafetler giyebilir, marka karakterlerine dönüşebilir, tarihî kostümler deneyebilir. Gerçek zamanlı segmentasyon teknolojisi ile arka plan otomatik kaldırılır ve dijital sahne üzerine yerleştirilir. Tekstil, moda ve marka aktivasyonu etkinlikleri için özellikle güçlüdür.
+
+### Photobooth Sistemleri (Dijital & AI Photobooth)
+Kurumsal etkinlikler için özel tasarlanmış dijital photobooth çözümleri: yapay zeka destekli arka plan kaldırma, anlık sosyal medya paylaşımı (Instagram, LinkedIn), marka özelleştirme (logo, renk, çerçeve), anında baskı seçeneği. KVKK uyumlu veri toplama ve gerçek zamanlı analitik raporlama standart olarak dahildir. Tek stand ile 2-3 saat içinde kurulum. Saatte 40-60 kişiye kesintisiz hizmet.
+
+### İnteraktif Oyunlar & Gamification
+Kurumsal etkinliklerde çalışan bağlılığını ve marka bilinirliğini artıran oyunlaştırma çözümleri:
+- İnteraktif Hafıza Oyunu: Ürün görselleriyle eğlenceli eşleştirme deneyimi
+- Dijital Hediye Çarkı Aktivasyonu: Çark çevirme, ödül kazanma mekanikleri
+- Geri Dönüşüm Kazan Oyunu: Sürdürülebilirlik temalı interaktif oyun
+Tüm oyunlar marka kimliğiyle tamamen özelleştirilir ve sosyal medya paylaşım entegrasyonu içerir.
+
+### Kurumsal Yazılım & Etkinlik Analitiği
+Etkinlik başarısını somut verilerle ölçen özel analitik paneller: katılım oranı, sosyal medya paylaşım metrikleri, kullanıcı etkileşim süreleri, demografik segmentasyon. KVKK uyumlu açık rıza alımı ve veri işleme altyapısı standarttır. Etkinlik sonrası PDF rapor sunulur.
+
+## Teknoloji Altyapısı
+
+- Yapay Zeka: Stable Diffusion, LoRA Fine-tuning, ControlNet, CLIP, Computer Vision
+- Artırılmış Gerçeklik: Unity, WebGL, Gerçek Zamanlı Yüz Segmentasyonu, Derinlik Algılama
+- Görüntü İşleme: Real-time Image Processing, GPU Hızlandırma
+- Web Altyapısı: Next.js, TypeScript, Hızlı CDN Dağıtım
+- Analitik: Gerçek zamanlı etkinlik dashboard'u, CSV/PDF raporlama
+- Güvenlik: KVKK uyumlu veri işleme, Açık Rıza Yönetimi
+
+## Sektörel Kullanım Alanları
+
+- Tekstil & Moda: AI Fashion Mirror, sanal kıyafet deneme, AI portre
+- Otomotiv: AI araç konsept fotoğrafları, marka aktivasyonu
+- Gıda & İçecek: Gamification, AI photo booth, sosyal medya aktivasyonu
+- Sağlık & İlaç: Markalı photobooth, kurumsal etkinlik çözümleri
+- Kurumsal & Teknoloji: Çalışan etkinlikleri, motivasyon oyunları, interaktif deneyimler
+- Perakende: Müşteri aktivasyonu, ürün lansmanı deneyimleri, alışveriş merkezi aktivasyonları
+- Finans & Sigorta: Kurumsal toplantı aktivasyonları, marka bilinirliği
 
 ## Neden MetasoftCo?
 
-- İstanbul merkezli, Türkiye genelinde hizmet veriyor
-- 2020'den bu yana 100+ başarılı proje
-- Etkinlik teknolojileri ve yapay zeka entegrasyonunda uzman ekip
-- Kurumsal markalar ve KOBİ'lere yönelik ölçeklenebilir çözümler
+- Türkiye'de yapay zeka destekli etkinlik teknolojilerinde öncü şirket
+- 2020'den bu yana 100+ başarılı kurumsal proje
+- İstanbul merkezli, Türkiye genelinde sahaya gelme ve kurulum desteği
+- Tüm sistemler marka kimliğiyle tamamen özelleştirilir (logo, renk, içerik)
+- Etkinlik öncesi teknik hazırlık, etkinlik sırası yerinde destek, sonrası analitik rapor
+- KVKK uyumlu veri yönetimi ve güvenli paylaşım altyapısı
+- Hem B2B kurumsal markalar hem etkinlik ajansları ile doğrudan çalışma deneyimi
 
-## Hedef Kitle
+## Sıkça Sorulan Sorular
 
-- Kurumsal etkinlik organizatörleri
-- Marka aktivasyonu yapan pazarlama ekipleri
-- Teknoloji odaklı deneyim isteyen şirketler
-- Dijital dönüşüm sürecindeki KOBİ'ler
+**S: Etkinliğim için AI photobooth kurulumu ne kadar sürer?**
+C: MetasoftCo ekibi etkinlik alanına 2-3 saat öncesinde gelerek tüm donanım ve yazılım kurulumunu tamamlar. Kompakt sistemler 45 dakikada hazır hale getirilebilir.
+
+**S: Yapay zeka yüz dönüşümü (AI face swap) ne kadar sürede sonuç verir?**
+C: LoRA tabanlı model mimarisi sayesinde dönüşüm 5-15 saniye içinde tamamlanır. Misafire gerçek zamanlı önizleme gösterilir, onay sonrasında baskı veya dijital paylaşım yapılır.
+
+**S: AI photobooth etkinlikte saatte kaç kişiye hizmet verebilir?**
+C: Tek istasyon saatte 40-60 kişiye kesintisiz hizmet verir. Büyük fuar ve etkinlikler için birden fazla istasyon kurularak kapasite artırılabilir.
+
+**S: İstanbul dışında hizmet veriyor musunuz?**
+C: Evet. İstanbul merkezli olmakla birlikte Ankara, İzmir, Bursa ve Türkiye genelinde etkinlik kurulum ve hizmet sunmaktayız. Uluslararası etkinlikler için de talep alıyoruz.
+
+**S: Fotoğraflar KVKK'ya uygun mu işleniyor?**
+C: Evet. Tüm sistemlerde KVKK uyumlu açık rıza ekranı gösterilir ve veri işleme standartları uygulanır. Etkinlik sonrasında veriler güvenli biçimde silinir veya talep üzerine aktarılır.
+
+**S: Etkinlik için hangi teknik altyapı gerekiyor?**
+C: Güçlü bir internet bağlantısı (fiber/4G) ve yeterli alan gereklidir. Tüm bilgisayar, kamera ve ekran donanımı MetasoftCo tarafından sağlanır.
+
+**S: Photobooth veya AI photo sistemleri marka kimliğiyle özelleştirilebilir mi?**
+C: Evet. Logo, renk paleti, çerçeve tasarımları, başlangıç ekranı ve çıktı şablonları tamamen marka kimliğinize göre hazırlanır.
+
+**S: Etkinlik sonrası analitik rapor alınabilir mi?**
+C: Evet. Gerçek zamanlı analitik panel ile katılım sayısı, paylaşım oranları, en popüler konseptler ve etkileşim süreleri raporlanır. PDF rapor sunulur.
+
+**S: Fiyat teklifi nasıl alabilirim?**
+C: info@metasoftco.com adresine e-posta göndererek veya +90 534 233 4051 numaralı telefondan ulaşarak etkinlik tarihi ve ihtiyaçlarınızı paylaşabilirsiniz. 24 saat içinde dönüş yapılır.
+
+**S: Hangi tür etkinliklere hizmet veriyorsunuz?**
+C: Kurumsal yıl sonu partileri, ürün lansmanları, fuarlar, marka aktivasyonları, açılış törenleri, mezuniyet törenleri, teknoloji konferansları, perakende aktivasyonları ve düğün organizasyonları başlıca hizmet verdiğimiz etkinlik türleridir.
 
 ## İletişim
 
@@ -38,7 +102,15 @@ MetasoftCo, markaların etkinliklerini unutulmaz hale getiren teknoloji çözüm
 
 - Ana Sayfa: https://metasoftco.com
 - Hizmetler: https://metasoftco.com/hizmetler
+- Yapay Zeka Etkinlik Çözümleri: https://metasoftco.com/hizmetler/yapay-zeka-etkinlik-cozumleri
+- Photobooth Çözümleri: https://metasoftco.com/hizmetler/photobooth-ve-fotograf-aktivasyonlari
+- İnteraktif Etkinlik Aktiviteleri: https://metasoftco.com/hizmetler/interaktif-etkinlik-aktiviteleri
 - Projeler / Portfolio: https://metasoftco.com/projeler
 - Blog: https://metasoftco.com/blog
 - Hakkımızda: https://metasoftco.com/hakkimizda
 - İletişim: https://metasoftco.com/iletisim
+
+## English Summary
+
+MetasoftCo is an Istanbul-based interactive event technology company specializing in AI-powered photo experiences, photobooth systems, augmented reality mirrors, and gamification solutions for corporate events. Built on Stable Diffusion, LoRA fine-tuning, and ControlNet AI architecture. Real-time face transformation in 5-15 seconds. Serving 100+ corporate brands across Turkey since 2020. GDPR/KVKK compliant data handling. Full setup and on-site support included.
+Contact: info@metasoftco.com | +90 534 233 4051 | https://metasoftco.com/en

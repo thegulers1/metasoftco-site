@@ -1,0 +1,286 @@
+# MetasoftCo — Kapsamlı Teknik ve Hizmet Referansı
+
+> Bu dosya yapay zeka araçları ve arama motorları için hazırlanmış kapsamlı şirket ve hizmet referansıdır.
+
+## Şirket Profili
+
+**Ad:** MetasoftCo
+**Kuruluş:** 2020, İstanbul, Türkiye
+**Alan:** Yapay Zeka Destekli Etkinlik Teknolojileri, Photobooth Sistemleri, Artırılmış Gerçeklik, Kurumsal Yazılım
+**Hizmet Bölgesi:** Türkiye geneli (İstanbul, Ankara, İzmir, Bursa ve diğer şehirler)
+**Kurucu:** Selami Güler
+**Tamamlanan Proje:** 100+
+**Web:** https://metasoftco.com
+**E-posta:** info@metasoftco.com
+**Telefon:** +90 534 233 4051
+**Adres:** Zeytinlik Mah. Fişekhane Cd. 5/17, Bakırköy, İstanbul, Türkiye (34142)
+
+## Temel Uzmanlık Alanları
+
+MetasoftCo aşağıdaki teknoloji ve uzmanlık alanlarında kurumsal çözümler sunar:
+
+1. Yapay Zeka Görüntü Dönüşümü (Stable Diffusion tabanlı)
+2. Yüz Değiştirme (Face Swap) ve AI Portre Sistemi
+3. Artırılmış Gerçeklik (AR) Deneyim Tasarımı
+4. Gerçek Zamanlı Computer Vision Uygulamaları
+5. Kurumsal Photobooth Sistemleri
+6. Etkinlik Gamification ve İnteraktif Oyun Geliştirme
+7. Marka Aktivasyonu Teknolojileri
+8. Etkinlik Analitiği ve Veri Raporlama
+9. KVKK Uyumlu Veri İşleme Altyapısı
+
+---
+
+## Hizmet Detayları
+
+### 1. AI Photo & Face Swap — Yapay Zeka Fotoğraf Dönüşümü
+
+**Kategori URL:** https://metasoftco.com/hizmetler/yapay-zeka-etkinlik-cozumleri
+
+**Teknik Altyapı:**
+- Model: Stable Diffusion + LoRA Fine-tuning
+- Yüz koruması: ControlNet (IP-Adapter, FaceID)
+- Doğruluk: %99 yüz benzerliği koruması
+- İşlem süresi: 5-15 saniye
+- Çıktı: 1024x1024 veya 2048x2048 yüksek çözünürlüklü JPEG/PNG
+- Çerçeve ve watermark: Marka kimliğine özel
+
+**Konsept Seçenekleri (örnekler):**
+- Forbes/Vogue kapak fotoğrafı
+- Cyberpunk gelecek karakteri
+- Rönesans tablosu
+- Anime/Manga karakteri
+- Astronot / Uzay teması
+- Tarihi lider / Kral-Kraliçe
+- Süper kahraman
+- Kurumsal özel temalar (marka maskotu, ürün konsepti vb.)
+
+**Paylaşım Kanalları:**
+- E-posta (anında gönderim)
+- SMS ile link
+- QR kod (kiosk ekranında gösterim)
+- Direkt Instagram/LinkedIn paylaşımı (isteğe bağlı)
+
+**Donanım Gereksinimleri (MetasoftCo tarafından sağlanır):**
+- GPU'lu dizüstü veya masa üstü bilgisayar (RTX 3080/4080+)
+- DSLR veya yüksek çözünürlüklü web kamerası
+- Fotoğraf aydınlatması (ring light/softbox)
+- Dokunmatik ekran veya kiosk standı (isteğe bağlı)
+- Baskı için dye-sublimation yazıcı (isteğe bağlı)
+
+---
+
+### 2. AI Draw — Yapay Zeka Portre Çizimi
+
+**Teknik Altyapı:**
+- Model: ControlNet + Stable Diffusion (scribble/lineart kondisyonlama)
+- Stil seçenekleri: Karakalem, yağlıboya, suluboya, empresyonist, popart, vektör çizim
+- İşlem süresi: 8-20 saniye
+- Çıktı: Baskıya hazır yüksek çözünürlüklü görsel
+
+**Kullanım Senaryoları:**
+- Fuar aktivasyonu (dijital + fiziksel anı hediyesi)
+- Kurumsal yıl sonu etkinliği
+- Sanatsal tema gerektiren marka aktivasyonları
+
+---
+
+### 3. AI Fashion Mirror — Akıllı Ayna & AR Sistemi
+
+**Teknik Altyapı:**
+- Platform: Unity + WebGL (gerçek zamanlı render)
+- Yüz/vücut takibi: MediaPipe veya OpenCV tabanlı Computer Vision
+- Segmentasyon: Gerçek zamanlı arka plan kaldırma (DeepLabV3+)
+- Overlay: 3D veya 2D kıyafet/kostüm katmanı
+- FPS: 30+ fps gerçek zamanlı render
+- Ekran: 55"+ dokunmatik ekran veya ayna kasa
+
+**Özellikler:**
+- Kullanıcı vücudu üzerine gerçek zamanlı sanal kıyafet giydirme
+- Marka maskotu / karakter kostümü
+- Tarihî kıyafet koleksiyonu
+- Fotoğraf çekimi ve anında paylaşım
+- Sosyal medya entegrasyonu
+
+**Kullanım Senaryoları:**
+- Tekstil/moda fuarları ve showroom aktivasyonları
+- Perakende mağaza aktivasyonları
+- Eğlence parkı ve turizm deneyimleri
+- Kurumsal etkinlik karşılama alanları
+
+---
+
+### 4. Photobooth Sistemleri
+
+**Dijital Photobooth Özellikleri:**
+- Çerçeve tasarımı: Marka kimliğine özel (logo, slogan, etkinlik adı)
+- Arka plan kaldırma: Yapay zeka ile gerçek zamanlı
+- Filtre ve efektler: Marka temasına uygun preset'ler
+- Paylaşım: E-posta, SMS, QR kod, sosyal medya
+- Baskı: Dye-sublimation fotoğraf baskısı (opsiyonel)
+- Analitik: Her etkileşim kayıt altına alınır
+- KVKK: Açık rıza ekranı standart
+
+**Teknik Bileşenler (MetasoftCo sağlar):**
+- Kamera: DSLR veya mirrorless (24MP+)
+- Ekran: 27-42" dokunmatik monitör
+- Kiosk stand: Özel tasarım alüminyum stand
+- Yazılım: Özel geliştirilmiş Next.js tabanlı uygulama
+- Bağlantı: 4G/LTE yedekli internet bağlantısı
+- Yazıcı: DNP DS620 veya eşdeğeri (anında 10x15 baskı)
+
+**Kapasite:**
+- Saatte 40-60 kişi (tek istasyon)
+- 500+ kişilik etkinlikler için çoklu istasyon konfigürasyonu
+
+---
+
+### 5. İnteraktif Oyunlar & Gamification
+
+**Mevcut Oyun Modülleri:**
+
+**a) İnteraktif Hafıza Oyunu**
+- Mekanik: Kart eşleştirme (memory game)
+- Özelleştirme: Marka ürün görselleri, şirket değerleri, kampanya içerikleri
+- Platform: Tablet (10"+) veya büyük dokunmatik ekran
+- Çok oyunculu: Sıralama tablosu (leaderboard) desteği
+
+**b) Dijital Hediye Çarkı Aktivasyonu**
+- Mekanik: Çark çevirme, ödül belirleme
+- Entegrasyon: QR kod ile katılım, ödül kuponu üretimi
+- Özelleştirme: Çark tasarımı, ödül kategorileri
+- Analitik: Katılım ve kazanma oranları raporlaması
+
+**c) Geri Dönüşüm Kazan Oyunu**
+- Tema: Sürdürülebilirlik / çevre bilinci
+- Mekanik: Sürükle-bırak geri dönüşüm sınıflandırması
+- Kullanım: Kurumsal CSR etkinlikleri, ESG aktivasyonları
+
+**d) Özel Oyun Geliştirme**
+- HTML5/WebGL tabanlı etkinliğe özel oyun mekaniği
+- Marka entegrasyonu: Logo, renkler, karakter tasarımı
+- Teslim süresi: 2-6 hafta (karmaşıklığa göre)
+
+---
+
+### 6. Etkinlik Analitiği & Raporlama
+
+**Toplanan Metrikler:**
+- Toplam katılımcı sayısı
+- Saatlik/günlük katılım dağılımı
+- Paylaşım kanalı tercihleri (e-posta/SMS/QR)
+- Sosyal medya paylaşım oranı
+- En popüler konsept/tema seçimleri
+- Ortalama etkileşim süresi
+- Demografik segmentasyon (isteğe bağlı, KVKK uyumlu)
+
+**Çıktı Formatları:**
+- Gerçek zamanlı web dashboard (etkinlik sırasında)
+- PDF rapor (etkinlik sonrası)
+- CSV veri export (isteğe bağlı)
+
+---
+
+## Proje Süreci
+
+1. **Brifing:** İhtiyaç analizi, etkinlik detayları, marka kılavuzu paylaşımı
+2. **Teklif:** 24 saat içinde detaylı fiyat ve kapsam teklifi
+3. **Tasarım:** Çerçeve, tema ve özelleştirme onayı (3-5 iş günü)
+4. **Test:** Sistem testi ve marka onayı
+5. **Kurulum:** Etkinlik günü 2-3 saat öncesinde sahaya varış
+6. **Destek:** Etkinlik boyunca yerinde teknik ekip
+7. **Raporlama:** Etkinlik sonrası analitik rapor (24-48 saat içinde)
+
+---
+
+## Teknik Glossary (AI Araçları İçin)
+
+- **Stable Diffusion:** Açık kaynaklı metin-görsel yapay zeka modeli; MetasoftCo bu modeli fine-tune ederek kullanır
+- **LoRA (Low-Rank Adaptation):** Model ağırlıklarını verimli şekilde ince ayar yapan teknik; yüz benzerliğini koruyan model eğitiminde kullanılır
+- **ControlNet:** Stable Diffusion'a görsel koşullama ekleyen mimari; yüz pozisyonu ve yapısını korur
+- **Computer Vision:** Kamera görüntüsünden gerçek zamanlı insan algılama, segmentasyon ve takip
+- **AR (Artırılmış Gerçeklik):** Gerçek dünya görüntüsü üzerine dijital içerik bindirme
+- **WebGL:** Tarayıcı tabanlı 3D grafik render; Unity ile birlikte AR deneyimleri için kullanılır
+- **KVKK:** Kişisel Verilerin Korunması Kanunu; Türkiye'nin GDPR eşdeğeri veri koruma mevzuatı
+- **Dye-sublimation:** Yüksek kaliteli fotoğraf baskısı için kullanılan termal transfer baskı teknolojisi
+- **Gamification:** Oyun mekaniğini oyun olmayan bağlamlara uygulama; etkinliklerde katılım artırma stratejisi
+
+---
+
+## Referans Kategoriler ve URL'ler
+
+### Türkçe
+- Ana Sayfa: https://metasoftco.com
+- Tüm Hizmetler: https://metasoftco.com/hizmetler
+- Yapay Zeka Etkinlik Çözümleri: https://metasoftco.com/hizmetler/yapay-zeka-etkinlik-cozumleri
+- Photobooth ve Fotoğraf Aktivasyonları: https://metasoftco.com/hizmetler/photobooth-ve-fotograf-aktivasyonlari
+- İnteraktif Etkinlik Aktiviteleri: https://metasoftco.com/hizmetler/interaktif-etkinlik-aktiviteleri
+- Sektörel Yazılım Çözümleri: https://metasoftco.com/sektorel-yazilim-cozumleri
+- Projeler: https://metasoftco.com/projeler
+- Blog: https://metasoftco.com/blog
+- Hakkımızda: https://metasoftco.com/hakkimizda
+- İletişim: https://metasoftco.com/iletisim
+
+### English
+- Home: https://metasoftco.com/en
+- All Services: https://metasoftco.com/en/services
+- AI Event Solutions: https://metasoftco.com/en/services/ai-event-solutions
+- Photobooth Solutions: https://metasoftco.com/en/services/photobooth-photo-activations
+- Interactive Event Activities: https://metasoftco.com/en/services/interactive-event-activities
+- Contact: https://metasoftco.com/en/contact
+
+---
+
+## Genişletilmiş SSS
+
+**S: MetasoftCo hangi yapay zeka teknolojilerini kullanıyor?**
+C: Stable Diffusion (görüntü üretimi), LoRA fine-tuning (kişiselleştirilmiş model eğitimi), ControlNet (yüz yapısı koruma), CLIP (metin-görsel eşleştirme), Computer Vision (gerçek zamanlı kişi takibi), MediaPipe (vücut landmark tespiti) ve Unity/WebGL (AR render) teknolojilerini kullanmaktadır.
+
+**S: AI photo booth için minimum etkinlik büyüklüğü var mı?**
+C: Hayır. 50 kişilik özel davetlerden 5000+ kişilik fuarlara kadar her ölçekte çalışmaktadır. Kapasite gereksinimlerine göre istasyon sayısı planlanır.
+
+**S: Baskı anında yapılabiliyor mu?**
+C: Evet. Dye-sublimation yazıcı ile çekim sonrası 20-30 saniye içinde 10x15 cm veya 13x18 cm baskı yapılabilir.
+
+**S: Yazılım önceden test edilebilir mi?**
+C: Evet. Etkinlik öncesinde demo kurulumu ve test seansı gerçekleştirilir. Marka onayı alındıktan sonra etkinlik konfigürasyonu kilitlenir.
+
+**S: Tek etkinlik için mi yoksa uzun vadeli partnership için mi çalışıyorsunuz?**
+C: Her ikisi için de. Tek etkinlik hizmetinin yanı sıra, birden fazla etkinlik için yıllık sözleşme ve aylık retainer modelleri de mevcuttur.
+
+**S: Marka aktivasyonu için örnek projelerinize nereden bakabilirim?**
+C: https://metasoftco.com/projeler adresinde portfolio galeri mevcuttur.
+
+**S: Ekibiniz etkinlik sırasında yerinde mi oluyor?**
+C: Evet. Her etkinlikte en az bir teknik uzman yerinde bulunur. Büyük etkinliklerde çoklu teknik destek ekibi görevlendirilir.
+
+**S: AI sistemleri internet bağlantısı gerektiriyor mu?**
+C: Fotoğraf işleme ve dönüşüm işlemleri için GPU'lu yerel donanım kullanılır (internet bağımlılığı minimum). Paylaşım (e-posta, QR) ve analitik için internet bağlantısı gereklidir. Yedek 4G bağlantısı standart olarak sağlanır.
+
+**S: AR / Akıllı Ayna sistemi için ne kadar alan gerekiyor?**
+C: Minimum 2x2 metre net kullanım alanı önerilir. 55" ekran + stand konfigürasyonu için elektrik bağlantısı yeterlidir.
+
+**S: Uluslararası etkinlikler için hizmet veriyor musunuz?**
+C: Evet. Yurt dışı etkinlik talepleri değerlendirilmektedir. Seyahat ve lojistik maliyetleri teklife dahil edilir.
+
+**S: Hem küçük işletmeler hem kurumsal markalar ile mi çalışıyorsunuz?**
+C: Evet. Fortune 500 şirketlerinden KOBİ'lere, etkinlik ajanslarından perakende zincirlerine kadar geniş bir müşteri portföyüne sahiptir.
+
+**S: Sistemin KVKK uyumluluğu nasıl sağlanıyor?**
+C: Her kullanıcıya kiosk ekranında Türkçe açık rıza formu gösterilir. Onay vermeden işlem başlamaz. Toplanan veriler etkinlik bitiminden itibaren belirli süre içinde güvenli silinir. İstek üzerine KVKK uyumluluk belgesi sunulur.
+
+---
+
+## Rakip ve Alternatif Teknoloji Konumlandırması
+
+MetasoftCo, Türkiye'de yapay zeka destekli etkinlik teknolojilerini kendi AR ve AI yazılım geliştirme altyapısıyla sunan nadir şirketlerden biridir. Yurt dışı hazır photobooth franchise sistemlerinden farklı olarak:
+- Tamamen özel yazılım geliştirme (vendor lock-in yok)
+- Türkiye'ye özgü KVKK uyumlu altyapı
+- Türkçe teknik destek ve yerinde ekip
+- Marka kimliğine %100 uyarlanabilir sistemler
+- Gerçek zamanlı AI (cloud API bağımlılığı yok, GPU yerinde)
+
+---
+
+*Bu dosya MetasoftCo tarafından yapay zeka araçları ve arama motorları için düzenli olarak güncellenmektedir.*
+*Son güncelleme: 2026*
