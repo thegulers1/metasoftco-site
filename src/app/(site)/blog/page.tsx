@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Metadata } from "next";
+import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { siteConfig } from "@/lib/site";
 import Container from "@/components/site/Container";
@@ -21,24 +22,18 @@ export const metadata: Metadata = {
     },
 };
 
-async function getBlogPosts() {
-    return prisma.blogPost.findMany({
+const getBlogPosts = unstable_cache(
+    async () => prisma.blogPost.findMany({
         where: { published: true },
         orderBy: { publishedAt: "desc" },
         select: {
-            id: true,
-            title: true,
-            title_en: true,
-            excerpt: true,
-            excerpt_en: true,
-            image: true,
-            slug: true,
-            category: true,
-            author: true,
-            publishedAt: true,
+            id: true, title: true, title_en: true, excerpt: true, excerpt_en: true,
+            image: true, slug: true, category: true, author: true, publishedAt: true,
         },
-    });
-}
+    }),
+    ["blog-posts-tr"],
+    { revalidate: 60 }
+);
 
 export default async function BlogPage() {
     const posts = await getBlogPosts();

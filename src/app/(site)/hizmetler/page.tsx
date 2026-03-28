@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { siteConfig, generateFAQSchema } from "@/lib/site";
 import ServicesListClient from "./ServicesListClient";
@@ -23,16 +24,14 @@ export const metadata: Metadata = {
     },
 };
 
-async function getCategories() {
-    return prisma.serviceCategory.findMany({
+const getCategories = unstable_cache(
+    async () => prisma.serviceCategory.findMany({
         orderBy: { order: "asc" },
-        include: {
-            services: {
-                orderBy: { order: "asc" },
-            },
-        },
-    });
-}
+        include: { services: { orderBy: { order: "asc" } } },
+    }),
+    ["service-categories"],
+    { revalidate: 60 }
+);
 
 const serviceFAQs = [
     {

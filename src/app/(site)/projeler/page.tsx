@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { siteConfig } from "@/lib/site";
 import ProjectsHero from "./ProjectsHero";
@@ -23,21 +24,18 @@ export const metadata: Metadata = {
     alternates: { canonical: `${siteConfig.url}/projeler` },
 };
 
-export default async function ProjectsPage() {
-    const projects = await prisma.project.findMany({
+const getProjects = unstable_cache(
+    async () => prisma.project.findMany({
         where: { published: true },
         orderBy: { order: "asc" },
-        select: {
-            id: true,
-            slug: true,
-            image: true,
-            title: true,
-            title_en: true,
-            category: true,
-            description: true,
-            description_en: true,
-        },
-    });
+        select: { id: true, slug: true, image: true, title: true, title_en: true, category: true, description: true, description_en: true },
+    }),
+    ["projects-list"],
+    { revalidate: 60 }
+);
+
+export default async function ProjectsPage() {
+    const projects = await getProjects();
 
     return (
         <div className="bg-white min-h-screen">

@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { siteConfig } from "@/lib/site";
 import SektorelCozumlerClient from "../../sektorel-cozumler/SektorelCozumlerClient";
@@ -24,23 +25,15 @@ export const metadata: Metadata = {
     },
 };
 
-async function getSectorPages() {
-    return prisma.sectorPage.findMany({
+const getSectorPages = unstable_cache(
+    async () => prisma.sectorPage.findMany({
         where: { published: true },
         orderBy: { order: "asc" },
-        select: {
-            id: true,
-            title: true,
-            slug: true,
-            slug_en: true,
-            h1: true,
-            h1_en: true,
-            excerpt: true,
-            excerpt_en: true,
-            ogImage: true,
-        },
-    });
-}
+        select: { id: true, title: true, slug: true, slug_en: true, h1: true, h1_en: true, excerpt: true, excerpt_en: true, ogImage: true },
+    }),
+    ["sector-pages-en"],
+    { revalidate: 60 }
+);
 
 export default async function SectorSolutionsEN() {
     const pages = await getSectorPages();
