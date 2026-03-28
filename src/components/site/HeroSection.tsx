@@ -24,21 +24,15 @@ export default function HeroSection() {
                     <span className="text-[#1a1a1a]/40">{t("Yazılımdan Üretime.", "From Software to Production.")}</span>
                 </h1>
 
-                <motion.div
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ delay: 0.3, duration: 0.8, ease: "easeOut" }}
-                >
-                    <div className="flex justify-center mt-4">
-                        <p className="text-sm md:text-base lg:text-lg text-[#1a1a1a]/60 font-normal leading-relaxed text-center px-4 max-w-[1000px]">
-                            {language === "tr" ? (
-                                <>MetasoftCo, markalar için sadece dijital dünyalar kurgulamakla kalmayan; <span className="font-bold text-[#1a1a1a]/90">özel yazılımları, interaktif teknolojileri, fiziksel stand üretimini</span> ve etkinlik prodüksiyonunu tek çatı altında buluşturan İstanbul merkezli uçtan uca deneyim ajansıdır.</>
-                            ) : (
-                                <>MetasoftCo is an Istanbul-based end-to-end experience agency that goes beyond building digital worlds for brands — bringing together <span className="font-bold text-[#1a1a1a]/90">custom software, interactive technologies, physical stand production</span> and event production under one roof.</>
-                            )}
-                        </p>
-                    </div>
-                </motion.div>
+                <div className="flex justify-center mt-4">
+                    <p className="text-sm md:text-base lg:text-lg text-[#1a1a1a]/60 font-normal leading-relaxed text-center px-4 max-w-[1000px]">
+                        {language === "tr" ? (
+                            <>MetasoftCo, markalar için sadece dijital dünyalar kurgulamakla kalmayan; <span className="font-bold text-[#1a1a1a]/90">özel yazılımları, interaktif teknolojileri, fiziksel stand üretimini</span> ve etkinlik prodüksiyonunu tek çatı altında buluşturan İstanbul merkezli uçtan uca deneyim ajansıdır.</>
+                        ) : (
+                            <>MetasoftCo is an Istanbul-based end-to-end experience agency that goes beyond building digital worlds for brands — bringing together <span className="font-bold text-[#1a1a1a]/90">custom software, interactive technologies, physical stand production</span> and event production under one roof.</>
+                        )}
+                    </p>
+                </div>
             </div>
 
             {/* Scroll Indicator Line - moved up to avoid overlap with next section */}

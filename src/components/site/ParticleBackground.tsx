@@ -26,7 +26,7 @@ export default function ParticleBackground() {
 
         let animationFrameId: number;
         let particles: Particle[] = [];
-        const particleCount = 1000;
+        const particleCount = 400;
         const connectionDistance = 100;
         const mouseRadius = 150;
 
