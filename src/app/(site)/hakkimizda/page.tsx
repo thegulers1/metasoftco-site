@@ -10,6 +10,10 @@ export const metadata: Metadata = {
         description: "Yenilikçi fikirleri harika deneyimler yaratacak şekilde hayata geçirmeye tutkulu bir ekibiz.",
         url: `${siteConfig.url}/hakkimizda`,
     },
+    alternates: {
+        canonical: `${siteConfig.url}/hakkimizda`,
+        languages: { "x-default": `${siteConfig.url}/hakkimizda`, tr: `${siteConfig.url}/hakkimizda`, en: `${siteConfig.url}/en/hakkimizda` },
+    },
 };
 
 export default function HakkimizdaPage() {

@@ -1,11 +1,20 @@
+import { Metadata } from "next";
 import HeroSection from "@/components/site/HeroSection";
 import ProjectShowcase from "@/components/site/ProjectShowcase";
 import { FeaturedServicesSection } from "@/components/site/FeaturedServicesSection";
 import { ReferencesSection } from "@/components/site/ReferencesSection";
 import { AboutSection } from "@/components/site/AboutSection";
 import { prisma } from "@/lib/db";
+import { siteConfig } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
+
+export const metadata: Metadata = {
+    alternates: {
+        canonical: siteConfig.url,
+        languages: { "x-default": siteConfig.url, tr: siteConfig.url, en: `${siteConfig.url}/en` },
+    },
+};
 
 async function getFeaturedServices() {
     const services = await prisma.service.findMany({

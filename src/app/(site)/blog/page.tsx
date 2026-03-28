@@ -15,6 +15,10 @@ export const metadata: Metadata = {
         description: "Etkinlik teknolojileri, yapay zeka ve dijital deneyimler üzerine yazılar.",
         url: `${siteConfig.url}/blog`,
     },
+    alternates: {
+        canonical: `${siteConfig.url}/blog`,
+        languages: { "x-default": `${siteConfig.url}/blog`, tr: `${siteConfig.url}/blog`, en: `${siteConfig.url}/en/blog` },
+    },
 };
 
 async function getBlogPosts() {

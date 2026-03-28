@@ -1,4 +1,13 @@
+import { Metadata } from "next";
 import Container from "@/components/site/Container";
+import { siteConfig } from "@/lib/site";
+
+export const metadata: Metadata = {
+    title: "İşler",
+    alternates: {
+        canonical: `${siteConfig.url}/isler`,
+    },
+};
 
 export default function WorksPage() {
     return (
