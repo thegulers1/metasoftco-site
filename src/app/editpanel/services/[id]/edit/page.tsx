@@ -519,9 +519,31 @@ export default function EditServicePage({
                         {/* Alt metin girdileri */}
                         {service.gallery && JSON.parse(service.gallery).length > 0 && (
                             <div>
-                                <label className="block text-sm font-medium text-black/70 mb-3">
-                                    Görsel Alt Metinleri <span className="text-black/30 font-normal">(SEO · boş bırakırsanız hizmet başlığı kullanılır)</span>
-                                </label>
+                                <div className="flex items-center justify-between mb-3">
+                                    <label className="block text-sm font-medium text-black/70">
+                                        Görsel Alt Metinleri <span className="text-black/30 font-normal">(SEO · boş bırakırsanız hizmet başlığı kullanılır)</span>
+                                    </label>
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            const templates = [
+                                                `${service.title} - Kurumsal Etkinlik ve Marka Aktivasyon Çözümleri | MetasoftCo`,
+                                                `Etkinlikler için İnteraktif ${service.title} Deneyimi ve Dijital Hatıralar | MetasoftCo`,
+                                                `Profesyonel ${service.title} Hizmeti ve Yeni Nesil Etkinlik Teknolojileri | MetasoftCo`,
+                                            ];
+                                            const items = (JSON.parse(service.gallery!) as (string | { url: string; alt?: string })[]).map(
+                                                (item, i) => {
+                                                    const url = typeof item === 'string' ? item : item.url;
+                                                    return { url, alt: templates[i % 3] };
+                                                }
+                                            );
+                                            setService({ ...service, gallery: JSON.stringify(items) });
+                                        }}
+                                        className="text-xs px-3 py-1.5 bg-black text-white rounded-lg hover:bg-black/80 transition"
+                                    >
+                                        Otomatik Doldur
+                                    </button>
+                                </div>
                                 <div className="space-y-2">
                                     {(JSON.parse(service.gallery) as (string | { url: string; alt?: string })[]).map((item, i) => {
                                         const url = typeof item === 'string' ? item : item.url;
