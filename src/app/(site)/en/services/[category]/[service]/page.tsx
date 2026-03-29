@@ -110,12 +110,32 @@ export default async function EnglishServiceDetailPage({ params }: PageProps) {
         { name: service.title_en || service.title, url: `${siteConfig.url}/en/services/${category}/${serviceSlug}` },
     ]);
 
+    const youtubeIdMatch = service.video?.match(
+        /youtube\.com\/(?:watch\?v=|shorts\/|embed\/)([^?&/]+)|youtu\.be\/([^?&/]+)/
+    );
+    const youtubeId = youtubeIdMatch ? (youtubeIdMatch[1] || youtubeIdMatch[2]) : null;
+    const videoSchema = youtubeId ? {
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+        "name": service.title_en || service.title,
+        "description": service.metaDescription_en || service.metaDescription || service.description_en || service.description || service.title,
+        "thumbnailUrl": `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`,
+        "embedUrl": `https://www.youtube.com/embed/${youtubeId}`,
+        "uploadDate": new Date().toISOString().split("T")[0],
+    } : null;
+
     return (
         <>
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
             />
+            {videoSchema && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchema) }}
+                />
+            )}
             <AdminEditUrlSetter url={`/editpanel/services/${service.id}/edit`} />
             <ServiceDetailClient
                 service={service}
