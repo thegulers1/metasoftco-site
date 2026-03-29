@@ -132,7 +132,17 @@ export default function VideoUpload({
     const [error, setError] = useState<string | null>(null);
     const [isDragging, setIsDragging] = useState(false);
     const [libraryOpen, setLibraryOpen] = useState(false);
+    const [youtubeInput, setYoutubeInput] = useState("");
     const inputRef = useRef<HTMLInputElement>(null);
+
+    const isYouTube = (url: string) => url.includes("youtube.com") || url.includes("youtu.be");
+
+    const handleYoutubeSave = () => {
+        const trimmed = youtubeInput.trim();
+        if (!trimmed) return;
+        onChange(trimmed);
+        setYoutubeInput("");
+    };
 
     const uploadFile = async (file: File) => {
         if (!file) return;
@@ -227,13 +237,43 @@ export default function VideoUpload({
                 </button>
             </div>
 
+            {/* YouTube URL girişi */}
+            <div className="mb-3 flex gap-2">
+                <input
+                    type="text"
+                    placeholder="YouTube linki yapıştır (youtube.com/watch, shorts, embed...)"
+                    value={youtubeInput}
+                    onChange={(e) => setYoutubeInput(e.target.value)}
+                    className="flex-1 px-3 py-2 text-sm bg-black/5 border-0 rounded-lg focus:outline-none focus:ring-2 focus:ring-black/20"
+                />
+                <button
+                    type="button"
+                    onClick={handleYoutubeSave}
+                    disabled={!youtubeInput.trim()}
+                    className="px-3 py-2 text-sm bg-red-600 text-white rounded-lg hover:bg-red-700 disabled:opacity-30 transition"
+                >
+                    Ekle
+                </button>
+            </div>
+
             {value ? (
                 <div className="relative">
-                    <video
-                        src={value}
-                        controls
-                        className="w-full h-48 rounded-lg bg-black object-contain"
-                    />
+                    {isYouTube(value) ? (
+                        <div className="w-full rounded-lg overflow-hidden bg-black aspect-video flex items-center justify-center">
+                            <iframe
+                                src={value.replace(/youtube\.com\/(watch\?v=|shorts\/)/, "youtube.com/embed/").replace("youtu.be/", "youtube.com/embed/")}
+                                className="w-full h-full"
+                                allowFullScreen
+                                title="YouTube video"
+                            />
+                        </div>
+                    ) : (
+                        <video
+                            src={value}
+                            controls
+                            className="w-full h-48 rounded-lg bg-black object-contain"
+                        />
+                    )}
                     <button
                         type="button"
                         onClick={() => onChange(null)}
