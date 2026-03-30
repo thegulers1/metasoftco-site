@@ -23,6 +23,7 @@ ENV NEXT_TELEMETRY_DISABLED=1
 ENV DATABASE_URL="postgresql://build:build@localhost:5432/build"
 ENV DIRECT_URL="postgresql://build:build@localhost:5432/build"
 
+RUN pnpm prisma generate
 RUN pnpm build
 
 # Production runner
