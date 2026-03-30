@@ -39,8 +39,8 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
     const description = language === "en" ? (project.description_en || project.description) : project.description;
     const content = language === "en" ? (project.content_en || project.content) : project.content;
 
-    const technologies: string[] = project.technologies ? JSON.parse(project.technologies) : [];
-    const galleryImages: string[] = project.gallery ? JSON.parse(project.gallery) : [];
+    const technologies: string[] = (() => { try { return project.technologies ? JSON.parse(project.technologies) : []; } catch { return project.technologies ? project.technologies.split(",").map(s => s.trim()).filter(Boolean) : []; } })();
+    const galleryImages: string[] = (() => { try { return project.gallery ? JSON.parse(project.gallery) : []; } catch { return []; } })();
 
     return (
         <div className="min-h-screen bg-white pt-32 pb-20">
