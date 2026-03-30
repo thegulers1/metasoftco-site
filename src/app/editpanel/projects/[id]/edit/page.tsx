@@ -69,6 +69,7 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
     }, [projectId]);
 
     const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
         if (!project || !projectId) return;
 
         setSaving(true);
