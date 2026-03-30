@@ -120,12 +120,12 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
 
                 {/* Hero Image */}
                 {project.image && (
-                    <div className="relative aspect-[16/9] sm:aspect-[16/7] w-full overflow-hidden rounded-2xl mb-10">
+                    <div className="relative aspect-[16/9] w-full overflow-hidden rounded-2xl mb-10">
                         <Image
                             fill
                             src={project.image}
                             alt={title}
-                            className="object-cover"
+                            className="object-contain bg-black/5"
                             sizes="(max-width: 1200px) 100vw, 896px"
                             priority
                         />

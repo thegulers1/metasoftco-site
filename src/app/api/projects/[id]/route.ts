@@ -67,6 +67,7 @@ export async function PUT(
             metaTitle_en,
             metaDescription_en,
             metaKeywords_en,
+            video,
         } = body;
 
         const project = await prisma.project.update({
@@ -99,6 +100,7 @@ export async function PUT(
                 metaTitle_en,
                 metaDescription_en,
                 metaKeywords_en,
+                video: video || null,
             },
         });
 
