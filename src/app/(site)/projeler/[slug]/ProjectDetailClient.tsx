@@ -80,6 +80,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
                 </div>
 
                 {/* Project Meta */}
+                {(project.client || project.category || project.projectUrl) && (
                 <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 mb-10 p-6 bg-black/[0.02] rounded-2xl">
                     {project.client && (
                         <div>
@@ -117,6 +118,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
                         </div>
                     )}
                 </div>
+                )}
 
                 {/* Hero Image */}
                 {project.image && (
