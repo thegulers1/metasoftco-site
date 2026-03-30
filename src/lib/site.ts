@@ -34,6 +34,7 @@ export const siteConfig = {
     social: {
         twitter: "@metasoftco",
         instagram: "@metasoftco",
+        youtube: "https://www.youtube.com/@MetasoftCo",
     },
 
     // Contact
@@ -146,6 +147,7 @@ export function generateOrganizationSchema() {
             `https://instagram.com/${siteConfig.social.instagram.replace("@", "")}`,
             `https://twitter.com/${siteConfig.social.twitter.replace("@", "")}`,
             "https://www.linkedin.com/company/metasoftco",
+            siteConfig.social.youtube,
         ],
     };
 }
@@ -290,6 +292,7 @@ export function generateLocalBusinessSchema() {
             `https://instagram.com/${siteConfig.social.instagram.replace("@", "")}`,
             `https://twitter.com/${siteConfig.social.twitter.replace("@", "")}`,
             "https://www.linkedin.com/company/metasoftco",
+            siteConfig.social.youtube,
         ],
     };
 }

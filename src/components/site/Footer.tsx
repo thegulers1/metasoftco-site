@@ -117,6 +117,7 @@ export default function Footer() {
                     <div className="flex gap-6">
                         <Link href="https://www.linkedin.com/company/metasoftco" className="hover:text-white transition-colors">Linkedin</Link>
                         <Link href="https://instagram.com/metasoftco" className="hover:text-white transition-colors">Instagram</Link>
+                        <Link href="https://www.youtube.com/@MetasoftCo" className="hover:text-white transition-colors">YouTube</Link>
                     </div>
                     <div className="flex gap-6">
                         <Link href="/kullanim-kosullari" className="hover:text-white transition-colors">
