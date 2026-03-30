@@ -92,6 +92,7 @@ model Project {
   technologies String?   @db.Text // JSON array - kullanılan teknolojiler
   projectUrl   String? // Canlı proje linki
   githubUrl    String? // GitHub linki (varsa)
+  video        String? // Video URL (Cloudinary veya YouTube)
   featured     Boolean   @default(false) // Öne çıkan proje mi?
   published    Boolean   @default(true) // Yayında mı?
   order        Int       @default(0) // Sıralama

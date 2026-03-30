@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import ImageUpload from "@/components/editpanel/ImageUpload";
 import GalleryUpload from "@/components/editpanel/GalleryUpload";
+import VideoUpload from "@/components/editpanel/VideoUpload";
 
 export const dynamic = 'force-dynamic';
 
@@ -20,6 +21,7 @@ interface Project {
     technologies: string | null;
     projectUrl: string | null;
     githubUrl: string | null;
+    video: string | null;
     featured: boolean;
     published: boolean;
     order: number;
@@ -443,6 +445,13 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
                             folder="projects/gallery"
                             label="Proje Galerisi"
                             maxImages={12}
+                        />
+
+                        <VideoUpload
+                            value={project.video}
+                            onChange={(url) => setProject({ ...project, video: url })}
+                            folder="projects/videos"
+                            label="Proje Videosu"
                         />
                     </>
                 )}

@@ -68,6 +68,7 @@ async function getProject(slug: string) {
             client: true,
             projectUrl: true,
             technologies: true,
+            video: true,
         },
     });
 }
@@ -82,8 +83,25 @@ export default async function ProjectDetailPage({
 
     if (!project) notFound();
 
+    const youtubeIdMatch = project.video?.match(
+        /youtube\.com\/(?:watch\?v=|shorts\/|embed\/)([^?&/]+)|youtu\.be\/([^?&/]+)/
+    );
+    const youtubeId = youtubeIdMatch ? (youtubeIdMatch[1] || youtubeIdMatch[2]) : null;
+    const videoSchema = youtubeId ? {
+        "@context": "https://schema.org",
+        "@type": "VideoObject",
+        "name": project.title,
+        "description": project.description || project.title,
+        "thumbnailUrl": `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`,
+        "embedUrl": `https://www.youtube.com/embed/${youtubeId}`,
+        "uploadDate": new Date().toISOString().split("T")[0],
+    } : null;
+
     return (
         <>
+            {videoSchema && (
+                <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchema) }} />
+            )}
             <AdminEditUrlSetter url={`/editpanel/projects/${project.id}/edit`} />
             <ProjectDetailClient project={project} />
         </>

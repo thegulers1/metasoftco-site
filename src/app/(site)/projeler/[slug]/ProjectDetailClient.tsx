@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useLanguage } from "@/providers/LanguageProvider";
 import GalleryLightbox from "@/components/site/GalleryLightbox";
+import VideoPlayer from "@/components/site/VideoPlayer";
 
 interface Project {
     id: string;
@@ -22,6 +23,7 @@ interface Project {
     client: string | null;
     projectUrl: string | null;
     technologies: string | null;
+    video: string | null;
 }
 
 export default function ProjectDetailClient({ project }: { project: Project }) {
@@ -127,6 +129,13 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
                             sizes="(max-width: 1200px) 100vw, 896px"
                             priority
                         />
+                    </div>
+                )}
+
+                {/* Video */}
+                {project.video && (
+                    <div className="mb-10">
+                        <VideoPlayer src={project.video} title={title} />
                     </div>
                 )}
 
