@@ -19,22 +19,17 @@ export default function ImageUpload({
 }: ImageUploadProps) {
     const [uploading, setUploading] = useState(false);
     const [error, setError] = useState<string | null>(null);
+    const [isDragging, setIsDragging] = useState(false);
     const [isLibraryOpen, setIsLibraryOpen] = useState(false);
     const inputRef = useRef<HTMLInputElement>(null);
 
-    const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
-        const file = e.target.files?.[0];
-        if (!file) return;
-
-        // Dosya boyutu kontrolü (10MB)
+    const uploadFile = async (file: File) => {
         if (file.size > 10 * 1024 * 1024) {
             setError("Dosya boyutu 10MB'dan küçük olmalı");
             return;
         }
-
         setError(null);
         setUploading(true);
-
         try {
             const data = await uploadToCloudinary(file, `metasoftco/${folder}`);
             onChange(data.url);
@@ -46,12 +41,26 @@ export default function ImageUpload({
         }
     };
 
+    const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) await uploadFile(file);
+    };
+
+    const handleDragEnter = (e: React.DragEvent) => { e.preventDefault(); e.stopPropagation(); setIsDragging(true); };
+    const handleDragLeave = (e: React.DragEvent) => { e.preventDefault(); e.stopPropagation(); setIsDragging(false); };
+    const handleDragOver  = (e: React.DragEvent) => { e.preventDefault(); e.stopPropagation(); };
+    const handleDrop = async (e: React.DragEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        setIsDragging(false);
+        const file = e.dataTransfer.files?.[0];
+        if (file) await uploadFile(file);
+    };
+
     return (
         <div>
             <div className="flex items-center justify-between mb-2">
-                <label className="block text-sm font-medium text-black/70">
-                    {label}
-                </label>
+                <label className="block text-sm font-medium text-black/70">{label}</label>
                 {!value && (
                     <button
                         type="button"
@@ -68,11 +77,7 @@ export default function ImageUpload({
 
             {value ? (
                 <div className="relative group">
-                    <img
-                        src={value}
-                        alt="Uploaded"
-                        className="w-full h-48 object-cover rounded-2xl border bg-black/5"
-                    />
+                    <img src={value} alt="Uploaded" className="w-full h-48 object-cover rounded-2xl border bg-black/5" />
                     <button
                         type="button"
                         onClick={() => onChange(null)}
@@ -86,10 +91,17 @@ export default function ImageUpload({
             ) : (
                 <div
                     onClick={() => inputRef.current?.click()}
-                    className={`w-full h-48 border-2 border-dashed rounded-2xl flex flex-col items-center justify-center cursor-pointer transition ${uploading
-                        ? "border-black/10 bg-black/5"
-                        : "border-black/10 hover:border-blue-500/30 hover:bg-blue-50/10"
-                        }`}
+                    onDragEnter={handleDragEnter}
+                    onDragLeave={handleDragLeave}
+                    onDragOver={handleDragOver}
+                    onDrop={handleDrop}
+                    className={`w-full h-48 border-2 border-dashed rounded-2xl flex flex-col items-center justify-center cursor-pointer transition ${
+                        uploading
+                            ? "border-black/10 bg-black/5"
+                            : isDragging
+                                ? "border-blue-500 bg-blue-50/20 scale-[1.02]"
+                                : "border-black/10 hover:border-blue-500/30 hover:bg-blue-50/10"
+                    }`}
                 >
                     {uploading ? (
                         <div className="flex flex-col items-center">
@@ -98,29 +110,23 @@ export default function ImageUpload({
                         </div>
                     ) : (
                         <>
-                            <div className="w-12 h-12 bg-black/5 rounded-2xl flex items-center justify-center mb-3 text-black/20 group-hover:scale-110 transition-transform">
+                            <div className="w-12 h-12 bg-black/5 rounded-2xl flex items-center justify-center mb-3 text-black/20">
                                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 4v16m8-8H4" />
                                 </svg>
                             </div>
-                            <p className="text-sm font-medium text-black/50">Görsel yüklemek için tıkla</p>
+                            <p className="text-sm font-medium text-black/50">
+                                {isDragging ? "Dosyayı buraya bırak" : "Tıkla veya sürükle-bırak"}
+                            </p>
                             <p className="text-[10px] text-black/30 mt-1 uppercase tracking-widest font-bold">PNG, JPG, WEBP (max 10MB)</p>
                         </>
                     )}
                 </div>
             )}
 
-            {error && (
-                <p className="mt-2 text-sm text-red-500 font-medium">{error}</p>
-            )}
+            {error && <p className="mt-2 text-sm text-red-500 font-medium">{error}</p>}
 
-            <input
-                ref={inputRef}
-                type="file"
-                accept="image/*"
-                onChange={handleUpload}
-                className="hidden"
-            />
+            <input ref={inputRef} type="file" accept="image/*" onChange={handleUpload} className="hidden" />
 
             <MediaLibrary
                 isOpen={isLibraryOpen}
