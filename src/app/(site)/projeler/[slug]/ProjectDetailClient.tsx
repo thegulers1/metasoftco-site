@@ -40,7 +40,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
     const content = language === "en" ? (project.content_en || project.content) : project.content;
 
     const technologies: string[] = (() => { try { return project.technologies ? JSON.parse(project.technologies) : []; } catch { return project.technologies ? project.technologies.split(",").map(s => s.trim()).filter(Boolean) : []; } })();
-    const galleryImages: string[] = (() => { try { return project.gallery ? JSON.parse(project.gallery) : []; } catch { return []; } })();
+    const galleryImages: (string | { url: string; alt?: string })[] = (() => { try { return project.gallery ? JSON.parse(project.gallery) : []; } catch { return []; } })();
 
     return (
         <div className="min-h-screen bg-white pt-32 pb-20">

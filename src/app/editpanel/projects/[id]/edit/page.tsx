@@ -437,16 +437,85 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
                         />
 
                         <GalleryUpload
-                            value={
-                                typeof project.gallery === 'string'
-                                    ? JSON.parse(project.gallery)
-                                    : (project.gallery || [])
-                            }
-                            onChange={(urls) => setProject({ ...project, gallery: urls.length > 0 ? JSON.stringify(urls) : null })}
+                            value={(() => {
+                                if (!project.gallery) return [];
+                                const parsed = JSON.parse(project.gallery) as (string | { url: string; alt?: string })[];
+                                return parsed.map((item) => typeof item === 'string' ? item : item.url);
+                            })()}
+                            onChange={(urls) => {
+                                const currentItems: { url: string; alt: string }[] = project.gallery
+                                    ? (JSON.parse(project.gallery) as (string | { url: string; alt?: string })[]).map(
+                                          (item) => typeof item === 'string' ? { url: item, alt: '' } : { url: item.url, alt: item.alt || '' }
+                                      )
+                                    : [];
+                                const newItems = urls.map((url) => ({
+                                    url,
+                                    alt: currentItems.find((i) => i.url === url)?.alt || '',
+                                }));
+                                setProject({ ...project, gallery: newItems.length > 0 ? JSON.stringify(newItems) : null });
+                            }}
                             folder="projects/gallery"
                             label="Proje Galerisi"
                             maxImages={12}
                         />
+
+                        {/* Alt metin girdileri */}
+                        {project.gallery && JSON.parse(project.gallery).length > 0 && (
+                            <div>
+                                <div className="flex items-center justify-between mb-3">
+                                    <label className="block text-sm font-medium text-black/70">
+                                        Görsel Alt Metinleri <span className="text-black/30 font-normal">(SEO)</span>
+                                    </label>
+                                    <button
+                                        type="button"
+                                        onClick={() => {
+                                            const templates = [
+                                                `${project.title} - Proje Görseli | MetasoftCo`,
+                                                `${project.title} Projesi - Detay Fotoğraf | MetasoftCo`,
+                                                `MetasoftCo ${project.title} Çalışması | Dijital Deneyim`,
+                                            ];
+                                            const items = (JSON.parse(project.gallery!) as (string | { url: string; alt?: string })[]).map(
+                                                (item, i) => {
+                                                    const url = typeof item === 'string' ? item : item.url;
+                                                    return { url, alt: templates[i % 3] };
+                                                }
+                                            );
+                                            setProject({ ...project, gallery: JSON.stringify(items) });
+                                        }}
+                                        className="text-xs px-3 py-1.5 bg-black text-white rounded-lg hover:bg-black/80 transition"
+                                    >
+                                        Otomatik Doldur
+                                    </button>
+                                </div>
+                                <div className="space-y-2">
+                                    {(JSON.parse(project.gallery) as (string | { url: string; alt?: string })[]).map((item, i) => {
+                                        const url = typeof item === 'string' ? item : item.url;
+                                        const alt = typeof item === 'string' ? '' : (item.alt || '');
+                                        return (
+                                            <div key={url} className="flex items-center gap-3">
+                                                <img src={url} alt="" className="w-12 h-12 object-cover rounded-lg shrink-0 bg-black/5" />
+                                                <input
+                                                    type="text"
+                                                    value={alt}
+                                                    onChange={(e) => {
+                                                        const items = (JSON.parse(project.gallery!) as (string | { url: string; alt?: string })[]).map(
+                                                            (it) => {
+                                                                const u = typeof it === 'string' ? it : it.url;
+                                                                const a = typeof it === 'string' ? '' : (it.alt || '');
+                                                                return u === url ? { url: u, alt: e.target.value } : { url: u, alt: a };
+                                                            }
+                                                        );
+                                                        setProject({ ...project, gallery: JSON.stringify(items) });
+                                                    }}
+                                                    placeholder={`${project.title} - görsel ${i + 1}`}
+                                                    className="flex-1 px-3 py-2 bg-[#f5f5f5] border-0 rounded-lg text-sm text-black focus:outline-none focus:ring-2 focus:ring-black"
+                                                />
+                                            </div>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                        )}
 
                         <VideoUpload
                             value={project.video}
