@@ -109,7 +109,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             siteName: siteConfig.name,
             locale: siteConfig.locale,
             type: "website",
+            images: [{ url: `${siteConfig.url}/og-image.jpg`, width: 1200, height: 630, alt: title }],
         },
+        twitter: { card: "summary_large_image", title, description, images: [`${siteConfig.url}/og-image.jpg`] },
         alternates: {
             canonical: url,
             ...(category.slug_en && {

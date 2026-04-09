@@ -5,6 +5,7 @@ import Link from "next/link";
 import GalleryLightbox from "@/components/site/GalleryLightbox";
 import VideoPlayer from "@/components/site/VideoPlayer";
 import { useLanguage } from "@/providers/LanguageProvider";
+import { addHeadingAnchors } from "@/lib/utils";
 
 interface ServiceDetailClientProps {
     service: any;
@@ -111,7 +112,7 @@ export default function ServiceDetailClient({
                         <div
                             className="prose prose-lg max-w-none text-black/80 leading-relaxed font-light"
                             dangerouslySetInnerHTML={{
-                                __html: content?.replace(/&nbsp;/g, ' ') || ''
+                                __html: addHeadingAnchors(content?.replace(/&nbsp;/g, ' ') || '')
                             }}
                         />
                     </div>

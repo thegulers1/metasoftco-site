@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import { useLanguage } from "@/providers/LanguageProvider";
 import GalleryLightbox from "@/components/site/GalleryLightbox";
+import { addHeadingAnchors } from "@/lib/utils";
 
 interface SectorImage { url: string; alt: string; }
 
@@ -107,7 +108,7 @@ export default function SectorPageClient({ page, images, relatedServices, lang, 
                             prose-a:text-red-600 prose-a:no-underline hover:prose-a:underline
                             prose-strong:text-black prose-strong:font-bold
                             prose-li:text-black/70"
-                        dangerouslySetInnerHTML={{ __html: content.replace(/&nbsp;/g, " ") }}
+                        dangerouslySetInnerHTML={{ __html: addHeadingAnchors(content.replace(/&nbsp;/g, " ")) }}
                     />
                 </div>
             )}

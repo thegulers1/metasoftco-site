@@ -6,6 +6,7 @@ import Image from "next/image";
 import { useLanguage } from "@/providers/LanguageProvider";
 import GalleryLightbox from "@/components/site/GalleryLightbox";
 import VideoPlayer from "@/components/site/VideoPlayer";
+import { addHeadingAnchors } from "@/lib/utils";
 
 interface Project {
     id: string;
@@ -164,7 +165,7 @@ export default function ProjectDetailClient({ project }: { project: Project }) {
                 {content && (
                     <div
                         className="prose prose-lg max-w-none text-black/80 leading-relaxed mb-16 font-light"
-                        dangerouslySetInnerHTML={{ __html: content.replace(/&nbsp;/g, ' ') }}
+                        dangerouslySetInnerHTML={{ __html: addHeadingAnchors(content.replace(/&nbsp;/g, ' ')) }}
                     />
                 )}
 

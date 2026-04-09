@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { prisma } from "@/lib/db";
 import { siteConfig, generateBreadcrumbSchema } from "@/lib/site";
+import { addHeadingAnchors } from "@/lib/utils";
 import Container from "@/components/site/Container";
 
 export const dynamic = "force-dynamic";
@@ -164,7 +165,7 @@ export default async function EnglishBlogPostPage({ params }: Props) {
                     {content && (
                         <div
                             className="prose prose-lg max-w-3xl prose-headings:font-black prose-headings:tracking-tight prose-a:text-black prose-a:underline"
-                            dangerouslySetInnerHTML={{ __html: content }}
+                            dangerouslySetInnerHTML={{ __html: addHeadingAnchors(content) }}
                         />
                     )}
 

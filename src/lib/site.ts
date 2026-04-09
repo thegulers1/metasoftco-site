@@ -342,15 +342,25 @@ export function generateServiceSchema(service: {
         description: service.description,
         url: service.url,
         image: service.image,
+        serviceType: service.category,
         provider: {
             "@type": "Organization",
             name: siteConfig.name,
             url: siteConfig.url,
+            sameAs: [
+                "https://instagram.com/metasoftco",
+                "https://www.linkedin.com/company/metasoftco",
+                "https://www.youtube.com/@MetasoftCo",
+            ],
         },
-        category: service.category,
         areaServed: {
             "@type": "Country",
             name: "Turkey",
+        },
+        offers: {
+            "@type": "Offer",
+            availability: "https://schema.org/InStock",
+            areaServed: "TR",
         },
     };
 }
