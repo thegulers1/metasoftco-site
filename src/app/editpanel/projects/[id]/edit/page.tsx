@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import ImageUpload from "@/components/editpanel/ImageUpload";
 import GalleryUpload from "@/components/editpanel/GalleryUpload";
 import VideoUpload from "@/components/editpanel/VideoUpload";
+import RichTextEditor from "@/components/editpanel/RichTextEditor";
 
 export const dynamic = 'force-dynamic';
 
@@ -330,11 +331,10 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
                             <label className="block text-sm font-medium text-black/70 mb-2">
                                 Detaylı İçerik
                             </label>
-                            <textarea
+                            <RichTextEditor
                                 value={project.content || ""}
-                                onChange={(e) => setProject({ ...project, content: e.target.value || null })}
-                                rows={10}
-                                className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black font-mono text-sm"
+                                onChange={(val) => setProject({ ...project, content: val || null })}
+                                placeholder="Proje detaylarını yazın..."
                             />
                         </div>
 
@@ -342,11 +342,10 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
                             <label className="block text-sm font-medium text-black/70 mb-2">
                                 Detaylı İçerik (İngilizce)
                             </label>
-                            <textarea
+                            <RichTextEditor
                                 value={project.content_en || ""}
-                                onChange={(e) => setProject({ ...project, content_en: e.target.value || null })}
-                                rows={10}
-                                className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black font-mono text-sm"
+                                onChange={(val) => setProject({ ...project, content_en: val || null })}
+                                placeholder="Write project details in English..."
                             />
                         </div>
 
