@@ -45,6 +45,7 @@ export default async function HomePage() {
             <HeroSection />
             <FeaturedServicesSection services={services} />
             <ProjectShowcase projects={projects} />
+            <AboutSection />
             <ReferencesSection />
         </>
     );

@@ -2,6 +2,7 @@ import HeroSection from "@/components/site/HeroSection";
 import ProjectShowcase from "@/components/site/ProjectShowcase";
 import { FeaturedServicesSection } from "@/components/site/FeaturedServicesSection";
 import { ReferencesSection } from "@/components/site/ReferencesSection";
+import { AboutSection } from "@/components/site/AboutSection";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { siteConfig } from "@/lib/site";
@@ -50,6 +51,7 @@ export default async function EnglishHomePage() {
             <HeroSection />
             <FeaturedServicesSection services={services} />
             <ProjectShowcase projects={projects} />
+            <AboutSection />
             <ReferencesSection />
         </>
     );
