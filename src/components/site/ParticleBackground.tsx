@@ -26,9 +26,9 @@ export default function ParticleBackground() {
 
         let animationFrameId: number;
         let particles: Particle[] = [];
-        const particleCount = 400;
+        const particleCount = 700;
         const connectionDistance = 100;
-        const mouseRadius = 150;
+        const mouseRadius = 200;
 
         const resize = () => {
             canvas.width = window.innerWidth;
@@ -45,15 +45,15 @@ export default function ParticleBackground() {
                 // Add layers for depth
                 let size, opacity;
                 const r = Math.random();
-                if (r < 0.15) { // Prominent circles
-                    size = Math.random() * 2 + 2; // 2-4px
-                    opacity = Math.random() * 0.4 + 0.2; // 0.2 - 0.6
-                } else if (r < 0.45) { // Medium dots
-                    size = Math.random() * 1 + 1; // 1-2px
-                    opacity = Math.random() * 0.2 + 0.1; // 0.1 - 0.3
-                } else { // Subtle dust
-                    size = Math.random() * 0.5 + 0.3; // 0.3-0.8px
-                    opacity = Math.random() * 0.1 + 0.05; // 0.05 - 0.15
+                if (r < 0.15) { // Büyük balonlar
+                    size = Math.random() * 3 + 3; // 3-6px
+                    opacity = Math.random() * 0.5 + 0.3; // 0.3 - 0.8
+                } else if (r < 0.45) { // Orta balonlar
+                    size = Math.random() * 2 + 1.5; // 1.5-3.5px
+                    opacity = Math.random() * 0.3 + 0.15; // 0.15 - 0.45
+                } else { // Küçük toz
+                    size = Math.random() * 1 + 0.5; // 0.5-1.5px
+                    opacity = Math.random() * 0.15 + 0.08; // 0.08 - 0.23
                 }
 
                 particles.push({
@@ -92,8 +92,8 @@ export default function ParticleBackground() {
                     if (distance < mouseRadius) {
                         const force = (mouseRadius - distance) / mouseRadius;
                         const angle = Math.atan2(dy, dx);
-                        p.x -= Math.cos(angle) * force * (p.size * 2);
-                        p.y -= Math.sin(angle) * force * (p.size * 2);
+                        p.x -= Math.cos(angle) * force * (p.size * 4);
+                        p.y -= Math.sin(angle) * force * (p.size * 4);
                     }
                 }
 
