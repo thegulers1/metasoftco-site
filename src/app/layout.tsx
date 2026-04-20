@@ -48,6 +48,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="tr" className={`${interTight.variable} ${dmSans.variable} ${lato.variable}`} suppressHydrationWarning>
       <head>
+        {/* Ahrefs Analytics */}
+        <script
+          src="https://analytics.ahrefs.com/analytics.js"
+          data-key="SpzZeI8Md0aVoUvjEnlePA"
+          async
+        />
         {/* Google Tag Manager */}
         <script
           dangerouslySetInnerHTML={{
@@ -83,7 +89,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             style={{ display: "none", visibility: "hidden" }}
           />
         </noscript>
-<Providers>
+        <Providers>
           {children}
         </Providers>
       </body>

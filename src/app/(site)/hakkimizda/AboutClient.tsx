@@ -4,7 +4,6 @@ import { useLanguage } from "@/providers/LanguageProvider";
 import Link from "next/link";
 import { motion } from "motion/react";
 import ParticleBackground from "@/components/site/ParticleBackground";
-
 export default function AboutClient() {
     const { t } = useLanguage();
 

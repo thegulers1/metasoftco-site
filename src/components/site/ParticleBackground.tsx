@@ -13,7 +13,7 @@ interface Particle {
     originalY: number;
 }
 
-export default function ParticleBackground() {
+export default function ParticleBackground({ fixed = false }: { fixed?: boolean }) {
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const mouse = useRef({ x: 0, y: 0, active: false });
 
@@ -135,7 +135,10 @@ export default function ParticleBackground() {
     return (
         <canvas
             ref={canvasRef}
-            className="absolute inset-0 z-0 bg-white"
+            className={fixed
+                ? "fixed inset-0 z-0 pointer-events-none"
+                : "absolute inset-0 z-0 bg-white"
+            }
         />
     );
 }
