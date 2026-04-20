@@ -11,7 +11,7 @@ const stats = [
 ];
 
 export function AboutSection() {
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
 
     return (
         <section className="bg-white py-24 sm:py-32 border-t border-black/5">
@@ -33,7 +33,7 @@ export function AboutSection() {
                             )}
                         </p>
                         <Link
-                            href="/hakkimizda"
+                            href={language === "en" ? "/en/hakkimizda" : "/hakkimizda"}
                             className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-black border-b-2 border-black pb-0.5 hover:text-black/60 hover:border-black/60 transition-colors"
                         >
                             {t("Daha Fazla", "Learn More")}

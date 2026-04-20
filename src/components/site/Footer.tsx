@@ -4,8 +4,13 @@ import Link from "next/link";
 import { useLanguage } from "@/providers/LanguageProvider";
 import InstagramFeed from "./InstagramFeed";
 
+function localizedHref(language: "tr" | "en", trPath: string, enPath: string | null) {
+    if (language === "en" && enPath) return enPath;
+    return trPath;
+}
+
 export default function Footer() {
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
 
     return (
         <footer className="bg-[#1a0202] text-white pt-24 pb-12 overflow-hidden border-t border-white/10">
@@ -24,7 +29,7 @@ export default function Footer() {
                             )}
                         </h3>
                         <Link
-                            href="/iletisim"
+                            href={language === "en" ? "/en/contact" : "/iletisim"}
                             className="inline-block bg-white text-black px-8 py-4 rounded-full font-medium hover:bg-gray-200 transition-colors"
                         >
                             {t("İletişime Geçin", "Contact us")}
@@ -40,32 +45,32 @@ export default function Footer() {
                             </h4>
                             <ul className="space-y-3 text-gray-400">
                                 <li>
-                                    <Link href="/projeler" className="hover:text-white transition-colors">
+                                    <Link href={localizedHref(language, "/projeler", "/en/projects")} className="hover:text-white transition-colors">
                                         {t("Projeler", "Projects")}
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="/hizmetler" className="hover:text-white transition-colors">
+                                    <Link href={localizedHref(language, "/hizmetler", "/en/services")} className="hover:text-white transition-colors">
                                         {t("Hizmetler", "Services")}
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="/sektorel-yazilim-cozumleri" className="hover:text-white transition-colors">
+                                    <Link href={localizedHref(language, "/sektorel-yazilim-cozumleri", "/en/industry-software-solutions")} className="hover:text-white transition-colors">
                                         {t("Sektörel Çözümler", "Industry Solutions")}
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="/blog" className="hover:text-white transition-colors">
+                                    <Link href={localizedHref(language, "/blog", "/en/blog")} className="hover:text-white transition-colors">
                                         Blog
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="/hakkimizda" className="hover:text-white transition-colors">
+                                    <Link href={localizedHref(language, "/hakkimizda", "/en/hakkimizda")} className="hover:text-white transition-colors">
                                         {t("Hakkımızda", "About")}
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="/iletisim" className="hover:text-white transition-colors">
+                                    <Link href={localizedHref(language, "/iletisim", "/en/contact")} className="hover:text-white transition-colors">
                                         {t("İletişim", "Contact")}
                                     </Link>
                                 </li>
@@ -125,9 +130,9 @@ export default function Footer() {
                 <div className="border-t border-white/10 pt-12 flex flex-col md:flex-row items-center justify-between gap-4 text-xs text-gray-500 uppercase tracking-wider">
                     <p>© 2026 All rights reserved</p>
                     <div className="flex gap-6">
-                        <Link href="https://www.linkedin.com/company/metasoftco" className="hover:text-white transition-colors">Linkedin</Link>
-                        <Link href="https://instagram.com/metasoftco" className="hover:text-white transition-colors">Instagram</Link>
-                        <Link href="https://www.youtube.com/@MetasoftCo" className="hover:text-white transition-colors">YouTube</Link>
+                        <Link href="https://www.linkedin.com/company/metasoftco" rel="nofollow noopener noreferrer" target="_blank" className="hover:text-white transition-colors">Linkedin</Link>
+                        <Link href="https://instagram.com/metasoftco" rel="nofollow noopener noreferrer" target="_blank" className="hover:text-white transition-colors">Instagram</Link>
+                        <Link href="https://www.youtube.com/@MetasoftCo" rel="nofollow noopener noreferrer" target="_blank" className="hover:text-white transition-colors">YouTube</Link>
                     </div>
                     <div className="flex gap-6">
                         <Link href="/kullanim-kosullari" className="hover:text-white transition-colors">

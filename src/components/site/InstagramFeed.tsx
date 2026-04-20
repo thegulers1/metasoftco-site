@@ -80,7 +80,7 @@ export default function InstagramFeed() {
                 <a
                     href="https://instagram.com/metasoftco"
                     target="_blank"
-                    rel="noopener noreferrer"
+                    rel="nofollow noopener noreferrer"
                     className="text-xs font-bold uppercase tracking-widest text-white/20 hover:text-white transition-colors"
                 >
                     Takip Et →

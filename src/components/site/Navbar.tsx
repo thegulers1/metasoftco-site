@@ -49,7 +49,7 @@ export default function Navbar() {
                 }`}>
                 <div className="mx-auto flex h-20 w-full max-w-7xl items-center justify-between px-6 sm:px-8">
                     {/* Logo */}
-                    <Link href="/" className="z-50 flex items-center">
+                    <Link href={language === "en" ? "/en" : "/"} className="z-50 flex items-center">
                         <Image
                             src="/blackLogo.png"
                             alt="METASOFTCO"
@@ -75,7 +75,7 @@ export default function Navbar() {
 
                             <CircularTextButton
                                 text={t("İLETİŞİME GEÇ ", "GET IN TOUCH ")}
-                                href="/iletisim"
+                                href={language === "en" ? "/en/contact" : "/iletisim"}
                             />
                         </div>
 

@@ -22,7 +22,7 @@ interface ProjectShowcaseProps {
 }
 
 export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
-    const { t } = useLanguage();
+    const { t, language } = useLanguage();
 
     const p = (i: number) => projects[i] || null;
 
@@ -56,7 +56,7 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
                                 )}
                             </p>
                         </div>
-                        <Link href="/projeler" className="inline-flex items-center text-sm font-semibold text-[#1a1a1a] uppercase tracking-widest mt-6 hover:text-[#dc2626] transition-colors group">
+                        <Link href={language === "en" ? "/en/projects" : "/projeler"} className="inline-flex items-center text-sm font-semibold text-[#1a1a1a] uppercase tracking-widest mt-6 hover:text-[#dc2626] transition-colors group">
                             {t("Daha Fazla", "Learn More")}
                             <span className="ml-2 transition-transform group-hover:translate-x-1">→</span>
                         </Link>
@@ -71,7 +71,7 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
                             viewport={{ once: true }}
                             transition={{ duration: 0.7, delay: 0.1 }}
                         >
-                            <Link href={`/projeler/${p(0)!.slug}`} className="group">
+                            <Link href={language === "en" ? `/en/projects/${p(0)!.slug}` : `/projeler/${p(0)!.slug}`} className="group">
                                 <h3 className="text-lg md:text-xl font-bold text-[#1a1a1a] leading-tight mb-4 group-hover:text-[#dc2626] transition-colors uppercase tracking-tight"
                                     style={{ fontFamily: "var(--font-lato)" }}>
                                     {t(p(0)!.title, p(0)!.title_en || p(0)!.title)}
@@ -94,7 +94,7 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
                             viewport={{ once: true }}
                             transition={{ duration: 0.7, delay: 0.2 }}
                         >
-                            <Link href={`/projeler/${p(0)!.slug}`} className="group block h-full">
+                            <Link href={language === "en" ? `/en/projects/${p(0)!.slug}` : `/projeler/${p(0)!.slug}`} className="group block h-full">
                                 <div className="relative h-full w-full overflow-hidden bg-[#f0f0f0]">
                                     {p(0)!.image ? (
                                         <Image
@@ -131,7 +131,7 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
                             viewport={{ once: true }}
                             transition={{ duration: 0.7 }}
                         >
-                            <Link href={`/projeler/${p(1)!.slug}`} className="group">
+                            <Link href={language === "en" ? `/en/projects/${p(1)!.slug}` : `/projeler/${p(1)!.slug}`} className="group">
                                 <h3 className="text-base md:text-lg font-bold text-[#1a1a1a] leading-tight mb-3 group-hover:text-[#dc2626] transition-colors uppercase tracking-tight"
                                     style={{ fontFamily: "var(--font-lato)" }}>
                                     {t(p(1)!.title, p(1)!.title_en || p(1)!.title)}
@@ -154,7 +154,7 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
                             viewport={{ once: true }}
                             transition={{ duration: 0.7, delay: 0.1 }}
                         >
-                            <Link href={`/projeler/${p(1)!.slug}`} className="group block h-full">
+                            <Link href={language === "en" ? `/en/projects/${p(1)!.slug}` : `/projeler/${p(1)!.slug}`} className="group block h-full">
                                 <div className="relative h-full w-full overflow-hidden bg-[#f0f0f0]">
                                     {p(1)!.image ? (
                                         <Image
@@ -187,7 +187,7 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
                             viewport={{ once: true }}
                             transition={{ duration: 0.7, delay: 0.2 }}
                         >
-                            <Link href={`/projeler/${p(2)!.slug}`} className="group">
+                            <Link href={language === "en" ? `/en/projects/${p(2)!.slug}` : `/projeler/${p(2)!.slug}`} className="group">
                                 <h3 className="text-base md:text-lg font-bold text-[#1a1a1a] leading-tight mb-3 group-hover:text-[#dc2626] transition-colors uppercase tracking-tight"
                                     style={{ fontFamily: "var(--font-lato)" }}>
                                     {t(p(2)!.title, p(2)!.title_en || p(2)!.title)}
@@ -210,7 +210,7 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
                             viewport={{ once: true }}
                             transition={{ duration: 0.7, delay: 0.3 }}
                         >
-                            <Link href={`/projeler/${p(2)!.slug}`} className="group block h-full">
+                            <Link href={language === "en" ? `/en/projects/${p(2)!.slug}` : `/projeler/${p(2)!.slug}`} className="group block h-full">
                                 <div className="relative h-full w-full overflow-hidden bg-[#f0f0f0]">
                                     {p(2)!.image ? (
                                         <Image
@@ -242,7 +242,7 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
                         viewport={{ once: true }}
                         transition={{ duration: 0.7, delay: 0.4 }}
                     >
-                        <Link href="/projeler" className="group block h-full">
+                        <Link href={language === "en" ? "/en/projects" : "/projeler"} className="group block h-full">
                             <div className="relative h-full w-full overflow-hidden bg-[#dc2626] flex items-center justify-center transition-colors duration-300 hover:bg-[#b91c1c]">
                                 <span className="text-white text-xs md:text-sm font-bold uppercase tracking-[0.15em] text-center px-3 leading-relaxed whitespace-pre-line"
                                     style={{ fontFamily: "var(--font-lato)" }}>
