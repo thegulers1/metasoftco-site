@@ -22,7 +22,6 @@ export default function ServiceDetailClient({
     relatedServices,
     gallery,
     serviceSchema,
-    category,
 }: ServiceDetailClientProps) {
     const { language, t, setAlternateUrl } = useLanguage();
 
@@ -162,7 +161,11 @@ export default function ServiceDetailClient({
                                 {relatedServices.slice(0, 3).map((related) => (
                                     <Link
                                         key={related.id}
-                                        href={`/hizmetler/${category}/${related.slug}`}
+                                        href={
+                                            language === "en" && categoryData.slug_en && related.slug_en
+                                                ? `/en/services/${categoryData.slug_en}/${related.slug_en}`
+                                                : `/hizmetler/${categoryData.slug}/${related.slug}`
+                                        }
                                         className="group block p-4 bg-black/[0.02] hover:bg-black/[0.05] transition border border-black/5"
                                     >
                                         <h3 className="font-bold text-black uppercase tracking-tight group-hover:text-red-600 transition">
