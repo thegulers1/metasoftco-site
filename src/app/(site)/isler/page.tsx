@@ -3,7 +3,14 @@ import Container from "@/components/site/Container";
 import { siteConfig } from "@/lib/site";
 
 export const metadata: Metadata = {
-    title: "İşler",
+    title: "İşler | MetasoftCo",
+    description: "MetasoftCo'nun gerçekleştirdiği interaktif etkinlik projeleri ve yaratıcı teknoloji çalışmaları.",
+    openGraph: {
+        title: "İşler | MetasoftCo",
+        description: "MetasoftCo'nun gerçekleştirdiği interaktif etkinlik projeleri ve yaratıcı teknoloji çalışmaları.",
+        url: `${siteConfig.url}/isler`,
+    },
+    robots: { index: false, follow: true },
     alternates: {
         canonical: `${siteConfig.url}/isler`,
     },

@@ -121,5 +121,54 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         })),
     ];
 
-    return [...staticPages, ...sectorPages, ...servicePages, ...projectPages, ...blogPages];
+    // DB-driven sektörel çözüm sayfaları
+    const dbSectorPages = await prisma.sectorPage.findMany({
+        where: { published: true },
+        select: { slug: true, updatedAt: true },
+    });
+
+    const dbSektorelPages: MetadataRoute.Sitemap = [
+        {
+            url: `${baseUrl}/sektorel-cozumler`,
+            lastModified: new Date(),
+            changeFrequency: "weekly",
+            priority: 0.8,
+        },
+        ...dbSectorPages.map((p) => ({
+            url: `${baseUrl}/sektorel-cozumler/${p.slug}`,
+            lastModified: p.updatedAt,
+            changeFrequency: "monthly" as const,
+            priority: 0.7,
+        })),
+    ];
+
+    // Diğer statik sayfalar
+    const extraPages: MetadataRoute.Sitemap = [
+        {
+            url: `${baseUrl}/isler`,
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.5,
+        },
+        {
+            url: `${baseUrl}/ai-asistan`,
+            lastModified: new Date(),
+            changeFrequency: "monthly",
+            priority: 0.6,
+        },
+        {
+            url: `${baseUrl}/kullanim-kosullari`,
+            lastModified: new Date(),
+            changeFrequency: "yearly",
+            priority: 0.3,
+        },
+        {
+            url: `${baseUrl}/gizlilik`,
+            lastModified: new Date(),
+            changeFrequency: "yearly",
+            priority: 0.3,
+        },
+    ];
+
+    return [...staticPages, ...sectorPages, ...dbSektorelPages, ...extraPages, ...servicePages, ...projectPages, ...blogPages];
 }

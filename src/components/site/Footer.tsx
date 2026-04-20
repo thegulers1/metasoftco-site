@@ -50,8 +50,18 @@ export default function Footer() {
                                     </Link>
                                 </li>
                                 <li>
-                                    <Link href="/stüdyo" className="hover:text-white transition-colors">
-                                        {t("Stüdyo", "Studio")}
+                                    <Link href="/sektorel-yazilim-cozumleri" className="hover:text-white transition-colors">
+                                        {t("Sektörel Çözümler", "Industry Solutions")}
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/blog" className="hover:text-white transition-colors">
+                                        Blog
+                                    </Link>
+                                </li>
+                                <li>
+                                    <Link href="/hakkimizda" className="hover:text-white transition-colors">
+                                        {t("Hakkımızda", "About")}
                                     </Link>
                                 </li>
                                 <li>
