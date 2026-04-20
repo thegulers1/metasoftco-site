@@ -4,6 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { prisma } from "@/lib/db";
 import { siteConfig, generateBreadcrumbSchema } from "@/lib/site";
+import { cloudinaryOgImage } from "@/lib/cloudinary";
 import { addHeadingAnchors } from "@/lib/utils";
 import Container from "@/components/site/Container";
 
@@ -26,7 +27,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
     const title = post.metaTitle || post.title;
     const description = post.metaDescription || post.excerpt || siteConfig.description;
-    const image = post.ogImage || post.image || `${siteConfig.url}/og`;
+    const image = cloudinaryOgImage(post.ogImage || post.image) || `${siteConfig.url}/og`;
 
     return {
         title,
@@ -72,7 +73,7 @@ export default async function BlogPostPage({ params }: Props) {
         "@type": "BlogPosting",
         headline: post.title,
         description: post.excerpt || post.metaDescription,
-        image: post.image || post.ogImage || `${siteConfig.url}/og`,
+        image: cloudinaryOgImage(post.image || post.ogImage) || `${siteConfig.url}/og`,
         datePublished: post.publishedAt?.toISOString(),
         dateModified: post.updatedAt.toISOString(),
         author: {

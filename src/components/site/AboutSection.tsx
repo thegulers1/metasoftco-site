@@ -4,10 +4,10 @@ import { useLanguage } from "@/providers/LanguageProvider";
 import Link from "next/link";
 
 const stats = [
-    { value: "5+", label: { tr: "Yıldır Sahnedeyiz", en: "Years on Stage" } },
-    { value: "1K+", label: { tr: "Etkinlikte Fark Yarattık", en: "Events Transformed" } },
-    { value: "100+", label: { tr: "Markaya Dokunduk", en: "Brands Touched" } },
-    { value: "∞", label: { tr: "Yaratılacak Deneyim", en: "Experiences to Create" } },
+    { value: "5+", label: { tr: "YILDIR SAHNEDEYİZ", en: "YEARS ON STAGE" } },
+    { value: "1K+", label: { tr: "ETKİNLİKTE FARK YARATTIK", en: "EVENTS TRANSFORMED" } },
+    { value: "100+", label: { tr: "MARKAYA DOKUNDUK", en: "BRANDS TOUCHED" } },
+    { value: "∞", label: { tr: "YARATILACAK DENEYİM", en: "EXPERIENCES TO CREATE" } },
 ];
 
 export function AboutSection() {
@@ -50,7 +50,7 @@ export function AboutSection() {
                                 <p className="text-5xl sm:text-6xl font-black text-black tracking-tight">
                                     {stat.value}
                                 </p>
-                                <p className="mt-2 text-sm font-medium text-black/50 uppercase tracking-widest leading-tight">
+                                <p className="mt-2 text-sm font-medium text-black/50 tracking-widest leading-tight">
                                     {t(stat.label.tr, stat.label.en)}
                                 </p>
                             </div>

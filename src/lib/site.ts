@@ -1,3 +1,5 @@
+import { cloudinaryOptimize } from "./cloudinary";
+
 export const siteConfig = {
     name: "MetasoftCo",
     title: "Metasoftco: İnteraktif Etkinlik Teknolojileri & Yazılım",
@@ -344,7 +346,7 @@ export function generateServiceSchema(service: {
         name: service.name,
         description: service.description,
         url: service.url,
-        image: service.image,
+        image: cloudinaryOptimize(service.image, 1200),
         serviceType: service.category,
         provider: {
             "@type": "Organization",

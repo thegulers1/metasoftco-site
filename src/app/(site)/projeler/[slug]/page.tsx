@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { prisma } from "@/lib/db";
 import { siteConfig } from "@/lib/site";
+import { cloudinaryOgImage } from "@/lib/cloudinary";
 import { notFound } from "next/navigation";
 import { AdminEditUrlSetter } from "@/components/site/AdminBar";
 import ProjectDetailClient from "./ProjectDetailClient";
@@ -21,7 +22,7 @@ export async function generateMetadata({
 
     const title = `${project.title} | MetasoftCo`;
     const description = project.description || siteConfig.description;
-    const image = project.image || `${siteConfig.url}/og?title=${encodeURIComponent(project.title)}`;
+    const image = cloudinaryOgImage(project.image) || `${siteConfig.url}/og?title=${encodeURIComponent(project.title)}`;
     const url = `${siteConfig.url}/projeler/${slug}`;
 
     return {
