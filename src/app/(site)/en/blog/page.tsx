@@ -10,7 +10,7 @@ export const revalidate = 3600;
 
 export const metadata: Metadata = {
     title: "Blog | MetasoftCo",
-    description: "Insights on event technology, artificial intelligence, and digital experiences by MetasoftCo.",
+    description: "Explore MetasoftCo's blog for insights on event technology, AI activations, photobooth experiences, and digital innovation. Industry news, tips, and success stories.",
     openGraph: {
         title: "Blog | MetasoftCo",
         description: "Insights on event technology, AI, and digital experiences.",

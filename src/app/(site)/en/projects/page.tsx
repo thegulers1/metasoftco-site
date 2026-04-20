@@ -9,7 +9,7 @@ export const revalidate = 3600;
 
 export const metadata: Metadata = {
     title: "Projects | MetasoftCo",
-    description: "Interactive event experiences, photobooth, AI face-swap and custom software projects by MetasoftCo.",
+    description: "Explore MetasoftCo's portfolio of interactive event experiences, AI photo activations, photobooth installations, and custom digital software projects delivered for leading brands.",
     keywords: ["metasoftco projects", "interactive event projects", "photobooth projects", "AI experience projects"],
     openGraph: {
         title: "Projects | MetasoftCo",

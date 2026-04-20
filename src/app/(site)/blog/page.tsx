@@ -10,7 +10,7 @@ export const revalidate = 3600;
 
 export const metadata: Metadata = {
     title: "Blog",
-    description: "Etkinlik teknolojileri, yapay zeka ve dijital deneyimler üzerine MetasoftCo blogu.",
+    description: "Etkinlik teknolojileri, yapay zeka, photobooth ve dijital deneyimler üzerine MetasoftCo'nun güncel blog yazıları. Sektörden haberler, ipuçları ve başarı hikayeleri.",
     openGraph: {
         title: "Blog | MetasoftCo",
         description: "Etkinlik teknolojileri, yapay zeka ve dijital deneyimler üzerine yazılar.",
