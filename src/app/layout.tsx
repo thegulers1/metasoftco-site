@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter_Tight, DM_Sans, Lato } from "next/font/google";
+import { headers } from "next/headers";
 import { siteConfig, generateMetaTags, generateOrganizationSchema, generateLocalBusinessSchema } from "@/lib/site";
 import { Providers } from "@/providers/Providers";
 
@@ -29,7 +30,8 @@ export const metadata: Metadata = {
     canonical: siteConfig.url,
     languages: {
       "x-default": siteConfig.url,
-      "tr-TR": siteConfig.url,
+      "tr": siteConfig.url,
+      "en": `${siteConfig.url}/en`,
     },
   },
   icons: {
@@ -41,12 +43,15 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const organizationSchema = generateOrganizationSchema();
   const localBusinessSchema = generateLocalBusinessSchema();
+  const headersList = await headers();
+  const pathname = headersList.get("x-pathname") ?? "";
+  const lang = pathname.startsWith("/en") ? "en" : "tr";
 
   return (
-    <html lang="tr" className={`${interTight.variable} ${dmSans.variable} ${lato.variable}`} suppressHydrationWarning>
+    <html lang={lang} className={`${interTight.variable} ${dmSans.variable} ${lato.variable}`} suppressHydrationWarning>
       <head>
         {/* Ahrefs Analytics */}
         <script

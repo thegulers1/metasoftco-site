@@ -1,14 +1,15 @@
 import { ImageLoaderProps } from "next/image";
 
+const MAX_WIDTH = 1920;
+
 export default function cloudinaryLoader({ src, width, quality }: ImageLoaderProps): string {
     if (!src.includes("res.cloudinary.com")) {
         return src;
     }
 
-    // Insert transformation params into Cloudinary URL
-    // From: https://res.cloudinary.com/xxx/image/upload/v123/file.jpg
-    // To:   https://res.cloudinary.com/xxx/image/upload/f_auto,q_auto,w_800/v123/file.jpg
-    const q = quality ?? 75;
-    const transforms = `f_auto,q_${q},w_${width}`;
+    // Cap width to avoid oversized Cloudinary requests (e.g. w_3840 causes 400s from bots)
+    const clampedWidth = Math.min(width, MAX_WIDTH);
+    const q = quality ? `q_${quality}` : "q_auto";
+    const transforms = `f_auto,${q},w_${clampedWidth}`;
     return src.replace("/image/upload/", `/image/upload/${transforms}/`);
 }
