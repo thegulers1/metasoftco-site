@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
 
 export async function GET(_: Request, { params }: { params: Promise<{ id: string }> }) {
@@ -42,6 +43,15 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
                 metaKeywords_en: body.metaKeywords_en || null,
             },
         });
+        // Cache'i temizle
+        revalidatePath(`/sektorel-cozumler/${page.slug}`);
+        revalidatePath('/sektorel-cozumler');
+        revalidatePath('/');
+        if (page.slug_en) {
+            revalidatePath(`/en/sector-solutions/${page.slug_en}`);
+            revalidatePath('/en/sector-solutions');
+        }
+
         return NextResponse.json(page);
     } catch (error: any) {
         if (error?.code === "P2002") {
@@ -55,6 +65,11 @@ export async function DELETE(_: Request, { params }: { params: Promise<{ id: str
     try {
         const { id } = await params;
         await prisma.sectorPage.delete({ where: { id } });
+
+        revalidatePath('/sektorel-cozumler');
+        revalidatePath('/en/sector-solutions');
+        revalidatePath('/');
+
         return NextResponse.json({ success: true });
     } catch {
         return NextResponse.json({ error: "Sayfa silinemedi" }, { status: 500 });

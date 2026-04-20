@@ -4,7 +4,7 @@ import { prisma } from "@/lib/db";
 import { siteConfig, generateFAQSchema } from "@/lib/site";
 import ServicesListClient from "./ServicesListClient";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
     title: "İnteraktif Etkinlik Hizmetleri ve Dijital Aktivasyonlar | MetasoftCo",

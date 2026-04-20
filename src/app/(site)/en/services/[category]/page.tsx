@@ -4,7 +4,7 @@ import { prisma } from "@/lib/db";
 import { siteConfig, generateBreadcrumbSchema, generateFAQSchema } from "@/lib/site";
 import Link from "next/link";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 const categoryFAQsEn: Record<string, { question: string; answer: string }[]> = {
     "ai-event-solutions": [

@@ -11,7 +11,7 @@ import { cache } from "react";
 import ServiceDetailClient from "./ServiceDetailClient";
 import { AdminEditUrlSetter } from "@/components/site/AdminBar";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 interface PageProps {
     params: Promise<{

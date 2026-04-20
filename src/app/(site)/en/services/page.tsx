@@ -4,7 +4,7 @@ import { prisma } from "@/lib/db";
 import { siteConfig, generateFAQSchema } from "@/lib/site";
 import ServicesListClient from "@/app/(site)/hizmetler/ServicesListClient";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
     title: "Interactive Event Services & Digital Activations | MetasoftCo",

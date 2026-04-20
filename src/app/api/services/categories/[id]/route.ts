@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
 
 export const dynamic = 'force-dynamic';
@@ -67,6 +68,15 @@ export async function PUT(
                 metaKeywords_en,
             },
         });
+
+        // Cache'i temizle
+        revalidatePath(`/hizmetler/${category.slug}`);
+        revalidatePath('/hizmetler');
+        revalidatePath('/');
+        if (category.slug_en) {
+            revalidatePath(`/en/services/${category.slug_en}`);
+            revalidatePath('/en/services');
+        }
 
         return NextResponse.json(category);
     } catch (error) {

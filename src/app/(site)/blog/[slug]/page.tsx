@@ -7,7 +7,7 @@ import { siteConfig, generateBreadcrumbSchema } from "@/lib/site";
 import { addHeadingAnchors } from "@/lib/utils";
 import Container from "@/components/site/Container";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 interface Props {
     params: Promise<{ slug: string }>;

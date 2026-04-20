@@ -5,7 +5,7 @@ import { siteConfig, generateBreadcrumbSchema, generateFAQSchema } from "@/lib/s
 import Link from "next/link";
 import { AdminEditUrlSetter } from "@/components/site/AdminBar";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 const categoryFAQs: Record<string, { question: string; answer: string }[]> = {
     "yapay-zeka-etkinlik-cozumleri": [

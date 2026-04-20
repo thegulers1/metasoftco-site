@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { siteConfig } from "@/lib/site";
 import SektorelYazilimClient from "./SektorelYazilimClient";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
     title: "Sektörel Yazılım Çözümleri ve Dijital Dönüşüm | MetasoftCo",

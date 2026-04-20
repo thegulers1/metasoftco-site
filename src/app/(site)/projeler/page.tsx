@@ -5,7 +5,7 @@ import { siteConfig } from "@/lib/site";
 import ProjectsHero from "./ProjectsHero";
 import ProjectsListClient from "./ProjectsListClient";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
     title: "Projeler | MetasoftCo",

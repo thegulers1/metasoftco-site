@@ -4,7 +4,7 @@ import { prisma } from "@/lib/db";
 import { siteConfig } from "@/lib/site";
 import SektorelCozumlerClient from "../../sektorel-cozumler/SektorelCozumlerClient";
 
-export const dynamic = "force-dynamic";
+export const revalidate = 3600;
 
 export const metadata: Metadata = {
     title: "Sector Software Solutions | MetasoftCo",

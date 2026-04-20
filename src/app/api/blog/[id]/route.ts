@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
 
 export const dynamic = 'force-dynamic';
@@ -98,6 +99,15 @@ export async function PUT(
             },
         });
 
+        // Cache'i temizle
+        revalidatePath(`/blog/${post.slug}`);
+        revalidatePath('/blog');
+        revalidatePath('/');
+        if (post.slug_en) {
+            revalidatePath(`/en/blog/${post.slug_en}`);
+            revalidatePath('/en/blog');
+        }
+
         return NextResponse.json(post);
     } catch (error) {
         console.error("Error updating blog post:", error);
@@ -119,6 +129,10 @@ export async function DELETE(
         await prisma.blogPost.delete({
             where: { id },
         });
+
+        revalidatePath('/blog');
+        revalidatePath('/en/blog');
+        revalidatePath('/');
 
         return NextResponse.json({ success: true });
     } catch (error) {

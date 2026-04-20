@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
 
 export const dynamic = 'force-dynamic';
@@ -106,6 +107,20 @@ export async function PUT(
             },
         });
 
+        // Cache'i temizle
+        const category = await prisma.serviceCategory.findUnique({ where: { id: service.categoryId } });
+        if (category) {
+            revalidatePath(`/hizmetler/${category.slug}/${service.slug}`);
+            revalidatePath(`/hizmetler/${category.slug}`);
+            if (service.slug_en && category.slug_en) {
+                revalidatePath(`/en/services/${category.slug_en}/${service.slug_en}`);
+                revalidatePath(`/en/services/${category.slug_en}`);
+            }
+        }
+        revalidatePath('/hizmetler');
+        revalidatePath('/en/services');
+        revalidatePath('/');
+
         return NextResponse.json(service);
     } catch (error) {
         console.error("Error updating service:", error);
@@ -127,6 +142,10 @@ export async function DELETE(
         await prisma.service.delete({
             where: { id },
         });
+
+        revalidatePath('/hizmetler');
+        revalidatePath('/en/services');
+        revalidatePath('/');
 
         return NextResponse.json({ success: true });
     } catch (error) {

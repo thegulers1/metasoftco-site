@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
 
 export const dynamic = 'force-dynamic';
@@ -104,6 +105,15 @@ export async function PUT(
             },
         });
 
+        // Cache'i temizle
+        revalidatePath(`/projeler/${project.slug}`);
+        revalidatePath('/projeler');
+        revalidatePath('/');
+        if (project.slug_en) {
+            revalidatePath(`/en/projects/${project.slug_en}`);
+            revalidatePath('/en/projects');
+        }
+
         return NextResponse.json(project);
     } catch (error) {
         console.error("Error updating project:", error);
@@ -124,6 +134,10 @@ export async function DELETE(
         await prisma.project.delete({
             where: { id },
         });
+
+        revalidatePath('/projeler');
+        revalidatePath('/en/projects');
+        revalidatePath('/');
 
         return NextResponse.json({ message: "Project deleted successfully" });
     } catch (error) {
