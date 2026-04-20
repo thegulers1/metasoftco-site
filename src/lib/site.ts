@@ -66,7 +66,10 @@ export function generateMetaTags(page?: {
         : siteConfig.title;
     const description = page?.description || siteConfig.description;
     const keywords = [...siteConfig.keywords, ...(page?.keywords || [])].join(", ");
-    const image = page?.image || `${siteConfig.url}/og`;
+    const ogTitle = page?.title ? `${page.title} | ${siteConfig.name}` : siteConfig.title;
+    const ogDesc = page?.description || siteConfig.description;
+    const image = page?.image ||
+        `${siteConfig.url}/og?title=${encodeURIComponent(ogTitle)}&desc=${encodeURIComponent(ogDesc.slice(0, 120))}`;
     const url = page?.url || siteConfig.url;
     const type = page?.type || "website";
 
