@@ -21,7 +21,14 @@ export const metadata: Metadata = {
         type: "website",
     },
     twitter: { card: "summary_large_image", title: "Projeler | MetasoftCo" },
-    alternates: { canonical: `${siteConfig.url}/projeler` },
+    alternates: {
+        canonical: `${siteConfig.url}/projeler`,
+        languages: {
+            "x-default": `${siteConfig.url}/projeler`,
+            "tr": `${siteConfig.url}/projeler`,
+            "en": `${siteConfig.url}/en/projects`,
+        },
+    },
 };
 
 const getProjects = unstable_cache(

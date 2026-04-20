@@ -15,7 +15,7 @@ export async function generateMetadata({
     const { slug } = await params;
     const project = await prisma.project.findUnique({
         where: { slug_en: slug },
-        select: { title_en: true, title: true, description_en: true, description: true, image: true, slug_en: true },
+        select: { title_en: true, title: true, description_en: true, description: true, image: true, slug: true, slug_en: true },
     });
     if (!project) return {};
 
