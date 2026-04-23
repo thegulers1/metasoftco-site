@@ -41,10 +41,13 @@ export default function SektorelCozumlerClient({ pages, lang = "tr" }: SektorelC
                             className="text-5xl md:text-7xl lg:text-[80px] font-light uppercase tracking-tighter text-[#1a1a1a] mb-4"
                             style={{ fontFamily: "var(--font-inter-tight)" }}
                         >
-                            {t("KONSEPT ÇÖZÜMLER", "CONCEPT SOLUTIONS")}
+                            {t("SEKTÖRÜNÜZÜ ANLAYAN", "SECTOR-SPECIFIC")}
                         </h1>
-                        <p className="text-sm md:text-base text-[#1a1a1a]/60 uppercase tracking-[0.2em] font-medium">
-                            {t("KONSEPTE ÖZEL DİJİTAL AKTİVASYONLAR", "DIGITAL ACTIVATIONS FOR YOUR CONCEPT")}
+                        <p className="text-sm md:text-base text-[#1a1a1a]/60 font-light leading-relaxed max-w-2xl mx-auto">
+                            {t(
+                                "Moda markası için Virtual Try-On, banka için gamification, otomotiv için AR test sürüşü — her sektörün kitlesi farklı tepki verir, farklı motivasyonla paylaşır. MetasoftCo, sektörünüzün dinamiklerini bilerek brief'i çözer.",
+                                "Virtual Try-On for fashion brands, gamification for banks, AR test drives for automotive — every sector's audience reacts differently and shares with different motivations. MetasoftCo solves the brief knowing your sector's dynamics."
+                            )}
                         </p>
                     </motion.div>
                 </div>
@@ -109,15 +112,15 @@ export default function SektorelCozumlerClient({ pages, lang = "tr" }: SektorelC
                     </p>
                     <p className="text-lg text-black/60 mb-12 max-w-2xl mx-auto">
                         {t(
-                            "Etkinliğiniz veya projeniz için en iyi interaktif çözümleri birlikte hayata geçirelim.",
-                            "Let's create the best interactive solutions together for your event or project."
+                            "Sektörünüze özel aktivasyon brief'inizi paylaşın, 24 saat içinde somut bir konsept önerisiyle geri dönelim.",
+                            "Share your sector-specific activation brief and we'll come back with a concrete concept proposal within 24 hours."
                         )}
                     </p>
                     <Link
                         href={contactHref}
                         className="inline-flex items-center justify-center px-12 py-5 bg-red-600 text-white font-bold rounded-full hover:bg-red-700 transition"
                     >
-                        {t("TEKLİF ALIN", "GET OFFER")}
+                        {t("BUGÜN KONUŞALIM →", "LET'S TALK TODAY →")}
                     </Link>
                 </div>
             </section>

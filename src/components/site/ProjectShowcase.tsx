@@ -9,6 +9,7 @@ interface Project {
     id: string;
     title: string;
     slug: string;
+    slug_en: string | null;
     description: string | null;
     image: string | null;
     category: string | null;
@@ -25,9 +26,13 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
     const { t, language } = useLanguage();
 
     const p = (i: number) => projects[i] || null;
+    const projectHref = (proj: Project) =>
+        language === "en" && proj.slug_en
+            ? `/en/projects/${proj.slug_en}`
+            : `/projeler/${proj.slug}`;
 
     return (
-        <section className="py-24 relative bg-white" id="projeler">
+        <section className="py-24 relative bg-[#0d0d0d]" id="projeler">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
 
                 {/* ========== ROW 1: 4 cols — [Title 2col] [Text 1col] [Image 1col] ========== */}
@@ -35,28 +40,28 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
 
                     {/* Col 1-2: Title + description (spans 2) */}
                     <motion.div
-                        className="md:col-span-2 bg-[#f7f7f7] p-10 flex flex-col justify-between min-h-[360px]"
+                        className="md:col-span-2 bg-[#141414] p-10 flex flex-col justify-between min-h-[360px]"
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.7 }}
                     >
                         <div>
-                            <h2 className="text-[36px] md:text-[42px] uppercase leading-[1] tracking-tighter text-[#1a1a1a] mb-6"
+                            <h2 className="text-[36px] md:text-[42px] uppercase leading-[1] tracking-tighter text-[#e5e5e5] mb-6"
                                 style={{ fontFamily: "var(--font-lato)" }}
                             >
                                 <span className="font-light">{t("Güncel", "Recent")}</span>
                                 <br />
                                 <span className="font-bold">{t("Projelerimiz", "Projects")}</span>
                             </h2>
-                            <p className="text-[#1a1a1a]/60 text-sm leading-relaxed max-w-sm">
+                            <p className="text-[#e5e5e5]/50 text-sm leading-relaxed max-w-sm">
                                 {t(
                                     "Markalar için tasarladığımız interaktif deneyimler ve dijital çözümlerden bazıları. Her projemiz, hedef kitleyle güçlü bağlar kurmak ve unutulmaz anlar yaratmak üzerine kurgulanmıştır.",
                                     "Some of the interactive experiences and digital solutions we have designed for brands. Each project is crafted to build strong connections with the target audience and create unforgettable moments."
                                 )}
                             </p>
                         </div>
-                        <Link href={language === "en" ? "/en/projects" : "/projeler"} className="inline-flex items-center text-sm font-semibold text-[#1a1a1a] uppercase tracking-widest mt-6 hover:text-[#dc2626] transition-colors group">
+                        <Link href={language === "en" ? "/en/projects" : "/projeler"} className="inline-flex items-center text-sm font-semibold text-[#e5e5e5] uppercase tracking-widest mt-6 hover:text-[#dc2626] transition-colors group">
                             {t("Daha Fazla", "Learn More")}
                             <span className="ml-2 transition-transform group-hover:translate-x-1">→</span>
                         </Link>
@@ -65,19 +70,19 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
                     {/* Col 3: First project — text card */}
                     {p(0) && (
                         <motion.div
-                            className="bg-white border border-black/5 p-8 flex flex-col justify-center min-h-[360px]"
+                            className="bg-[#141414] border border-white/5 p-8 flex flex-col justify-center min-h-[360px]"
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.7, delay: 0.1 }}
                         >
-                            <Link href={language === "en" ? `/en/projects/${p(0)!.slug}` : `/projeler/${p(0)!.slug}`} className="group">
-                                <h3 className="text-lg md:text-xl font-bold text-[#1a1a1a] leading-tight mb-4 group-hover:text-[#dc2626] transition-colors uppercase tracking-tight"
+                            <Link href={projectHref(p(0)!)} className="group">
+                                <h3 className="text-lg md:text-xl font-bold text-[#e5e5e5] leading-tight mb-4 group-hover:text-[#dc2626] transition-colors uppercase tracking-tight"
                                     style={{ fontFamily: "var(--font-lato)" }}>
                                     {t(p(0)!.title, p(0)!.title_en || p(0)!.title)}
                                 </h3>
                                 {p(0)!.description && (
-                                    <p className="text-sm text-[#1a1a1a]/50 leading-relaxed line-clamp-4">
+                                    <p className="text-sm text-[#e5e5e5]/50 leading-relaxed line-clamp-4">
                                         {t(p(0)!.description!, p(0)!.description_en || p(0)!.description!)}
                                     </p>
                                 )}
@@ -94,8 +99,8 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
                             viewport={{ once: true }}
                             transition={{ duration: 0.7, delay: 0.2 }}
                         >
-                            <Link href={language === "en" ? `/en/projects/${p(0)!.slug}` : `/projeler/${p(0)!.slug}`} className="group block h-full">
-                                <div className="relative h-full w-full overflow-hidden bg-[#f0f0f0]">
+                            <Link href={projectHref(p(0)!)} className="group block h-full">
+                                <div className="relative h-full w-full overflow-hidden bg-[#1a1a1a]">
                                     {p(0)!.image ? (
                                         <Image
                                             fill
@@ -107,8 +112,8 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
                                     ) : (
                                         <div className="absolute inset-0 bg-gradient-to-br from-gray-700 to-gray-900" />
                                     )}
-                                    <div className="absolute left-0 bottom-[10px] bg-white px-5 py-4 border-y border-r border-black/5 max-w-[90%]">
-                                        <h4 className="text-sm font-bold text-[#1a1a1a] leading-tight uppercase tracking-tight group-hover:text-[#dc2626] transition-colors"
+                                    <div className="absolute left-0 bottom-[10px] bg-[#0d0d0d]/90 px-5 py-4 border-y border-r border-white/10 max-w-[90%]">
+                                        <h4 className="text-sm font-bold text-[#e5e5e5] leading-tight uppercase tracking-tight group-hover:text-[#dc2626] transition-colors"
                                             style={{ fontFamily: "var(--font-lato)" }}>
                                             {t(p(0)!.title, p(0)!.title_en || p(0)!.title)}
                                         </h4>
@@ -125,19 +130,19 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
                     {/* Col 1: p1 — text card */}
                     {p(1) && (
                         <motion.div
-                            className="bg-white border border-black/5 p-6 flex flex-col justify-center min-h-[360px]"
+                            className="bg-[#141414] border border-white/5 p-6 flex flex-col justify-center min-h-[360px]"
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.7 }}
                         >
-                            <Link href={language === "en" ? `/en/projects/${p(1)!.slug}` : `/projeler/${p(1)!.slug}`} className="group">
-                                <h3 className="text-base md:text-lg font-bold text-[#1a1a1a] leading-tight mb-3 group-hover:text-[#dc2626] transition-colors uppercase tracking-tight"
+                            <Link href={projectHref(p(1)!)} className="group">
+                                <h3 className="text-base md:text-lg font-bold text-[#e5e5e5] leading-tight mb-3 group-hover:text-[#dc2626] transition-colors uppercase tracking-tight"
                                     style={{ fontFamily: "var(--font-lato)" }}>
                                     {t(p(1)!.title, p(1)!.title_en || p(1)!.title)}
                                 </h3>
                                 {p(1)!.description && (
-                                    <p className="text-xs text-[#1a1a1a]/50 leading-relaxed line-clamp-4">
+                                    <p className="text-xs text-[#e5e5e5]/50 leading-relaxed line-clamp-4">
                                         {t(p(1)!.description!, p(1)!.description_en || p(1)!.description!)}
                                     </p>
                                 )}
@@ -154,8 +159,8 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
                             viewport={{ once: true }}
                             transition={{ duration: 0.7, delay: 0.1 }}
                         >
-                            <Link href={language === "en" ? `/en/projects/${p(1)!.slug}` : `/projeler/${p(1)!.slug}`} className="group block h-full">
-                                <div className="relative h-full w-full overflow-hidden bg-[#f0f0f0]">
+                            <Link href={projectHref(p(1)!)} className="group block h-full">
+                                <div className="relative h-full w-full overflow-hidden bg-[#1a1a1a]">
                                     {p(1)!.image ? (
                                         <Image
                                             fill
@@ -167,8 +172,8 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
                                     ) : (
                                         <div className="absolute inset-0 bg-gradient-to-br from-gray-700 to-gray-900" />
                                     )}
-                                    <div className="absolute left-0 bottom-[10px] bg-white px-4 py-3 border-y border-r border-black/5 max-w-[90%]">
-                                        <h4 className="text-xs font-bold text-[#1a1a1a] leading-tight uppercase tracking-tight group-hover:text-[#dc2626] transition-colors"
+                                    <div className="absolute left-0 bottom-[10px] bg-[#0d0d0d]/90 px-4 py-3 border-y border-r border-white/10 max-w-[90%]">
+                                        <h4 className="text-xs font-bold text-[#e5e5e5] leading-tight uppercase tracking-tight group-hover:text-[#dc2626] transition-colors"
                                             style={{ fontFamily: "var(--font-lato)" }}>
                                             {t(p(1)!.title, p(1)!.title_en || p(1)!.title)}
                                         </h4>
@@ -181,19 +186,19 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
                     {/* Col 3: p2 — text card */}
                     {p(2) && (
                         <motion.div
-                            className="bg-white border border-black/5 p-6 flex flex-col justify-center min-h-[360px]"
+                            className="bg-[#141414] border border-white/5 p-6 flex flex-col justify-center min-h-[360px]"
                             initial={{ opacity: 0, y: 20 }}
                             whileInView={{ opacity: 1, y: 0 }}
                             viewport={{ once: true }}
                             transition={{ duration: 0.7, delay: 0.2 }}
                         >
-                            <Link href={language === "en" ? `/en/projects/${p(2)!.slug}` : `/projeler/${p(2)!.slug}`} className="group">
-                                <h3 className="text-base md:text-lg font-bold text-[#1a1a1a] leading-tight mb-3 group-hover:text-[#dc2626] transition-colors uppercase tracking-tight"
+                            <Link href={projectHref(p(2)!)} className="group">
+                                <h3 className="text-base md:text-lg font-bold text-[#e5e5e5] leading-tight mb-3 group-hover:text-[#dc2626] transition-colors uppercase tracking-tight"
                                     style={{ fontFamily: "var(--font-lato)" }}>
                                     {t(p(2)!.title, p(2)!.title_en || p(2)!.title)}
                                 </h3>
                                 {p(2)!.description && (
-                                    <p className="text-xs text-[#1a1a1a]/50 leading-relaxed line-clamp-4">
+                                    <p className="text-xs text-[#e5e5e5]/50 leading-relaxed line-clamp-4">
                                         {t(p(2)!.description!, p(2)!.description_en || p(2)!.description!)}
                                     </p>
                                 )}
@@ -210,8 +215,8 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
                             viewport={{ once: true }}
                             transition={{ duration: 0.7, delay: 0.3 }}
                         >
-                            <Link href={language === "en" ? `/en/projects/${p(2)!.slug}` : `/projeler/${p(2)!.slug}`} className="group block h-full">
-                                <div className="relative h-full w-full overflow-hidden bg-[#f0f0f0]">
+                            <Link href={projectHref(p(2)!)} className="group block h-full">
+                                <div className="relative h-full w-full overflow-hidden bg-[#1a1a1a]">
                                     {p(2)!.image ? (
                                         <Image
                                             fill
@@ -223,8 +228,8 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
                                     ) : (
                                         <div className="absolute inset-0 bg-gradient-to-br from-gray-700 to-gray-900" />
                                     )}
-                                    <div className="absolute left-0 bottom-[10px] bg-white px-4 py-3 border-y border-r border-black/5 max-w-[90%]">
-                                        <h4 className="text-xs font-bold text-[#1a1a1a] leading-tight uppercase tracking-tight group-hover:text-[#dc2626] transition-colors"
+                                    <div className="absolute left-0 bottom-[10px] bg-[#0d0d0d]/90 px-4 py-3 border-y border-r border-white/10 max-w-[90%]">
+                                        <h4 className="text-xs font-bold text-[#e5e5e5] leading-tight uppercase tracking-tight group-hover:text-[#dc2626] transition-colors"
                                             style={{ fontFamily: "var(--font-lato)" }}>
                                             {t(p(2)!.title, p(2)!.title_en || p(2)!.title)}
                                         </h4>
@@ -246,7 +251,7 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
                             <div className="relative h-full w-full overflow-hidden bg-[#dc2626] flex items-center justify-center transition-colors duration-300 hover:bg-[#b91c1c]">
                                 <span className="text-white text-xs md:text-sm font-bold uppercase tracking-[0.15em] text-center px-3 leading-relaxed whitespace-pre-line"
                                     style={{ fontFamily: "var(--font-lato)" }}>
-                                    {t("Tüm\nProjelerimiz", "View All\nProjects")}
+                                    {t("Tüm\nProjelerimiz", "VIEW ALL\nPROJECTS")}
                                 </span>
                             </div>
                         </Link>

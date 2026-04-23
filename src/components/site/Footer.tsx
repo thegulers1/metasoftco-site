@@ -13,7 +13,7 @@ export default function Footer() {
     const { t, language } = useLanguage();
 
     return (
-        <footer className="bg-[#1a0202] text-white pt-24 pb-12 overflow-hidden border-t border-white/10">
+        <footer className="bg-[#0d0d0d] text-white pt-24 pb-12 overflow-hidden border-t border-white/5">
             <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
                 {/* Instagram Feed */}
                 <InstagramFeed />
@@ -24,15 +24,15 @@ export default function Footer() {
                     <div className="space-y-8">
                         <h3 className="text-4xl md:text-5xl font-medium tracking-tight leading-[1.1]">
                             {t(
-                                "Bir proje fikriniz mi var?\nHadi konuşalım!",
-                                "You have a project idea?\nLets talk about it!"
+                                "Etkinliğiniz 30 Gün İçinde mi?\nFikirden sahneye giden\nen hızlı yol buradan geçiyor.",
+                                "Event in 30 Days?\nThe fastest path from idea\nto stage starts here."
                             )}
                         </h3>
                         <Link
                             href={language === "en" ? "/en/contact" : "/iletisim"}
                             className="inline-block bg-white text-black px-8 py-4 rounded-full font-medium hover:bg-gray-200 transition-colors"
                         >
-                            {t("İletişime Geçin", "Contact us")}
+                            {t("Bugün Konuşalım →", "Let's Talk Today →")}
                         </Link>
                     </div>
 
@@ -40,7 +40,7 @@ export default function Footer() {
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-8 text-sm">
                         {/* Pages */}
                         <div className="space-y-4">
-                            <h4 className="text-orange-500 font-medium">
+                            <h4 className="text-red-500 font-medium">
                                 {t("Sayfalar", "Pages")}
                             </h4>
                             <ul className="space-y-3 text-gray-400">
@@ -79,7 +79,7 @@ export default function Footer() {
 
                         {/* Email */}
                         <div className="space-y-4">
-                            <h4 className="text-orange-500 font-medium">
+                            <h4 className="text-red-500 font-medium">
                                 {t("E-posta", "Email")}
                             </h4>
                             <a
@@ -92,7 +92,7 @@ export default function Footer() {
 
                         {/* Phone */}
                         <div className="space-y-4">
-                            <h4 className="text-orange-500 font-medium">
+                            <h4 className="text-red-500 font-medium">
                                 {t("Telefon", "Phone")}
                             </h4>
                             <a
@@ -105,7 +105,7 @@ export default function Footer() {
 
                         {/* Address */}
                         <div className="space-y-4">
-                            <h4 className="text-orange-500 font-medium">
+                            <h4 className="text-red-500 font-medium">
                                 {t("Adres", "Address")}
                             </h4>
                             <div className="text-gray-400">

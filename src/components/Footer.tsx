@@ -2,7 +2,7 @@ import Container from "./site/Container";
 
 export default function Footer() {
     return (
-        <footer className="mt-20 border-t border-black/10">
+        <footer className="bg-black mt-20 border-t border-black/10">
             <Container>
                 <div className="flex flex-col gap-3 py-10 text-sm text-black/70">
                     <div className="flex items-center justify-between">

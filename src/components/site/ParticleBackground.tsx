@@ -137,7 +137,7 @@ export default function ParticleBackground({ fixed = false }: { fixed?: boolean 
             ref={canvasRef}
             className={fixed
                 ? "fixed inset-0 z-0 pointer-events-none"
-                : "absolute inset-0 z-0 bg-white"
+                : "absolute inset-0 z-0 bg-[#0d0d0d]"
             }
         />
     );

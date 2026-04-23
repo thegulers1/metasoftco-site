@@ -118,7 +118,7 @@ export function BentoServicesSection({ categories }: { categories: any[] }) {
     });
 
     return (
-        <section id="hizmetler" className="bg-[#1a0202] py-20 relative overflow-hidden">
+        <section id="hizmetler" className="bg-dark-maroon py-20 relative overflow-hidden">
             {/* Focal "Light Hit" spotlight effect */}
             {/* Focal "Light Hit" spotlight effect */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[1000px] pointer-events-none z-0 opacity-60">

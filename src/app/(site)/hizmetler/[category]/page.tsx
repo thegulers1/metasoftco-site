@@ -154,16 +154,16 @@ export default async function CategoryHubPage({ params }: PageProps) {
             )}
             <AdminEditUrlSetter url={`/editpanel/services/categories/${category.id}/edit`} />
 
-            <div className="min-h-screen bg-white">
+            <div className="min-h-screen bg-[#0d0d0d]">
                 {/* Hero */}
-                <section className="pt-36 pb-20 border-b border-black/5">
+                <section className="pt-36 pb-20 border-b border-white/5">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                        <nav className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-black/40 font-bold mb-10">
-                            <Link href="/" className="hover:text-black transition">Ana Sayfa</Link>
+                        <nav className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-white/40 font-bold mb-10">
+                            <Link href="/" className="hover:text-white transition">Ana Sayfa</Link>
                             <span>/</span>
-                            <Link href="/hizmetler" className="hover:text-black transition">Hizmetler</Link>
+                            <Link href="/hizmetler" className="hover:text-white transition">Hizmetler</Link>
                             <span>/</span>
-                            <span className="text-black">{category.name}</span>
+                            <span className="text-[#e5e5e5]">{category.name}</span>
                         </nav>
 
                         <span className="inline-flex items-center gap-1.5 rounded-full bg-red-600/5 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-red-600 mb-6 border border-red-600/10">
@@ -172,14 +172,14 @@ export default async function CategoryHubPage({ params }: PageProps) {
                         </span>
 
                         <h1
-                            className="text-4xl sm:text-6xl lg:text-7xl font-light text-black tracking-tighter leading-[1.05] uppercase mb-8 max-w-4xl"
+                            className="text-4xl sm:text-6xl lg:text-7xl font-light text-[#e5e5e5] tracking-tighter leading-[1.05] uppercase mb-8 max-w-4xl"
                             style={{ fontFamily: "var(--font-inter-tight)" }}
                         >
                             {category.heroTitle || category.name}
                         </h1>
 
                         {category.heroContent && (
-                            <p className="text-lg text-black/60 leading-relaxed max-w-3xl">
+                            <p className="text-lg text-white/50 leading-relaxed max-w-3xl">
                                 {category.heroContent}
                             </p>
                         )}
@@ -190,10 +190,10 @@ export default async function CategoryHubPage({ params }: PageProps) {
                 <section className="py-20">
                     <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                         <div className="flex items-center gap-4 mb-12">
-                            <h2 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold">
+                            <h2 className="text-xs uppercase tracking-[0.3em] text-white/40 font-semibold">
                                 {category.services.length} Hizmet
                             </h2>
-                            <div className="h-[1px] flex-1 bg-black/5" />
+                            <div className="h-[1px] flex-1 bg-white/5" />
                         </div>
 
                         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -220,7 +220,7 @@ export default async function CategoryHubPage({ params }: PageProps) {
                                         </div>
                                     )}
                                     <div className="absolute bottom-5 left-0">
-                                        <div className="bg-white px-6 py-4 border-y border-r border-black/5">
+                                        <div className="bg-[#0d0d0d]/90 px-6 py-4 border-y border-r border-white/10">
                                             <h3
                                                 className="text-lg font-bold text-red-600 uppercase tracking-tighter leading-none"
                                                 style={{ fontFamily: "var(--font-inter-tight)" }}
@@ -228,7 +228,7 @@ export default async function CategoryHubPage({ params }: PageProps) {
                                                 {service.title}
                                             </h3>
                                             {service.description && (
-                                                <p className="text-xs text-black/50 mt-1 line-clamp-1">
+                                                <p className="text-xs text-white/40 mt-1 line-clamp-1">
                                                     {service.description}
                                                 </p>
                                             )}
@@ -242,19 +242,19 @@ export default async function CategoryHubPage({ params }: PageProps) {
 
                 {/* FAQ */}
                 {faqs.length > 0 && (
-                    <section className="py-20 border-t border-black/5">
+                    <section className="py-20 border-t border-white/5">
                         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                             <div className="flex items-center gap-4 mb-12">
-                                <h2 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold">
+                                <h2 className="text-xs uppercase tracking-[0.3em] text-white/40 font-semibold">
                                     Sık Sorulan Sorular
                                 </h2>
-                                <div className="h-[1px] flex-1 bg-black/5" />
+                                <div className="h-[1px] flex-1 bg-white/5" />
                             </div>
                             <div className="max-w-3xl">
                                 {faqs.map((faq, i) => (
-                                    <div key={i} className="border-b border-black/5 py-6">
-                                        <h3 className="font-semibold text-black mb-2">{faq.question}</h3>
-                                        <p className="text-black/60 text-sm leading-relaxed">{faq.answer}</p>
+                                    <div key={i} className="border-b border-white/5 py-6">
+                                        <h3 className="font-semibold text-[#e5e5e5] mb-2">{faq.question}</h3>
+                                        <p className="text-white/50 text-sm leading-relaxed">{faq.answer}</p>
                                     </div>
                                 ))}
                             </div>
@@ -285,6 +285,7 @@ export default async function CategoryHubPage({ params }: PageProps) {
                             >
                                 ETKİNLİĞİMİZİ PLANLAYALIM
                             </Link>
+                            {/* Note: category page is TR-only, EN equivalent is /en/services/[slug] */}
                             <a
                                 href="tel:+905342334051"
                                 className="inline-flex items-center justify-center px-10 py-4 bg-white/10 text-white font-bold rounded-full hover:bg-white/20 transition uppercase tracking-widest text-xs"

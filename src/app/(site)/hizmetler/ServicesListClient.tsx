@@ -5,6 +5,7 @@ import { useLanguage } from "@/providers/LanguageProvider";
 import ParticleBackground from "@/components/site/ParticleBackground";
 import Link from "next/link";
 import { motion, AnimatePresence } from "motion/react";
+import { AddButton } from "@/components/ServiceSelector/AddButton";
 
 interface Service {
     id: string;
@@ -53,9 +54,9 @@ export default function ServicesListClient({ categories }: ServicesListClientPro
     }, [allServices, activeCategory]);
 
     return (
-        <div className="min-h-screen bg-white">
+        <div className="min-h-screen bg-[#0d0d0d]">
             {/* Hero Section */}
-            <section className="relative h-[500px] flex items-center justify-center overflow-hidden bg-white">
+            <section className="relative h-[500px] flex items-center justify-center overflow-hidden bg-[#0d0d0d]">
                 <div className="absolute inset-0 z-0">
                     <ParticleBackground />
                 </div>
@@ -67,28 +68,28 @@ export default function ServicesListClient({ categories }: ServicesListClientPro
                         transition={{ duration: 0.8, ease: "easeOut" }}
                     >
                         <h1
-                            className="text-5xl md:text-7xl lg:text-[80px] font-light uppercase tracking-tighter text-[#1a1a1a] mb-4"
+                            className="text-5xl md:text-7xl lg:text-[80px] font-light uppercase tracking-tighter text-[#e5e5e5] mb-4"
                             style={{ fontFamily: "var(--font-inter-tight)" }}
                         >
-                            {t("HİZMETLERİMİZ", "OUR SERVICES")}
+                            {t("ETKİNLİĞİNİZİ DÖNÜŞTÜRECEK", "TRANSFORM YOUR EVENT WITH")}
                         </h1>
-                        <p className="text-sm md:text-base text-[#1a1a1a]/60 uppercase tracking-[0.2em] font-medium">
-                            {t("İNTERAKTİF DENEYİM ALANLARI", "INTERACTIVE EXPERIENCE AREAS")}
+                        <p className="text-sm md:text-base text-[#e5e5e5]/60 uppercase tracking-[0.2em] font-medium">
+                            {t("İNTERAKTİF AKTİVASYON HİZMETLERİ", "INTERACTIVE ACTIVATION SERVICES")}
                         </p>
                     </motion.div>
                 </div>
 
                 {/* Bottom Gradient */}
-                <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
+                <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#0d0d0d] to-transparent" />
             </section>
 
             {/* Category Filter Bar */}
-            <div className="sticky top-20 z-[60] bg-white/80 backdrop-blur-md border-b border-black/5">
+            <div className="sticky top-20 z-[60] bg-[#0d0d0d]/90 backdrop-blur-md border-b border-white/5">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center gap-8 overflow-x-auto py-6 no-scrollbar">
                         <button
                             onClick={() => setActiveCategory("all")}
-                            className={`whitespace-nowrap text-xs font-bold tracking-widest uppercase transition-all duration-300 pb-1 border-b-2 ${activeCategory === "all" ? "text-red-600 border-red-600" : "text-black/40 border-transparent hover:text-black"
+                            className={`whitespace-nowrap text-xs font-bold tracking-widest uppercase transition-all duration-300 pb-1 border-b-2 ${activeCategory === "all" ? "text-red-600 border-red-600" : "text-white/30 border-transparent hover:text-white"
                                 }`}
                         >
                             {t("TÜMÜ", "ALL")}
@@ -97,7 +98,7 @@ export default function ServicesListClient({ categories }: ServicesListClientPro
                             <button
                                 key={cat.id}
                                 onClick={() => setActiveCategory(cat.slug)}
-                                className={`whitespace-nowrap text-xs font-bold tracking-widest uppercase transition-all duration-300 pb-1 border-b-2 ${activeCategory === cat.slug ? "text-red-600 border-red-600" : "text-black/40 border-transparent hover:text-black"
+                                className={`whitespace-nowrap text-xs font-bold tracking-widest uppercase transition-all duration-300 pb-1 border-b-2 ${activeCategory === cat.slug ? "text-red-600 border-red-600" : "text-white/30 border-transparent hover:text-white"
                                     }`}
                             >
                                 {language === "en" ? (cat.name_en || cat.name) : cat.name}
@@ -126,8 +127,18 @@ export default function ServicesListClient({ categories }: ServicesListClientPro
                                 >
                                     <Link
                                         href={language === "en" ? `/en/services/${service.categorySlugEn}/${service.slug_en}` : `/hizmetler/${service.categorySlug}/${service.slug}`}
-                                        className="group block relative aspect-[4/3] overflow-hidden bg-neutral-100 transition-all duration-500"
+                                        className="group block relative aspect-[4/3] overflow-hidden bg-[#1a1a1a] transition-all duration-500"
                                     >
+                                        <AddButton service={{
+                                            id: service.id,
+                                            title: service.title,
+                                            title_en: service.title_en,
+                                            image: service.image,
+                                            slug: service.slug,
+                                            categorySlug: service.categorySlug,
+                                            slug_en: service.slug_en,
+                                            categorySlugEn: service.categorySlugEn ?? null,
+                                        }} />
                                         {service.image ? (
                                             <img
                                                 src={service.image}
@@ -170,15 +181,15 @@ export default function ServicesListClient({ categories }: ServicesListClientPro
                     </p>
                     <p className="text-lg text-black/60 mb-12 max-w-2xl mx-auto">
                         {t(
-                            "Etkinliğiniz veya projeniz için en iyi interaktif çözümleri birlikte hayata geçirelim.",
-                            "Let's bring the best interactive solutions to life together for your event or project."
+                            "Yapay zeka fotoğraf aktivasyonlarından fiziksel photobooth üretimine, interaktif oyunlardan AR deneyimlerine — tüm hizmetler tek çatı altında. Her çözüm, katılımcıların telefonlarına düşen ve paylaşılan anlar için tasarlanmıştır.",
+                            "From AI photo activations to physical photobooth production, from interactive games to AR experiences — all services under one roof. Every solution is designed for moments that land on participants' phones and get shared."
                         )}
                     </p>
                     <Link
-                        href="/iletisim"
+                        href={language === "en" ? "/en/contact" : "/iletisim"}
                         className="inline-flex items-center justify-center px-12 py-5 bg-red-600 text-white font-bold rounded-full hover:bg-red-700 transition"
                     >
-                        {t("TEKLİF ALIN", "GET A QUOTE")}
+                        {t("BUGÜN KONUŞALIM →", "LET'S TALK TODAY →")}
                     </Link>
                 </div>
             </section>

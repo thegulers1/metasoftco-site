@@ -28,9 +28,8 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     useEffect(() => {
         setLanguageState(langFromUrl);
         Cookies.set("NEXT_LOCALE", langFromUrl, { expires: 365 });
-        // Reset alternate URLs on navigation
-        setAlternateUrls(null);
-    }, [langFromUrl]);
+        setAlternateUrls(null); // Eski sayfanın alternate URL'ini temizle
+    }, [pathname]);
 
     const setAlternateUrl = (trUrl: string, enUrl: string) => {
         setAlternateUrls({ tr: trUrl, en: enUrl });
@@ -39,12 +38,25 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
         router.prefetch(prefetchUrl);
     };
 
+    // Pathname'den otomatik alternate URL türet (fallback)
+    const autoAlternate = (() => {
+        if (!pathname) return { tr: "/", en: "/en" };
+        if (pathname.startsWith("/en")) {
+            // /en/X → /X (Türkçe)
+            const tr = pathname.replace(/^\/en/, "") || "/";
+            return { tr, en: pathname };
+        } else {
+            // /X → /en/X (İngilizce)
+            return { tr: pathname, en: "/en" + pathname };
+        }
+    })();
+
     const setLanguage = (lang: Language) => {
         if (lang === language) return;
         if (lang === "en") {
-            router.push(alternateUrls?.en ?? "/en");
+            router.push(alternateUrls?.en ?? autoAlternate.en);
         } else {
-            router.push(alternateUrls?.tr ?? "/");
+            router.push(alternateUrls?.tr ?? autoAlternate.tr);
         }
     };
 

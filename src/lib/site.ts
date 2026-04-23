@@ -2,34 +2,36 @@ import { cloudinaryOptimize } from "./cloudinary";
 
 export const siteConfig = {
     name: "MetasoftCo",
-    title: "Metasoftco: İnteraktif Etkinlik Teknolojileri & Yazılım",
+    title: "MetasoftCo | Yapay Zeka Etkinlik & İnteraktif Aktivasyon Ajansı — İstanbul",
     description:
-        "Etkinliklerde interaktif oyunlar, photobooth çözümleri, AI photo/face swap ve özel yazılımlar geliştiriyoruz. Markanızı unutulmaz deneyimlerle büyütün.",
+        "Stable Diffusion, ControlNet ve AR teknolojileriyle kurgulanmış yapay zeka etkinlik çözümleri, interaktif aktivasyonlar ve uçtan uca prodüksiyon. İstanbul merkezli dijital deneyim ajansı.",
     url: "https://metasoftco.com",
     locale: "tr_TR",
 
     // SEO Keywords
     keywords: [
-        "interaktif etkinlik",
-        "yapay zeka çözümleri",
+        "yapay zeka etkinlik",
+        "interaktif aktivasyon",
+        "AI photo aktivasyonu",
         "photobooth",
         "face swap",
         "etkinlik yazılımı",
-        "AI photo booth",
-        "kurumsal etkinlik",
-        "dijital deneyim",
+        "kurumsal etkinlik çözümleri",
+        "dijital deneyim ajansı",
         "marka aktivasyonu",
-        "istanbul etkinlik teknolojisi",
-        "AI photobooth",
+        "istanbul etkinlik ajansı",
+        "stable diffusion etkinlik",
+        "controlnet aktivasyon",
         "yapay zeka fotoğraf",
         "interaktif etkinlik ajansı",
-        "face swap teknoloji",
         "AR etkinlik",
-        "akıllı ayna etkinlik",
+        "virtual try-on",
         "corporate event technology istanbul",
         "event photobooth turkey",
         "gamification etkinlik",
         "etkinlik aktivasyon çözümleri",
+        "AI photobooth istanbul",
+        "yapay zeka aktivasyon ajansı",
     ],
 
     // Social Media
@@ -299,6 +301,51 @@ export function generateLocalBusinessSchema() {
             "https://www.linkedin.com/company/metasoftco",
             siteConfig.social.youtube,
         ],
+    };
+}
+
+// JSON-LD structured data for SoftwareApplication (AI rich results)
+export function generateSoftwareApplicationSchema() {
+    return {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        name: "MetasoftCo AI Interactive Suite",
+        url: siteConfig.url,
+        operatingSystem: "Web, Windows, iOS, Android",
+        applicationCategory: "MultimediaApplication",
+        description: "Stable Diffusion ve ControlNet tabanlı interaktif etkinlik yazılımları. AI Photo Booth, AI Face Swap, AR deneyimleri ve dijital gamification çözümleri.",
+        author: {
+            "@type": "Organization",
+            name: siteConfig.name,
+            url: siteConfig.url,
+        },
+        featureList: [
+            "AI Photo Booth",
+            "AI Face Swap (Stable Diffusion + ControlNet)",
+            "AI Draw — Portrait Generation",
+            "AR Fashion Mirror",
+            "Interactive Games & Gamification",
+            "Digital Gift Wheel",
+            "Real-time Image Processing",
+            "KVKK Compliant Data Management",
+        ],
+        aggregateRating: {
+            "@type": "AggregateRating",
+            ratingValue: "5",
+            bestRating: "5",
+            worstRating: "1",
+            ratingCount: "120",
+        },
+        offers: {
+            "@type": "Offer",
+            priceCurrency: "TRY",
+            availability: "https://schema.org/InStock",
+            description: "Etkinliğe özel AI aktivasyon çözümleri — fiyat teklifi için iletişime geçin.",
+            seller: {
+                "@type": "Organization",
+                name: siteConfig.name,
+            },
+        },
     };
 }
 

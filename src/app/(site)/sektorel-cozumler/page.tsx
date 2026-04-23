@@ -7,15 +7,20 @@ import SektorelCozumlerClient from "./SektorelCozumlerClient";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-    title: "Sektörel Yazılım Çözümleri | MetasoftCo",
-    description: "MetasoftCo'nun farklı sektörlere özel geliştirdiği interaktif dijital aktivasyon ve yazılım çözümleri.",
+    title: "Sektörel Çözümler | Moda, Finans, Otomotiv & Daha Fazlası — MetasoftCo",
+    description: "Tekstil, sağlık, finans, otomotiv ve perakende sektörlerine özel interaktif aktivasyon ve yapay zeka etkinlik çözümleri. MetasoftCo, sektörünüzü anlayan ajans.",
     openGraph: {
-        title: "Sektörel Yazılım Çözümleri | MetasoftCo",
-        description: "Farklı sektörlere özel dijital çözümler.",
+        title: "Sektörel Çözümler | Moda, Finans, Otomotiv & Daha Fazlası — MetasoftCo",
+        description: "Sektörünüze özel interaktif aktivasyon ve yapay zeka etkinlik çözümleri. Moda'dan otomotive, finanstan perakendeye.",
         url: `${siteConfig.url}/sektorel-cozumler`,
     },
     alternates: {
         canonical: `${siteConfig.url}/sektorel-cozumler`,
+        languages: {
+            "x-default": `${siteConfig.url}/sektorel-cozumler`,
+            "tr": `${siteConfig.url}/sektorel-cozumler`,
+            "en": `${siteConfig.url}/en/sector-solutions`,
+        },
     },
 };
 

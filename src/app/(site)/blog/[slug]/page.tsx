@@ -20,6 +20,37 @@ async function getPost(slug: string) {
     });
 }
 
+// Blog kategorisine göre ilgili hizmet kategorisi slug'ı döner
+function serviceCategorySlugForBlog(blogCategory: string | null): string {
+    const map: Record<string, string> = {
+        "Yapay Zeka": "yapay-zeka-etkinlik-cozumleri",
+        "Etkinlik Teknolojileri": "yapay-zeka-etkinlik-cozumleri",
+        "Marka Aktivasyonu": "interaktif-etkinlik-aktiviteleri",
+        "Etkinlik Trendleri": "photobooth-ve-fotograf-aktivasyonlari",
+    };
+    return blogCategory ? (map[blogCategory] || "") : "";
+}
+
+async function getRelatedServices(blogCategory: string | null) {
+    const catSlug = serviceCategorySlugForBlog(blogCategory);
+    if (catSlug) {
+        const services = await prisma.service.findMany({
+            where: { category: { slug: catSlug } },
+            select: { id: true, title: true, slug: true, image: true, category: { select: { slug: true, name: true } } },
+            take: 3,
+            orderBy: { order: "asc" },
+        });
+        if (services.length > 0) return services;
+    }
+    // Fallback: featured servisler
+    return prisma.service.findMany({
+        where: { featured: true },
+        select: { id: true, title: true, slug: true, image: true, category: { select: { slug: true, name: true } } },
+        take: 3,
+        orderBy: { featuredOrder: "asc" },
+    });
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params;
     const post = await getPost(slug);

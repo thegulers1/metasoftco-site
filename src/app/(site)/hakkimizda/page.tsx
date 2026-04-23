@@ -3,11 +3,11 @@ import { siteConfig } from "@/lib/site";
 import AboutClient from "./AboutClient";
 
 export const metadata: Metadata = {
-    title: "Hakkımızda | MetasoftCo",
-    description: "MetasoftCo hakkında bilgi edinin. İstanbul merkezli, yenilikçi fikirleri harika dijital deneyimlere dönüştüren interaktif etkinlik teknolojisi ekibiyiz.",
+    title: "Hakkımızda | MetasoftCo — İstanbul Dijital Deneyim & Aktivasyon Ajansı",
+    description: "5 yılda 1.000+ etkinlik, 100+ marka. MetasoftCo; Stable Diffusion, AR ve interaktif teknolojilerle İstanbul merkezli uçtan uca dijital deneyim ajansıdır.",
     openGraph: {
-        title: "Hakkımızda | MetasoftCo",
-        description: "Yenilikçi fikirleri harika deneyimler yaratacak şekilde hayata geçirmeye tutkulu bir ekibiz.",
+        title: "Hakkımızda | MetasoftCo — İstanbul Dijital Deneyim & Aktivasyon Ajansı",
+        description: "5 yılda 1.000+ etkinlik, 100+ marka. Teknolojiyi sahneye çıkaran İstanbul merkezli ajans.",
         url: `${siteConfig.url}/hakkimizda`,
     },
     alternates: {

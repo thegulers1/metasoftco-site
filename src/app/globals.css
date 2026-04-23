@@ -2,6 +2,11 @@
 @plugin "@tailwindcss/typography";
 @import "tw-animate-css";
 
+/* Neon Red Custom Color */
+:root {
+  --color-neon-red: #FF3B3F;
+}
+
 @layer utilities {
 
   /* Hizmet Detay İçeriği - Temiz ve Standart CSS */
@@ -14,7 +19,7 @@
     /* Typography */
     font-size: 1.125rem;
     line-height: 1.8;
-    color: rgba(0, 0, 0, 0.85);
+    color: rgba(229, 229, 229, 0.85);
 
     /* Kritik Kelime Kırma Ayarları */
     overflow-wrap: break-word;
@@ -135,8 +140,8 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
+  --background: #0d0d0d;
+  --foreground: #e5e5e5;
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);

@@ -6,164 +6,131 @@ datasource db {
   provider = "postgresql"
 }
 
-// ============================================
-// HİZMET KATEGORİLERİ
-// ============================================
 model ServiceCategory {
   id                 String    @id @default(cuid())
   name               String
   slug               String    @unique
   order              Int       @default(0)
-  // Hub Sayfası İçerik Alanları
-  heroTitle          String?
-  heroContent        String?   @db.Text
-  // SEO Alanları
-  metaTitle          String?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
   metaDescription    String?
   metaKeywords       String?
-  services           Service[]
-  // English Fields
-  slug_en            String?   @unique
-  name_en            String?
-  metaTitle_en       String?
+  metaTitle          String?
   metaDescription_en String?
+  metaTitle_en       String?
+  name_en            String?
+  slug_en            String?   @unique
+  heroContent        String?
+  heroTitle          String?
   metaKeywords_en    String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  services           Service[]
 }
 
-// ============================================
-// HİZMETLER
-// ============================================
 model Service {
   id                 String          @id @default(cuid())
   title              String
   slug               String
   description        String?
-  content            String?         @db.Text
-  image              String? // Cover görsel
-  gallery            String?         @db.Text // JSON array - galeri görselleri
-  video              String? // Video URL (Cloudinary)
-  videoThumbnailTime Float? // Kapak fotoğrafı için saniye
+  content            String?
+  image              String?
   size               String          @default("medium")
   bgColor            String?
   textColor          String          @default("light")
   order              Int             @default(0)
-  featured           Boolean         @default(false) // Anasayfada göster
-  featuredOrder      Int             @default(0) // Anasayfa sırası
   categoryId         String
-  category           ServiceCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  // SEO Alanları
-  metaTitle          String?
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
   metaDescription    String?
   metaKeywords       String?
+  metaTitle          String?
   ogImage            String?
-  // English Fields
-  slug_en            String?
-  title_en           String?
+  gallery            String?
+  video              String?
+  videoThumbnailTime Float?
+  content_en         String?
   description_en     String?
-  content_en         String?         @db.Text
-  metaTitle_en       String?
   metaDescription_en String?
   metaKeywords_en    String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  metaTitle_en       String?
+  title_en           String?
+  featured           Boolean         @default(false)
+  featuredOrder      Int             @default(0)
+  slug_en            String?
+  category           ServiceCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
   @@unique([categoryId, slug])
   @@index([categoryId])
 }
 
-// ============================================
-// PROJELER
-// ============================================
 model Project {
-  id           String    @id @default(cuid())
-  title        String
-  slug         String    @unique
-  description  String?
-  content      String?   @db.Text // Detaylı proje açıklaması
-  image        String? // Ana kapak görseli
-  gallery      String?   @db.Text // JSON array - galeri görselleri
-  category     String? // Proje kategorisi (Web, Mobil, AI, vb.)
-  client       String? // Müşteri adı
-  projectDate  DateTime? // Proje tamamlanma tarihi
-  technologies String?   @db.Text // JSON array - kullanılan teknolojiler
-  projectUrl   String? // Canlı proje linki
-  githubUrl    String? // GitHub linki (varsa)
-  video        String? // Video URL (Cloudinary veya YouTube)
-  featured     Boolean   @default(false) // Öne çıkan proje mi?
-  published    Boolean   @default(true) // Yayında mı?
-  order        Int       @default(0) // Sıralama
-
-  // SEO Alanları
-  metaTitle       String?
-  metaDescription String?
-  metaKeywords    String?
-  ogImage         String?
-
-  // English Fields
-  slug_en            String?   @unique
+  id                 String    @id @default(cuid())
+  title              String
+  slug               String    @unique
+  description        String?
+  content            String?
+  image              String?
+  gallery            String?
+  category           String?
+  client             String?
+  projectDate        DateTime?
+  technologies       String?
+  projectUrl         String?
+  githubUrl          String?
+  featured           Boolean   @default(false)
+  published          Boolean   @default(true)
+  order              Int       @default(0)
+  metaTitle          String?
+  metaDescription    String?
+  metaKeywords       String?
+  ogImage            String?
   title_en           String?
   description_en     String?
-  content_en         String? @db.Text
+  content_en         String?
   metaTitle_en       String?
   metaDescription_en String?
   metaKeywords_en    String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  slug_en            String?   @unique
+  video              String?
 
   @@index([published, featured, order])
 }
 
-// ============================================
-// BLOG YAZILARI
-// ============================================
 model BlogPost {
   id                 String    @id @default(cuid())
   title              String
   slug               String    @unique
   excerpt            String?
-  content            String?   @db.Text
+  content            String?
   image              String?
   category           String?
-  author             String?
   published          Boolean   @default(false)
   publishedAt        DateTime?
-  // SEO Alanları
-  metaTitle          String?
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  author             String?
   metaDescription    String?
   metaKeywords       String?
+  metaTitle          String?
   ogImage            String?
-  // English Fields
-  slug_en            String?   @unique
-  title_en           String?
+  content_en         String?
   excerpt_en         String?
-  content_en         String?   @db.Text
-  metaTitle_en       String?
   metaDescription_en String?
   metaKeywords_en    String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  metaTitle_en       String?
+  title_en           String?
+  slug_en            String?   @unique
 }
 
-// ============================================
-// SİTE AYARLARI (Global SEO)
-// ============================================
 model SiteSetting {
   id        String   @id @default(cuid())
   key       String   @unique
-  value     String?  @db.Text
+  value     String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
-// ============================================
-// İLETİŞİM FORMU
-// ============================================
 model ContactSubmission {
   id        String   @id @default(cuid())
   name      String
@@ -172,9 +139,6 @@ model ContactSubmission {
   createdAt DateTime @default(now())
 }
 
-// ============================================
-// KULLANICILAR (Admin Panel)
-// ============================================
 model User {
   id        String   @id @default(cuid())
   email     String   @unique
@@ -185,17 +149,12 @@ model User {
   updatedAt DateTime @updatedAt
 }
 
-// ============================================
-// ANALİTİKS
-// ============================================
-
-// Sayfa görüntülemeleri
 model PageView {
   id        String   @id @default(cuid())
-  path      String // Örn: /hizmetler/yapay-zeka/ai-photo
-  sessionId String // Browser fingerprint veya session ID
-  referer   String? // Nereden geldi
-  userAgent String? // Tarayıcı bilgisi
+  path      String
+  sessionId String
+  referer   String?
+  userAgent String?
   createdAt DateTime @default(now())
 
   @@index([path, createdAt])
@@ -203,13 +162,12 @@ model PageView {
   @@index([createdAt])
 }
 
-// Event tracking (menü tıklamaları, arama, vb.)
 model AnalyticsEvent {
   id        String   @id @default(cuid())
-  eventType String // 'menu_click', 'search', 'service_view', 'category_view'
-  eventData String?  @db.Text // JSON - ek veriler
+  eventType String
+  eventData String?
   sessionId String
-  path      String // Hangi sayfada oldu
+  path      String
   createdAt DateTime @default(now())
 
   @@index([eventType, createdAt])
@@ -217,50 +175,39 @@ model AnalyticsEvent {
   @@index([createdAt])
 }
 
-// ============================================
-// SEKTÖREL ÇÖZÜM SAYFALARI
-// ============================================
 model SectorPage {
-  id              String   @id @default(cuid())
-  title           String   // Admin etiketi
-  slug            String   @unique
-  h1              String?
-  excerpt         String?  @db.Text
-  content         String?  @db.Text
-  images          String?  @db.Text // JSON: [{url, alt}]
-  published       Boolean  @default(false)
-  order           Int      @default(0)
-  // SEO (TR)
-  metaTitle       String?
-  metaDescription String?
-  metaKeywords    String?
-  ogImage         String?
-  // Özel Schema (JSON-LD)
-  customSchema    String?  @db.Text
-  // Önerilen Hizmetler (Service ID'leri JSON array)
-  serviceIds      String?  @db.Text
-  // English Fields
-  slug_en         String?  @unique
-  h1_en           String?
-  excerpt_en      String?  @db.Text
-  content_en      String?  @db.Text
-  metaTitle_en    String?
+  id                 String   @id @default(cuid())
+  title              String
+  slug               String   @unique
+  h1                 String?
+  excerpt            String?
+  content            String?
+  images             String?
+  published          Boolean  @default(false)
+  order              Int      @default(0)
+  metaTitle          String?
+  metaDescription    String?
+  metaKeywords       String?
+  ogImage            String?
+  customSchema       String?
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+  content_en         String?
+  excerpt_en         String?
+  h1_en              String?
   metaDescription_en String?
-  metaKeywords_en String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  metaKeywords_en    String?
+  metaTitle_en       String?
+  slug_en            String?  @unique
+  serviceIds         String?
 }
 
-// ============================================
-// MEDYA KÜTÜPHANESİ
-// ============================================
 model Media {
   id        String   @id @default(cuid())
   url       String
-  publicId  String   @unique // Cloudinary public_id
+  publicId  String   @unique
   fileName  String?
-  fileType  String? // image, video, vb.
+  fileType  String?
   fileSize  Int?
   folder    String?
   createdAt DateTime @default(now())

@@ -7,11 +7,11 @@ import ServicesListClient from "./ServicesListClient";
 export const revalidate = 3600;
 
 export const metadata: Metadata = {
-    title: "İnteraktif Etkinlik Hizmetleri ve Dijital Aktivasyonlar | MetasoftCo",
-    description: "MetasoftCo'nun sunduğu yapay zeka, fotoğraf & video ve interaktif hizmetler. Etkinlikleriniz için profesyonel dijital aktivasyon çözümleri.",
+    title: "İnteraktif Etkinlik Hizmetleri | Yapay Zeka, Photobooth & Aktivasyon — MetasoftCo",
+    description: "Yapay zeka fotoğraf aktivasyonları, interaktif oyunlar, photobooth ve AR deneyimleri. MetasoftCo ile etkinliğinizi unutulmaz kılın. İstanbul & Türkiye geneli hizmet.",
     openGraph: {
-        title: "İnteraktif Etkinlik Hizmetleri ve Dijital Aktivasyonlar | MetasoftCo",
-        description: "Yapay zeka, fotoğraf & video ve interaktif hizmetlerimizi keşfedin.",
+        title: "İnteraktif Etkinlik Hizmetleri | Yapay Zeka, Photobooth & Aktivasyon — MetasoftCo",
+        description: "Yapay zeka fotoğraf aktivasyonları, interaktif oyunlar, photobooth ve AR deneyimleri. MetasoftCo ile etkinliğinizi unutulmaz kılın.",
         url: `${siteConfig.url}/hizmetler`,
     },
     alternates: {

@@ -52,12 +52,12 @@ export default function AkisServicesSection() {
     return (
         <section className="relative bg-black py-20 lg:py-32 overflow-hidden">
             {/* Background gradient effect */}
-            <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-red-900/20 via-transparent to-transparent pointer-events-none" />
+            <div className="absolute top-0 right-0 w-full h-full bg-gradient-to-br from-[#FF3B3F]/10 via-transparent to-transparent pointer-events-none" />
             
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 {/* Header */}
                 <div className="flex flex-col items-center mb-16">
-                    <p className="text-red-500 text-sm uppercase tracking-wider mb-4">
+                    <p className="text-[#FF3B3F] text-sm uppercase tracking-wider mb-4">
                         {t("Hizmetler", "Services")}
                     </p>
                     <h2 className="text-center text-3xl lg:text-5xl text-white font-light max-w-3xl">
@@ -88,10 +88,10 @@ export default function AkisServicesSection() {
                                 <div className="lg:col-start-1 lg:col-end-4">
                                     <div className="lg:sticky lg:top-24 relative z-0 group">
                                         {/* Glow effect on hover */}
-                                        <div className="absolute inset-0 bg-gradient-to-br from-red-600/80 via-red-500/40 to-red-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-400 ease-out rounded-[10px] -z-10 blur-xl" />
+                                        <div className="absolute inset-0 bg-gradient-to-br from-[#FF3B3F]/80 via-[#FF3B3F]/40 to-[#FF3B3F]/20 opacity-0 group-hover:opacity-100 transition-opacity duration-400 ease-out rounded-[6px] -z-10 blur-xl" />
                                         
                                         {/* Border on hover */}
-                                        <div className="absolute inset-0 border border-red-900/30 opacity-0 group-hover:opacity-100 transition-opacity duration-400 ease-out rounded-[10px] pointer-events-none -z-10" />
+                                        <div className="absolute inset-0 border border-[#FF3B3F]/30 opacity-0 group-hover:opacity-100 transition-opacity duration-400 ease-out rounded-[6px] pointer-events-none -z-10" />
                                         
                                         {/* Card content */}
                                         <div className="relative z-10">
@@ -150,7 +150,7 @@ export default function AkisServicesSection() {
 // Service Card Component
 function ServiceCard({ service, language }: { service: Service; language: string }) {
     return (
-        <div className="bg-gradient-to-br from-white/5 via-white/[0.02] to-black/10 backdrop-blur-md rounded-[10px] border border-white/10 px-4 py-6 h-[180px] transition-all duration-300">
+        <div className="bg-gradient-to-br from-white/5 via-white/[0.02] to-black/10 backdrop-blur-md rounded-[5px] border border-white/10 px-6 py-8 h-[180px] transition-all duration-300">
             <div className="grid grid-cols-5 h-full gap-4">
                 <div className="flex flex-col justify-between col-span-3">
                     <span className="text-sm text-white/70">{service.number}</span>

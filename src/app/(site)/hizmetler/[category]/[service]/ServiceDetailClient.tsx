@@ -39,7 +39,7 @@ export default function ServiceDetailClient({
     const content = language === "en" ? (service.content_en || service.content) : service.content;
 
     return (
-        <div className="min-h-screen bg-white pt-32 pb-20">
+        <div className="min-h-screen bg-[#0d0d0d] pt-32 pb-20">
             {/* JSON-LD */}
             <script
                 type="application/ld+json"
@@ -50,16 +50,16 @@ export default function ServiceDetailClient({
 
             <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
                 {/* Breadcrumb */}
-                <nav className="mb-8 flex items-center gap-2 text-sm text-black/50">
-                    <Link href="/" className="hover:text-black transition uppercase tracking-widest text-[10px] font-bold">
+                <nav className="mb-8 flex items-center gap-2 text-sm text-white/40">
+                    <Link href="/" className="hover:text-white transition uppercase tracking-widest text-[10px] font-bold">
                         {t("Ana Sayfa", "Home")}
                     </Link>
-                    <span className="text-black/20">/</span>
-                    <Link href="/hizmetler" className="hover:text-black transition uppercase tracking-widest text-[10px] font-bold">
+                    <span className="text-white/20">/</span>
+                    <Link href="/hizmetler" className="hover:text-white transition uppercase tracking-widest text-[10px] font-bold">
                         {t("Hizmetler", "Services")}
                     </Link>
-                    <span className="text-black/20">/</span>
-                    <span className="text-black font-bold uppercase tracking-widest text-[10px]">{title}</span>
+                    <span className="text-white/20">/</span>
+                    <span className="text-[#e5e5e5] font-bold uppercase tracking-widest text-[10px]">{title}</span>
                 </nav>
 
                 {/* Service Header */}
@@ -69,13 +69,13 @@ export default function ServiceDetailClient({
                         {categoryName}
                     </span>
                     <h1
-                        className="text-4xl sm:text-6xl font-light text-black tracking-tighter mt-2 leading-[1.1] uppercase"
+                        className="text-4xl sm:text-6xl font-light text-[#e5e5e5] tracking-tighter mt-2 leading-[1.1] uppercase"
                         style={{ fontFamily: "var(--font-inter-tight)" }}
                     >
                         {title}
                     </h1>
                     {description && (
-                        <p className="mt-6 text-xl text-black/60 leading-relaxed font-normal max-w-2xl">
+                        <p className="mt-6 text-xl text-white/50 leading-relaxed font-normal max-w-2xl">
                             {description}
                         </p>
                     )}
@@ -85,10 +85,10 @@ export default function ServiceDetailClient({
                 {service.video && (
                     <div className="mb-16">
                         <div className="flex items-center gap-4 mb-8">
-                            <h2 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold">
+                            <h2 className="text-xs uppercase tracking-[0.3em] text-white/40 font-semibold">
                                 {t("Tanıtım Videosu", "Promotional Video")}
                             </h2>
-                            <div className="h-[1px] flex-1 bg-black/5" />
+                            <div className="h-[1px] flex-1 bg-white/5" />
                         </div>
                         <VideoPlayer
                             src={service.video}
@@ -103,13 +103,13 @@ export default function ServiceDetailClient({
                 {content && (
                     <div className="mb-20">
                         <div className="flex items-center gap-4 mb-10">
-                            <h2 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold">
+                            <h2 className="text-xs uppercase tracking-[0.3em] text-white/40 font-semibold">
                                 {t("Hizmet Hakkında", "About Service")}
                             </h2>
-                            <div className="h-[1px] flex-1 bg-black/5" />
+                            <div className="h-[1px] flex-1 bg-white/5" />
                         </div>
                         <div
-                            className="prose prose-lg max-w-none text-black/80 leading-relaxed font-light"
+                            className="prose prose-lg prose-invert max-w-none text-white/70 leading-relaxed font-light"
                             dangerouslySetInnerHTML={{
                                 __html: addHeadingAnchors(content?.replace(/&nbsp;/g, ' ') || '')
                             }}
@@ -121,10 +121,10 @@ export default function ServiceDetailClient({
                 {gallery.length > 0 && (
                     <div className="mb-20">
                         <div className="flex items-center justify-between mb-8">
-                            <h2 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold">
+                            <h2 className="text-xs uppercase tracking-[0.3em] text-white/40 font-semibold">
                                 {t("Görsel Galeri", "Image Gallery")}
                             </h2>
-                            <span className="text-[10px] uppercase tracking-widest text-black/30 bg-black/[0.03] px-3 py-1.5 rounded-full border border-black/5">
+                            <span className="text-[10px] uppercase tracking-widest text-black/30 bg-black/[0.03] px-3 py-1.5 rounded-full border border-white/5">
                                 {t("Kaydırınız →", "Swipe →")}
                             </span>
                         </div>
@@ -133,19 +133,19 @@ export default function ServiceDetailClient({
                 )}
 
                 {/* CTA & Related Services */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-16 border-t border-black/10">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-16 border-t border-white/10">
                     <div>
-                        <h2 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold mb-6">
+                        <h2 className="text-xs uppercase tracking-[0.3em] text-white/40 font-semibold mb-6">
                             {t("İletişime Geçin", "Get in Touch")}
                         </h2>
-                        <p className="text-black/60 mb-8 leading-relaxed">
+                        <p className="text-white/50 mb-8 leading-relaxed">
                             {t(
                                 "Bu hizmet veya diğer çözümlerimiz hakkında daha fazla bilgi almak için bizimle iletişime geçebilirsiniz.",
                                 "You can contact us to get more information about this service or our other solutions."
                             )}
                         </p>
                         <Link
-                            href="/iletisim"
+                            href={language === "en" ? "/en/contact" : "/iletisim"}
                             className="inline-flex items-center justify-center px-10 py-4 bg-red-600 text-white font-bold rounded-full hover:bg-red-700 transition uppercase tracking-widest text-xs"
                         >
                             {t("TEKLİF ALIN", "GET A QUOTE")}
@@ -154,7 +154,7 @@ export default function ServiceDetailClient({
 
                     {relatedServices.length > 0 && (
                         <div>
-                            <h2 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold mb-6">
+                            <h2 className="text-xs uppercase tracking-[0.3em] text-white/40 font-semibold mb-6">
                                 {t("İlginizi Çekebilir", "You Might Like")}
                             </h2>
                             <div className="space-y-4">
@@ -166,12 +166,12 @@ export default function ServiceDetailClient({
                                                 ? `/en/services/${categoryData.slug_en}/${related.slug_en}`
                                                 : `/hizmetler/${categoryData.slug}/${related.slug}`
                                         }
-                                        className="group block p-4 bg-black/[0.02] hover:bg-black/[0.05] transition border border-black/5"
+                                        className="group block p-4 bg-white/[0.03] hover:bg-white/[0.06] transition border border-white/5"
                                     >
-                                        <h3 className="font-bold text-black uppercase tracking-tight group-hover:text-red-600 transition">
+                                        <h3 className="font-bold text-[#e5e5e5] uppercase tracking-tight group-hover:text-red-500 transition">
                                             {language === "en" ? (related.title_en || related.title) : related.title}
                                         </h3>
-                                        <p className="text-xs text-black/40 mt-1 uppercase tracking-widest">
+                                        <p className="text-xs text-white/40 mt-1 uppercase tracking-widest">
                                             {categoryName}
                                         </p>
                                     </Link>
@@ -182,7 +182,7 @@ export default function ServiceDetailClient({
                 </div>
 
                 {/* Bottom CTA Banner */}
-                <div className="mt-20 bg-black rounded-2xl px-8 sm:px-14 py-14 text-center">
+                <div className="mt-20 bg-[#141414] border border-white/5 rounded-2xl px-8 sm:px-14 py-14 text-center">
                     <p className="text-[10px] uppercase tracking-[0.3em] text-white/30 font-semibold mb-4">
                         {t("Etkinliğinizi Planlayalım", "Let's Plan Your Event")}
                     </p>
@@ -202,7 +202,7 @@ export default function ServiceDetailClient({
                     </p>
                     <div className="flex flex-col sm:flex-row gap-3 justify-center">
                         <Link
-                            href="/iletisim"
+                            href={language === "en" ? "/en/contact" : "/iletisim"}
                             className="inline-flex items-center justify-center px-10 py-4 bg-red-600 text-white font-bold rounded-full hover:bg-red-700 transition uppercase tracking-widest text-xs"
                         >
                             {t("ETKİNLİĞİMİZİ PLANLAYALIM", "PLAN MY EVENT")}
@@ -220,7 +220,7 @@ export default function ServiceDetailClient({
                 <div className="mt-10">
                     <Link
                         href="/hizmetler"
-                        className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-black/40 hover:text-black transition"
+                        className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-white/30 hover:text-white transition"
                     >
                         <svg
                             className="w-3 h-3"
