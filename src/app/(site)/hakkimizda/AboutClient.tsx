@@ -60,15 +60,15 @@ export default function AboutClient() {
             {/* Değerler */}
             <section className="py-24 bg-[#0d0d0d] border-t border-white/5">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <h2 className="text-3xl md:text-4xl font-light uppercase tracking-tighter text-[#e5e5e5] mb-16 text-center"
+                    <h2 className="text-3xl md:text-4xl font-light tracking-tighter text-[#e5e5e5] mb-16 text-center"
                         style={{ fontFamily: "var(--font-inter-tight)" }}
                     >
-                        {t("Değerlerimiz", "Our Values")}
+                        {t("DEĞERLERİMİZ", "OUR VALUES")}
                     </h2>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/5">
                         <div className="bg-[#0d0d0d] p-10">
-                            <h3 className="text-lg font-bold text-[#e5e5e5] mb-3 uppercase tracking-wider">
-                                {t("Teknik Derinlik", "Technical Depth")}
+                            <h3 className="text-lg font-bold text-[#e5e5e5] mb-3 tracking-wider">
+                                {t("TEKNİK DERİNLİK", "TECHNICAL DEPTH")}
                             </h3>
                             <p className="text-[#e5e5e5]/50 text-sm leading-relaxed">
                                 {t(
@@ -78,8 +78,8 @@ export default function AboutClient() {
                             </p>
                         </div>
                         <div className="bg-[#0d0d0d] p-10">
-                            <h3 className="text-lg font-bold text-[#e5e5e5] mb-3 uppercase tracking-wider">
-                                {t("Ölçülebilir Etki", "Measurable Impact")}
+                            <h3 className="text-lg font-bold text-[#e5e5e5] mb-3 tracking-wider">
+                                {t("ÖLÇÜLEBİLİR ETKİ", "MEASURABLE IMPACT")}
                             </h3>
                             <p className="text-[#e5e5e5]/50 text-sm leading-relaxed">
                                 {t(
@@ -89,8 +89,8 @@ export default function AboutClient() {
                             </p>
                         </div>
                         <div className="bg-[#0d0d0d] p-10">
-                            <h3 className="text-lg font-bold text-[#e5e5e5] mb-3 uppercase tracking-wider">
-                                {t("KVKK Önce", "Privacy First")}
+                            <h3 className="text-lg font-bold text-[#e5e5e5] mb-3 tracking-wider">
+                                {t("KVKK ÖNCE", "PRIVACY FIRST")}
                             </h3>
                             <p className="text-[#e5e5e5]/50 text-sm leading-relaxed">
                                 {t(

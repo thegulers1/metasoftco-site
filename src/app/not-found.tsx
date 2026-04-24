@@ -1,14 +1,16 @@
 "use client";
 
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 
 export default function NotFound() {
     const router = useRouter();
+    const pathname = usePathname();
 
     useEffect(() => {
-        router.replace("/");
-    }, [router]);
+        const target = pathname?.startsWith("/en") ? "/en" : "/";
+        router.replace(target);
+    }, [router, pathname]);
 
     return (
         <div className="min-h-screen flex items-center justify-center bg-white">

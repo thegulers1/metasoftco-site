@@ -39,6 +39,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     };
 
     // Pathname'den otomatik alternate URL türet (fallback)
+    // TR/EN URL yapıları farklı olduğundan (/hizmetler/ vs /en/services/) bu sadece son çaredir.
     const autoAlternate = (() => {
         if (!pathname) return { tr: "/", en: "/en" };
         if (pathname.startsWith("/en")) {
@@ -46,8 +47,9 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
             const tr = pathname.replace(/^\/en/, "") || "/";
             return { tr, en: pathname };
         } else {
-            // /X → /en/X (İngilizce)
-            return { tr: pathname, en: "/en" + pathname };
+            // TR yolları EN yollarına birebir map edilemez (/hizmetler → /en/services vb.)
+            // setAlternateUrl çağrılmadıysa en azından doğru dil anasayfasına git
+            return { tr: pathname, en: "/en" };
         }
     })();
 
