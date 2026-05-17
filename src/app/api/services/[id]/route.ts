@@ -72,6 +72,11 @@ export async function PUT(
             metaTitle_en,
             metaDescription_en,
             metaKeywords_en,
+            // FAQ & Specs
+            faq,
+            faq_en,
+            specs,
+            specs_en,
         } = body;
 
         const service = await prisma.service.update({
@@ -104,6 +109,10 @@ export async function PUT(
                 metaTitle_en,
                 metaDescription_en,
                 metaKeywords_en,
+                faq: faq || null,
+                faq_en: faq_en || null,
+                specs: specs || null,
+                specs_en: specs_en || null,
             },
         });
 

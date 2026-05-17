@@ -41,6 +41,11 @@ interface Service {
     metaTitle_en: string | null;
     metaDescription_en: string | null;
     metaKeywords_en: string | null;
+    // FAQ & Specs
+    faq: string | null;
+    faq_en: string | null;
+    specs: string | null;
+    specs_en: string | null;
 }
 
 interface Category {
@@ -62,7 +67,7 @@ export default function EditServicePage({
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [translating, setTranslating] = useState(false);
-    const [activeTab, setActiveTab] = useState<"general" | "media" | "seo">("general");
+    const [activeTab, setActiveTab] = useState<"general" | "media" | "seo" | "content">("general");
 
     useEffect(() => {
         async function fetchData() {
@@ -255,6 +260,15 @@ export default function EditServicePage({
                         }`}
                 >
                     SEO
+                </button>
+                <button
+                    onClick={() => setActiveTab("content")}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition ${activeTab === "content"
+                        ? "bg-black text-white"
+                        : "bg-black/5 text-black hover:bg-black/10"
+                        }`}
+                >
+                    FAQ & Özellikler
                 </button>
             </div>
 
@@ -611,7 +625,7 @@ export default function EditServicePage({
 
                         <div>
                             <label className="block text-sm font-medium text-black/70 mb-2">
-                                Meta Başlık <span className="text-black/30 font-normal">(Sadece Google görür)</span>
+                                SEO Başlık / Sayfa H1 <span className="text-black/30 font-normal">(Sayfa başlığı olarak görünür)</span>
                             </label>
                             <input
                                 type="text"
@@ -621,7 +635,7 @@ export default function EditServicePage({
                                 className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
                             />
                             <p className="mt-1 text-xs text-black/40">
-                                Sayfada görünmez — sadece arama sonuçlarında gösterilir. Uzun ve anahtar kelime dolu olabilir (max 60 karakter)
+                                Hem sayfanın H1 başlığında hem Google'da görünür. Anahtar kelime ekleyin — örn: <em>AI Photo Booth Kiralama</em>
                             </p>
                         </div>
 
@@ -716,6 +730,134 @@ export default function EditServicePage({
                         </div>
                     </>
                 )}
+
+                {/* FAQ & Specs Tab */}
+                {activeTab === "content" && (() => {
+                    const faqItems: { q: string; a: string }[] = service.faq ? JSON.parse(service.faq) : [];
+                    const specsItems: { label: string; value: string }[] = service.specs ? JSON.parse(service.specs) : [];
+
+                    const updateFaq = (items: { q: string; a: string }[]) =>
+                        setService({ ...service, faq: items.length ? JSON.stringify(items) : null });
+                    const updateSpecs = (items: { label: string; value: string }[]) =>
+                        setService({ ...service, specs: items.length ? JSON.stringify(items) : null });
+
+                    return (
+                        <>
+                            {/* FAQ */}
+                            <div>
+                                <div className="flex items-center justify-between mb-3">
+                                    <div>
+                                        <label className="block text-sm font-medium text-black/70">Sıkça Sorulan Sorular (FAQ)</label>
+                                        <p className="text-xs text-black/40 mt-0.5">Google'da öne çıkan snippet almak için kullanılır</p>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        onClick={() => updateFaq([...faqItems, { q: "", a: "" }])}
+                                        className="text-xs px-3 py-1.5 bg-black text-white rounded-lg hover:bg-black/80 transition"
+                                    >
+                                        + Soru Ekle
+                                    </button>
+                                </div>
+                                <div className="space-y-4">
+                                    {faqItems.map((item, i) => (
+                                        <div key={i} className="p-4 bg-[#f5f5f5] rounded-xl space-y-2">
+                                            <div className="flex items-center gap-2">
+                                                <span className="text-xs font-bold text-black/40 w-4">{i + 1}</span>
+                                                <input
+                                                    type="text"
+                                                    value={item.q}
+                                                    onChange={(e) => {
+                                                        const updated = [...faqItems];
+                                                        updated[i] = { ...updated[i], q: e.target.value };
+                                                        updateFaq(updated);
+                                                    }}
+                                                    placeholder="Soru?"
+                                                    className="flex-1 px-3 py-2 bg-white border-0 rounded-lg text-sm text-black focus:outline-none focus:ring-2 focus:ring-black"
+                                                />
+                                                <button
+                                                    type="button"
+                                                    onClick={() => updateFaq(faqItems.filter((_, j) => j !== i))}
+                                                    className="text-black/30 hover:text-red-500 transition text-lg leading-none"
+                                                >
+                                                    ×
+                                                </button>
+                                            </div>
+                                            <textarea
+                                                value={item.a}
+                                                onChange={(e) => {
+                                                    const updated = [...faqItems];
+                                                    updated[i] = { ...updated[i], a: e.target.value };
+                                                    updateFaq(updated);
+                                                }}
+                                                placeholder="Cevap..."
+                                                rows={2}
+                                                className="w-full px-3 py-2 bg-white border-0 rounded-lg text-sm text-black focus:outline-none focus:ring-2 focus:ring-black ml-6"
+                                            />
+                                        </div>
+                                    ))}
+                                    {faqItems.length === 0 && (
+                                        <p className="text-sm text-black/30 text-center py-4">Henüz soru eklenmedi</p>
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* Specs */}
+                            <div className="mt-8">
+                                <div className="flex items-center justify-between mb-3">
+                                    <div>
+                                        <label className="block text-sm font-medium text-black/70">Teknik Özellikler</label>
+                                        <p className="text-xs text-black/40 mt-0.5">Sayfada tablo olarak gösterilir</p>
+                                    </div>
+                                    <button
+                                        type="button"
+                                        onClick={() => updateSpecs([...specsItems, { label: "", value: "" }])}
+                                        className="text-xs px-3 py-1.5 bg-black text-white rounded-lg hover:bg-black/80 transition"
+                                    >
+                                        + Özellik Ekle
+                                    </button>
+                                </div>
+                                <div className="space-y-2">
+                                    {specsItems.map((item, i) => (
+                                        <div key={i} className="flex items-center gap-2">
+                                            <input
+                                                type="text"
+                                                value={item.label}
+                                                onChange={(e) => {
+                                                    const updated = [...specsItems];
+                                                    updated[i] = { ...updated[i], label: e.target.value };
+                                                    updateSpecs(updated);
+                                                }}
+                                                placeholder="Özellik (örn: Kamera)"
+                                                className="w-40 px-3 py-2 bg-[#f5f5f5] border-0 rounded-lg text-sm text-black focus:outline-none focus:ring-2 focus:ring-black"
+                                            />
+                                            <input
+                                                type="text"
+                                                value={item.value}
+                                                onChange={(e) => {
+                                                    const updated = [...specsItems];
+                                                    updated[i] = { ...updated[i], value: e.target.value };
+                                                    updateSpecs(updated);
+                                                }}
+                                                placeholder="Değer (örn: Profesyonel DSLR)"
+                                                className="flex-1 px-3 py-2 bg-[#f5f5f5] border-0 rounded-lg text-sm text-black focus:outline-none focus:ring-2 focus:ring-black"
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() => updateSpecs(specsItems.filter((_, j) => j !== i))}
+                                                className="text-black/30 hover:text-red-500 transition text-lg leading-none"
+                                            >
+                                                ×
+                                            </button>
+                                        </div>
+                                    ))}
+                                    {specsItems.length === 0 && (
+                                        <p className="text-sm text-black/30 text-center py-4">Henüz özellik eklenmedi</p>
+                                    )}
+                                </div>
+                            </div>
+                        </>
+                    );
+                })()}
 
                 <div className="flex gap-4 pt-4">
                     <button

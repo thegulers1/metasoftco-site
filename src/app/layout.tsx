@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter_Tight, DM_Sans, Lato } from "next/font/google";
+import { Inter_Tight, DM_Sans, Lato, Barlow_Condensed, Poppins } from "next/font/google";
 import { headers } from "next/headers";
 import { siteConfig, generateMetaTags, generateOrganizationSchema, generateLocalBusinessSchema, generateSoftwareApplicationSchema } from "@/lib/site";
 import { Providers } from "@/providers/Providers";
@@ -21,6 +21,18 @@ const lato = Lato({
   subsets: ["latin"],
   weight: ["100", "300", "400", "700", "900"],
   variable: "--font-lato",
+});
+
+const barlowCondensed = Barlow_Condensed({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800", "900"],
+  variable: "--font-barlow-condensed",
+});
+
+const poppins = Poppins({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-poppins",
 });
 
 export const metadata: Metadata = {
@@ -52,8 +64,15 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const lang = pathname.startsWith("/en") ? "en" : "tr";
 
   return (
-    <html lang={lang} className={`${interTight.variable} ${dmSans.variable} ${lato.variable}`} suppressHydrationWarning>
+    <html lang={lang} className={`${interTight.variable} ${dmSans.variable} ${lato.variable} ${barlowCondensed.variable} ${poppins.variable}`} suppressHydrationWarning>
       <head>
+        {/* Google Ads */}
+        <script async src="https://www.googletagmanager.com/gtag/js?id=AW-862345276" />
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','AW-862345276');`,
+          }}
+        />
         {/* Ahrefs Analytics */}
         <script
           src="https://analytics.ahrefs.com/analytics.js"

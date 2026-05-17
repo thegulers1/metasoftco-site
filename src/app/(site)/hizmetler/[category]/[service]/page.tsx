@@ -139,6 +139,24 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         { name: service.title, url: `${siteConfig.url}/hizmetler/${category}/${serviceSlug}` },
     ]);
 
+    // FAQ JSON-LD schema — Google featured snippet için
+    const faqSchema = service.faq ? (() => {
+        const items: { q: string; a: string }[] = JSON.parse(service.faq);
+        if (!items.length) return null;
+        return {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": items.map((item) => ({
+                "@type": "Question",
+                "name": item.q,
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": item.a,
+                },
+            })),
+        };
+    })() : null;
+
     // VideoObject schema — YouTube URL varsa ekle
     const youtubeIdMatch = service.video?.match(
         /youtube\.com\/(?:watch\?v=|shorts\/|embed\/)([^?&/]+)|youtu\.be\/([^?&/]+)/
@@ -164,6 +182,12 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 <script
                     type="application/ld+json"
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchema) }}
+                />
+            )}
+            {faqSchema && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
                 />
             )}
             <AdminEditUrlSetter url={`/editpanel/services/${service.id}/edit`} />

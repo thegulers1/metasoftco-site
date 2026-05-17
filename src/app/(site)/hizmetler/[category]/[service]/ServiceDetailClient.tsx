@@ -34,6 +34,9 @@ export default function ServiceDetailClient({
     }, [service.slug, service.slug_en, categoryData.slug, categoryData.slug_en]);
 
     const title = language === "en" ? (service.title_en || service.title) : service.title;
+    const seoTitle = language === "en"
+        ? (service.metaTitle_en || service.metaTitle || title)
+        : (service.metaTitle || title);
     const categoryName = language === "en" ? (categoryData.name_en || categoryData.name) : categoryData.name;
     const description = language === "en" ? (service.description_en || service.description) : service.description;
     const content = language === "en" ? (service.content_en || service.content) : service.content;
@@ -72,7 +75,7 @@ export default function ServiceDetailClient({
                         className="text-4xl sm:text-6xl font-light text-[#e5e5e5] tracking-tighter mt-2 leading-[1.1] uppercase"
                         style={{ fontFamily: "var(--font-inter-tight)" }}
                     >
-                        {title}
+                        {seoTitle}
                     </h1>
                     {description && (
                         <p className="mt-6 text-xl text-white/50 leading-relaxed font-normal max-w-2xl">
@@ -116,6 +119,61 @@ export default function ServiceDetailClient({
                         />
                     </div>
                 )}
+
+                {/* Specs Section */}
+                {service.specs && (() => {
+                    const items: { label: string; value: string }[] = JSON.parse(service.specs);
+                    if (!items.length) return null;
+                    return (
+                        <div className="mb-20">
+                            <div className="flex items-center gap-4 mb-8">
+                                <h2 className="text-xs uppercase tracking-[0.3em] text-white/40 font-semibold">
+                                    {t("Teknik Özellikler", "Technical Specifications")}
+                                </h2>
+                                <div className="h-[1px] flex-1 bg-white/5" />
+                            </div>
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-white/5 border border-white/5 rounded-2xl overflow-hidden">
+                                {items.map((item, i) => (
+                                    <div key={i} className="flex items-start gap-4 px-6 py-4 bg-[#111]">
+                                        <span className="text-xs font-semibold text-white/30 uppercase tracking-widest w-32 shrink-0 pt-0.5">
+                                            {item.label}
+                                        </span>
+                                        <span className="text-sm text-white/80 leading-relaxed">{item.value}</span>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                    );
+                })()}
+
+                {/* FAQ Section */}
+                {service.faq && (() => {
+                    const items: { q: string; a: string }[] = JSON.parse(service.faq);
+                    if (!items.length) return null;
+                    return (
+                        <div className="mb-20">
+                            <div className="flex items-center gap-4 mb-8">
+                                <h2 className="text-xs uppercase tracking-[0.3em] text-white/40 font-semibold">
+                                    {t("Sıkça Sorulan Sorular", "Frequently Asked Questions")}
+                                </h2>
+                                <div className="h-[1px] flex-1 bg-white/5" />
+                            </div>
+                            <div className="space-y-3">
+                                {items.map((item, i) => (
+                                    <details key={i} className="group border border-white/5 rounded-2xl overflow-hidden bg-[#111]">
+                                        <summary className="flex items-center justify-between px-6 py-5 cursor-pointer list-none">
+                                            <span className="text-[#e5e5e5] font-medium text-sm pr-4">{item.q}</span>
+                                            <span className="text-white/30 group-open:rotate-45 transition-transform duration-200 text-2xl leading-none shrink-0">+</span>
+                                        </summary>
+                                        <div className="px-6 pb-5 text-white/50 text-sm leading-relaxed border-t border-white/5 pt-4">
+                                            {item.a}
+                                        </div>
+                                    </details>
+                                ))}
+                            </div>
+                        </div>
+                    );
+                })()}
 
                 {/* Gallery Section */}
                 {gallery.length > 0 && (
