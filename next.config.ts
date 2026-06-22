@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
 
   // Build sırasında TS hatalarının CI'ı kırmasını engelle
   typescript: { ignoreBuildErrors: true },
-// Eski site URL'leri için kalıcı yönlendirmeler (301)
+
   async headers() {
     return [
       {
@@ -26,14 +26,9 @@ const nextConfig: NextConfig = {
   // Eski site URL'leri için kalıcı yönlendirmeler (301) — Google indexinden temizlemek için
   async redirects() {
     return [
-      { source: "/star-map", destination: "/", permanent: true },
-
-      // 1. WP TARİH YAPISINI TEMİZLEME (Örn: /2025/02/03/sayfa-adi -> /sayfa-adi veya ilgili yere)
-      {
-        source: "/:year(\\d{4})/:month(\\d{2})/:day(\\d{2})/:slug*",
-        destination: "/",
-        permanent: true,
-      },
+      // ---------------------------------------------------------
+      // 1. SPESİFİK TARİHLİ LİNKLER (En üstte olmalı - Özel Kural)
+      // ---------------------------------------------------------
       {
         source: "/:year(\\d{4})/:month(\\d{2})/:day(\\d{2})/pegasus-dijital-carkifelek-aktivitesi/:path*",
         destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/dijital-hediye-carki-aktivasyonu",
@@ -45,7 +40,38 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
 
-      // 2. ESKİ İNGİLİZCE VE EKSİK KATEGORİ KLASÖRLERİNİ TOPLU YAKALAMA (Wildcard)
+      // ---------------------------------------------------------
+      // 2. GENEL TARİH YAKALAYICI (Kapsayıcı Kural)
+      // Üstteki özel kurallara takılmayan tüm tarihli linkleri anasayfaya atar
+      // ---------------------------------------------------------
+      {
+        source: "/:year(\\d{4})/:month(\\d{2})/:day(\\d{2})/:slug*",
+        destination: "/",
+        permanent: true,
+      },
+
+      // ---------------------------------------------------------
+      // 3. HATALI ÇOKLU LOGLAR VE BOT TRAFİKLERİ (wp-admin, undefined vb.)
+      // ---------------------------------------------------------
+      {
+        source: "/wp-:path*",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/:path*/undefined",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/:path*/www.instagram.com/:error*",
+        destination: "/",
+        permanent: true,
+      },
+
+      // ---------------------------------------------------------
+      // 4. ESKİ İNGİLİZCE VE EKSİK KATEGORİ KLASÖRLERİNİ TOPLU YAKALAMA (Wildcard)
+      // ---------------------------------------------------------
       {
         source: "/hizmetler/ai-event-solutions/:path*",
         destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri",
@@ -67,28 +93,14 @@ const nextConfig: NextConfig = {
         permanent: true,
       },
 
-      // 3. HATALI ÇOKLU LOGLAR VE BOT TRAFİKLERİ (wp-admin, undefined vb.)
-      {
-        source: "/wp-:path(.*)",
-        destination: "/",
-        permanent: true,
-      },
-      {
-        source: "/:path*/undefined",
-        destination: "/",
-        permanent: true,
-      },
-      {
-        source: "/:path*/www.instagram.com/:error*",
-        destination: "/",
-        permanent: true,
-      },
+      // ---------------------------------------------------------
+      // 5. TEKİL ESKİ SAYFA VE HİZMET YÖNLENDİRMELERİ
+      // ---------------------------------------------------------
+      { source: "/star-map", destination: "/", permanent: true },
 
-      // /cozumler → /sektorel-yazilim-cozumleri (301 kalıcı yönlendirme)
+      // /cozumler → /sektorel-yazilim-cozumleri 
       { source: "/cozumler", destination: "/sektorel-yazilim-cozumleri", permanent: true },
       { source: "/cozumler/:path*", destination: "/sektorel-yazilim-cozumleri/:path*", permanent: true },
-
-      // Tekstil sektörü slug güncelleme
       { source: "/sektorel-yazilim-cozumleri/tekstil-sektoru", destination: "/sektorel-yazilim-cozumleri/tekstil-sektoru-dijital-donusum", permanent: true },
 
       // Kategori slug güncellemeleri
@@ -98,13 +110,12 @@ const nextConfig: NextConfig = {
       { source: "/hizmetler/interaktif/:path*", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/:path*", permanent: true },
       { source: "/hizmetler/fotograf-video", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari", permanent: true },
       { source: "/hizmetler/fotograf-video/:path*", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/:path*", permanent: true },
+
       // Hizmet slug güncellemeleri — yapay-zeka kategorisi
       { source: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-draw", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-draw-portre-cizim", permanent: true },
       { source: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-fashion-mirror", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-fashion-mirror-akilli-ayna", permanent: true },
 
-      // Hizmet slug güncellemeleri — interaktif kategorisƒ√i (doğru category slug ile)
-      // NOT: Yukarıdaki wildcard /hizmetler/interaktif/:path* → /hizmetler/interaktif-etkinlik-aktiviteleri/:path*
-      // sonrasında eski slug olan yollar burada final URL'ye yönlendirilir.
+      // Hizmet slug güncellemeleri — interaktif kategorisi
       { source: "/hizmetler/interaktif-etkinlik-aktiviteleri/memory-game", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/interaktif-hafiza-oyunu-kiralama", permanent: true },
       { source: "/hizmetler/interaktif-etkinlik-aktiviteleri/recycle-win", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/geri-donusum-oyunu-recycle-win", permanent: true },
       { source: "/hizmetler/interaktif-etkinlik-aktiviteleri/digital-gift-wheel", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/dijital-hediye-carki-aktivasyonu", permanent: true },
@@ -123,6 +134,7 @@ const nextConfig: NextConfig = {
       { source: "/yapay-zeka-aktiviteleri", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri", permanent: true },
       { source: "/reflex-wall", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/reflex-game-hiz-ve-rekabet-oyunu", permanent: true },
       { source: "/hashtag-photo", destination: "/", permanent: true },
+      { source: "/hashtag-photo/", destination: "/", permanent: true },
       { source: "/pegasus-dijital-carkifelek-aktivitesi", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/dijital-hediye-carki-aktivasyonu", permanent: true },
       { source: "/pegasus-dijital-carkifelek-aktivitesi/", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/dijital-hediye-carki-aktivasyonu", permanent: true },
 
@@ -149,7 +161,6 @@ const nextConfig: NextConfig = {
       { source: "/ai-photo-child/", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photo-child", permanent: true },
       { source: "/photobooth", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/photobooth", permanent: true },
       { source: "/photobooth/", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/photobooth", permanent: true },
-      { source: "/hashtag-photo/", destination: "/", permanent: true },
       { source: "/ai-player-card-yapay-zeka-ile-kisisellestirilmis-futbolcu-kart", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri", permanent: true },
       { source: "/ai-player-card-yapay-zeka-ile-kisisellestirilmis-futbolcu-kart/", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri", permanent: true },
     ];
