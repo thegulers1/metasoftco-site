@@ -23,7 +23,7 @@ const nextConfig: NextConfig = {
     ];
   },
 
-  // Eski site URL'leri için kalıcı yönlendirmeler (301) — Google indexinden temizlemek için
+  // Eski site URL'leri için kalıcı yönlendirmeler (301)
   async redirects() {
     return [
       // ---------------------------------------------------------
@@ -51,23 +51,21 @@ const nextConfig: NextConfig = {
       },
 
       // ---------------------------------------------------------
-      // 3. HATALI ÇOKLU LOGLAR VE BOT TRAFİKLERİ (wp-admin, undefined vb.)
+      // 3. HATALI ÇOKLU LOGLAR VE BOT TRAFİKLERİ (Build Hatası Çözüldü)
       // ---------------------------------------------------------
-      {
-        source: "/wp-:path*",
-        destination: "/",
-        permanent: true,
-      },
-      {
-        source: "/:path*/undefined",
-        destination: "/",
-        permanent: true,
-      },
-      {
-        source: "/:path*/www.instagram.com/:error*",
-        destination: "/",
-        permanent: true,
-      },
+      // wp-admin, wp-content gibi saldırı/bot tarama linklerini güvenli yakalama
+      { source: "/wp-admin", destination: "/", permanent: true },
+      { source: "/wp-admin/:path*", destination: "/", permanent: true },
+      { source: "/wp-content/:path*", destination: "/", permanent: true },
+      { source: "/wp-includes/:path*", destination: "/", permanent: true },
+      { source: "/wp-login.php", destination: "/", permanent: true },
+      
+      // /undefined ile biten eski hatalı linkleri güvenli yakalama
+      { source: "/projeler/undefined", destination: "/", permanent: true },
+      { source: "/:slug/undefined", destination: "/", permanent: true },
+      
+      // İç içe girmiş instagram linki hatalarını güvenli yakalama
+      { source: "/:slug/www.instagram.com/:path*", destination: "/", permanent: true },
 
       // ---------------------------------------------------------
       // 4. ESKİ İNGİLİZCE VE EKSİK KATEGORİ KLASÖRLERİNİ TOPLU YAKALAMA (Wildcard)
@@ -98,12 +96,10 @@ const nextConfig: NextConfig = {
       // ---------------------------------------------------------
       { source: "/star-map", destination: "/", permanent: true },
 
-      // /cozumler → /sektorel-yazilim-cozumleri 
       { source: "/cozumler", destination: "/sektorel-yazilim-cozumleri", permanent: true },
       { source: "/cozumler/:path*", destination: "/sektorel-yazilim-cozumleri/:path*", permanent: true },
       { source: "/sektorel-yazilim-cozumleri/tekstil-sektoru", destination: "/sektorel-yazilim-cozumleri/tekstil-sektoru-dijital-donusum", permanent: true },
 
-      // Kategori slug güncellemeleri
       { source: "/hizmetler/yapay-zeka", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri", permanent: true },
       { source: "/hizmetler/yapay-zeka/:path*", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/:path*", permanent: true },
       { source: "/hizmetler/interaktif", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri", permanent: true },
@@ -111,23 +107,18 @@ const nextConfig: NextConfig = {
       { source: "/hizmetler/fotograf-video", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari", permanent: true },
       { source: "/hizmetler/fotograf-video/:path*", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/:path*", permanent: true },
 
-      // Hizmet slug güncellemeleri — yapay-zeka kategorisi
       { source: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-draw", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-draw-portre-cizim", permanent: true },
       { source: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-fashion-mirror", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-fashion-mirror-akilli-ayna", permanent: true },
 
-      // Hizmet slug güncellemeleri — interaktif kategorisi
       { source: "/hizmetler/interaktif-etkinlik-aktiviteleri/memory-game", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/interaktif-hafiza-oyunu-kiralama", permanent: true },
       { source: "/hizmetler/interaktif-etkinlik-aktiviteleri/recycle-win", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/geri-donusum-oyunu-recycle-win", permanent: true },
       { source: "/hizmetler/interaktif-etkinlik-aktiviteleri/digital-gift-wheel", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/dijital-hediye-carki-aktivasyonu", permanent: true },
 
-      // Blog yazısı slug güncelleme
       { source: "/blog/etkinlikte-ai-photobooth-neden-kullanmali", destination: "/blog/etkinliklerde-ai-photobooth-avantajlari", permanent: true },
 
-      // Eski blog/proje sayfaları
       { source: "/serdar-bostanci-50-yil-ai-fotograf-deneyimi", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photo", permanent: true },
       { source: "/serdar-bostanci-50-yil-ai-fotograf-deneyimi/", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photo", permanent: true },
 
-      // Eski aktivite sayfaları (doğrudan)
       { source: "/video-aktiviteleri", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari", permanent: true },
       { source: "/fotograf-aktiviteleri", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari", permanent: true },
       { source: "/interaktif-aktiviteler", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri", permanent: true },
@@ -138,7 +129,6 @@ const nextConfig: NextConfig = {
       { source: "/pegasus-dijital-carkifelek-aktivitesi", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/dijital-hediye-carki-aktivasyonu", permanent: true },
       { source: "/pegasus-dijital-carkifelek-aktivitesi/", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/dijital-hediye-carki-aktivasyonu", permanent: true },
 
-      // /neler-yapiyoruz/* eski bölüm yönlendirmeleri
       { source: "/neler-yapiyoruz/video-aktiviteleri", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari", permanent: true },
       { source: "/neler-yapiyoruz/video-aktiviteleri/", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari", permanent: true },
       { source: "/neler-yapiyoruz/fotograf-aktiviteleri", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari", permanent: true },
@@ -148,7 +138,6 @@ const nextConfig: NextConfig = {
       { source: "/neler-yapiyoruz/yapay-zeka-aktiviteleri/ai-greenbox", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-greenbox", permanent: true },
       { source: "/neler-yapiyoruz/yapay-zeka-aktiviteleri/ai-greenbox/", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-greenbox", permanent: true },
 
-      // Eski servis sayfaları (kök URL)
       { source: "/ai-greenbox", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-greenbox", permanent: true },
       { source: "/ai-greenbox/", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-greenbox", permanent: true },
       { source: "/ar-photo", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/ar-photo", permanent: true },
@@ -172,31 +161,11 @@ const nextConfig: NextConfig = {
     deviceSizes: [640, 750, 828, 1080, 1200, 1920],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     remotePatterns: [
-      {
-        protocol: "https",
-        hostname: "res.cloudinary.com",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "*.cdninstagram.com",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "images.unsplash.com",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "assets.aceternity.com",
-        pathname: "/**",
-      },
-      {
-        protocol: "https",
-        hostname: "*.fbcdn.net",
-        pathname: "/**",
-      },
+      { protocol: "https", hostname: "res.cloudinary.com", pathname: "/**" },
+      { protocol: "https", hostname: "*.cdninstagram.com", pathname: "/**" },
+      { protocol: "https", hostname: "images.unsplash.com", pathname: "/**" },
+      { protocol: "https", hostname: "assets.aceternity.com", pathname: "/**" },
+      { protocol: "https", hostname: "*.fbcdn.net", pathname: "/**" },
     ],
   },
 };
