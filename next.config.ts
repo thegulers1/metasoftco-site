@@ -69,7 +69,7 @@ const nextConfig: NextConfig = {
 
       // 3. HATALI ÇOKLU LOGLAR VE BOT TRAFİKLERİ (wp-admin, undefined vb.)
       {
-        source: "/wp-:path*",
+        source: "/wp-:path(.*)",
         destination: "/",
         permanent: true,
       },
@@ -102,7 +102,7 @@ const nextConfig: NextConfig = {
       { source: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-draw", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-draw-portre-cizim", permanent: true },
       { source: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-fashion-mirror", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-fashion-mirror-akilli-ayna", permanent: true },
 
-      // Hizmet slug güncellemeleri — interaktif kategorisi (doğru category slug ile)
+      // Hizmet slug güncellemeleri — interaktif kategorisƒ√i (doğru category slug ile)
       // NOT: Yukarıdaki wildcard /hizmetler/interaktif/:path* → /hizmetler/interaktif-etkinlik-aktiviteleri/:path*
       // sonrasında eski slug olan yollar burada final URL'ye yönlendirilir.
       { source: "/hizmetler/interaktif-etkinlik-aktiviteleri/memory-game", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/interaktif-hafiza-oyunu-kiralama", permanent: true },

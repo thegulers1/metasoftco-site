@@ -45,7 +45,13 @@ export default function AdminCategoriesPage() {
             if (res.ok) {
                 setCategories(categories.filter((c) => c.id !== id));
             } else {
-                alert("Silme işlemi başarısız oldu.");
+                const errorText = await res.text();
+                console.error("Failed to delete category:", errorText);
+                let message = "Silme işlemi başarısız oldu.";
+                try {
+                    message = JSON.parse(errorText).error || message;
+                } catch { }
+                alert(message);
             }
         } catch (error) {
             console.error("Error deleting category:", error);

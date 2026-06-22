@@ -36,8 +36,13 @@ export default function NewCategoryPage() {
             if (res.ok) {
                 router.push("/editpanel/categories");
             } else {
-                console.error("Failed to create category");
-                alert("Kategori oluşturulamadı.");
+                const errorText = await res.text();
+                console.error("Failed to create category:", errorText);
+                let message = "Kategori oluşturulamadı.";
+                try {
+                    message = JSON.parse(errorText).error || message;
+                } catch { }
+                alert(message);
             }
         } catch (error) {
             console.error("Error creating category:", error);
