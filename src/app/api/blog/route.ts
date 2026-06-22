@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { prismaErrorMessage } from "@/lib/apiError";
 
 export const dynamic = 'force-dynamic';
 
@@ -14,7 +15,7 @@ export async function GET() {
     } catch (error) {
         console.error("Error fetching blog posts:", error);
         return NextResponse.json(
-            { error: "Failed to fetch blog posts" },
+            { error: "Blog yazıları getirilemedi" },
             { status: 500 }
         );
     }
@@ -74,9 +75,7 @@ export async function POST(request: Request) {
         return NextResponse.json(post, { status: 201 });
     } catch (error) {
         console.error("Error creating blog post:", error);
-        return NextResponse.json(
-            { error: "Failed to create blog post" },
-            { status: 500 }
-        );
+        const { message, status } = prismaErrorMessage(error, "Blog yazısı oluşturulamadı");
+        return NextResponse.json({ error: message }, { status });
     }
 }

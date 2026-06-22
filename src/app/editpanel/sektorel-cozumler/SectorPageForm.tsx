@@ -47,7 +47,16 @@ interface FormData {
     customSchema: string;
     // Önerilen Hizmetler
     serviceIds: string[];
+    // İlçe/Bölge blokları
+    districts: DistrictItem[];
+    districts_en: DistrictItem[];
+    // SSS
+    faq: FaqItem[];
+    faq_en: FaqItem[];
 }
+
+interface DistrictItem { title: string; description: string; }
+interface FaqItem { q: string; a: string; }
 
 interface SectorPageFormProps {
     initialData?: Partial<FormData> & { id?: string };
@@ -73,12 +82,16 @@ const EMPTY: FormData = {
     metaTitle_en: "", metaDescription_en: "", metaKeywords_en: "",
     customSchema: "",
     serviceIds: [],
+    districts: [],
+    districts_en: [],
+    faq: [],
+    faq_en: [],
 };
 
 export default function SectorPageForm({ initialData, mode }: SectorPageFormProps) {
     const router = useRouter();
     const { showToast } = useToast();
-    const [activeTab, setActiveTab] = useState<"genel" | "medya" | "hizmetler" | "seo">("genel");
+    const [activeTab, setActiveTab] = useState<"genel" | "medya" | "bolgeler" | "sss" | "hizmetler" | "seo">("genel");
     const [saving, setSaving] = useState(false);
     const [allServices, setAllServices] = useState<ServiceOption[]>([]);
     const [serviceSearch, setServiceSearch] = useState("");
@@ -136,6 +149,10 @@ export default function SectorPageForm({ initialData, mode }: SectorPageFormProp
                 images: form.images.length > 0 ? JSON.stringify(form.images) : null,
                 slug_en: form.slug_en || null,
                 serviceIds: form.serviceIds.length > 0 ? JSON.stringify(form.serviceIds) : null,
+                districts: form.districts.length > 0 ? JSON.stringify(form.districts) : null,
+                districts_en: form.districts_en.length > 0 ? JSON.stringify(form.districts_en) : null,
+                faq: form.faq.length > 0 ? JSON.stringify(form.faq) : null,
+                faq_en: form.faq_en.length > 0 ? JSON.stringify(form.faq_en) : null,
             };
             const url = mode === "edit" ? `/api/sector-pages/${initialData?.id}` : "/api/sector-pages";
             const res = await fetch(url, {
@@ -187,6 +204,8 @@ export default function SectorPageForm({ initialData, mode }: SectorPageFormProp
     const tabs = [
         { key: "genel", label: "Genel" },
         { key: "medya", label: "Medya" },
+        { key: "bolgeler", label: `İlçeler / Bölgeler${form.districts.length > 0 ? ` (${form.districts.length})` : ""}` },
+        { key: "sss", label: `SSS${form.faq.length > 0 ? ` (${form.faq.length})` : ""}` },
         { key: "hizmetler", label: `Hizmetler${form.serviceIds.length > 0 ? ` (${form.serviceIds.length})` : ""}` },
         { key: "seo", label: "SEO" },
     ] as const;
@@ -215,10 +234,17 @@ export default function SectorPageForm({ initialData, mode }: SectorPageFormProp
                         {mode === "new" ? "Yeni Sektörel Çözüm Sayfası" : "Sayfayı Düzenle"}
                     </h1>
                     {mode === "edit" && initialData?.slug && (
-                        <a href={`/sektorel-cozumler/${initialData.slug}`} target="_blank" rel="noopener noreferrer"
-                            className="text-xs text-black/40 hover:text-black mt-1 inline-block transition">
-                            /sektorel-cozumler/{initialData.slug} ↗
-                        </a>
+                        (initialData.districts?.length ?? 0) > 0 ? (
+                            <a href={`/hizmetler/${initialData.slug}`} target="_blank" rel="noopener noreferrer"
+                                className="text-xs text-black/40 hover:text-black mt-1 inline-block transition">
+                                /hizmetler/{initialData.slug} ↗
+                            </a>
+                        ) : (
+                            <a href={`/sektorel-cozumler/${initialData.slug}`} target="_blank" rel="noopener noreferrer"
+                                className="text-xs text-black/40 hover:text-black mt-1 inline-block transition">
+                                /sektorel-cozumler/{initialData.slug} ↗
+                            </a>
+                        )
                     )}
                 </div>
                 <div className="flex items-center gap-3">
@@ -374,6 +400,60 @@ export default function SectorPageForm({ initialData, mode }: SectorPageFormProp
                     </div>
                 )}
 
+                {/* ── İLÇELER / BÖLGELER ── */}
+                {activeTab === "bolgeler" && (
+                    <div className="max-w-3xl space-y-8">
+                        <p className="text-xs text-black/40">
+                            Hizmet verdiğiniz ilçe/semt başına bir kart oluşturun (ör. "Kadıköy AI Photobooth"). Sayfada bölüm bölüm grid olarak gösterilir.
+                        </p>
+
+                        <SectionDivider lang="TR" />
+                        <DistrictListEditor
+                            items={form.districts}
+                            onChange={(items) => set("districts", items)}
+                            addLabel="+ İlçe Ekle"
+                            titlePlaceholder="ör: Kadıköy AI Photobooth Kiralama"
+                            descPlaceholder="ör: Kadıköy ve çevresinde (Moda, Caddebostan, Göztepe) düğün, kurumsal etkinlik ve marka aktivasyonu hizmeti veriyoruz..."
+                        />
+
+                        <SectionDivider lang="EN" />
+                        <DistrictListEditor
+                            items={form.districts_en}
+                            onChange={(items) => set("districts_en", items)}
+                            addLabel="+ Add District"
+                            titlePlaceholder="e.g: Kadıköy AI Photobooth Rental"
+                            descPlaceholder="e.g: We provide wedding, corporate event and brand activation services in Kadıköy..."
+                        />
+                    </div>
+                )}
+
+                {/* ── SSS ── */}
+                {activeTab === "sss" && (
+                    <div className="max-w-3xl space-y-8">
+                        <p className="text-xs text-black/40">
+                            Google'da öne çıkan snippet (FAQPage schema) için kullanılır.
+                        </p>
+
+                        <SectionDivider lang="TR" />
+                        <FaqListEditor
+                            items={form.faq}
+                            onChange={(items) => set("faq", items)}
+                            addLabel="+ Soru Ekle"
+                            qPlaceholder="Soru?"
+                            aPlaceholder="Cevap..."
+                        />
+
+                        <SectionDivider lang="EN" />
+                        <FaqListEditor
+                            items={form.faq_en}
+                            onChange={(items) => set("faq_en", items)}
+                            addLabel="+ Add Question"
+                            qPlaceholder="Question?"
+                            aPlaceholder="Answer..."
+                        />
+                    </div>
+                )}
+
                 {/* ── HİZMETLER ── */}
                 {activeTab === "hizmetler" && (
                     <div className="max-w-3xl space-y-6">
@@ -505,6 +585,108 @@ export default function SectorPageForm({ initialData, mode }: SectorPageFormProp
                                 spellCheck={false} />
                         </div>
                     </div>
+                )}
+            </div>
+        </div>
+    );
+}
+
+function DistrictListEditor({ items, onChange, addLabel, titlePlaceholder, descPlaceholder }: {
+    items: DistrictItem[];
+    onChange: (items: DistrictItem[]) => void;
+    addLabel: string;
+    titlePlaceholder: string;
+    descPlaceholder: string;
+}) {
+    return (
+        <div>
+            <div className="flex items-center justify-end mb-3">
+                <button type="button" onClick={() => onChange([...items, { title: "", description: "" }])}
+                    className="text-xs px-3 py-1.5 bg-black text-white rounded-lg hover:bg-black/80 transition">
+                    {addLabel}
+                </button>
+            </div>
+            <div className="space-y-4">
+                {items.map((item, i) => (
+                    <div key={i} className="p-4 bg-[#f5f5f5] rounded-xl space-y-2">
+                        <div className="flex items-center gap-2">
+                            <span className="text-xs font-bold text-black/40 w-4">{i + 1}</span>
+                            <input type="text" value={item.title}
+                                onChange={(e) => {
+                                    const updated = [...items];
+                                    updated[i] = { ...updated[i], title: e.target.value };
+                                    onChange(updated);
+                                }}
+                                placeholder={titlePlaceholder}
+                                className="flex-1 px-3 py-2 bg-white border-0 rounded-lg text-sm text-black focus:outline-none focus:ring-2 focus:ring-black" />
+                            <button type="button" onClick={() => onChange(items.filter((_, j) => j !== i))}
+                                className="text-black/30 hover:text-red-500 transition text-lg leading-none">
+                                ×
+                            </button>
+                        </div>
+                        <textarea value={item.description}
+                            onChange={(e) => {
+                                const updated = [...items];
+                                updated[i] = { ...updated[i], description: e.target.value };
+                                onChange(updated);
+                            }}
+                            placeholder={descPlaceholder} rows={2}
+                            className="w-full px-3 py-2 bg-white border-0 rounded-lg text-sm text-black focus:outline-none focus:ring-2 focus:ring-black ml-6" />
+                    </div>
+                ))}
+                {items.length === 0 && (
+                    <p className="text-sm text-black/30 text-center py-4">Henüz ilçe eklenmedi</p>
+                )}
+            </div>
+        </div>
+    );
+}
+
+function FaqListEditor({ items, onChange, addLabel, qPlaceholder, aPlaceholder }: {
+    items: FaqItem[];
+    onChange: (items: FaqItem[]) => void;
+    addLabel: string;
+    qPlaceholder: string;
+    aPlaceholder: string;
+}) {
+    return (
+        <div>
+            <div className="flex items-center justify-end mb-3">
+                <button type="button" onClick={() => onChange([...items, { q: "", a: "" }])}
+                    className="text-xs px-3 py-1.5 bg-black text-white rounded-lg hover:bg-black/80 transition">
+                    {addLabel}
+                </button>
+            </div>
+            <div className="space-y-4">
+                {items.map((item, i) => (
+                    <div key={i} className="p-4 bg-[#f5f5f5] rounded-xl space-y-2">
+                        <div className="flex items-center gap-2">
+                            <span className="text-xs font-bold text-black/40 w-4">{i + 1}</span>
+                            <input type="text" value={item.q}
+                                onChange={(e) => {
+                                    const updated = [...items];
+                                    updated[i] = { ...updated[i], q: e.target.value };
+                                    onChange(updated);
+                                }}
+                                placeholder={qPlaceholder}
+                                className="flex-1 px-3 py-2 bg-white border-0 rounded-lg text-sm text-black focus:outline-none focus:ring-2 focus:ring-black" />
+                            <button type="button" onClick={() => onChange(items.filter((_, j) => j !== i))}
+                                className="text-black/30 hover:text-red-500 transition text-lg leading-none">
+                                ×
+                            </button>
+                        </div>
+                        <textarea value={item.a}
+                            onChange={(e) => {
+                                const updated = [...items];
+                                updated[i] = { ...updated[i], a: e.target.value };
+                                onChange(updated);
+                            }}
+                            placeholder={aPlaceholder} rows={2}
+                            className="w-full px-3 py-2 bg-white border-0 rounded-lg text-sm text-black focus:outline-none focus:ring-2 focus:ring-black ml-6" />
+                    </div>
+                ))}
+                {items.length === 0 && (
+                    <p className="text-sm text-black/30 text-center py-4">Henüz soru eklenmedi</p>
                 )}
             </div>
         </div>

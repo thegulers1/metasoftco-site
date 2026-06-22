@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
+import { prismaErrorMessage } from "@/lib/apiError";
 
 export const dynamic = 'force-dynamic';
 
@@ -26,7 +27,7 @@ export async function GET(
     } catch (error) {
         console.error("Error fetching category:", error);
         return NextResponse.json(
-            { error: "Failed to fetch category" },
+            { error: "Kategori getirilemedi" },
             { status: 500 }
         );
     }
@@ -81,10 +82,8 @@ export async function PUT(
         return NextResponse.json(category);
     } catch (error) {
         console.error("Error updating category:", error);
-        return NextResponse.json(
-            { error: "Failed to update category" },
-            { status: 500 }
-        );
+        const { message, status } = prismaErrorMessage(error, "Kategori güncellenemedi");
+        return NextResponse.json({ error: message }, { status });
     }
 }
 
@@ -102,9 +101,7 @@ export async function DELETE(
         return NextResponse.json({ success: true });
     } catch (error) {
         console.error("Error deleting category:", error);
-        return NextResponse.json(
-            { error: "Failed to delete category" },
-            { status: 500 }
-        );
+        const { message, status } = prismaErrorMessage(error, "Kategori silinemedi");
+        return NextResponse.json({ error: message }, { status });
     }
 }

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/providers/ToastProvider";
 import ImageUpload from "@/components/editpanel/ImageUpload";
 import GalleryUpload from "@/components/editpanel/GalleryUpload";
 
@@ -37,6 +38,7 @@ interface Project {
 
 export default function NewProjectPage() {
     const router = useRouter();
+    const { showToast } = useToast();
     const [saving, setSaving] = useState(false);
     const [translating, setTranslating] = useState(false);
     const [activeTab, setActiveTab] = useState<"general" | "media" | "seo">("general");
@@ -83,7 +85,13 @@ export default function NewProjectPage() {
         if (res.ok) {
             router.push("/editpanel/projects");
         } else {
-            console.error("Save failed:", await res.text());
+            const errorText = await res.text();
+            console.error("Save failed:", errorText);
+            let message = "Lütfen tekrar deneyin.";
+            try {
+                message = JSON.parse(errorText).error || message;
+            } catch { }
+            showToast(`Proje kaydedilemedi: ${message}`, 'error');
         }
     };
 

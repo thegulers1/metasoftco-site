@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
+import { prismaErrorMessage } from "@/lib/apiError";
 
 export const dynamic = 'force-dynamic';
 
@@ -26,7 +27,7 @@ export async function GET(
     } catch (error) {
         console.error("Error fetching project:", error);
         return NextResponse.json(
-            { error: "Failed to fetch project" },
+            { error: "Proje getirilemedi" },
             { status: 500 }
         );
     }
@@ -117,10 +118,8 @@ export async function PUT(
         return NextResponse.json(project);
     } catch (error) {
         console.error("Error updating project:", error);
-        return NextResponse.json(
-            { error: "Failed to update project" },
-            { status: 500 }
-        );
+        const { message, status } = prismaErrorMessage(error, "Proje güncellenemedi");
+        return NextResponse.json({ error: message }, { status });
     }
 }
 
@@ -142,9 +141,7 @@ export async function DELETE(
         return NextResponse.json({ message: "Project deleted successfully" });
     } catch (error) {
         console.error("Error deleting project:", error);
-        return NextResponse.json(
-            { error: "Failed to delete project" },
-            { status: 500 }
-        );
+        const { message, status } = prismaErrorMessage(error, "Proje silinemedi");
+        return NextResponse.json({ error: message }, { status });
     }
 }

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/providers/ToastProvider";
 import ImageUpload from "@/components/editpanel/ImageUpload";
 import GalleryUpload from "@/components/editpanel/GalleryUpload";
 import VideoUpload from "@/components/editpanel/VideoUpload";
@@ -41,6 +42,7 @@ interface Project {
 
 export default function EditProjectPage({ params }: { params: Promise<{ id: string }> }) {
     const router = useRouter();
+    const { showToast } = useToast();
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [translating, setTranslating] = useState(false);
@@ -85,7 +87,13 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
         if (res.ok) {
             router.push("/editpanel/projects");
         } else {
-            console.error("Update failed:", await res.text());
+            const errorText = await res.text();
+            console.error("Update failed:", errorText);
+            let message = "Lütfen tekrar deneyin.";
+            try {
+                message = JSON.parse(errorText).error || message;
+            } catch { }
+            showToast(`Proje güncellenemedi: ${message}`, 'error');
         }
     };
 

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { prismaErrorMessage } from "@/lib/apiError";
 
 export const dynamic = 'force-dynamic';
 
@@ -19,7 +20,7 @@ export async function GET() {
     } catch (error) {
         console.error("Error fetching services:", error);
         return NextResponse.json(
-            { error: "Failed to fetch services" },
+            { error: "Hizmetler getirilemedi" },
             { status: 500 }
         );
     }
@@ -32,6 +33,8 @@ export async function POST(request: Request) {
         const {
             categoryId,
             title,
+            homeTitle,
+            homeTitle_en,
             slug,
             description,
             content,
@@ -62,6 +65,8 @@ export async function POST(request: Request) {
             data: {
                 categoryId,
                 title,
+                homeTitle,
+                homeTitle_en,
                 slug,
                 description,
                 content,
@@ -91,9 +96,7 @@ export async function POST(request: Request) {
         return NextResponse.json(service, { status: 201 });
     } catch (error) {
         console.error("Error creating service:", error);
-        return NextResponse.json(
-            { error: "Failed to create service" },
-            { status: 500 }
-        );
+        const { message, status } = prismaErrorMessage(error, "Hizmet oluşturulamadı");
+        return NextResponse.json({ error: message }, { status });
     }
 }

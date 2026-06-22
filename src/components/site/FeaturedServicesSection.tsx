@@ -9,6 +9,8 @@ interface Service {
     id: string;
     title: string;
     title_en: string | null;
+    homeTitle: string | null;
+    homeTitle_en: string | null;
     slug: string;
     slug_en: string | null;
     description: string | null;
@@ -29,6 +31,11 @@ interface FeaturedServicesSectionProps {
 export function FeaturedServicesSection({ services }: FeaturedServicesSectionProps) {
     const { t, language } = useLanguage();
     const serviceBase = language === "en" ? "/en/services" : "/hizmetler";
+
+    const displayTitle = (service: Service) =>
+        language === "en"
+            ? service.homeTitle_en || service.title_en || service.title
+            : service.homeTitle || service.title;
 
     // First service = large featured (top row, right side)
     const featuredService = services[0];
@@ -96,7 +103,7 @@ export function FeaturedServicesSection({ services }: FeaturedServicesSectionPro
                                     <div className="absolute left-0 top-1/2 -translate-y-1/2 bg-black/70 px-8 py-6 border-y border-r border-white/10 max-w-xs transition-colors duration-300">
                                         <h3 className="text-xl md:text-2xl font-black text-white leading-tight mb-2 group-hover:text-[#FF3B3F] transition-colors duration-300 uppercase tracking-tight"
                                             style={{ fontFamily: "var(--font-lato)" }}>
-                                            {featuredService.title}
+                                            {displayTitle(featuredService)}
                                         </h3>
                                         {featuredService.description && (
                                             <p className="text-[11px] text-[#A0A0A0] leading-relaxed line-clamp-2 font-medium">
@@ -136,7 +143,7 @@ export function FeaturedServicesSection({ services }: FeaturedServicesSectionPro
                                     <div className="absolute left-0 bottom-[10px] bg-black/70 px-6 py-5 border-y border-r border-white/10 max-w-[85%] transition-colors duration-300">
                                         <h4 className="text-base md:text-lg font-black text-white leading-tight mb-1 group-hover:text-[#FF3B3F] transition-colors duration-300 uppercase tracking-tight"
                                             style={{ fontFamily: "var(--font-lato)" }}>
-                                            {service.title}
+                                            {displayTitle(service)}
                                         </h4>
                                         {service.category?.name && (
                                             <p className="text-[10px] text-[#A0A0A0] uppercase tracking-widest font-bold">
@@ -177,7 +184,7 @@ export function FeaturedServicesSection({ services }: FeaturedServicesSectionPro
                                     <div className="absolute left-0 bottom-[10px] bg-black/70 px-6 py-5 border-y border-r border-white/10 max-w-[85%] transition-colors duration-300">
                                         <h4 className="text-base md:text-lg font-black text-white leading-tight mb-1 group-hover:text-[#FF3B3F] transition-colors duration-300 uppercase tracking-tight"
                                             style={{ fontFamily: "var(--font-lato)" }}>
-                                            {service.title}
+                                            {displayTitle(service)}
                                         </h4>
                                         {service.category?.name && (
                                             <p className="text-[10px] text-[#A0A0A0] uppercase tracking-widest font-bold">

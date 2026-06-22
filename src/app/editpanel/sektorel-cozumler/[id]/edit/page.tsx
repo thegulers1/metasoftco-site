@@ -11,6 +11,10 @@ export default async function EditSectorPage({ params }: { params: Promise<{ id:
 
     const images = page.images ? JSON.parse(page.images) : [];
     const serviceIds = page.serviceIds ? JSON.parse(page.serviceIds) : [];
+    const districts = page.districts ? JSON.parse(page.districts) : [];
+    const districts_en = page.districts_en ? JSON.parse(page.districts_en) : [];
+    const faq = page.faq ? JSON.parse(page.faq) : [];
+    const faq_en = page.faq_en ? JSON.parse(page.faq_en) : [];
 
     return (
         <SectorPageForm
@@ -38,6 +42,10 @@ export default async function EditSectorPage({ params }: { params: Promise<{ id:
                 metaKeywords_en: page.metaKeywords_en ?? "",
                 customSchema: page.customSchema ?? "",
                 serviceIds,
+                districts,
+                districts_en,
+                faq,
+                faq_en,
             }}
         />
     );

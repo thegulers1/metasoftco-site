@@ -60,6 +60,8 @@ model Service {
   faq_en             String?
   specs              String?
   specs_en           String?
+  homeTitle          String?
+  homeTitle_en       String?
   category           ServiceCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
   @@unique([categoryId, slug])
@@ -204,6 +206,10 @@ model SectorPage {
   metaTitle_en       String?
   slug_en            String?  @unique
   serviceIds         String?
+  districts          String?
+  districts_en       String?
+  faq                String?
+  faq_en             String?
 }
 
 model Media {

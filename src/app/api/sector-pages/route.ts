@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { prismaErrorMessage } from "@/lib/apiError";
 
 export async function GET() {
     try {
@@ -31,6 +32,10 @@ export async function POST(req: Request) {
                 ogImage: body.ogImage || null,
                 customSchema: body.customSchema || null,
                 serviceIds: body.serviceIds || null,
+                districts: body.districts || null,
+                districts_en: body.districts_en || null,
+                faq: body.faq || null,
+                faq_en: body.faq_en || null,
                 slug_en: body.slug_en || null,
                 h1_en: body.h1_en || null,
                 excerpt_en: body.excerpt_en || null,
@@ -41,10 +46,8 @@ export async function POST(req: Request) {
             },
         });
         return NextResponse.json(page, { status: 201 });
-    } catch (error: any) {
-        if (error?.code === "P2002") {
-            return NextResponse.json({ error: "Bu slug zaten kullanılıyor" }, { status: 409 });
-        }
-        return NextResponse.json({ error: "Sayfa oluşturulamadı" }, { status: 500 });
+    } catch (error) {
+        const { message, status } = prismaErrorMessage(error, "Sayfa oluşturulamadı");
+        return NextResponse.json({ error: message }, { status });
     }
 }

@@ -14,6 +14,8 @@ export const dynamic = 'force-dynamic';
 interface Service {
     id: string;
     title: string;
+    homeTitle: string | null;
+    homeTitle_en: string | null;
     slug: string;
     description: string | null;
     content: string | null;
@@ -173,7 +175,11 @@ export default function EditServicePage({
         } else {
             const errorText = await res.text();
             console.error("Save failed:", errorText);
-            showToast(`Değişiklikler kaydedilemedi: ${errorText || 'Lütfen tekrar deneyin.'}`, 'error');
+            let message = "Lütfen tekrar deneyin.";
+            try {
+                message = JSON.parse(errorText).error || message;
+            } catch { }
+            showToast(`Değişiklikler kaydedilemedi: ${message}`, 'error');
         }
     };
 
@@ -296,7 +302,7 @@ export default function EditServicePage({
                                 }}
                                 className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
                             />
-                            <p className="text-xs text-black/40 mt-1">Kısa ve vurucu tutun — örn: <em>Reflex Game</em></p>
+                            <p className="text-xs text-black/40 mt-1">SEO ve detay sayfasındaki H1 başlığı — uzun ve aranabilir tutun, örn: <em>AI Photobooth Kiralama</em></p>
                         </div>
 
                         <div>
@@ -314,6 +320,33 @@ export default function EditServicePage({
                                     setService({ ...service, title_en: title_en || null, slug_en });
                                 }}
                                 className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-black/70 mb-2">
+                                Anasayfa Başlığı <span className="text-black/30 font-normal">(opsiyonel)</span>
+                            </label>
+                            <input
+                                type="text"
+                                value={service.homeTitle || ""}
+                                onChange={(e) => setService({ ...service, homeTitle: e.target.value || null })}
+                                className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
+                                placeholder="Boş bırakılırsa Başlık kullanılır"
+                            />
+                            <p className="text-xs text-black/40 mt-1">Anasayfada kartlarda gösterilen kısa başlık, örn: <em>AI Photo</em>. Detay sayfasındaki Başlık'tan farklı olabilir.</p>
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-black/70 mb-2">
+                                Anasayfa Başlığı (İngilizce)
+                            </label>
+                            <input
+                                type="text"
+                                value={service.homeTitle_en || ""}
+                                onChange={(e) => setService({ ...service, homeTitle_en: e.target.value || null })}
+                                className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
+                                placeholder="Boş bırakılırsa Başlık (İngilizce) kullanılır"
                             />
                         </div>
 

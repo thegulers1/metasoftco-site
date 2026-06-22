@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/providers/ToastProvider";
 import ImageUpload from "@/components/editpanel/ImageUpload";
 import RichTextEditor from "@/components/editpanel/RichTextEditor";
 
@@ -30,6 +31,7 @@ interface BlogFormData {
 
 export default function NewBlogPostPage() {
     const router = useRouter();
+    const { showToast } = useToast();
     const [saving, setSaving] = useState(false);
     const [activeTab, setActiveTab] = useState<"content" | "seo">("content");
     const [formData, setFormData] = useState<BlogFormData>({
@@ -68,12 +70,17 @@ export default function NewBlogPostPage() {
             if (res.ok) {
                 router.push("/editpanel/blog");
             } else {
-                console.error("Failed to create blog post");
-                alert("Yazı oluşturulamadı.");
+                const errorText = await res.text();
+                console.error("Failed to create blog post:", errorText);
+                let message = "Yazı oluşturulamadı.";
+                try {
+                    message = JSON.parse(errorText).error || message;
+                } catch { }
+                showToast(message, "error");
             }
         } catch (error) {
             console.error("Error creating blog post:", error);
-            alert("Bir hata oluştu.");
+            showToast("Bir hata oluştu.", "error");
         } finally {
             setSaving(false);
         }

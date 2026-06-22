@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
+import { prismaErrorMessage } from "@/lib/apiError";
 
 export const dynamic = 'force-dynamic';
 
@@ -27,7 +28,7 @@ export async function GET(
     } catch (error) {
         console.error("Error fetching blog post:", error);
         return NextResponse.json(
-            { error: "Failed to fetch blog post" },
+            { error: "Blog yazısı getirilemedi" },
             { status: 500 }
         );
     }
@@ -111,10 +112,8 @@ export async function PUT(
         return NextResponse.json(post);
     } catch (error) {
         console.error("Error updating blog post:", error);
-        return NextResponse.json(
-            { error: "Failed to update blog post" },
-            { status: 500 }
-        );
+        const { message, status } = prismaErrorMessage(error, "Blog yazısı güncellenemedi");
+        return NextResponse.json({ error: message }, { status });
     }
 }
 
@@ -137,9 +136,7 @@ export async function DELETE(
         return NextResponse.json({ success: true });
     } catch (error) {
         console.error("Error deleting blog post:", error);
-        return NextResponse.json(
-            { error: "Failed to delete blog post" },
-            { status: 500 }
-        );
+        const { message, status } = prismaErrorMessage(error, "Blog yazısı silinemedi");
+        return NextResponse.json({ error: message }, { status });
     }
 }

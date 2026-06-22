@@ -11,6 +11,8 @@ export const dynamic = 'force-dynamic';
 
 interface Service {
     title: string;
+    homeTitle: string | null;
+    homeTitle_en: string | null;
     slug: string;
     description: string | null;
     content: string | null;
@@ -55,6 +57,8 @@ export default function NewServicePage() {
 
     const [service, setService] = useState<Service>({
         title: "",
+        homeTitle: null,
+        homeTitle_en: null,
         slug: "",
         description: "",
         content: "",
@@ -170,7 +174,11 @@ export default function NewServicePage() {
         } else {
             const errorText = await res.text();
             console.error("Creation failed:", errorText);
-            showToast(`Hizmet kaydedilemedi: ${errorText || 'Lütfen tekrar deneyin.'}`, 'error');
+            let message = "Lütfen tekrar deneyin.";
+            try {
+                message = JSON.parse(errorText).error || message;
+            } catch { }
+            showToast(`Hizmet kaydedilemedi: ${message}`, 'error');
         }
     };
 
@@ -263,6 +271,7 @@ export default function NewServicePage() {
                                 }}
                                 className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
                             />
+                            <p className="text-xs text-black/40 mt-1">SEO ve detay sayfasındaki H1 başlığı olarak kullanılır — uzun ve aranabilir tutun, örn: <em>AI Photobooth Kiralama</em></p>
                         </div>
 
                         <div>
@@ -279,15 +288,42 @@ export default function NewServicePage() {
 
                         <div>
                             <label className="block text-sm font-medium text-black/70 mb-2">
-                                Slug (Otomatik)
+                                Anasayfa Başlığı <span className="text-black/30 font-normal">(opsiyonel)</span>
+                            </label>
+                            <input
+                                type="text"
+                                value={service.homeTitle || ""}
+                                onChange={(e) => setService({ ...service, homeTitle: e.target.value || null })}
+                                className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
+                                placeholder="Boş bırakılırsa Başlık kullanılır"
+                            />
+                            <p className="text-xs text-black/40 mt-1">Anasayfada kartlarda gösterilen kısa başlık, örn: <em>AI Photo</em>. Detay sayfasındaki Başlık'tan farklı olabilir.</p>
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-black/70 mb-2">
+                                Anasayfa Başlığı (İngilizce)
+                            </label>
+                            <input
+                                type="text"
+                                value={service.homeTitle_en || ""}
+                                onChange={(e) => setService({ ...service, homeTitle_en: e.target.value || null })}
+                                className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
+                                placeholder="Boş bırakılırsa Başlık (İngilizce) kullanılır"
+                            />
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-black/70 mb-2">
+                                Slug
                             </label>
                             <input
                                 type="text"
                                 value={service.slug}
-                                readOnly
-                                className="w-full px-4 py-3 bg-black/5 border-0 rounded-lg text-black/50 cursor-not-allowed"
+                                onChange={(e) => setService({ ...service, slug: e.target.value })}
+                                className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
                             />
-                            <p className="text-xs text-black/40 mt-1">Başlıktan otomatik oluşturulur</p>
+                            <p className="text-xs text-black/40 mt-1">Başlıktan otomatik oluşturulur, isterseniz düzenleyebilirsiniz</p>
                         </div>
 
                         <div>

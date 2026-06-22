@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { revalidatePath } from "next/cache";
 import { prisma } from "@/lib/db";
+import { prismaErrorMessage } from "@/lib/apiError";
 
 export const dynamic = 'force-dynamic';
 
@@ -27,7 +28,7 @@ export async function GET(
     } catch (error) {
         console.error("Error fetching service:", error);
         return NextResponse.json(
-            { error: "Failed to fetch service" },
+            { error: "Hizmet getirilemedi" },
             { status: 500 }
         );
     }
@@ -44,6 +45,8 @@ export async function PUT(
         const body = await request.json();
         const {
             title,
+            homeTitle,
+            homeTitle_en,
             slug,
             description,
             content,
@@ -83,6 +86,8 @@ export async function PUT(
             where: { id },
             data: {
                 title,
+                homeTitle: homeTitle || null,
+                homeTitle_en: homeTitle_en || null,
                 slug,
                 description,
                 content,
@@ -133,10 +138,8 @@ export async function PUT(
         return NextResponse.json(service);
     } catch (error) {
         console.error("Error updating service:", error);
-        return NextResponse.json(
-            { error: "Failed to update service" },
-            { status: 500 }
-        );
+        const { message, status } = prismaErrorMessage(error, "Hizmet güncellenemedi");
+        return NextResponse.json({ error: message }, { status });
     }
 }
 
@@ -159,9 +162,7 @@ export async function DELETE(
         return NextResponse.json({ success: true });
     } catch (error) {
         console.error("Error deleting service:", error);
-        return NextResponse.json(
-            { error: "Failed to delete service" },
-            { status: 500 }
-        );
+        const { message, status } = prismaErrorMessage(error, "Hizmet silinemedi");
+        return NextResponse.json({ error: message }, { status });
     }
 }

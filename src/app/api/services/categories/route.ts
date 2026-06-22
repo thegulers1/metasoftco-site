@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { prismaErrorMessage } from "@/lib/apiError";
 
 export const dynamic = 'force-dynamic';
 
@@ -14,7 +15,7 @@ export async function GET() {
     } catch (error) {
         console.error("Error fetching categories:", error);
         return NextResponse.json(
-            { error: "Failed to fetch categories" },
+            { error: "Kategoriler getirilemedi" },
             { status: 500 }
         );
     }
@@ -54,9 +55,7 @@ export async function POST(request: Request) {
         return NextResponse.json(category, { status: 201 });
     } catch (error) {
         console.error("Error creating category:", error);
-        return NextResponse.json(
-            { error: "Failed to create category" },
-            { status: 500 }
-        );
+        const { message, status } = prismaErrorMessage(error, "Kategori oluşturulamadı");
+        return NextResponse.json({ error: message }, { status });
     }
 }

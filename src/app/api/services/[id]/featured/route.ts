@@ -29,7 +29,7 @@ export async function PATCH(
     } catch (error) {
         console.error("Error updating featured:", error);
         return NextResponse.json(
-            { error: "Failed to update" },
+            { error: "Güncellenemedi" },
             { status: 500 }
         );
     }

@@ -6,7 +6,7 @@ const nextConfig: NextConfig = {
 
   // Build sırasında TS hatalarının CI'ı kırmasını engelle
   typescript: { ignoreBuildErrors: true },
-
+// Eski site URL'leri için kalıcı yönlendirmeler (301)
   async headers() {
     return [
       {
@@ -27,6 +27,62 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       { source: "/star-map", destination: "/", permanent: true },
+
+      // 1. WP TARİH YAPISINI TEMİZLEME (Örn: /2025/02/03/sayfa-adi -> /sayfa-adi veya ilgili yere)
+      {
+        source: "/:year(\\d{4})/:month(\\d{2})/:day(\\d{2})/:slug*",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/:year(\\d{4})/:month(\\d{2})/:day(\\d{2})/pegasus-dijital-carkifelek-aktivitesi/:path*",
+        destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/dijital-hediye-carki-aktivasyonu",
+        permanent: true,
+      },
+      {
+        source: "/:year(\\d{4})/:month(\\d{2})/:day(\\d{2})/serdar-bostanci-50-yil-ai-fotograf-deneyimi/:path*",
+        destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photo",
+        permanent: true,
+      },
+
+      // 2. ESKİ İNGİLİZCE VE EKSİK KATEGORİ KLASÖRLERİNİ TOPLU YAKALAMA (Wildcard)
+      {
+        source: "/hizmetler/ai-event-solutions/:path*",
+        destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri",
+        permanent: true,
+      },
+      {
+        source: "/hizmetler/photobooth-and-photo-activations/:path*",
+        destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari",
+        permanent: true,
+      },
+      {
+        source: "/hizmetler/interactive-event-activities/:path*",
+        destination: "/hizmetler/interaktif-etkinlik-aktiviteleri",
+        permanent: true,
+      },
+      {
+        source: "/neler-yapiyoruz/interaktif-makinalar/:path*",
+        destination: "/hizmetler/interaktif-etkinlik-aktiviteleri",
+        permanent: true,
+      },
+
+      // 3. HATALI ÇOKLU LOGLAR VE BOT TRAFİKLERİ (wp-admin, undefined vb.)
+      {
+        source: "/wp-:path*",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/:path*/undefined",
+        destination: "/",
+        permanent: true,
+      },
+      {
+        source: "/:path*/www.instagram.com/:error*",
+        destination: "/",
+        permanent: true,
+      },
 
       // /cozumler → /sektorel-yazilim-cozumleri (301 kalıcı yönlendirme)
       { source: "/cozumler", destination: "/sektorel-yazilim-cozumleri", permanent: true },

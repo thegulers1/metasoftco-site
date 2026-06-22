@@ -51,7 +51,13 @@ export default function EditCategoryPage({ params }: { params: Promise<{ id: str
             if (res.ok) {
                 showToast("Kategori güncellendi", "success");
             } else {
-                showToast("Güncelleme başarısız", "error");
+                const errorText = await res.text();
+                console.error("Failed to update category:", errorText);
+                let message = "Güncelleme başarısız";
+                try {
+                    message = JSON.parse(errorText).error || message;
+                } catch { }
+                showToast(message, "error");
             }
         } finally {
             setSaving(false);

@@ -2,6 +2,7 @@
 
 import { useState, useEffect, use } from "react";
 import { useRouter } from "next/navigation";
+import { useToast } from "@/providers/ToastProvider";
 import ImageUpload from "@/components/editpanel/ImageUpload";
 import RichTextEditor from "@/components/editpanel/RichTextEditor";
 
@@ -36,6 +37,7 @@ export default function EditBlogPostPage({
 }) {
     const { id } = use(params);
     const router = useRouter();
+    const { showToast } = useToast();
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [activeTab, setActiveTab] = useState<"content" | "seo">("content");
@@ -116,12 +118,17 @@ export default function EditBlogPostPage({
             if (res.ok) {
                 router.push("/editpanel/blog");
             } else {
-                console.error("Failed to update blog post");
-                alert("Yazı güncellenemedi.");
+                const errorText = await res.text();
+                console.error("Failed to update blog post:", errorText);
+                let message = "Yazı güncellenemedi.";
+                try {
+                    message = JSON.parse(errorText).error || message;
+                } catch { }
+                showToast(message, "error");
             }
         } catch (error) {
             console.error("Error updating blog post:", error);
-            alert("Bir hata oluştu.");
+            showToast("Bir hata oluştu.", "error");
         } finally {
             setSaving(false);
         }
