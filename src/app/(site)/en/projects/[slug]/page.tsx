@@ -68,6 +68,8 @@ async function getProject(slug_en: string) {
             projectUrl: true,
             technologies: true,
             video: true,
+            projectDate: true,
+            createdAt: true,
         },
     });
 }
@@ -93,7 +95,8 @@ export default async function EnglishProjectDetailPage({
         "description": project.description_en || project.description || project.title,
         "thumbnailUrl": `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`,
         "embedUrl": `https://www.youtube.com/embed/${youtubeId}`,
-        "uploadDate": new Date().toISOString().split("T")[0],
+        "contentUrl": `https://www.youtube.com/watch?v=${youtubeId}`,
+        "uploadDate": (project.projectDate || project.createdAt).toISOString().split("T")[0],
     } : null;
 
     return (

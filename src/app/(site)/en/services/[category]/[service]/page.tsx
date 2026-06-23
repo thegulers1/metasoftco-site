@@ -121,7 +121,8 @@ export default async function EnglishServiceDetailPage({ params }: PageProps) {
         "description": service.metaDescription_en || service.metaDescription || service.description_en || service.description || service.title,
         "thumbnailUrl": `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`,
         "embedUrl": `https://www.youtube.com/embed/${youtubeId}`,
-        "uploadDate": new Date().toISOString().split("T")[0],
+        "contentUrl": `https://www.youtube.com/watch?v=${youtubeId}`,
+        "uploadDate": service.createdAt.toISOString().split("T")[0],
     } : null;
 
     return (
