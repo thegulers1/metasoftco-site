@@ -98,7 +98,7 @@ export default async function ProjectDetailPage({
         "thumbnailUrl": `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`,
         "embedUrl": `https://www.youtube.com/embed/${youtubeId}`,
         "contentUrl": `https://www.youtube.com/watch?v=${youtubeId}`,
-        "uploadDate": (project.projectDate || project.createdAt).toISOString(),
+        "uploadDate": (project.projectDate || project.createdAt).toISOString().split("T")[0],
     } : null;
 
     return (

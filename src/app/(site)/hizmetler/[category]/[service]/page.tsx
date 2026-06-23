@@ -170,7 +170,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         "thumbnailUrl": `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`,
         "embedUrl": `https://www.youtube.com/embed/${youtubeId}`,
         "contentUrl": `https://www.youtube.com/watch?v=${youtubeId}`,
-        "uploadDate": service.createdAt.toISOString(),
+        "uploadDate": service.createdAt.toISOString().split("T")[0],
     } : null;
 
     return (
