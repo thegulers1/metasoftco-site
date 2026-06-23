@@ -94,10 +94,23 @@ export default async function SektorEnPage({ params }: PageProps) {
                     </p>
                 </div>
 
+                {/* Deep Dive Section */}
+                <div className="mb-20">
+                    <div className="flex items-center gap-4 mb-10">
+                        <h2 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold">Our Approach to {sector.name_en}</h2>
+                        <div className="h-[1px] flex-1 bg-black/5" />
+                    </div>
+                    <div className="space-y-5 max-w-3xl">
+                        {sector.deepDive_en.map((paragraph, i) => (
+                            <p key={i} className="text-black/60 leading-relaxed">{paragraph}</p>
+                        ))}
+                    </div>
+                </div>
+
                 {/* Services Section */}
                 <div className="mb-20">
                     <div className="flex items-center gap-4 mb-10">
-                        <h2 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold">Our Services</h2>
+                        <h2 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold">Our {sector.name_en} Services</h2>
                         <div className="h-[1px] flex-1 bg-black/5" />
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -119,7 +132,7 @@ export default async function SektorEnPage({ params }: PageProps) {
                 {/* FAQ Section */}
                 <div className="mb-20">
                     <div className="flex items-center gap-4 mb-10">
-                        <h2 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold">FAQ</h2>
+                        <h2 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold">FAQ — {sector.name_en}</h2>
                         <div className="h-[1px] flex-1 bg-black/5" />
                     </div>
                     <div className="space-y-6">

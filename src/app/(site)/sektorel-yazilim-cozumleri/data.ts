@@ -14,6 +14,8 @@ export interface SectorData {
     heroSubtitle: string;
     intro: string;
     intro_en: string;
+    deepDive: string[];
+    deepDive_en: string[];
     services: { name: string; desc: string; href: string }[];
     services_en: { name: string; desc: string; href: string }[];
     faqs: { question: string; answer: string }[];
@@ -57,6 +59,14 @@ export const sectors: SectorData[] = [
             "Tekstil ve moda dünyasında fark yaratmak için etkinliklerinize interaktif teknoloji entegre ediyoruz. AI destekli photo booth'lardan marka aktivasyonuna kadar her dokunuşta markanızı öne çıkarıyoruz.",
         intro_en:
             "We integrate interactive technology into your events to make a difference in the textile and fashion world. From AI-powered photo booths to brand activations, we put your brand front and center at every touchpoint.",
+        deepDive: [
+            "Tekstil ve moda markaları için her sezon yeni bir koleksiyon, yeni bir hikaye anlatma fırsatı demektir. Biz bu hikayeyi fiziksel mekândan dijital deneyime taşırken, koleksiyonun renk paletini, tipografisini ve genel estetiğini photobooth arayüzüne, AI filtrelerine ve ekran tasarımlarına birebir yansıtıyoruz. Böylece ziyaretçi sadece fotoğraf çekmiyor, markanın o sezonki kimliğinin bir parçası oluyor.",
+            "Showroom açılışı, defile sonrası kokteyl ya da ticaret fuarı standı — her format farklı bir teknik kurulum gerektirir. Fuar standlarında kompakt, hızlı kurulan ve yüksek trafiğe dayanıklı sistemler tercih ederken, defile sonrası etkinliklerde daha sahne odaklı, büyük ekran destekli deneyimler tasarlıyoruz. Tüm sistemler etkinlik sonrası raporlama ile kaç kişinin etkileşime girdiğini ve hangi paylaşımların öne çıktığını ölçülebilir hale getiriyor.",
+        ],
+        deepDive_en: [
+            "For textile and fashion brands, every season is a new opportunity to tell a story. We carry that story from the physical venue into the digital experience by mirroring the collection's color palette, typography, and overall aesthetic directly in the photobooth interface, AI filters, and on-screen design. The guest doesn't just take a photo — they become part of the brand's identity for that season.",
+            "A showroom opening, a post-runway cocktail, or a trade fair booth each demand a different technical setup. For trade fairs we favor compact, fast-deploy systems built for high foot traffic, while post-runway events call for more stage-focused experiences with large-screen support. Every system comes with post-event reporting that makes engagement levels and top-performing shares measurable.",
+        ],
         services: [
             {
                 name: "AI Photo & Face Swap",
@@ -172,6 +182,14 @@ export const sectors: SectorData[] = [
             "Sağlık ve ilaç sektöründe etkinlikler güven ve uzmanlık iletmek zorundadır. Medikal kongrelerden ürün lansmanlarına kadar her etkinliğe teknoloji entegre ediyoruz.",
         intro_en:
             "Events in the healthcare and pharmaceutical sector must communicate trust and expertise. We integrate technology into every event — from medical congresses to product launches.",
+        deepDive: [
+            "Sağlık sektöründeki etkinliklerde teknolojinin görünmez ama güvenilir çalışması gerekir — bir kongrede kayıt sistemi takılırsa ya da rozet yazıcısı sırada beklerse, bu marka algısına doğrudan zarar verir. Bu yüzden medikal kongre ve sempozyum projelerinde yedekli donanım, offline çalışabilen kayıt yazılımı ve sahada anlık teknik destek standart olarak sunuyoruz.",
+            "İlaç ve medikal cihaz şirketleri için ürün lansmanlarında genellikle hekim ve sağlık profesyonellerinden oluşan kritik bir katılımcı kitlesi olur. Bu kitleye yönelik interaktif demo kioskları ve anı köşeleri tasarlarken, KVKK kapsamında kişisel verilerin toplanması ve saklanması konusunda sektörün hassasiyetine uygun, açık rıza temelli dijital formlar kullanıyoruz.",
+        ],
+        deepDive_en: [
+            "At healthcare events, technology needs to work invisibly and reliably — if a registration system glitches or a badge printer jams mid-queue at a congress, it directly damages brand perception. That's why for medical congresses and symposiums we provide redundant hardware, registration software that keeps working offline, and on-site technical support as standard.",
+            "Pharmaceutical and medical device launches typically draw a critical audience of physicians and healthcare professionals. When designing interactive demo kiosks and memory corners for this audience, we use consent-based digital forms that respect the sector's sensitivity around collecting and storing personal data under data protection regulations.",
+        ],
         services: [
             {
                 name: "İnteraktif Sunum & Demo",
@@ -287,6 +305,14 @@ export const sectors: SectorData[] = [
             "Gıda ve içecek sektöründe tüketicinin markayı deneyimlemesi satın alma kararını doğrudan etkiler. Marka aktivasyonlarınızı interaktif teknoloji ile güçlendiriyoruz.",
         intro_en:
             "In the food and beverage sector, letting consumers experience your brand directly influences purchase decisions. We power your brand activations with interactive technology.",
+        deepDive: [
+            "Gıda ve içecek markalarında satın alma kararı genellikle saniyeler içinde, tat ve deneyim üzerinden verilir. Bu yüzden tadım standlarında veya AVM aktivasyonlarında kullandığımız sistemler yüksek ziyaretçi hızına uygun, kısa etkileşim süreli ve anlık ödül/çekiliş mekanizmalı olacak şekilde tasarlanır — tüketici 30-60 saniye içinde markayla anlamlı bir etkileşim yaşar ve fotoğrafını paylaşır.",
+            "HORECA ve gıda fuarlarında stantlar genellikle yan yana sıralanır ve dikkat çekmek zorlaşır. Bu rekabette öne çıkmak için stant teknolojimizi büyük ekran görsel şovlar, anlık sosyal medya paylaşım ekranları ve katılımcı verisini CRM'e aktaran dijital formlarla destekliyoruz; bu sayede fuar sonrası lead'ler kaybolmadan satış ekibine ulaşır.",
+        ],
+        deepDive_en: [
+            "In food and beverage, the purchase decision is often made in seconds, driven by taste and experience. That's why the systems we deploy at tasting stands or mall activations are built for high visitor throughput, short interaction windows, and instant reward or giveaway mechanics — consumers have a meaningful brand interaction within 30–60 seconds and share their photo immediately.",
+            "At HORECA and food fairs, booths are usually packed side by side, making it hard to stand out. To win that attention, we pair our booth technology with large-screen visual shows, real-time social sharing displays, and digital forms that push attendee data straight into a CRM — so post-fair leads reach the sales team without falling through the cracks.",
+        ],
         services: [
             {
                 name: "Gamification & Çekiliş",
@@ -402,6 +428,14 @@ export const sectors: SectorData[] = [
             "Otomotiv sektöründe marka tercihi duygusal bağla şekillenir. Test drive etkinliklerinden showroom açılışlarına kadar her temas noktasını dijital deneyimle güçlendiriyoruz.",
         intro_en:
             "In the automotive sector, brand preference is shaped by emotional connection. We enhance every touchpoint with digital experiences — from test drive events to showroom openings.",
+        deepDive: [
+            "Otomotiv lansmanlarında ziyaretçi genellikle aracı fiziksel olarak deneyimleme şansı bulamadan markayla bir bağ kurmak zorunda kalır. Bu boşluğu, ziyaretçiyi aracın içine 'AI ile taşıyan' fotoğraf aktivasyonları ve konfigürasyon kioskları ile dolduruyoruz — kişi istediği renk ve donanım paketini ekranda görür, bu görseli kendi fotoğrafıyla birleştirip paylaşır.",
+            "Test sürüşü etkinliklerinde operasyonel kısım kadar veri toplama da kritik. Katılımcının sürüş öncesi ehliyet ve iletişim bilgisi kaydı, sürüş sonrası anlık geri bildirim formu ve bu verilerin showroom CRM'ine otomatik aktarımı, satış ekibinin etkinlik bittiğinde elinde hazır bir potansiyel müşteri listesi olmasını sağlıyor.",
+        ],
+        deepDive_en: [
+            "At automotive launches, visitors often have to form a brand connection before they ever get to physically experience the vehicle. We fill that gap with photo activations that use AI to virtually place the visitor inside the car, plus configuration kiosks where they preview their preferred color and trim package on screen and share it merged with their own photo.",
+            "At test drive events, data collection matters as much as the operational side. Pre-drive license and contact registration, an instant post-drive feedback form, and automatic transfer of that data into the showroom CRM mean the sales team walks away from the event with a ready-made list of qualified leads.",
+        ],
         services: [
             {
                 name: "AI Photo & Araç Aktivasyonu",
@@ -517,6 +551,14 @@ export const sectors: SectorData[] = [
             "Perakende sektöründe fiziksel ve dijital deneyimi birleştirmek müşteri sadakatini katlıyor. Mağaza içi aktivasyonlardan e-ticaret entegrasyonuna kadar kapsamlı çözümler sunuyoruz.",
         intro_en:
             "Combining physical and digital experiences in the retail sector multiplies customer loyalty. We offer end-to-end solutions from in-store activations to e-commerce integrations.",
+        deepDive: [
+            "Mağaza içi aktivasyonlarda en büyük risk, teknolojinin günlük operasyona yük bindirmesidir. Bu yüzden kioskları ve photobooth sistemlerini mağaza personelinin ek eğitim almadan, tek dokunuşla açıp kapatabileceği şekilde tasarlıyoruz; arıza durumunda uzaktan teknik destek ile çoğu sorunu mağazaya gitmeden çözüyoruz.",
+            "Perakendede sadakat programı kayıtları genellikle kasada hızlıca ve isteksizce yapılır. Mağaza içi interaktif kiosk veya photobooth deneyimini sadakat programına kayıt anıyla birleştirdiğimizde, müşteri eğlenceli bir deneyim karşılığında bilgisini paylaşmaya daha istekli oluyor — bu da kayıt oranını ciddi şekilde artırıyor.",
+        ],
+        deepDive_en: [
+            "The biggest risk with in-store activations is technology becoming a burden on daily operations. That's why we design kiosks and photobooth systems that store staff can switch on and off with a single touch, with no extra training needed, and most issues are resolved remotely without a technician visiting the store.",
+            "Retail loyalty sign-ups usually happen quickly and reluctantly at the checkout counter. When we pair an in-store interactive kiosk or photobooth experience with the loyalty program sign-up moment, customers are far more willing to share their information in exchange for an enjoyable experience — meaningfully lifting registration rates.",
+        ],
         services: [
             {
                 name: "Mağaza İçi Aktivasyon",
@@ -632,6 +674,14 @@ export const sectors: SectorData[] = [
             "Finans sektöründe etkinlikler güven ve profesyonellik mesajını taşımalıdır. Yıllık toplantılardan çalışan deneyimi programlarına kadar kurumsal standartta çözümler sunuyoruz.",
         intro_en:
             "Events in the finance sector must convey trust and professionalism. We provide corporate-grade solutions for everything from annual meetings to employee experience programs.",
+        deepDive: [
+            "Finans ve sigorta şirketlerinde marka algısı güven üzerine kuruludur, bu yüzden etkinlik teknolojisi de bu güveni zedelemeyecek şekilde sade, kurumsal ve hatasız çalışmak zorundadır. Genel kurul ve yönetim toplantılarında kullandığımız dijital oylama ve katılımcı yönetim sistemleri, BDDK ve KVKK uyumluluğunu önceliklendirerek tasarlanır.",
+            "Çalışan bağlılığı programlarında ise finans sektörünün daha resmi kurum kültürü ile eğlenceli bir deneyim arasında doğru dengeyi kurmak gerekir. Gamification tabanlı takım yarışmaları ve anlık ödül sistemlerini, şirketin kurumsal kimliğine uygun, ölçülü bir tonla tasarlayıp; etkinlik sonunda katılım ve memnuniyet verilerini İK departmanına raporluyoruz.",
+        ],
+        deepDive_en: [
+            "In finance and insurance, brand perception is built on trust, so event technology must run clean, corporate, and error-free without undermining that trust. The digital voting and attendee management systems we use for general assemblies and management meetings are designed with regulatory and data protection compliance as a priority from day one.",
+            "Employee engagement programs in finance require striking the right balance between a more formal corporate culture and a genuinely fun experience. We design gamification-based team competitions and instant reward systems with a tone that matches the company's corporate identity, then report participation and satisfaction data back to HR after the event.",
+        ],
         services: [
             {
                 name: "Kurumsal Etkinlik Yazılımı",
@@ -747,6 +797,14 @@ export const sectors: SectorData[] = [
             "Kurumsal etkinlikler çalışan bağlılığı ve marka kültürünü pekiştirir. Yıl sonu partilerinden ürün lansmanlarına, team building'den kongrelere kadar her formatı interaktif teknoloji ile güçlendiriyoruz.",
         intro_en:
             "Corporate events reinforce employee engagement and brand culture. We power every format — from year-end parties to product launches, team building to conferences — with interactive technology.",
+        deepDive: [
+            "Kurumsal etkinliklerde başarı ölçütü genellikle 'kaç kişi katıldı' değil, 'kaç kişi gerçekten etkileşime girdi'dir. Bu yüzden her projede photobooth kullanım sayısı, oyun katılım oranı ve anlık anket sonuçları gibi verileri etkinlik sonrası rapor halinde sunuyoruz; İK ve etkinlik ekipleri bu verilerle bir sonraki etkinliği daha iyi planlayabiliyor.",
+            "50 kişilik bir departman toplantısı ile 5000 kişilik bir yıl sonu galası tamamen farklı teknik altyapı gerektirir. Küçük ölçekli etkinliklerde tek operatörle yönetilebilen kompakt sistemler kullanırken, büyük ölçekli galalarda birden fazla istasyonu eş zamanlı çalıştıran, merkezi bir kontrol panelinden yönetilen altyapı kuruyoruz.",
+        ],
+        deepDive_en: [
+            "For corporate events, success is rarely measured by how many people showed up — it's measured by how many people genuinely engaged. That's why every project comes with a post-event report covering photobooth usage, game participation rates, and live poll results, giving HR and event teams real data to plan the next event better.",
+            "A 50-person department meeting and a 5,000-person year-end gala call for completely different technical infrastructure. For smaller events we use compact systems a single operator can run; for large-scale galas we deploy infrastructure that runs multiple stations simultaneously from one central control panel.",
+        ],
         services: [
             {
                 name: "Photobooth & AI Fotoğraf",
@@ -862,6 +920,14 @@ export const sectors: SectorData[] = [
             "Teknoloji şirketleri için etkinlikler hem ürünü tanıtmalı hem de community oluşturmalıdır. Ürün lansmanlarından hackathonlara, kullanıcı konferanslarından meetup'lara kadar her formatı tasarlıyoruz.",
         intro_en:
             "Events for technology companies must both showcase the product and build community. We design every format — from product launches to hackathons, user conferences to meetups.",
+        deepDive: [
+            "Teknoloji ve SaaS şirketleri için bir etkinlik genellikle ürünü satmaktan çok, bir community'nin parçası olma hissini güçlendirmek içindir. Bu yüzden ürün lansmanlarında demo kiosklarını canlı, dokunmatik ve anında denenebilir hale getiriyoruz — ziyaretçi ürünü sadece izlemiyor, ekranda gerçek zamanlı kullanıyor ve deneyimini AI destekli bir görselle sosyal medyada paylaşıyor.",
+            "Hackathon organizasyonlarında yazılım altyapısı kadar zamanlama da kritiktir: katılımcı kayıt ve takım oluşturma, proje teslim platformu, jüri puanlama arayüzü ve canlı skor tablosu birbirine bağlı çalışmak zorunda. Bu uçtan uca sistemi tek bir panelden yönetilebilir hale getirerek organizasyon ekibinin etkinlik günü teknik krizle değil, içerikle ilgilenmesini sağlıyoruz.",
+        ],
+        deepDive_en: [
+            "For technology and SaaS companies, an event is usually less about selling the product and more about reinforcing a sense of belonging to a community. That's why for product launches we make demo kiosks live, touch-enabled, and instantly tryable — visitors don't just watch the product, they use it in real time on screen and share the experience as an AI-enhanced visual on social media.",
+            "In hackathon organization, timing matters as much as the software stack: attendee registration and team formation, the project submission platform, the jury scoring interface, and the live scoreboard all have to work together seamlessly. We make this end-to-end system manageable from a single panel, so the organizing team spends event day focused on content, not technical fires.",
+        ],
         services: [
             {
                 name: "Ürün Lansmanı Aktivasyonu",
