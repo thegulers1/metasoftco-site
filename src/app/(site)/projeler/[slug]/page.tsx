@@ -53,7 +53,7 @@ export async function generateMetadata({
 
 async function getProject(slug: string) {
     return prisma.project.findUnique({
-        where: { slug },
+        where: { slug, published: true },
         select: {
             id: true,
             slug: true,
