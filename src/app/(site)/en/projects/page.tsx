@@ -4,6 +4,7 @@ import { prisma } from "@/lib/db";
 import { siteConfig } from "@/lib/site";
 import ProjectsHero from "@/app/(site)/projeler/ProjectsHero";
 import ProjectsListClient from "@/app/(site)/projeler/ProjectsListClient";
+import CtaSection from "@/components/site/CtaSection";
 
 export const revalidate = 3600;
 
@@ -45,9 +46,10 @@ export default async function EnglishProjectsPage() {
     const projects = await getProjects();
 
     return (
-        <div className="bg-white min-h-screen">
+        <div className="bg-[#0a0a0f] min-h-screen">
             <ProjectsHero />
             <ProjectsListClient projects={projects} />
+            <CtaSection />
         </div>
     );
 }

@@ -67,6 +67,10 @@ export async function PUT(
             // Featured
             featured,
             featuredOrder,
+            // Accent / tag
+            accentText,
+            accentText_en,
+            accentColor,
             // English fields
             slug_en,
             title_en,
@@ -86,6 +90,10 @@ export async function PUT(
             where: { id },
             data: {
                 title,
+                    // Accent / tag
+                    accentText: accentText || null,
+                    accentText_en: accentText_en || null,
+                    accentColor: accentColor || null,
                 homeTitle: homeTitle || null,
                 homeTitle_en: homeTitle_en || null,
                 slug,

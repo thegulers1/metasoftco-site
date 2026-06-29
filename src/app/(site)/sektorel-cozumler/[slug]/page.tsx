@@ -47,7 +47,7 @@ export default async function SectorPageTR({ params }: PageProps) {
     const serviceIds: string[] = page.serviceIds ? JSON.parse(page.serviceIds) : [];
     const relatedServices = serviceIds.length > 0
         ? await prisma.service.findMany({
-            where: { id: { in: serviceIds } },
+            where: { id: { in: serviceIds }, published: true },
             include: { category: true },
           })
         : [];
@@ -63,7 +63,7 @@ export default async function SectorPageTR({ params }: PageProps) {
     };
 
     return (
-        <div className="min-h-screen bg-white pt-32 pb-20">
+        <>
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
             {page.customSchema && (
                 <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: page.customSchema }} />
@@ -76,6 +76,6 @@ export default async function SectorPageTR({ params }: PageProps) {
                 trUrl={`/sektorel-cozumler/${slug}`}
                 enUrl={enUrl}
             />
-        </div>
+        </>
     );
 }

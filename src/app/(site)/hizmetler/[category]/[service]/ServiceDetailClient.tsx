@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import Link from "next/link";
 import GalleryLightbox from "@/components/site/GalleryLightbox";
 import VideoPlayer from "@/components/site/VideoPlayer";
+import CtaSection from "@/components/site/CtaSection";
 import { useLanguage } from "@/providers/LanguageProvider";
 import { addHeadingAnchors } from "@/lib/utils";
 
@@ -42,8 +43,7 @@ export default function ServiceDetailClient({
     const content = language === "en" ? (service.content_en || service.content) : service.content;
 
     return (
-        <div className="min-h-screen bg-[#0d0d0d] pt-32 pb-20">
-            {/* JSON-LD */}
+        <div className="min-h-screen bg-[#0a0a0f] pt-32 pb-20">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{
@@ -51,34 +51,45 @@ export default function ServiceDetailClient({
                 }}
             />
 
-            <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+            <div className="mx-auto max-w-[840px] px-6 sm:px-8">
                 {/* Breadcrumb */}
-                <nav className="mb-8 flex items-center gap-2 text-sm text-white/40">
-                    <Link href="/" className="hover:text-white transition uppercase tracking-widest text-[10px] font-bold">
+                <nav
+                    className="mb-8 flex items-center gap-2 text-[rgba(255,255,255,.4)]"
+                    style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: 11, letterSpacing: ".06em", textTransform: "uppercase" }}
+                >
+                    <Link href="/" className="hover:text-white transition-colors">
                         {t("Ana Sayfa", "Home")}
                     </Link>
-                    <span className="text-white/20">/</span>
-                    <Link href="/hizmetler" className="hover:text-white transition uppercase tracking-widest text-[10px] font-bold">
+                    <span>/</span>
+                    <Link href="/hizmetler" className="hover:text-white transition-colors">
                         {t("Hizmetler", "Services")}
                     </Link>
-                    <span className="text-white/20">/</span>
-                    <span className="text-[#e5e5e5] font-bold uppercase tracking-widest text-[10px]">{title}</span>
+                    <span>/</span>
+                    <span className="text-white/70">{title}</span>
                 </nav>
 
                 {/* Service Header */}
                 <div className="mb-10">
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-red-600/5 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-red-600 mb-4 border border-red-600/10">
-                        <span className="h-1.5 w-1.5 rounded-full bg-red-600" />
-                        {categoryName}
-                    </span>
+                    <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.18] px-3.5 py-[7px] mb-5">
+                        <span className="h-[7px] w-[7px] rounded-full bg-[var(--acc)]" style={{ boxShadow: "0 0 10px var(--acc)" }} />
+                        <span
+                            className="text-[12px] uppercase tracking-[0.08em] text-[rgba(255,255,255,.7)]"
+                            style={{ fontFamily: "var(--font-jetbrains-mono)", fontWeight: 500 }}
+                        >
+                            {categoryName}
+                        </span>
+                    </div>
                     <h1
-                        className="text-4xl sm:text-6xl font-light text-[#e5e5e5] tracking-tighter mt-2 leading-[1.1] uppercase"
-                        style={{ fontFamily: "var(--font-inter-tight)" }}
+                        className="text-white font-bold tracking-[-0.02em] leading-[1.05]"
+                        style={{ fontFamily: "var(--font-space-grotesk)", fontSize: "clamp(32px, 6vw, 56px)" }}
                     >
                         {seoTitle}
                     </h1>
                     {description && (
-                        <p className="mt-6 text-xl text-white/50 leading-relaxed font-normal max-w-2xl">
+                        <p
+                            className="mt-6 max-w-[640px] text-[rgba(255,255,255,.64)]"
+                            style={{ fontFamily: "var(--font-manrope)", fontSize: 18, lineHeight: 1.6 }}
+                        >
                             {description}
                         </p>
                     )}
@@ -88,10 +99,13 @@ export default function ServiceDetailClient({
                 {service.video && (
                     <div className="mb-16">
                         <div className="flex items-center gap-4 mb-8">
-                            <h2 className="text-xs uppercase tracking-[0.3em] text-white/40 font-semibold">
+                            <h2
+                                className="text-[var(--acc)]"
+                                style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: 12, letterSpacing: ".14em", fontWeight: 500, textTransform: "uppercase" }}
+                            >
                                 {t("Tanıtım Videosu", "Promotional Video")}
                             </h2>
-                            <div className="h-[1px] flex-1 bg-white/5" />
+                            <div className="h-[1px] flex-1 bg-white/[0.08]" />
                         </div>
                         <VideoPlayer
                             src={service.video}
@@ -105,14 +119,18 @@ export default function ServiceDetailClient({
                 {/* Content Section */}
                 {content && (
                     <div className="mb-20">
-                        <div className="flex items-center gap-4 mb-10">
-                            <h2 className="text-xs uppercase tracking-[0.3em] text-white/40 font-semibold">
+                        <div className="flex items-center gap-4 mb-8">
+                            <h2
+                                className="text-[var(--acc)]"
+                                style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: 12, letterSpacing: ".14em", fontWeight: 500, textTransform: "uppercase" }}
+                            >
                                 {t("Hizmet Hakkında", "About Service")}
                             </h2>
-                            <div className="h-[1px] flex-1 bg-white/5" />
+                            <div className="h-[1px] flex-1 bg-white/[0.08]" />
                         </div>
                         <div
-                            className="prose prose-lg prose-invert max-w-none text-white/70 leading-relaxed font-light"
+                            className="prose prose-lg prose-invert max-w-none prose-a:text-[var(--acc)] prose-a:no-underline hover:prose-a:underline"
+                            style={{ fontFamily: "var(--font-manrope)" }}
                             dangerouslySetInnerHTML={{
                                 __html: addHeadingAnchors(content?.replace(/&nbsp;/g, ' ') || '')
                             }}
@@ -127,18 +145,26 @@ export default function ServiceDetailClient({
                     return (
                         <div className="mb-20">
                             <div className="flex items-center gap-4 mb-8">
-                                <h2 className="text-xs uppercase tracking-[0.3em] text-white/40 font-semibold">
+                                <h2
+                                    className="text-[var(--acc)]"
+                                    style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: 12, letterSpacing: ".14em", fontWeight: 500, textTransform: "uppercase" }}
+                                >
                                     {t("Teknik Özellikler", "Technical Specifications")}
                                 </h2>
-                                <div className="h-[1px] flex-1 bg-white/5" />
+                                <div className="h-[1px] flex-1 bg-white/[0.08]" />
                             </div>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-px bg-white/5 border border-white/5 rounded-2xl overflow-hidden">
+                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-px rounded-[20px] overflow-hidden border border-white/[0.08]" style={{ background: "rgba(255,255,255,.06)" }}>
                                 {items.map((item, i) => (
-                                    <div key={i} className="flex items-start gap-4 px-6 py-4 bg-[#111]">
-                                        <span className="text-xs font-semibold text-white/30 uppercase tracking-widest w-32 shrink-0 pt-0.5">
+                                    <div key={i} className="flex items-start gap-4 px-6 py-4 bg-[#0e0e15]">
+                                        <span
+                                            className="w-32 shrink-0 pt-0.5 text-[rgba(255,255,255,.4)]"
+                                            style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: 11, letterSpacing: ".06em", textTransform: "uppercase" }}
+                                        >
                                             {item.label}
                                         </span>
-                                        <span className="text-sm text-white/80 leading-relaxed">{item.value}</span>
+                                        <span className="text-[rgba(255,255,255,.75)]" style={{ fontFamily: "var(--font-manrope)", fontSize: 14, lineHeight: 1.55 }}>
+                                            {item.value}
+                                        </span>
                                     </div>
                                 ))}
                             </div>
@@ -153,19 +179,31 @@ export default function ServiceDetailClient({
                     return (
                         <div className="mb-20">
                             <div className="flex items-center gap-4 mb-8">
-                                <h2 className="text-xs uppercase tracking-[0.3em] text-white/40 font-semibold">
+                                <h2
+                                    className="text-[var(--acc)]"
+                                    style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: 12, letterSpacing: ".14em", fontWeight: 500, textTransform: "uppercase" }}
+                                >
                                     {t("Sıkça Sorulan Sorular", "Frequently Asked Questions")}
                                 </h2>
-                                <div className="h-[1px] flex-1 bg-white/5" />
+                                <div className="h-[1px] flex-1 bg-white/[0.08]" />
                             </div>
                             <div className="space-y-3">
                                 {items.map((item, i) => (
-                                    <details key={i} className="group border border-white/5 rounded-2xl overflow-hidden bg-[#111]">
+                                    <details
+                                        key={i}
+                                        className="group rounded-[16px] overflow-hidden border border-white/[0.08]"
+                                        style={{ background: "rgba(255,255,255,.04)" }}
+                                    >
                                         <summary className="flex items-center justify-between px-6 py-5 cursor-pointer list-none">
-                                            <span className="text-[#e5e5e5] font-medium text-sm pr-4">{item.q}</span>
-                                            <span className="text-white/30 group-open:rotate-45 transition-transform duration-200 text-2xl leading-none shrink-0">+</span>
+                                            <span className="text-white pr-4" style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 15, fontWeight: 600 }}>
+                                                {item.q}
+                                            </span>
+                                            <span className="text-[rgba(255,255,255,.4)] group-open:rotate-45 transition-transform duration-200 text-2xl leading-none shrink-0">+</span>
                                         </summary>
-                                        <div className="px-6 pb-5 text-white/50 text-sm leading-relaxed border-t border-white/5 pt-4">
+                                        <div
+                                            className="px-6 pb-5 pt-4 border-t border-white/[0.08] text-[rgba(255,255,255,.55)]"
+                                            style={{ fontFamily: "var(--font-manrope)", fontSize: 14, lineHeight: 1.6 }}
+                                        >
                                             {item.a}
                                         </div>
                                     </details>
@@ -179,10 +217,16 @@ export default function ServiceDetailClient({
                 {gallery.length > 0 && (
                     <div className="mb-20">
                         <div className="flex items-center justify-between mb-8">
-                            <h2 className="text-xs uppercase tracking-[0.3em] text-white/40 font-semibold">
+                            <h2
+                                className="text-[var(--acc)]"
+                                style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: 12, letterSpacing: ".14em", fontWeight: 500, textTransform: "uppercase" }}
+                            >
                                 {t("Görsel Galeri", "Image Gallery")}
                             </h2>
-                            <span className="text-[10px] uppercase tracking-widest text-black/30 bg-black/[0.03] px-3 py-1.5 rounded-full border border-white/5">
+                            <span
+                                className="rounded-full border border-white/10 px-3 py-1.5 text-[rgba(255,255,255,.5)]"
+                                style={{ background: "rgba(255,255,255,.04)", fontFamily: "var(--font-jetbrains-mono)", fontSize: 11, letterSpacing: ".06em", textTransform: "uppercase" }}
+                            >
                                 {t("Kaydırınız →", "Swipe →")}
                             </span>
                         </div>
@@ -190,13 +234,19 @@ export default function ServiceDetailClient({
                     </div>
                 )}
 
-                {/* CTA & Related Services */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-16 border-t border-white/10">
+                {/* Contact & Related Services */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-12 pt-16 border-t border-white/[0.08]">
                     <div>
-                        <h2 className="text-xs uppercase tracking-[0.3em] text-white/40 font-semibold mb-6">
+                        <h2
+                            className="text-[var(--acc)] mb-5"
+                            style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: 12, letterSpacing: ".14em", fontWeight: 500, textTransform: "uppercase" }}
+                        >
                             {t("İletişime Geçin", "Get in Touch")}
                         </h2>
-                        <p className="text-white/50 mb-8 leading-relaxed">
+                        <p
+                            className="mb-7 text-[rgba(255,255,255,.55)]"
+                            style={{ fontFamily: "var(--font-manrope)", fontSize: 14.5, lineHeight: 1.6 }}
+                        >
                             {t(
                                 "Bu hizmet veya diğer çözümlerimiz hakkında daha fazla bilgi almak için bizimle iletişime geçebilirsiniz.",
                                 "You can contact us to get more information about this service or our other solutions."
@@ -204,18 +254,22 @@ export default function ServiceDetailClient({
                         </p>
                         <Link
                             href={language === "en" ? "/en/contact" : "/iletisim"}
-                            className="inline-flex items-center justify-center px-10 py-4 bg-red-600 text-white font-bold rounded-full hover:bg-red-700 transition uppercase tracking-widest text-xs"
+                            className="inline-flex items-center gap-2 text-white font-semibold text-xs uppercase tracking-[0.1em] px-7 py-3.5 rounded-full transition-transform hover:-translate-y-0.5"
+                            style={{ background: "linear-gradient(90deg, #7c3aed, var(--acc))", fontFamily: "var(--font-manrope)" }}
                         >
-                            {t("TEKLİF ALIN", "GET A QUOTE")}
+                            {t("Teklif Alın", "Get a Quote")}
                         </Link>
                     </div>
 
                     {relatedServices.length > 0 && (
                         <div>
-                            <h2 className="text-xs uppercase tracking-[0.3em] text-white/40 font-semibold mb-6">
+                            <h2
+                                className="text-[var(--acc)] mb-5"
+                                style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: 12, letterSpacing: ".14em", fontWeight: 500, textTransform: "uppercase" }}
+                            >
                                 {t("İlginizi Çekebilir", "You Might Like")}
                             </h2>
-                            <div className="space-y-4">
+                            <div className="space-y-3">
                                 {relatedServices.slice(0, 3).map((related) => (
                                     <Link
                                         key={related.id}
@@ -224,12 +278,19 @@ export default function ServiceDetailClient({
                                                 ? `/en/services/${categoryData.slug_en}/${related.slug_en}`
                                                 : `/hizmetler/${categoryData.slug}/${related.slug}`
                                         }
-                                        className="group block p-4 bg-white/[0.03] hover:bg-white/[0.06] transition border border-white/5"
+                                        className="group block p-4 rounded-[14px] border border-white/[0.08] hover:border-white/20 transition-colors"
+                                        style={{ background: "rgba(255,255,255,.03)" }}
                                     >
-                                        <h3 className="font-bold text-[#e5e5e5] uppercase tracking-tight group-hover:text-red-500 transition">
+                                        <h3
+                                            className="text-white group-hover:text-[var(--acc)] transition-colors"
+                                            style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 15, fontWeight: 600 }}
+                                        >
                                             {language === "en" ? (related.title_en || related.title) : related.title}
                                         </h3>
-                                        <p className="text-xs text-white/40 mt-1 uppercase tracking-widest">
+                                        <p
+                                            className="mt-1 text-[rgba(255,255,255,.4)]"
+                                            style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: 11, letterSpacing: ".06em", textTransform: "uppercase" }}
+                                        >
                                             {categoryName}
                                         </p>
                                     </Link>
@@ -239,64 +300,22 @@ export default function ServiceDetailClient({
                     )}
                 </div>
 
-                {/* Bottom CTA Banner */}
-                <div className="mt-20 bg-[#141414] border border-white/5 rounded-2xl px-8 sm:px-14 py-14 text-center">
-                    <p className="text-[10px] uppercase tracking-[0.3em] text-white/30 font-semibold mb-4">
-                        {t("Etkinliğinizi Planlayalım", "Let's Plan Your Event")}
-                    </p>
-                    <p
-                        className="text-3xl sm:text-4xl font-light text-white tracking-tighter leading-[1.1] uppercase mb-4"
-                        style={{ fontFamily: "var(--font-inter-tight)" }}
-                    >
-                        {t("Projeniz için", "Ready for your")}
-                        <br />
-                        <span className="font-bold">{t("Hemen Teklif Alın", "Get a Quote Now")}</span>
-                    </p>
-                    <p className="text-white/40 text-sm leading-relaxed max-w-md mx-auto mb-8">
-                        {t(
-                            "Markanıza özel çözümler için ekibimizle hemen iletişime geçin. Size 24 saat içinde geri döneceğiz.",
-                            "Contact our team for custom solutions tailored to your brand. We'll get back to you within 24 hours."
-                        )}
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                        <Link
-                            href={language === "en" ? "/en/contact" : "/iletisim"}
-                            className="inline-flex items-center justify-center px-10 py-4 bg-red-600 text-white font-bold rounded-full hover:bg-red-700 transition uppercase tracking-widest text-xs"
-                        >
-                            {t("ETKİNLİĞİMİZİ PLANLAYALIM", "PLAN MY EVENT")}
-                        </Link>
-                        <a
-                            href="tel:+905342334051"
-                            className="inline-flex items-center justify-center px-10 py-4 bg-white/10 text-white font-bold rounded-full hover:bg-white/20 transition uppercase tracking-widest text-xs"
-                        >
-                            +90 534 233 4051
-                        </a>
-                    </div>
-                </div>
-
                 {/* Back Link */}
-                <div className="mt-10">
+                <div className="mt-16">
                     <Link
                         href="/hizmetler"
-                        className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-white/30 hover:text-white transition"
+                        className="inline-flex items-center gap-2 text-[rgba(255,255,255,.4)] hover:text-white transition-colors"
+                        style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: 11.5, letterSpacing: ".1em", textTransform: "uppercase" }}
                     >
-                        <svg
-                            className="w-3 h-3"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={3}
-                                d="M15 19l-7-7 7-7"
-                            />
+                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
                         </svg>
-                        {t("TÜM HİZMETLERE DÖN", "BACK TO ALL SERVICES")}
+                        {t("Tüm Hizmetlere Dön", "Back to All Services")}
                     </Link>
                 </div>
             </div>
+
+            <CtaSection />
         </div>
     );
 }

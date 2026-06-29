@@ -39,81 +39,136 @@ export default async function BlogPage() {
     const posts = await getBlogPosts();
 
     return (
-        <section className="py-32 bg-white min-h-screen">
-            <Container>
-                <div className="mb-16">
-                    <h1 className="text-4xl md:text-6xl font-black tracking-tighter text-black mb-6">
+        <div className="bg-[#0a0a0f] min-h-screen">
+            <section className="relative overflow-hidden">
+                <div
+                    className="aurora-blob aurora-drift"
+                    style={{ width: 560, height: 560, top: "-18%", left: "6%", background: "radial-gradient(circle, rgba(124,58,237,0.32), transparent 70%)" }}
+                />
+                <div
+                    className="aurora-blob aurora-drift2"
+                    style={{ width: 480, height: 480, top: "-10%", right: "0%", background: "radial-gradient(circle, rgba(34,211,238,0.28), transparent 70%)" }}
+                />
+                <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{ background: "linear-gradient(180deg, rgba(10,10,15,.1), rgba(10,10,15,.84))" }}
+                />
+                <div className="relative z-10 max-w-[1240px] mx-auto px-6 sm:px-12 pt-32 pb-12">
+                    <span
+                        className="text-[12px] uppercase tracking-[0.14em] text-[var(--acc)]"
+                        style={{ fontFamily: "var(--font-jetbrains-mono)", fontWeight: 500 }}
+                    >
                         BLOG
+                    </span>
+                    <h1
+                        className="text-white font-bold tracking-[-0.02em] mt-4"
+                        style={{ fontFamily: "var(--font-space-grotesk)", fontSize: "clamp(36px, 6vw, 60px)" }}
+                    >
+                        Düşüncelerimiz, haberler ve rehberler.
                     </h1>
-                    <p className="text-lg text-black/60 max-w-2xl">
+                    <p
+                        className="mt-5 max-w-[600px] text-[rgba(255,255,255,.64)]"
+                        style={{ fontFamily: "var(--font-manrope)", fontSize: 18, lineHeight: 1.55 }}
+                    >
                         Teknoloji, tasarım ve inovasyon üzerine düşüncelerimiz, güncel haberler ve rehberler.
                     </p>
                 </div>
+            </section>
 
-                {posts.length === 0 ? (
-                    <div className="flex flex-col items-center justify-center py-20 border-2 border-dashed border-black/5 rounded-3xl">
-                        <p className="text-black/40 font-medium italic">
-                            Yakında burada çok özel içerikler paylaşacağız. Takipte kalın!
-                        </p>
-                    </div>
-                ) : (
-                    <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-                        {posts.map((post) => (
-                            <Link
-                                key={post.id}
-                                href={`/blog/${post.slug}`}
-                                className="group block"
+            <Container>
+                <div className="pb-24">
+                    {posts.length === 0 ? (
+                        <div className="flex flex-col items-center justify-center py-20 border border-dashed border-white/10 rounded-[20px]">
+                            <p
+                                className="text-[rgba(255,255,255,.4)]"
+                                style={{ fontFamily: "var(--font-manrope)", fontStyle: "italic" }}
                             >
-                                {/* Kapak Görseli */}
-                                <div className="relative aspect-[16/10] w-full overflow-hidden rounded-xl bg-black/5">
-                                    {post.image ? (
-                                        <Image
-                                            fill
-                                            src={post.image}
-                                            alt={post.title}
-                                            className="object-cover transition-transform duration-500 group-hover:scale-105"
-                                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                        />
-                                    ) : (
-                                        <div className="absolute inset-0 bg-gradient-to-br from-orange-500 via-red-500 to-purple-600 transition-transform duration-500 group-hover:scale-105" />
-                                    )}
-                                    {post.category && (
-                                        <div className="absolute top-3 left-3 z-10">
-                                            <span className="inline-block rounded-md bg-white/90 backdrop-blur-sm px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider text-black">
-                                                {post.category}
-                                            </span>
-                                        </div>
-                                    )}
-                                </div>
+                                Yakında burada çok özel içerikler paylaşacağız. Takipte kalın!
+                            </p>
+                        </div>
+                    ) : (
+                        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+                            {posts.map((post) => (
+                                <Link
+                                    key={post.id}
+                                    href={`/blog/${post.slug}`}
+                                    className="group relative flex flex-col rounded-[20px] overflow-hidden border border-white/10 transition-all duration-[.4s] ease-[cubic-bezier(.2,.8,.2,1)] hover:-translate-y-2 hover:border-white/30"
+                                    style={{ background: "linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02))" }}
+                                >
+                                    <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#14141d]">
+                                        {post.image ? (
+                                            <Image
+                                                fill
+                                                src={post.image}
+                                                alt={post.title}
+                                                className="object-cover transition-transform duration-500 group-hover:scale-105"
+                                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                            />
+                                        ) : (
+                                            <div
+                                                className="absolute inset-0"
+                                                style={{ backgroundImage: "repeating-linear-gradient(135deg,#14141d,#14141d 11px,#1a1a25 11px,#1a1a25 22px)" }}
+                                            />
+                                        )}
+                                        {post.category && (
+                                            <div
+                                                className="absolute top-3.5 left-3.5 rounded-full px-3 py-1.5 backdrop-blur-sm"
+                                                style={{
+                                                    background: "rgba(10,10,15,.62)",
+                                                    fontFamily: "var(--font-jetbrains-mono)",
+                                                    fontSize: 11,
+                                                    fontWeight: 500,
+                                                    letterSpacing: ".04em",
+                                                    color: "rgba(255,255,255,.88)",
+                                                }}
+                                            >
+                                                {post.category.toLocaleUpperCase("tr")}
+                                            </div>
+                                        )}
+                                    </div>
 
-                                {/* İçerik */}
-                                <div className="mt-5">
-                                    {post.publishedAt && (
-                                        <p className="text-xs text-black/40 mb-2">
-                                            {new Date(post.publishedAt).toLocaleDateString("tr-TR", {
-                                                year: "numeric",
-                                                month: "long",
-                                                day: "numeric",
-                                            })}
-                                        </p>
-                                    )}
-                                    <h2 className="text-lg font-semibold text-black group-hover:underline underline-offset-2 line-clamp-2">
-                                        {post.title}
-                                    </h2>
-                                    {post.excerpt && (
-                                        <p className="mt-2 text-sm text-black/60 line-clamp-3">
-                                            {post.excerpt}
-                                        </p>
-                                    )}
-                                    {post.author && (
-                                        <p className="mt-3 text-xs text-black/40">{post.author}</p>
-                                    )}
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
-                )}
+                                    <div className="flex flex-col flex-1 px-[22px] pt-[22px] pb-6">
+                                        {post.publishedAt && (
+                                            <p
+                                                className="mb-2 text-[rgba(255,255,255,.4)]"
+                                                style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: 11.5 }}
+                                            >
+                                                {new Date(post.publishedAt).toLocaleDateString("tr-TR", {
+                                                    year: "numeric",
+                                                    month: "long",
+                                                    day: "numeric",
+                                                })}
+                                            </p>
+                                        )}
+                                        <h2
+                                            className="text-white line-clamp-2"
+                                            style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 19, lineHeight: 1.25, fontWeight: 600 }}
+                                        >
+                                            {post.title}
+                                        </h2>
+                                        {post.excerpt && (
+                                            <p
+                                                className="mt-2.5 line-clamp-3 text-[rgba(255,255,255,.55)]"
+                                                style={{ fontFamily: "var(--font-manrope)", fontSize: 13.5, lineHeight: 1.55 }}
+                                            >
+                                                {post.excerpt}
+                                            </p>
+                                        )}
+                                        {post.author && (
+                                            <p
+                                                className="mt-auto pt-4 text-[rgba(255,255,255,.4)]"
+                                                style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: 11.5 }}
+                                            >
+                                                {post.author}
+                                            </p>
+                                        )}
+                                    </div>
+                                </Link>
+                            ))}
+                        </div>
+                    )}
+                </div>
             </Container>
-        </section>
+        </div>
     );
 }

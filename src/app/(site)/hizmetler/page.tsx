@@ -2,7 +2,9 @@ import { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { siteConfig, generateFAQSchema } from "@/lib/site";
+import ServicesHero from "./ServicesHero";
 import ServicesListClient from "./ServicesListClient";
+import CtaSection from "@/components/site/CtaSection";
 
 export const revalidate = 3600;
 
@@ -27,7 +29,7 @@ export const metadata: Metadata = {
 const getCategories = unstable_cache(
     async () => prisma.serviceCategory.findMany({
         orderBy: { order: "asc" },
-        include: { services: { orderBy: { order: "asc" } } },
+        include: { services: { where: { published: true }, orderBy: { order: "asc" } } },
     }),
     ["service-categories"],
     { revalidate: 60 }
@@ -94,7 +96,11 @@ export default async function HizmetlerPage() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
             />
-            <ServicesListClient categories={categories} />
+            <div className="bg-[#0a0a0f] min-h-screen">
+                <ServicesHero />
+                <ServicesListClient categories={categories} />
+                <CtaSection />
+            </div>
         </>
     );
 }

@@ -5,6 +5,7 @@
 /* Neon Red Custom Color */
 :root {
   --color-neon-red: #FF3B3F;
+  --acc: #22d3ee;
 }
 
 @layer utilities {
@@ -217,6 +218,11 @@
   }
 }
 
+/* Prevent horizontal page scroll caused by overflowing elements */
+html, body {
+  overflow-x: hidden !important;
+}
+
 /* ===== TOP TICKER ===== */
 .ticker {
   height: 45px;
@@ -254,5 +260,77 @@
 
   to {
     transform: translateX(-50%);
+  }
+}
+
+/* ===== CANLI HERO — aurora / shimmer / glow ===== */
+.aurora-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(50px);
+  pointer-events: none;
+}
+
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(40px, -30px) scale(1.08); }
+}
+
+@keyframes drift2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(-50px, 35px) scale(1.05); }
+}
+
+@keyframes drift3 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(30px, 40px) scale(1.1); }
+}
+
+.aurora-drift { animation: drift 17s ease-in-out infinite; }
+.aurora-drift2 { animation: drift2 21s ease-in-out infinite; }
+.aurora-drift3 { animation: drift3 24s ease-in-out infinite; }
+
+.hero-mouse-glow {
+  position: absolute;
+  left: var(--mx, 50%);
+  top: var(--my, 50%);
+  width: 560px;
+  height: 560px;
+  margin: -280px 0 0 -280px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.16), transparent 70%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+@keyframes shimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+.shimmer-text {
+  background-image: linear-gradient(90deg, var(--acc), #a78bfa, #e879f9, var(--acc));
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shimmer 6s linear infinite;
+}
+
+@keyframes live-pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.5); }
+  50% { opacity: 0.6; box-shadow: 0 0 10px 2px rgba(74, 222, 128, 0.5); }
+}
+
+.live-dot { animation: live-pulse 2s infinite; }
+
+.brand-ticker {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-drift, .aurora-drift2, .aurora-drift3, .shimmer-text, .live-dot, .ticker__inner {
+    animation: none !important;
   }
 }

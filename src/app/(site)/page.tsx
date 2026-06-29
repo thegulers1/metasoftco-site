@@ -1,9 +1,10 @@
 import { Metadata } from "next";
 import HeroSection from "@/components/site/HeroSection";
+import BrandStrip from "@/components/site/BrandStrip";
 import ProjectShowcase from "@/components/site/ProjectShowcase";
 import { FeaturedServicesSection } from "@/components/site/FeaturedServicesSection";
-import { ReferencesSection } from "@/components/site/ReferencesSection";
-import { AboutSection } from "@/components/site/AboutSection";
+import CtaSection from "@/components/site/CtaSection";
+import InstagramFeed from "@/components/site/InstagramFeed";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { siteConfig } from "@/lib/site";
@@ -38,7 +39,7 @@ export const metadata: Metadata = {
 
 const getFeaturedServices = unstable_cache(
     async () => prisma.service.findMany({
-        where: { featured: true },
+        where: { featured: true, published: true },
         orderBy: { featuredOrder: "asc" },
         include: { category: true },
     }),
@@ -62,10 +63,15 @@ export default async function HomePage() {
     return (
         <>
             <HeroSection />
-            <FeaturedServicesSection services={services} />
+            <BrandStrip />
             <ProjectShowcase projects={projects} />
-            <AboutSection />
-            <ReferencesSection />
+            <FeaturedServicesSection services={services} />
+            <CtaSection />
+            <section className="py-20 sm:py-24 bg-[#0a0a0f]">
+                <div className="max-w-[1240px] mx-auto px-6 sm:px-12">
+                    <InstagramFeed />
+                </div>
+            </section>
         </>
     );
 }

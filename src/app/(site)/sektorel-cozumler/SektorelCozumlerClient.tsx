@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion } from "motion/react";
-import ParticleBackground from "@/components/site/ParticleBackground";
+import CtaSection from "@/components/site/CtaSection";
 
 interface SectorPageItem {
     id: string;
@@ -21,56 +21,72 @@ interface SektorelCozumlerClientProps {
 export default function SektorelCozumlerClient({ pages, lang = "tr" }: SektorelCozumlerClientProps) {
     const t = (tr: string, en: string) => lang === "en" ? en : tr;
     const serviceHref = lang === "en" ? "/en/sector-solutions" : "/sektorel-cozumler";
-    const contactHref = lang === "en" ? "/en/contact" : "/iletisim";
 
     return (
-        <div className="min-h-screen bg-white">
-            {/* Hero Section */}
-            <section className="relative h-[500px] flex items-center justify-center overflow-hidden bg-white">
-                <div className="absolute inset-0 z-0">
-                    <ParticleBackground />
-                </div>
-
-                <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                    >
-                        <h1
-                            className="text-5xl md:text-7xl lg:text-[80px] font-light uppercase tracking-tighter text-[#1a1a1a] mb-4"
-                            style={{ fontFamily: "var(--font-inter-tight)" }}
+        <div className="min-h-screen bg-[#0a0a0f]">
+            {/* Hero */}
+            <section className="relative overflow-hidden">
+                <div
+                    className="aurora-blob aurora-drift"
+                    style={{ width: 640, height: 640, top: "-18%", left: "4%", background: "radial-gradient(circle, rgba(124,58,237,0.35), transparent 70%)" }}
+                />
+                <div
+                    className="aurora-blob aurora-drift2"
+                    style={{ width: 560, height: 560, top: "-12%", right: "0%", background: "radial-gradient(circle, rgba(34,211,238,0.3), transparent 70%)" }}
+                />
+                <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{ background: "linear-gradient(180deg, rgba(10,10,15,.1), rgba(10,10,15,.84))" }}
+                />
+                <div className="relative z-10 max-w-[1240px] mx-auto px-6 sm:px-12 pt-32 pb-16">
+                    <div className="max-w-[920px]">
+                        <span
+                            className="text-[12px] uppercase tracking-[0.14em] text-[var(--acc)]"
+                            style={{ fontFamily: "var(--font-jetbrains-mono)", fontWeight: 500 }}
                         >
-                            {t("SEKTÖRÜNÜZÜ ANLAYAN", "SECTOR-SPECIFIC")}
-                        </h1>
-                        <p className="text-sm md:text-base text-[#1a1a1a]/60 font-light leading-relaxed max-w-2xl mx-auto">
+                            {t("SEKTÖREL ÇÖZÜMLER", "SECTOR SOLUTIONS")}
+                        </span>
+                        <motion.h1
+                            initial={{ opacity: 0, y: 16 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.7 }}
+                            className="text-white font-bold tracking-[-0.02em] leading-[0.98] mt-4"
+                            style={{ fontFamily: "var(--font-space-grotesk)", fontSize: "clamp(36px, 6vw, 64px)" }}
+                        >
+                            {t("Sektörünüzü anlayan", "Sector-specific")}
+                            <br />
+                            <span className="shimmer-text">{t("çözümler.", "solutions.")}</span>
+                        </motion.h1>
+                        <p
+                            className="mt-6 max-w-[640px] text-[rgba(255,255,255,.64)]"
+                            style={{ fontFamily: "var(--font-manrope)", fontSize: 18, lineHeight: 1.55 }}
+                        >
                             {t(
                                 "Moda markası için Virtual Try-On, banka için gamification, otomotiv için AR test sürüşü — her sektörün kitlesi farklı tepki verir, farklı motivasyonla paylaşır. MetasoftCo, sektörünüzün dinamiklerini bilerek brief'i çözer.",
                                 "Virtual Try-On for fashion brands, gamification for banks, AR test drives for automotive — every sector's audience reacts differently and shares with different motivations. MetasoftCo solves the brief knowing your sector's dynamics."
                             )}
                         </p>
-                    </motion.div>
+                    </div>
                 </div>
-
-                {/* Bottom Gradient */}
-                <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-white to-transparent" />
             </section>
 
             {/* Sector Pages Grid */}
-            <section className="py-20">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {pages.map((page, index) => (
-                            <motion.div
-                                key={page.id}
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ duration: 0.4, delay: index * 0.05 }}
+            <section className="relative max-w-[1240px] mx-auto px-6 sm:px-12 py-16 sm:py-20">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    {pages.map((page, index) => (
+                        <motion.div
+                            key={page.id}
+                            initial={{ opacity: 0, y: 24 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.5, delay: index * 0.05 }}
+                        >
+                            <Link
+                                href={`${serviceHref}/${page.slug}`}
+                                className="group relative flex flex-col rounded-[20px] overflow-hidden border border-white/10 transition-all duration-[.4s] ease-[cubic-bezier(.2,.8,.2,1)] hover:-translate-y-3 hover:border-white/30"
+                                style={{ background: "linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02))" }}
                             >
-                                <Link
-                                    href={`${serviceHref}/${page.slug}`}
-                                    className="group block relative aspect-[4/3] overflow-hidden bg-neutral-100 transition-all duration-500"
-                                >
+                                <div className="relative aspect-[3/4] overflow-hidden bg-[#14141d]">
                                     {page.ogImage ? (
                                         <img
                                             src={page.ogImage}
@@ -78,52 +94,34 @@ export default function SektorelCozumlerClient({ pages, lang = "tr" }: SektorelC
                                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                         />
                                     ) : (
-                                        <div className="w-full h-full bg-neutral-900 flex items-center justify-center p-8">
-                                            <span
-                                                className="text-white text-3xl md:text-4xl font-bold uppercase tracking-tighter text-center leading-tight"
-                                                style={{ fontFamily: "var(--font-inter-tight)" }}
-                                            >
-                                                {page.h1 || page.title}
-                                            </span>
-                                        </div>
+                                        <div
+                                            className="absolute inset-0"
+                                            style={{ backgroundImage: "repeating-linear-gradient(135deg,#14141d,#14141d 11px,#1a1a25 11px,#1a1a25 22px)" }}
+                                        />
                                     )}
-
-                                    {/* White Box Info */}
-                                    <div className="absolute bottom-[20px] left-0">
-                                        <div className="bg-white px-6 py-4 border-y border-r border-black/5 translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 md:opacity-100 md:translate-y-0 md:w-fit md:min-w-[180px]">
-                                            <h3 className="text-lg md:text-xl font-bold text-red-600 uppercase tracking-tighter leading-none"
-                                                style={{ fontFamily: "var(--font-inter-tight)" }}>
-                                                {page.h1 || page.title}
-                                            </h3>
+                                    <div
+                                        className="absolute inset-0 pointer-events-none opacity-[.34]"
+                                        style={{ background: "radial-gradient(circle at 72% 20%, #22d3ee, transparent 64%)" }}
+                                    />
+                                </div>
+                                <div className="flex flex-col flex-1 px-[22px] pt-[22px] pb-6">
+                                    <div className="flex items-start justify-between gap-3">
+                                        <div
+                                            className="text-white"
+                                            style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 19, lineHeight: 1.2, fontWeight: 600 }}
+                                        >
+                                            {page.h1 || page.title}
                                         </div>
+                                        <span className="text-[17px] font-semibold text-[var(--acc)] shrink-0">→</span>
                                     </div>
-                                </Link>
-                            </motion.div>
-                        ))}
-                    </div>
+                                </div>
+                            </Link>
+                        </motion.div>
+                    ))}
                 </div>
             </section>
 
-            {/* Contact CTA */}
-            <section className="py-32 bg-neutral-50 border-t border-black/5">
-                <div className="max-w-4xl mx-auto px-4 text-center">
-                    <p className="text-4xl md:text-6xl font-bold tracking-tighter text-black mb-8 uppercase">
-                        {t("BİRLİKTE ÇALIŞALIM", "LET'S WORK TOGETHER")}
-                    </p>
-                    <p className="text-lg text-black/60 mb-12 max-w-2xl mx-auto">
-                        {t(
-                            "Sektörünüze özel aktivasyon brief'inizi paylaşın, 24 saat içinde somut bir konsept önerisiyle geri dönelim.",
-                            "Share your sector-specific activation brief and we'll come back with a concrete concept proposal within 24 hours."
-                        )}
-                    </p>
-                    <Link
-                        href={contactHref}
-                        className="inline-flex items-center justify-center px-12 py-5 bg-red-600 text-white font-bold rounded-full hover:bg-red-700 transition"
-                    >
-                        {t("BUGÜN KONUŞALIM →", "LET'S TALK TODAY →")}
-                    </Link>
-                </div>
-            </section>
+            <CtaSection />
         </div>
     );
 }

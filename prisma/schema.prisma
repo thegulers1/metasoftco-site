@@ -36,6 +36,9 @@ model Service {
   size               String          @default("medium")
   bgColor            String?
   textColor          String          @default("light")
+  accentText         String?
+  accentText_en      String?
+  accentColor        String?
   order              Int             @default(0)
   categoryId         String
   createdAt          DateTime        @default(now())
@@ -62,6 +65,7 @@ model Service {
   specs_en           String?
   homeTitle          String?
   homeTitle_en       String?
+  published          Boolean         @default(true)
   category           ServiceCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
   @@unique([categoryId, slug])

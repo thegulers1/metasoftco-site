@@ -13,6 +13,7 @@ interface Project {
     description: string | null;
     image: string | null;
     category: string | null;
+    client: string | null;
     projectUrl: string | null;
     title_en: string | null;
     description_en: string | null;
@@ -22,244 +23,210 @@ interface ProjectShowcaseProps {
     projects: Project[];
 }
 
+const accents = ["#22d3ee", "#7c3aed", "#e879f9"];
+
 export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
     const { t, language } = useLanguage();
 
-    const p = (i: number) => projects[i] || null;
     const projectHref = (proj: Project) =>
         language === "en" && proj.slug_en
             ? `/en/projects/${proj.slug_en}`
             : `/projeler/${proj.slug}`;
 
+    const featured = projects[0];
+    const rest = projects.slice(1, 4);
+
     return (
-        <section className="py-24 relative bg-[#0d0d0d]" id="projeler">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <section className="py-20 sm:py-24 relative bg-[#0a0a0f]" id="projeler">
+            <div className="max-w-[1240px] mx-auto px-6 sm:px-12 relative z-10">
 
-                {/* ========== ROW 1: 4 cols — [Title 2col] [Text 1col] [Image 1col] ========== */}
-                <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-6">
+                {/* Header */}
+                <div className="flex items-end justify-between mb-12 flex-wrap gap-4">
+                    <div>
+                        <span
+                            className="text-[12px] uppercase tracking-[0.14em] text-[var(--acc)]"
+                            style={{ fontFamily: "var(--font-jetbrains-mono)", fontWeight: 500 }}
+                        >
+                            {t("02 — GÜNCEL PROJELER", "02 — RECENT PROJECTS")}
+                        </span>
+                        <h2
+                            className="text-white font-bold tracking-[-0.01em] mt-3"
+                            style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 44 }}
+                        >
+                            {t("Sahneye taşıdıklarımız", "What we brought to stage")}
+                        </h2>
+                    </div>
+                    <Link
+                        href={language === "en" ? "/en/projects" : "/projeler"}
+                        className="text-sm font-semibold text-white/70 hover:text-white transition-colors"
+                        style={{ fontFamily: "var(--font-manrope)" }}
+                    >
+                        {t("Tüm Projeler", "All Projects")} →
+                    </Link>
+                </div>
 
-                    {/* Col 1-2: Title + description (spans 2) */}
+                {/* Featured split card */}
+                {featured && (
                     <motion.div
-                        className="md:col-span-2 bg-[#141414] p-10 flex flex-col justify-between min-h-[360px]"
-                        initial={{ opacity: 0, y: 20 }}
+                        initial={{ opacity: 0, y: 24 }}
                         whileInView={{ opacity: 1, y: 0 }}
                         viewport={{ once: true }}
                         transition={{ duration: 0.7 }}
+                        className="mb-[18px]"
                     >
-                        <div>
-                            <h2 className="text-[36px] md:text-[42px] uppercase leading-[1] tracking-tighter text-[#e5e5e5] mb-6"
-                                style={{ fontFamily: "var(--font-lato)" }}
-                            >
-                                <span className="font-light">{t("Güncel", "Recent")}</span>
-                                <br />
-                                <span className="font-bold">{t("Projelerimiz", "Projects")}</span>
-                            </h2>
-                            <p className="text-[#e5e5e5]/50 text-sm leading-relaxed max-w-sm">
-                                {t(
-                                    "Markalar için tasarladığımız interaktif deneyimler ve dijital çözümlerden bazıları. Her projemiz, hedef kitleyle güçlü bağlar kurmak ve unutulmaz anlar yaratmak üzerine kurgulanmıştır.",
-                                    "Some of the interactive experiences and digital solutions we have designed for brands. Each project is crafted to build strong connections with the target audience and create unforgettable moments."
-                                )}
-                            </p>
-                        </div>
-                        <Link href={language === "en" ? "/en/projects" : "/projeler"} className="inline-flex items-center text-sm font-semibold text-[#e5e5e5] uppercase tracking-widest mt-6 hover:text-[#dc2626] transition-colors group">
-                            {t("Daha Fazla", "Learn More")}
-                            <span className="ml-2 transition-transform group-hover:translate-x-1">→</span>
-                        </Link>
-                    </motion.div>
-
-                    {/* Col 3: First project — text card */}
-                    {p(0) && (
-                        <motion.div
-                            className="bg-[#141414] border border-white/5 p-8 flex flex-col justify-center min-h-[360px]"
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.7, delay: 0.1 }}
+                        <Link
+                            href={projectHref(featured)}
+                            className="group flex flex-col md:flex-row overflow-hidden rounded-[24px] border border-white/10 hover:border-white/30 transition-colors duration-400"
+                            style={{ background: "linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02))" }}
                         >
-                            <Link href={projectHref(p(0)!)} className="group">
-                                <h3 className="text-lg md:text-xl font-bold text-[#e5e5e5] leading-tight mb-4 group-hover:text-[#dc2626] transition-colors uppercase tracking-tight"
-                                    style={{ fontFamily: "var(--font-lato)" }}>
-                                    {t(p(0)!.title, p(0)!.title_en || p(0)!.title)}
+                            <div className="relative w-full md:w-[46%] aspect-[16/10] md:aspect-auto overflow-hidden bg-[#14141d]">
+                                {featured.image ? (
+                                    <Image
+                                        fill
+                                        src={featured.image}
+                                        alt={t(featured.title, featured.title_en || featured.title)}
+                                        className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                        sizes="(max-width: 768px) 100vw, 46vw"
+                                    />
+                                ) : (
+                                    <>
+                                        <div
+                                            className="absolute inset-0"
+                                            style={{
+                                                backgroundImage:
+                                                    "repeating-linear-gradient(135deg,#14141d,#14141d 12px,#1a1a25 12px,#1a1a25 24px)",
+                                            }}
+                                        />
+                                        <div
+                                            className="absolute inset-0"
+                                            style={{ background: "radial-gradient(circle at 70% 25%, rgba(124,58,237,.5), transparent 60%)" }}
+                                        />
+                                        <span
+                                            className="absolute bottom-5 left-5 text-[11px] uppercase tracking-[0.1em] text-[rgba(255,255,255,.5)]"
+                                            style={{ fontFamily: "var(--font-jetbrains-mono)", fontWeight: 500 }}
+                                        >
+                                            {t("ÖNE ÇIKAN PROJE GÖRSELİ", "FEATURED PROJECT IMAGE")}
+                                        </span>
+                                    </>
+                                )}
+                            </div>
+                            <div className="flex-1 p-8 md:p-12 flex flex-col justify-center">
+                                {featured.category && (
+                                    <span
+                                        className="text-[12px] uppercase tracking-[0.14em] text-[var(--acc)] mb-3"
+                                        style={{ fontFamily: "var(--font-jetbrains-mono)", fontWeight: 500 }}
+                                    >
+                                        {featured.category}
+                                    </span>
+                                )}
+                                <h3
+                                    className="text-white font-bold tracking-[-0.01em] mb-4 leading-[1.05]"
+                                    style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 38 }}
+                                >
+                                    {t(featured.title, featured.title_en || featured.title)}
+                                    {featured.client ? <> × {featured.client}</> : null}
                                 </h3>
-                                {p(0)!.description && (
-                                    <p className="text-sm text-[#e5e5e5]/50 leading-relaxed line-clamp-4">
-                                        {t(p(0)!.description!, p(0)!.description_en || p(0)!.description!)}
+                                {featured.description && (
+                                    <p
+                                        className="text-[rgba(255,255,255,.6)] leading-relaxed max-w-md mb-6"
+                                        style={{ fontFamily: "var(--font-manrope)", fontSize: 15 }}
+                                    >
+                                        {t(featured.description, featured.description_en || featured.description)}
                                     </p>
                                 )}
-                            </Link>
-                        </motion.div>
-                    )}
-
-                    {/* Col 4: First project — image (same project as text card) */}
-                    {p(0) && (
-                        <motion.div
-                            className="min-h-[360px]"
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.7, delay: 0.2 }}
-                        >
-                            <Link href={projectHref(p(0)!)} className="group block h-full">
-                                <div className="relative h-full w-full overflow-hidden bg-[#1a1a1a]">
-                                    {p(0)!.image ? (
-                                        <Image
-                                            fill
-                                            src={p(0)!.image!}
-                                            alt={t(p(0)!.title, p(0)!.title_en || p(0)!.title)}
-                                            className="object-cover transition-transform duration-700 group-hover:scale-105"
-                                            sizes="(max-width: 768px) 100vw, 25vw"
-                                        />
-                                    ) : (
-                                        <div className="absolute inset-0 bg-gradient-to-br from-gray-700 to-gray-900" />
-                                    )}
-                                    <div className="absolute left-0 bottom-[10px] bg-[#0d0d0d]/90 px-5 py-4 border-y border-r border-white/10 max-w-[90%]">
-                                        <h4 className="text-sm font-bold text-[#e5e5e5] leading-tight uppercase tracking-tight group-hover:text-[#dc2626] transition-colors"
-                                            style={{ fontFamily: "var(--font-lato)" }}>
-                                            {t(p(0)!.title, p(0)!.title_en || p(0)!.title)}
-                                        </h4>
-                                    </div>
-                                </div>
-                            </Link>
-                        </motion.div>
-                    )}
-                </div>
-
-                {/* ========== ROW 2: 5 cols — [p1 Text] [p1 Image] [p2 Text] [p2 Image] [Red CTA] ========== */}
-                <div className="grid grid-cols-1 md:grid-cols-5 gap-6 mt-6">
-
-                    {/* Col 1: p1 — text card */}
-                    {p(1) && (
-                        <motion.div
-                            className="bg-[#141414] border border-white/5 p-6 flex flex-col justify-center min-h-[360px]"
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.7 }}
-                        >
-                            <Link href={projectHref(p(1)!)} className="group">
-                                <h3 className="text-base md:text-lg font-bold text-[#e5e5e5] leading-tight mb-3 group-hover:text-[#dc2626] transition-colors uppercase tracking-tight"
-                                    style={{ fontFamily: "var(--font-lato)" }}>
-                                    {t(p(1)!.title, p(1)!.title_en || p(1)!.title)}
-                                </h3>
-                                {p(1)!.description && (
-                                    <p className="text-xs text-[#e5e5e5]/50 leading-relaxed line-clamp-4">
-                                        {t(p(1)!.description!, p(1)!.description_en || p(1)!.description!)}
-                                    </p>
-                                )}
-                            </Link>
-                        </motion.div>
-                    )}
-
-                    {/* Col 2: p1 — image card */}
-                    {p(1) && (
-                        <motion.div
-                            className="min-h-[360px]"
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.7, delay: 0.1 }}
-                        >
-                            <Link href={projectHref(p(1)!)} className="group block h-full">
-                                <div className="relative h-full w-full overflow-hidden bg-[#1a1a1a]">
-                                    {p(1)!.image ? (
-                                        <Image
-                                            fill
-                                            src={p(1)!.image!}
-                                            alt={t(p(1)!.title, p(1)!.title_en || p(1)!.title)}
-                                            className="object-cover transition-transform duration-700 group-hover:scale-105"
-                                            sizes="(max-width: 768px) 100vw, 20vw"
-                                        />
-                                    ) : (
-                                        <div className="absolute inset-0 bg-gradient-to-br from-gray-700 to-gray-900" />
-                                    )}
-                                    <div className="absolute left-0 bottom-[10px] bg-[#0d0d0d]/90 px-4 py-3 border-y border-r border-white/10 max-w-[90%]">
-                                        <h4 className="text-xs font-bold text-[#e5e5e5] leading-tight uppercase tracking-tight group-hover:text-[#dc2626] transition-colors"
-                                            style={{ fontFamily: "var(--font-lato)" }}>
-                                            {t(p(1)!.title, p(1)!.title_en || p(1)!.title)}
-                                        </h4>
-                                    </div>
-                                </div>
-                            </Link>
-                        </motion.div>
-                    )}
-
-                    {/* Col 3: p2 — text card */}
-                    {p(2) && (
-                        <motion.div
-                            className="bg-[#141414] border border-white/5 p-6 flex flex-col justify-center min-h-[360px]"
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.7, delay: 0.2 }}
-                        >
-                            <Link href={projectHref(p(2)!)} className="group">
-                                <h3 className="text-base md:text-lg font-bold text-[#e5e5e5] leading-tight mb-3 group-hover:text-[#dc2626] transition-colors uppercase tracking-tight"
-                                    style={{ fontFamily: "var(--font-lato)" }}>
-                                    {t(p(2)!.title, p(2)!.title_en || p(2)!.title)}
-                                </h3>
-                                {p(2)!.description && (
-                                    <p className="text-xs text-[#e5e5e5]/50 leading-relaxed line-clamp-4">
-                                        {t(p(2)!.description!, p(2)!.description_en || p(2)!.description!)}
-                                    </p>
-                                )}
-                            </Link>
-                        </motion.div>
-                    )}
-
-                    {/* Col 4: p2 — image card */}
-                    {p(2) && (
-                        <motion.div
-                            className="min-h-[360px]"
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ duration: 0.7, delay: 0.3 }}
-                        >
-                            <Link href={projectHref(p(2)!)} className="group block h-full">
-                                <div className="relative h-full w-full overflow-hidden bg-[#1a1a1a]">
-                                    {p(2)!.image ? (
-                                        <Image
-                                            fill
-                                            src={p(2)!.image!}
-                                            alt={t(p(2)!.title, p(2)!.title_en || p(2)!.title)}
-                                            className="object-cover transition-transform duration-700 group-hover:scale-105"
-                                            sizes="(max-width: 768px) 100vw, 20vw"
-                                        />
-                                    ) : (
-                                        <div className="absolute inset-0 bg-gradient-to-br from-gray-700 to-gray-900" />
-                                    )}
-                                    <div className="absolute left-0 bottom-[10px] bg-[#0d0d0d]/90 px-4 py-3 border-y border-r border-white/10 max-w-[90%]">
-                                        <h4 className="text-xs font-bold text-[#e5e5e5] leading-tight uppercase tracking-tight group-hover:text-[#dc2626] transition-colors"
-                                            style={{ fontFamily: "var(--font-lato)" }}>
-                                            {t(p(2)!.title, p(2)!.title_en || p(2)!.title)}
-                                        </h4>
-                                    </div>
-                                </div>
-                            </Link>
-                        </motion.div>
-                    )}
-
-                    {/* Col 5: Red CTA */}
-                    <motion.div
-                        className="min-h-[360px]"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.7, delay: 0.4 }}
-                    >
-                        <Link href={language === "en" ? "/en/projects" : "/projeler"} className="group block h-full">
-                            <div className="relative h-full w-full overflow-hidden bg-[#dc2626] flex items-center justify-center transition-colors duration-300 hover:bg-[#b91c1c]">
-                                <span className="text-white text-xs md:text-sm font-bold uppercase tracking-[0.15em] text-center px-3 leading-relaxed whitespace-pre-line"
-                                    style={{ fontFamily: "var(--font-lato)" }}>
-                                    {t("Tüm\nProjelerimiz", "VIEW ALL\nPROJECTS")}
+                                <span
+                                    className="inline-flex items-center gap-2 text-sm font-semibold text-white group-hover:text-[var(--acc)] transition-colors"
+                                    style={{ fontFamily: "var(--font-manrope)" }}
+                                >
+                                    {t("İncele", "Explore")} →
                                 </span>
                             </div>
                         </Link>
                     </motion.div>
-                </div>
+                )}
 
+                {/* 3-card row */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-[18px]">
+                    {rest.map((project, index) => (
+                        <motion.div
+                            key={project.id}
+                            initial={{ opacity: 0, y: 24 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true }}
+                            transition={{ duration: 0.6, delay: index * 0.1 }}
+                        >
+                            <Link
+                                href={projectHref(project)}
+                                className="group block overflow-hidden rounded-[24px] border border-white/10 hover:border-white/30 transition-all duration-400"
+                                style={{
+                                    background: "linear-gradient(180deg, rgba(255,255,255,.07), rgba(255,255,255,.02))",
+                                    transitionTimingFunction: "cubic-bezier(.2,.8,.2,1)",
+                                }}
+                            >
+                                <div className="relative h-[200px] overflow-hidden bg-[#14141d] rounded-t-[24px] group-hover:-translate-y-3 transition-transform duration-400" style={{ transitionTimingFunction: "cubic-bezier(.2,.8,.2,1)" }}>
+                                    {project.image ? (
+                                        <Image
+                                            fill
+                                            src={project.image}
+                                            alt={t(project.title, project.title_en || project.title)}
+                                            className="object-cover transition-transform duration-700 group-hover:scale-105"
+                                            sizes="(max-width: 768px) 100vw, 33vw"
+                                        />
+                                    ) : (
+                                        <>
+                                            <div
+                                                className="absolute inset-0"
+                                                style={{
+                                                    backgroundImage:
+                                                        "repeating-linear-gradient(135deg,#14141d,#14141d 11px,#1a1a25 11px,#1a1a25 22px)",
+                                                }}
+                                            />
+                                            <div
+                                                className="absolute inset-0 opacity-50"
+                                                style={{
+                                                    background: `radial-gradient(circle at 70% 20%, ${accents[index % accents.length]}, transparent 62%)`,
+                                                }}
+                                            />
+                                            {project.category && (
+                                                <span
+                                                    className="absolute bottom-3.5 left-3.5 text-[11px] uppercase tracking-[0.08em] text-[rgba(255,255,255,.5)]"
+                                                    style={{ fontFamily: "var(--font-jetbrains-mono)", fontWeight: 500 }}
+                                                >
+                                                    {project.category}
+                                                </span>
+                                            )}
+                                        </>
+                                    )}
+                                </div>
+                                <div className="p-6">
+                                    {project.category && project.image && (
+                                        <span
+                                            className="text-[11px] uppercase tracking-[0.1em]"
+                                            style={{ fontFamily: "var(--font-jetbrains-mono)", color: accents[index % accents.length], fontWeight: 500 }}
+                                        >
+                                            {project.category}
+                                        </span>
+                                    )}
+                                    <h4
+                                        className="text-white font-semibold mt-2 mb-2"
+                                        style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 20 }}
+                                    >
+                                        {t(project.title, project.title_en || project.title)}
+                                    </h4>
+                                    {project.description && (
+                                        <p
+                                            className="text-[rgba(255,255,255,.55)] line-clamp-2"
+                                            style={{ fontFamily: "var(--font-manrope)", fontSize: 14, lineHeight: 1.55 }}
+                                        >
+                                            {t(project.description, project.description_en || project.description)}
+                                        </p>
+                                    )}
+                                </div>
+                            </Link>
+                        </motion.div>
+                    ))}
+                </div>
             </div>
         </section>
     );
 }
-

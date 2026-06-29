@@ -119,6 +119,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         where: {
             categoryId: categoryData.id,
             id: { not: service.id },
+            published: true,
         },
         take: 4,
     });

@@ -3,8 +3,15 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { siteConfig, generateBreadcrumbSchema, generateFAQSchema } from "@/lib/site";
 import Link from "next/link";
+import CtaSection from "@/components/site/CtaSection";
 
 export const revalidate = 3600;
+
+const CATEGORY_ACCENT: Record<string, string> = {
+    "ai-event-solutions": "#7c3aed",
+    "photobooth-photo-activations": "#e879f9",
+    "interactive-event-activities": "#fb923c",
+};
 
 const categoryFAQsEn: Record<string, { question: string; answer: string }[]> = {
     "ai-event-solutions": [
@@ -82,7 +89,7 @@ interface PageProps {
 async function getCategoryBySlugEn(slugEn: string) {
     return prisma.serviceCategory.findFirst({
         where: { slug_en: slugEn },
-        include: { services: { orderBy: { order: "asc" } } },
+        include: { services: { where: { published: true }, orderBy: { order: "asc" } } },
     });
 }
 
@@ -134,6 +141,7 @@ export default async function EnCategoryHubPage({ params }: PageProps) {
 
     const faqs = categoryFAQsEn[categorySlugEn] || [];
     const faqSchema = faqs.length > 0 ? generateFAQSchema(faqs) : null;
+    const c1 = CATEGORY_ACCENT[categorySlugEn] || "#22d3ee";
 
     return (
         <>
@@ -148,59 +156,79 @@ export default async function EnCategoryHubPage({ params }: PageProps) {
                 />
             )}
 
-            <main className="min-h-screen bg-white">
+            <main className="min-h-screen bg-[#0a0a0f]">
                 {/* Hero */}
-                <section className="pt-36 pb-20 border-b border-black/5">
-                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                        <nav className="flex items-center gap-2 text-[10px] uppercase tracking-widest text-black/40 font-bold mb-10">
-                            <Link href="/en" className="hover:text-black transition">Home</Link>
+                <section className="relative overflow-hidden bg-[#0a0a0f]">
+                    <div
+                        className="aurora-blob aurora-drift"
+                        style={{ width: 640, height: 640, top: "-18%", left: "4%", background: `radial-gradient(circle, ${c1}59, transparent 70%)` }}
+                    />
+                    <div
+                        className="aurora-blob aurora-drift2"
+                        style={{ width: 560, height: 560, top: "-12%", right: "0%", background: "radial-gradient(circle, rgba(34,211,238,0.3), transparent 70%)" }}
+                    />
+                    <div
+                        className="absolute inset-0 pointer-events-none"
+                        style={{ background: "linear-gradient(180deg, rgba(10,10,15,.1), rgba(10,10,15,.84))" }}
+                    />
+
+                    <div className="relative z-10 max-w-[1240px] mx-auto px-6 sm:px-12 pt-32 pb-16">
+                        <nav
+                            className="flex items-center gap-2 mb-8 text-[rgba(255,255,255,.4)]"
+                            style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: 11, letterSpacing: ".06em", textTransform: "uppercase" }}
+                        >
+                            <Link href="/en" className="hover:text-white transition-colors">Home</Link>
                             <span>/</span>
-                            <Link href="/en/services" className="hover:text-black transition">Services</Link>
+                            <Link href="/en/services" className="hover:text-white transition-colors">Services</Link>
                             <span>/</span>
-                            <span className="text-black">{category.name_en || category.name}</span>
+                            <span className="text-white/70">{category.name_en || category.name}</span>
                         </nav>
 
-                        <span className="inline-flex items-center gap-1.5 rounded-full bg-red-600/5 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-red-600 mb-6 border border-red-600/10">
-                            <span className="h-1.5 w-1.5 rounded-full bg-red-600" />
-                            {category.name_en || category.name}
-                        </span>
+                        <div className="max-w-[920px]">
+                            <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.18] px-3.5 py-[7px] mb-[26px]">
+                                <span className="h-[7px] w-[7px] rounded-full" style={{ background: c1, boxShadow: `0 0 10px ${c1}` }} />
+                                <span
+                                    className="text-[12px] uppercase tracking-[0.08em] text-[rgba(255,255,255,.7)]"
+                                    style={{ fontFamily: "var(--font-jetbrains-mono)", fontWeight: 500 }}
+                                >
+                                    {category.services.length} SERVICES
+                                </span>
+                            </div>
 
-                        <h1
-                            className="text-4xl sm:text-6xl lg:text-7xl font-light text-black tracking-tighter leading-[1.05] uppercase mb-8 max-w-4xl"
-                            style={{ fontFamily: "var(--font-inter-tight)" }}
-                        >
-                            {category.name_en || category.name}
-                        </h1>
+                            <h1
+                                className="text-white font-bold tracking-[-0.02em] leading-[0.98]"
+                                style={{ fontFamily: "var(--font-space-grotesk)", fontSize: "clamp(36px, 6vw, 64px)" }}
+                            >
+                                {category.name_en || category.name}
+                            </h1>
 
-                        {(category.metaDescription_en || category.heroContent) && (
-                            <p className="text-lg text-black/60 leading-relaxed max-w-3xl">
-                                {category.metaDescription_en || category.heroContent}
-                            </p>
-                        )}
+                            {(category.metaDescription_en || category.heroContent) && (
+                                <p
+                                    className="mt-[22px] max-w-[640px] text-[rgba(255,255,255,.64)]"
+                                    style={{ fontFamily: "var(--font-manrope)", fontSize: 18, lineHeight: 1.55 }}
+                                >
+                                    {category.metaDescription_en || category.heroContent}
+                                </p>
+                            )}
+                        </div>
                     </div>
                 </section>
 
                 {/* Services Grid */}
-                <section className="py-20">
-                    <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                        <div className="flex items-center gap-4 mb-12">
-                            <h2 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold">
-                                {category.services.length} Services
-                            </h2>
-                            <div className="h-[1px] flex-1 bg-black/5" />
-                        </div>
-
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                            {category.services.map((service) => (
-                                <Link
-                                    key={service.id}
-                                    href={
-                                        service.slug_en
-                                            ? `/en/services/${categorySlugEn}/${service.slug_en}`
-                                            : `/hizmetler/${category.slug}/${service.slug}`
-                                    }
-                                    className="group block relative aspect-[4/3] overflow-hidden bg-neutral-100"
-                                >
+                <section className="relative max-w-[1240px] mx-auto px-6 sm:px-12 py-16 sm:py-20">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                        {category.services.map((service) => (
+                            <Link
+                                key={service.id}
+                                href={
+                                    service.slug_en
+                                        ? `/en/services/${categorySlugEn}/${service.slug_en}`
+                                        : `/hizmetler/${category.slug}/${service.slug}`
+                                }
+                                className="group relative flex flex-col rounded-[20px] overflow-hidden border border-white/10 transition-all duration-[.4s] ease-[cubic-bezier(.2,.8,.2,1)] hover:-translate-y-3 hover:border-white/30"
+                                style={{ background: "linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02))" }}
+                            >
+                                <div className="relative aspect-[3/4] overflow-hidden bg-[#14141d]">
                                     {service.image ? (
                                         <img
                                             src={service.image}
@@ -208,90 +236,74 @@ export default async function EnCategoryHubPage({ params }: PageProps) {
                                             className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                                         />
                                     ) : (
-                                        <div className="w-full h-full bg-neutral-900 flex items-center justify-center p-8">
-                                            <span
-                                                className="text-white text-3xl font-bold uppercase tracking-tighter text-center leading-tight"
-                                                style={{ fontFamily: "var(--font-inter-tight)" }}
-                                            >
-                                                {service.title_en || service.title}
-                                            </span>
-                                        </div>
+                                        <div
+                                            className="absolute inset-0"
+                                            style={{
+                                                backgroundImage:
+                                                    "repeating-linear-gradient(135deg,#14141d,#14141d 11px,#1a1a25 11px,#1a1a25 22px)",
+                                            }}
+                                        />
                                     )}
-                                    <div className="absolute bottom-5 left-0">
-                                        <div className="bg-white px-6 py-4 border-y border-r border-black/5">
-                                            <h3
-                                                className="text-lg font-bold text-red-600 uppercase tracking-tighter leading-none"
-                                                style={{ fontFamily: "var(--font-inter-tight)" }}
-                                            >
-                                                {service.title_en || service.title}
-                                            </h3>
-                                            {(service.description_en || service.description) && (
-                                                <p className="text-xs text-black/50 mt-1 line-clamp-1">
-                                                    {service.description_en || service.description}
-                                                </p>
-                                            )}
+                                    <div
+                                        className="absolute inset-0 pointer-events-none opacity-[.34]"
+                                        style={{ background: `radial-gradient(circle at 72% 20%, ${c1}, transparent 64%)` }}
+                                    />
+                                </div>
+                                <div className="flex flex-col flex-1 px-[22px] pt-[22px] pb-6">
+                                    <div className="flex items-start justify-between gap-3 mb-2.5">
+                                        <div
+                                            className="text-white"
+                                            style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 19, lineHeight: 1.2, fontWeight: 600 }}
+                                        >
+                                            {service.title_en || service.title}
                                         </div>
+                                        <span className="text-[17px] font-semibold text-[var(--acc)] shrink-0">→</span>
                                     </div>
-                                </Link>
-                            ))}
-                        </div>
+                                    {(service.description_en || service.description) && (
+                                        <p
+                                            className="text-[rgba(255,255,255,.55)]"
+                                            style={{ fontFamily: "var(--font-manrope)", fontSize: 13.5, lineHeight: 1.55 }}
+                                        >
+                                            {service.description_en || service.description}
+                                        </p>
+                                    )}
+                                </div>
+                            </Link>
+                        ))}
                     </div>
                 </section>
 
                 {/* FAQ */}
                 {faqs.length > 0 && (
-                    <section className="py-20 border-t border-black/5">
-                        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                            <div className="flex items-center gap-4 mb-12">
-                                <h2 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold">
-                                    Frequently Asked Questions
-                                </h2>
-                                <div className="h-[1px] flex-1 bg-black/5" />
-                            </div>
-                            <div className="max-w-3xl">
-                                {faqs.map((faq, i) => (
-                                    <div key={i} className="border-b border-black/5 py-6">
-                                        <h3 className="font-semibold text-black mb-2">{faq.question}</h3>
-                                        <p className="text-black/60 text-sm leading-relaxed">{faq.answer}</p>
-                                    </div>
-                                ))}
-                            </div>
+                    <section className="relative max-w-[1240px] mx-auto px-6 sm:px-12 pb-20 sm:pb-24 border-t border-white/[0.08] pt-16">
+                        <span
+                            className="text-[12px] uppercase tracking-[0.14em] text-[var(--acc)]"
+                            style={{ fontFamily: "var(--font-jetbrains-mono)", fontWeight: 500 }}
+                        >
+                            FREQUENTLY ASKED QUESTIONS
+                        </span>
+                        <div className="max-w-[760px] mt-8">
+                            {faqs.map((faq, i) => (
+                                <div key={i} className="border-b border-white/[0.08] py-6">
+                                    <h3
+                                        className="text-white mb-2"
+                                        style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 17, fontWeight: 600 }}
+                                    >
+                                        {faq.question}
+                                    </h3>
+                                    <p
+                                        className="text-[rgba(255,255,255,.55)]"
+                                        style={{ fontFamily: "var(--font-manrope)", fontSize: 14.5, lineHeight: 1.65 }}
+                                    >
+                                        {faq.answer}
+                                    </p>
+                                </div>
+                            ))}
                         </div>
                     </section>
                 )}
 
-                {/* CTA */}
-                <section className="py-24 bg-black mx-4 sm:mx-8 mb-16 rounded-2xl">
-                    <div className="max-w-2xl mx-auto text-center px-6">
-                        <p className="text-[10px] uppercase tracking-[0.3em] text-white/30 font-semibold mb-4">
-                            Let&apos;s Plan Your Event
-                        </p>
-                        <p
-                            className="text-3xl sm:text-4xl font-light text-white tracking-tighter leading-[1.1] uppercase mb-4"
-                            style={{ fontFamily: "var(--font-inter-tight)" }}
-                        >
-                            Get a Quote <br />
-                            <span className="font-bold">For Your Project</span>
-                        </p>
-                        <p className="text-white/40 text-sm mb-8">
-                            We&apos;ll get back to you within 24 hours.
-                        </p>
-                        <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                            <Link
-                                href="/en/contact"
-                                className="inline-flex items-center justify-center px-10 py-4 bg-red-600 text-white font-bold rounded-full hover:bg-red-700 transition uppercase tracking-widest text-xs"
-                            >
-                                PLAN MY EVENT
-                            </Link>
-                            <a
-                                href="tel:+905342334051"
-                                className="inline-flex items-center justify-center px-10 py-4 bg-white/10 text-white font-bold rounded-full hover:bg-white/20 transition uppercase tracking-widest text-xs"
-                            >
-                                +90 534 233 4051
-                            </a>
-                        </div>
-                    </div>
-                </section>
+                <CtaSection />
             </main>
         </>
     );

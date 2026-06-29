@@ -72,7 +72,31 @@ async function getProject(slug: string) {
             video: true,
             projectDate: true,
             createdAt: true,
+            order: true,
         },
+    });
+}
+
+const NEXT_PROJECT_SELECT = {
+    slug: true,
+    slug_en: true,
+    title: true,
+    title_en: true,
+    image: true,
+    category: true,
+} as const;
+
+async function getNextProject(currentId: string, order: number) {
+    const next = await prisma.project.findFirst({
+        where: { published: true, order: { gt: order }, NOT: { id: currentId } },
+        orderBy: { order: "asc" },
+        select: NEXT_PROJECT_SELECT,
+    });
+    if (next) return next;
+    return prisma.project.findFirst({
+        where: { published: true, NOT: { id: currentId } },
+        orderBy: { order: "asc" },
+        select: NEXT_PROJECT_SELECT,
     });
 }
 
@@ -85,6 +109,8 @@ export default async function ProjectDetailPage({
     const project = await getProject(slug);
 
     if (!project) notFound();
+
+    const nextProject = await getNextProject(project.id, project.order);
 
     const youtubeIdMatch = project.video?.match(
         /youtube\.com\/(?:watch\?v=|shorts\/|embed\/)([^?&/]+)|youtu\.be\/([^?&/]+)/
@@ -107,7 +133,7 @@ export default async function ProjectDetailPage({
                 <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchema) }} />
             )}
             <AdminEditUrlSetter url={`/editpanel/projects/${project.id}/edit`} />
-            <ProjectDetailClient project={project} />
+            <ProjectDetailClient project={project} nextProject={nextProject} />
         </>
     );
 }

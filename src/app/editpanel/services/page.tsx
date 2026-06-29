@@ -1,6 +1,7 @@
 import { prisma } from "@/lib/db";
 import Link from "next/link";
 import { ServiceFeaturedToggle } from "./ServiceFeaturedToggle";
+import { ServicePublishedToggle } from "./ServicePublishedToggle";
 
 export const dynamic = 'force-dynamic';
 
@@ -58,6 +59,9 @@ export default async function AdminServicesPage() {
                                         Hizmet
                                     </th>
                                     <th className="text-center px-6 py-3 text-xs font-medium text-black/50 uppercase tracking-wider">
+                                        Durum
+                                    </th>
+                                    <th className="text-center px-6 py-3 text-xs font-medium text-black/50 uppercase tracking-wider">
                                         Anasayfa
                                     </th>
                                     <th className="text-center px-6 py-3 text-xs font-medium text-black/50 uppercase tracking-wider">
@@ -81,6 +85,12 @@ export default async function AdminServicesPage() {
                                             <p className="font-medium text-black">
                                                 {service.title}
                                             </p>
+                                        </td>
+                                        <td className="px-6 py-4 text-center">
+                                            <ServicePublishedToggle
+                                                serviceId={service.id}
+                                                initialPublished={service.published}
+                                            />
                                         </td>
                                         <td className="px-6 py-4 text-center">
                                             <ServiceFeaturedToggle

@@ -91,6 +91,7 @@ export default async function EnglishServiceDetailPage({ params }: PageProps) {
         where: {
             categoryId: categoryData!.id,
             id: { not: service.id },
+            published: true,
         },
         take: 4,
     });

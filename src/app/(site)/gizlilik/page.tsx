@@ -17,38 +17,82 @@ export const metadata: Metadata = {
 
 export default function GizlilikPage() {
     return (
-        <section className="py-20">
-            <Container>
-                <h1 className="text-3xl font-semibold tracking-tight mb-6">Gizlilik Politikası</h1>
-                <div className="prose prose-neutral max-w-3xl">
-                    <p className="text-black/70">
-                        MetasoftCo olarak kişisel verilerinizin güvenliği konusunda azami önemi gösteriyoruz. Bu
-                        politika, 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) çerçevesinde hazırlanmıştır.
-                    </p>
-                    <h2 className="text-xl font-medium mt-8 mb-3">Toplanan Veriler</h2>
-                    <p className="text-black/70">
-                        İletişim formları ve etkinlik hizmetlerimiz aracılığıyla ad, e-posta ve telefon bilgileri
-                        toplanabilir. Bu veriler yalnızca hizmet sunumu amacıyla kullanılır.
-                    </p>
-                    <h2 className="text-xl font-medium mt-8 mb-3">Verilerin Kullanımı</h2>
-                    <p className="text-black/70">
-                        Toplanan veriler üçüncü taraflarla paylaşılmaz. Yalnızca hizmet iyileştirme ve iletişim
-                        amacıyla kullanılır.
-                    </p>
-                    <h2 className="text-xl font-medium mt-8 mb-3">Çerezler</h2>
-                    <p className="text-black/70">
-                        Sitemiz analitik amaçlı çerezler kullanmaktadır. Tarayıcı ayarlarınızdan çerezleri
-                        devre dışı bırakabilirsiniz.
-                    </p>
-                    <h2 className="text-xl font-medium mt-8 mb-3">İletişim</h2>
-                    <p className="text-black/70">
-                        KVKK kapsamındaki haklarınız için:{" "}
-                        <a href="mailto:info@metasoftco.com" className="text-red-700 hover:underline">
-                            {siteConfig.contact.email}
-                        </a>
-                    </p>
-                </div>
-            </Container>
-        </section>
+        <div className="bg-[#0a0a0f] min-h-screen">
+            <section className="py-32 sm:py-36">
+                <Container>
+                    <span
+                        className="text-[12px] uppercase tracking-[0.14em] text-[var(--acc)]"
+                        style={{ fontFamily: "var(--font-jetbrains-mono)", fontWeight: 500 }}
+                    >
+                        KVKK
+                    </span>
+                    <h1
+                        className="text-white font-bold tracking-[-0.02em] mt-4 mb-10"
+                        style={{ fontFamily: "var(--font-space-grotesk)", fontSize: "clamp(32px, 5vw, 48px)" }}
+                    >
+                        Gizlilik Politikası
+                    </h1>
+                    <div
+                        className="max-w-[700px] text-[rgba(255,255,255,.64)] space-y-7"
+                        style={{ fontFamily: "var(--font-manrope)", fontSize: 16, lineHeight: 1.7 }}
+                    >
+                        <p>
+                            MetasoftCo olarak kişisel verilerinizin güvenliği konusunda azami önemi gösteriyoruz. Bu
+                            politika, 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) çerçevesinde hazırlanmıştır.
+                        </p>
+                        <div>
+                            <h2
+                                className="text-white mb-3"
+                                style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 20, fontWeight: 600 }}
+                            >
+                                Toplanan Veriler
+                            </h2>
+                            <p>
+                                İletişim formları ve etkinlik hizmetlerimiz aracılığıyla ad, e-posta ve telefon bilgileri
+                                toplanabilir. Bu veriler yalnızca hizmet sunumu amacıyla kullanılır.
+                            </p>
+                        </div>
+                        <div>
+                            <h2
+                                className="text-white mb-3"
+                                style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 20, fontWeight: 600 }}
+                            >
+                                Verilerin Kullanımı
+                            </h2>
+                            <p>
+                                Toplanan veriler üçüncü taraflarla paylaşılmaz. Yalnızca hizmet iyileştirme ve iletişim
+                                amacıyla kullanılır.
+                            </p>
+                        </div>
+                        <div>
+                            <h2
+                                className="text-white mb-3"
+                                style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 20, fontWeight: 600 }}
+                            >
+                                Çerezler
+                            </h2>
+                            <p>
+                                Sitemiz analitik amaçlı çerezler kullanmaktadır. Tarayıcı ayarlarınızdan çerezleri devre
+                                dışı bırakabilirsiniz.
+                            </p>
+                        </div>
+                        <div>
+                            <h2
+                                className="text-white mb-3"
+                                style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 20, fontWeight: 600 }}
+                            >
+                                İletişim
+                            </h2>
+                            <p>
+                                KVKK kapsamındaki haklarınız için:{" "}
+                                <a href="mailto:info@metasoftco.com" className="text-[var(--acc)] hover:underline">
+                                    {siteConfig.contact.email}
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </Container>
+            </section>
+        </div>
     );
 }

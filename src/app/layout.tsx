@@ -1,6 +1,6 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter_Tight, DM_Sans, Lato, Barlow_Condensed, Poppins } from "next/font/google";
+import { Inter_Tight, DM_Sans, Lato, Barlow_Condensed, Poppins, Space_Grotesk, Manrope, JetBrains_Mono } from "next/font/google";
 import { headers } from "next/headers";
 import { siteConfig, generateMetaTags, generateOrganizationSchema, generateLocalBusinessSchema, generateSoftwareApplicationSchema } from "@/lib/site";
 import { Providers } from "@/providers/Providers";
@@ -35,6 +35,24 @@ const poppins = Poppins({
   variable: "--font-poppins",
 });
 
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-space-grotesk",
+});
+
+const manrope = Manrope({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700", "800"],
+  variable: "--font-manrope",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["500"],
+  variable: "--font-jetbrains-mono",
+});
+
 export const metadata: Metadata = {
   ...generateMetaTags(),
   metadataBase: new URL(siteConfig.url),
@@ -64,7 +82,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const lang = pathname.startsWith("/en") ? "en" : "tr";
 
   return (
-    <html lang={lang} className={`${interTight.variable} ${dmSans.variable} ${lato.variable} ${barlowCondensed.variable} ${poppins.variable}`} suppressHydrationWarning>
+    <html lang={lang} className={`${interTight.variable} ${dmSans.variable} ${lato.variable} ${barlowCondensed.variable} ${poppins.variable} ${spaceGrotesk.variable} ${manrope.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
       <head>
         {/* Google Ads */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=AW-862345276" />

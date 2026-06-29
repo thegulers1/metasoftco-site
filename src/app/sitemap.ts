@@ -79,7 +79,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     // Dinamik hizmet sayfaları
     const categories = await prisma.serviceCategory.findMany({
         include: {
-            services: true,
+            services: { where: { published: true } },
         },
     });
 

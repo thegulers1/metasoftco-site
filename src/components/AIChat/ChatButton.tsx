@@ -18,7 +18,8 @@ export function ChatButton() {
                     exit={{ opacity: 0, y: 24, scale: 0.9 }}
                     transition={{ type: "spring", damping: 20, stiffness: 260 }}
                     onClick={() => open(language)}
-                    className="fixed bottom-6 right-6 z-[150] flex items-center gap-2.5 bg-red-600 text-white pl-4 pr-5 py-3.5 rounded-full shadow-2xl hover:bg-red-700 active:scale-95 transition-colors cursor-pointer"
+                    className="fixed bottom-6 right-6 z-[150] flex items-center gap-2.5 text-white pl-4 pr-5 py-3.5 rounded-full shadow-2xl active:scale-95 transition-transform hover:-translate-y-0.5 cursor-pointer"
+                    style={{ background: "linear-gradient(90deg, #7c3aed, var(--acc))" }}
                     aria-label={
                         language === "en"
                             ? "Get event recommendations"

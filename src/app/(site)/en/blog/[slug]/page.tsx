@@ -109,78 +109,106 @@ export default async function EnglishBlogPostPage({ params }: Props) {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
             />
 
-            <article className="py-24 bg-white min-h-screen">
-                <Container>
-                    <div className="mb-10">
-                        <Link
-                            href="/en/blog"
-                            className="inline-flex items-center gap-2 text-sm text-black/50 hover:text-black transition-colors"
-                        >
-                            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                            </svg>
-                            Back to Blog
-                        </Link>
-                    </div>
+            <article className="bg-[#0a0a0f] min-h-screen overflow-x-hidden">
+                <div className="pt-32 pb-16">
+                    <Container>
+                        <div className="mb-10">
+                            <Link
+                                href="/en/blog"
+                                className="inline-flex items-center gap-2 text-[rgba(255,255,255,.5)] hover:text-white transition-colors"
+                                style={{ fontFamily: "var(--font-manrope)", fontSize: 14, fontWeight: 500 }}
+                            >
+                                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                </svg>
+                                Back to Blog
+                            </Link>
+                        </div>
 
-                    <header className="max-w-3xl mb-12">
-                        {post.category && (
-                            <span className="inline-block rounded-md bg-black/5 px-3 py-1 text-xs font-medium uppercase tracking-wider text-black/60 mb-4">
-                                {post.category}
-                            </span>
-                        )}
-                        <h1 className="text-3xl md:text-5xl font-black tracking-tighter text-black leading-tight mb-6">
-                            {title}
-                        </h1>
-                        {excerpt && (
-                            <p className="text-lg text-black/60 leading-relaxed">{excerpt}</p>
-                        )}
-                        <div className="flex items-center gap-4 mt-6 pt-6 border-t border-black/5 text-sm text-black/40">
-                            {post.author && <span>{post.author}</span>}
-                            {post.publishedAt && (
-                                <span>
-                                    {new Date(post.publishedAt).toLocaleDateString("en-US", {
-                                        year: "numeric",
-                                        month: "long",
-                                        day: "numeric",
-                                    })}
+                        <header className="max-w-[760px] mb-12">
+                            {post.category && (
+                                <span
+                                    className="inline-block rounded-full px-3 py-1 mb-4"
+                                    style={{
+                                        background: "rgba(255,255,255,.06)",
+                                        border: "1px solid rgba(255,255,255,.1)",
+                                        fontFamily: "var(--font-jetbrains-mono)",
+                                        fontSize: 11,
+                                        fontWeight: 500,
+                                        letterSpacing: ".06em",
+                                        color: "var(--acc)",
+                                        textTransform: "uppercase",
+                                    }}
+                                >
+                                    {post.category}
                                 </span>
                             )}
-                        </div>
-                    </header>
+                            <h1
+                                className="text-white font-bold tracking-[-0.02em] leading-[1.1] mb-6"
+                                style={{ fontFamily: "var(--font-space-grotesk)", fontSize: "clamp(32px, 5vw, 52px)" }}
+                            >
+                                {title}
+                            </h1>
+                            {excerpt && (
+                                <p
+                                    className="text-[rgba(255,255,255,.64)]"
+                                    style={{ fontFamily: "var(--font-manrope)", fontSize: 18, lineHeight: 1.6 }}
+                                >
+                                    {excerpt}
+                                </p>
+                            )}
+                            <div
+                                className="flex items-center gap-4 mt-6 pt-6 border-t border-white/[0.08] text-[rgba(255,255,255,.4)]"
+                                style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: 12.5 }}
+                            >
+                                {post.author && <span>{post.author}</span>}
+                                {post.publishedAt && (
+                                    <span>
+                                        {new Date(post.publishedAt).toLocaleDateString("en-US", {
+                                            year: "numeric",
+                                            month: "long",
+                                            day: "numeric",
+                                        })}
+                                    </span>
+                                )}
+                            </div>
+                        </header>
 
-                    {post.image && (
-                        <div className="relative aspect-[16/7] w-full overflow-hidden rounded-2xl mb-14 bg-black/5">
-                            <Image
-                                fill
-                                src={post.image}
-                                alt={title}
-                                className="object-cover"
-                                sizes="(max-width: 1200px) 100vw, 1200px"
-                                priority
+                        {post.image && (
+                            <div className="relative aspect-[16/7] w-full overflow-hidden rounded-[20px] mb-14 border border-white/10 bg-[#14141d]">
+                                <Image
+                                    fill
+                                    src={post.image}
+                                    alt={title}
+                                    className="object-cover"
+                                    sizes="(max-width: 1200px) 100vw, 1200px"
+                                    priority
+                                />
+                            </div>
+                        )}
+
+                        {content && (
+                            <div
+                                className="prose prose-lg prose-invert max-w-[760px] prose-headings:font-bold prose-headings:tracking-tight prose-a:text-[var(--acc)] prose-a:no-underline hover:prose-a:underline overflow-x-hidden break-words"
+                                style={{ fontFamily: "var(--font-manrope)" }}
+                                dangerouslySetInnerHTML={{ __html: addHeadingAnchors(content) }}
                             />
+                        )}
+
+                        <div className="max-w-[760px] mt-16 pt-10 border-t border-white/[0.08]">
+                            <Link
+                                href="/en/blog"
+                                className="inline-flex items-center gap-2 text-white hover:text-[var(--acc)] transition-colors"
+                                style={{ fontFamily: "var(--font-manrope)", fontSize: 14, fontWeight: 600 }}
+                            >
+                                <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                                </svg>
+                                All Posts
+                            </Link>
                         </div>
-                    )}
-
-                    {content && (
-                        <div
-                            className="prose prose-lg max-w-3xl prose-headings:font-black prose-headings:tracking-tight prose-a:text-black prose-a:underline"
-                            dangerouslySetInnerHTML={{ __html: addHeadingAnchors(content) }}
-                        />
-                    )}
-
-                    <div className="max-w-3xl mt-16 pt-10 border-t border-black/10">
-                        <Link
-                            href="/en/blog"
-                            className="inline-flex items-center gap-2 text-sm font-medium text-black hover:underline underline-offset-4"
-                        >
-                            <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                            </svg>
-                            All Posts
-                        </Link>
-                    </div>
-                </Container>
+                    </Container>
+                </div>
             </article>
         </>
     );

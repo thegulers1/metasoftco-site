@@ -5,8 +5,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion, AnimatePresence } from "motion/react";
 import { useLanguage } from "@/providers/LanguageProvider";
-import { Globe } from "lucide-react";
-import { CircularTextButton } from "@/components/ui/circular-text-button";
+import { Globe, Sparkles } from "lucide-react";
+import { useChatStore } from "@/components/AIChat/useChatStore";
 
 const getMenu = (t: (tr: string, en: string) => string, lang: "tr" | "en") =>
     lang === "en"
@@ -29,6 +29,7 @@ export default function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const { language, setLanguage, t } = useLanguage();
+    const { open: openChat } = useChatStore();
     const menu = getMenu(t, language);
 
     useEffect(() => {
@@ -91,13 +92,15 @@ export default function Navbar() {
                             </span>
                         </button>
 
-                        {/* İletişim butonu — desktop */}
-                        <div className="hidden lg:block">
-                            <CircularTextButton
-                                text={t("İLETİŞİME GEÇ ", "GET IN TOUCH ")}
-                                href={language === "en" ? "/en/contact" : "/iletisim"}
-                            />
-                        </div>
+                        {/* Öneri al butonu — desktop */}
+                        <button
+                            onClick={() => openChat(language)}
+                            className="hidden lg:inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold text-white transition-transform hover:-translate-y-0.5"
+                            style={{ background: "linear-gradient(90deg, #7c3aed, var(--acc))", fontFamily: "var(--font-manrope)" }}
+                        >
+                            <Sparkles className="w-4 h-4" />
+                            {t("Etkinliğin İçin Öneri Al", "Get Event Ideas")}
+                        </button>
 
                         {/* Hamburger — sadece mobile/tablet */}
                         <button
@@ -158,7 +161,7 @@ export default function Navbar() {
                                             <Link
                                                 href={m.href}
                                                 onClick={() => setIsOpen(false)}
-                                                className="block text-4xl sm:text-5xl font-bold text-white hover:text-red-500 transition-all duration-300 tracking-tighter"
+                                                className="block text-4xl sm:text-5xl font-bold text-white hover:text-[#22d3ee] transition-all duration-300 tracking-tighter"
                                             >
                                                 {m.label}
                                             </Link>
@@ -177,10 +180,10 @@ export default function Navbar() {
                                     <span className="text-[10px] text-white/40 uppercase tracking-[0.2em] font-semibold">
                                         {t("İletişim", "Contact")}
                                     </span>
-                                    <a href="mailto:info@metasoftco.com" className="text-base text-white hover:text-red-500 transition-colors w-fit">
+                                    <a href="mailto:info@metasoftco.com" className="text-base text-white hover:text-[#22d3ee] transition-colors w-fit">
                                         info@metasoftco.com
                                     </a>
-                                    <a href="tel:+905342334051" className="text-base text-white hover:text-red-500 transition-colors w-fit">
+                                    <a href="tel:+905342334051" className="text-base text-white hover:text-[#22d3ee] transition-colors w-fit">
                                         +90 534 233 4051
                                     </a>
                                 </div>

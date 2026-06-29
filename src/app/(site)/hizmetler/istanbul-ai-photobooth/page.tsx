@@ -47,7 +47,7 @@ export default async function IstanbulAiPhotoboothPage() {
     const serviceIds: string[] = page.serviceIds ? JSON.parse(page.serviceIds) : [];
     const relatedServices = serviceIds.length > 0
         ? await prisma.service.findMany({
-            where: { id: { in: serviceIds } },
+            where: { id: { in: serviceIds }, published: true },
             include: { category: true },
           })
         : [];
@@ -73,7 +73,7 @@ export default async function IstanbulAiPhotoboothPage() {
     } : null;
 
     return (
-        <div className="min-h-screen bg-white pt-32 pb-20">
+        <>
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
             {faqSchema && (
                 <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
@@ -91,6 +91,6 @@ export default async function IstanbulAiPhotoboothPage() {
                 trUrl={`/hizmetler/${SLUG}`}
                 enUrl={enUrl}
             />
-        </div>
+        </>
     );
 }

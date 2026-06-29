@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { siteConfig, generateFAQSchema, generateBreadcrumbSchema } from "@/lib/site";
 import { getSectorBySlugEn, sectors } from "@/app/(site)/sektorel-yazilim-cozumleri/data";
+import CtaSection from "@/components/site/CtaSection";
 
 interface PageProps {
     params: Promise<{ sektor: string }>;
@@ -58,72 +59,99 @@ export default async function SektorEnPage({ params }: PageProps) {
     ]);
 
     return (
-        <div className="min-h-screen bg-white pt-32 pb-20">
+        <div className="min-h-screen bg-[#0a0a0f] pt-32 pb-20">
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
 
-            <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
-
+            <div className="mx-auto max-w-[840px] px-6 sm:px-8">
                 {/* Breadcrumb */}
-                <nav className="mb-8 flex items-center gap-2 text-sm text-black/50">
-                    <Link href="/" className="hover:text-black transition uppercase tracking-widest text-[10px] font-bold">
-                        Home
-                    </Link>
-                    <span className="text-black/20">/</span>
-                    <Link href="/en/industry-software-solutions" className="hover:text-black transition uppercase tracking-widest text-[10px] font-bold">
-                        Sectoral Solutions
-                    </Link>
-                    <span className="text-black/20">/</span>
-                    <span className="text-black font-bold uppercase tracking-widest text-[10px]">{sector.name_en}</span>
+                <nav
+                    className="mb-8 flex items-center gap-2 text-[rgba(255,255,255,.4)]"
+                    style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: 11, letterSpacing: ".06em", textTransform: "uppercase" }}
+                >
+                    <Link href="/en" className="hover:text-white transition-colors">Home</Link>
+                    <span>/</span>
+                    <Link href="/en/industry-software-solutions" className="hover:text-white transition-colors">Sectoral Solutions</Link>
+                    <span>/</span>
+                    <span className="text-white/70">{sector.name_en}</span>
                 </nav>
 
                 {/* Header */}
                 <div className="mb-10">
-                    <span className="inline-flex items-center gap-1.5 rounded-full bg-red-600/5 px-3 py-1 text-[10px] font-bold uppercase tracking-widest text-red-600 mb-4 border border-red-600/10">
-                        <span className="h-1.5 w-1.5 rounded-full bg-red-600" />
-                        Sector Solution
-                    </span>
+                    <div className="inline-flex items-center gap-2 rounded-full border border-white/[0.18] px-3.5 py-[7px] mb-5">
+                        <span className="h-[7px] w-[7px] rounded-full bg-[var(--acc)]" style={{ boxShadow: "0 0 10px var(--acc)" }} />
+                        <span
+                            className="text-[12px] uppercase tracking-[0.08em] text-[rgba(255,255,255,.7)]"
+                            style={{ fontFamily: "var(--font-jetbrains-mono)", fontWeight: 500 }}
+                        >
+                            Sector Solution
+                        </span>
+                    </div>
                     <h1
-                        className="text-4xl sm:text-6xl font-light text-black tracking-tighter mt-2 leading-[1.1] uppercase"
-                        style={{ fontFamily: "var(--font-inter-tight)" }}
+                        className="text-white font-bold tracking-[-0.02em] leading-[1.05]"
+                        style={{ fontFamily: "var(--font-space-grotesk)", fontSize: "clamp(32px, 6vw, 56px)" }}
                     >
                         {sector.title_en}
                     </h1>
-                    <p className="mt-6 text-xl text-black/60 leading-relaxed font-normal max-w-2xl">
+                    <p
+                        className="mt-6 max-w-[640px] text-[rgba(255,255,255,.64)]"
+                        style={{ fontFamily: "var(--font-manrope)", fontSize: 18, lineHeight: 1.6 }}
+                    >
                         {sector.intro_en}
                     </p>
                 </div>
 
                 {/* Deep Dive Section */}
                 <div className="mb-20">
-                    <div className="flex items-center gap-4 mb-10">
-                        <h2 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold">Our Approach to {sector.name_en}</h2>
-                        <div className="h-[1px] flex-1 bg-black/5" />
+                    <div className="flex items-center gap-4 mb-8">
+                        <h2
+                            className="text-[var(--acc)]"
+                            style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: 12, letterSpacing: ".14em", fontWeight: 500, textTransform: "uppercase" }}
+                        >
+                            Our Approach to {sector.name_en}
+                        </h2>
+                        <div className="h-[1px] flex-1 bg-white/[0.08]" />
                     </div>
-                    <div className="space-y-5 max-w-3xl">
+                    <div className="space-y-5" style={{ fontFamily: "var(--font-manrope)" }}>
                         {sector.deepDive_en.map((paragraph, i) => (
-                            <p key={i} className="text-black/60 leading-relaxed">{paragraph}</p>
+                            <p key={i} className="text-[rgba(255,255,255,.6)]" style={{ fontSize: 15.5, lineHeight: 1.7 }}>
+                                {paragraph}
+                            </p>
                         ))}
                     </div>
                 </div>
 
                 {/* Services Section */}
                 <div className="mb-20">
-                    <div className="flex items-center gap-4 mb-10">
-                        <h2 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold">Our {sector.name_en} Services</h2>
-                        <div className="h-[1px] flex-1 bg-black/5" />
+                    <div className="flex items-center gap-4 mb-8">
+                        <h2
+                            className="text-[var(--acc)]"
+                            style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: 12, letterSpacing: ".14em", fontWeight: 500, textTransform: "uppercase" }}
+                        >
+                            Our {sector.name_en} Services
+                        </h2>
+                        <div className="h-[1px] flex-1 bg-white/[0.08]" />
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                         {sector.services_en.map((service, i) => (
                             <Link
                                 key={i}
                                 href={service.href}
-                                className="group block p-6 bg-black/[0.02] hover:bg-black/[0.05] transition border border-black/5"
+                                className="group block p-6 rounded-[16px] border border-white/[0.08] hover:border-white/20 transition-colors"
+                                style={{ background: "rgba(255,255,255,.04)" }}
                             >
-                                <h3 className="font-bold text-black uppercase tracking-tight group-hover:text-red-600 transition mb-2">
+                                <h3
+                                    className="text-white group-hover:text-[var(--acc)] transition-colors mb-2"
+                                    style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 16, fontWeight: 600 }}
+                                >
                                     {service.name}
                                 </h3>
-                                <p className="text-sm text-black/60 leading-relaxed">{service.desc}</p>
+                                <p
+                                    className="text-[rgba(255,255,255,.55)]"
+                                    style={{ fontFamily: "var(--font-manrope)", fontSize: 13.5, lineHeight: 1.55 }}
+                                >
+                                    {service.desc}
+                                </p>
                             </Link>
                         ))}
                     </div>
@@ -131,92 +159,99 @@ export default async function SektorEnPage({ params }: PageProps) {
 
                 {/* FAQ Section */}
                 <div className="mb-20">
-                    <div className="flex items-center gap-4 mb-10">
-                        <h2 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold">FAQ — {sector.name_en}</h2>
-                        <div className="h-[1px] flex-1 bg-black/5" />
+                    <div className="flex items-center gap-4 mb-8">
+                        <h2
+                            className="text-[var(--acc)]"
+                            style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: 12, letterSpacing: ".14em", fontWeight: 500, textTransform: "uppercase" }}
+                        >
+                            FAQ — {sector.name_en}
+                        </h2>
+                        <div className="h-[1px] flex-1 bg-white/[0.08]" />
                     </div>
-                    <div className="space-y-6">
+                    <div>
                         {sector.faqs_en.map((faq, i) => (
-                            <div key={i} className="border-b border-black/10 pb-6">
-                                <h3 className="font-bold text-black mb-3">{faq.question}</h3>
-                                <p className="text-black/60 leading-relaxed">{faq.answer}</p>
+                            <div key={i} className="border-b border-white/[0.08] py-6">
+                                <h3
+                                    className="text-white mb-2"
+                                    style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 17, fontWeight: 600 }}
+                                >
+                                    {faq.question}
+                                </h3>
+                                <p
+                                    className="text-[rgba(255,255,255,.55)]"
+                                    style={{ fontFamily: "var(--font-manrope)", fontSize: 14.5, lineHeight: 1.65 }}
+                                >
+                                    {faq.answer}
+                                </p>
                             </div>
                         ))}
                     </div>
                 </div>
 
-                {/* CTA grid */}
-                <div className="pt-16 border-t border-black/10">
+                {/* Get in Touch + Services */}
+                <div className="pt-16 border-t border-white/[0.08]">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
                         <div>
-                            <h2 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold mb-6">Get in Touch</h2>
-                            <p className="text-black/60 mb-8 leading-relaxed">
+                            <h2
+                                className="text-[var(--acc)] mb-5"
+                                style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: 12, letterSpacing: ".14em", fontWeight: 500, textTransform: "uppercase" }}
+                            >
+                                Get in Touch
+                            </h2>
+                            <p
+                                className="mb-7 text-[rgba(255,255,255,.55)]"
+                                style={{ fontFamily: "var(--font-manrope)", fontSize: 14.5, lineHeight: 1.6 }}
+                            >
                                 {sector.cta_en}
                             </p>
                             <Link
                                 href="/en/contact"
-                                className="inline-flex items-center justify-center px-10 py-4 bg-red-600 text-white font-bold rounded-full hover:bg-red-700 transition uppercase tracking-widest text-xs"
+                                className="inline-flex items-center gap-2 text-white font-semibold text-xs uppercase tracking-[0.1em] px-7 py-3.5 rounded-full transition-transform hover:-translate-y-0.5"
+                                style={{ background: "linear-gradient(90deg, #7c3aed, var(--acc))", fontFamily: "var(--font-manrope)" }}
                             >
-                                GET A QUOTE
+                                Get a Quote
                             </Link>
                         </div>
                         <div>
-                            <h2 className="text-xs uppercase tracking-[0.3em] text-black/40 font-semibold mb-6">All Our Services</h2>
-                            <p className="text-black/60 mb-8 leading-relaxed">
+                            <h2
+                                className="text-[var(--acc)] mb-5"
+                                style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: 12, letterSpacing: ".14em", fontWeight: 500, textTransform: "uppercase" }}
+                            >
+                                All Our Services
+                            </h2>
+                            <p
+                                className="mb-7 text-[rgba(255,255,255,.55)]"
+                                style={{ fontFamily: "var(--font-manrope)", fontSize: 14.5, lineHeight: 1.6 }}
+                            >
                                 Explore all interactive digital activation solutions we offer for your events.
                             </p>
                             <Link
                                 href="/en/services"
-                                className="inline-flex items-center justify-center px-10 py-4 bg-black text-white font-bold rounded-full hover:bg-black/80 transition uppercase tracking-widest text-xs"
+                                className="inline-flex items-center gap-2 text-white font-semibold text-xs uppercase tracking-[0.1em] px-7 py-3.5 rounded-full border border-white/15 hover:border-white/30 transition-colors"
+                                style={{ fontFamily: "var(--font-manrope)" }}
                             >
-                                VIEW SERVICES
+                                View Services
                             </Link>
                         </div>
                     </div>
                 </div>
 
-                {/* Bottom CTA Banner */}
-                <div className="mt-20 bg-black rounded-2xl px-8 sm:px-14 py-14 text-center">
-                    <p className="text-[10px] uppercase tracking-[0.3em] text-white/30 font-semibold mb-4">Plan Your Event</p>
-                    <p
-                        className="text-3xl sm:text-4xl font-light text-white tracking-tighter leading-[1.1] uppercase mb-4"
-                        style={{ fontFamily: "var(--font-inter-tight)" }}
-                    >
-                        For Your Project<br />
-                        <span className="font-bold">Get a Quote Now</span>
-                    </p>
-                    <p className="text-white/40 text-sm leading-relaxed max-w-md mx-auto mb-8">
-                        Contact our team for solutions tailored to your brand. We will get back to you within 24 hours.
-                    </p>
-                    <div className="flex flex-col sm:flex-row gap-3 justify-center">
-                        <Link
-                            href="/en/contact"
-                            className="inline-flex items-center justify-center px-10 py-4 bg-red-600 text-white font-bold rounded-full hover:bg-red-700 transition uppercase tracking-widest text-xs"
-                        >
-                            LET&apos;S PLAN YOUR EVENT
-                        </Link>
-                        <a
-                            href="tel:+905342334051"
-                            className="inline-flex items-center justify-center px-10 py-4 bg-white/10 text-white font-bold rounded-full hover:bg-white/20 transition uppercase tracking-widest text-xs"
-                        >
-                            +90 534 233 4051
-                        </a>
-                    </div>
-                </div>
-
                 {/* Back Link */}
-                <div className="mt-10">
+                <div className="mt-16">
                     <Link
                         href="/en/industry-software-solutions"
-                        className="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[0.2em] text-black/40 hover:text-black transition"
+                        className="inline-flex items-center gap-2 text-[rgba(255,255,255,.4)] hover:text-white transition-colors"
+                        style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: 11.5, letterSpacing: ".1em", textTransform: "uppercase" }}
                     >
                         <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M15 19l-7-7 7-7" />
                         </svg>
-                        ALL SECTOR SOLUTIONS
+                        All Sector Solutions
                     </Link>
                 </div>
             </div>
+
+            <CtaSection />
         </div>
     );
 }

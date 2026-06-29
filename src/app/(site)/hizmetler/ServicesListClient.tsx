@@ -2,9 +2,7 @@
 
 import { useState, useMemo, useEffect } from "react";
 import { useLanguage } from "@/providers/LanguageProvider";
-import ParticleBackground from "@/components/site/ParticleBackground";
 import Link from "next/link";
-import { motion, AnimatePresence } from "motion/react";
 
 interface Service {
     id: string;
@@ -15,6 +13,13 @@ interface Service {
     slug: string;
     slug_en: string | null;
     image: string | null;
+    accentText?: string | null;
+    accentText_en?: string | null;
+    accentColor?: string | null;
+    categoryName?: string;
+    categorySlug?: string;
+    categorySlugEn?: string | null;
+    c1?: string;
 }
 
 interface ServiceCategory {
@@ -30,12 +35,21 @@ interface ServicesListClientProps {
     categories: ServiceCategory[];
 }
 
+const CATEGORY_ACCENT: Record<string, string> = {
+    "yapay-zeka-etkinlik-cozumleri": "#7c3aed",
+    "photobooth-ve-fotograf-aktivasyonlari": "#e879f9",
+    "interaktif-etkinlik-aktiviteleri": "#fb923c",
+};
+
 export default function ServicesListClient({ categories }: ServicesListClientProps) {
     const { language, t, setAlternateUrl } = useLanguage();
-    const [activeCategory, setActiveCategory] = useState<string>("all");
+    const [active, setActive] = useState<string>("all");
 
     const filteredCategories = categories.filter(
-        (cat) => !cat.slug.includes("yazilim") && !cat.name.toLowerCase().includes("yazılım")
+        (cat) =>
+            !cat.slug.includes("yazilim") &&
+            !cat.name.toLowerCase().includes("yazılım") &&
+            cat.services.length > 0
     );
 
     useEffect(() => {
@@ -43,166 +57,149 @@ export default function ServicesListClient({ categories }: ServicesListClientPro
     }, []);
 
     const allServices = useMemo(() => {
-        return filteredCategories.flatMap(cat => cat.services.map(s => ({
-            ...s,
-            categoryName: language === "en" ? (cat.name_en || cat.name) : cat.name,
-            categorySlug: cat.slug,
-            categorySlugEn: cat.slug_en,
-        })));
-    }, [categories, language]);
+        return filteredCategories.flatMap((cat) =>
+            cat.services.map((s) => ({
+                ...s,
+                categoryName: language === "en" ? cat.name_en || cat.name : cat.name,
+                categorySlug: cat.slug,
+                categorySlugEn: cat.slug_en,
+                c1: CATEGORY_ACCENT[cat.slug] || "#22d3ee",
+            }))
+        );
+    }, [filteredCategories, language]);
 
-    const filteredServices = useMemo(() => {
-        if (activeCategory === "all") return allServices;
-        return allServices.filter(s => s.categorySlug === activeCategory);
-    }, [allServices, activeCategory]);
+    const visible = active === "all" ? allServices : allServices.filter((s) => s.categorySlug === active);
 
     return (
-        <div className="min-h-screen bg-[#0d0d0d]">
-            {/* Hero Section */}
-            <section className="relative h-[500px] flex items-center justify-center overflow-hidden bg-[#0d0d0d]">
-                <div className="absolute inset-0 z-0">
-                    <ParticleBackground />
-                </div>
-
-                <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                    >
-                        <h1
-                            className="text-5xl md:text-7xl lg:text-[80px] font-light uppercase tracking-tighter text-[#e5e5e5] mb-4"
-                            style={{ fontFamily: "var(--font-inter-tight)" }}
-                        >
-                            {t("ETKİNLİĞİNİZİ DÖNÜŞTÜRECEK", "TRANSFORM YOUR EVENT WITH")}
-                        </h1>
-                        <p className="text-sm md:text-base text-[#e5e5e5]/60 uppercase tracking-[0.2em] font-medium">
-                            {t("İNTERAKTİF AKTİVASYON HİZMETLERİ", "INTERACTIVE ACTIVATION SERVICES")}
-                        </p>
-                        <p className="mt-6 text-base md:text-lg text-[#e5e5e5]/70 max-w-3xl mx-auto leading-relaxed">
-                            {t(
-                                "Etkinliklerinizi unutulmaz kılacak 90'dan fazla deneyim! AI Photo Booth, 360 Video, VR ve interaktif kurulumlar arasından dilediğinizi kiralayın veya satın alın. Siz sadece anın tadını çıkarın; kişiselleştirme, kurulum ve operasyon detaylarının tamamı bizde!",
-                                "Over 90 experiences to make your events unforgettable! Rent or buy from AI Photo Booth, 360 Video, VR and interactive installations. Just enjoy the moment; personalization, setup and all operation details are on us!"
-                            )}
-                        </p>
-                    </motion.div>
-                </div>
-
-                {/* Bottom Gradient */}
-                <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#0d0d0d] to-transparent" />
-            </section>
-
-            {/* Category Filter Bar */}
-            <div className="sticky top-20 z-[60] bg-[#0d0d0d]/90 backdrop-blur-md border-b border-white/5">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex items-center gap-3 overflow-x-auto py-5 no-scrollbar">
+        <section className="relative max-w-[1240px] mx-auto px-6 sm:px-12 pt-2 pb-10">
+            <div className="sticky top-20 z-[60] -mx-6 sm:-mx-12 px-6 sm:px-12 bg-[#0a0a0f]/90 backdrop-blur-md">
+                <div className="flex items-center justify-between gap-5 flex-wrap py-[18px] mb-[30px] border-t border-b border-white/[0.08]">
+                    <div className="flex gap-2.5 flex-wrap">
                         <button
-                            onClick={() => setActiveCategory("all")}
-                            className={`whitespace-nowrap text-xs font-bold tracking-widest uppercase transition-all duration-300 px-5 py-2.5 rounded-[24px] border ${activeCategory === "all"
-                                ? "bg-red-600 text-white border-red-600"
-                                : "bg-transparent text-white border-white/40 hover:border-white"
-                                }`}
+                            onClick={() => setActive("all")}
+                            className="rounded-full transition-all duration-300 px-[18px] py-[10px] text-[13px] font-semibold cursor-pointer"
+                            style={{
+                                fontFamily: "var(--font-manrope)",
+                                background: active === "all" ? "#fff" : "rgba(255,255,255,.04)",
+                                color: active === "all" ? "#0a0a0f" : "rgba(255,255,255,.72)",
+                                border: `1px solid ${active === "all" ? "#fff" : "rgba(255,255,255,.14)"}`,
+                            }}
                         >
-                            {t("TÜMÜ", "ALL")}
+                            {t("Tümü", "All")}
                         </button>
-                        {filteredCategories.map((cat) => (
-                            <button
-                                key={cat.id}
-                                onClick={() => setActiveCategory(cat.slug)}
-                                className={`whitespace-nowrap text-xs font-bold tracking-widest uppercase transition-all duration-300 px-5 py-2.5 rounded-[24px] border ${activeCategory === cat.slug
-                                    ? "bg-red-600 text-white border-red-600"
-                                    : "bg-transparent text-white border-white/40 hover:border-white"
-                                    }`}
-                            >
-                                {language === "en" ? (cat.name_en || cat.name) : cat.name}
-                            </button>
-                        ))}
+                        {filteredCategories.map((cat) => {
+                            const on = cat.slug === active;
+                            return (
+                                <button
+                                    key={cat.id}
+                                    onClick={() => setActive(cat.slug)}
+                                    className="rounded-full transition-all duration-300 px-[18px] py-[10px] text-[13px] font-semibold cursor-pointer"
+                                    style={{
+                                        fontFamily: "var(--font-manrope)",
+                                        background: on ? "#fff" : "rgba(255,255,255,.04)",
+                                        color: on ? "#0a0a0f" : "rgba(255,255,255,.72)",
+                                        border: `1px solid ${on ? "#fff" : "rgba(255,255,255,.14)"}`,
+                                    }}
+                                >
+                                    {language === "en" ? cat.name_en || cat.name : cat.name}
+                                </button>
+                            );
+                        })}
                     </div>
+                    <span
+                        className="text-[13px] text-[rgba(255,255,255,.4)]"
+                        style={{ fontFamily: "var(--font-jetbrains-mono)", fontWeight: 500 }}
+                    >
+                        {visible.length} {language === "en" ? "SERVICES" : "HİZMET"}
+                    </span>
                 </div>
             </div>
 
-            {/* Services Grid */}
-            <section className="py-12">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <motion.div
-                        layout
-                        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
-                    >
-                        <AnimatePresence mode="popLayout">
-                            {filteredServices.map((service) => (
-                                <motion.div
-                                    key={service.id}
-                                    layout
-                                    initial={{ opacity: 0, scale: 0.9 }}
-                                    animate={{ opacity: 1, scale: 1 }}
-                                    exit={{ opacity: 0, scale: 0.9 }}
-                                    transition={{ duration: 0.4 }}
-                                >
-                                    <Link
-                                        href={language === "en" ? `/en/services/${service.categorySlugEn}/${service.slug_en}` : `/hizmetler/${service.categorySlug}/${service.slug}`}
-                                        className="group block relative aspect-[2/3] overflow-hidden bg-[#1a1a1a] rounded-[30px] transition-all duration-500"
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                {visible.map((service) => {
+                    const title = language === "en" ? service.title_en || service.title : service.title;
+                    const description = language === "en" ? service.description_en || service.description : service.description;
+                    const metric = language === "en" ? service.accentText_en || service.accentText : service.accentText;
+                    const c1 = service.accentColor || service.c1 || "#22d3ee";
+                    const href =
+                        language === "en"
+                            ? `/en/services/${service.categorySlugEn}/${service.slug_en}`
+                            : `/hizmetler/${service.categorySlug}/${service.slug}`;
+
+                    return (
+                        <Link
+                            key={service.id}
+                            href={href}
+                            className="group relative flex flex-col rounded-[20px] overflow-hidden border border-white/10 transition-all duration-[.4s] ease-[cubic-bezier(.2,.8,.2,1)] hover:-translate-y-3 hover:border-white/30"
+                            style={{ background: "linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02))" }}
+                        >
+                            <div className="relative aspect-[3/4] overflow-hidden bg-[#14141d]">
+                                {service.image ? (
+                                    <img
+                                        src={service.image}
+                                        alt={title}
+                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+                                    />
+                                ) : (
+                                    <div
+                                        className="absolute inset-0"
+                                        style={{
+                                            backgroundImage:
+                                                "repeating-linear-gradient(135deg,#14141d,#14141d 11px,#1a1a25 11px,#1a1a25 22px)",
+                                        }}
+                                    />
+                                )}
+                                <div
+                                    className="absolute inset-0 pointer-events-none opacity-[.34]"
+                                    style={{ background: `radial-gradient(circle at 72% 20%, ${c1}, transparent 64%)` }}
+                                />
+                                {service.categoryName && (
+                                    <div
+                                        className="absolute left-3.5 top-3.5 rounded-full px-3 py-1.5 backdrop-blur-sm"
+                                        style={{
+                                            background: "rgba(10,10,15,.62)",
+                                            fontFamily: "var(--font-jetbrains-mono)",
+                                            fontSize: 11,
+                                            fontWeight: 500,
+                                            letterSpacing: ".04em",
+                                            color: "rgba(255,255,255,.88)",
+                                        }}
                                     >
-                                        {service.image ? (
-                                            <img
-                                                src={service.image}
-                                                alt={service.title}
-                                                className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                                            />
-                                        ) : (
-                                            <div className="w-full h-full bg-neutral-900" />
-                                        )}
-
-                                        {/* Bottom gradient */}
-                                        <div
-                                            className="absolute inset-0 rounded-[30px]"
-                                            style={{ background: "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 55%)" }}
-                                        />
-
-                                        {/* Text — bottom left */}
-                                        <div className="absolute bottom-0 left-0 right-0 p-5">
-                                            <h3
-                                                className="text-[18px] font-semibold text-white leading-snug"
-                                                style={{ fontFamily: "var(--font-poppins)" }}
-                                            >
-                                                {language === "en" ? (service.title_en || service.title) : service.title}
-                                            </h3>
-                                            {(language === "en" ? (service.description_en || service.description) : service.description) && (
-                                                <p
-                                                    className="mt-1 text-[13px] font-normal leading-snug line-clamp-2"
-                                                    style={{ fontFamily: "var(--font-poppins)", color: "rgba(255,255,255,0.7)" }}
-                                                >
-                                                    {language === "en" ? (service.description_en || service.description) : service.description}
-                                                </p>
-                                            )}
-                                        </div>
-                                    </Link>
-                                </motion.div>
-                            ))}
-                        </AnimatePresence>
-                    </motion.div>
-                </div>
-            </section>
-
-            {/* Contact CTA */}
-            <section className="py-32 bg-neutral-50 border-t border-black/5">
-                <div className="max-w-4xl mx-auto px-4 text-center">
-                    <p className="text-4xl md:text-6xl font-bold tracking-tighter text-black mb-8 uppercase">
-                        {t("BİRLİKTE ÇALIŞALIM", "LET'S WORK TOGETHER")}
-                    </p>
-                    <p className="text-lg text-black/60 mb-12 max-w-2xl mx-auto">
-                        {t(
-                            "Yapay zeka fotoğraf aktivasyonlarından fiziksel photobooth üretimine, interaktif oyunlardan AR deneyimlerine — tüm hizmetler tek çatı altında. Her çözüm, katılımcıların telefonlarına düşen ve paylaşılan anlar için tasarlanmıştır.",
-                            "From AI photo activations to physical photobooth production, from interactive games to AR experiences — all services under one roof. Every solution is designed for moments that land on participants' phones and get shared."
-                        )}
-                    </p>
-                    <Link
-                        href={language === "en" ? "/en/contact" : "/iletisim"}
-                        className="inline-flex items-center justify-center px-12 py-5 bg-red-600 text-white font-bold rounded-full hover:bg-red-700 transition"
-                    >
-                        {t("BUGÜN KONUŞALIM →", "LET'S TALK TODAY →")}
-                    </Link>
-                </div>
-            </section>
-        </div>
+                                        {service.categoryName.toLocaleUpperCase(language === "en" ? "en" : "tr")}
+                                    </div>
+                                )}
+                            </div>
+                            <div className="flex flex-col flex-1 px-[22px] pt-[22px] pb-6">
+                                <div className="flex items-start justify-between gap-3 mb-2.5">
+                                    <div
+                                        className="text-white"
+                                        style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 19, lineHeight: 1.2, fontWeight: 600 }}
+                                    >
+                                        {title}
+                                    </div>
+                                    <span className="text-[17px] font-semibold text-[var(--acc)] shrink-0">→</span>
+                                </div>
+                                {description && (
+                                    <p
+                                        className="text-[rgba(255,255,255,.55)] mb-4"
+                                        style={{ fontFamily: "var(--font-manrope)", fontSize: 13.5, lineHeight: 1.55 }}
+                                    >
+                                        {description}
+                                    </p>
+                                )}
+                                {metric && (
+                                    <div
+                                        className="mt-auto pt-3.5 border-t border-white/[0.08]"
+                                        style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: 12, letterSpacing: ".03em", fontWeight: 500, color: c1 }}
+                                    >
+                                        {metric}
+                                    </div>
+                                )}
+                            </div>
+                        </Link>
+                    );
+                })}
+            </div>
+        </section>
     );
 }

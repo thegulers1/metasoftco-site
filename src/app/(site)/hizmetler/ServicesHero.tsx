@@ -4,7 +4,7 @@ import { useRef } from "react";
 import { motion } from "motion/react";
 import { useLanguage } from "@/providers/LanguageProvider";
 
-export default function ProjectsHero() {
+export default function ServicesHero() {
     const { language, t } = useLanguage();
     const heroRef = useRef<HTMLDivElement>(null);
 
@@ -57,7 +57,7 @@ export default function ProjectsHero() {
                             className="text-[12px] uppercase tracking-[0.08em] text-[rgba(255,255,255,.7)]"
                             style={{ fontFamily: "var(--font-jetbrains-mono)", fontWeight: 500 }}
                         >
-                            {t("SEÇİLMİŞ REFERANSLAR · 2021 — 2026", "SELECTED REFERENCES · 2021 — 2026")}
+                            {t("30+ AKTİVASYON FORMATI · TEK ÇATI", "30+ ACTIVATION FORMATS · ONE ROOF")}
                         </span>
                     </motion.div>
 
@@ -70,15 +70,15 @@ export default function ProjectsHero() {
                     >
                         {language === "tr" ? (
                             <>
-                                100+ marka,
+                                Etkinliğinizi dönüştürecek
                                 <br />
-                                <span className="shimmer-text">1.000+ etkinlik.</span>
+                                <span className="shimmer-text">interaktif deneyimler.</span>
                             </>
                         ) : (
                             <>
-                                100+ brands,
+                                Experiences that transform
                                 <br />
-                                <span className="shimmer-text">1,000+ events.</span>
+                                <span className="shimmer-text">your event.</span>
                             </>
                         )}
                     </motion.h1>
@@ -91,8 +91,8 @@ export default function ProjectsHero() {
                         style={{ fontFamily: "var(--font-manrope)", fontSize: 19, lineHeight: 1.55 }}
                     >
                         {t(
-                            "Her proje farklı bir brief'ten, aynı hedefle çıktı: katılımcı etkinlik bittikten sonra da konuşsun. Aşağıdakiler en çok paylaşılan, en çok sorulan işlerimizden bir seçki.",
-                            "Every project started from a different brief, with the same goal: keep participants talking long after the event ends. Below is a selection of our most shared, most requested work."
+                            "30'dan fazla deneyim arasından dilediğinizi kiralayın veya satın alın. AI Photobooth'tan interaktif oyunlara, kurulum ve operasyonun tamamı bizde — siz sadece anın tadını çıkarın.",
+                            "Rent or buy from over 30 experiences. From AI photobooth to interactive games, setup and operation are entirely on us — just enjoy the moment."
                         )}
                     </motion.p>
                 </div>

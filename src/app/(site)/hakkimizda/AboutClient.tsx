@@ -1,51 +1,150 @@
 "use client";
 
-import { useLanguage } from "@/providers/LanguageProvider";
-import Link from "next/link";
+import { useRef } from "react";
 import { motion } from "motion/react";
-import ParticleBackground from "@/components/site/ParticleBackground";
+import { useLanguage } from "@/providers/LanguageProvider";
+import CtaSection from "@/components/site/CtaSection";
+
+const VALUES = [
+    {
+        n: "01",
+        title: { tr: "TEKNİK DERİNLİK", en: "TECHNICAL DEPTH" },
+        desc: {
+            tr: "Prompt mühendisliğinden sahne lojistiğine her adımı içeride yapıyoruz. Dışarıya bırakmadığımız süreç, kontrolümüzden çıkmayan kalite demektir.",
+            en: "We handle every step in-house, from prompt engineering to stage logistics. What we don't outsource, we don't lose control of.",
+        },
+        c1: "#7c3aed",
+    },
+    {
+        n: "02",
+        title: { tr: "ÖLÇÜLEBİLİR ETKİ", en: "MEASURABLE IMPACT" },
+        desc: {
+            tr: "Paylaşım oranı, etkileşim süresi, marka hatırlanırlığı — her aktivasyonun çıktısı raporlanabilir. Hissetmekle yetinmiyoruz, ölçüyoruz.",
+            en: "Share rate, engagement duration, brand recall — every activation's output is reportable. We don't settle for gut feeling, we measure.",
+        },
+        c1: "#22d3ee",
+    },
+    {
+        n: "03",
+        title: { tr: "KVKK ÖNCE", en: "PRIVACY FIRST" },
+        desc: {
+            tr: "Kişisel veri etkinlik sonrası silinir; katılımcı güveni marka güvenidir. Tüm sistemler KVKK uyumlu, açık rıza mekanizmasıyla çalışır.",
+            en: "Personal data is deleted after the event; participant trust is brand trust. All systems operate with KVKK compliance and explicit consent mechanisms.",
+        },
+        c1: "#e879f9",
+    },
+];
+
+const STATS = [
+    { value: "1K+", label: { tr: "etkinlikte sahne", en: "events on stage" } },
+    { value: "100+", label: { tr: "marka güvendi", en: "brands trusted us" } },
+    { value: "5+", label: { tr: "yıl uzmanlık", en: "years of expertise" } },
+    { value: "∞", label: { tr: "deneyim potansiyeli", en: "experience potential" } },
+];
+
 export default function AboutClient() {
-    const { t } = useLanguage();
+    const { language, t } = useLanguage();
+    const heroRef = useRef<HTMLDivElement>(null);
+
+    const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+        const el = heroRef.current;
+        if (!el) return;
+        const rect = el.getBoundingClientRect();
+        el.style.setProperty("--mx", `${e.clientX - rect.left}px`);
+        el.style.setProperty("--my", `${e.clientY - rect.top}px`);
+    };
 
     return (
-        <div className="min-h-screen bg-[#0d0d0d]">
-            {/* Hero Section — Hizmetler sayfasıyla aynı stil */}
-            <section className="relative h-[500px] flex items-center justify-center overflow-hidden bg-[#0d0d0d]">
-                <div className="absolute inset-0 z-0">
-                    <ParticleBackground />
-                </div>
+        <div className="min-h-screen bg-[#0a0a0f]">
+            {/* Hero */}
+            <section
+                ref={heroRef}
+                onMouseMove={handleMouseMove}
+                className="relative overflow-hidden bg-[#0a0a0f]"
+            >
+                <div
+                    className="aurora-blob aurora-drift"
+                    style={{ width: 640, height: 640, top: "-18%", left: "4%", background: "radial-gradient(circle, rgba(124,58,237,0.35), transparent 70%)" }}
+                />
+                <div
+                    className="aurora-blob aurora-drift2"
+                    style={{ width: 560, height: 560, top: "-12%", right: "0%", background: "radial-gradient(circle, rgba(34,211,238,0.3), transparent 70%)" }}
+                />
+                <div
+                    className="aurora-blob aurora-drift3"
+                    style={{ width: 520, height: 520, top: "8%", left: "40%", background: "radial-gradient(circle, rgba(232,121,249,0.22), transparent 70%)" }}
+                />
+                <div className="hero-mouse-glow" />
+                <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{ background: "linear-gradient(180deg, rgba(10,10,15,.1), rgba(10,10,15,.84))" }}
+                />
 
-                <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20">
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8, ease: "easeOut" }}
-                    >
-                        <h1
-                            className="text-5xl md:text-7xl lg:text-[80px] font-light uppercase tracking-tighter text-[#e5e5e5] mb-4"
-                            style={{ fontFamily: "var(--font-inter-tight)" }}
+                <div className="relative z-10 max-w-[1240px] mx-auto px-6 sm:px-12 pt-32 pb-16">
+                    <div className="max-w-[920px]">
+                        <motion.div
+                            initial={{ opacity: 0, y: 12 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6 }}
+                            className="inline-flex items-center gap-2 rounded-full border border-white/[0.18] px-3.5 py-[7px] mb-[30px]"
                         >
-                            {t("TEKNOLOJİYİ SAHNEYE", "THE TEAM THAT BRINGS")}
-                        </h1>
-                        <p className="text-sm md:text-base text-[#e5e5e5]/60 uppercase tracking-[0.2em] font-medium">
-                            {t("ÇIKARAN EKİP — İSTANBUL, TÜRKİYE", "TECHNOLOGY TO THE STAGE — ISTANBUL, TURKEY")}
-                        </p>
-                    </motion.div>
-                </div>
+                            <span className="h-[7px] w-[7px] rounded-full bg-[#4ade80] live-dot" style={{ boxShadow: "0 0 10px #4ade80" }} />
+                            <span
+                                className="text-[12px] uppercase tracking-[0.08em] text-[rgba(255,255,255,.7)]"
+                                style={{ fontFamily: "var(--font-jetbrains-mono)", fontWeight: 500 }}
+                            >
+                                {t("İSTANBUL · 2020'DEN BERİ", "ISTANBUL · SINCE 2020")}
+                            </span>
+                        </motion.div>
 
-                {/* Bottom Gradient */}
-                <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[#0d0d0d] to-transparent" />
+                        <motion.h1
+                            initial={{ opacity: 0, y: 16 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.7, delay: 0.05 }}
+                            className="text-white font-bold tracking-[-0.02em] leading-[0.98]"
+                            style={{ fontFamily: "var(--font-space-grotesk)", fontSize: "clamp(40px, 7vw, 76px)" }}
+                        >
+                            {language === "tr" ? (
+                                <>
+                                    Teknolojiyi sahneye
+                                    <br />
+                                    <span className="shimmer-text">çıkaran ekip.</span>
+                                </>
+                            ) : (
+                                <>
+                                    The team that brings
+                                    <br />
+                                    <span className="shimmer-text">technology to the stage.</span>
+                                </>
+                            )}
+                        </motion.h1>
+
+                        <motion.p
+                            initial={{ opacity: 0, y: 16 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.7, delay: 0.12 }}
+                            className="mt-[26px] max-w-[640px] text-[rgba(255,255,255,.64)]"
+                            style={{ fontFamily: "var(--font-manrope)", fontSize: 19, lineHeight: 1.55 }}
+                        >
+                            {t(
+                                "2020'de İstanbul Bakırköy'de kurulan MetasoftCo, Türkiye'de yapay zeka destekli etkinlik teknolojilerinin öncüsüdür.",
+                                "Founded in 2020 in Bakırköy, Istanbul, MetasoftCo is a pioneer of AI-powered event technology in Turkey."
+                            )}
+                        </motion.p>
+                    </div>
+                </div>
             </section>
 
-            {/* Content */}
-            <section className="py-24 bg-[#0d0d0d]">
-                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center text-lg leading-relaxed text-[#e5e5e5]/70"
-                    style={{ fontFamily: "var(--font-dm-sans)" }}
+            {/* Intro paragraphs */}
+            <section className="relative max-w-[1240px] mx-auto px-6 sm:px-12 py-20 sm:py-24">
+                <div
+                    className="max-w-[760px] mx-auto text-center text-[rgba(255,255,255,.64)]"
+                    style={{ fontFamily: "var(--font-manrope)", fontSize: 17, lineHeight: 1.7 }}
                 >
-                    <p className="mb-8">
+                    <p className="mb-7">
                         {t(
-                            "2020'de İstanbul Bakırköy'de kurulan MetasoftCo, Türkiye'de yapay zeka destekli etkinlik teknolojilerinin öncüsüdür. Stable Diffusion modellerini fine-tune eden, ControlNet pipeline'larını etkinlik ortamına adapte eden, AR ve Computer Vision çözümlerini sahnede çalıştıran tek ekip değiliz — ama bunları fiziksel stand üretimi ve etkinlik prodüksiyonuyla aynı çatı altında sunan sayılı ajanslardan biriyiz.",
-                            "Founded in 2020 in Bakırköy, Istanbul, MetasoftCo is a pioneer of AI-powered event technology in Turkey. We're not the only team fine-tuning Stable Diffusion models, adapting ControlNet pipelines for live events, and running AR and Computer Vision solutions on stage — but we are one of the few agencies offering all of this alongside physical stand production and full event production under one roof."
+                            "Stable Diffusion modellerini fine-tune eden, ControlNet pipeline'larını etkinlik ortamına adapte eden, AR ve Computer Vision çözümlerini sahnede çalıştıran tek ekip değiliz — ama bunları fiziksel stand üretimi ve etkinlik prodüksiyonuyla aynı çatı altında sunan sayılı ajanslardan biriyiz.",
+                            "We're not the only team fine-tuning Stable Diffusion models, adapting ControlNet pipelines for live events, and running AR and Computer Vision solutions on stage — but we are one of the few agencies offering all of this alongside physical stand production and full event production under one roof."
                         )}
                     </p>
                     <p>
@@ -55,76 +154,72 @@ export default function AboutClient() {
                         )}
                     </p>
                 </div>
+
+                {/* Stats */}
+                <div className="mt-16 flex flex-wrap justify-center gap-12 sm:gap-16 border-t border-white/[0.08] pt-14">
+                    {STATS.map((stat) => (
+                        <div key={stat.value} className="text-center">
+                            <p
+                                className="text-white font-bold tracking-[-0.01em]"
+                                style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 36 }}
+                            >
+                                {stat.value}
+                            </p>
+                            <p className="text-white/50 text-sm mt-1" style={{ fontFamily: "var(--font-manrope)" }}>
+                                {stat.label[language]}
+                            </p>
+                        </div>
+                    ))}
+                </div>
             </section>
 
-            {/* Değerler */}
-            <section className="py-24 bg-[#0d0d0d] border-t border-white/5">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <h2 className="text-3xl md:text-4xl font-light tracking-tighter text-[#e5e5e5] mb-16 text-center"
-                        style={{ fontFamily: "var(--font-inter-tight)" }}
+            {/* Değerlerimiz */}
+            <section className="relative max-w-[1240px] mx-auto px-6 sm:px-12 pb-20 sm:pb-24">
+                <div className="text-center mb-12">
+                    <span
+                        className="text-[12px] uppercase tracking-[0.14em] text-[var(--acc)]"
+                        style={{ fontFamily: "var(--font-jetbrains-mono)", fontWeight: 500 }}
                     >
                         {t("DEĞERLERİMİZ", "OUR VALUES")}
-                    </h2>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-white/5">
-                        <div className="bg-[#0d0d0d] p-10">
-                            <h3 className="text-lg font-bold text-[#e5e5e5] mb-3 tracking-wider">
-                                {t("TEKNİK DERİNLİK", "TECHNICAL DEPTH")}
-                            </h3>
-                            <p className="text-[#e5e5e5]/50 text-sm leading-relaxed">
-                                {t(
-                                    "Prompt mühendisliğinden sahne lojistiğine her adımı içeride yapıyoruz. Dışarıya bırakmadığımız süreç, kontrolümüzden çıkmayan kalite demektir.",
-                                    "We handle every step in-house, from prompt engineering to stage logistics. What we don't outsource, we don't lose control of."
-                                )}
-                            </p>
+                    </span>
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    {VALUES.map((v) => (
+                        <div
+                            key={v.n}
+                            className="relative rounded-[20px] border border-white/10 overflow-hidden p-8"
+                            style={{ background: "linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02))" }}
+                        >
+                            <div
+                                className="absolute inset-0 pointer-events-none opacity-[.18]"
+                                style={{ background: `radial-gradient(circle at 80% -10%, ${v.c1}, transparent 60%)` }}
+                            />
+                            <div className="relative">
+                                <span
+                                    className="text-[12px]"
+                                    style={{ fontFamily: "var(--font-jetbrains-mono)", color: v.c1, fontWeight: 500 }}
+                                >
+                                    {v.n}
+                                </span>
+                                <h3
+                                    className="text-white mt-4 mb-3"
+                                    style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 19, fontWeight: 600 }}
+                                >
+                                    {v.title[language]}
+                                </h3>
+                                <p
+                                    className="text-[rgba(255,255,255,.55)]"
+                                    style={{ fontFamily: "var(--font-manrope)", fontSize: 13.5, lineHeight: 1.55 }}
+                                >
+                                    {v.desc[language]}
+                                </p>
+                            </div>
                         </div>
-                        <div className="bg-[#0d0d0d] p-10">
-                            <h3 className="text-lg font-bold text-[#e5e5e5] mb-3 tracking-wider">
-                                {t("ÖLÇÜLEBİLİR ETKİ", "MEASURABLE IMPACT")}
-                            </h3>
-                            <p className="text-[#e5e5e5]/50 text-sm leading-relaxed">
-                                {t(
-                                    "Paylaşım oranı, etkileşim süresi, marka hatırlanırlığı — her aktivasyonun çıktısı raporlanabilir. Hissetmekle yetinmiyoruz, ölçüyoruz.",
-                                    "Share rate, engagement duration, brand recall — every activation's output is reportable. We don't settle for gut feeling, we measure."
-                                )}
-                            </p>
-                        </div>
-                        <div className="bg-[#0d0d0d] p-10">
-                            <h3 className="text-lg font-bold text-[#e5e5e5] mb-3 tracking-wider">
-                                {t("KVKK ÖNCE", "PRIVACY FIRST")}
-                            </h3>
-                            <p className="text-[#e5e5e5]/50 text-sm leading-relaxed">
-                                {t(
-                                    "Kişisel veri etkinlik sonrası silinir; katılımcı güveni marka güvenidir. Tüm sistemler KVKK uyumlu, açık rıza mekanizmasıyla çalışır.",
-                                    "Personal data is deleted after the event; participant trust is brand trust. All systems operate with KVKK compliance and explicit consent mechanisms."
-                                )}
-                            </p>
-                        </div>
-                    </div>
+                    ))}
                 </div>
             </section>
 
-            {/* CTA */}
-            <section className="py-32 bg-[#141414] border-t border-white/5">
-                <div className="max-w-4xl mx-auto px-4 text-center">
-                    <p className="text-4xl md:text-6xl font-bold tracking-tighter text-[#e5e5e5] mb-8 uppercase"
-                        style={{ fontFamily: "var(--font-inter-tight)" }}
-                    >
-                        {t("BİRLİKTE ÇALIŞALIM", "LET'S WORK TOGETHER")}
-                    </p>
-                    <p className="text-lg text-white/50 mb-12 max-w-2xl mx-auto">
-                        {t(
-                            "Etkinliğiniz veya projeniz için en iyi interaktif çözümleri birlikte hayata geçirelim.",
-                            "Let's bring the best interactive solutions to life together for your event or project."
-                        )}
-                    </p>
-                    <Link
-                        href="/iletisim"
-                        className="inline-flex items-center justify-center px-12 py-5 bg-red-600 text-white font-bold rounded-full hover:bg-red-700 transition"
-                    >
-                        {t("TEKLİF ALIN", "GET A QUOTE")}
-                    </Link>
-                </div>
-            </section>
+            <CtaSection />
         </div>
     );
 }

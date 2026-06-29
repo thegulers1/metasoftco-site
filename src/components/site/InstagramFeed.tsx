@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
+import { useLanguage } from "@/providers/LanguageProvider";
 
 export interface InstagramPost {
     id: string;
@@ -13,6 +14,7 @@ export interface InstagramPost {
 }
 
 export default function InstagramFeed() {
+    const { t } = useLanguage();
     const [posts, setPosts] = useState<InstagramPost[]>([]);
     const [loading, setLoading] = useState(true);
     const [visible, setVisible] = useState(false);
@@ -52,9 +54,9 @@ export default function InstagramFeed() {
 
     if (!visible || loading) {
         return (
-            <div ref={containerRef} className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-20 opacity-50">
-                {[...Array(6)].map((_, i) => (
-                    <div key={i} className="aspect-square bg-white/5 animate-pulse rounded-xl" />
+            <div ref={containerRef} className="grid grid-cols-2 lg:grid-cols-4 gap-3.5 mb-20 opacity-50">
+                {[...Array(4)].map((_, i) => (
+                    <div key={i} className="aspect-square bg-white/5 animate-pulse rounded-2xl" />
                 ))}
             </div>
         );
@@ -64,31 +66,47 @@ export default function InstagramFeed() {
 
     return (
         <div ref={containerRef} className="mb-20">
-            <div className="flex items-center justify-between mb-8">
-                <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-600 flex items-center justify-center p-1.5">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="text-white w-full h-full">
-                            <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                        </svg>
+            <div className="flex items-center justify-between mb-8 flex-wrap gap-4">
+                <div className="flex items-center gap-[18px]">
+                    <div
+                        className="w-[58px] h-[58px] rounded-full flex items-center justify-center p-[2.5px]"
+                        style={{ background: "conic-gradient(from 210deg, #f0abfc, #e879f9, #fb923c, #facc15, #e879f9)" }}
+                    >
+                        <div
+                            className="w-full h-full rounded-full bg-[#14141d] flex items-center justify-center text-white"
+                            style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 17, fontWeight: 700 }}
+                        >
+                            M
+                        </div>
                     </div>
-                    <h3 className="text-sm font-bold uppercase tracking-widest text-white/40">
-                        @metasoftco
-                    </h3>
+                    <div>
+                        <h3
+                            className="text-white"
+                            style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 22, fontWeight: 600 }}
+                        >
+                            @metasoftco
+                        </h3>
+                        <p
+                            className="text-[rgba(255,255,255,.5)] mt-0.5"
+                            style={{ fontFamily: "var(--font-manrope)", fontSize: 13, fontWeight: 500 }}
+                        >
+                            {t("Sahne arkası, aktivasyonlar ve anlar", "Behind the scenes, activations and moments")}
+                        </p>
+                    </div>
                 </div>
                 <a
                     href="https://instagram.com/metasoftco"
                     target="_blank"
                     rel="nofollow noopener noreferrer"
-                    className="text-xs font-bold uppercase tracking-widest text-white/20 hover:text-white transition-colors"
+                    className="inline-flex items-center gap-2 rounded-full px-[26px] py-[13px] text-sm font-semibold text-white"
+                    style={{ background: "linear-gradient(90deg, #7c3aed, #e879f9)", fontFamily: "var(--font-manrope)" }}
                 >
-                    Takip Et →
+                    {t("Instagram'da Takip Et", "Follow on Instagram")}
                 </a>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-                {posts.map((post, index) => (
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3.5">
+                {posts.slice(0, 4).map((post, index) => (
                     <motion.a
                         key={post.id}
                         href={post.permalink}
@@ -97,7 +115,7 @@ export default function InstagramFeed() {
                         initial={{ opacity: 0, scale: 0.9 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ delay: index * 0.05 }}
-                        className="group relative aspect-square overflow-hidden rounded-xl bg-white/5"
+                        className="group relative aspect-square overflow-hidden rounded-2xl bg-white/5 border border-white/10 hover:border-white/30 transition-colors"
                     >
                         <img
                             src={post.mediaType === "VIDEO" ? (post.thumbnailUrl || post.mediaUrl) : post.mediaUrl}
@@ -106,12 +124,18 @@ export default function InstagramFeed() {
                             loading="lazy"
                             decoding="async"
                         />
-                        <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="text-white w-6 h-6">
-                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                            </svg>
-                        </div>
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/10 to-transparent" />
+                        {post.caption && (
+                            <p
+                                className="absolute bottom-2 left-3 right-3 text-white/90 text-xs line-clamp-1"
+                                style={{ fontFamily: "var(--font-manrope)" }}
+                            >
+                                {post.caption}
+                            </p>
+                        )}
+                        <span className="absolute top-2.5 right-3 text-white/90 text-xs flex items-center gap-1">
+                            ♥
+                        </span>
                     </motion.a>
                 ))}
             </div>

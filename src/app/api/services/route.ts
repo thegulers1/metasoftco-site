@@ -52,6 +52,10 @@ export async function POST(request: Request) {
             // Featured
             featured,
             featuredOrder,
+            // Accent / tag
+            accentText,
+            accentText_en,
+            accentColor,
             // English fields
             title_en,
             description_en,
@@ -65,6 +69,10 @@ export async function POST(request: Request) {
             data: {
                 categoryId,
                 title,
+                    // Accent / tag
+                    accentText: accentText || null,
+                    accentText_en: accentText_en || null,
+                    accentColor: accentColor || null,
                 homeTitle,
                 homeTitle_en,
                 slug,

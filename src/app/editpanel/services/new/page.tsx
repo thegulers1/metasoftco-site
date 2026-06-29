@@ -22,6 +22,9 @@ interface Service {
     size: string;
     bgColor: string | null;
     textColor: string;
+    accentText: string | null;
+    accentText_en: string | null;
+    accentColor: string | null;
     order: number;
     featured: boolean;
     featuredOrder: number;
@@ -67,6 +70,9 @@ export default function NewServicePage() {
         video: null,
         size: "medium",
         bgColor: null,
+        accentText: null,
+        accentText_en: null,
+        accentColor: null,
         textColor: "light",
         order: 0,
         featured: false,
@@ -208,6 +214,39 @@ export default function NewServicePage() {
                         <>
                             <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129" />
+
+                <div>
+                    <label className="block text-sm font-medium text-black/70 mb-2">Kart Alt Yazısı (Renkli)</label>
+                    <input
+                        type="text"
+                        value={service.accentText || ""}
+                        onChange={(e) => setService({ ...service, accentText: e.target.value || null })}
+                        className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
+                        placeholder="Altına görünecek kısa renkli metin (örn: 'Canlı Lansman')"
+                    />
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                    <div>
+                        <label className="block text-sm font-medium text-black/70 mb-2">Kart Alt Yazısı (İng)</label>
+                        <input
+                            type="text"
+                            value={service.accentText_en || ""}
+                            onChange={(e) => setService({ ...service, accentText_en: e.target.value || null })}
+                            className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
+                        />
+                    </div>
+                    <div>
+                        <label className="block text-sm font-medium text-black/70 mb-2">Accent Rengi (hex)</label>
+                        <input
+                            type="text"
+                            value={service.accentColor || ""}
+                            onChange={(e) => setService({ ...service, accentColor: e.target.value || null })}
+                            placeholder="#22d3ee"
+                            className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
+                        />
+                    </div>
+                </div>
                             </svg>
                             AI ile Çevir
                         </>
