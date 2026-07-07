@@ -2,10 +2,22 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 import { useLanguage } from "@/providers/LanguageProvider";
 
 export default function CtaSection() {
     const { t, language } = useLanguage();
+    const [whatsappUrl, setWhatsappUrl] = useState("https://wa.me/905342334051");
+
+    useEffect(() => {
+        const pageTitle = document.title.split("|")[0].trim();
+        const pageUrl = window.location.href;
+        const message =
+            language === "en"
+                ? `Hello, I'm writing from the "${pageTitle}" page (${pageUrl}). I'd like more information.`
+                : `Merhaba, "${pageTitle}" sayfasından yazıyorum (${pageUrl}). Bilgi almak istiyorum.`;
+        setWhatsappUrl(`https://wa.me/905342334051?text=${encodeURIComponent(message)}`);
+    }, [language]);
 
     return (
         <section className="py-20 sm:py-24 bg-[#0a0a0f]">
@@ -69,7 +81,7 @@ export default function CtaSection() {
                                 {t("Bizimle İletişime Geçin", "Get in Touch")} →
                             </Link>
                             <a
-                                href="https://wa.me/905342334051"
+                                href={whatsappUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="inline-flex items-center gap-2 rounded-full border border-white/15 px-7 py-3.5 text-[15px] font-semibold text-white/85 hover:border-white/30 hover:text-white transition-colors"

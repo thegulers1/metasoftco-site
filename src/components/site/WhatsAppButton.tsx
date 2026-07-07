@@ -1,9 +1,22 @@
 "use client";
 
+import { useEffect, useState } from "react";
+
 export default function WhatsAppButton() {
     const phoneNumber = "905342334051"; // Türkiye kodu ile
-    const message = encodeURIComponent("Merhaba, bilgi almak istiyorum.");
-    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
+    const [message, setMessage] = useState("Merhaba, bilgi almak istiyorum.");
+
+    useEffect(() => {
+        const pageTitle = document.title.split("|")[0].trim();
+        const pageUrl = window.location.href;
+        setMessage(
+            pageTitle
+                ? `Merhaba, "${pageTitle}" sayfasından yazıyorum (${pageUrl}). Bilgi almak istiyorum.`
+                : `Merhaba, ${pageUrl} sayfasından yazıyorum. Bilgi almak istiyorum.`
+        );
+    }, []);
+
+    const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
     return (
         <a
