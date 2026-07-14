@@ -20,6 +20,16 @@ const nextConfig: NextConfig = {
           { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
         ],
       },
+      // Editpanel ve API: yönetim panelinde her zaman güncel veri görünmeli,
+      // yukarıdaki genel 1 saatlik tarayıcı önbelleği burada geçersiz kılınır.
+      {
+        source: "/editpanel/:path*",
+        headers: [{ key: "Cache-Control", value: "no-store" }],
+      },
+      {
+        source: "/api/:path*",
+        headers: [{ key: "Cache-Control", value: "no-store" }],
+      },
     ];
   },
 
