@@ -120,7 +120,7 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
                                     </span>
                                 )}
                                 <h3
-                                    className="text-white font-bold tracking-[-0.01em] mb-4 leading-[1.05]"
+                                    className="text-white font-bold tracking-[-0.01em] mb-4 leading-[1.05] uppercase"
                                     style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 38 }}
                                 >
                                     {t(featured.title, featured.title_en || featured.title)}
@@ -208,7 +208,7 @@ export default function ProjectShowcase({ projects }: ProjectShowcaseProps) {
                                         </span>
                                     )}
                                     <h4
-                                        className="text-white font-semibold mt-2 mb-2"
+                                        className="text-white font-semibold mt-2 mb-2 uppercase"
                                         style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 20 }}
                                     >
                                         {t(project.title, project.title_en || project.title)}

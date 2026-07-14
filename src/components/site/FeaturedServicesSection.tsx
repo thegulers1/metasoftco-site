@@ -131,7 +131,7 @@ export function FeaturedServicesSection({ services }: FeaturedServicesSectionPro
                                     <div className="p-6">
                                         <div className="flex items-center justify-between gap-2">
                                             <h3
-                                                className="text-white font-semibold"
+                                                className="text-white font-semibold uppercase"
                                                 style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 20 }}
                                             >
                                                 {displayTitle(service)}
