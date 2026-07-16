@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/db";
 import Link from "next/link";
+import { ProjectDeleteButton } from "./ProjectDeleteButton";
 
 export const dynamic = 'force-dynamic';
 
@@ -119,9 +120,10 @@ export default async function AdminProjectsPage() {
                                     >
                                         Düzenle
                                     </Link>
-                                    <button className="text-sm text-red-600 hover:underline">
-                                        Sil
-                                    </button>
+                                    <ProjectDeleteButton
+                                        projectId={project.id}
+                                        projectTitle={project.title}
+                                    />
                                 </td>
                             </tr>
                         ))}

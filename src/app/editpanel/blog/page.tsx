@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/db";
 import Link from "next/link";
+import { BlogDeleteButton } from "./BlogDeleteButton";
 
 export const dynamic = 'force-dynamic';
 
@@ -90,9 +91,10 @@ export default async function AdminBlogPage() {
                                         >
                                             Düzenle
                                         </Link>
-                                        <button className="text-sm text-red-600 hover:underline">
-                                            Sil
-                                        </button>
+                                        <BlogDeleteButton
+                                            postId={post.id}
+                                            postTitle={post.title}
+                                        />
                                     </td>
                                 </tr>
                             ))

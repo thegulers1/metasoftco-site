@@ -172,7 +172,7 @@ export default function ServicesListClient({ categories }: ServicesListClientPro
                             <div className="flex flex-col flex-1 px-[22px] pt-[22px] pb-6">
                                 <div className="flex items-start justify-between gap-3 mb-2.5">
                                     <div
-                                        className="text-white"
+                                        className="text-white uppercase"
                                         style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 19, lineHeight: 1.2, fontWeight: 600 }}
                                     >
                                         {title}
@@ -181,8 +181,8 @@ export default function ServicesListClient({ categories }: ServicesListClientPro
                                 </div>
                                 {description && (
                                     <p
-                                        className="text-[rgba(255,255,255,.55)] mb-4"
-                                        style={{ fontFamily: "var(--font-manrope)", fontSize: 13.5, lineHeight: 1.55 }}
+                                        className="text-[rgba(255,255,255,.55)] mb-4 line-clamp-3"
+                                        style={{ fontFamily: "var(--font-manrope)", fontSize: 13.5, lineHeight: 1.55, minHeight: "calc(1.55 * 13.5px * 3)" }}
                                     >
                                         {description}
                                     </p>
