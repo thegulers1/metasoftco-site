@@ -155,8 +155,8 @@ export default function ContactPage() {
                         icon={<MapPin className="w-4 h-4" />}
                         label={t("Adres", "Address")}
                         value={t(
-                            "Zeytinlik, Fişekhane Cd. 5/17\n34140 Bakırköy / İstanbul",
-                            "Zeytinlik, Fişekhane Cd. 5/17\n34140 Bakırköy / Istanbul"
+                            "Üniversite Mah. Sarıgül Sk. İstanbul Teknokent No: 37/1\nİç Kapı No: 28, Avcılar / İstanbul",
+                            "Üniversite Mah. Sarıgül Sk. İstanbul Teknokent No: 37/1\nİç Kapı No: 28, Avcılar / Istanbul"
                         )}
                     />
                 </div>

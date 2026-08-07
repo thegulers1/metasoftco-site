@@ -45,7 +45,7 @@ export const siteConfig = {
     contact: {
         email: "info@metasoftco.com",
         phone: "+90 534 233 4051",
-        address: "Zeytinlik, Fişekhane Cd. 5/17, 34140 Bakırköy/İstanbul, Türkiye",
+        address: "Üniversite Mah. Sarıgül Sk. İstanbul Teknokent No: 37/1 İç Kapı No: 28, Avcılar/İstanbul, Türkiye",
     },
 
     // Company Info (for structured data)
@@ -138,10 +138,10 @@ export function generateOrganizationSchema() {
         })),
         address: {
             "@type": "PostalAddress",
-            streetAddress: "Zeytinlik, Fişekhane Cd. 5/17",
-            addressLocality: "Bakırköy",
+            streetAddress: "Üniversite Mah. Sarıgül Sk. İstanbul Teknokent No: 37/1, İç Kapı No: 28",
+            addressLocality: "Avcılar",
             addressRegion: "İstanbul",
-            postalCode: "34140",
+            postalCode: "34320",
             addressCountry: "TR",
         },
         contactPoint: {
@@ -183,16 +183,16 @@ export function generateLocalBusinessSchema() {
         })),
         address: {
             "@type": "PostalAddress",
-            streetAddress: "Zeytinlik, Fişekhane Cd. 5/17",
-            addressLocality: "Bakırköy",
+            streetAddress: "Üniversite Mah. Sarıgül Sk. İstanbul Teknokent No: 37/1, İç Kapı No: 28",
+            addressLocality: "Avcılar",
             addressRegion: "İstanbul",
-            postalCode: "34140",
+            postalCode: "34320",
             addressCountry: "TR",
         },
         geo: {
             "@type": "GeoCoordinates",
-            latitude: 40.9766,
-            longitude: 28.8572,
+            latitude: 40.9917,
+            longitude: 28.7189,
         },
         contactPoint: {
             "@type": "ContactPoint",

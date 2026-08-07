@@ -86,9 +86,11 @@ export default function Footer() {
                                     +90 534 233 40 51
                                 </a>
                                 <span className="text-[rgba(255,255,255,.5)] max-w-[220px]">
-                                    Zeytinlik, Fişekhane Cd. 5/17
+                                    Üniversite Mah. Sarıgül Sk.
                                     <br />
-                                    34140 Bakırköy / İstanbul
+                                    İstanbul Teknokent No: 37/1
+                                    <br />
+                                    İç Kapı No: 28, Avcılar / İstanbul
                                 </span>
                             </div>
                         </div>
