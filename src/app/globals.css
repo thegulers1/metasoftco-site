@@ -328,6 +328,34 @@ html, body {
 .brand-ticker {
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.brand-ticker .ticker__inner {
+  animation-name: brand-ticker-scroll;
+}
+
+@keyframes brand-ticker-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-25%);
+  }
+}
+
+.brand-ticker__logo {
+  filter: brightness(0) invert(1) !important;
+}
+
+.brand-ticker__logo.brand-ticker__logo--original,
+.brand-ticker__logo.brand-ticker__logo--screen {
+  filter: none !important;
+}
+
+.brand-ticker__logo.brand-ticker__logo--screen {
+  mix-blend-mode: screen;
 }
 
 @media (prefers-reduced-motion: reduce) {
