@@ -124,6 +124,90 @@ const PROJECT_CONFIG: {
         metric: { tr: "Anlık hatıra · kampüs etkinliği", en: "Instant memory · campus event" },
         c1: "#f472b6",
     },
+    {
+        slug: "bsh-x-ai-draw",
+        group: "ai",
+        cat: { tr: "YAPAY ZEKA", en: "AI" },
+        title: { tr: "BSH × AI Draw", en: "BSH × AI Draw" },
+        desc: {
+            tr: "BSH'nin etkinlik alanında katılımcılar yapay zeka destekli çizim deneyimiyle kendi özgün tasarımlarını oluşturdu.",
+            en: "At BSH's event area, participants created their own original designs through an AI-powered drawing experience.",
+        },
+        metric: { tr: "AI çizim · fiziksel hatıra", en: "AI drawing · physical keepsake" },
+        c1: "#fb7185",
+    },
+    {
+        slug: "akmerkez-x-ai-football-card",
+        group: "ai",
+        cat: { tr: "YAPAY ZEKA", en: "AI" },
+        title: { tr: "Akmerkez × AI Football Card", en: "Akmerkez × AI Football Card" },
+        desc: {
+            tr: "EURO 2024 ruhunu taşıyan deneyimde ziyaretçiler, kendi isimleri ve fotoğraflarıyla kişiselleştirilmiş futbol kartlarına dönüştü.",
+            en: "In an experience carrying the spirit of EURO 2024, visitors became personalized football cards with their own names and photos.",
+        },
+        metric: { tr: "EURO 2024 · kişisel oyuncu kartı", en: "EURO 2024 · personal player card" },
+        c1: "#38bdf8",
+    },
+    {
+        slug: "nesquik-x-ai-photo-child",
+        group: "ai",
+        cat: { tr: "YAPAY ZEKA", en: "AI" },
+        title: { tr: "Nesquik × AI Photo Child", en: "Nesquik × AI Photo Child" },
+        desc: {
+            tr: "Nesquik için geliştirilen AI Photo Child deneyimi, çocukların fotoğraflarını eğlenceli ve kişiselleştirilmiş karakter görsellerine dönüştürdü.",
+            en: "The AI Photo Child experience created for Nesquik transformed children's photos into playful, personalized character visuals.",
+        },
+        metric: { tr: "AI çocuk portresi", en: "AI child portrait" },
+        c1: "#facc15",
+    },
+    {
+        slug: "allianz-x-ai-greenbox",
+        group: "ai",
+        cat: { tr: "YAPAY ZEKA", en: "AI" },
+        title: { tr: "Allianz × AI Greenbox", en: "Allianz × AI Greenbox" },
+        desc: {
+            tr: "Allianz'ın “Ada'nın Yıldızı” deneyiminde katılımcılar, markaya özel görsel dünyada kişiselleştirilmiş portrelerini oluşturdu.",
+            en: "In Allianz's \"Star of the Island\" experience, participants created personalized portraits in a brand-specific visual world.",
+        },
+        metric: { tr: "Markaya özel AI arka plan", en: "Brand-specific AI backdrop" },
+        c1: "#60a5fa",
+    },
+    {
+        slug: "ray-ban-x-strip-photo",
+        group: "photobooth",
+        cat: { tr: "FOTOĞRAF AKTİVİTELERİ", en: "PHOTO ACTIVITIES" },
+        title: { tr: "Ray-Ban × Strip Photo", en: "Ray-Ban × Strip Photo" },
+        desc: {
+            tr: "Ray-Ban etkinliğinde katılımcılar, marka atmosferine uyarlanan şerit fotoğraf formatıyla anılarını yanlarında taşıdı.",
+            en: "At the Ray-Ban event, participants took their memories with them in a photo-strip format tailored to the brand atmosphere.",
+        },
+        metric: { tr: "Şerit fotoğraf · marka hatırası", en: "Photo strip · brand keepsake" },
+        c1: "#f87171",
+    },
+    {
+        slug: "corny-x-photobooth",
+        group: "photobooth",
+        cat: { tr: "FOTOĞRAF AKTİVİTELERİ", en: "PHOTO ACTIVITIES" },
+        title: { tr: "Corny × Photobooth", en: "Corny × Photobooth" },
+        desc: {
+            tr: "Corny'nin açık hava etkinliğinde, markaya özel kurulan photobooth alanı katılımcıların eğlenceli anlarını fotoğraf hatırasına dönüştürdü.",
+            en: "At Corny's outdoor event, a custom photobooth area turned participants' fun moments into photo keepsakes.",
+        },
+        metric: { tr: "Markalı photobooth deneyimi", en: "Branded photobooth experience" },
+        c1: "#60a5fa",
+    },
+    {
+        slug: "ame28-x-glow-box",
+        group: "photobooth",
+        cat: { tr: "FOTOĞRAF AKTİVİTELERİ", en: "PHOTO ACTIVITIES" },
+        title: { tr: "AME'28 × Glow Box", en: "AME'28 × Glow Box" },
+        desc: {
+            tr: "Işık tüneli estetiğiyle tasarlanan Glow Box deneyimi, AME'28 katılımcılarına güçlü bir sahne ve anında fotoğraf çıktısı sundu.",
+            en: "Designed with a light-tunnel aesthetic, the Glow Box experience gave AME'28 participants a striking setting and instant photo prints.",
+        },
+        metric: { tr: "Glow box · anında baskı", en: "Glow box · instant print" },
+        c1: "#e879f9",
+    },
 ];
 
 const FILTERS: { key: FilterKey; label: { tr: string; en: string } }[] = [
