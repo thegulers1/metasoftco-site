@@ -131,8 +131,8 @@ The direction is **editorial creative technology**:
 - Oversized Space Grotesk display type, Manrope body copy and JetBrains Mono labels.
 - Low-radius, line-based components instead of pill-heavy SaaS cards.
 - Real project photography, installation media and AI outputs provide the colour.
-- Minimal motion; media hover is subtle and reduced-motion preferences are respected.
-- Layout confidence comes from scale, spacing and asymmetry rather than decorative gradients.
+- Motion remains purposeful; the homepage signal line and spectrum accents move continuously while the remaining prototype keeps media hover subtle. Reduced-motion preferences are respected.
+- Layout confidence comes from scale, spacing and asymmetry. Spectrum gradients are reserved for the homepage hero so they read as a branded signal rather than a site-wide effect.
 
 ## Hero Directions
 
@@ -169,7 +169,21 @@ The direction is **editorial creative technology**:
 - Rationale: puts evidence before the category claim and is strongest when the case-study library is complete.
 - Strongest audience: agency creatives and visually led buyers.
 
-Direction 1 is recommended because the current site needs category comprehension more urgently than additional mystique.
+Direction 1 was the initial prototype baseline because the current site needed category comprehension more urgently than additional mystique.
+
+### Selected homepage revision — signal portal (implemented)
+
+After visual review, the homepage hero was revised to the selected third visual concept while preserving the approved commercial explanation and conversion paths.
+
+- H1: **EXPERIENCES THAT CONNECT BRANDS**.
+- A cyan-to-violet-to-coral outline treatment gives “EXPERIENCES” a restrained animated spectrum signal.
+- A real Ray-Ban participation image sits in a tall faceted portal with an animated gradient edge.
+- The headline overlaps the live-work image to create one authored composition instead of a conventional split hero.
+- The right-side buyer explanation and **Plan Your Activation / View Selected Work** actions remain explicit.
+- An animated capability band makes AI Photo, interactive games, custom software and live installations visible in the first viewport.
+- Mobile keeps the same hierarchy but removes horizontal stretching, stacks the media safely and preserves full-width conversion actions.
+
+The composition responds to current experiential/creative-technology patterns observed at UNIT9, Active Theory, Resn, Lusion and FutureDeluxe: one confident media object, atmospheric depth and work-led visual authority. Snapbar's direct B2B explanation and CTA discipline remain in the copy block. The service and case-study prototypes were intentionally not changed.
 
 ## Homepage Architecture
 

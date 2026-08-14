@@ -29,6 +29,7 @@ Existing local project font variables are reused; no new font family or paid fon
 | Role | Font | Desktop | Mobile | Line height | Weight / tracking |
 |---|---|---:|---:|---:|---|
 | Display / H1 | Space Grotesk | `clamp(48px, 7vw, 104px)` | `clamp(44px, 13vw, 66px)` | 0.94 | 560, -0.045em |
+| Homepage signal H1 | Space Grotesk | 112–180px with controlled horizontal scale | 40–82px without horizontal scale | 0.9–0.94 | 450/620, uppercase, tight tracking |
 | Service H1 | Space Grotesk | `clamp(50px, 6vw, 88px)` | inherited mobile H1 | 0.94 | 560, -0.045em |
 | H2 | Space Grotesk | `clamp(38px, 5vw, 68px)` | `clamp(36px, 10vw, 52px)` | 1.0 | 520, -0.045em |
 | H3 | Space Grotesk | `clamp(22px, 2vw, 30px)` | fluid | 1.08 | 540, -0.045em |
@@ -54,7 +55,7 @@ Headings use balanced wrapping where supported. Body text uses comfortable measu
 | Primary CTA text | `#071013` | Accessible dark text on cyan |
 | Focus | 3px `--p2-accent` | Visible keyboard indication |
 
-No decorative gradient is used in the Phase 2 system. Project media supplies chromatic contrast. Error/success components were not required by the implemented prototype and are therefore not specified as implemented tokens.
+Project media supplies most chromatic contrast. The homepage alone uses a restrained cyan → violet → coral spectrum on the outline headline, portal edge and ambient light fields. These accents are route- and component-scoped rather than general-purpose surface tokens. Error/success components were not required by the implemented prototype and are therefore not specified as implemented tokens.
 
 ## Spacing
 
@@ -73,8 +74,8 @@ The system uses a small set of repeated ranges rather than a universal numeric s
 - Content max width: 1280px.
 - Desktop edge padding: 20px each side through `width: min(100% - 40px, 1280px)`.
 - Mobile edge padding: 16px each side through `width: min(100% - 32px, 1280px)`.
-- Desktop: custom 2-column hero/split grids and 4-column process/scope grids.
-- Tablet (≤1000px): hero becomes one column; process/journey become two columns.
+- Desktop: the homepage uses one layered signal stage; detail pages use custom 2-column hero/split grids; process/scope use 4-column grids.
+- Tablet (≤1000px): the signal stage tightens and moves its buyer copy below the headline field; detail heroes stack; process/journey become two columns.
 - Mobile (≤700px): all primary content becomes one column; facts remain one or two columns depending on scan value.
 - Media can span the 1280px content width but does not use uncontrolled viewport-width overflow.
 
@@ -201,8 +202,9 @@ Buttons, links and FAQ summaries use a 3px cyan focus ring with 4px offset.
 
 ## Motion
 
-- Media hover scale and CTA translation only.
-- Normal duration: approximately 200–500ms depending on media.
+- Homepage-only spectrum breathing, portal-edge drift and a continuously moving capability band.
+- Media hover scale and CTA translation elsewhere.
+- Normal interaction duration: approximately 200–500ms; ambient homepage loops run over 5.5–24 seconds.
 - No parallax, scroll-jacking, autonomous floating objects or entrance delay.
 - `prefers-reduced-motion: reduce` shortens transitions/animations to effectively instant.
 
@@ -210,9 +212,9 @@ Buttons, links and FAQ summaries use a 3px cyan focus ring with 4px offset.
 
 | Breakpoint | Behavior |
 |---|---|
-| Above 1000px | Full navigation; two-column hero; four-column process/scope |
-| 701–1000px | Mobile navigation; stacked hero; two-column process/journey/scope |
-| 700px and below | 16px edges; one-column content; full-width CTAs; simplified grids |
+| Above 1000px | Full navigation; layered homepage signal stage; two-column detail heroes; four-column process/scope |
+| 701–1000px | Mobile navigation; tightened signal stage; stacked detail heroes; two-column process/journey/scope |
+| 700px and below | 16px edges; mobile signal stack; full-width CTAs; simplified grids |
 
 Quality was explicitly checked at 320, 375, 390, 430, 768 and 1440px.
 

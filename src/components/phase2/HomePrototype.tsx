@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, Sparkles } from "lucide-react";
 import { P2Button, P2Container, P2Eyebrow, P2FinalCta, P2SectionHeading } from "./Phase2Primitives";
 
 export interface P2ProjectCard {
@@ -52,6 +52,8 @@ const process = [
     ["04", "Deliver it live", "Installation, event-day operation and a handover shaped around the brief."],
 ];
 
+const signalCapabilities = ["AI PHOTO", "INTERACTIVE GAMES", "CUSTOM SOFTWARE", "LIVE INSTALLATIONS"];
+
 const projectPresentation: Record<string, { title: string; category: string }> = {
     "tavuk-dunyasi-x-ai-photo": { title: "Tavuk Dünyası × AI Photo", category: "AI Photo Activation" },
     "pegasus-airlines-digital-gift-wheel-activation": { title: "Pegasus × Digital Gift Wheel", category: "Interactive Game" },
@@ -60,36 +62,47 @@ const projectPresentation: Record<string, { title: string; category: string }> =
 
 export default function HomePrototype({ projects }: { projects: P2ProjectCard[] }) {
     const rayBan = projects.find((project) => project.slug_en?.includes("ray-ban"));
-    const pegasus = projects.find((project) => project.slug_en?.includes("pegasus"));
 
     return (
         <div className="phase2">
             <section className="p2-home-hero" aria-labelledby="home-hero-title">
-                <P2Container className="p2-home-hero__grid">
-                    <div className="p2-home-hero__copy">
-                        <P2Eyebrow>AI-POWERED EXPERIENTIAL TECHNOLOGY</P2Eyebrow>
-                        <h1 id="home-hero-title">Interactive brand experiences, built from concept to show floor.</h1>
+                <P2Container className="p2-home-hero__stage">
+                    <P2Eyebrow>AI-POWERED EXPERIENTIAL TECHNOLOGY</P2Eyebrow>
+                    <h1 id="home-hero-title" className="p2-signal-title">
+                        <span className="p2-signal-title__outline" data-text="Experiences">Experiences</span>
+                        <span className="p2-signal-title__solid">
+                            <span>That</span>
+                            <span>Connect</span>
+                            <span>Brands</span>
+                        </span>
+                    </h1>
+                    {rayBan?.image && (
+                        <figure className="p2-signal-portal">
+                            <div className="p2-signal-portal__frame">
+                                <div className="p2-signal-portal__image">
+                                    <Image src={rayBan.image} alt="Guests taking part in a Ray-Ban photo activation" fill priority sizes="(max-width: 700px) 78vw, 370px" />
+                                </div>
+                            </div>
+                            <figcaption><span>LIVE PARTICIPATION</span>Ray-Ban · Strip Photo</figcaption>
+                        </figure>
+                    )}
+                    <div className="p2-home-hero__brief">
                         <p>MetasoftCo creates branded photo, video, game and installation experiences for brands and agencies—combining creative direction, custom software and live production.</p>
                         <div className="p2-actions">
                             <P2Button href="/en/contact">Plan Your Activation</P2Button>
                             <P2Button href="/en/projects" variant="secondary">View Selected Work</P2Button>
                         </div>
                     </div>
-                    <div className="p2-home-hero__media" aria-label="Selected live activation work">
-                        {rayBan?.image && (
-                            <figure className="p2-home-hero__main-image">
-                                <Image src={rayBan.image} alt="Guests taking part in a Ray-Ban photo activation" fill priority sizes="(max-width: 900px) 100vw, 48vw" />
-                                <figcaption><span>LIVE PARTICIPATION</span>Ray-Ban · Strip Photo</figcaption>
-                            </figure>
-                        )}
-                        {pegasus?.image && (
-                            <figure className="p2-home-hero__inset">
-                                <Image src={pegasus.image} alt="Pegasus interactive digital gift wheel installation" fill priority sizes="(max-width: 900px) 42vw, 18vw" />
-                                <figcaption>Pegasus · Interactive Game</figcaption>
-                            </figure>
-                        )}
-                    </div>
                 </P2Container>
+                <div className="p2-signal-ticker" aria-label="MetasoftCo capabilities">
+                    <div className="p2-signal-ticker__track">
+                        {[0, 1, 2].map((group) => (
+                            <div className="p2-signal-ticker__group" aria-hidden={group > 0} key={group}>
+                                {signalCapabilities.map((capability) => <span key={`${group}-${capability}`}><Sparkles aria-hidden="true" />{capability}</span>)}
+                            </div>
+                        ))}
+                    </div>
+                </div>
             </section>
 
             <section className="p2-logo-strip" aria-label="Selected client collaborations">
