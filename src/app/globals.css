@@ -6,6 +6,7 @@
 :root {
   --color-neon-red: #FF3B3F;
   --acc: #22d3ee;
+  --org: #D35035;
 }
 
 @layer utilities {

@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useLanguage } from "@/providers/LanguageProvider";
 
 function localizedHref(language: "tr" | "en", trPath: string, enPath: string | null) {
@@ -17,12 +18,16 @@ export default function Footer() {
                 <div className="flex justify-between gap-12 flex-wrap">
                     {/* Brand */}
                     <div className="max-w-[340px]">
-                        <div
-                            className="mb-4"
-                            style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 22, fontWeight: 700 }}
-                        >
-                            METASOFT<span className="text-[var(--acc)]">CO</span>
-                        </div>
+                        <Link href={language === "en" ? "/en" : "/"} className="mb-4 flex items-center w-fit">
+                            <Image
+                                src="/blackLogo.png"
+                                alt="METASOFTCO"
+                                width={160}
+                                height={40}
+                                className="h-8 md:h-10 w-auto object-contain"
+                                style={{ filter: "brightness(0) invert(1)" }}
+                            />
+                        </Link>
                         <p
                             className="text-[rgba(255,255,255,.5)]"
                             style={{ fontFamily: "var(--font-manrope)", fontSize: 14, lineHeight: 1.6 }}
