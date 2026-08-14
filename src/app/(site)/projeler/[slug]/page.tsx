@@ -5,6 +5,7 @@ import { cloudinaryOgImage } from "@/lib/cloudinary";
 import { notFound } from "next/navigation";
 import { AdminEditUrlSetter } from "@/components/site/AdminBar";
 import ProjectDetailClient from "./ProjectDetailClient";
+import { isEnglishProjectPublishable } from "@/lib/publication";
 
 export const revalidate = 3600;
 
@@ -16,7 +17,7 @@ export async function generateMetadata({
     const { slug } = await params;
     const project = await prisma.project.findUnique({
         where: { slug, published: true },
-        select: { title: true, description: true, image: true, slug_en: true },
+        select: { title: true, description: true, image: true, slug_en: true, title_en: true, description_en: true, content_en: true, metaTitle_en: true, metaDescription_en: true },
     });
     if (!project) return {};
 
@@ -40,7 +41,7 @@ export async function generateMetadata({
         twitter: { card: "summary_large_image", title, description, images: [image] },
         alternates: {
             canonical: url,
-            ...(project.slug_en && {
+            ...(isEnglishProjectPublishable(project) && {
                 languages: {
                     "x-default": url,
                     "tr": url,

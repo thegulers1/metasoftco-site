@@ -7,6 +7,7 @@ import { siteConfig, generateBreadcrumbSchema } from "@/lib/site";
 import { cloudinaryOgImage } from "@/lib/cloudinary";
 import { addHeadingAnchors } from "@/lib/utils";
 import Container from "@/components/site/Container";
+import { isEnglishBlogPostPublishable } from "@/lib/publication";
 
 export const revalidate = 3600;
 
@@ -50,7 +51,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         },
         alternates: {
             canonical: `${siteConfig.url}/blog/${post.slug}`,
-            ...(post.slug_en && {
+            ...(isEnglishBlogPostPublishable(post) && {
                 languages: {
                     "x-default": `${siteConfig.url}/blog/${post.slug}`,
                     "tr": `${siteConfig.url}/blog/${post.slug}`,
@@ -84,7 +85,7 @@ export default async function BlogPostPage({ params }: Props) {
             "@type": "Organization",
             name: siteConfig.name,
             url: siteConfig.url,
-            logo: { "@type": "ImageObject", url: `${siteConfig.url}/logo.png` },
+            logo: { "@type": "ImageObject", url: `${siteConfig.url}/blackLogo.png` },
         },
         mainEntityOfPage: {
             "@type": "WebPage",

@@ -14,6 +14,9 @@ interface Project {
     category: string | null;
     description: string | null;
     description_en: string | null;
+    content_en: string | null;
+    metaTitle_en: string | null;
+    metaDescription_en: string | null;
 }
 
 type GroupKey = "ai" | "photobooth" | "interactive";
@@ -225,7 +228,10 @@ export default function ProjectsListClient({ projects }: { projects: Project[] }
 
     const cards = PROJECT_CONFIG
         .map((c) => ({ ...c, db: bySlug.get(c.slug) }))
-        .filter((c) => !!c.db);
+        .filter((c) => !!c.db)
+        .filter((c) => language !== "en" || Boolean(
+            c.db?.slug_en && c.db.title_en && c.db.description_en && c.db.content_en && c.db.metaTitle_en && c.db.metaDescription_en
+        ));
 
     const visible = active === "all" ? cards : cards.filter((c) => c.group === active);
 
@@ -263,7 +269,7 @@ export default function ProjectsListClient({ projects }: { projects: Project[] }
             <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                 {visible.map((p) => {
                     const db = p.db!;
-                    const href = language === "en" ? `/en/projects/${db.slug_en || db.slug}` : `/projeler/${db.slug}`;
+                    const href = language === "en" ? `/en/projects/${db.slug_en}` : `/projeler/${db.slug}`;
 
                     return (
                         <Link

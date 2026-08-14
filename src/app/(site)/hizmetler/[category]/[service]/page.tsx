@@ -10,6 +10,7 @@ import VideoPlayer from "@/components/site/VideoPlayer";
 import { cache } from "react";
 import ServiceDetailClient from "./ServiceDetailClient";
 import { AdminEditUrlSetter } from "@/components/site/AdminBar";
+import { isEnglishServicePublishable } from "@/lib/publication";
 
 export const revalidate = 3600;
 
@@ -48,7 +49,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const title = service.metaTitle || `${service.title} | ${categoryData.name}`;
     const description = service.metaDescription || service.description || siteConfig.description;
     const keywords = service.metaKeywords || "";
-    const image = cloudinaryOgImage(service.ogImage || service.image) || `${siteConfig.url}/og-image.jpg`;
+    const image = cloudinaryOgImage(service.ogImage || service.image) || `${siteConfig.url}/og`;
     const url = `${siteConfig.url}/hizmetler/${category}/${serviceSlug}`;
 
     return {
@@ -79,7 +80,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         },
         alternates: {
             canonical: url,
-            ...(service.slug_en && categoryData.slug_en && {
+            ...(isEnglishServicePublishable(service, categoryData) && {
                 languages: {
                     "x-default": url,
                     "tr": url,

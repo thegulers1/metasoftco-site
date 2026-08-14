@@ -219,9 +219,32 @@
   }
 }
 
-/* Prevent horizontal page scroll caused by overflowing elements */
+/* Mobile pages must reflow rather than hide overflow. */
 html, body {
-  overflow-x: hidden !important;
+  max-width: 100%;
+}
+
+main h1,
+main h2,
+main h3,
+main p {
+  overflow-wrap: anywhere;
+}
+
+.quote-floating-badge {
+  bottom: max(1rem, env(safe-area-inset-bottom));
+  right: max(1rem, env(safe-area-inset-right));
+}
+
+.whatsapp-floating-button {
+  bottom: max(5.5rem, calc(env(safe-area-inset-bottom) + 4.5rem));
+  right: max(1rem, env(safe-area-inset-right));
+}
+
+@media (max-width: 767px) {
+  .quote-floating-badge { padding: .875rem; }
+  .quote-floating-label { display: none; }
+  .whatsapp-floating-button { bottom: max(5rem, calc(env(safe-area-inset-bottom) + 4rem)); }
 }
 
 /* ===== TOP TICKER ===== */

@@ -5,6 +5,7 @@ import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { siteConfig } from "@/lib/site";
 import Container from "@/components/site/Container";
+import { isEnglishBlogPostPublishable } from "@/lib/publication";
 
 export const revalidate = 3600;
 
@@ -34,6 +35,7 @@ const getBlogPosts = unstable_cache(
         select: {
             id: true, title: true, title_en: true, excerpt: true, excerpt_en: true,
             image: true, slug: true, slug_en: true, category: true, author: true, publishedAt: true,
+            content_en: true, metaTitle_en: true, metaDescription_en: true,
         },
     }),
     ["blog-posts-en"],
@@ -41,7 +43,7 @@ const getBlogPosts = unstable_cache(
 );
 
 export default async function EnglishBlogPage() {
-    const posts = await getBlogPosts();
+    const posts = (await getBlogPosts()).filter(isEnglishBlogPostPublishable);
 
     return (
         <div className="bg-[#0a0a0f] min-h-screen">
@@ -94,9 +96,9 @@ export default async function EnglishBlogPage() {
                     ) : (
                         <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
                             {posts.map((post) => {
-                                const title = post.title_en || post.title;
-                                const excerpt = post.excerpt_en || post.excerpt;
-                                const href = post.slug_en ? `/en/blog/${post.slug_en}` : `/blog/${post.slug}`;
+                                const title = post.title_en!;
+                                const excerpt = post.excerpt_en!;
+                                const href = `/en/blog/${post.slug_en}`;
 
                                 return (
                                     <Link

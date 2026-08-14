@@ -147,12 +147,14 @@ export default function Footer() {
                             className="flex gap-6 text-[rgba(255,255,255,.4)]"
                             style={{ fontFamily: "var(--font-manrope)", fontSize: 13, fontWeight: 500 }}
                         >
-                            <Link href="/kullanim-kosullari" className="text-[rgba(255,255,255,.4)] hover:text-white transition-colors">
-                                {t("Şartlar ve Koşullar", "Terms and conditions")}
-                            </Link>
-                            <Link href="/gizlilik" className="text-[rgba(255,255,255,.4)] hover:text-white transition-colors">
-                                {t("Gizlilik Politikası", "Privacy policy")}
-                            </Link>
+                            {language === "tr" ? (
+                                <>
+                                    <Link href="/kullanim-kosullari" className="text-[rgba(255,255,255,.4)] hover:text-white transition-colors">Şartlar ve Koşullar</Link>
+                                    <Link href="/gizlilik" className="text-[rgba(255,255,255,.4)] hover:text-white transition-colors">Gizlilik Politikası</Link>
+                                </>
+                            ) : (
+                                <span>English legal pages are not yet published.</span>
+                            )}
                         </div>
                     </div>
                 </div>

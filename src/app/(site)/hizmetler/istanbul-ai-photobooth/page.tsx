@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { siteConfig } from "@/lib/site";
 import CityLandingClient from "@/components/site/CityLandingClient";
+import { isEnglishSectorPagePublishable } from "@/lib/publication";
 
 export const revalidate = 3600;
 
@@ -20,7 +21,7 @@ export async function generateMetadata(): Promise<Metadata> {
     const description = page.metaDescription || page.excerpt || siteConfig.description;
     const image = page.ogImage || `${siteConfig.url}/og`;
     const url = `${siteConfig.url}/hizmetler/${SLUG}`;
-    const enUrl = page.slug_en ? `${siteConfig.url}/en/services/${page.slug_en}` : undefined;
+    const enUrl = isEnglishSectorPagePublishable(page) ? `${siteConfig.url}/en/services/${page.slug_en}` : undefined;
 
     return {
         title,
@@ -42,7 +43,7 @@ export default async function IstanbulAiPhotoboothPage() {
     const images = page.images ? JSON.parse(page.images) : [];
     const districts = page.districts ? JSON.parse(page.districts) : [];
     const faq: { q: string; a: string }[] = page.faq ? JSON.parse(page.faq) : [];
-    const enUrl = page.slug_en ? `/en/services/${page.slug_en}` : "/en";
+    const enUrl = isEnglishSectorPagePublishable(page) ? `/en/services/${page.slug_en}` : "/en";
 
     const serviceIds: string[] = page.serviceIds ? JSON.parse(page.serviceIds) : [];
     const relatedServices = serviceIds.length > 0

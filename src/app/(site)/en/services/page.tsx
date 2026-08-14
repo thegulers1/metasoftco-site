@@ -5,6 +5,7 @@ import { siteConfig, generateFAQSchema } from "@/lib/site";
 import ServicesHero from "@/app/(site)/hizmetler/ServicesHero";
 import ServicesListClient from "@/app/(site)/hizmetler/ServicesListClient";
 import CtaSection from "@/components/site/CtaSection";
+import { isEnglishCategoryPublishable, isEnglishServicePublishable } from "@/lib/publication";
 
 export const revalidate = 3600;
 
@@ -62,7 +63,13 @@ const serviceFAQs = [
 ];
 
 export default async function EnglishServicesPage() {
-    const categories = await getCategories();
+    const categories = (await getCategories())
+        .filter((category) => isEnglishCategoryPublishable(category))
+        .map((category) => ({
+            ...category,
+            services: category.services.filter((service) => isEnglishServicePublishable(service, category)),
+        }))
+        .filter((category) => category.services.length > 0);
     const faqSchema = generateFAQSchema(serviceFAQs);
 
     return (

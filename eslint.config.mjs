@@ -12,6 +12,11 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Exported design handoff files are reference artifacts, not application
+    // source; linting their bundled legacy runtime blocks release validation.
+    "design_handoff_projeler/**",
+    "tmp/**",
+    "output/**",
   ]),
 ]);
 

@@ -36,7 +36,7 @@ const getProjects = unstable_cache(
     async () => prisma.project.findMany({
         where: { published: true },
         orderBy: { order: "asc" },
-        select: { id: true, slug: true, slug_en: true, image: true, title: true, title_en: true, category: true, description: true, description_en: true },
+        select: { id: true, slug: true, slug_en: true, image: true, title: true, title_en: true, category: true, description: true, description_en: true, content_en: true, metaTitle_en: true, metaDescription_en: true },
     }),
     ["projects-list"],
     { revalidate: 60 }

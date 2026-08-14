@@ -11,7 +11,7 @@ export default function SiteLayout({
     return (
         <AdminBarProvider>
             <Navbar />
-            <main>{children}</main>
+            <main className="pb-24 sm:pb-0">{children}</main>
             <Footer />
             <WhatsAppButton />
         </AdminBarProvider>

@@ -5,6 +5,7 @@ import { siteConfig } from "@/lib/site";
 import ProjectsHero from "@/app/(site)/projeler/ProjectsHero";
 import ProjectsListClient from "@/app/(site)/projeler/ProjectsListClient";
 import CtaSection from "@/components/site/CtaSection";
+import { isEnglishProjectPublishable } from "@/lib/publication";
 
 export const revalidate = 3600;
 
@@ -36,14 +37,14 @@ const getProjects = unstable_cache(
     async () => prisma.project.findMany({
         where: { published: true },
         orderBy: { order: "asc" },
-        select: { id: true, slug: true, slug_en: true, image: true, title: true, title_en: true, category: true, description: true, description_en: true },
+        select: { id: true, slug: true, slug_en: true, image: true, title: true, title_en: true, category: true, description: true, description_en: true, content_en: true, metaTitle_en: true, metaDescription_en: true },
     }),
     ["projects-list-en"],
     { revalidate: 60 }
 );
 
 export default async function EnglishProjectsPage() {
-    const projects = await getProjects();
+    const projects = (await getProjects()).filter(isEnglishProjectPublishable);
 
     return (
         <div className="bg-[#0a0a0f] min-h-screen">

@@ -2,7 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter_Tight, DM_Sans, Lato, Barlow_Condensed, Poppins, Space_Grotesk, Manrope, JetBrains_Mono } from "next/font/google";
 import { headers } from "next/headers";
-import { siteConfig, generateMetaTags, generateOrganizationSchema, generateLocalBusinessSchema, generateSoftwareApplicationSchema } from "@/lib/site";
+import { siteConfig, generateMetaTags, generateOrganizationSchema } from "@/lib/site";
 import { Providers } from "@/providers/Providers";
 
 const interTight = Inter_Tight({
@@ -75,8 +75,6 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const organizationSchema = generateOrganizationSchema();
-  const localBusinessSchema = generateLocalBusinessSchema();
-  const softwareApplicationSchema = generateSoftwareApplicationSchema();
   const headersList = await headers();
   const pathname = headersList.get("x-pathname") ?? "";
   const lang = pathname.startsWith("/en") ? "en" : "tr";
@@ -107,25 +105,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-W4ML39X7');`,
           }}
         />
-        {/* JSON-LD Structured Data - SoftwareApplication */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(softwareApplicationSchema),
-          }}
-        />
         {/* JSON-LD Structured Data - Organization */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(organizationSchema),
-          }}
-        />
-        {/* JSON-LD Structured Data - LocalBusiness (AI aramaları için) */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(localBusinessSchema),
           }}
         />
       </head>

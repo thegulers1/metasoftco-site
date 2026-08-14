@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { siteConfig } from "@/lib/site";
 import SectorPageClient from "../SectorPageClient";
+import { excludedSectorPageSlugs, isEnglishSectorPagePublishable } from "@/lib/publication";
 
 export const revalidate = 3600;
 
@@ -15,13 +16,13 @@ async function getPage(slug: string) {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { slug } = await params;
     const page = await getPage(slug);
-    if (!page) return {};
+    if (!page || excludedSectorPageSlugs.has(page.slug)) return { robots: { index: false, follow: false } };
 
     const title = page.metaTitle || page.h1 || page.title;
     const description = page.metaDescription || page.excerpt || siteConfig.description;
     const image = page.ogImage || `${siteConfig.url}/og`;
     const url = `${siteConfig.url}/sektorel-cozumler/${slug}`;
-    const enUrl = page.slug_en ? `${siteConfig.url}/en/sector-solutions/${page.slug_en}` : undefined;
+    const enUrl = isEnglishSectorPagePublishable(page) ? `${siteConfig.url}/en/sector-solutions/${page.slug_en}` : undefined;
 
     return {
         title,
@@ -39,10 +40,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function SectorPageTR({ params }: PageProps) {
     const { slug } = await params;
     const page = await getPage(slug);
-    if (!page || !page.published) notFound();
+    if (!page || !page.published || excludedSectorPageSlugs.has(page.slug)) notFound();
 
     const images = page.images ? JSON.parse(page.images) : [];
-    const enUrl = page.slug_en ? `/en/sector-solutions/${page.slug_en}` : "/en";
+    const enUrl = isEnglishSectorPagePublishable(page) ? `/en/sector-solutions/${page.slug_en}` : "/en";
 
     const serviceIds: string[] = page.serviceIds ? JSON.parse(page.serviceIds) : [];
     const relatedServices = serviceIds.length > 0

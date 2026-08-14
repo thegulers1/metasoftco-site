@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useEffect, useRef, useCallback } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 
@@ -15,50 +15,57 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
 
+const staticAlternates: Record<string, { tr: string; en: string }> = {
+    "/": { tr: "/", en: "/en" },
+    "/hizmetler": { tr: "/hizmetler", en: "/en/services" },
+    "/projeler": { tr: "/projeler", en: "/en/projects" },
+    "/blog": { tr: "/blog", en: "/en/blog" },
+    "/hakkimizda": { tr: "/hakkimizda", en: "/en/hakkimizda" },
+    "/iletisim": { tr: "/iletisim", en: "/en/contact" },
+    "/sektorel-cozumler": { tr: "/sektorel-cozumler", en: "/en/sector-solutions" },
+    "/sektorel-yazilim-cozumleri": { tr: "/sektorel-yazilim-cozumleri", en: "/en/industry-software-solutions" },
+};
+
+function getStaticAlternate(pathname: string | null) {
+    if (!pathname) return staticAlternates["/"];
+    return staticAlternates[pathname] ?? Object.values(staticAlternates).find((pair) => pair.en === pathname);
+}
+
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
     const pathname = usePathname();
     const router = useRouter();
 
     // Derive language from URL — /en/* → "en", everything else → "tr"
     const langFromUrl: Language = pathname?.startsWith("/en") ? "en" : "tr";
-    const [language, setLanguageState] = useState<Language>(langFromUrl);
-    const [alternateUrls, setAlternateUrls] = useState<{ tr: string; en: string } | null>(null);
+    const language = langFromUrl;
+    const alternateUrls = useRef<{ tr: string; en: string } | null>(null);
 
     // Keep state in sync when pathname changes (e.g. back/forward navigation)
     useEffect(() => {
-        setLanguageState(langFromUrl);
         Cookies.set("NEXT_LOCALE", langFromUrl, { expires: 365 });
-        setAlternateUrls(null); // Eski sayfanın alternate URL'ini temizle
-    }, [pathname]);
+        alternateUrls.current = null;
+    }, [pathname, langFromUrl]);
 
-    const setAlternateUrl = (trUrl: string, enUrl: string) => {
-        setAlternateUrls({ tr: trUrl, en: enUrl });
+    const setAlternateUrl = useCallback((trUrl: string, enUrl: string) => {
+        alternateUrls.current = { tr: trUrl, en: enUrl };
         // Karşı dil sayfasını önceden yükle
         const prefetchUrl = language === "tr" ? enUrl : trUrl;
         router.prefetch(prefetchUrl);
-    };
+    }, [language, router]);
 
-    // Pathname'den otomatik alternate URL türet (fallback)
-    // TR/EN URL yapıları farklı olduğundan (/hizmetler/ vs /en/services/) bu sadece son çaredir.
-    const autoAlternate = (() => {
-        if (!pathname) return { tr: "/", en: "/en" };
-        if (pathname.startsWith("/en")) {
-            // /en/X → /X (Türkçe)
-            const tr = pathname.replace(/^\/en/, "") || "/";
-            return { tr, en: pathname };
-        } else {
-            // TR yolları EN yollarına birebir map edilemez (/hizmetler → /en/services vb.)
-            // setAlternateUrl çağrılmadıysa en azından doğru dil anasayfasına git
-            return { tr: pathname, en: "/en" };
-        }
-    })();
+    // Dynamic pages register their data-backed alternate explicitly. Never
+    // guess a translated URL by string replacement: that created broken EN
+    // paths in the audit.
+    const autoAlternate = getStaticAlternate(pathname) ?? (pathname?.startsWith("/en")
+        ? { tr: "/", en: "/en" }
+        : { tr: pathname || "/", en: "/en" });
 
     const setLanguage = (lang: Language) => {
         if (lang === language) return;
         if (lang === "en") {
-            router.push(alternateUrls?.en ?? autoAlternate.en);
+            router.push(alternateUrls.current?.en ?? autoAlternate.en);
         } else {
-            router.push(alternateUrls?.tr ?? autoAlternate.tr);
+            router.push(alternateUrls.current?.tr ?? autoAlternate.tr);
         }
     };
 

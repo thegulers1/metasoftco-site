@@ -5,6 +5,7 @@ import { siteConfig, generateBreadcrumbSchema, generateFAQSchema } from "@/lib/s
 import Link from "next/link";
 import { AdminEditUrlSetter } from "@/components/site/AdminBar";
 import CtaSection from "@/components/site/CtaSection";
+import { isEnglishCategoryPublishable } from "@/lib/publication";
 
 export const revalidate = 3600;
 
@@ -121,7 +122,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         twitter: { card: "summary_large_image", title, description, images: [`${siteConfig.url}/og?title=${encodeURIComponent(title)}&desc=${encodeURIComponent(description.slice(0, 120))}`] },
         alternates: {
             canonical: url,
-            ...(category.slug_en && {
+            ...(isEnglishCategoryPublishable(category) && {
                 languages: {
                     "x-default": url,
                     tr: url,

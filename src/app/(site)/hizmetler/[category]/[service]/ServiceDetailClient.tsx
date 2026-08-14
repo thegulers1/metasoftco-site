@@ -7,13 +7,14 @@ import VideoPlayer from "@/components/site/VideoPlayer";
 import CtaSection from "@/components/site/CtaSection";
 import { useLanguage } from "@/providers/LanguageProvider";
 import { addHeadingAnchors } from "@/lib/utils";
+import type { Service, ServiceCategory } from "@prisma/client";
 
 interface ServiceDetailClientProps {
-    service: any;
-    categoryData: any;
-    relatedServices: any[];
+    service: Service;
+    categoryData: ServiceCategory;
+    relatedServices: Service[];
     gallery: { url: string; alt?: string }[];
-    serviceSchema: any;
+    serviceSchema: Record<string, unknown>;
     category: string;
 }
 
@@ -32,7 +33,7 @@ export default function ServiceDetailClient({
             ? `/en/services/${categoryData.slug_en}/${service.slug_en}`
             : "/en/services";
         setAlternateUrl(trUrl, enUrl);
-    }, [service.slug, service.slug_en, categoryData.slug, categoryData.slug_en]);
+    }, [service.slug, service.slug_en, categoryData.slug, categoryData.slug_en, setAlternateUrl]);
 
     const title = language === "en" ? (service.title_en || service.title) : service.title;
     const seoTitle = language === "en"
@@ -54,7 +55,7 @@ export default function ServiceDetailClient({
             <div className="mx-auto max-w-[840px] px-6 sm:px-8">
                 {/* Breadcrumb */}
                 <nav
-                    className="mb-8 flex items-center gap-2 text-[rgba(255,255,255,.4)]"
+                    className="mb-8 flex flex-wrap items-center gap-2 text-[rgba(255,255,255,.4)]"
                     style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: 11, letterSpacing: ".06em", textTransform: "uppercase" }}
                 >
                     <Link href="/" className="hover:text-white transition-colors">

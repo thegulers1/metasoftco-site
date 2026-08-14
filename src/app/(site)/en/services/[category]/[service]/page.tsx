@@ -6,6 +6,7 @@ import { cloudinaryOgImage } from "@/lib/cloudinary";
 import { cache } from "react";
 import ServiceDetailClient from "@/app/(site)/hizmetler/[category]/[service]/ServiceDetailClient";
 import { AdminEditUrlSetter } from "@/components/site/AdminBar";
+import { isEnglishServicePublishable } from "@/lib/publication";
 
 export const revalidate = 3600;
 
@@ -35,12 +36,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     if (!categoryData) return {};
 
     const service = await getServiceBySlugEn(serviceSlug, categoryData.id);
-    if (!service) return {};
+    if (!service || !isEnglishServicePublishable(service, categoryData)) return { robots: { index: false, follow: false } };
 
-    const title = service.metaTitle_en || service.metaTitle || `${service.title_en || service.title} | ${categoryData.name_en || categoryData.name}`;
-    const description = service.metaDescription_en || service.metaDescription || service.description_en || service.description || siteConfig.description;
-    const keywords = service.metaKeywords_en || service.metaKeywords || "";
-    const image = cloudinaryOgImage(service.ogImage || service.image) || `${siteConfig.url}/og-image.jpg`;
+    const title = service.metaTitle_en!;
+    const description = service.metaDescription_en!;
+    const keywords = service.metaKeywords_en || "";
+    const image = cloudinaryOgImage(service.ogImage || service.image) || `${siteConfig.url}/og`;
     const url = `${siteConfig.url}/en/services/${category}/${serviceSlug}`;
 
     return {
@@ -52,7 +53,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             description,
             url,
             siteName: siteConfig.name,
-            images: [{ url: image, width: 1200, height: 630, alt: service.title_en || service.title }],
+            images: [{ url: image, width: 1200, height: 630, alt: service.title_en! }],
             locale: "en_US",
             type: "website",
         },
@@ -75,7 +76,7 @@ export default async function EnglishServiceDetailPage({ params }: PageProps) {
     if (!categoryData) notFound();
 
     const service = await getServiceBySlugEn(serviceSlug, categoryData!.id);
-    if (!service) notFound();
+    if (!service || !isEnglishServicePublishable(service, categoryData!)) notFound();
 
     // Galeri parse et (eski string[] formatını ve yeni {url,alt}[] formatını destekle)
     const gallery: { url: string; alt: string }[] = service.gallery
@@ -92,23 +93,24 @@ export default async function EnglishServiceDetailPage({ params }: PageProps) {
             categoryId: categoryData!.id,
             id: { not: service.id },
             published: true,
+            slug_en: { not: null },
         },
         take: 4,
     });
 
     const serviceSchema = generateServiceSchema({
-        name: service.title_en || service.title,
-        description: service.description_en || service.description || "",
+        name: service.title_en!,
+        description: service.description_en!,
         url: `${siteConfig.url}/en/services/${category}/${serviceSlug}`,
         image: service.image || undefined,
-        category: categoryData!.name_en || categoryData!.name,
+        category: categoryData!.name_en!,
     });
 
     const breadcrumbSchema = generateBreadcrumbSchema([
         { name: "Home", url: siteConfig.url },
         { name: "Services", url: `${siteConfig.url}/en/services` },
-        { name: categoryData!.name_en || categoryData!.name, url: `${siteConfig.url}/en/services/${category}` },
-        { name: service.title_en || service.title, url: `${siteConfig.url}/en/services/${category}/${serviceSlug}` },
+        { name: categoryData!.name_en!, url: `${siteConfig.url}/en/services/${category}` },
+        { name: service.title_en!, url: `${siteConfig.url}/en/services/${category}/${serviceSlug}` },
     ]);
 
     const youtubeIdMatch = service.video?.match(

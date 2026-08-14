@@ -8,6 +8,7 @@ import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { siteConfig } from "@/lib/site";
 import { Metadata } from "next";
+import { isEnglishProjectPublishable, isEnglishServicePublishable } from "@/lib/publication";
 
 export const revalidate = 3600;
 
@@ -45,8 +46,8 @@ const getProjects = unstable_cache(
 );
 
 export default async function EnglishHomePage() {
-    const services = await getFeaturedServices();
-    const projects = await getProjects();
+    const services = (await getFeaturedServices()).filter((service) => isEnglishServicePublishable(service, service.category));
+    const projects = (await getProjects()).filter(isEnglishProjectPublishable);
     return (
         <>
             <HeroSection />

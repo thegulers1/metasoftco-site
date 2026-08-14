@@ -6,6 +6,7 @@ import { prisma } from "@/lib/db";
 import { siteConfig, generateBreadcrumbSchema } from "@/lib/site";
 import { addHeadingAnchors } from "@/lib/utils";
 import Container from "@/components/site/Container";
+import { isEnglishBlogPostPublishable } from "@/lib/publication";
 
 export const revalidate = 3600;
 
@@ -22,10 +23,10 @@ async function getPost(slug_en: string) {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
     const { slug } = await params;
     const post = await getPost(slug);
-    if (!post) return {};
+    if (!post || !isEnglishBlogPostPublishable(post)) return { robots: { index: false, follow: false } };
 
-    const title = post.metaTitle_en || post.metaTitle || post.title_en || post.title;
-    const description = post.metaDescription_en || post.metaDescription || post.excerpt_en || post.excerpt || siteConfig.description;
+    const title = post.metaTitle_en!;
+    const description = post.metaDescription_en!;
     const image = post.ogImage || post.image || `${siteConfig.url}/og`;
     const url = `${siteConfig.url}/en/blog/${slug}`;
 
@@ -59,11 +60,11 @@ export default async function EnglishBlogPostPage({ params }: Props) {
     const { slug } = await params;
     const post = await getPost(slug);
 
-    if (!post) notFound();
+    if (!post || !isEnglishBlogPostPublishable(post)) notFound();
 
-    const title = post.title_en || post.title;
-    const excerpt = post.excerpt_en || post.excerpt;
-    const content = post.content_en || post.content;
+    const title = post.title_en!;
+    const excerpt = post.excerpt_en!;
+    const content = post.content_en!;
 
     const blogPostingSchema = {
         "@context": "https://schema.org",
@@ -82,7 +83,7 @@ export default async function EnglishBlogPostPage({ params }: Props) {
             "@type": "Organization",
             name: siteConfig.name,
             url: siteConfig.url,
-            logo: { "@type": "ImageObject", url: `${siteConfig.url}/logo.png` },
+            logo: { "@type": "ImageObject", url: `${siteConfig.url}/blackLogo.png` },
         },
         mainEntityOfPage: {
             "@type": "WebPage",

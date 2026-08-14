@@ -5,7 +5,7 @@ export const siteConfig = {
     title: "MetasoftCo | Yapay Zeka Etkinlik & İnteraktif Aktivasyon Ajansı — İstanbul",
     description:
         "Stable Diffusion, ControlNet ve AR teknolojileriyle kurgulanmış yapay zeka etkinlik çözümleri, interaktif aktivasyonlar ve uçtan uca prodüksiyon. İstanbul merkezli dijital deneyim ajansı.",
-    url: "https://metasoftco.com",
+    url: "https://www.metasoftco.com",
     locale: "tr_TR",
 
     // SEO Keywords
@@ -130,7 +130,7 @@ export function generateOrganizationSchema() {
         name: siteConfig.name,
         legalName: siteConfig.company.legalName,
         url: siteConfig.url,
-        logo: `${siteConfig.url}/logo.png`,
+        logo: `${siteConfig.url}/blackLogo.png`,
         foundingDate: siteConfig.company.foundingDate,
         founders: siteConfig.company.founders.map((name) => ({
             "@type": "Person",
@@ -173,7 +173,7 @@ export function generateLocalBusinessSchema() {
         priceRange: "$$-$$$",
         logo: {
             "@type": "ImageObject",
-            url: `${siteConfig.url}/logo.png`,
+            url: `${siteConfig.url}/blackLogo.png`,
         },
         image: `${siteConfig.url}/og`,
         foundingDate: siteConfig.company.foundingDate,

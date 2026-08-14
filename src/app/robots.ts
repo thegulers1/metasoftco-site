@@ -1,10 +1,9 @@
 import { MetadataRoute } from "next";
+import { siteConfig } from "@/lib/site";
 
 const disallow = ["/editpanel", "/api", "/login"];
 
 export default function robots(): MetadataRoute.Robots {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://metasoftco.com";
-
   return {
     rules: [
       // Tüm botlar
@@ -50,6 +49,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow,
       },
     ],
-    sitemap: `${baseUrl}/sitemap.xml`,
+    sitemap: `${siteConfig.url}/sitemap.xml`,
   };
 }

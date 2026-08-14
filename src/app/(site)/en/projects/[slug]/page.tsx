@@ -4,6 +4,7 @@ import { siteConfig } from "@/lib/site";
 import { notFound } from "next/navigation";
 import { AdminEditUrlSetter } from "@/components/site/AdminBar";
 import ProjectDetailClient from "@/app/(site)/projeler/[slug]/ProjectDetailClient";
+import { isEnglishProjectPublishable } from "@/lib/publication";
 
 export const revalidate = 3600;
 
@@ -15,13 +16,13 @@ export async function generateMetadata({
     const { slug } = await params;
     const project = await prisma.project.findUnique({
         where: { slug_en: slug, published: true },
-        select: { title_en: true, title: true, description_en: true, description: true, image: true, slug: true, slug_en: true },
+        select: { title_en: true, title: true, description_en: true, description: true, content_en: true, metaTitle_en: true, metaDescription_en: true, image: true, slug: true, slug_en: true },
     });
-    if (!project) return {};
+    if (!project || !isEnglishProjectPublishable(project)) return { robots: { index: false, follow: false } };
 
-    const title = `${project.title_en || project.title} | MetasoftCo`;
-    const description = project.description_en || project.description || siteConfig.description;
-    const image = project.image || `${siteConfig.url}/og?title=${encodeURIComponent(project.title_en || project.title || "")}`;
+    const title = `${project.title_en} | MetasoftCo`;
+    const description = project.description_en!;
+    const image = project.image || `${siteConfig.url}/og?title=${encodeURIComponent(project.title_en!)}`;
     const url = `${siteConfig.url}/en/projects/${slug}`;
 
     return {
@@ -61,6 +62,8 @@ async function getProject(slug_en: string) {
             description_en: true,
             content: true,
             content_en: true,
+            metaTitle_en: true,
+            metaDescription_en: true,
             image: true,
             gallery: true,
             category: true,
@@ -106,7 +109,7 @@ export default async function EnglishProjectDetailPage({
     const { slug } = await params;
     const project = await getProject(slug);
 
-    if (!project) notFound();
+    if (!project || !isEnglishProjectPublishable(project)) notFound();
 
     const nextProject = await getNextProject(project.id, project.order);
 

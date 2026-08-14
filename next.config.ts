@@ -4,9 +4,6 @@ const nextConfig: NextConfig = {
   output: "standalone",
   poweredByHeader: false,
 
-  // Build sırasında TS hatalarının CI'ı kırmasını engelle
-  typescript: { ignoreBuildErrors: true },
-
   async headers() {
     return [
       {
@@ -36,6 +33,18 @@ const nextConfig: NextConfig = {
   // Eski site URL'leri için kalıcı yönlendirmeler (301)
   async redirects() {
     return [
+      // Intent-preserving public migrations.
+      { source: "/isler", destination: "/projeler", permanent: true },
+      {
+        source: "/sektorel-cozumler/istanbul-ai-photobooth",
+        destination: "/hizmetler/istanbul-ai-photobooth",
+        permanent: true,
+      },
+      {
+        source: "/en/sector-solutions/istanbul-ai-photobooth",
+        destination: "/en/services/ai-event-solutions/ai-photobooth",
+        permanent: true,
+      },
       // ---------------------------------------------------------
       // 1. SPESİFİK TARİHLİ LİNKLER (En üstte olmalı - Özel Kural)
       // ---------------------------------------------------------
@@ -51,34 +60,7 @@ const nextConfig: NextConfig = {
       },
 
       // ---------------------------------------------------------
-      // 2. GENEL TARİH YAKALAYICI (Kapsayıcı Kural)
-      // Üstteki özel kurallara takılmayan tüm tarihli linkleri anasayfaya atar
-      // ---------------------------------------------------------
-      {
-        source: "/:year(\\d{4})/:month(\\d{2})/:day(\\d{2})/:slug*",
-        destination: "/",
-        permanent: true,
-      },
-
-      // ---------------------------------------------------------
-      // 3. HATALI ÇOKLU LOGLAR VE BOT TRAFİKLERİ (Build Hatası Çözüldü)
-      // ---------------------------------------------------------
-      // wp-admin, wp-content gibi saldırı/bot tarama linklerini güvenli yakalama
-      { source: "/wp-admin", destination: "/", permanent: true },
-      { source: "/wp-admin/:path*", destination: "/", permanent: true },
-      { source: "/wp-content/:path*", destination: "/", permanent: true },
-      { source: "/wp-includes/:path*", destination: "/", permanent: true },
-      { source: "/wp-login.php", destination: "/", permanent: true },
-      
-      // /undefined ile biten eski hatalı linkleri güvenli yakalama
-      { source: "/projeler/undefined", destination: "/", permanent: true },
-      { source: "/:slug/undefined", destination: "/", permanent: true },
-      
-      // İç içe girmiş instagram linki hatalarını güvenli yakalama
-      { source: "/:slug/www.instagram.com/:path*", destination: "/", permanent: true },
-
-      // ---------------------------------------------------------
-      // 4. ESKİ İNGİLİZCE VE EKSİK KATEGORİ KLASÖRLERİNİ TOPLU YAKALAMA (Wildcard)
+      // 2. ESKİ İNGİLİZCE VE EKSİK KATEGORİ KLASÖRLERİNİ TOPLU YAKALAMA (Wildcard)
       // ---------------------------------------------------------
       {
         source: "/hizmetler/ai-event-solutions/:path*",
@@ -102,10 +84,8 @@ const nextConfig: NextConfig = {
       },
 
       // ---------------------------------------------------------
-      // 5. TEKİL ESKİ SAYFA VE HİZMET YÖNLENDİRMELERİ
+      // 3. TEKİL ESKİ SAYFA VE HİZMET YÖNLENDİRMELERİ
       // ---------------------------------------------------------
-      { source: "/star-map", destination: "/", permanent: true },
-
       { source: "/cozumler", destination: "/sektorel-yazilim-cozumleri", permanent: true },
       { source: "/cozumler/:path*", destination: "/sektorel-yazilim-cozumleri/:path*", permanent: true },
       { source: "/sektorel-yazilim-cozumleri/tekstil-sektoru", destination: "/sektorel-yazilim-cozumleri/tekstil-sektoru-dijital-donusum", permanent: true },
@@ -134,8 +114,6 @@ const nextConfig: NextConfig = {
       { source: "/interaktif-aktiviteler", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri", permanent: true },
       { source: "/yapay-zeka-aktiviteleri", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri", permanent: true },
       { source: "/reflex-wall", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/reflex-game-hiz-ve-rekabet-oyunu", permanent: true },
-      { source: "/hashtag-photo", destination: "/", permanent: true },
-      { source: "/hashtag-photo/", destination: "/", permanent: true },
       { source: "/pegasus-dijital-carkifelek-aktivitesi", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/dijital-hediye-carki-aktivasyonu", permanent: true },
       { source: "/pegasus-dijital-carkifelek-aktivitesi/", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/dijital-hediye-carki-aktivasyonu", permanent: true },
 
