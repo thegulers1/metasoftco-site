@@ -180,7 +180,7 @@ After visual review, the homepage hero was revised to the selected third visual 
 - A real Ray-Ban participation image sits in a tall faceted portal with an animated gradient edge.
 - The headline overlaps the live-work image to create one authored composition instead of a conventional split hero.
 - The right-side buyer explanation and **Plan Your Activation / View Selected Work** actions remain explicit.
-- An animated capability band makes AI Photo, interactive games, custom software and live installations visible in the first viewport.
+- The original continuously looping client-logo band sits directly below the hero; the interim AI Photo / Custom Software capability ticker has been removed.
 - Mobile keeps the same hierarchy but removes horizontal stretching, stacks the media safely and preserves full-width conversion actions.
 
 The composition responds to current experiential/creative-technology patterns observed at UNIT9, Active Theory, Resn, Lusion and FutureDeluxe: one confident media object, atmospheric depth and work-led visual authority. Snapbar's direct B2B explanation and CTA discipline remain in the copy block. The service and case-study prototypes were intentionally not changed.
@@ -203,7 +203,7 @@ The service and case-study routes remain unchanged. The broader homepage treatme
 | Section | Purpose / buyer question | Desired action | Required content/media | Availability |
 |---|---|---|---|---|
 | Hero + live proof | What is this company and what does it build? | Start a brief or view work | Clear positioning, Ray-Ban participation, Pegasus installation | Implemented from existing assets |
-| Selected collaborations | Have credible brands worked with them? | Continue with confidence | Four evidenced local logo assets | Implemented |
+| Selected collaborations | Have credible brands worked with them? | Continue with confidence | Continuously looping client-logo band | Implemented |
 | Selected work | Can I see the output and physical execution? | Open a case study | Tavuk Dünyası, Pegasus and Ray-Ban imagery | Implemented; two cases remain on legacy template |
 | Capabilities | What types of experience can they build? | Explore the relevant service family | AI, photo, interactive game and custom installation descriptions | Implemented |
 | How we build | Can they handle the whole delivery path? | Understand engagement scope | Brief, prototype, build and live delivery | Implemented |

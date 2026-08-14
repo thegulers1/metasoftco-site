@@ -25,6 +25,9 @@
 - Focused outline and ambient-field comparison: `docs/audit/screenshots/phase-2/comparison/home-overall-focused-outline-reference-capabilities.png`.
   - Source hero is on the left; implemented Capabilities section is on the right.
 - Responsive contact sheet: `docs/audit/screenshots/phase-2/comparison/home-overall-mobile-contact-sheet.png`.
+- Restored logo-loop evidence:
+  - Desktop: `docs/audit/screenshots/phase-2/after/home-logo-loop-desktop.png` (1265 × 712 px capture).
+  - Mobile: `docs/audit/screenshots/phase-2/after/home-logo-loop-mobile.png` (375 × 812 px capture).
 - Individual implementation evidence:
   - `docs/audit/screenshots/phase-2/after/home-overall-work-top-desktop.png`
   - `docs/audit/screenshots/phase-2/after/home-overall-work-grid-desktop.png`
@@ -48,12 +51,14 @@
 1. Pass 1 compared the selected source, all five redesigned desktop sections, the focused Capabilities region and the five mobile section captures in combined evidence images.
 2. Pass 1 found no actionable P0, P1 or P2 mismatch. No visual fixes were required after the comparison.
 3. Responsive verification found no horizontal overflow at requested widths 320, 375, 390, 430, 768, 1024 and 1440 px.
+4. Scoped follow-up restored the original continuously looping 12-brand strip in four repeated groups and removed the interim AI Photo / Custom Software capability ticker. Desktop and mobile captures confirm the loop sits directly between the hero and Selected Work.
 
 ## Interactions and engineering checks
 
 - Mobile menu opened and exposed `aria-expanded="true"`.
 - Mobile primary navigation CTA successfully navigated to `/en/contact`.
 - All three project links, four capability links and both final CTA links were verified in the browser.
+- Logo-loop check: 48 rendered logo images (12 brands × 4 repeated groups); `.p2-signal-ticker` absent; no horizontal overflow on mobile.
 - Browser console errors: none.
 - `pnpm exec tsc --noEmit`: passed.
 - Scoped ESLint for `src/components/phase2/HomePrototype.tsx`: passed.

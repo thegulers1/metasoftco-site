@@ -216,7 +216,7 @@ Buttons, links and FAQ summaries use a 3px cyan focus ring with 4px offset.
 
 ## Motion
 
-- Homepage-only spectrum breathing, portal-edge drift and a continuously moving capability band.
+- Homepage-only spectrum breathing, portal-edge drift and the restored continuously moving client-logo band.
 - Media hover scale and CTA translation elsewhere.
 - Normal interaction duration: approximately 200–500ms; ambient homepage loops run over 5.5–24 seconds.
 - No parallax, scroll-jacking, autonomous floating objects or entrance delay.

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Sparkles } from "lucide-react";
+import BrandStrip from "@/components/site/BrandStrip";
 import { P2Button, P2Container, P2Eyebrow } from "./Phase2Primitives";
 
 export interface P2ProjectCard {
@@ -10,13 +11,6 @@ export interface P2ProjectCard {
     image: string | null;
     category: string | null;
 }
-
-const clientLogos = [
-    { src: "/brands/nivea-logo.png", alt: "Nivea" },
-    { src: "/brands/pegasus-logo.png", alt: "Pegasus Airlines" },
-    { src: "/brands/rayban-logo.png", alt: "Ray-Ban" },
-    { src: "/brands/samsung-logo.png", alt: "Samsung" },
-];
 
 const capabilities = [
     {
@@ -51,8 +45,6 @@ const process = [
     ["03", "Build the system", "Custom software, branded interface, content and physical integration."],
     ["04", "Deliver it live", "Installation, event-day operation and a handover shaped around the brief."],
 ];
-
-const signalCapabilities = ["AI PHOTO", "INTERACTIVE GAMES", "CUSTOM SOFTWARE", "LIVE INSTALLATIONS"];
 
 const projectPresentation: Record<string, { title: string; category: string }> = {
     "tavuk-dunyasi-x-ai-photo": { title: "Tavuk Dünyası × AI Photo", category: "AI Photo Activation" },
@@ -94,25 +86,11 @@ export default function HomePrototype({ projects }: { projects: P2ProjectCard[] 
                         </div>
                     </div>
                 </P2Container>
-                <div className="p2-signal-ticker" aria-label="MetasoftCo capabilities">
-                    <div className="p2-signal-ticker__track">
-                        {[0, 1, 2].map((group) => (
-                            <div className="p2-signal-ticker__group" aria-hidden={group > 0} key={group}>
-                                {signalCapabilities.map((capability) => <span key={`${group}-${capability}`}><Sparkles aria-hidden="true" />{capability}</span>)}
-                            </div>
-                        ))}
-                    </div>
-                </div>
             </section>
 
-            <section className="p2-logo-strip p2-home-logo-strip" aria-label="Selected client collaborations">
-                <P2Container>
-                    <p>SELECTED COLLABORATIONS</p>
-                    <div>
-                        {clientLogos.map((logo) => <Image key={logo.alt} src={logo.src} alt={logo.alt} width={132} height={42} />)}
-                    </div>
-                </P2Container>
-            </section>
+            <div className="p2-home-brand-loop" aria-label="Selected client collaborations">
+                <BrandStrip />
+            </div>
 
             <section className="p2-section p2-home-work" aria-labelledby="featured-work-title">
                 <P2Container>
