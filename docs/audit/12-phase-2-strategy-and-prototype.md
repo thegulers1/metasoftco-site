@@ -185,6 +185,19 @@ After visual review, the homepage hero was revised to the selected third visual 
 
 The composition responds to current experiential/creative-technology patterns observed at UNIT9, Active Theory, Resn, Lusion and FutureDeluxe: one confident media object, atmospheric depth and work-led visual authority. Snapbar's direct B2B explanation and CTA discipline remain in the copy block. The service and case-study prototypes were intentionally not changed.
 
+### Full-page visual continuation (implemented)
+
+The selected signal-portal language now continues through the complete homepage rather than stopping after the first viewport.
+
+- Selected Work uses a large editorial heading, spectrum-outline emphasis, oversized project numbers and an asymmetric three-project composition.
+- Capabilities becomes a luminous indexed system with larger outline numbers, stronger scan hierarchy and restrained hover movement.
+- How We Build uses staggered steps, spectrum-outline numbers and a single continuous signal line.
+- Why Interactive carries the cyan/coral atmospheric field into a value-led split layout with icon-supported proof points.
+- The final CTA is now a homepage-specific signal field with an oversized outline statement and two explicit conversion paths.
+- Desktop, tablet and mobile preserve the same section order and copy; only composition, scale and rhythm adapt.
+
+The service and case-study routes remain unchanged. The broader homepage treatment is isolated through `p2-home-*` selectors so the accepted detail-page system does not inherit the new display scale or ambient fields.
+
 ## Homepage Architecture
 
 | Section | Purpose / buyer question | Desired action | Required content/media | Availability |

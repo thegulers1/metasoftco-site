@@ -1,52 +1,62 @@
-# Design QA — Homepage Signal Portal
+# Design QA — Full Homepage Signal System
 
-Result: passed
-
-## Source and implementation
-
-- Source image: `/Users/lawlieties/.codex/generated_images/01a001b8-dba2-7820-aa1c-ca035340c856/exec-9acd4e88-2840-452c-b5ae-a6e163a310ab.png`
-- Source dimensions: 1487 × 1058 px; normalized to the 1425 × 1013 px implementation capture for comparison.
-- Implementation: `http://localhost:3300/en`
-- Implementation screenshot: `docs/audit/screenshots/phase-2/after/home-desktop.png`
-- Mobile screenshot: `docs/audit/screenshots/phase-2/after/home-mobile.png`
-- Browser: Codex in-app Browser.
-- Desktop viewport override: 1440 × 1024 CSS px at 1× density; rendered client width 1425 px and captured raster 1425 × 1013 px. State is the homepage at scroll position 0.
-- Mobile viewport override: 390 × 844 CSS px at 1× density; rendered client width 375 px and captured raster 375 × 812 px. State is the homepage at scroll position 0.
-
-## Comparison evidence
-
-- Full same-state comparison: `docs/audit/screenshots/phase-2/comparison/home-desktop-reference-implementation.png`
-- Focused hero comparison: `docs/audit/screenshots/phase-2/comparison/home-desktop-reference-implementation-focus.png`
-- The reference is on the left and the implementation is on the right in both comparison files.
-
-## Final visual findings
+## Findings
 
 - P0: none.
 - P1: none.
 - P2: none.
-- The final implementation matches the selected composition's dominant relationships: fixed dark chrome, top eyebrow, full-width spectrum outline word, oversized three-line solid headline, centered faceted live-work portal, right-side buyer explanation and CTA pair, and bottom capability band.
-- Accepted non-blocking differences: the implementation uses the existing MetasoftCo type system and live Ray-Ban source crop; the small decorative orbit from the concept was omitted because it did not add content or conversion value.
+- The full homepage preserves the selected source's five dominant visual relationships: near-black editorial canvas, cyan/violet/coral outline typography, restrained atmospheric light fields, large real-work imagery, and mono-indexed signal details.
+- Accepted constraint: the selected source visual contains only the hero. Below-fold QA therefore evaluates faithful continuation of its design language rather than claiming a literal 1:1 section-layout match.
 
-## QA history
+## Source and implementation
 
-1. First browser pass revealed that “EXPERIENCES” was too narrow and rendered as a filled gradient; the solid headline was also narrower than the selected composition.
-2. The display treatment was widened, converted to a cyan/violet/coral outline, and the solid headline was horizontally tuned to match the reference proportions.
-3. The first mobile pass inherited desktop horizontal scaling and wrapped the final “S” onto a separate line. Mobile now explicitly removes horizontal scaling and keeps the word on one line.
-4. A stale local development server was found rewriting the build cache. It was stopped, the production bundle was rebuilt, and all evidence was recaptured from the verified production server.
-5. Final full and focused side-by-side review found no remaining P0, P1 or P2 mismatch.
+- Source visual truth: `/Users/lawlieties/.codex/generated_images/01a001b8-dba2-7820-aa1c-ca035340c856/exec-9acd4e88-2840-452c-b5ae-a6e163a310ab.png`.
+- Source pixels: 1487 × 1058 px.
+- Implementation: `http://localhost:3300/en`.
+- Browser: Codex in-app Browser.
+- Desktop viewport override: 1440 × 1024 CSS px at 1× density; rendered client width 1425 px; captured section rasters are 1425 × 1013 px.
+- Mobile viewport override: 390 × 844 CSS px at 1× density; rendered client width 375 px; captured section rasters are 375 × 812 px.
+- State: English homepage, dark theme, each named section aligned below the fixed navigation.
 
-## Responsive and interaction checks
+## Comparison evidence
 
-- No horizontal overflow at requested widths 320, 375, 390, 430, 768, 1024 and 1440 px.
-- Mobile navigation opens, exposes `aria-expanded="true"`, and shows Work, Capabilities, About, Insights and the primary CTA.
-- Mobile primary CTA was activated in the browser and navigated successfully to `/en/contact`.
-- Hero CTA targets verified: primary `/en/contact`; secondary `/en/projects`.
-- `prefers-reduced-motion` disables or shortens the ambient animations through the existing Phase 2 reduced-motion rule.
+- Full design-language board: `docs/audit/screenshots/phase-2/comparison/home-overall-styleboard-reference-implementation.png`.
+  - Order: source hero; Selected Work; Capabilities; How We Build; Why Interactive; final CTA.
+- Focused outline and ambient-field comparison: `docs/audit/screenshots/phase-2/comparison/home-overall-focused-outline-reference-capabilities.png`.
+  - Source hero is on the left; implemented Capabilities section is on the right.
+- Responsive contact sheet: `docs/audit/screenshots/phase-2/comparison/home-overall-mobile-contact-sheet.png`.
+- Individual implementation evidence:
+  - `docs/audit/screenshots/phase-2/after/home-overall-work-top-desktop.png`
+  - `docs/audit/screenshots/phase-2/after/home-overall-work-grid-desktop.png`
+  - `docs/audit/screenshots/phase-2/after/home-overall-capabilities-desktop.png`
+  - `docs/audit/screenshots/phase-2/after/home-overall-process-desktop.png`
+  - `docs/audit/screenshots/phase-2/after/home-overall-value-desktop.png`
+  - `docs/audit/screenshots/phase-2/after/home-overall-final-desktop.png`
 
-## Engineering checks
+## Required fidelity surfaces
 
+- Fonts and typography: Space Grotesk, Manrope and JetBrains Mono remain consistent with the accepted hero. Outline display words use the same cyan-to-violet-to-coral treatment, optical weight and tight tracking. Mobile wrapping remains intentional and readable.
+- Spacing and layout rhythm: desktop alternates full-width editorial headers, asymmetric project imagery, indexed rows, staggered steps and a split value section. Mobile collapses to one column without cramped controls or broken hierarchy.
+- Colors and tokens: the existing Phase 2 black, warm white, muted text and cyan CTA tokens remain unchanged. Spectrum accents are limited to outline text, atmospheric fields and selected borders.
+- Image quality and asset fidelity: only existing real MetasoftCo project imagery is used. Crops remain sharp and contextual; no placeholders, generated substitutes, inline SVG artwork or CSS-drawn media were introduced.
+- Copy and content: the approved section order, project labels, capability descriptions, process copy, value proposition and CTA destinations are preserved. Display lines were edited only where required to carry the selected visual language.
+- Icons: ArrowUpRight and Sparkles come from the existing Lucide icon dependency, use consistent stroke weight, and remain decorative where appropriate.
+- Accessibility: heading hierarchy remains one H1 followed by section H2s and project/capability H3s. Links remain semantic, icons are aria-hidden, focus styles are inherited, mobile controls meet the existing touch-target rules, and reduced motion is respected.
+
+## Comparison history
+
+1. Pass 1 compared the selected source, all five redesigned desktop sections, the focused Capabilities region and the five mobile section captures in combined evidence images.
+2. Pass 1 found no actionable P0, P1 or P2 mismatch. No visual fixes were required after the comparison.
+3. Responsive verification found no horizontal overflow at requested widths 320, 375, 390, 430, 768, 1024 and 1440 px.
+
+## Interactions and engineering checks
+
+- Mobile menu opened and exposed `aria-expanded="true"`.
+- Mobile primary navigation CTA successfully navigated to `/en/contact`.
+- All three project links, four capability links and both final CTA links were verified in the browser.
+- Browser console errors: none.
 - `pnpm exec tsc --noEmit`: passed.
 - Scoped ESLint for `src/components/phase2/HomePrototype.tsx`: passed.
 - `pnpm build`: passed.
-- Browser console errors on the final page: none.
-- Expected local analytics warning: Ahrefs ignores localhost events; this does not affect the implementation.
+
+final result: passed

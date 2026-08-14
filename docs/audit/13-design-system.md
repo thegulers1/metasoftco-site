@@ -79,6 +79,20 @@ The system uses a small set of repeated ranges rather than a universal numeric s
 - Mobile (≤700px): all primary content becomes one column; facts remain one or two columns depending on scan value.
 - Media can span the 1280px content width but does not use uncontrolled viewport-width overflow.
 
+## Homepage Signal Sections
+
+The homepage extends the hero language through route-specific components and selectors:
+
+- `.p2-home-section-head` sets 62–128px editorial section headings with selective spectrum-outline words.
+- `.p2-home-work` uses a 12-column asymmetric project grid at desktop and a single-column proof sequence below 1000px.
+- `.p2-project-card__number` adds large outline indexing over real project media without replacing or obscuring the source imagery.
+- `.p2-home-capabilities` applies the signal field to the existing linked capability list and retains all original destinations.
+- `.p2-home-process` uses staggered desktop steps; the stagger is removed at tablet and mobile widths.
+- `.p2-home-value` applies the spectrum field to a value-led split layout and uses Lucide `Sparkles` icons for proof-point markers.
+- `.p2-home-final` is homepage-specific so the accepted service and case-study final CTA component remains unchanged.
+
+All ambient fields are CSS background and border treatments directly derived from the selected homepage source. Real project photography remains the only large image asset below the hero.
+
 ## Buttons and Links
 
 ### Primary

@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowUpRight, Sparkles } from "lucide-react";
-import { P2Button, P2Container, P2Eyebrow, P2FinalCta, P2SectionHeading } from "./Phase2Primitives";
+import { P2Button, P2Container, P2Eyebrow } from "./Phase2Primitives";
 
 export interface P2ProjectCard {
     slug_en: string | null;
@@ -105,7 +105,7 @@ export default function HomePrototype({ projects }: { projects: P2ProjectCard[] 
                 </div>
             </section>
 
-            <section className="p2-logo-strip" aria-label="Selected client collaborations">
+            <section className="p2-logo-strip p2-home-logo-strip" aria-label="Selected client collaborations">
                 <P2Container>
                     <p>SELECTED COLLABORATIONS</p>
                     <div>
@@ -114,12 +114,17 @@ export default function HomePrototype({ projects }: { projects: P2ProjectCard[] 
                 </P2Container>
             </section>
 
-            <section className="p2-section" aria-labelledby="featured-work-title">
+            <section className="p2-section p2-home-work" aria-labelledby="featured-work-title">
                 <P2Container>
-                    <P2SectionHeading eyebrow="SELECTED WORK" title="Built for people to take part." copy="A selection of AI, photo and interactive experiences delivered for live brand environments." />
+                    <header className="p2-home-section-head">
+                        <P2Eyebrow>SELECTED WORK</P2Eyebrow>
+                        <h2 id="featured-work-title">Built for <span className="p2-home-outline" data-text="people">people</span><br />to take part.</h2>
+                        <p>A selection of AI, photo and interactive experiences delivered for live brand environments.</p>
+                    </header>
                     <div className="p2-project-grid">
                         {projects.map((project, index) => project.image && project.slug_en && (
                             <Link href={`/en/projects/${project.slug_en}`} className="p2-project-card" key={project.slug_en}>
+                                <span className="p2-project-card__number" aria-hidden="true">0{index + 1}</span>
                                 <div className="p2-project-card__image">
                                     <Image src={project.image} alt={projectPresentation[project.slug_en]?.title || project.title_en || "MetasoftCo project"} fill sizes="(max-width: 760px) 100vw, 50vw" />
                                 </div>
@@ -133,9 +138,13 @@ export default function HomePrototype({ projects }: { projects: P2ProjectCard[] 
                 </P2Container>
             </section>
 
-            <section className="p2-section p2-section--surface" aria-labelledby="capabilities-title">
+            <section className="p2-section p2-section--surface p2-home-capabilities" aria-labelledby="capabilities-title">
                 <P2Container>
-                    <P2SectionHeading eyebrow="CAPABILITIES" title="One partner from interaction idea to live system." copy="The creative and technical layers are designed together, so the concept survives contact with the real venue." />
+                    <header className="p2-home-section-head p2-home-section-head--wide">
+                        <P2Eyebrow>CAPABILITIES</P2Eyebrow>
+                        <h2 id="capabilities-title"><span className="p2-home-outline" data-text="One partner">One partner</span><br />from idea to live.</h2>
+                        <p>The creative and technical layers are designed together, so the concept survives contact with the real venue.</p>
+                    </header>
                     <div className="p2-capability-list">
                         {capabilities.map((capability) => (
                             <Link href={capability.href} key={capability.number}>
@@ -146,31 +155,49 @@ export default function HomePrototype({ projects }: { projects: P2ProjectCard[] 
                 </P2Container>
             </section>
 
-            <section className="p2-section" aria-labelledby="process-title">
+            <section className="p2-section p2-home-process" aria-labelledby="process-title">
                 <P2Container>
-                    <P2SectionHeading eyebrow="HOW WE BUILD" title="A continuous path from brief to live operation." />
+                    <header className="p2-home-section-head">
+                        <P2Eyebrow>HOW WE BUILD</P2Eyebrow>
+                        <h2 id="process-title">A clear signal from <span className="p2-home-outline" data-text="brief">brief</span><br />to live operation.</h2>
+                    </header>
                     <ol className="p2-process-grid">
                         {process.map(([number, title, copy]) => <li key={number}><span>{number}</span><h3>{title}</h3><p>{copy}</p></li>)}
                     </ol>
                 </P2Container>
             </section>
 
-            <section className="p2-section p2-value" aria-labelledby="value-title">
+            <section className="p2-section p2-value p2-home-value" aria-labelledby="value-title">
                 <P2Container className="p2-value__grid">
-                    <P2SectionHeading eyebrow="WHY INTERACTIVE" title="Give the audience a role in the brand story." />
+                    <header className="p2-home-section-head">
+                        <P2Eyebrow>WHY INTERACTIVE</P2Eyebrow>
+                        <h2 id="value-title">Give the audience a <span className="p2-home-outline" data-text="role">role</span><br />in the brand story.</h2>
+                    </header>
                     <div className="p2-value__copy">
                         <p>Experiential technology works when it does more than attract a queue. We design for a clear moment of participation: something guests can influence, create with and carry into the rest of the campaign.</p>
                         <ul>
-                            <li>Personalised branded content</li>
-                            <li>Product and campaign storytelling</li>
-                            <li>Shareable digital takeaways</li>
-                            <li>Flexible flows for launches, events and retail</li>
+                            <li><Sparkles aria-hidden="true" /><span>Personalised branded content</span></li>
+                            <li><Sparkles aria-hidden="true" /><span>Product and campaign storytelling</span></li>
+                            <li><Sparkles aria-hidden="true" /><span>Shareable digital takeaways</span></li>
+                            <li><Sparkles aria-hidden="true" /><span>Flexible flows for launches, events and retail</span></li>
                         </ul>
                     </div>
                 </P2Container>
             </section>
 
-            <P2FinalCta title="Make the next campaign something people can enter." copy="Share the audience, venue and campaign goal. We’ll shape the interaction, system and live delivery around the brief." />
+            <section className="p2-home-final" aria-labelledby="home-final-title">
+                <P2Container>
+                    <P2Eyebrow>NEXT SIGNAL</P2Eyebrow>
+                    <h2 id="home-final-title">Make the next campaign<br /><span className="p2-home-outline" data-text="something people can enter.">something people can enter.</span></h2>
+                    <div className="p2-home-final__base">
+                        <p>Share the audience, venue and campaign goal. We’ll shape the interaction, system and live delivery around the brief.</p>
+                        <div className="p2-actions">
+                            <P2Button href="/en/contact">Plan Your Activation</P2Button>
+                            <P2Button href="/en/projects" variant="secondary">View Selected Work</P2Button>
+                        </div>
+                    </div>
+                </P2Container>
+            </section>
         </div>
     );
 }
