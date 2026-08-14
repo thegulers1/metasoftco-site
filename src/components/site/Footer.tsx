@@ -3,6 +3,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useLanguage } from "@/providers/LanguageProvider";
+import { usePathname } from "next/navigation";
+import { isPhase2PrototypePath } from "@/lib/phase2";
+import { Phase2Footer } from "@/components/phase2/Phase2Chrome";
 
 function localizedHref(language: "tr" | "en", trPath: string, enPath: string | null) {
     if (language === "en" && enPath) return enPath;
@@ -11,6 +14,9 @@ function localizedHref(language: "tr" | "en", trPath: string, enPath: string | n
 
 export default function Footer() {
     const { t, language } = useLanguage();
+    const pathname = usePathname();
+
+    if (isPhase2PrototypePath(pathname)) return <Phase2Footer />;
 
     return (
         <footer className="bg-[#0a0a0f] text-white border-t border-white/[0.08]">

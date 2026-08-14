@@ -7,6 +7,9 @@ import { motion, AnimatePresence } from "motion/react";
 import { useLanguage } from "@/providers/LanguageProvider";
 import { Globe, Sparkles } from "lucide-react";
 import { useChatStore } from "@/components/AIChat/useChatStore";
+import { usePathname } from "next/navigation";
+import { isPhase2PrototypePath } from "@/lib/phase2";
+import { Phase2Navbar } from "@/components/phase2/Phase2Chrome";
 
 const getMenu = (t: (tr: string, en: string) => string, lang: "tr" | "en") =>
     lang === "en"
@@ -26,6 +29,7 @@ const getMenu = (t: (tr: string, en: string) => string, lang: "tr" | "en") =>
         ];
 
 export default function Navbar() {
+    const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const { language, setLanguage, t } = useLanguage();
@@ -39,6 +43,8 @@ export default function Navbar() {
     }, []);
 
     const toggleLanguage = () => setLanguage(language === "tr" ? "en" : "tr");
+
+    if (isPhase2PrototypePath(pathname)) return <Phase2Navbar />;
 
     return (
         <>

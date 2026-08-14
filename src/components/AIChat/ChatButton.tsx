@@ -4,10 +4,15 @@ import { useChatStore } from "./useChatStore";
 import { useLanguage } from "@/providers/LanguageProvider";
 import { motion, AnimatePresence } from "motion/react";
 import { Sparkles } from "lucide-react";
+import { usePathname } from "next/navigation";
+import { isPhase2PrototypePath } from "@/lib/phase2";
 
 export function ChatButton() {
+    const pathname = usePathname();
     const { isOpen, open } = useChatStore();
     const { language } = useLanguage();
+
+    if (isPhase2PrototypePath(pathname)) return null;
 
     return (
         <AnimatePresence>

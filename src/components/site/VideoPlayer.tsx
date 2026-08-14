@@ -31,38 +31,6 @@ export default function VideoPlayer({ src, thumbnailTime, fallbackPoster, title 
     const videoRef = useRef<HTMLVideoElement>(null);
     const youtubeId = getYouTubeId(src);
 
-    // YouTube embed
-    if (youtubeId) {
-        const vertical = isShorts(src);
-        const embedUrl = `https://www.youtube.com/embed/${youtubeId}?rel=0&modestbranding=1`;
-
-        return (
-            <div
-                className={
-                    vertical
-                        ? "relative mx-auto w-full max-w-[340px] rounded-2xl overflow-hidden shadow-xl"
-                        : "relative w-full rounded-2xl overflow-hidden shadow-xl"
-                }
-                style={{ aspectRatio: vertical ? "9/16" : "16/9" }}
-                aria-label={title}
-            >
-                <iframe
-                    src={embedUrl}
-                    title={title || "Video"}
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                    className="absolute inset-0 w-full h-full border-0"
-                />
-            </div>
-        );
-    }
-
-    // Cloudinary / native video
-    let poster = fallbackPoster || undefined;
-    if (src.includes("res.cloudinary.com") && thumbnailTime !== null && thumbnailTime !== undefined) {
-        poster = src.replace("/video/upload/", `/video/upload/so_${thumbnailTime}/`).replace(/\.[^/.]+$/, ".jpg");
-    }
-
     useEffect(() => {
         const video = videoRef.current;
         if (!video) return;
@@ -81,6 +49,39 @@ export default function VideoPlayer({ src, thumbnailTime, fallbackPoster, title 
         observer.observe(video);
         return () => observer.unobserve(video);
     }, []);
+
+    // YouTube embed
+    if (youtubeId) {
+        const vertical = isShorts(src);
+        const embedUrl = `https://www.youtube.com/embed/${youtubeId}?rel=0&modestbranding=1`;
+
+        return (
+            <div
+                className={
+                    vertical
+                        ? "relative mx-auto w-full max-w-[340px] rounded-2xl overflow-hidden shadow-xl"
+                        : "relative w-full rounded-2xl overflow-hidden shadow-xl"
+                }
+                style={{ aspectRatio: vertical ? "9/16" : "16/9" }}
+                aria-label={title}
+            >
+                <iframe
+                    src={embedUrl}
+                    title={title || "Video"}
+                    loading="lazy"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    className="absolute inset-0 w-full h-full border-0"
+                />
+            </div>
+        );
+    }
+
+    // Cloudinary / native video
+    let poster = fallbackPoster || undefined;
+    if (src.includes("res.cloudinary.com") && thumbnailTime !== null && thumbnailTime !== undefined) {
+        poster = src.replace("/video/upload/", `/video/upload/so_${thumbnailTime}/`).replace(/\.[^/.]+$/, ".jpg");
+    }
 
     return (
         <div className="relative max-w-[800px] mx-auto rounded-2xl overflow-hidden shadow-xl bg-white flex justify-center border border-black/5">
