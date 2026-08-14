@@ -1,10 +1,13 @@
 import { Metadata } from "next";
 import { prisma } from "@/lib/db";
-import { siteConfig } from "@/lib/site";
+import { generateBreadcrumbSchema, siteConfig } from "@/lib/site";
 import { notFound } from "next/navigation";
 import { AdminEditUrlSetter } from "@/components/site/AdminBar";
 import ProjectDetailClient from "@/app/(site)/projeler/[slug]/ProjectDetailClient";
 import { isEnglishProjectPublishable } from "@/lib/publication";
+import CaseStudyPrototype from "@/components/phase2/CaseStudyPrototype";
+
+const PHASE_2_CASE_SLUG = "tavuk-dunyasi-x-ai-photo";
 
 export const revalidate = 3600;
 
@@ -20,8 +23,11 @@ export async function generateMetadata({
     });
     if (!project || !isEnglishProjectPublishable(project)) return { robots: { index: false, follow: false } };
 
-    const title = `${project.title_en} | MetasoftCo`;
-    const description = project.description_en!;
+    const isPrototype = slug === PHASE_2_CASE_SLUG;
+    const title = isPrototype ? "Tavuk Dünyası AI Photo Activation | MetasoftCo" : `${project.title_en} | MetasoftCo`;
+    const description = isPrototype
+        ? "A live Tavuk Dünyası AI portrait activation combining a branded kiosk, custom visual scenarios and a personal digital image for each guest."
+        : project.description_en!;
     const image = project.image || `${siteConfig.url}/og?title=${encodeURIComponent(project.title_en!)}`;
     const url = `${siteConfig.url}/en/projects/${slug}`;
 
@@ -113,6 +119,14 @@ export default async function EnglishProjectDetailPage({
 
     const nextProject = await getNextProject(project.id, project.order);
 
+    const gallery: { url: string; alt: string }[] = project.gallery
+        ? (JSON.parse(project.gallery) as (string | { url: string; alt?: string })[]).map((item) =>
+            typeof item === "string"
+                ? { url: item, alt: project.title_en || project.title }
+                : { url: item.url, alt: item.alt || project.title_en || project.title }
+        )
+        : [];
+
     const youtubeIdMatch = project.video?.match(
         /youtube\.com\/(?:watch\?v=|shorts\/|embed\/)([^?&/]+)|youtu\.be\/([^?&/]+)/
     );
@@ -128,13 +142,31 @@ export default async function EnglishProjectDetailPage({
         "uploadDate": (project.projectDate || project.createdAt).toISOString().split("T")[0],
     } : null;
 
+    const breadcrumbSchema = slug === PHASE_2_CASE_SLUG ? generateBreadcrumbSchema([
+        { name: "Home", url: `${siteConfig.url}/en` },
+        { name: "Work", url: `${siteConfig.url}/en/projects` },
+        { name: "Tavuk Dünyası × AI Photo", url: `${siteConfig.url}/en/projects/${slug}` },
+    ]) : null;
+
     return (
         <>
+            {breadcrumbSchema && (
+                <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+            )}
             {videoSchema && (
                 <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchema) }} />
             )}
             <AdminEditUrlSetter url={`/editpanel/projects/${project.id}/edit`} />
-            <ProjectDetailClient project={project} nextProject={nextProject} />
+            {slug === PHASE_2_CASE_SLUG ? (
+                <CaseStudyPrototype
+                    image={project.image}
+                    video={project.video}
+                    gallery={gallery}
+                    year={(project.projectDate || project.createdAt).getFullYear().toString()}
+                />
+            ) : (
+                <ProjectDetailClient project={project} nextProject={nextProject} />
+            )}
         </>
     );
 }
