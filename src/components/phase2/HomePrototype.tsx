@@ -1,114 +1,99 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowUpRight, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Sparkles } from "lucide-react";
 import BrandStrip from "@/components/site/BrandStrip";
+import type { Phase2Locale } from "@/lib/phase2";
+import { phase2Copy } from "@/lib/phase2-content";
 import { P2Button, P2Container, P2Eyebrow } from "./Phase2Primitives";
+import { P2Display } from "./P2Display";
 
+/**
+ * A featured homepage project, already resolved to the active locale by the
+ * page: `slug` and `title` are the locale's own values, `key` is the English
+ * slug used to look up the editorial presentation override.
+ */
 export interface P2ProjectCard {
-    slug_en: string | null;
-    title_en: string | null;
-    description_en: string | null;
+    key: string;
+    slug: string;
+    title: string | null;
+    description: string | null;
     image: string | null;
-    category: string | null;
 }
 
-const capabilities = [
-    {
-        number: "01",
-        title: "AI photo and video",
-        copy: "Campaign-specific visual worlds that turn a guest portrait into branded content.",
-        href: "/en/services/ai-event-solutions",
-    },
-    {
-        number: "02",
-        title: "Photo activations",
-        copy: "Physical capture experiences designed around the venue, brand and sharing journey.",
-        href: "/en/services/photobooth-and-photo-activations",
-    },
-    {
-        number: "03",
-        title: "Interactive games",
-        copy: "Touch, movement and competition translated into playful branded participation.",
-        href: "/en/services/interactive-event-activities",
-    },
-    {
-        number: "04",
-        title: "Custom installations",
-        copy: "Software, interfaces and physical systems developed as one live experience.",
-        href: "/en/services",
-    },
-];
+export default function HomePrototype({ projects, locale }: { projects: P2ProjectCard[]; locale: Phase2Locale }) {
+    const dictionary = phase2Copy(locale);
+    const copy = dictionary.home;
+    const presentation = dictionary.featuredProjects;
 
-const process = [
-    ["01", "Frame the brief", "Audience, venue, campaign idea and desired guest journey."],
-    ["02", "Prototype the experience", "Creative direction, interaction flow and technical proof of concept."],
-    ["03", "Build the system", "Custom software, branded interface, content and physical integration."],
-    ["04", "Deliver it live", "Installation, event-day operation and a handover shaped around the brief."],
-];
-
-const projectPresentation: Record<string, { title: string; category: string }> = {
-    "tavuk-dunyasi-x-ai-photo": { title: "Tavuk Dünyası × AI Photo", category: "AI Photo Activation" },
-    "pegasus-airlines-digital-gift-wheel-activation": { title: "Pegasus × Digital Gift Wheel", category: "Interactive Game" },
-    "ray-ban-x-strip-photo": { title: "Ray-Ban × Strip Photo", category: "Photo Activation" },
-};
-
-export default function HomePrototype({ projects }: { projects: P2ProjectCard[] }) {
-    const rayBan = projects.find((project) => project.slug_en?.includes("ray-ban"));
+    const rayBan = projects.find((project) => project.key.includes("ray-ban"));
+    const projectOrder = [
+        "ray-ban-x-strip-photo",
+        "pegasus-airlines-digital-gift-wheel-activation",
+        "tavuk-dunyasi-x-ai-photo",
+    ];
+    const orderedProjects = projectOrder
+        .map((key) => projects.find((project) => project.key === key))
+        .filter((project): project is P2ProjectCard & { image: string } => Boolean(project?.image));
 
     return (
         <div className="phase2">
             <section className="p2-home-hero" aria-labelledby="home-hero-title">
                 <P2Container className="p2-home-hero__stage">
-                    <P2Eyebrow>AI-POWERED EXPERIENTIAL TECHNOLOGY</P2Eyebrow>
-                    <h1 id="home-hero-title" className="p2-signal-title">
-                        <span className="p2-signal-title__outline" data-text="Experiences">Experiences</span>
+                    <P2Eyebrow>{copy.heroEyebrow}</P2Eyebrow>
+                    <h1 id="home-hero-title" className="p2-signal-title" aria-label={copy.heroTitleLabel}>
+                        <span className="p2-signal-title__outline" data-text={copy.heroTitleOutline}>{copy.heroTitleOutline}</span>
                         <span className="p2-signal-title__solid">
-                            <span>That</span>
-                            <span>Connect</span>
-                            <span>Brands</span>
+                            {copy.heroTitleSolid.map((line) => <span key={line}>{line}</span>)}
                         </span>
                     </h1>
                     {rayBan?.image && (
                         <figure className="p2-signal-portal">
                             <div className="p2-signal-portal__frame">
                                 <div className="p2-signal-portal__image">
-                                    <Image src={rayBan.image} alt="Guests taking part in a Ray-Ban photo activation" fill priority sizes="(max-width: 700px) 78vw, 370px" />
+                                    <Image src={rayBan.image} alt={copy.heroFigureAlt} fill priority sizes="(max-width: 700px) 78vw, 370px" />
                                 </div>
                             </div>
-                            <figcaption><span>LIVE PARTICIPATION</span>Ray-Ban · Strip Photo</figcaption>
+                            <figcaption><span>{copy.heroFigureLabel}</span>{copy.heroFigureCaption}</figcaption>
                         </figure>
                     )}
                     <div className="p2-home-hero__brief">
-                        <p>MetasoftCo creates branded photo, video, game and installation experiences for brands and agencies—combining creative direction, custom software and live production.</p>
+                        <p>{copy.heroBrief}</p>
                         <div className="p2-actions">
-                            <P2Button href="/en/contact">Plan Your Activation</P2Button>
-                            <P2Button href="/en/projects" variant="secondary">View Selected Work</P2Button>
+                            <P2Button href={dictionary.routes.contact}>{copy.heroPrimaryCta}</P2Button>
+                            <P2Button href={dictionary.routes.work} variant="secondary">{copy.heroSecondaryCta}</P2Button>
                         </div>
                     </div>
                 </P2Container>
             </section>
 
-            <div className="p2-home-brand-loop" aria-label="Selected client collaborations">
+            <div className="p2-home-brand-loop" aria-label={copy.brandLoopAria}>
+                <div className="p2-container p2-home-brand-loop__label">
+                    <P2Eyebrow>{copy.brandLoopEyebrow}</P2Eyebrow>
+                </div>
                 <BrandStrip />
             </div>
 
             <section className="p2-section p2-home-work" aria-labelledby="featured-work-title">
                 <P2Container>
-                    <header className="p2-home-section-head">
-                        <P2Eyebrow>SELECTED WORK</P2Eyebrow>
-                        <h2 id="featured-work-title">Built for <span className="p2-home-outline" data-text="people">people</span><br />to take part.</h2>
-                        <p>A selection of AI, photo and interactive experiences delivered for live brand environments.</p>
+                    <header className="p2-home-section-head p2-home-work__head">
+                        <P2Eyebrow>{copy.workEyebrow}</P2Eyebrow>
+                        <h2 id="featured-work-title"><P2Display text={copy.workTitle} /></h2>
+                        <p>{copy.workCopy}</p>
                     </header>
-                    <div className="p2-project-grid">
-                        {projects.map((project, index) => project.image && project.slug_en && (
-                            <Link href={`/en/projects/${project.slug_en}`} className="p2-project-card" key={project.slug_en}>
-                                <span className="p2-project-card__number" aria-hidden="true">0{index + 1}</span>
-                                <div className="p2-project-card__image">
-                                    <Image src={project.image} alt={projectPresentation[project.slug_en]?.title || project.title_en || "MetasoftCo project"} fill sizes="(max-width: 760px) 100vw, 50vw" />
+                    <div className="p2-editorial-projects">
+                        {orderedProjects.map((project, index) => (
+                            <Link href={`${dictionary.routes.work}/${project.slug}`} className={`p2-editorial-project p2-editorial-project--${index + 1}`} key={project.key}>
+                                <div className="p2-editorial-project__copy">
+                                    <span className="p2-editorial-project__index" data-text={`0${index + 1}`}>0{index + 1}</span>
+                                    <div>
+                                        <span className="p2-editorial-project__category">0{index + 1} · {presentation[project.key]?.category || copy.workFallbackCategory}</span>
+                                        <h3>{presentation[project.key]?.title || project.title}</h3>
+                                        <p>{project.description}</p>
+                                        <span className="p2-editorial-project__link">{copy.workLinkLabel} <ArrowUpRight aria-hidden="true" /></span>
+                                    </div>
                                 </div>
-                                <div className="p2-project-card__meta">
-                                    <div><span>0{index + 1} · {projectPresentation[project.slug_en]?.category || "Live Experience"}</span><h3>{projectPresentation[project.slug_en]?.title || project.title_en}</h3></div>
-                                    <ArrowUpRight aria-hidden="true" />
+                                <div className="p2-editorial-project__image">
+                                    <Image src={project.image} alt={presentation[project.key]?.title || project.title || "MetasoftCo"} fill sizes="(max-width: 760px) 100vw, 50vw" />
                                 </div>
                             </Link>
                         ))}
@@ -118,13 +103,12 @@ export default function HomePrototype({ projects }: { projects: P2ProjectCard[] 
 
             <section className="p2-section p2-section--surface p2-home-capabilities" aria-labelledby="capabilities-title">
                 <P2Container>
-                    <header className="p2-home-section-head p2-home-section-head--wide">
-                        <P2Eyebrow>CAPABILITIES</P2Eyebrow>
-                        <h2 id="capabilities-title"><span className="p2-home-outline" data-text="One partner">One partner</span><br />from idea to live.</h2>
-                        <p>The creative and technical layers are designed together, so the concept survives contact with the real venue.</p>
+                    <header className="p2-home-compact-head">
+                        <P2Eyebrow>{copy.capabilitiesEyebrow}</P2Eyebrow>
+                        <h2 id="capabilities-title" className="sr-only">{copy.capabilitiesSrTitle}</h2>
                     </header>
                     <div className="p2-capability-list">
-                        {capabilities.map((capability) => (
+                        {copy.capabilities.map((capability) => (
                             <Link href={capability.href} key={capability.number}>
                                 <span>{capability.number}</span><h3>{capability.title}</h3><p>{capability.copy}</p><ArrowUpRight aria-hidden="true" />
                             </Link>
@@ -135,12 +119,17 @@ export default function HomePrototype({ projects }: { projects: P2ProjectCard[] 
 
             <section className="p2-section p2-home-process" aria-labelledby="process-title">
                 <P2Container>
-                    <header className="p2-home-section-head">
-                        <P2Eyebrow>HOW WE BUILD</P2Eyebrow>
-                        <h2 id="process-title">A clear signal from <span className="p2-home-outline" data-text="brief">brief</span><br />to live operation.</h2>
+                    <header className="p2-home-compact-head">
+                        <P2Eyebrow>{copy.processEyebrow}</P2Eyebrow>
+                        <h2 id="process-title" className="sr-only">{copy.processSrTitle}</h2>
                     </header>
                     <ol className="p2-process-grid">
-                        {process.map(([number, title, copy]) => <li key={number}><span>{number}</span><h3>{title}</h3><p>{copy}</p></li>)}
+                        {copy.process.map((step, index) => (
+                            <li key={step.number}>
+                                <div className="p2-process-grid__signal"><span data-text={step.number}>{step.number}</span>{index < copy.process.length - 1 && <ArrowRight aria-hidden="true" />}</div>
+                                <h3>{step.title}</h3><p>{step.copy}</p>
+                            </li>
+                        ))}
                     </ol>
                 </P2Container>
             </section>
@@ -148,16 +137,12 @@ export default function HomePrototype({ projects }: { projects: P2ProjectCard[] 
             <section className="p2-section p2-value p2-home-value" aria-labelledby="value-title">
                 <P2Container className="p2-value__grid">
                     <header className="p2-home-section-head">
-                        <P2Eyebrow>WHY INTERACTIVE</P2Eyebrow>
-                        <h2 id="value-title">Give the audience a <span className="p2-home-outline" data-text="role">role</span><br />in the brand story.</h2>
+                        <P2Eyebrow>{copy.valueEyebrow}</P2Eyebrow>
+                        <h2 id="value-title" aria-label={copy.valueTitleLabel}><P2Display text={copy.valueTitle} /></h2>
                     </header>
                     <div className="p2-value__copy">
-                        <p>Experiential technology works when it does more than attract a queue. We design for a clear moment of participation: something guests can influence, create with and carry into the rest of the campaign.</p>
                         <ul>
-                            <li><Sparkles aria-hidden="true" /><span>Personalised branded content</span></li>
-                            <li><Sparkles aria-hidden="true" /><span>Product and campaign storytelling</span></li>
-                            <li><Sparkles aria-hidden="true" /><span>Shareable digital takeaways</span></li>
-                            <li><Sparkles aria-hidden="true" /><span>Flexible flows for launches, events and retail</span></li>
+                            {copy.valuePoints.map((point) => <li key={point}><Sparkles aria-hidden="true" /><span>{point}</span></li>)}
                         </ul>
                     </div>
                 </P2Container>
@@ -165,13 +150,12 @@ export default function HomePrototype({ projects }: { projects: P2ProjectCard[] 
 
             <section className="p2-home-final" aria-labelledby="home-final-title">
                 <P2Container>
-                    <P2Eyebrow>NEXT SIGNAL</P2Eyebrow>
-                    <h2 id="home-final-title">Make the next campaign<br /><span className="p2-home-outline" data-text="something people can enter.">something people can enter.</span></h2>
+                    <P2Eyebrow>{copy.finalEyebrow}</P2Eyebrow>
+                    <h2 id="home-final-title" aria-label={copy.finalTitleLabel}><P2Display text={copy.finalTitle} /></h2>
                     <div className="p2-home-final__base">
-                        <p>Share the audience, venue and campaign goal. We’ll shape the interaction, system and live delivery around the brief.</p>
+                        <p>{copy.finalCopy}</p>
                         <div className="p2-actions">
-                            <P2Button href="/en/contact">Plan Your Activation</P2Button>
-                            <P2Button href="/en/projects" variant="secondary">View Selected Work</P2Button>
+                            <P2Button href={dictionary.routes.contact}>{copy.finalCta}</P2Button>
                         </div>
                     </div>
                 </P2Container>

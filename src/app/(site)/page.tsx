@@ -1,13 +1,8 @@
 import { Metadata } from "next";
-import HeroSection from "@/components/site/HeroSection";
-import BrandStrip from "@/components/site/BrandStrip";
-import ProjectShowcase from "@/components/site/ProjectShowcase";
-import { FeaturedServicesSection } from "@/components/site/FeaturedServicesSection";
-import CtaSection from "@/components/site/CtaSection";
-import InstagramFeed from "@/components/site/InstagramFeed";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { siteConfig } from "@/lib/site";
+import HomePrototype from "@/components/phase2/HomePrototype";
 
 export const revalidate = 3600;
 
@@ -37,41 +32,38 @@ export const metadata: Metadata = {
     },
 };
 
-const getFeaturedServices = unstable_cache(
-    async () => prisma.service.findMany({
-        where: { featured: true, published: true },
-        orderBy: { featuredOrder: "asc" },
-        include: { category: true },
-    }),
-    ["featured-services"],
-    { revalidate: 60 }
-);
+/**
+ * The three homepage hero projects are selected by their English slug because
+ * that value is stable across both locales; each locale then links through its
+ * own slug.
+ */
+const featuredSlugs = [
+    "tavuk-dunyasi-x-ai-photo",
+    "pegasus-airlines-digital-gift-wheel-activation",
+    "ray-ban-x-strip-photo",
+];
 
-const getProjects = unstable_cache(
-    async () => prisma.project.findMany({
-        where: { published: true },
-        orderBy: [{ featured: "desc" }, { order: "asc" }, { createdAt: "desc" }],
-        take: 8,
+const getPrototypeProjects = unstable_cache(
+    () => prisma.project.findMany({
+        where: { published: true, slug_en: { in: featuredSlugs } },
+        select: { slug: true, slug_en: true, title: true, description: true, image: true },
     }),
-    ["home-projects"],
-    { revalidate: 60 }
+    ["phase-2-home-projects-tr"],
+    { revalidate: 3600 }
 );
 
 export default async function HomePage() {
-    const services = await getFeaturedServices();
-    const projects = await getProjects();
-    return (
-        <>
-            <HeroSection />
-            <BrandStrip />
-            <ProjectShowcase projects={projects} />
-            <FeaturedServicesSection services={services} />
-            <CtaSection />
-            <section className="py-20 sm:py-24 bg-[#0a0a0f]">
-                <div className="max-w-[1240px] mx-auto px-6 sm:px-12">
-                    <InstagramFeed />
-                </div>
-            </section>
-        </>
-    );
+    const records = await getPrototypeProjects();
+    const projects = featuredSlugs
+        .map((slug) => records.find((record) => record.slug_en === slug))
+        .filter((record): record is NonNullable<typeof record> => Boolean(record))
+        .map((record) => ({
+            key: record.slug_en!,
+            slug: record.slug,
+            title: record.title,
+            description: record.description,
+            image: record.image,
+        }));
+
+    return <HomePrototype projects={projects} locale="tr" />;
 }

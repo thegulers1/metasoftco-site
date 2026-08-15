@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { siteConfig } from "@/lib/site";
-import IletisimClient from "./IletisimClient";
+import ContactPrototype from "@/components/phase2/ContactPrototype";
 
 export const metadata: Metadata = {
     title: "İletişim",
@@ -12,5 +12,5 @@ export const metadata: Metadata = {
 };
 
 export default function IletisimPage() {
-    return <IletisimClient />;
+    return <ContactPrototype locale="tr" />;
 }

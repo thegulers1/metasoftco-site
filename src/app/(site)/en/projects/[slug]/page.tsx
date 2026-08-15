@@ -6,8 +6,10 @@ import { AdminEditUrlSetter } from "@/components/site/AdminBar";
 import ProjectDetailClient from "@/app/(site)/projeler/[slug]/ProjectDetailClient";
 import { isEnglishProjectPublishable } from "@/lib/publication";
 import CaseStudyPrototype from "@/components/phase2/CaseStudyPrototype";
+import WorkDetailPrototype from "@/components/phase2/WorkDetailPrototype";
 
 const PHASE_2_CASE_SLUG = "tavuk-dunyasi-x-ai-photo";
+const PHASE_2_RAYBAN_SLUG = "ray-ban-x-strip-photo";
 
 export const revalidate = 3600;
 
@@ -157,12 +159,15 @@ export default async function EnglishProjectDetailPage({
                 <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchema) }} />
             )}
             <AdminEditUrlSetter url={`/editpanel/projects/${project.id}/edit`} />
-            {slug === PHASE_2_CASE_SLUG ? (
+            {slug === PHASE_2_RAYBAN_SLUG && project.image ? (
+                <WorkDetailPrototype image={project.image} gallery={gallery} year="2025" locale="en" />
+            ) : slug === PHASE_2_CASE_SLUG ? (
                 <CaseStudyPrototype
                     image={project.image}
                     video={project.video}
                     gallery={gallery}
                     year={(project.projectDate || project.createdAt).getFullYear().toString()}
+                    locale="en"
                 />
             ) : (
                 <ProjectDetailClient project={project} nextProject={nextProject} />

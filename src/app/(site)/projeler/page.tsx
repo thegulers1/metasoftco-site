@@ -2,9 +2,7 @@ import { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { siteConfig } from "@/lib/site";
-import ProjectsHero from "./ProjectsHero";
-import ProjectsListClient from "./ProjectsListClient";
-import CtaSection from "@/components/site/CtaSection";
+import WorkIndexPrototype from "@/components/phase2/WorkIndexPrototype";
 
 export const revalidate = 3600;
 
@@ -43,13 +41,9 @@ const getProjects = unstable_cache(
 );
 
 export default async function ProjectsPage() {
-    const projects = await getProjects();
+    const projects = (await getProjects())
+        .filter((project) => project.image)
+        .map((project) => ({ id: project.id, slug: project.slug, title: project.title, image: project.image! }));
 
-    return (
-        <div className="bg-[#0a0a0f] min-h-screen">
-            <ProjectsHero />
-            <ProjectsListClient projects={projects} />
-            <CtaSection />
-        </div>
-    );
+    return <WorkIndexPrototype projects={projects} locale="tr" />;
 }

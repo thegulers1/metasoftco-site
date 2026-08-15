@@ -2,9 +2,7 @@ import { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { siteConfig, generateFAQSchema } from "@/lib/site";
-import ServicesHero from "@/app/(site)/hizmetler/ServicesHero";
-import ServicesListClient from "@/app/(site)/hizmetler/ServicesListClient";
-import CtaSection from "@/components/site/CtaSection";
+import CapabilitiesIndexPrototype from "@/components/phase2/CapabilitiesIndexPrototype";
 import { isEnglishCategoryPublishable, isEnglishServicePublishable } from "@/lib/publication";
 
 export const revalidate = 3600;
@@ -70,6 +68,16 @@ export default async function EnglishServicesPage() {
             services: category.services.filter((service) => isEnglishServicePublishable(service, category)),
         }))
         .filter((category) => category.services.length > 0);
+    const capabilities = categories.flatMap((category) =>
+        category.services
+            .filter((service) => service.image)
+            .map((service) => ({
+                id: service.id,
+                title: service.title_en!,
+                image: service.image!,
+                href: `/en/services/${category.slug_en}/${service.slug_en}`,
+            }))
+    );
     const faqSchema = generateFAQSchema(serviceFAQs);
 
     return (
@@ -78,11 +86,7 @@ export default async function EnglishServicesPage() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
             />
-            <div className="bg-[#0a0a0f] min-h-screen">
-                <ServicesHero />
-                <ServicesListClient categories={categories} />
-                <CtaSection />
-            </div>
+            <CapabilitiesIndexPrototype capabilities={capabilities} locale="en" />
         </>
     );
 }

@@ -2,9 +2,7 @@ import { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { siteConfig } from "@/lib/site";
-import ProjectsHero from "@/app/(site)/projeler/ProjectsHero";
-import ProjectsListClient from "@/app/(site)/projeler/ProjectsListClient";
-import CtaSection from "@/components/site/CtaSection";
+import WorkIndexPrototype from "@/components/phase2/WorkIndexPrototype";
 import { isEnglishProjectPublishable } from "@/lib/publication";
 
 export const revalidate = 3600;
@@ -44,13 +42,10 @@ const getProjects = unstable_cache(
 );
 
 export default async function EnglishProjectsPage() {
-    const projects = (await getProjects()).filter(isEnglishProjectPublishable);
+    const projects = (await getProjects())
+        .filter(isEnglishProjectPublishable)
+        .filter((project) => project.image)
+        .map((project) => ({ id: project.id, slug: project.slug_en!, title: project.title_en!, image: project.image! }));
 
-    return (
-        <div className="bg-[#0a0a0f] min-h-screen">
-            <ProjectsHero />
-            <ProjectsListClient projects={projects} />
-            <CtaSection />
-        </div>
-    );
+    return <WorkIndexPrototype projects={projects} locale="en" />;
 }

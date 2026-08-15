@@ -7,7 +7,7 @@ import { cache } from "react";
 import ServiceDetailClient from "@/app/(site)/hizmetler/[category]/[service]/ServiceDetailClient";
 import { AdminEditUrlSetter } from "@/components/site/AdminBar";
 import { isEnglishServicePublishable } from "@/lib/publication";
-import ServicePrototype from "@/components/phase2/ServicePrototype";
+import CapabilityDetailPrototype from "@/components/phase2/CapabilityDetailPrototype";
 
 const PHASE_2_SERVICE_CATEGORY = "ai-event-solutions";
 const PHASE_2_SERVICE_SLUG = "ai-photobooth";
@@ -151,7 +151,7 @@ export default async function EnglishServiceDetailPage({ params }: PageProps) {
             {category === PHASE_2_SERVICE_CATEGORY && serviceSlug === PHASE_2_SERVICE_SLUG ? (
                 <>
                     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
-                    <ServicePrototype image={service.image} video={service.video} gallery={gallery} relatedServices={relatedServices} />
+                    <CapabilityDetailPrototype locale="en" />
                 </>
             ) : (
                 <ServiceDetailClient

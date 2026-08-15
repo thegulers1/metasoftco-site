@@ -3,14 +3,15 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { siteConfig, generateServiceSchema, generateBreadcrumbSchema } from "@/lib/site";
 import { cloudinaryOgImage } from "@/lib/cloudinary";
-import Link from "next/link";
-import Image from "next/image";
-import GalleryLightbox from "@/components/site/GalleryLightbox";
-import VideoPlayer from "@/components/site/VideoPlayer";
 import { cache } from "react";
 import ServiceDetailClient from "./ServiceDetailClient";
 import { AdminEditUrlSetter } from "@/components/site/AdminBar";
 import { isEnglishServicePublishable } from "@/lib/publication";
+import { phase2CapabilityDetailSlugs } from "@/lib/phase2";
+import CapabilityDetailPrototype from "@/components/phase2/CapabilityDetailPrototype";
+
+const PHASE_2_SERVICE_CATEGORY = phase2CapabilityDetailSlugs.tr.category;
+const PHASE_2_SERVICE_SLUG = phase2CapabilityDetailSlugs.tr.service;
 
 export const revalidate = 3600;
 
@@ -194,14 +195,21 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 />
             )}
             <AdminEditUrlSetter url={`/editpanel/services/${service.id}/edit`} />
-            <ServiceDetailClient
-                service={service}
-                categoryData={categoryData}
-                relatedServices={relatedServices}
-                gallery={gallery}
-                serviceSchema={serviceSchema}
-                category={category}
-            />
+            {category === PHASE_2_SERVICE_CATEGORY && serviceSlug === PHASE_2_SERVICE_SLUG ? (
+                <>
+                    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+                    <CapabilityDetailPrototype locale="tr" />
+                </>
+            ) : (
+                <ServiceDetailClient
+                    service={service}
+                    categoryData={categoryData}
+                    relatedServices={relatedServices}
+                    gallery={gallery}
+                    serviceSchema={serviceSchema}
+                    category={category}
+                />
+            )}
         </>
     );
 }

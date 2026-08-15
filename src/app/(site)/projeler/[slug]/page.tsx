@@ -6,6 +6,14 @@ import { notFound } from "next/navigation";
 import { AdminEditUrlSetter } from "@/components/site/AdminBar";
 import ProjectDetailClient from "./ProjectDetailClient";
 import { isEnglishProjectPublishable } from "@/lib/publication";
+import { generateBreadcrumbSchema } from "@/lib/site";
+import { phase2ProjectSlugs } from "@/lib/phase2";
+import { phase2Copy } from "@/lib/phase2-content";
+import CaseStudyPrototype from "@/components/phase2/CaseStudyPrototype";
+import WorkDetailPrototype from "@/components/phase2/WorkDetailPrototype";
+
+const PHASE_2_CASE_SLUG = phase2ProjectSlugs.caseStudy.tr;
+const PHASE_2_RAYBAN_SLUG = phase2ProjectSlugs.workDetail.tr;
 
 export const revalidate = 3600;
 
@@ -113,6 +121,14 @@ export default async function ProjectDetailPage({
 
     const nextProject = await getNextProject(project.id, project.order);
 
+    const gallery: { url: string; alt: string }[] = project.gallery
+        ? (JSON.parse(project.gallery) as (string | { url: string; alt?: string })[]).map((item) =>
+            typeof item === "string"
+                ? { url: item, alt: project.title }
+                : { url: item.url, alt: item.alt || project.title }
+        )
+        : [];
+
     const youtubeIdMatch = project.video?.match(
         /youtube\.com\/(?:watch\?v=|shorts\/|embed\/)([^?&/]+)|youtu\.be\/([^?&/]+)/
     );
@@ -128,13 +144,34 @@ export default async function ProjectDetailPage({
         "uploadDate": (project.projectDate || project.createdAt).toISOString().split("T")[0],
     } : null;
 
+    const breadcrumbSchema = slug === PHASE_2_CASE_SLUG ? generateBreadcrumbSchema([
+        { name: phase2Copy("tr").caseStudy.crumbHome, url: siteConfig.url },
+        { name: phase2Copy("tr").caseStudy.crumbWork, url: `${siteConfig.url}/projeler` },
+        { name: phase2Copy("tr").caseStudy.title, url: `${siteConfig.url}/projeler/${slug}` },
+    ]) : null;
+
     return (
         <>
+            {breadcrumbSchema && (
+                <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+            )}
             {videoSchema && (
                 <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchema) }} />
             )}
             <AdminEditUrlSetter url={`/editpanel/projects/${project.id}/edit`} />
-            <ProjectDetailClient project={project} nextProject={nextProject} />
+            {slug === PHASE_2_RAYBAN_SLUG && project.image ? (
+                <WorkDetailPrototype image={project.image} gallery={gallery} year="2025" locale="tr" />
+            ) : slug === PHASE_2_CASE_SLUG ? (
+                <CaseStudyPrototype
+                    image={project.image}
+                    video={project.video}
+                    gallery={gallery}
+                    year={(project.projectDate || project.createdAt).getFullYear().toString()}
+                    locale="tr"
+                />
+            ) : (
+                <ProjectDetailClient project={project} nextProject={nextProject} />
+            )}
         </>
     );
 }

@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { siteConfig } from "@/lib/site";
-import ContactPage from "@/app/(site)/iletisim/page";
+import ContactPrototype from "@/components/phase2/ContactPrototype";
 
 export const metadata: Metadata = {
     title: "Contact | MetasoftCo",
@@ -26,4 +26,6 @@ export const metadata: Metadata = {
     },
 };
 
-export default ContactPage;
+export default function ContactPage() {
+    return <ContactPrototype locale="en" />;
+}

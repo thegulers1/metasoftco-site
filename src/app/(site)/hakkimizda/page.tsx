@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { siteConfig } from "@/lib/site";
-import AboutClient from "./AboutClient";
+import AboutPrototype from "@/components/phase2/AboutPrototype";
 
 export const metadata: Metadata = {
     title: "Hakkımızda | MetasoftCo — İstanbul Dijital Deneyim & Aktivasyon Ajansı",
@@ -17,5 +17,5 @@ export const metadata: Metadata = {
 };
 
 export default function HakkimizdaPage() {
-    return <AboutClient />;
+    return <AboutPrototype locale="tr" />;
 }

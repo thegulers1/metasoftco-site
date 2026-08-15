@@ -53,7 +53,14 @@ export default async function EnglishHomePage() {
     const records = (await getPrototypeProjects()).filter(isEnglishProjectPublishable);
     const projects = featuredSlugs
         .map((slug) => records.find((record) => record.slug_en === slug))
-        .filter((record): record is NonNullable<typeof record> => Boolean(record));
+        .filter((record): record is NonNullable<typeof record> => Boolean(record))
+        .map((record) => ({
+            key: record.slug_en!,
+            slug: record.slug_en!,
+            title: record.title_en,
+            description: record.description_en,
+            image: record.image,
+        }));
 
-    return <HomePrototype projects={projects} />;
+    return <HomePrototype projects={projects} locale="en" />;
 }

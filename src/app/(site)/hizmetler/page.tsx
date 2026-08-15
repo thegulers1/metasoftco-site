@@ -2,9 +2,7 @@ import { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { siteConfig, generateFAQSchema } from "@/lib/site";
-import ServicesHero from "./ServicesHero";
-import ServicesListClient from "./ServicesListClient";
-import CtaSection from "@/components/site/CtaSection";
+import CapabilitiesIndexPrototype from "@/components/phase2/CapabilitiesIndexPrototype";
 
 export const revalidate = 3600;
 
@@ -88,6 +86,16 @@ const serviceFAQs = [
 
 export default async function HizmetlerPage() {
     const categories = await getCategories();
+    const capabilities = categories.flatMap((category) =>
+        category.services
+            .filter((service) => service.image)
+            .map((service) => ({
+                id: service.id,
+                title: service.title,
+                image: service.image!,
+                href: `/hizmetler/${category.slug}/${service.slug}`,
+            }))
+    );
     const faqSchema = generateFAQSchema(serviceFAQs);
 
     return (
@@ -96,11 +104,7 @@ export default async function HizmetlerPage() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
             />
-            <div className="bg-[#0a0a0f] min-h-screen">
-                <ServicesHero />
-                <ServicesListClient categories={categories} />
-                <CtaSection />
-            </div>
+            <CapabilitiesIndexPrototype capabilities={capabilities} locale="tr" />
         </>
     );
 }

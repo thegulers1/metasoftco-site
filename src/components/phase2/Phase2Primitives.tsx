@@ -55,16 +55,18 @@ export function P2Button({
 }
 
 export function P2FinalCta({
-    eyebrow = "START A CONVERSATION",
+    contactHref,
+    eyebrow,
     title,
     copy,
-    primaryLabel = "Plan Your Activation",
+    primaryLabel,
     secondary,
 }: {
-    eyebrow?: string;
+    contactHref: string;
+    eyebrow: string;
     title: string;
     copy: string;
-    primaryLabel?: string;
+    primaryLabel: string;
     secondary?: { label: string; href: string };
 }) {
     return (
@@ -77,7 +79,7 @@ export function P2FinalCta({
                         <p>{copy}</p>
                     </div>
                     <div className="p2-actions">
-                        <P2Button href="/en/contact">{primaryLabel}</P2Button>
+                        <P2Button href={contactHref}>{primaryLabel}</P2Button>
                         {secondary && <P2Button href={secondary.href} variant="secondary">{secondary.label}</P2Button>}
                     </div>
                 </div>
