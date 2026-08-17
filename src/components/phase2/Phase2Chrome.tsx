@@ -8,6 +8,10 @@ import { Globe, Menu, X } from "lucide-react";
 import { isPhase2PrototypePath, phase2LocaleFromPath, phase2SiblingPath } from "@/lib/phase2";
 import { phase2Copy } from "@/lib/phase2-content";
 
+const GOOGLE_MAPS_URL =
+    "https://www.google.com/maps/search/?api=1&query=" +
+    encodeURIComponent("MetasoftCo, Üniversite Mah. Sarıgül Sk. İstanbul Teknokent No:37/1, Avcılar/İstanbul");
+
 export function Phase2Navbar() {
     const pathname = usePathname();
     const [open, setOpen] = useState(false);
@@ -105,7 +109,7 @@ export function Phase2Footer() {
                     <span className="p2-footer__label">{copy.contactLabel}</span>
                     <a href="mailto:info@metasoftco.com">info@metasoftco.com</a>
                     <a href="tel:+905342334051">+90 534 233 40 51</a>
-                    <span>{copy.city}</span>
+                    <a href={GOOGLE_MAPS_URL} target="_blank" rel="noopener noreferrer">{copy.city}</a>
                 </div>
                 <div>
                     <span className="p2-footer__label">{copy.followLabel}</span>

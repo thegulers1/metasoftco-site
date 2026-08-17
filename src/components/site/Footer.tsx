@@ -7,6 +7,10 @@ import { usePathname } from "next/navigation";
 import { isPhase2PrototypePath } from "@/lib/phase2";
 import { Phase2Footer } from "@/components/phase2/Phase2Chrome";
 
+const GOOGLE_MAPS_URL =
+    "https://www.google.com/maps/search/?api=1&query=" +
+    encodeURIComponent("MetasoftCo, Üniversite Mah. Sarıgül Sk. İstanbul Teknokent No:37/1, Avcılar/İstanbul");
+
 function localizedHref(language: "tr" | "en", trPath: string, enPath: string | null) {
     if (language === "en" && enPath) return enPath;
     return trPath;
@@ -96,13 +100,18 @@ export default function Footer() {
                                 <a href="tel:+905342334051" className="text-[rgba(255,255,255,.7)] hover:text-white transition-colors w-fit">
                                     +90 534 233 40 51
                                 </a>
-                                <span className="text-[rgba(255,255,255,.5)] max-w-[220px]">
+                                <a
+                                    href={GOOGLE_MAPS_URL}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-[rgba(255,255,255,.5)] hover:text-white transition-colors max-w-[220px] w-fit"
+                                >
                                     Üniversite Mah. Sarıgül Sk.
                                     <br />
                                     İstanbul Teknokent No: 37/1
                                     <br />
                                     İç Kapı No: 28, Avcılar / İstanbul
-                                </span>
+                                </a>
                             </div>
                         </div>
 

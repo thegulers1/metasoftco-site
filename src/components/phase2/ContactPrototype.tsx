@@ -3,12 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FormEvent, useState } from "react";
-import { IconArrowRight as ArrowRight, IconCamera as Camera, IconClock as Clock, IconDeviceGamepad2 as DeviceGamepad2, IconMail as Mail, IconMapPin as MapPin, IconPhoto as Photo, IconPhone as Phone, IconSend as Send, IconStack2 as Stack2 } from "@tabler/icons-react";
+import { IconArrowRight as ArrowRight, IconClock as Clock, IconMail as Mail, IconMapPin as MapPin, IconPhone as Phone, IconSend as Send } from "@tabler/icons-react";
 import type { Phase2Locale } from "@/lib/phase2";
 import { phase2Copy } from "@/lib/phase2-content";
 import { SignalHeading } from "./SignalHeading";
-
-const experienceIcons = [Camera, Photo, DeviceGamepad2, Stack2] as const;
 
 type Status = "idle" | "sending" | "sent" | "error";
 
@@ -17,7 +15,6 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
     const copy = dictionary.contact;
     const form = copy.form;
 
-    const [selectedType, setSelectedType] = useState(form.experienceTypes[0]);
     const [status, setStatus] = useState<Status>("idle");
 
     async function submit(event: FormEvent<HTMLFormElement>) {
@@ -27,20 +24,6 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
         const data = new FormData(event.currentTarget);
         const value = (key: string) => String(data.get(key) ?? "").trim();
 
-        // The brief is richer than the shared contact endpoint's schema, so the
-        // extra fields are folded into the message body rather than dropped.
-        const details = [
-            [form.company, value("company")],
-            [form.event, value("event")],
-            [form.venue, value("venue")],
-            [form.date, value("date")],
-            [form.audience, value("audience")],
-            [form.budget, value("budget")],
-            [form.experienceLegend, selectedType],
-        ]
-            .map(([label, entry]) => `${label.replace(" *", "")}: ${entry || "—"}`)
-            .join("\n");
-
         try {
             const response = await fetch("/api/contact", {
                 method: "POST",
@@ -48,9 +31,8 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
                 body: JSON.stringify({
                     name: value("name"),
                     email: value("email"),
-                    phone: value("phone"),
-                    subject: `${selectedType} — ${value("event") || value("company")}`,
-                    message: `${details}\n\n${value("brief")}`,
+                    subject: `${form.company.replace(" *", "")}: ${value("company")}`,
+                    message: value("brief"),
                 }),
             });
             setStatus(response.ok ? "sent" : "error");
@@ -82,21 +64,8 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
                     <div className="p2-field-grid">
                         <label>{form.name}<input required name="name" placeholder={form.namePlaceholder} /></label>
                         <label>{form.company}<input required name="company" placeholder={form.companyPlaceholder} /></label>
-                        <label>{form.email}<input required type="email" name="email" placeholder={form.emailPlaceholder} /></label>
-                        <label>{form.phone}<input required name="phone" placeholder={form.phonePlaceholder} /></label>
                     </div>
-                    <label>{form.event}<input required name="event" placeholder={form.eventPlaceholder} /></label>
-                    <label>{form.venue}<input required name="venue" placeholder={form.venuePlaceholder} /></label>
-                    <div className="p2-field-grid">
-                        <label>{form.date}<input required type="date" name="date" /></label>
-                        <label>{form.audience}<input required type="number" name="audience" min="1" placeholder={form.audiencePlaceholder} /></label>
-                    </div>
-                    <label>{form.budget}<select required name="budget" defaultValue=""><option value="" disabled>{form.budgetPlaceholder}</option>{form.budgetOptions.map((option) => <option key={option}>{option}</option>)}</select></label>
-                    <fieldset>
-                        <legend>{form.experienceLegend}</legend>
-                        <div>{form.experienceTypes.map((label, index) => { const Icon = experienceIcons[index]; return <button key={label} type="button" className={selectedType === label ? "is-selected" : ""} onClick={() => setSelectedType(label)} aria-pressed={selectedType === label}><Icon aria-hidden="true" /><span>{label}</span></button>; })}</div>
-                        <input type="hidden" name="experienceType" value={selectedType} />
-                    </fieldset>
+                    <label>{form.email}<input required type="email" name="email" placeholder={form.emailPlaceholder} /></label>
                     <label>{form.brief}<textarea required name="brief" maxLength={2000} placeholder={form.briefPlaceholder} /></label>
                     <button className="p2-screen-button" type="submit" disabled={status === "sending"}>{submitLabel}<ArrowRight aria-hidden="true" /></button>
                     {status === "sent" && <p className="p2-form-success" role="status">{form.success}</p>}
