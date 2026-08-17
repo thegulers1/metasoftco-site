@@ -66,6 +66,7 @@ export default function Navbar() {
                             className="h-8 md:h-10 w-auto object-contain"
                             style={{ filter: "brightness(0) invert(1)" }}
                             priority
+                            unoptimized
                         />
                     </Link>
 

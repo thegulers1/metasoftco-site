@@ -36,6 +36,7 @@ export default function Footer() {
                                 height={40}
                                 className="h-8 md:h-10 w-auto object-contain"
                                 style={{ filter: "brightness(0) invert(1)" }}
+                                unoptimized
                             />
                         </Link>
                         <p

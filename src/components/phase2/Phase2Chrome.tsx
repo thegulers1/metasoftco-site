@@ -57,7 +57,7 @@ export function Phase2Navbar() {
             <a href="#main-content" className="p2-skip-link">{copy.skipLink}</a>
             <div className="p2-nav__inner">
                 <Link href={home} className="p2-nav__logo" aria-label={copy.homeAria}>
-                    <Image src="/blackLogo.png" alt="MetasoftCo" width={160} height={40} priority />
+                    <Image src="/blackLogo.png" alt="MetasoftCo" width={160} height={40} priority unoptimized />
                 </Link>
                 <nav className="p2-nav__desktop" aria-label={copy.primaryAria}>
                     {copy.items.map((item) => <Link key={item.href} href={item.href} className={pathname === item.href || pathname?.startsWith(`${item.href}/`) ? "is-active" : undefined} onClick={() => setOpen(false)}>{item.label}</Link>)}
@@ -105,7 +105,7 @@ export function Phase2Footer() {
             <div className="p2-container p2-footer__grid">
                 <div>
                     <Link href={dictionary.routes.home} className="p2-footer__logo" aria-label={dictionary.nav.homeAria}>
-                        <Image src="/blackLogo.png" alt="MetasoftCo" width={160} height={40} />
+                        <Image src="/blackLogo.png" alt="MetasoftCo" width={160} height={40} unoptimized />
                     </Link>
                     <p>{copy.tagline}</p>
                 </div>
