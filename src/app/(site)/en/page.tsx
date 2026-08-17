@@ -30,6 +30,17 @@ const featuredSlugs = [
     "ray-ban-x-strip-photo",
 ];
 
+/**
+ * The three homepage services are selected by their English slug because
+ * that value is stable across both locales; each locale then links through
+ * its own category and service slugs.
+ */
+const featuredServiceSlugs = [
+    "aura-photobooth-rental",
+    "ai-photobooth",
+    "photobooth-rental",
+];
+
 const getPrototypeProjects = unstable_cache(
     () => prisma.project.findMany({
         where: { published: true, slug_en: { in: featuredSlugs } },
@@ -49,8 +60,29 @@ const getPrototypeProjects = unstable_cache(
     { revalidate: 3600 }
 );
 
+const getPrototypeServices = unstable_cache(
+    () => prisma.service.findMany({
+        where: { published: true, slug_en: { in: featuredServiceSlugs } },
+        select: {
+            slug: true,
+            slug_en: true,
+            title: true,
+            title_en: true,
+            homeTitle: true,
+            homeTitle_en: true,
+            description: true,
+            description_en: true,
+            image: true,
+            category: { select: { slug: true, slug_en: true } },
+        },
+    }),
+    ["phase-2-home-services"],
+    { revalidate: 3600 }
+);
+
 export default async function EnglishHomePage() {
-    const records = (await getPrototypeProjects()).filter(isEnglishProjectPublishable);
+    const [projectRecords, serviceRecords] = await Promise.all([getPrototypeProjects(), getPrototypeServices()]);
+    const records = projectRecords.filter(isEnglishProjectPublishable);
     const projects = featuredSlugs
         .map((slug) => records.find((record) => record.slug_en === slug))
         .filter((record): record is NonNullable<typeof record> => Boolean(record))
@@ -61,6 +93,17 @@ export default async function EnglishHomePage() {
             description: record.description_en,
             image: record.image,
         }));
+    const services = featuredServiceSlugs
+        .map((slug) => serviceRecords.find((record) => record.slug_en === slug))
+        .filter((record): record is NonNullable<typeof record> => Boolean(record))
+        .map((record) => ({
+            key: record.slug_en!,
+            categorySlug: record.category.slug_en || record.category.slug,
+            slug: record.slug_en!,
+            title: record.homeTitle_en || record.title_en || record.homeTitle || record.title,
+            description: record.description_en || record.description,
+            image: record.image,
+        }));
 
-    return <HomePrototype projects={projects} locale="en" />;
+    return <HomePrototype projects={projects} services={services} locale="en" />;
 }

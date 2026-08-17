@@ -10,9 +10,16 @@ type GalleryImageInput = string | { url: string; alt?: string };
 interface GalleryLightboxProps {
     images: GalleryImageInput[];
     title: string;
+    /**
+     * "masonry" is the classic flowing column layout. "grid" hands sizing and
+     * borders to the phase 2 `.p2-media-grid` rules so galleries sit on the
+     * same rhythm as the rest of a selected screen.
+     */
+    variant?: "masonry" | "grid";
 }
 
-export default function GalleryLightbox({ images, title }: GalleryLightboxProps) {
+export default function GalleryLightbox({ images, title, variant = "masonry" }: GalleryLightboxProps) {
+    const isGrid = variant === "grid";
     const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
     // Normalize to {url, alt}[]
@@ -53,22 +60,31 @@ export default function GalleryLightbox({ images, title }: GalleryLightboxProps)
 
     return (
         <>
-            {/* ── MASONRY GRID ── */}
-            <div className="columns-2 md:columns-3 gap-3 space-y-3">
+            {/* ── THUMBNAILS ── */}
+            <div className={isGrid ? "p2-media-grid" : "columns-2 md:columns-3 gap-3 space-y-3"}>
                 {items.map((item, i) => (
                     <div
                         key={i}
-                        className="break-inside-avoid cursor-zoom-in overflow-hidden group relative"
+                        className={isGrid ? undefined : "break-inside-avoid cursor-zoom-in overflow-hidden group relative"}
+                        role="button"
+                        tabIndex={0}
+                        aria-label={item.alt}
                         onClick={() => open(i)}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                                e.preventDefault();
+                                open(i);
+                            }
+                        }}
                     >
                         <img
                             src={cloudinaryOptimize(item.url, 1000)}
                             alt={item.alt}
-                            className="w-full h-auto block transition-transform duration-500 group-hover:scale-[1.03]"
+                            className={isGrid ? undefined : "w-full h-auto block transition-transform duration-500 group-hover:scale-[1.03]"}
                             loading={i === 0 ? "eager" : "lazy"}
                             fetchPriority={i === 0 ? "high" : "auto"}
                         />
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-300" />
+                        {!isGrid && <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-300" />}
                     </div>
                 ))}
             </div>

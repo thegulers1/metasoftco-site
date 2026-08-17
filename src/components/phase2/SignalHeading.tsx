@@ -7,7 +7,7 @@ export function SignalHeading({ solid, outline, as = "h1", className = "", label
             aria-label={label ?? p2PlainText(`${solid} ${outline}`)}
             className={`p2-screen-title ${className}`.trim()}
         >
-            <span><P2Display text={solid} /></span>
+            {solid && <span><P2Display text={solid} /></span>}
             <span className="p2-screen-title__outline" data-text={outline}>{outline}</span>
         </Tag>
     );

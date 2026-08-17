@@ -58,6 +58,22 @@ export const phase2ProjectSlugs = {
     },
 } as const satisfies Record<string, Record<Phase2Locale, string>>;
 
+/**
+ * Splits a database-authored title into the two halves a signal heading needs:
+ * a solid lead-in and an outlined tail. The tail is the last word — or the last
+ * two on longer titles — so the break reads as a deliberate typographic accent
+ * rather than a truncation. Single-word titles are outlined whole.
+ */
+export function splitSignalTitle(title: string): { solid: string; outline: string } {
+    const words = title.trim().split(/\s+/).filter(Boolean);
+    if (words.length < 2) return { solid: "", outline: words.join(" ") };
+    const outlineWords = words.length >= 5 ? 2 : 1;
+    return {
+        solid: words.slice(0, -outlineWords).join(" "),
+        outline: words.slice(-outlineWords).join(" "),
+    };
+}
+
 function normalizePath(pathname: string) {
     return pathname.length > 1 ? pathname.replace(/\/$/, "") : pathname;
 }

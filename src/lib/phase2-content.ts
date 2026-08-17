@@ -100,13 +100,10 @@ const en = {
         workLinkLabel: "View project",
         workFallbackCategory: "Live Experience",
         capabilitiesEyebrow: "CAPABILITIES",
-        capabilitiesSrTitle: "Capabilities",
-        capabilities: [
-            { number: "01", title: "AI photo and video", copy: "Campaign-specific visual worlds that turn a guest portrait into branded content.", href: enPaths.categoryHref.ai },
-            { number: "02", title: "Photo activations", copy: "Physical capture experiences designed around the venue, brand and sharing journey.", href: enPaths.categoryHref.photo },
-            { number: "03", title: "Interactive games", copy: "Touch, movement and competition translated into playful branded participation.", href: enPaths.categoryHref.interactive },
-            { number: "04", title: "Custom installations", copy: "Software, interfaces and physical systems developed as one live experience.", href: enPaths.routes.capabilities },
-        ],
+        capabilitiesTitle: "Signature\nformats\nfor {live}\nparticipation.",
+        capabilitiesCopy: "From AI-generated portraits to sensor-driven photography, each format is built to turn a guest's presence into shareable, on-brand content.",
+        capabilitiesLinkLabel: "View service",
+        capabilitiesFallbackCategory: "Photo Experience",
         processEyebrow: "HOW WE BUILD",
         processSrTitle: "How we build",
         process: [
@@ -395,12 +392,87 @@ const en = {
         finalSecondary: "Explore More Work",
     },
 
+    /**
+     * Screens below are rendered from database records rather than from the
+     * hardcoded copy above — only the chrome around the content lives here.
+     */
+
+    capabilityCategory: {
+        crumbHome: "Home",
+        crumbCapabilities: "Capabilities",
+        facts: [
+            { term: "Services", value: null },
+            { term: "Setup", value: "Turnkey" },
+            { term: "Operation", value: "On-site crew" },
+            { term: "Coverage", value: "Nationwide" },
+        ] as Phase2Fact[],
+        catalogAria: "Services in this category",
+        catalogTitle: "In this category",
+        cardLink: "Explore Service",
+        faqTitle: "Frequently asked questions",
+        ctaSolid: "Bring this experience",
+        ctaOutline: "to your next event.",
+        ctaButton: "Plan Your Activation",
+    },
+
+    serviceDetail: {
+        crumbHome: "Home",
+        crumbCapabilities: "Capabilities",
+        categoryTerm: "Category",
+        fallbackFacts: [
+            { term: "Setup", value: "Turnkey" },
+            { term: "Operation", value: "On-site crew" },
+            { term: "Coverage", value: "Nationwide" },
+        ] as Phase2Fact[],
+        videoTitle: "See it running",
+        aboutTitle: "About this service",
+        specsTitle: "Technical specifications",
+        faqTitle: "Frequently asked questions",
+        galleryTitle: "From the field",
+        galleryAlt: (index: number) => `Service photo ${index}`,
+        relatedTitle: "Related services",
+        backLabel: "All capabilities",
+        ctaSolid: "Tailor this capability",
+        ctaOutline: "to your event.",
+        ctaPrimary: "Plan Your Activation",
+        ctaSecondary: "See Selected Work",
+    },
+
+    projectDetail: {
+        crumbHome: "Home",
+        crumbWork: "Work",
+        clientTerm: "Client",
+        formatTerm: "Format",
+        yearTerm: "Year",
+        siteValue: "Visit site",
+        videoTitle: "See it running",
+        aboutTitle: "About the project",
+        stackTitle: "Technologies used",
+        galleryTitle: "From the activation",
+        galleryAlt: (index: number) => `Project photo ${index}`,
+        nextLabel: "Next project",
+        backLabel: "All work",
+        ctaSolid: "Build something",
+        ctaOutline: "people step into.",
+        ctaButton: "Plan Your Activation",
+    },
+
     /** Presentation overrides for the three homepage hero projects, keyed by English slug. */
     featuredProjects: {
         "tavuk-dunyasi-x-ai-photo": { title: "Tavuk Dünyası × AI Photo", category: "AI Photo Activation" },
         "pegasus-airlines-digital-gift-wheel-activation": { title: "Pegasus × Digital Gift Wheel", category: "Interactive Game" },
         "ray-ban-x-strip-photo": { title: "Ray-Ban × Strip Photo", category: "Photo Activation" },
     } as Record<string, { title: string; category: string }>,
+
+    /** Presentation overrides for the three homepage services, keyed by English slug. */
+    featuredServices: {
+        "aura-photobooth-rental": {
+            category: "Aura Experience",
+            description: "Guests place their hands on our sensors to see their own energy visualized in real-time color—a mystical, tech-forward touch for your event.",
+        },
+        "ai-photobooth": { category: "AI Photo Activation" },
+        "photobooth-rental": { category: "Photo Activation" },
+    } as Record<string, { category: string; description?: string }>,
 };
 
 export type Phase2Copy = typeof en;
@@ -465,13 +537,10 @@ const tr: Phase2Copy = {
         workLinkLabel: "Projeyi incele",
         workFallbackCategory: "Etkinlik Deneyimi",
         capabilitiesEyebrow: "HİZMETLER",
-        capabilitiesSrTitle: "Hizmetler",
-        capabilities: [
-            { number: "01", title: "Yapay zekâ fotoğraf ve video", copy: "Katılımcı portrelerini markanıza özel, paylaşılabilir fotoğraf ve video içeriklerine dönüştüren deneyimler.", href: trPaths.categoryHref.ai },
-            { number: "02", title: "Fotoğraf aktivasyonları", copy: "Mekâna ve marka kimliğine göre tasarlanan; çekimden baskıya ve dijital paylaşıma uzanan fotoğraf deneyimleri.", href: trPaths.categoryHref.photo },
-            { number: "03", title: "İnteraktif oyunlar", copy: "Dokunma, hareket ve rekabeti markanızın parçası hâline getiren oyunlaştırılmış deneyimler.", href: trPaths.categoryHref.interactive },
-            { number: "04", title: "Özel kurulumlar", copy: "Yazılımı, arayüzü ve fiziksel sistemi tek bir bütün olarak tasarladığımız markaya özel kurulumlar.", href: trPaths.routes.capabilities },
-        ],
+        capabilitiesTitle: "Katılımcıyı\n{içeriğin}\nmerkezine alan\nformatlar.",
+        capabilitiesCopy: "Yapay zekâ destekli portrelerden sensör tabanlı fotoğrafçılığa kadar; katılımcının anını paylaşılabilir, markaya özel içeriğe dönüştüren formatlar tasarlıyoruz.",
+        capabilitiesLinkLabel: "Hizmeti incele",
+        capabilitiesFallbackCategory: "Fotoğraf Deneyimi",
         processEyebrow: "NASIL ÜRETİYORUZ",
         processSrTitle: "Nasıl üretiyoruz",
         process: [
@@ -760,10 +829,76 @@ const tr: Phase2Copy = {
         finalSecondary: "Diğer Projeleri İnceleyin",
     },
 
+    capabilityCategory: {
+        crumbHome: "Ana Sayfa",
+        crumbCapabilities: "Hizmetler",
+        facts: [
+            { term: "Hizmet", value: null },
+            { term: "Kurulum", value: "Anahtar teslim" },
+            { term: "Operasyon", value: "Saha ekibi" },
+            { term: "Kapsam", value: "Türkiye geneli" },
+        ],
+        catalogAria: "Bu kategorideki hizmetler",
+        catalogTitle: "Bu kategoride",
+        cardLink: "Hizmeti İncele",
+        faqTitle: "Sık sorulan sorular",
+        ctaSolid: "Bu deneyimi",
+        ctaOutline: "etkinliğinize taşıyalım.",
+        ctaButton: "Aktivasyonunuzu Planlayın",
+    },
+
+    serviceDetail: {
+        crumbHome: "Ana Sayfa",
+        crumbCapabilities: "Hizmetler",
+        categoryTerm: "Kategori",
+        fallbackFacts: [
+            { term: "Kurulum", value: "Anahtar teslim" },
+            { term: "Operasyon", value: "Saha ekibi" },
+            { term: "Kapsam", value: "Türkiye geneli" },
+        ],
+        videoTitle: "Sahada nasıl çalışıyor",
+        aboutTitle: "Hizmet hakkında",
+        specsTitle: "Teknik özellikler",
+        faqTitle: "Sık sorulan sorular",
+        galleryTitle: "Sahadan kareler",
+        galleryAlt: (index: number) => `Hizmet görseli ${index}`,
+        relatedTitle: "İlgili hizmetler",
+        backLabel: "Tüm hizmetler",
+        ctaSolid: "Bu hizmeti",
+        ctaOutline: "etkinliğinize uyarlayalım.",
+        ctaPrimary: "Aktivasyonunuzu Planlayın",
+        ctaSecondary: "Seçili Projeleri İnceleyin",
+    },
+
+    projectDetail: {
+        crumbHome: "Ana Sayfa",
+        crumbWork: "Projeler",
+        clientTerm: "Marka",
+        formatTerm: "Format",
+        yearTerm: "Yıl",
+        siteValue: "Siteyi ziyaret et",
+        videoTitle: "Sahada nasıl çalıştı",
+        aboutTitle: "Proje hakkında",
+        stackTitle: "Kullanılan teknolojiler",
+        galleryTitle: "Aktivasyondan kareler",
+        galleryAlt: (index: number) => `Proje görseli ${index}`,
+        nextLabel: "Sıradaki proje",
+        backLabel: "Tüm projeler",
+        ctaSolid: "Benzer bir deneyimi",
+        ctaOutline: "sizin için kuralım.",
+        ctaButton: "Aktivasyonunuzu Planlayın",
+    },
+
     featuredProjects: {
         "tavuk-dunyasi-x-ai-photo": { title: "Tavuk Dünyası × AI Photo", category: "Yapay Zekâ Fotoğraf Aktivasyonu" },
         "pegasus-airlines-digital-gift-wheel-activation": { title: "Pegasus × Dijital Hediye Çarkı", category: "İnteraktif Oyun" },
         "ray-ban-x-strip-photo": { title: "Ray-Ban × Strip Photo", category: "Fotoğraf Aktivasyonu" },
+    },
+
+    featuredServices: {
+        "aura-photobooth-rental": { category: "Aura Deneyimi" },
+        "ai-photobooth": { category: "Yapay Zekâ Fotoğraf Aktivasyonu" },
+        "photobooth-rental": { category: "Fotoğraf Aktivasyonu" },
     },
 };
 

@@ -20,10 +20,25 @@ export interface P2ProjectCard {
     image: string | null;
 }
 
-export default function HomePrototype({ projects, locale }: { projects: P2ProjectCard[]; locale: Phase2Locale }) {
+/**
+ * A featured homepage service, already resolved to the active locale by the
+ * page: `slug`, `categorySlug` and `title` are the locale's own values, `key`
+ * is the English slug used to look up the editorial presentation override.
+ */
+export interface P2ServiceCard {
+    key: string;
+    categorySlug: string;
+    slug: string;
+    title: string | null;
+    description: string | null;
+    image: string | null;
+}
+
+export default function HomePrototype({ projects, services, locale }: { projects: P2ProjectCard[]; services: P2ServiceCard[]; locale: Phase2Locale }) {
     const dictionary = phase2Copy(locale);
     const copy = dictionary.home;
     const presentation = dictionary.featuredProjects;
+    const servicePresentation = dictionary.featuredServices;
 
     const rayBan = projects.find((project) => project.key.includes("ray-ban"));
     const projectOrder = [
@@ -101,16 +116,28 @@ export default function HomePrototype({ projects, locale }: { projects: P2Projec
                 </P2Container>
             </section>
 
-            <section className="p2-section p2-section--surface p2-home-capabilities" aria-labelledby="capabilities-title">
+            <section className="p2-section p2-home-services" aria-labelledby="services-title">
                 <P2Container>
-                    <header className="p2-home-compact-head">
+                    <header className="p2-home-section-head p2-home-services__head">
                         <P2Eyebrow>{copy.capabilitiesEyebrow}</P2Eyebrow>
-                        <h2 id="capabilities-title" className="sr-only">{copy.capabilitiesSrTitle}</h2>
+                        <h2 id="services-title"><P2Display text={copy.capabilitiesTitle} /></h2>
+                        <p>{copy.capabilitiesCopy}</p>
                     </header>
-                    <div className="p2-capability-list">
-                        {copy.capabilities.map((capability) => (
-                            <Link href={capability.href} key={capability.number}>
-                                <span>{capability.number}</span><h3>{capability.title}</h3><p>{capability.copy}</p><ArrowUpRight aria-hidden="true" />
+                    <div className="p2-editorial-projects">
+                        {services.map((service, index) => (
+                            <Link href={`${dictionary.routes.capabilities}/${service.categorySlug}/${service.slug}`} className={`p2-editorial-project p2-editorial-project--${index + 1}`} key={service.key}>
+                                <div className="p2-editorial-project__copy">
+                                    <span className="p2-editorial-project__index" data-text={`0${index + 1}`}>0{index + 1}</span>
+                                    <div>
+                                        <span className="p2-editorial-project__category">0{index + 1} · {servicePresentation[service.key]?.category || copy.capabilitiesFallbackCategory}</span>
+                                        <h3>{service.title}</h3>
+                                        <p>{servicePresentation[service.key]?.description || service.description}</p>
+                                        <span className="p2-editorial-project__link">{copy.capabilitiesLinkLabel} <ArrowUpRight aria-hidden="true" /></span>
+                                    </div>
+                                </div>
+                                <div className="p2-editorial-project__image">
+                                    {service.image && <Image src={service.image} alt={service.title || "MetasoftCo"} fill sizes="(max-width: 760px) 100vw, 50vw" />}
+                                </div>
                             </Link>
                         ))}
                     </div>
