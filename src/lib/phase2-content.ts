@@ -525,7 +525,7 @@ const tr: Phase2Copy = {
         // solid stack is the predicate, keeping every solid line short enough to
         // clear the portal image and the brief column.
         heroTitleOutline: "Deneyimler",
-        heroTitleSolid: ["Markaları", "İnsanlarla", "Buluşturur"],
+        heroTitleSolid: ["Marka", "İnsan", "Buluşturur"],
         heroTitleLabel: "insanlarla buluşturur",
         heroFigureAlt: "Ray-Ban fotoğraf aktivasyonuna katılan katılımcılar",
         heroFigureLabel: "CANLI KATILIM",
