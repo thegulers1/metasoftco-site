@@ -35,9 +35,6 @@ export default function ServiceDetailClient({
     }, [service.slug, service.slug_en, categoryData.slug, categoryData.slug_en]);
 
     const title = language === "en" ? (service.title_en || service.title) : service.title;
-    const seoTitle = language === "en"
-        ? (service.metaTitle_en || service.metaTitle || title)
-        : (service.metaTitle || title);
     const categoryName = language === "en" ? (categoryData.name_en || categoryData.name) : categoryData.name;
     const description = language === "en" ? (service.description_en || service.description) : service.description;
     const content = language === "en" ? (service.content_en || service.content) : service.content;
@@ -83,7 +80,7 @@ export default function ServiceDetailClient({
                         className="text-white font-bold tracking-[-0.02em] leading-[1.05]"
                         style={{ fontFamily: "var(--font-space-grotesk)", fontSize: "clamp(32px, 6vw, 56px)" }}
                     >
-                        {seoTitle}
+                        {title}
                     </h1>
                     {description && (
                         <p
