@@ -92,9 +92,9 @@ export default function Navbar() {
                         >
                             <Globe className="w-4 h-4" />
                             <span>
-                                <span className={language === "tr" ? "font-bold" : "opacity-40"}>TR</span>
+                                <span className={language === "tr" ? "font-bold text-[#22d3ee]" : "opacity-40"}>TR</span>
                                 <span className="opacity-30 mx-1">/</span>
-                                <span className={language === "en" ? "font-bold" : "opacity-40"}>EN</span>
+                                <span className={language === "en" ? "font-bold text-[#22d3ee]" : "opacity-40"}>EN</span>
                             </span>
                         </button>
 
@@ -200,9 +200,9 @@ export default function Navbar() {
                                 >
                                     <Globe className="w-4 h-4" />
                                     <span className="text-sm font-medium">
-                                        <span className={language === "tr" ? "font-bold" : "opacity-40"}>TR</span>
+                                        <span className={language === "tr" ? "font-bold text-[#22d3ee]" : "opacity-40"}>TR</span>
                                         <span className="opacity-30 mx-1">/</span>
-                                        <span className={language === "en" ? "font-bold" : "opacity-40"}>EN</span>
+                                        <span className={language === "en" ? "font-bold text-[#22d3ee]" : "opacity-40"}>EN</span>
                                     </span>
                                 </button>
                             </motion.div>

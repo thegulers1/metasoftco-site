@@ -643,7 +643,7 @@ const tr: Phase2Copy = {
         liteTitle: "Henüz tüm detaylar net değil mi?",
         liteCopy: "Bize kısaca ulaşın ya da önce projelerimizi inceleyin.",
         liteMailLabel: "E-posta gönderin",
-        liteWorkLabel: "Seçili projeleri inceleyin",
+        liteWorkLabel: "Yapay Zekadan Öneri Al",
         finalSolid: "Sıradaki",
         finalOutline: "canlı an",
         finalTail: "burada başlıyor.",

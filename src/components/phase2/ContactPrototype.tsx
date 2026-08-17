@@ -7,6 +7,7 @@ import { IconArrowRight as ArrowRight, IconClock as Clock, IconMail as Mail, Ico
 import type { Phase2Locale } from "@/lib/phase2";
 import { phase2Copy } from "@/lib/phase2-content";
 import { SignalHeading } from "./SignalHeading";
+import { useChatStore } from "@/components/AIChat/useChatStore";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
@@ -14,6 +15,7 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
     const dictionary = phase2Copy(locale);
     const copy = dictionary.contact;
     const form = copy.form;
+    const { open: openChat } = useChatStore();
 
     const [status, setStatus] = useState<Status>("idle");
 
@@ -81,7 +83,7 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
                 <h2>{copy.liteTitle}</h2>
                 <p>{copy.liteCopy}</p>
                 <Link href="mailto:info@metasoftco.com">{copy.liteMailLabel} <ArrowRight aria-hidden="true" /></Link>
-                <Link href={dictionary.routes.work}>{copy.liteWorkLabel} <ArrowRight aria-hidden="true" /></Link>
+                <button type="button" onClick={() => openChat(locale)}>{copy.liteWorkLabel} <ArrowRight aria-hidden="true" /></button>
             </section>
             <section className="p2-contact-final">
                 <Image src="/phase2/about-production-stage-v2.png" alt="" fill sizes="100vw" />
