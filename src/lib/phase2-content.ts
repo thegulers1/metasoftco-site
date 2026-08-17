@@ -57,6 +57,8 @@ const en = {
         localeSwitchAria: "Switch to Turkish",
         localeSwitchLabel: "TR / EN",
         cta: "Plan Your Activation",
+        aiCta: "Get AI Suggestions",
+        aiCtaAria: "Open AI assistant for event suggestions",
         items: [
             { href: enPaths.routes.work, label: "Work" },
             { href: enPaths.routes.capabilities, label: "Capabilities" },
@@ -491,6 +493,8 @@ const tr: Phase2Copy = {
         localeSwitchAria: "İngilizceye geç",
         localeSwitchLabel: "TR / EN",
         cta: "Aktivasyonunuzu Planlayın",
+        aiCta: "Yapay Zekadan Öneri Al",
+        aiCtaAria: "Etkinlik önerileri için yapay zeka asistanını aç",
         items: [
             { href: trPaths.routes.work, label: "Projeler" },
             { href: trPaths.routes.capabilities, label: "Hizmetler" },

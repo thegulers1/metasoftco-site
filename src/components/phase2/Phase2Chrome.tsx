@@ -4,9 +4,10 @@ import { useEffect, useState, type MouseEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Globe, Menu, X } from "lucide-react";
+import { Globe, Menu, Sparkles, X } from "lucide-react";
 import { isPhase2PrototypePath, phase2LocaleFromPath, phase2SiblingPath } from "@/lib/phase2";
 import { phase2Copy } from "@/lib/phase2-content";
+import { useChatStore } from "@/components/AIChat/useChatStore";
 
 const GOOGLE_MAPS_URL =
     "https://www.google.com/maps/search/?api=1&query=" +
@@ -18,6 +19,7 @@ export function Phase2Navbar() {
     const locale = phase2LocaleFromPath(pathname);
     const copy = phase2Copy(locale).nav;
     const localeSwitchHref = phase2SiblingPath(pathname, locale);
+    const { open: openChat } = useChatStore();
 
     useEffect(() => {
         if (!open) return;
@@ -62,6 +64,9 @@ export function Phase2Navbar() {
                 </nav>
                 {/* Plain anchor: next/link performs its own navigation on click, which would race the upgraded destination below. */}
                 <a href={localeSwitchHref} onClick={onLocaleSwitch} className="p2-nav__locale" aria-label={copy.localeSwitchAria}><Globe aria-hidden="true" /> {copy.localeSwitchLabel}</a>
+                <button type="button" className="p2-nav__ai-cta" aria-label={copy.aiCtaAria} onClick={() => openChat(locale)}>
+                    <Sparkles aria-hidden="true" /> {copy.aiCta}
+                </button>
                 <Link href={phase2Copy(locale).routes.contact} className="p2-nav__cta">{copy.cta}</Link>
                 <button
                     type="button"
@@ -77,6 +82,9 @@ export function Phase2Navbar() {
             {open && (
                 <nav id="phase2-mobile-navigation" className="p2-nav__mobile" aria-label={copy.mobileAria}>
                     {copy.items.map((item) => <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>{item.label}</Link>)}
+                    <button type="button" className="p2-nav__mobile-ai-cta" aria-label={copy.aiCtaAria} onClick={() => { setOpen(false); openChat(locale); }}>
+                        <Sparkles aria-hidden="true" /> {copy.aiCta}
+                    </button>
                     <Link href={phase2Copy(locale).routes.contact} className="p2-nav__mobile-cta" onClick={() => setOpen(false)}>{copy.cta}</Link>
                 </nav>
             )}

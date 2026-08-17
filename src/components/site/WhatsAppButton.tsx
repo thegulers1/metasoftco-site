@@ -1,11 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { usePathname } from "next/navigation";
-import { isPhase2PrototypePath } from "@/lib/phase2";
 
 export default function WhatsAppButton() {
-    const pathname = usePathname();
     const phoneNumber = "905342334051"; // Türkiye kodu ile
     const [message, setMessage] = useState("Merhaba, bilgi almak istiyorum.");
 
@@ -18,8 +15,6 @@ export default function WhatsAppButton() {
                 : `Merhaba, ${pageUrl} sayfasından yazıyorum. Bilgi almak istiyorum.`
         );
     }, []);
-
-    if (isPhase2PrototypePath(pathname)) return null;
 
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
 
