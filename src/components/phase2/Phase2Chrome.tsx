@@ -87,6 +87,17 @@ export function Phase2Navbar() {
             {open && (
                 <nav id="phase2-mobile-navigation" className="p2-nav__mobile" aria-label={copy.mobileAria}>
                     {copy.items.map((item) => <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>{item.label}</Link>)}
+                    <a
+                        href={localeSwitchHref}
+                        onClick={(event) => { onLocaleSwitch(event); setOpen(false); }}
+                        className="p2-nav__mobile-locale"
+                        aria-label={copy.localeSwitchAria}
+                    >
+                        <Globe aria-hidden="true" />
+                        <span className={locale === "tr" ? "p2-nav__locale-active" : "p2-nav__locale-inactive"}>TR</span>
+                        <span className="p2-nav__locale-sep">/</span>
+                        <span className={locale === "en" ? "p2-nav__locale-active" : "p2-nav__locale-inactive"}>EN</span>
+                    </a>
                     <button type="button" className="p2-nav__mobile-ai-cta" aria-label={copy.aiCtaAria} onClick={() => { setOpen(false); openChat(locale); }}>
                         <Sparkles aria-hidden="true" /> <span className="p2-nav__ai-cta-text">{copy.aiCta}</span>
                     </button>
