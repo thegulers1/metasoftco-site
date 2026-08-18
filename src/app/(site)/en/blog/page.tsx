@@ -1,10 +1,8 @@
-import Link from "next/link";
-import Image from "next/image";
 import { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { siteConfig } from "@/lib/site";
-import Container from "@/components/site/Container";
+import InsightsIndexPrototype from "@/components/phase2/InsightsIndexPrototype";
 import { isEnglishBlogPostPublishable } from "@/lib/publication";
 
 export const revalidate = 3600;
@@ -43,145 +41,15 @@ const getBlogPosts = unstable_cache(
 );
 
 export default async function EnglishBlogPage() {
-    const posts = (await getBlogPosts()).filter(isEnglishBlogPostPublishable);
+    const posts = (await getBlogPosts()).filter(isEnglishBlogPostPublishable).map((post) => ({
+        id: post.id,
+        slug: post.slug_en!,
+        title: post.title_en!,
+        excerpt: post.excerpt_en,
+        image: post.image,
+        category: post.category,
+        publishedAt: post.publishedAt,
+    }));
 
-    return (
-        <div className="bg-[#0a0a0f] min-h-screen">
-            <section className="relative overflow-hidden">
-                <div
-                    className="aurora-blob aurora-drift"
-                    style={{ width: 560, height: 560, top: "-18%", left: "6%", background: "radial-gradient(circle, rgba(124,58,237,0.32), transparent 70%)" }}
-                />
-                <div
-                    className="aurora-blob aurora-drift2"
-                    style={{ width: 480, height: 480, top: "-10%", right: "0%", background: "radial-gradient(circle, rgba(34,211,238,0.28), transparent 70%)" }}
-                />
-                <div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{ background: "linear-gradient(180deg, rgba(10,10,15,.1), rgba(10,10,15,.84))" }}
-                />
-                <div className="relative z-10 max-w-[1240px] mx-auto px-6 sm:px-12 pt-32 pb-12">
-                    <span
-                        className="text-[12px] uppercase tracking-[0.14em] text-[var(--acc)]"
-                        style={{ fontFamily: "var(--font-jetbrains-mono)", fontWeight: 500 }}
-                    >
-                        BLOG
-                    </span>
-                    <h1
-                        className="text-white font-bold tracking-[-0.02em] mt-4"
-                        style={{ fontFamily: "var(--font-space-grotesk)", fontSize: "clamp(36px, 6vw, 60px)" }}
-                    >
-                        Our thoughts, news and guides.
-                    </h1>
-                    <p
-                        className="mt-5 max-w-[600px] text-[rgba(255,255,255,.64)]"
-                        style={{ fontFamily: "var(--font-manrope)", fontSize: 18, lineHeight: 1.55 }}
-                    >
-                        Our thoughts on technology, design, and innovation — news and guides.
-                    </p>
-                </div>
-            </section>
-
-            <Container>
-                <div className="pb-24">
-                    {posts.length === 0 ? (
-                        <div className="flex flex-col items-center justify-center py-20 border border-dashed border-white/10 rounded-[20px]">
-                            <p
-                                className="text-[rgba(255,255,255,.4)]"
-                                style={{ fontFamily: "var(--font-manrope)", fontStyle: "italic" }}
-                            >
-                                Special content coming soon. Stay tuned!
-                            </p>
-                        </div>
-                    ) : (
-                        <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
-                            {posts.map((post) => {
-                                const title = post.title_en!;
-                                const excerpt = post.excerpt_en!;
-                                const href = `/en/blog/${post.slug_en}`;
-
-                                return (
-                                    <Link
-                                        key={post.id}
-                                        href={href}
-                                        className="group relative flex flex-col rounded-[20px] overflow-hidden border border-white/10 transition-all duration-[.4s] ease-[cubic-bezier(.2,.8,.2,1)] hover:-translate-y-2 hover:border-white/30"
-                                        style={{ background: "linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02))" }}
-                                    >
-                                        <div className="relative aspect-[16/10] w-full overflow-hidden bg-[#14141d]">
-                                            {post.image ? (
-                                                <Image
-                                                    fill
-                                                    src={post.image}
-                                                    alt={title}
-                                                    className="object-cover transition-transform duration-500 group-hover:scale-105"
-                                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-                                                />
-                                            ) : (
-                                                <div
-                                                    className="absolute inset-0"
-                                                    style={{ backgroundImage: "repeating-linear-gradient(135deg,#14141d,#14141d 11px,#1a1a25 11px,#1a1a25 22px)" }}
-                                                />
-                                            )}
-                                            {post.category && (
-                                                <div
-                                                    className="absolute top-3.5 left-3.5 rounded-full px-3 py-1.5 backdrop-blur-sm"
-                                                    style={{
-                                                        background: "rgba(10,10,15,.62)",
-                                                        fontFamily: "var(--font-jetbrains-mono)",
-                                                        fontSize: 11,
-                                                        fontWeight: 500,
-                                                        letterSpacing: ".04em",
-                                                        color: "rgba(255,255,255,.88)",
-                                                    }}
-                                                >
-                                                    {post.category.toLocaleUpperCase("en")}
-                                                </div>
-                                            )}
-                                        </div>
-
-                                        <div className="flex flex-col flex-1 px-[22px] pt-[22px] pb-6">
-                                            {post.publishedAt && (
-                                                <p
-                                                    className="mb-2 text-[rgba(255,255,255,.4)]"
-                                                    style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: 11.5 }}
-                                                >
-                                                    {new Date(post.publishedAt).toLocaleDateString("en-US", {
-                                                        year: "numeric",
-                                                        month: "long",
-                                                        day: "numeric",
-                                                    })}
-                                                </p>
-                                            )}
-                                            <h2
-                                                className="text-white line-clamp-2"
-                                                style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 19, lineHeight: 1.25, fontWeight: 600 }}
-                                            >
-                                                {title}
-                                            </h2>
-                                            {excerpt && (
-                                                <p
-                                                    className="mt-2.5 line-clamp-3 text-[rgba(255,255,255,.55)]"
-                                                    style={{ fontFamily: "var(--font-manrope)", fontSize: 13.5, lineHeight: 1.55 }}
-                                                >
-                                                    {excerpt}
-                                                </p>
-                                            )}
-                                            {post.author && (
-                                                <p
-                                                    className="mt-auto pt-4 text-[rgba(255,255,255,.4)]"
-                                                    style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: 11.5 }}
-                                                >
-                                                    {post.author}
-                                                </p>
-                                            )}
-                                        </div>
-                                    </Link>
-                                );
-                            })}
-                        </div>
-                    )}
-                </div>
-            </Container>
-        </div>
-    );
+    return <InsightsIndexPrototype posts={posts} locale="en" />;
 }
