@@ -90,7 +90,11 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
                 <div>
                     <SignalHeading as="h2" solid={copy.finalSolid} outline={copy.finalOutline} />
                     <h2>{copy.finalTail}</h2>
-                    <p><Phone aria-hidden="true" /> +90 534 233 40 51 <Mail aria-hidden="true" /> info@metasoftco.com <MapPin aria-hidden="true" /> {copy.location}</p>
+                    <p>
+                        <span><Phone aria-hidden="true" /> +90 534 233 40 51</span>
+                        <span><Mail aria-hidden="true" /> info@metasoftco.com</span>
+                        <span><MapPin aria-hidden="true" /> {copy.location}</span>
+                    </p>
                 </div>
             </section>
         </article>

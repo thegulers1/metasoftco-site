@@ -232,24 +232,22 @@ main p {
 }
 
 .quote-floating-badge {
-	bottom: max(1rem, env(safe-area-inset-bottom));
+	bottom: max(5.5rem, calc(env(safe-area-inset-bottom) + 4.5rem));
 	right: max(1rem, env(safe-area-inset-right));
 }
 
 .whatsapp-floating-button {
-	bottom: max(5.5rem, calc(env(safe-area-inset-bottom) + 4.5rem));
+	bottom: max(1rem, env(safe-area-inset-bottom));
 	right: max(1rem, env(safe-area-inset-right));
 }
 
 @media (max-width: 767px) {
 	.quote-floating-badge {
 		padding: 0.875rem;
+		bottom: max(5rem, calc(env(safe-area-inset-bottom) + 4rem));
 	}
 	.quote-floating-label {
 		display: none;
-	}
-	.whatsapp-floating-button {
-		bottom: max(5rem, calc(env(safe-area-inset-bottom) + 4rem));
 	}
 }
 
@@ -2210,6 +2208,8 @@ html[lang="tr"] .p2-signal-title__solid {
 		font-size: clamp(32px, 10.5vw, 45px);
 	}
 	html[lang="tr"] .p2-signal-title__solid {
+		position: relative;
+		top: auto;
 		font-size: clamp(50px, 14.8vw, 66px);
 	}
 	.p2-signal-portal {
@@ -2248,7 +2248,7 @@ html[lang="tr"] .p2-signal-title__solid {
 		width: 100%;
 	}
 	.p2-home-brand-loop {
-		padding-top: 13px;
+		padding-top: 36px;
 	}
 	.p2-home-brand-loop__label {
 		padding-block: 5px 0;
@@ -3833,7 +3833,9 @@ html[lang="tr"] .p2-signal-title__solid {
 }
 .p2-contact-final p {
 	display: flex;
+	flex-wrap: wrap;
 	align-items: center;
+	justify-content: center;
 	gap: 17px;
 	margin-top: 30px;
 	color: rgba(244, 247, 248, 0.8);
@@ -3841,9 +3843,16 @@ html[lang="tr"] .p2-signal-title__solid {
 	font-size: 10px;
 	text-transform: uppercase;
 }
+.p2-contact-final p span {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	white-space: nowrap;
+}
 .p2-contact-final p svg {
 	width: 16px;
 	color: #54def0;
+	flex-shrink: 0;
 }
 
 /* Phase 2 content-driven screens — service categories, service and project
@@ -4428,10 +4437,15 @@ html[lang="tr"] .p2-signal-title__solid {
 	.p2-contact-panel {
 		grid-template-columns: 1fr;
 	}
+	.p2-contact-panel form {
+		order: -1;
+	}
 	.p2-contact-panel aside {
+		order: 1;
 		min-height: 650px;
 		border-right: 0;
 		border-bottom: 1px solid var(--p2-line);
+		border-top: 1px solid var(--p2-line);
 	}
 	.p2-contact-panel aside figure {
 		height: 450px;
@@ -4473,8 +4487,11 @@ html[lang="tr"] .p2-signal-title__solid {
 		white-space: normal;
 	}
 	.p2-contact-final p {
-		align-items: flex-start;
+		align-items: center;
 		flex-direction: column;
+	}
+	.p2-contact-final p span {
+		justify-content: center;
 	}
 }
 
