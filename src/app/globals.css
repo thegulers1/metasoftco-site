@@ -1074,7 +1074,7 @@ html[lang="tr"] .p2-signal-title__solid {
 	padding: 30px clamp(22px, 2.6vw, 44px) 31px 0;
 }
 .p2-editorial-project--2 .p2-editorial-project__copy {
-	justify-content: space-between;
+	justify-content: flex-end;
 	padding: 28px clamp(26px, 4vw, 62px) 44px 0;
 }
 .p2-editorial-project--3 .p2-editorial-project__copy {
