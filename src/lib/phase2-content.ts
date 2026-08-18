@@ -654,7 +654,7 @@ const tr: Phase2Copy = {
 			},
 		],
 		valueEyebrow: "NEDEN İNTERAKTİF",
-		valueTitle: "Marka\nhikâyesinde\nkitleye\nbir {rol}\nverin.",
+		valueTitle: "Marka hikâyesinde kitleye bir {rol} verin.",
 		valueTitleLabel: "Marka hikâyesinde kitleye bir rol verin.",
 		valuePoints: [
 			"İnsanlar yalnızca gördüklerini değil, deneyimin parçası oldukları anları hatırlar.",

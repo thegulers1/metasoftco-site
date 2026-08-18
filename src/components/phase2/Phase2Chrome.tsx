@@ -65,7 +65,7 @@ export function Phase2Navbar() {
                 {/* Plain anchor: next/link performs its own navigation on click, which would race the upgraded destination below. */}
                 <a href={localeSwitchHref} onClick={onLocaleSwitch} className="p2-nav__locale" aria-label={copy.localeSwitchAria}><Globe aria-hidden="true" /> {copy.localeSwitchLabel}</a>
                 <button type="button" className="p2-nav__ai-cta" aria-label={copy.aiCtaAria} onClick={() => openChat(locale)}>
-                    <Sparkles aria-hidden="true" /> {copy.aiCta}
+                    <Sparkles aria-hidden="true" /> <span className="p2-nav__ai-cta-text">{copy.aiCta}</span>
                 </button>
                 <Link href={phase2Copy(locale).routes.contact} className="p2-nav__cta">{copy.cta}</Link>
                 <button
@@ -83,7 +83,7 @@ export function Phase2Navbar() {
                 <nav id="phase2-mobile-navigation" className="p2-nav__mobile" aria-label={copy.mobileAria}>
                     {copy.items.map((item) => <Link key={item.href} href={item.href} onClick={() => setOpen(false)}>{item.label}</Link>)}
                     <button type="button" className="p2-nav__mobile-ai-cta" aria-label={copy.aiCtaAria} onClick={() => { setOpen(false); openChat(locale); }}>
-                        <Sparkles aria-hidden="true" /> {copy.aiCta}
+                        <Sparkles aria-hidden="true" /> <span className="p2-nav__ai-cta-text">{copy.aiCta}</span>
                     </button>
                     <Link href={phase2Copy(locale).routes.contact} className="p2-nav__mobile-cta" onClick={() => setOpen(false)}>{copy.cta}</Link>
                 </nav>
