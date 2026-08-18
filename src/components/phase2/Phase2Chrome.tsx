@@ -63,7 +63,12 @@ export function Phase2Navbar() {
                     {copy.items.map((item) => <Link key={item.href} href={item.href} className={pathname === item.href || pathname?.startsWith(`${item.href}/`) ? "is-active" : undefined} onClick={() => setOpen(false)}>{item.label}</Link>)}
                 </nav>
                 {/* Plain anchor: next/link performs its own navigation on click, which would race the upgraded destination below. */}
-                <a href={localeSwitchHref} onClick={onLocaleSwitch} className="p2-nav__locale" aria-label={copy.localeSwitchAria}><Globe aria-hidden="true" /> {copy.localeSwitchLabel}</a>
+                <a href={localeSwitchHref} onClick={onLocaleSwitch} className="p2-nav__locale" aria-label={copy.localeSwitchAria}>
+                    <Globe aria-hidden="true" />
+                    <span className={locale === "tr" ? "p2-nav__locale-active" : "p2-nav__locale-inactive"}>TR</span>
+                    <span className="p2-nav__locale-sep">/</span>
+                    <span className={locale === "en" ? "p2-nav__locale-active" : "p2-nav__locale-inactive"}>EN</span>
+                </a>
                 <button type="button" className="p2-nav__ai-cta" aria-label={copy.aiCtaAria} onClick={() => openChat(locale)}>
                     <Sparkles aria-hidden="true" /> <span className="p2-nav__ai-cta-text">{copy.aiCta}</span>
                 </button>

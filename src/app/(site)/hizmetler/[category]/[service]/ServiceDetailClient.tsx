@@ -134,7 +134,7 @@ export default function ServiceDetailClient({
             )}
 
             {content && (
-                <section className="p2-container p2-detail-section">
+                <section className="p2-container p2-detail-section p2-detail-section--about">
                     <h2>{copy.aboutTitle}</h2>
                     <div
                         className="p2-prose"

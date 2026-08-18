@@ -2556,7 +2556,7 @@ html[lang="tr"] .p2-signal-title__solid {
 .p2-nav__locale {
 	display: inline-flex;
 	align-items: center;
-	gap: 7px;
+	gap: 5px;
 	color: rgba(244, 247, 248, 0.66);
 	font-family: var(--font-jetbrains-mono), monospace;
 	font-size: 10px;
@@ -2566,6 +2566,17 @@ html[lang="tr"] .p2-signal-title__solid {
 .p2-nav__locale svg {
 	width: 15px;
 	height: 15px;
+	margin-right: 2px;
+}
+.p2-nav__locale-active {
+	color: #f4f7f8;
+	font-weight: 600;
+}
+.p2-nav__locale-inactive {
+	color: rgba(244, 247, 248, 0.35);
+}
+.p2-nav__locale-sep {
+	color: rgba(244, 247, 248, 0.3);
 }
 .p2-nav__desktop a {
 	position: relative;
@@ -3971,6 +3982,62 @@ html[lang="tr"] .p2-signal-title__solid {
 	text-transform: uppercase;
 }
 
+/* The "about" narrative section (project + service detail): the same editor
+   HTML as .p2-prose, but tuned for long-form reading — a gradient kicker on
+   the heading, a brighter lede paragraph, sentence-case subheadings (full
+   caps stopped scanning past ~4 words) and a tighter measure. */
+.p2-detail-section--about > h2 {
+	display: inline-flex;
+	align-items: center;
+	gap: 14px;
+}
+.p2-detail-section--about > h2::before {
+	width: 30px;
+	height: 2px;
+	content: "";
+	background: linear-gradient(90deg, #54def0, #9277ef 55%, #ff594f);
+}
+.p2-detail-section--about .p2-prose {
+	max-width: none;
+	padding-top: 32px;
+	border-top-color: rgba(97, 217, 231, 0.35);
+}
+.p2-detail-section--about .p2-prose > p:first-of-type {
+	color: var(--p2-text);
+	font-size: clamp(18px, 1.7vw, 21px);
+	font-weight: 460;
+	line-height: 1.6;
+}
+.p2-detail-section--about .p2-prose p,
+.p2-detail-section--about .p2-prose li {
+	font-size: 16px;
+	line-height: 1.85;
+	color: rgba(244, 247, 248, 0.76);
+}
+.phase2 .p2-detail-section--about .p2-prose h3 {
+	position: relative;
+	margin-top: 56px;
+	padding-left: 22px;
+	letter-spacing: 0;
+	text-transform: none;
+	font-weight: 560;
+}
+.p2-detail-section--about .p2-prose h3::before {
+	position: absolute;
+	top: 0.5em;
+	left: 0;
+	width: 8px;
+	height: 8px;
+	content: "";
+	background: #5bd9e8;
+	box-shadow: 0 0 14px rgba(91, 217, 232, 0.65);
+}
+.phase2 .p2-detail-section--about .p2-prose h4 {
+	margin-top: 38px;
+	color: #5bd9e8;
+	text-transform: none;
+}
+
 /* Label/value pairs coming from the service "specs" field. */
 .p2-spec-grid {
 	display: grid;
@@ -4375,6 +4442,13 @@ html[lang="tr"] .p2-signal-title__solid {
 	}
 	.p2-prose {
 		padding-top: 24px;
+	}
+	.p2-detail-section--about .p2-prose {
+		padding-top: 26px;
+	}
+	.phase2 .p2-detail-section--about .p2-prose h3 {
+		margin-top: 42px;
+		padding-left: 18px;
 	}
 	.p2-spec-grid,
 	.p2-media-grid {

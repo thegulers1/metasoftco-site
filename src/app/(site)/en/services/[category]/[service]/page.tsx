@@ -7,10 +7,6 @@ import { cache } from "react";
 import ServiceDetailClient from "@/app/(site)/hizmetler/[category]/[service]/ServiceDetailClient";
 import { AdminEditUrlSetter } from "@/components/site/AdminBar";
 import { isEnglishServicePublishable } from "@/lib/publication";
-import CapabilityDetailPrototype from "@/components/phase2/CapabilityDetailPrototype";
-
-const PHASE_2_SERVICE_CATEGORY = "ai-event-solutions";
-const PHASE_2_SERVICE_SLUG = "ai-photobooth";
 
 export const revalidate = 3600;
 
@@ -42,11 +38,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const service = await getServiceBySlugEn(serviceSlug, categoryData.id);
     if (!service || !isEnglishServicePublishable(service, categoryData)) return { robots: { index: false, follow: false } };
 
-    const isPrototype = category === PHASE_2_SERVICE_CATEGORY && serviceSlug === PHASE_2_SERVICE_SLUG;
-    const title = isPrototype ? "AI Photo Booth for Events & Brand Activations" : service.metaTitle_en!;
-    const description = isPrototype
-        ? "A custom AI photo booth for events, launches and retail—branded visual scenarios, live image creation and digital delivery by QR."
-        : service.metaDescription_en!;
+    const title = service.metaTitle_en!;
+    const description = service.metaDescription_en!;
     const keywords = service.metaKeywords_en || "";
     const image = cloudinaryOgImage(service.ogImage || service.image) || `${siteConfig.url}/og`;
     const url = `${siteConfig.url}/en/services/${category}/${serviceSlug}`;
@@ -148,21 +141,14 @@ export default async function EnglishServiceDetailPage({ params }: PageProps) {
                 />
             )}
             <AdminEditUrlSetter url={`/editpanel/services/${service.id}/edit`} />
-            {category === PHASE_2_SERVICE_CATEGORY && serviceSlug === PHASE_2_SERVICE_SLUG ? (
-                <>
-                    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
-                    <CapabilityDetailPrototype locale="en" />
-                </>
-            ) : (
-                <ServiceDetailClient
-                    service={service}
-                    categoryData={categoryData!}
-                    relatedServices={relatedServices}
-                    gallery={gallery}
-                    serviceSchema={serviceSchema}
-                    category={category}
-                />
-            )}
+            <ServiceDetailClient
+                service={service}
+                categoryData={categoryData!}
+                relatedServices={relatedServices}
+                gallery={gallery}
+                serviceSchema={serviceSchema}
+                category={category}
+            />
         </>
     );
 }
