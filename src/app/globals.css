@@ -4716,7 +4716,7 @@ html[lang="tr"] .p2-signal-title__solid {
 	padding: clamp(28px, 3.2vw, 52px);
 }
 .phase2 .p2-insight-featured__body h2 {
-	max-width: 15ch;
+	max-width: 20ch;
 	margin: 0;
 	font-size: clamp(27px, 2.9vw, 42px);
 	font-weight: 560;
@@ -4864,6 +4864,29 @@ html[lang="tr"] .p2-signal-title__solid {
 }
 .p2-insight-detail .p2-insight-grid {
 	margin-top: 4px;
+}
+
+/* Long-form subheads are sentences, not the 3-word labels the service and
+   project narratives carry, so they lose the caps and gain breathing room. */
+.phase2.p2-insight-detail .p2-prose h2 {
+	margin-top: 58px;
+	font-size: clamp(24px, 2.3vw, 32px);
+	font-weight: 560;
+	letter-spacing: -0.035em;
+	text-transform: none;
+}
+.phase2.p2-insight-detail .p2-prose h2 + p {
+	margin-top: 16px;
+}
+
+/* Safety net for editor HTML that still carries its own <h1>: match the
+   subhead ramp instead of the 104px screen-title one. */
+.phase2 .p2-prose h1 {
+	margin-top: 46px;
+	font-size: clamp(25px, 2.5vw, 34px);
+	font-weight: 560;
+	line-height: 1.1;
+	letter-spacing: -0.035em;
 }
 
 @media (max-width: 1050px) {

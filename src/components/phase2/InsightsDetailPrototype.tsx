@@ -18,6 +18,16 @@ export interface P2InsightArticle {
     publishedAt: Date | string | null;
 }
 
+/**
+ * Editor-authored posts sometimes open with their own <h1>. The screen already
+ * renders one in the header, so a second lands on the 104px display ramp and
+ * breaks the document outline. Demoting to <h2> restores a single h1 and lets
+ * addHeadingAnchors give the heading an anchor id like every other subhead.
+ */
+function demoteContentHeadings(html: string) {
+    return html.replace(/<(\/?)h1(\s|>)/gi, "<$1h2$2");
+}
+
 export default function InsightsDetailPrototype({
     post,
     related,
@@ -89,7 +99,7 @@ export default function InsightsDetailPrototype({
                 <section className="p2-container p2-detail-section p2-detail-section--about p2-insight-body">
                     <div
                         className="p2-prose"
-                        dangerouslySetInnerHTML={{ __html: addHeadingAnchors(post.content.replace(/&nbsp;/g, " ")) }}
+                        dangerouslySetInnerHTML={{ __html: addHeadingAnchors(demoteContentHeadings(post.content.replace(/&nbsp;/g, " "))) }}
                     />
                 </section>
             )}
