@@ -650,12 +650,18 @@ main:has(> .phase2) {
 	min-height: 44px;
 	display: inline-flex;
 	align-items: center;
-	color: #071013 !important;
-	background: var(--p2-accent);
+	color: #000 !important;
+	background: linear-gradient(90deg, #64e5e7, #8b91ff 55%, #ff7476);
+	border: 0;
 	padding: 10px 16px;
 	font-size: 13px;
 	font-weight: 750;
 	text-decoration: none;
+	transition: filter 0.2s;
+}
+.p2-nav__cta:hover,
+.p2-nav__mobile-cta:hover {
+	filter: brightness(1.08);
 }
 .p2-nav__ai-cta,
 .p2-nav__mobile-ai-cta {
@@ -4908,6 +4914,9 @@ html[lang="tr"] .p2-signal-title__solid {
 	}
 	.p2-insight-featured__media {
 		aspect-ratio: 1.5;
+	}
+	.phase2 .p2-insight-featured__body h2 {
+		max-width: none;
 	}
 	.p2-insight-catalog {
 		padding: 30px 0 72px;

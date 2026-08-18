@@ -95,7 +95,10 @@ export default function InsightsDetailPrototype({
                 )}
             </header>
 
-            {post.content && (
+            {/* readMinutes is null when the body has no words at all — some
+                records hold a placeholder like "<p></p>", which would otherwise
+                render as a bare hairline rule with nothing under it. */}
+            {post.content && readMinutes && (
                 <section className="p2-container p2-detail-section p2-detail-section--about p2-insight-body">
                     <div
                         className="p2-prose"

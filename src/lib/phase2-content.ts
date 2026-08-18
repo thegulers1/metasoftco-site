@@ -75,7 +75,7 @@ const en = {
 	},
 
 	footer: {
-		tagline: "AI-powered experiential technology, built in Istanbul for brands and agencies.",
+		tagline: "AI powered experience technologies we developed for brands and agencies at Istanbul University Technopark.",
 		exploreLabel: "EXPLORE",
 		contactLabel: "CONTACT",
 		followLabel: "FOLLOW",
@@ -281,8 +281,8 @@ const en = {
 	},
 
 	insights: {
-		heroSolid: "Notes from",
-		heroOutline: "the production floor.",
+		heroSolid: "Blog",
+		heroOutline: "",
 		heroLabel: "Notes from the production floor.",
 		heroCopy:
 			"Field notes, technical breakdowns and ideas on AI, photo activations and the technology behind live brand experiences.",
@@ -620,7 +620,7 @@ const tr: Phase2Copy = {
 	},
 
 	footer: {
-		tagline: "Markalar ve ajanslar için İstanbul’da geliştirdiğimiz yapay zekâ destekli deneyim teknolojileri.",
+		tagline: "İstanbul Üniversitesi Teknopark'ta markalar ve ajanslar için geliştirdiğimiz yapay zekâ destekli deneyim teknolojileri.",
 		exploreLabel: "KEŞFET",
 		contactLabel: "İLETİŞİM",
 		followLabel: "TAKİP EDİN",
@@ -861,8 +861,8 @@ const tr: Phase2Copy = {
 	},
 
 	insights: {
-		heroSolid: "Sahadan",
-		heroOutline: "notlar ve fikirler.",
+		heroSolid: "Blog",
+		heroOutline: "",
 		heroLabel: "Sahadan notlar ve fikirler.",
 		heroCopy:
 			"Yapay zekâ, fotoğraf aktivasyonları ve canlı marka deneyimlerinin arkasındaki teknoloji üzerine saha notları, teknik incelemeler ve fikirler.",
