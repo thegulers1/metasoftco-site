@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { siteConfig, generateFAQSchema } from "@/lib/site";
+import { capabilityListingImageOverrides } from "@/lib/phase2-content";
 import CapabilitiesIndexPrototype from "@/components/phase2/CapabilitiesIndexPrototype";
 
 export const revalidate = 3600;
@@ -92,7 +93,7 @@ export default async function HizmetlerPage() {
             .map((service) => ({
                 id: service.id,
                 title: service.title,
-                image: service.image!,
+                image: capabilityListingImageOverrides[service.id] || service.image!,
                 href: `/hizmetler/${category.slug}/${service.slug}`,
             }))
     );

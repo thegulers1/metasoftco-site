@@ -4,6 +4,7 @@ import { prisma } from "@/lib/db";
 import { siteConfig, generateFAQSchema } from "@/lib/site";
 import CapabilitiesIndexPrototype from "@/components/phase2/CapabilitiesIndexPrototype";
 import { isEnglishCategoryPublishable, isEnglishServicePublishable } from "@/lib/publication";
+import { capabilityListingImageOverrides } from "@/lib/phase2-content";
 
 export const revalidate = 3600;
 
@@ -74,7 +75,7 @@ export default async function EnglishServicesPage() {
             .map((service) => ({
                 id: service.id,
                 title: service.title_en!,
-                image: service.image!,
+                image: capabilityListingImageOverrides[service.id] || service.image!,
                 href: `/en/services/${category.slug_en}/${service.slug_en}`,
             }))
     );

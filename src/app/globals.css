@@ -3594,7 +3594,6 @@ html[lang="tr"] .p2-signal-title__solid {
 }
 .p2-contact-panel aside {
 	position: relative;
-	min-height: 850px;
 	padding: 36px;
 	overflow: hidden;
 	border-right: 1px solid rgba(244, 247, 248, 0.3);
@@ -3634,10 +3633,10 @@ html[lang="tr"] .p2-signal-title__solid {
 }
 .p2-contact-panel aside figure {
 	position: absolute;
+	top: 290px;
 	right: 0;
 	bottom: 0;
 	left: 0;
-	height: 585px;
 }
 .p2-contact-panel aside figure::after {
 	position: absolute;
@@ -4545,6 +4544,7 @@ html[lang="tr"] .p2-signal-title__solid {
 		border-top: 1px solid var(--p2-line);
 	}
 	.p2-contact-panel aside figure {
+		top: auto;
 		height: 450px;
 	}
 	.p2-field-grid {

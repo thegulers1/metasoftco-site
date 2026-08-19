@@ -1213,3 +1213,14 @@ const dictionaries = { tr, en } satisfies Record<Phase2Locale, Phase2Copy>;
 export function phase2Copy(locale: Phase2Locale): Phase2Copy {
 	return dictionaries[locale];
 }
+
+/**
+ * The /hizmetler and /en/services index grids render service cards at a 1:1
+ * aspect ratio. A few services carry a source image cropped for a wider frame
+ * (e.g. the homepage teaser), so this swaps in a square crop for the index
+ * card only, keyed by service id. All other surfaces (homepage, detail page)
+ * keep using the service's own `image` field untouched.
+ */
+export const capabilityListingImageOverrides: Record<string, string> = {
+	cmkjohn4800012orrjn8ixgjb: "https://res.cloudinary.com/dqkehdebg/image/upload/v1787135672/metasoftco/services/listing/ai-photobooth-square.webp",
+};
