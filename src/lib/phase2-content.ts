@@ -1223,4 +1223,5 @@ export function phase2Copy(locale: Phase2Locale): Phase2Copy {
  */
 export const capabilityListingImageOverrides: Record<string, string> = {
 	cmkjohn4800012orrjn8ixgjb: "https://res.cloudinary.com/dqkehdebg/image/upload/v1787135672/metasoftco/services/listing/ai-photobooth-square.webp",
+	cmquunnaw000fo0rr2d19essn: "https://res.cloudinary.com/dqkehdebg/image/upload/v1787141590/metasoftco/services/listing/aura-photo-square.webp",
 };
