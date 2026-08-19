@@ -36,7 +36,7 @@ const featuredSlugs = [
  * its own category and service slugs.
  */
 const featuredServiceSlugs = [
-    "aura-photobooth-rental",
+    "aura-photobooth-rental-real-time-aura-photography-with-biofeedback-sensors",
     "ai-photobooth",
     "photobooth-rental",
 ];

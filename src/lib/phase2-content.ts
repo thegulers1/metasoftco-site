@@ -582,7 +582,7 @@ const en = {
 
 	/** Presentation overrides for the three homepage services, keyed by English slug. */
 	featuredServices: {
-		"aura-photobooth-rental": {
+		"aura-photobooth-rental-real-time-aura-photography-with-biofeedback-sensors": {
 			category: "Aura Experience",
 			description:
 				"Guests place their hands on our sensors to see their own energy visualized in real-time color—a mystical, tech-forward touch for your event.",
@@ -1202,7 +1202,7 @@ const tr: Phase2Copy = {
 	},
 
 	featuredServices: {
-		"aura-photobooth-rental": { category: "Aura Deneyimi" },
+		"aura-photobooth-rental-real-time-aura-photography-with-biofeedback-sensors": { category: "Aura Deneyimi" },
 		"ai-photobooth": { category: "Yapay Zekâ Fotoğraf Aktivasyonu" },
 		"photobooth-rental": { category: "Fotoğraf Aktivasyonu" },
 	},

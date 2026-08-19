@@ -2818,7 +2818,7 @@ html[lang="tr"] .p2-signal-title__solid {
 }
 .p2-work-card__media {
 	position: relative;
-	aspect-ratio: 1.25;
+	aspect-ratio: 1;
 	overflow: hidden;
 	background: #0d1114;
 }
@@ -2877,7 +2877,7 @@ html[lang="tr"] .p2-signal-title__solid {
 }
 .p2-cap-card__media {
 	position: relative;
-	aspect-ratio: 1.38;
+	aspect-ratio: 1;
 	overflow: hidden;
 	background: #0b0f12;
 }
