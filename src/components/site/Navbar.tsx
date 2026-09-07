@@ -7,6 +7,9 @@ import { motion, AnimatePresence } from "motion/react";
 import { useLanguage } from "@/providers/LanguageProvider";
 import { Globe, Sparkles } from "lucide-react";
 import { useChatStore } from "@/components/AIChat/useChatStore";
+import { usePathname } from "next/navigation";
+import { isPhase2PrototypePath } from "@/lib/phase2";
+import { Phase2Navbar } from "@/components/phase2/Phase2Chrome";
 
 const getMenu = (t: (tr: string, en: string) => string, lang: "tr" | "en") =>
     lang === "en"
@@ -14,6 +17,7 @@ const getMenu = (t: (tr: string, en: string) => string, lang: "tr" | "en") =>
             { href: "/en", label: "Home" },
             { href: "/en/projects", label: "Projects" },
             { href: "/en/services", label: "Services" },
+            { href: "/en/products", label: "Product Sales" },
             { href: "/en/hakkimizda", label: "About" },
             { href: "/en/contact", label: "Contact" },
         ]
@@ -21,11 +25,13 @@ const getMenu = (t: (tr: string, en: string) => string, lang: "tr" | "en") =>
             { href: "/", label: "Anasayfa" },
             { href: "/projeler", label: "Projeler" },
             { href: "/hizmetler", label: "Hizmetler" },
+            { href: "/urunler", label: "Sistem Satışı" },
             { href: "/hakkimizda", label: "Hakkımızda" },
             { href: "/iletisim", label: "İletişim" },
         ];
 
 export default function Navbar() {
+    const pathname = usePathname();
     const [isOpen, setIsOpen] = useState(false);
     const [isScrolled, setIsScrolled] = useState(false);
     const { language, setLanguage, t } = useLanguage();
@@ -39,6 +45,8 @@ export default function Navbar() {
     }, []);
 
     const toggleLanguage = () => setLanguage(language === "tr" ? "en" : "tr");
+
+    if (isPhase2PrototypePath(pathname)) return <Phase2Navbar />;
 
     return (
         <>
@@ -60,6 +68,7 @@ export default function Navbar() {
                             className="h-8 md:h-10 w-auto object-contain"
                             style={{ filter: "brightness(0) invert(1)" }}
                             priority
+                            unoptimized
                         />
                     </Link>
 
@@ -86,9 +95,9 @@ export default function Navbar() {
                         >
                             <Globe className="w-4 h-4" />
                             <span>
-                                <span className={language === "tr" ? "font-bold" : "opacity-40"}>TR</span>
+                                <span className={language === "tr" ? "font-bold text-white" : "text-white/40"}>TR</span>
                                 <span className="opacity-30 mx-1">/</span>
-                                <span className={language === "en" ? "font-bold" : "opacity-40"}>EN</span>
+                                <span className={language === "en" ? "font-bold text-white" : "text-white/40"}>EN</span>
                             </span>
                         </button>
 
@@ -194,9 +203,9 @@ export default function Navbar() {
                                 >
                                     <Globe className="w-4 h-4" />
                                     <span className="text-sm font-medium">
-                                        <span className={language === "tr" ? "font-bold" : "opacity-40"}>TR</span>
+                                        <span className={language === "tr" ? "font-bold text-white" : "text-white/40"}>TR</span>
                                         <span className="opacity-30 mx-1">/</span>
-                                        <span className={language === "en" ? "font-bold" : "opacity-40"}>EN</span>
+                                        <span className={language === "en" ? "font-bold text-white" : "text-white/40"}>EN</span>
                                     </span>
                                 </button>
                             </motion.div>

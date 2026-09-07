@@ -1,38 +1,26 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Inter_Tight, DM_Sans, Lato, Barlow_Condensed, Poppins, Space_Grotesk, Manrope, JetBrains_Mono } from "next/font/google";
+import { Inter_Tight, Lato, Space_Grotesk, Manrope, JetBrains_Mono } from "next/font/google";
 import { headers } from "next/headers";
-import { siteConfig, generateMetaTags, generateOrganizationSchema, generateLocalBusinessSchema, generateSoftwareApplicationSchema } from "@/lib/site";
+import { siteConfig, generateMetaTags, generateOrganizationSchema } from "@/lib/site";
 import { Providers } from "@/providers/Providers";
 
+// next/font varsayılan olarak her aileyi <link rel="preload"> ile yükler.
+// Yalnızca birkaç eski `site/` bileşeninde geçen aileler preload edilmez:
+// aksi halde her sayfada indirilip kullanılmadıkları için tarayıcı
+// "preloaded but not used" uyarısı veriyor ve boşuna bant genişliği harcanıyordu.
 const interTight = Inter_Tight({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700", "800", "900"],
   variable: "--font-inter-tight",
-});
-
-const dmSans = DM_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-dm-sans",
+  preload: false,
 });
 
 const lato = Lato({
   subsets: ["latin"],
   weight: ["100", "300", "400", "700", "900"],
   variable: "--font-lato",
-});
-
-const barlowCondensed = Barlow_Condensed({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
-  variable: "--font-barlow-condensed",
-});
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-poppins",
+  preload: false,
 });
 
 const spaceGrotesk = Space_Grotesk({
@@ -75,14 +63,12 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const organizationSchema = generateOrganizationSchema();
-  const localBusinessSchema = generateLocalBusinessSchema();
-  const softwareApplicationSchema = generateSoftwareApplicationSchema();
   const headersList = await headers();
   const pathname = headersList.get("x-pathname") ?? "";
   const lang = pathname.startsWith("/en") ? "en" : "tr";
 
   return (
-    <html lang={lang} className={`${interTight.variable} ${dmSans.variable} ${lato.variable} ${barlowCondensed.variable} ${poppins.variable} ${spaceGrotesk.variable} ${manrope.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
+    <html lang={lang} className={`${interTight.variable} ${lato.variable} ${spaceGrotesk.variable} ${manrope.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
       <head>
         {/* Google Ads */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=AW-862345276" />
@@ -107,25 +93,11 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 })(window,document,'script','dataLayer','GTM-W4ML39X7');`,
           }}
         />
-        {/* JSON-LD Structured Data - SoftwareApplication */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(softwareApplicationSchema),
-          }}
-        />
         {/* JSON-LD Structured Data - Organization */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(organizationSchema),
-          }}
-        />
-        {/* JSON-LD Structured Data - LocalBusiness (AI aramaları için) */}
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{
-            __html: JSON.stringify(localBusinessSchema),
           }}
         />
       </head>

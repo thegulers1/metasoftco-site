@@ -4,15 +4,11 @@ const nextConfig: NextConfig = {
   output: "standalone",
   poweredByHeader: false,
 
-  // Build sırasında TS hatalarının CI'ı kırmasını engelle
-  typescript: { ignoreBuildErrors: true },
-
   async headers() {
     return [
       {
         source: "/(.*)",
         headers: [
-          { key: "Cache-Control", value: "public, max-age=3600, stale-while-revalidate=86400" },
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "X-Frame-Options", value: "SAMEORIGIN" },
           { key: "X-XSS-Protection", value: "1; mode=block" },
@@ -20,8 +16,23 @@ const nextConfig: NextConfig = {
           { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
         ],
       },
+      // HTML dokümanları asla "taze" varsayılmamalı. Bir sayfa tarayıcıda
+      // önbellekte kalıp deploy'u atlattığında, artık var olmayan hash'li
+      // /_next/static chunk'larını isteyen eski bir doküman servis edilir:
+      // stiller ve JS yüklenmez, React hydration uyuşmazlığı verir ve site
+      // ancak "empty cache and hard reload" ile düzelir.
+      // must-revalidate + ETag ile doküman her istekte doğrulanır (çoğu zaman
+      // ucuz bir 304), hash'li asset'ler ise aşağıdaki kuralla uzun süre cache'lenir.
+      // /_next dışlanır: Next kendi immutable başlığını verir, buradan ezersek
+      // hash'li asset'ler gereksiz yere yeniden indirilir. api/editpanel de
+      // dışlanır; onlar aşağıda kendi no-store başlığını alıyor ve eşleşen her
+      // kural uygulandığı için aksi halde Cache-Control iki kez yazılırdı.
+      {
+        source: "/((?!_next/|api/|editpanel).*)",
+        headers: [{ key: "Cache-Control", value: "public, max-age=0, must-revalidate" }],
+      },
       // Editpanel ve API: yönetim panelinde her zaman güncel veri görünmeli,
-      // yukarıdaki genel 1 saatlik tarayıcı önbelleği burada geçersiz kılınır.
+      // bu yüzden doğrulamaya değil, tamamen önbelleksiz servise ihtiyaç var.
       {
         source: "/editpanel/:path*",
         headers: [{ key: "Cache-Control", value: "no-store" }],
@@ -36,6 +47,18 @@ const nextConfig: NextConfig = {
   // Eski site URL'leri için kalıcı yönlendirmeler (301)
   async redirects() {
     return [
+      // Intent-preserving public migrations.
+      { source: "/isler", destination: "/projeler", permanent: true },
+      {
+        source: "/sektorel-cozumler/istanbul-ai-photobooth",
+        destination: "/hizmetler/istanbul-ai-photobooth",
+        permanent: true,
+      },
+      {
+        source: "/en/sector-solutions/istanbul-ai-photobooth",
+        destination: "/en/services/ai-event-solutions/ai-photobooth",
+        permanent: true,
+      },
       // ---------------------------------------------------------
       // 1. SPESİFİK TARİHLİ LİNKLER (En üstte olmalı - Özel Kural)
       // ---------------------------------------------------------
@@ -51,34 +74,7 @@ const nextConfig: NextConfig = {
       },
 
       // ---------------------------------------------------------
-      // 2. GENEL TARİH YAKALAYICI (Kapsayıcı Kural)
-      // Üstteki özel kurallara takılmayan tüm tarihli linkleri anasayfaya atar
-      // ---------------------------------------------------------
-      {
-        source: "/:year(\\d{4})/:month(\\d{2})/:day(\\d{2})/:slug*",
-        destination: "/",
-        permanent: true,
-      },
-
-      // ---------------------------------------------------------
-      // 3. HATALI ÇOKLU LOGLAR VE BOT TRAFİKLERİ (Build Hatası Çözüldü)
-      // ---------------------------------------------------------
-      // wp-admin, wp-content gibi saldırı/bot tarama linklerini güvenli yakalama
-      { source: "/wp-admin", destination: "/", permanent: true },
-      { source: "/wp-admin/:path*", destination: "/", permanent: true },
-      { source: "/wp-content/:path*", destination: "/", permanent: true },
-      { source: "/wp-includes/:path*", destination: "/", permanent: true },
-      { source: "/wp-login.php", destination: "/", permanent: true },
-      
-      // /undefined ile biten eski hatalı linkleri güvenli yakalama
-      { source: "/projeler/undefined", destination: "/", permanent: true },
-      { source: "/:slug/undefined", destination: "/", permanent: true },
-      
-      // İç içe girmiş instagram linki hatalarını güvenli yakalama
-      { source: "/:slug/www.instagram.com/:path*", destination: "/", permanent: true },
-
-      // ---------------------------------------------------------
-      // 4. ESKİ İNGİLİZCE VE EKSİK KATEGORİ KLASÖRLERİNİ TOPLU YAKALAMA (Wildcard)
+      // 2. ESKİ İNGİLİZCE VE EKSİK KATEGORİ KLASÖRLERİNİ TOPLU YAKALAMA (Wildcard)
       // ---------------------------------------------------------
       {
         source: "/hizmetler/ai-event-solutions/:path*",
@@ -102,10 +98,8 @@ const nextConfig: NextConfig = {
       },
 
       // ---------------------------------------------------------
-      // 5. TEKİL ESKİ SAYFA VE HİZMET YÖNLENDİRMELERİ
+      // 3. TEKİL ESKİ SAYFA VE HİZMET YÖNLENDİRMELERİ
       // ---------------------------------------------------------
-      { source: "/star-map", destination: "/", permanent: true },
-
       { source: "/cozumler", destination: "/sektorel-yazilim-cozumleri", permanent: true },
       { source: "/cozumler/:path*", destination: "/sektorel-yazilim-cozumleri/:path*", permanent: true },
       { source: "/sektorel-yazilim-cozumleri/tekstil-sektoru", destination: "/sektorel-yazilim-cozumleri/tekstil-sektoru-dijital-donusum", permanent: true },
@@ -134,8 +128,6 @@ const nextConfig: NextConfig = {
       { source: "/interaktif-aktiviteler", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri", permanent: true },
       { source: "/yapay-zeka-aktiviteleri", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri", permanent: true },
       { source: "/reflex-wall", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/reflex-game-hiz-ve-rekabet-oyunu", permanent: true },
-      { source: "/hashtag-photo", destination: "/", permanent: true },
-      { source: "/hashtag-photo/", destination: "/", permanent: true },
       { source: "/pegasus-dijital-carkifelek-aktivitesi", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/dijital-hediye-carki-aktivasyonu", permanent: true },
       { source: "/pegasus-dijital-carkifelek-aktivitesi/", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/dijital-hediye-carki-aktivasyonu", permanent: true },
 

@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { siteConfig } from "@/lib/site";
-import AboutClient from "@/app/(site)/hakkimizda/AboutClient";
+import AboutPrototype from "@/components/phase2/AboutPrototype";
 
 export const metadata: Metadata = {
     title: "About Us | MetasoftCo",
@@ -22,5 +22,5 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-    return <AboutClient />;
+    return <AboutPrototype locale="en" />;
 }

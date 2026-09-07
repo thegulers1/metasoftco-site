@@ -3,6 +3,13 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useLanguage } from "@/providers/LanguageProvider";
+import { usePathname } from "next/navigation";
+import { isPhase2PrototypePath } from "@/lib/phase2";
+import { Phase2Footer } from "@/components/phase2/Phase2Chrome";
+
+const GOOGLE_MAPS_URL =
+    "https://www.google.com/maps/search/?api=1&query=" +
+    encodeURIComponent("MetasoftCo, Üniversite Mah. Sarıgül Sk. İstanbul Teknokent No:37/1, Avcılar/İstanbul");
 
 function localizedHref(language: "tr" | "en", trPath: string, enPath: string | null) {
     if (language === "en" && enPath) return enPath;
@@ -11,6 +18,9 @@ function localizedHref(language: "tr" | "en", trPath: string, enPath: string | n
 
 export default function Footer() {
     const { t, language } = useLanguage();
+    const pathname = usePathname();
+
+    if (isPhase2PrototypePath(pathname)) return <Phase2Footer />;
 
     return (
         <footer className="bg-[#0a0a0f] text-white border-t border-white/[0.08]">
@@ -26,6 +36,7 @@ export default function Footer() {
                                 height={40}
                                 className="h-8 md:h-10 w-auto object-contain"
                                 style={{ filter: "brightness(0) invert(1)" }}
+                                unoptimized
                             />
                         </Link>
                         <p
@@ -90,13 +101,18 @@ export default function Footer() {
                                 <a href="tel:+905342334051" className="text-[rgba(255,255,255,.7)] hover:text-white transition-colors w-fit">
                                     +90 534 233 40 51
                                 </a>
-                                <span className="text-[rgba(255,255,255,.5)] max-w-[220px]">
+                                <a
+                                    href={GOOGLE_MAPS_URL}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-[rgba(255,255,255,.5)] hover:text-white transition-colors max-w-[220px] w-fit"
+                                >
                                     Üniversite Mah. Sarıgül Sk.
                                     <br />
                                     İstanbul Teknokent No: 37/1
                                     <br />
                                     İç Kapı No: 28, Avcılar / İstanbul
-                                </span>
+                                </a>
                             </div>
                         </div>
 
@@ -147,12 +163,14 @@ export default function Footer() {
                             className="flex gap-6 text-[rgba(255,255,255,.4)]"
                             style={{ fontFamily: "var(--font-manrope)", fontSize: 13, fontWeight: 500 }}
                         >
-                            <Link href="/kullanim-kosullari" className="text-[rgba(255,255,255,.4)] hover:text-white transition-colors">
-                                {t("Şartlar ve Koşullar", "Terms and conditions")}
-                            </Link>
-                            <Link href="/gizlilik" className="text-[rgba(255,255,255,.4)] hover:text-white transition-colors">
-                                {t("Gizlilik Politikası", "Privacy policy")}
-                            </Link>
+                            {language === "tr" ? (
+                                <>
+                                    <Link href="/kullanim-kosullari" className="text-[rgba(255,255,255,.4)] hover:text-white transition-colors">Şartlar ve Koşullar</Link>
+                                    <Link href="/gizlilik" className="text-[rgba(255,255,255,.4)] hover:text-white transition-colors">Gizlilik Politikası</Link>
+                                </>
+                            ) : (
+                                <span>English legal pages are not yet published.</span>
+                            )}
                         </div>
                     </div>
                 </div>

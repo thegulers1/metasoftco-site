@@ -59,7 +59,10 @@ export function ChatDrawer() {
                         style={{ height: "min(600px, 90dvh)" }}
                     >
                         {/* Header */}
-                        <div className="flex items-center justify-between px-4 py-3.5 bg-red-600 shrink-0">
+                        <div
+                            className="flex items-center justify-between px-4 py-3.5 shrink-0"
+                            style={{ background: "linear-gradient(90deg, #7c3aed, var(--acc))" }}
+                        >
                             <div className="flex items-center gap-2.5">
                                 <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
                                     <Sparkles className="w-4 h-4 text-white" />
@@ -68,7 +71,7 @@ export function ChatDrawer() {
                                     <p className="text-white text-sm font-semibold leading-none">
                                         MetasoftCo AI
                                     </p>
-                                    <p className="text-red-200 text-xs mt-0.5">
+                                    <p className="text-white/70 text-xs mt-0.5">
                                         {language === "en"
                                             ? "Event advisor"
                                             : "Etkinlik danışmanı"}

@@ -68,11 +68,11 @@ export default function HeroSection() {
                     initial={{ opacity: 0, y: 12 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6 }}
-                    className="inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-1.5 mb-8"
+                    className="inline-flex max-w-full items-center gap-2 rounded-full border border-white/10 px-4 py-1.5 mb-8"
                 >
                     <span className="h-1.5 w-1.5 rounded-full bg-[#4ade80] live-dot" />
                     <span
-                        className="text-[12px] uppercase tracking-[0.14em] text-[var(--acc)]"
+                        className="text-[12px] uppercase tracking-[0.14em] text-[var(--acc)] break-words"
                         style={{ fontFamily: "var(--font-jetbrains-mono)", fontWeight: 500 }}
                     >
                         {t("CANLI · İSTANBUL · YAPAY ZEKA AKTİVASYON", "LIVE · ISTANBUL · AI ACTIVATION")}
@@ -83,7 +83,7 @@ export default function HeroSection() {
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.05 }}
-                    className="text-white font-bold tracking-[-0.02em] leading-[0.97]"
+                    className="text-white font-bold tracking-[-0.02em] leading-[0.97] [overflow-wrap:anywhere]"
                     style={{
                         fontFamily: "var(--font-space-grotesk)",
                         fontSize: "clamp(40px, 7vw, 82px)",
@@ -121,18 +121,18 @@ export default function HeroSection() {
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 0.18 }}
-                    className="mt-10 flex flex-wrap items-center gap-4"
+                    className="mt-10 flex flex-col items-stretch gap-3 sm:flex-row sm:items-center sm:gap-4"
                 >
                     <Link
                         href={language === "en" ? "/en/projects" : "/projeler"}
-                        className="inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-[15px] font-semibold text-white transition-transform hover:-translate-y-0.5"
+                        className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full px-7 py-3.5 text-[15px] font-semibold text-white transition-transform hover:-translate-y-0.5"
                         style={{ background: "linear-gradient(90deg, #7c3aed, var(--acc))", fontFamily: "var(--font-manrope)" }}
                     >
                         {t("Projeleri Gör", "View Projects")} →
                     </Link>
                     <Link
                         href={language === "en" ? "/en/contact" : "/iletisim"}
-                        className="inline-flex items-center gap-2 rounded-full border border-white/15 px-7 py-3.5 text-[15px] font-semibold text-white/85 hover:border-white/30 hover:text-white transition-colors"
+                        className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full border border-white/15 px-7 py-3.5 text-center text-[15px] font-semibold text-white/85 hover:border-white/30 hover:text-white transition-colors"
                         style={{ fontFamily: "var(--font-manrope)" }}
                     >
                         {t("30 Günde Sahnede", "On Stage in 30 Days")}
@@ -143,7 +143,7 @@ export default function HeroSection() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ duration: 0.8, delay: 0.3 }}
-                    className="mt-16 flex flex-wrap gap-12"
+                    className="mt-16 grid grid-cols-2 gap-x-6 gap-y-8 sm:flex sm:flex-wrap sm:gap-12"
                 >
                     {[
                         { value: "1K+", label: t("etkinlikte sahne", "events on stage") },

@@ -5,9 +5,13 @@
   "packageManager": "pnpm@10.9.0",
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "prisma generate && pnpm validate:runtime && pnpm typecheck && next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "validate:runtime": "tsx scripts/validate-runtime.ts",
+    "test:db-concurrency": "tsx scripts/test-db-concurrency.ts",
+    "test:routes": "tsx scripts/check-public-routes.ts"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.2.0",

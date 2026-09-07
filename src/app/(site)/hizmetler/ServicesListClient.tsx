@@ -10,6 +10,9 @@ interface Service {
     title_en: string | null;
     description: string | null;
     description_en: string | null;
+    content_en?: string | null;
+    metaTitle_en?: string | null;
+    metaDescription_en?: string | null;
     slug: string;
     slug_en: string | null;
     image: string | null;
@@ -54,17 +57,22 @@ export default function ServicesListClient({ categories }: ServicesListClientPro
 
     useEffect(() => {
         setAlternateUrl("/hizmetler", "/en/services");
-    }, []);
+    }, [setAlternateUrl]);
 
     const allServices = useMemo(() => {
         return filteredCategories.flatMap((cat) =>
-            cat.services.map((s) => ({
+            cat.services
+                .filter((s) => language !== "en" || Boolean(
+                    cat.slug_en && cat.name_en &&
+                    s.slug_en && s.title_en && s.description_en && s.content_en && s.metaTitle_en && s.metaDescription_en
+                ))
+                .map((s) => ({
                 ...s,
                 categoryName: language === "en" ? cat.name_en || cat.name : cat.name,
                 categorySlug: cat.slug,
                 categorySlugEn: cat.slug_en,
                 c1: CATEGORY_ACCENT[cat.slug] || "#22d3ee",
-            }))
+                }))
         );
     }, [filteredCategories, language]);
 

@@ -134,7 +134,10 @@ function MessageBubble({ message }: { message: Message }) {
     return (
         <div className={`flex ${isUser ? "justify-end" : "justify-start"}`}>
             {!isUser && (
-                <div className="w-7 h-7 rounded-full bg-red-600 flex items-center justify-center shrink-0 mt-0.5 mr-2">
+                <div
+                    className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 mr-2"
+                    style={{ background: "linear-gradient(90deg, #7c3aed, var(--acc))" }}
+                >
                     <span className="text-white text-xs font-bold">M</span>
                 </div>
             )}

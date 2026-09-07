@@ -56,7 +56,8 @@ export function ChatInput() {
             <button
                 onClick={handleSend}
                 disabled={!value.trim() || isLoading}
-                className="shrink-0 w-10 h-10 rounded-xl bg-red-600 hover:bg-red-700 disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center text-white transition-colors"
+                className="shrink-0 w-10 h-10 rounded-xl disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center text-white transition-opacity hover:opacity-90"
+                style={{ background: "linear-gradient(90deg, #7c3aed, var(--acc))" }}
                 aria-label={language === "en" ? "Send" : "Gönder"}
             >
                 <SendHorizonal className="w-4 h-4" />

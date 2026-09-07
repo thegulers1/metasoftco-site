@@ -2,17 +2,24 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
-import { cloudinaryOptimize } from "@/lib/cloudinary";
+import { X, ChevronLeft, ChevronRight, Play } from "lucide-react";
+import { cloudinaryOptimize, isVideoUrl } from "@/lib/cloudinary";
 
 type GalleryImageInput = string | { url: string; alt?: string };
 
 interface GalleryLightboxProps {
     images: GalleryImageInput[];
     title: string;
+    /**
+     * "masonry" is the classic flowing column layout. "grid" hands sizing and
+     * borders to the phase 2 `.p2-media-grid` rules so galleries sit on the
+     * same rhythm as the rest of a selected screen.
+     */
+    variant?: "masonry" | "grid";
 }
 
-export default function GalleryLightbox({ images, title }: GalleryLightboxProps) {
+export default function GalleryLightbox({ images, title, variant = "masonry" }: GalleryLightboxProps) {
+    const isGrid = variant === "grid";
     const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
 
     // Normalize to {url, alt}[]
@@ -53,22 +60,48 @@ export default function GalleryLightbox({ images, title }: GalleryLightboxProps)
 
     return (
         <>
-            {/* ── MASONRY GRID ── */}
-            <div className="columns-2 md:columns-3 gap-3 space-y-3">
+            {/* ── THUMBNAILS ── */}
+            <div className={isGrid ? "p2-media-grid" : "columns-2 md:columns-3 gap-3 space-y-3"}>
                 {items.map((item, i) => (
                     <div
                         key={i}
-                        className="break-inside-avoid cursor-zoom-in overflow-hidden group relative"
+                        className={isGrid ? undefined : "break-inside-avoid cursor-zoom-in overflow-hidden group relative"}
+                        role="button"
+                        tabIndex={0}
+                        aria-label={item.alt}
                         onClick={() => open(i)}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter" || e.key === " ") {
+                                e.preventDefault();
+                                open(i);
+                            }
+                        }}
                     >
-                        <img
-                            src={cloudinaryOptimize(item.url, 1000)}
-                            alt={item.alt}
-                            className="w-full h-auto block transition-transform duration-500 group-hover:scale-[1.03]"
-                            loading={i === 0 ? "eager" : "lazy"}
-                            fetchPriority={i === 0 ? "high" : "auto"}
-                        />
-                        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-300" />
+                        {isVideoUrl(item.url) ? (
+                            <>
+                                <video
+                                    src={cloudinaryOptimize(item.url, 1000)}
+                                    muted
+                                    playsInline
+                                    preload="metadata"
+                                    className={isGrid ? undefined : "w-full h-auto block transition-transform duration-500 group-hover:scale-[1.03]"}
+                                />
+                                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                    <div className="flex items-center justify-center w-12 h-12 rounded-full bg-black/50 backdrop-blur-sm">
+                                        <Play className="w-5 h-5 text-white fill-white ml-0.5" />
+                                    </div>
+                                </div>
+                            </>
+                        ) : (
+                            <img
+                                src={cloudinaryOptimize(item.url, 1000)}
+                                alt={item.alt}
+                                className={isGrid ? undefined : "w-full h-auto block transition-transform duration-500 group-hover:scale-[1.03]"}
+                                loading={i === 0 ? "eager" : "lazy"}
+                                fetchPriority={i === 0 ? "high" : "auto"}
+                            />
+                        )}
+                        {!isGrid && <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-300" />}
                     </div>
                 ))}
             </div>
@@ -125,12 +158,22 @@ export default function GalleryLightbox({ images, title }: GalleryLightboxProps)
                                     else if (info.offset.x < -80) next();
                                 }}
                             >
-                                <img
-                                    src={cloudinaryOptimize(items[lightboxIndex].url, 2400)}
-                                    alt={items[lightboxIndex].alt}
-                                    className="max-w-full max-h-[88vh] object-contain shadow-2xl pointer-events-none"
-                                    draggable={false}
-                                />
+                                {isVideoUrl(items[lightboxIndex].url) ? (
+                                    <video
+                                        src={items[lightboxIndex].url}
+                                        controls
+                                        autoPlay
+                                        playsInline
+                                        className="max-w-full max-h-[88vh] object-contain shadow-2xl"
+                                    />
+                                ) : (
+                                    <img
+                                        src={cloudinaryOptimize(items[lightboxIndex].url, 2400)}
+                                        alt={items[lightboxIndex].alt}
+                                        className="max-w-full max-h-[88vh] object-contain shadow-2xl pointer-events-none"
+                                        draggable={false}
+                                    />
+                                )}
                             </motion.div>
                         </AnimatePresence>
 

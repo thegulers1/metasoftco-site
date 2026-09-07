@@ -66,6 +66,7 @@ model Service {
   homeTitle          String?
   homeTitle_en       String?
   published          Boolean         @default(true)
+  type               String          @default("RENTAL")
   category           ServiceCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
   @@unique([categoryId, slug])

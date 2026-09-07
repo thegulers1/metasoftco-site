@@ -367,7 +367,7 @@ export default function SectorPageForm({ initialData, mode }: SectorPageFormProp
                     <div className="max-w-3xl space-y-8">
                         <div>
                             <label className={label}>Görsel Ekle</label>
-                            <ImageUpload value="" onChange={(url) => addImage(url)} folder="sector-pages" />
+                            <ImageUpload value="" onChange={(url) => { if (url) addImage(url); }} folder="sector-pages" />
                             <p className="text-xs text-black/30 mt-2">Cloudinary'e yüklenir, WebP dönüşümü otomatiktir.</p>
                         </div>
 

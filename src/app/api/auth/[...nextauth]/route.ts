@@ -5,7 +5,7 @@ import { prisma } from "@/lib/db";
 
 export const dynamic = 'force-dynamic';
 
-export const authOptions: AuthOptions = {
+const authOptions: AuthOptions = {
     providers: [
         CredentialsProvider({
             name: "Credentials",

@@ -3,6 +3,7 @@ import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { siteConfig } from "@/lib/site";
 import SektorelCozumlerClient from "../../sektorel-cozumler/SektorelCozumlerClient";
+import { isEnglishSectorPagePublishable } from "@/lib/publication";
 
 export const revalidate = 3600;
 
@@ -29,22 +30,22 @@ const getSectorPages = unstable_cache(
     async () => prisma.sectorPage.findMany({
         where: { published: true },
         orderBy: { order: "asc" },
-        select: { id: true, title: true, slug: true, slug_en: true, h1: true, h1_en: true, excerpt: true, excerpt_en: true, ogImage: true },
+        select: { id: true, title: true, slug: true, slug_en: true, h1: true, h1_en: true, excerpt: true, excerpt_en: true, content_en: true, metaTitle_en: true, metaDescription_en: true, ogImage: true },
     }),
     ["sector-pages-en"],
     { revalidate: 60 }
 );
 
 export default async function SectorSolutionsEN() {
-    const pages = await getSectorPages();
+    const pages = (await getSectorPages()).filter(isEnglishSectorPagePublishable);
     
     // Map to English versions
-    const enPages = pages.map((page: any) => ({
+    const enPages = pages.map((page) => ({
         id: page.id,
         title: page.title,
-        slug: page.slug_en || page.slug,
-        h1: page.h1_en || page.h1,
-        excerpt: page.excerpt_en || page.excerpt,
+        slug: page.slug_en!,
+        h1: page.h1_en!,
+        excerpt: page.excerpt_en!,
         ogImage: page.ogImage,
     }));
 

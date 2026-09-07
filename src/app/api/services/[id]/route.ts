@@ -58,6 +58,7 @@ export async function PUT(
             bgColor,
             textColor,
             order,
+            type,
             categoryId,
             // SEO fields
             metaTitle,
@@ -107,6 +108,7 @@ export async function PUT(
                 bgColor,
                 textColor,
                 order,
+                type: type || "RENTAL",
                 featured,
                 featuredOrder,
                 categoryId,
@@ -141,6 +143,8 @@ export async function PUT(
         }
         revalidatePath('/hizmetler');
         revalidatePath('/en/services');
+        revalidatePath(`/urunler/${service.slug}`);
+        revalidatePath('/urunler');
         revalidatePath('/');
 
         return NextResponse.json(service);
@@ -165,6 +169,7 @@ export async function DELETE(
 
         revalidatePath('/hizmetler');
         revalidatePath('/en/services');
+        revalidatePath('/urunler');
         revalidatePath('/');
 
         return NextResponse.json({ success: true });

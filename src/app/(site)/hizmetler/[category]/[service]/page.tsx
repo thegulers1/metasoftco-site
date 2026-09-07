@@ -3,13 +3,10 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { siteConfig, generateServiceSchema, generateBreadcrumbSchema } from "@/lib/site";
 import { cloudinaryOgImage } from "@/lib/cloudinary";
-import Link from "next/link";
-import Image from "next/image";
-import GalleryLightbox from "@/components/site/GalleryLightbox";
-import VideoPlayer from "@/components/site/VideoPlayer";
 import { cache } from "react";
 import ServiceDetailClient from "./ServiceDetailClient";
 import { AdminEditUrlSetter } from "@/components/site/AdminBar";
+import { isEnglishServicePublishable } from "@/lib/publication";
 
 export const revalidate = 3600;
 
@@ -31,6 +28,18 @@ const getServiceBySlug = cache(async (slug: string, categoryId: string) => {
         where: {
             slug,
             categoryId,
+            type: "RENTAL",
+        },
+    });
+});
+
+const getSaleCounterpart = cache(async (categoryId: string, excludeId: string) => {
+    return await prisma.service.findFirst({
+        where: {
+            categoryId,
+            id: { not: excludeId },
+            type: "SALE",
+            published: true,
         },
     });
 });
@@ -48,7 +57,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const title = service.metaTitle || `${service.title} | ${categoryData.name}`;
     const description = service.metaDescription || service.description || siteConfig.description;
     const keywords = service.metaKeywords || "";
-    const image = cloudinaryOgImage(service.ogImage || service.image) || `${siteConfig.url}/og-image.jpg`;
+    const image = cloudinaryOgImage(service.ogImage || service.image) || `${siteConfig.url}/og`;
     const url = `${siteConfig.url}/hizmetler/${category}/${serviceSlug}`;
 
     return {
@@ -79,7 +88,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         },
         alternates: {
             canonical: url,
-            ...(service.slug_en && categoryData.slug_en && {
+            ...(isEnglishServicePublishable(service, categoryData) && {
                 languages: {
                     "x-default": url,
                     "tr": url,
@@ -119,10 +128,14 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         where: {
             categoryId: categoryData.id,
             id: { not: service.id },
+            type: "RENTAL",
             published: true,
         },
         take: 4,
     });
+
+    // Aynı kategoride kalıcı kurulum/satış ürünü varsa, "Satın Al" CTA'sı için kullanılır
+    const saleCounterpart = await getSaleCounterpart(categoryData.id, service.id);
 
     // JSON-LD structured data
     const serviceSchema = generateServiceSchema({
@@ -200,6 +213,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 gallery={gallery}
                 serviceSchema={serviceSchema}
                 category={category}
+                saleHref={saleCounterpart ? `/urunler/${saleCounterpart.slug}` : undefined}
             />
         </>
     );

@@ -1,0 +1,196 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - link "Skip to content" [ref=e3] [cursor=pointer]:
+      - /url: "#main-content"
+    - generic [ref=e4]:
+      - link "MetasoftCo home" [ref=e5] [cursor=pointer]:
+        - /url: /en
+        - img "MetasoftCo" [ref=e6]
+      - navigation "Primary navigation" [ref=e7]:
+        - link "Work" [ref=e8] [cursor=pointer]:
+          - /url: /en/projects
+        - link "Capabilities" [ref=e9] [cursor=pointer]:
+          - /url: /en/services
+        - link "About" [ref=e10] [cursor=pointer]:
+          - /url: /en/hakkimizda
+        - link "Insights" [ref=e11] [cursor=pointer]:
+          - /url: /en/blog
+      - link "Plan Your Activation" [ref=e12] [cursor=pointer]:
+        - /url: /en/contact
+  - main [ref=e13]:
+    - generic [ref=e14]:
+      - region "Experiences Experiences Experiences That Connect Brands" [ref=e15]:
+        - generic [ref=e16]:
+          - paragraph [ref=e17]: AI-POWERED EXPERIENTIAL TECHNOLOGY
+          - heading "Experiences Experiences Experiences That Connect Brands" [level=1]:
+            - generic [ref=e18]: Experiences Experiences Experiences
+            - generic [ref=e19]:
+              - generic [ref=e20]: That
+              - generic [ref=e21]: Connect
+              - generic [ref=e22]: Brands
+          - figure "LIVE PARTICIPATION Ray-Ban · Strip Photo" [ref=e23]:
+            - img "Guests taking part in a Ray-Ban photo activation" [ref=e26]
+            - generic [ref=e27]:
+              - generic [ref=e28]: LIVE PARTICIPATION
+              - text: Ray-Ban · Strip Photo
+          - generic [ref=e29]:
+            - paragraph [ref=e30]: MetasoftCo creates branded photo, video, game and installation experiences for brands and agencies—combining creative direction, custom software and live production.
+            - generic [ref=e31]:
+              - link "Plan Your Activation" [ref=e32] [cursor=pointer]:
+                - /url: /en/contact
+              - link "View Selected Work" [ref=e36] [cursor=pointer]:
+                - /url: /en/projects
+      - generic "Selected client collaborations" [ref=e40]:
+        - paragraph [ref=e42]: TRUSTED BY FORWARD-THINKING BRANDS
+      - region [ref=e145]:
+        - generic [ref=e146]:
+          - generic [ref=e147]:
+            - paragraph [ref=e148]: SELECTED WORK
+            - heading "Built for people people people to take part." [level=2] [ref=e149]:
+              - text: Builtfor
+              - generic [ref=e150]: people people people
+              - text: to takepart.
+            - paragraph [ref=e151]: Real people. Real moments. Experiences designed to invite participation and build lasting brand connection.
+          - generic [ref=e152]:
+            - link "01 01 01 01 · Photo Activation Ray-Ban × Strip Photo At the Ray-Ban event, participants took their memories with them in a photo-strip format tailored to the brand atmosphere. View project Ray-Ban × Strip Photo" [ref=e153] [cursor=pointer]:
+              - /url: /en/projects/ray-ban-x-strip-photo
+              - generic [ref=e154]:
+                - generic [ref=e155]: 01 01 01
+                - generic [ref=e156]:
+                  - generic [ref=e157]: 01 · Photo Activation
+                  - heading "Ray-Ban × Strip Photo" [level=3] [ref=e158]
+                  - paragraph [ref=e159]: At the Ray-Ban event, participants took their memories with them in a photo-strip format tailored to the brand atmosphere.
+                  - generic [ref=e160]: View project
+              - img "Ray-Ban × Strip Photo" [ref=e165]
+            - link "02 02 02 02 · Interactive Game Pegasus × Digital Gift Wheel We delivered a unique user experience to thousands of participants through our digital wheel of fortune activity, featuring a custom interface design and algorithmic reward system developed specifically for the Pegasus brand. By merging physical events with the power of digital, we elevated brand interaction to the highest level. View project Pegasus × Digital Gift Wheel" [ref=e166] [cursor=pointer]:
+              - /url: /en/projects/pegasus-airlines-digital-gift-wheel-activation
+              - generic [ref=e167]:
+                - generic [ref=e168]: 02 02 02
+                - generic [ref=e169]:
+                  - generic [ref=e170]: 02 · Interactive Game
+                  - heading "Pegasus × Digital Gift Wheel" [level=3] [ref=e171]
+                  - paragraph [ref=e172]: We delivered a unique user experience to thousands of participants through our digital wheel of fortune activity, featuring a custom interface design and algorithmic reward system developed specifically for the Pegasus brand. By merging physical events with the power of digital, we elevated brand interaction to the highest level.
+                  - generic [ref=e173]: View project
+              - img "Pegasus × Digital Gift Wheel" [ref=e178]
+            - link "03 03 03 03 · AI Photo Activation Tavuk Dünyası × AI Photo With the AI Photo project for Tavuk Dünyası, we offered participants a unique AI-powered face swap and photography experience. View project Tavuk Dünyası × AI Photo" [ref=e179] [cursor=pointer]:
+              - /url: /en/projects/tavuk-dunyasi-x-ai-photo
+              - generic [ref=e180]:
+                - generic [ref=e181]: 03 03 03
+                - generic [ref=e182]:
+                  - generic [ref=e183]: 03 · AI Photo Activation
+                  - heading "Tavuk Dünyası × AI Photo" [level=3] [ref=e184]
+                  - paragraph [ref=e185]: With the AI Photo project for Tavuk Dünyası, we offered participants a unique AI-powered face swap and photography experience.
+                  - generic [ref=e186]: View project
+              - img "Tavuk Dünyası × AI Photo" [ref=e191]
+      - region [ref=e192]:
+        - generic [ref=e193]:
+          - generic [ref=e194]:
+            - paragraph [ref=e195]: CAPABILITIES
+            - heading "Capabilities" [level=2] [ref=e196]
+          - generic [ref=e197]:
+            - link "01 AI photo and video Campaign-specific visual worlds that turn a guest portrait into branded content." [ref=e198] [cursor=pointer]:
+              - /url: /en/services/ai-event-solutions
+              - generic [ref=e199]: "01"
+              - heading "AI photo and video" [level=3] [ref=e200]
+              - paragraph [ref=e201]: Campaign-specific visual worlds that turn a guest portrait into branded content.
+            - link "02 Photo activations Physical capture experiences designed around the venue, brand and sharing journey." [ref=e205] [cursor=pointer]:
+              - /url: /en/services/photobooth-and-photo-activations
+              - generic [ref=e206]: "02"
+              - heading "Photo activations" [level=3] [ref=e207]
+              - paragraph [ref=e208]: Physical capture experiences designed around the venue, brand and sharing journey.
+            - link "03 Interactive games Touch, movement and competition translated into playful branded participation." [ref=e212] [cursor=pointer]:
+              - /url: /en/services/interactive-event-activities
+              - generic [ref=e213]: "03"
+              - heading "Interactive games" [level=3] [ref=e214]
+              - paragraph [ref=e215]: Touch, movement and competition translated into playful branded participation.
+            - link "04 Custom installations Software, interfaces and physical systems developed as one live experience." [ref=e219] [cursor=pointer]:
+              - /url: /en/services
+              - generic [ref=e220]: "04"
+              - heading "Custom installations" [level=3] [ref=e221]
+              - paragraph [ref=e222]: Software, interfaces and physical systems developed as one live experience.
+      - region [ref=e226]:
+        - generic [ref=e227]:
+          - generic [ref=e228]:
+            - paragraph [ref=e229]: HOW WE BUILD
+            - heading "How we build" [level=2] [ref=e230]
+          - list [ref=e231]:
+            - listitem [ref=e232]:
+              - generic [ref=e233]: 01 01 01
+              - heading "Frame the brief" [level=3] [ref=e237]
+              - paragraph [ref=e238]: Audience, venue, campaign idea and desired guest journey.
+            - listitem [ref=e239]:
+              - generic [ref=e240]: 02 02 02
+              - heading "Prototype the experience" [level=3] [ref=e244]
+              - paragraph [ref=e245]: Creative direction, interaction flow and technical proof of concept.
+            - listitem [ref=e246]:
+              - generic [ref=e247]: 03 03 03
+              - heading "Build the system" [level=3] [ref=e251]
+              - paragraph [ref=e252]: Custom software, branded interface, content and physical integration.
+            - listitem [ref=e253]:
+              - generic [ref=e254]: 04 04 04
+              - heading "Deliver it live" [level=3] [ref=e256]
+              - paragraph [ref=e257]: Installation, event-day operation and a handover shaped around the brief.
+      - region [ref=e258]:
+        - generic [ref=e259]:
+          - generic [ref=e260]:
+            - paragraph [ref=e261]: WHY INTERACTIVE
+            - heading "Give the audience a role role role in the brand story." [level=2] [ref=e262]:
+              - text: Give theaudiencea
+              - generic [ref=e263]: role role role
+              - text: inthe brandstory.
+          - list [ref=e265]:
+            - listitem [ref=e266]:
+              - generic [ref=e270]: People remember what they do, not what they see.
+            - listitem [ref=e271]:
+              - generic [ref=e275]: Participation creates emotional connection and trust.
+            - listitem [ref=e276]:
+              - generic [ref=e280]: Shareable moments extend reach far beyond the venue.
+            - listitem [ref=e281]:
+              - generic [ref=e285]: Data and insights help improve every activation.
+      - region [ref=e286]:
+        - generic [ref=e287]:
+          - paragraph [ref=e288]: NEXT SIGNAL
+          - heading "Make the next campaign something people can enter. something people can enter. something people can enter." [level=2] [ref=e289]:
+            - text: Make the next campaign
+            - generic [ref=e290]: something people can enter. something people can enter. something people can enter.
+          - generic [ref=e291]:
+            - paragraph [ref=e292]: Share the audience, venue and campaign goal. We’ll shape the interaction, system and live delivery around the brief.
+            - link "Plan Your Activation" [ref=e294] [cursor=pointer]:
+              - /url: /en/contact
+  - contentinfo [ref=e298]:
+    - generic [ref=e299]:
+      - generic [ref=e300]:
+        - link "MetasoftCo home" [ref=e301] [cursor=pointer]:
+          - /url: /en
+          - img "MetasoftCo" [ref=e302]
+        - paragraph [ref=e303]: AI-powered experiential technology, built in Istanbul for brands and agencies.
+      - generic [ref=e304]:
+        - generic [ref=e305]: EXPLORE
+        - link "Work" [ref=e306] [cursor=pointer]:
+          - /url: /en/projects
+        - link "Capabilities" [ref=e307] [cursor=pointer]:
+          - /url: /en/services
+        - link "About" [ref=e308] [cursor=pointer]:
+          - /url: /en/hakkimizda
+        - link "Contact" [ref=e309] [cursor=pointer]:
+          - /url: /en/contact
+      - generic [ref=e310]:
+        - generic [ref=e311]: CONTACT
+        - link "info@metasoftco.com" [ref=e312] [cursor=pointer]:
+          - /url: mailto:info@metasoftco.com
+        - link "+90 534 233 40 51" [ref=e313] [cursor=pointer]:
+          - /url: tel:+905342334051
+        - generic [ref=e314]: Avcılar, Istanbul
+      - generic [ref=e315]:
+        - generic [ref=e316]: FOLLOW
+        - link "LinkedIn" [ref=e317] [cursor=pointer]:
+          - /url: https://www.linkedin.com/company/metasoftco
+        - link "Instagram" [ref=e318] [cursor=pointer]:
+          - /url: https://instagram.com/metasoftco
+        - link "YouTube" [ref=e319] [cursor=pointer]:
+          - /url: https://www.youtube.com/@MetasoftCo
+    - generic [ref=e320]:
+      - generic [ref=e321]: © 2026 MetasoftCo
+      - generic [ref=e322]: Concept · Software · Physical production · Live operation
+  - button "Open Next.js Dev Tools" [ref=e328] [cursor=pointer]
+  - alert [ref=e332]
