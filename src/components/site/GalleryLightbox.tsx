@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ChevronLeft, ChevronRight } from "lucide-react";
-import { cloudinaryOptimize } from "@/lib/cloudinary";
+import { X, ChevronLeft, ChevronRight, Play } from "lucide-react";
+import { cloudinaryOptimize, isVideoUrl } from "@/lib/cloudinary";
 
 type GalleryImageInput = string | { url: string; alt?: string };
 
@@ -77,13 +77,30 @@ export default function GalleryLightbox({ images, title, variant = "masonry" }: 
                             }
                         }}
                     >
-                        <img
-                            src={cloudinaryOptimize(item.url, 1000)}
-                            alt={item.alt}
-                            className={isGrid ? undefined : "w-full h-auto block transition-transform duration-500 group-hover:scale-[1.03]"}
-                            loading={i === 0 ? "eager" : "lazy"}
-                            fetchPriority={i === 0 ? "high" : "auto"}
-                        />
+                        {isVideoUrl(item.url) ? (
+                            <>
+                                <video
+                                    src={cloudinaryOptimize(item.url, 1000)}
+                                    muted
+                                    playsInline
+                                    preload="metadata"
+                                    className={isGrid ? "w-full h-full object-cover" : "w-full h-auto block transition-transform duration-500 group-hover:scale-[1.03]"}
+                                />
+                                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+                                    <div className="flex items-center justify-center w-12 h-12 rounded-full bg-black/50 backdrop-blur-sm">
+                                        <Play className="w-5 h-5 text-white fill-white ml-0.5" />
+                                    </div>
+                                </div>
+                            </>
+                        ) : (
+                            <img
+                                src={cloudinaryOptimize(item.url, 1000)}
+                                alt={item.alt}
+                                className={isGrid ? undefined : "w-full h-auto block transition-transform duration-500 group-hover:scale-[1.03]"}
+                                loading={i === 0 ? "eager" : "lazy"}
+                                fetchPriority={i === 0 ? "high" : "auto"}
+                            />
+                        )}
                         {!isGrid && <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-300" />}
                     </div>
                 ))}
@@ -141,12 +158,22 @@ export default function GalleryLightbox({ images, title, variant = "masonry" }: 
                                     else if (info.offset.x < -80) next();
                                 }}
                             >
-                                <img
-                                    src={cloudinaryOptimize(items[lightboxIndex].url, 2400)}
-                                    alt={items[lightboxIndex].alt}
-                                    className="max-w-full max-h-[88vh] object-contain shadow-2xl pointer-events-none"
-                                    draggable={false}
-                                />
+                                {isVideoUrl(items[lightboxIndex].url) ? (
+                                    <video
+                                        src={items[lightboxIndex].url}
+                                        controls
+                                        autoPlay
+                                        playsInline
+                                        className="max-w-full max-h-[88vh] object-contain shadow-2xl"
+                                    />
+                                ) : (
+                                    <img
+                                        src={cloudinaryOptimize(items[lightboxIndex].url, 2400)}
+                                        alt={items[lightboxIndex].alt}
+                                        className="max-w-full max-h-[88vh] object-contain shadow-2xl pointer-events-none"
+                                        draggable={false}
+                                    />
+                                )}
                             </motion.div>
                         </AnimatePresence>
 

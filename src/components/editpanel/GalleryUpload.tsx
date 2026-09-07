@@ -3,6 +3,10 @@
 import { useState, useRef } from "react";
 import MediaLibrary from "./MediaLibrary";
 import { uploadToCloudinary } from "@/lib/cloudinaryUpload";
+import { isVideoUrl } from "@/lib/cloudinary";
+
+const MAX_IMAGE_SIZE = 10 * 1024 * 1024; // 10MB
+const MAX_VIDEO_SIZE = 100 * 1024 * 1024; // 100MB
 
 interface GalleryUploadProps {
     value: string[]; // URL array
@@ -30,17 +34,17 @@ export default function GalleryUpload({
 
         const fileArray = Array.from(files);
 
-        // Sadece görsel dosyalarını filtrele
-        const imageFiles = fileArray.filter(file => file.type.startsWith('image/'));
+        // Görsel ve video dosyalarını kabul et
+        const mediaFiles = fileArray.filter(file => file.type.startsWith('image/') || file.type.startsWith('video/'));
 
-        if (imageFiles.length === 0) {
-            setError("Lütfen sadece görsel dosyaları yükleyin");
+        if (mediaFiles.length === 0) {
+            setError("Lütfen görsel veya video dosyası yükleyin");
             return;
         }
 
         // Limit kontrolü
-        if (value.length + imageFiles.length > maxImages) {
-            setError(`En fazla ${maxImages} görsel ekleyebilirsiniz`);
+        if (value.length + mediaFiles.length > maxImages) {
+            setError(`En fazla ${maxImages} öğe ekleyebilirsiniz`);
             return;
         }
 
@@ -49,10 +53,12 @@ export default function GalleryUpload({
 
         const newUrls: string[] = [];
 
-        for (const file of imageFiles) {
-            // Dosya boyutu kontrolü (10MB)
-            if (file.size > 10 * 1024 * 1024) {
-                setError("Her dosya maksimum 10MB olabilir");
+        for (const file of mediaFiles) {
+            const isVideo = file.type.startsWith('video/');
+            const maxSize = isVideo ? MAX_VIDEO_SIZE : MAX_IMAGE_SIZE;
+
+            if (file.size > maxSize) {
+                setError(isVideo ? "Her video maksimum 100MB olabilir" : "Her görsel maksimum 10MB olabilir");
                 continue;
             }
 
@@ -88,7 +94,7 @@ export default function GalleryUpload({
 
     const handleSelectFromLibrary = (url: string) => {
         if (value.length >= maxImages) {
-            setError(`En fazla ${maxImages} görsel ekleyebilirsiniz`);
+            setError(`En fazla ${maxImages} öğe ekleyebilirsiniz`);
             return;
         }
         if (value.includes(url)) return; // Zaten varsa ekleme
@@ -148,11 +154,27 @@ export default function GalleryUpload({
                 <div className="grid grid-cols-3 gap-3 mb-4">
                     {value.map((url, index) => (
                         <div key={index} className="relative aspect-square rounded-2xl overflow-hidden group border bg-black/5">
-                            <img
-                                src={url}
-                                alt={`Gallery ${index + 1}`}
-                                className="w-full h-full object-cover"
-                            />
+                            {isVideoUrl(url) ? (
+                                <>
+                                    <video
+                                        src={url}
+                                        muted
+                                        preload="metadata"
+                                        className="w-full h-full object-cover"
+                                    />
+                                    <div className="absolute bottom-1 left-1 flex items-center justify-center w-5 h-5 bg-black/60 rounded-full pointer-events-none">
+                                        <svg className="w-2.5 h-2.5 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                            <path d="M8 5v14l11-7z" />
+                                        </svg>
+                                    </div>
+                                </>
+                            ) : (
+                                <img
+                                    src={url}
+                                    alt={`Gallery ${index + 1}`}
+                                    className="w-full h-full object-cover"
+                                />
+                            )}
                             <button
                                 type="button"
                                 onClick={() => handleRemove(index)}
@@ -198,7 +220,7 @@ export default function GalleryUpload({
                                 {isDragging ? "Dosyaları buraya bırak" : "Tıkla veya sürükle-bırak"}
                             </p>
                             {!isDragging && (
-                                <p className="text-[10px] text-black/30 mt-0.5">Çoklu seçim desteklenir</p>
+                                <p className="text-[10px] text-black/30 mt-0.5">Görsel veya video · çoklu seçim desteklenir</p>
                             )}
                         </>
                     )}
@@ -212,7 +234,7 @@ export default function GalleryUpload({
             <input
                 ref={inputRef}
                 type="file"
-                accept="image/*"
+                accept="image/*,video/*"
                 multiple
                 onChange={handleUpload}
                 className="hidden"

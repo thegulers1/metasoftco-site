@@ -29,17 +29,19 @@ export default function MediaLibrary({
     const [loading, setLoading] = useState(true);
     const [search, setSearch] = useState("");
     const [selectedId, setSelectedId] = useState<string | null>(null);
+    const [mediaType, setMediaType] = useState<"image" | "video">("image");
 
     useEffect(() => {
         if (isOpen) {
             fetchMedia();
         }
-    }, [isOpen]);
+    }, [isOpen, mediaType]);
 
     const fetchMedia = async () => {
         setLoading(true);
+        setSelectedId(null);
         try {
-            const res = await fetch("/api/media");
+            const res = await fetch(`/api/media?type=${mediaType}`);
             if (res.ok) {
                 const data = await res.json();
                 console.log('✅ Ortam Kütüphanesi - Toplam medya:', data.length);
@@ -57,7 +59,7 @@ export default function MediaLibrary({
 
     const handleDelete = async (e: React.MouseEvent, id: string) => {
         e.stopPropagation();
-        if (!confirm("Bu görseli kalıcı olarak silmek istediğinize emin misiniz?")) return;
+        if (!confirm("Bu öğeyi kalıcı olarak silmek istediğinize emin misiniz?")) return;
 
         try {
             const res = await fetch(`/api/media?id=${id}`, { method: "DELETE" });
@@ -98,16 +100,34 @@ export default function MediaLibrary({
                         <div className="p-6 border-b flex items-center justify-between bg-white">
                             <div>
                                 <h2 className="text-xl font-bold text-black">Ortam Kütüphanesi</h2>
-                                <p className="text-sm text-black/40">Daha önce yüklenen görsellerden seçin</p>
+                                <p className="text-sm text-black/40">Daha önce yüklenen görsel veya videolardan seçin</p>
                             </div>
-                            <button
-                                onClick={onClose}
-                                className="p-2 hover:bg-black/5 rounded-full transition-colors"
-                            >
-                                <svg className="w-6 h-6 text-black/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                                </svg>
-                            </button>
+                            <div className="flex items-center gap-3">
+                                <div className="flex items-center bg-black/5 rounded-xl p-1">
+                                    <button
+                                        type="button"
+                                        onClick={() => setMediaType("image")}
+                                        className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors ${mediaType === "image" ? "bg-white text-black shadow-sm" : "text-black/40 hover:text-black"}`}
+                                    >
+                                        Görseller
+                                    </button>
+                                    <button
+                                        type="button"
+                                        onClick={() => setMediaType("video")}
+                                        className={`px-3 py-1.5 text-xs font-bold rounded-lg transition-colors ${mediaType === "video" ? "bg-white text-black shadow-sm" : "text-black/40 hover:text-black"}`}
+                                    >
+                                        Videolar
+                                    </button>
+                                </div>
+                                <button
+                                    onClick={onClose}
+                                    className="p-2 hover:bg-black/5 rounded-full transition-colors"
+                                >
+                                    <svg className="w-6 h-6 text-black/40" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
                         </div>
 
                         <div className="flex-1 flex overflow-hidden">
@@ -153,22 +173,31 @@ export default function MediaLibrary({
                                                         : "border-transparent hover:border-black/20"
                                                     }`}
                                             >
-                                                <img
-                                                    src={item.url}
-                                                    alt={item.fileName || "Media"}
-                                                    className="w-full h-full object-cover"
-                                                    onError={(e) => {
-                                                        const t = e.currentTarget;
-                                                        t.style.display = "none";
-                                                        const parent = t.parentElement;
-                                                        if (parent && !parent.querySelector(".img-fallback")) {
-                                                            const fb = document.createElement("div");
-                                                            fb.className = "img-fallback absolute inset-0 flex flex-col items-center justify-center bg-black/5 text-black/30 text-center p-2";
-                                                            fb.innerHTML = `<svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span style="font-size:10px;margin-top:4px;word-break:break-all">${item.fileName || ""}</span>`;
-                                                            parent.appendChild(fb);
-                                                        }
-                                                    }}
-                                                />
+                                                {mediaType === "video" ? (
+                                                    <video
+                                                        src={item.url}
+                                                        muted
+                                                        preload="metadata"
+                                                        className="w-full h-full object-cover"
+                                                    />
+                                                ) : (
+                                                    <img
+                                                        src={item.url}
+                                                        alt={item.fileName || "Media"}
+                                                        className="w-full h-full object-cover"
+                                                        onError={(e) => {
+                                                            const t = e.currentTarget;
+                                                            t.style.display = "none";
+                                                            const parent = t.parentElement;
+                                                            if (parent && !parent.querySelector(".img-fallback")) {
+                                                                const fb = document.createElement("div");
+                                                                fb.className = "img-fallback absolute inset-0 flex flex-col items-center justify-center bg-black/5 text-black/30 text-center p-2";
+                                                                fb.innerHTML = `<svg width="24" height="24" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg><span style="font-size:10px;margin-top:4px;word-break:break-all">${item.fileName || ""}</span>`;
+                                                                parent.appendChild(fb);
+                                                            }
+                                                        }}
+                                                    />
+                                                )}
                                                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity">
                                                     <button
                                                         onClick={(e) => handleDelete(e, item.id)}
@@ -196,7 +225,7 @@ export default function MediaLibrary({
                                         <svg className="w-12 h-12 mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                                         </svg>
-                                        <p>Görsel bulunamadı</p>
+                                        <p>{mediaType === "video" ? "Video bulunamadı" : "Görsel bulunamadı"}</p>
                                     </div>
                                 )}
                             </div>
@@ -206,11 +235,19 @@ export default function MediaLibrary({
                                 {selectedMedia ? (
                                     <>
                                         <div className="aspect-video rounded-xl overflow-hidden bg-black/5 mb-6">
-                                            <img
-                                                src={selectedMedia.url}
-                                                alt="Preview"
-                                                className="w-full h-full object-contain"
-                                            />
+                                            {mediaType === "video" ? (
+                                                <video
+                                                    src={selectedMedia.url}
+                                                    controls
+                                                    className="w-full h-full object-contain"
+                                                />
+                                            ) : (
+                                                <img
+                                                    src={selectedMedia.url}
+                                                    alt="Preview"
+                                                    className="w-full h-full object-contain"
+                                                />
+                                            )}
                                         </div>
                                         <div className="space-y-4 flex-1">
                                             <div>
@@ -239,7 +276,7 @@ export default function MediaLibrary({
                                             }}
                                             className="w-full py-3 bg-black text-white rounded-xl font-medium hover:bg-black/90 transition-colors"
                                         >
-                                            Bu Görseli Kullan
+                                            {mediaType === "video" ? "Bu Videoyu Kullan" : "Bu Görseli Kullan"}
                                         </button>
                                     </>
                                 ) : (
@@ -249,7 +286,7 @@ export default function MediaLibrary({
                                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                                             </svg>
                                         </div>
-                                        <p className="text-sm text-black/30">Detayları görmek ve seçmek için bir görsele tıklayın</p>
+                                        <p className="text-sm text-black/30">Detayları görmek ve seçmek için bir öğeye tıklayın</p>
                                     </div>
                                 )}
                             </div>
@@ -267,7 +304,7 @@ export default function MediaLibrary({
                                 }}
                                 className="w-full py-3 bg-black text-white rounded-xl font-medium disabled:opacity-30 transition-opacity"
                             >
-                                Seçili Görseli Kullan
+                                {mediaType === "video" ? "Seçili Videoyu Kullan" : "Seçili Görseli Kullan"}
                             </button>
                         </div>
                     </motion.div>

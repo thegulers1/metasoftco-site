@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { FormEvent, useState } from "react";
-import { IconArrowRight as ArrowRight, IconClock as Clock, IconMail as Mail, IconMapPin as MapPin, IconPhone as Phone, IconSend as Send } from "@tabler/icons-react";
+import { IconArrowRight as ArrowRight, IconMail as Mail, IconMapPin as MapPin, IconPhone as Phone, IconSend as Send } from "@tabler/icons-react";
 import type { Phase2Locale } from "@/lib/phase2";
 import { phase2Copy } from "@/lib/phase2-content";
 import { SignalHeading } from "./SignalHeading";
@@ -58,7 +58,6 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
                         <li><Phone aria-hidden="true" /><a href="tel:+905342334051">+90 534 233 40 51</a></li>
                         <li><Mail aria-hidden="true" /><a href="mailto:info@metasoftco.com">info@metasoftco.com</a></li>
                         <li><MapPin aria-hidden="true" /><span>{copy.location}</span></li>
-                        <li><Clock aria-hidden="true" /><span>{copy.replyTime}</span></li>
                     </ul>
                     <figure><Image src="/phase2/contact-producers-v2.png" alt={copy.figureAlt} fill sizes="330px" /></figure>
                 </aside>

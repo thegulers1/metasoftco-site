@@ -64,22 +64,39 @@ export default function HomePrototype({
 				className="p2-home-hero"
 				aria-labelledby="home-hero-title">
 				<P2Container className="p2-home-hero__stage">
-					<P2Eyebrow>{copy.heroEyebrow}</P2Eyebrow>
-					<h1
-						id="home-hero-title"
-						className="p2-signal-title"
-						aria-label={copy.heroTitleLabel}>
-						<span
-							className="p2-signal-title__outline"
-							data-text={copy.heroTitleOutline}>
-							{copy.heroTitleOutline}
-						</span>
-						<span className="p2-signal-title__solid">
-							{copy.heroTitleSolid.map((line) => (
-								<span key={line}>{line}</span>
+					<div className="p2-home-hero__content">
+						<div className="p2-home-hero__badge">
+							<span className="p2-home-hero__badge-dot" aria-hidden="true" />
+							<P2Eyebrow>{copy.heroEyebrow}</P2Eyebrow>
+						</div>
+						<h1
+							id="home-hero-title"
+							className="p2-signal-title"
+							aria-label={copy.heroTitleLabel}>
+							<P2Display
+								text={copy.heroTitle}
+								outlineClassName="p2-signal-title__highlight"
+							/>
+						</h1>
+						<div className="p2-actions">
+							<P2Button href={dictionary.routes.contact}>{copy.heroPrimaryCta}</P2Button>
+							<P2Button
+								href={dictionary.routes.work}
+								variant="secondary">
+								{copy.heroSecondaryCta}
+							</P2Button>
+						</div>
+						<div className="p2-home-hero__stats">
+							{copy.heroStats.map((stat) => (
+								<div
+									key={stat.label}
+									className="p2-home-hero__stat">
+									<span className="p2-home-hero__stat-value">{stat.value}</span>
+									<span className="p2-home-hero__stat-label">{stat.label}</span>
+								</div>
 							))}
-						</span>
-					</h1>
+						</div>
+					</div>
 					{rayBan?.image && (
 						<figure className="p2-signal-portal">
 							<div className="p2-signal-portal__frame">
@@ -89,7 +106,7 @@ export default function HomePrototype({
 										alt={copy.heroFigureAlt}
 										fill
 										priority
-										sizes="(max-width: 700px) 78vw, 370px"
+										sizes="(max-width: 1000px) 80vw, 40vw"
 									/>
 								</div>
 							</div>
@@ -99,17 +116,6 @@ export default function HomePrototype({
 							</figcaption>
 						</figure>
 					)}
-					<div className="p2-home-hero__brief">
-						<p>{copy.heroBrief}</p>
-						{/* <div className="p2-actions">
-							<P2Button href={dictionary.routes.contact}>{copy.heroPrimaryCta}</P2Button>
-							<P2Button
-								href={dictionary.routes.work}
-								variant="secondary">
-								{copy.heroSecondaryCta}
-							</P2Button>
-						</div> */}
-					</div>
 				</P2Container>
 			</section>
 

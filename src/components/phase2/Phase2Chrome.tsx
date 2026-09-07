@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState, type MouseEvent } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -8,6 +8,83 @@ import { Globe, Menu, Sparkles, X } from "lucide-react";
 import { isPhase2PrototypePath, phase2LocaleFromPath, phase2SiblingPath } from "@/lib/phase2";
 import { phase2Copy } from "@/lib/phase2-content";
 import { useChatStore } from "@/components/AIChat/useChatStore";
+
+interface InstagramPost {
+    id: string;
+    mediaUrl: string;
+    permalink: string;
+    caption?: string;
+    mediaType: string;
+    thumbnailUrl?: string;
+}
+
+function Phase2InstagramFeed({ copy }: { copy: ReturnType<typeof phase2Copy>["footer"] }) {
+    const [posts, setPosts] = useState<InstagramPost[]>([]);
+    const [visible, setVisible] = useState(false);
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        const el = containerRef.current;
+        if (!el) return;
+        const observer = new IntersectionObserver(
+            ([entry]) => { if (entry.isIntersecting) { setVisible(true); observer.disconnect(); } },
+            { rootMargin: "200px" }
+        );
+        observer.observe(el);
+        return () => observer.disconnect();
+    }, []);
+
+    useEffect(() => {
+        if (!visible) return;
+        let cancelled = false;
+        async function fetchPosts() {
+            try {
+                const response = await fetch("https://feeds.behold.so/bSMJyqgT2uDMBbrGiLtU");
+                const data = await response.json();
+                if (!cancelled && data?.posts && Array.isArray(data.posts)) {
+                    setPosts(data.posts.slice(0, 6));
+                }
+            } catch (error) {
+                console.error("Error fetching Instagram feed:", error);
+            }
+        }
+        fetchPosts();
+        return () => { cancelled = true; };
+    }, [visible]);
+
+    return (
+        <div ref={containerRef} className="p2-instagram">
+            <div className="p2-container p2-instagram__inner">
+                <div className="p2-instagram__header">
+                    <div className="p2-instagram__identity">
+                        <span className="p2-instagram__avatar">M</span>
+                        <div>
+                            <h3>{copy.instagramHandle}</h3>
+                            <p>{copy.instagramSubtitle}</p>
+                        </div>
+                    </div>
+                    <a href="https://instagram.com/metasoftco" target="_blank" rel="nofollow noopener noreferrer" className="p2-instagram__follow">
+                        {copy.instagramFollowButton}
+                    </a>
+                </div>
+                {posts.length > 0 && (
+                    <div className="p2-instagram__grid">
+                        {posts.slice(0, 6).map((post) => (
+                            <a key={post.id} href={post.permalink} target="_blank" rel="noopener noreferrer" className="p2-instagram__item">
+                                <img
+                                    src={post.mediaType === "VIDEO" ? (post.thumbnailUrl || post.mediaUrl) : post.mediaUrl}
+                                    alt={post.caption || copy.instagramHandle}
+                                    loading="lazy"
+                                    decoding="async"
+                                />
+                            </a>
+                        ))}
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+}
 
 const GOOGLE_MAPS_URL =
     "https://www.google.com/maps/search/?api=1&query=" +
@@ -72,7 +149,6 @@ export function Phase2Navbar() {
                 <button type="button" className="p2-nav__ai-cta" aria-label={copy.aiCtaAria} onClick={() => openChat(locale)}>
                     <Sparkles aria-hidden="true" /> <span className="p2-nav__ai-cta-text">{copy.aiCta}</span>
                 </button>
-                <Link href={phase2Copy(locale).routes.contact} className="p2-nav__cta">{copy.cta}</Link>
                 <button
                     type="button"
                     className="p2-nav__toggle"
@@ -101,7 +177,6 @@ export function Phase2Navbar() {
                     <button type="button" className="p2-nav__mobile-ai-cta" aria-label={copy.aiCtaAria} onClick={() => { setOpen(false); openChat(locale); }}>
                         <Sparkles aria-hidden="true" /> <span className="p2-nav__ai-cta-text">{copy.aiCta}</span>
                     </button>
-                    <Link href={phase2Copy(locale).routes.contact} className="p2-nav__mobile-cta" onClick={() => setOpen(false)}>{copy.cta}</Link>
                 </nav>
             )}
         </header>
@@ -118,6 +193,7 @@ export function Phase2Footer() {
 
     return (
         <footer className="p2-footer">
+            <Phase2InstagramFeed copy={copy} />
             <div className="p2-container p2-footer__grid">
                 <div>
                     <Link href={dictionary.routes.home} className="p2-footer__logo" aria-label={dictionary.nav.homeAria}>

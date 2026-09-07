@@ -12,6 +12,18 @@ export function cloudinaryOptimize(url: string | null | undefined, width?: numbe
     return url.replace("/upload/", `/upload/${transform}/`);
 }
 
+const VIDEO_EXTENSIONS = /\.(mp4|webm|mov|m4v|avi|mkv)($|\?)/i;
+
+/**
+ * Bir medya URL'sinin video mu görsel mi olduğunu anlar.
+ * Cloudinary video teslimatları her zaman "/video/upload/" yolu içerir;
+ * başka kaynaklardan gelen URL'ler için dosya uzantısına bakılır.
+ */
+export function isVideoUrl(url: string | null | undefined): boolean {
+    if (!url) return false;
+    return url.includes("/video/upload/") || VIDEO_EXTENSIONS.test(url);
+}
+
 /**
  * OG Image (sosyal medya paylaşımı) için Cloudinary URL'sini 1200x630 boyutuna getirir.
  * Örn: /upload/v123/photo.jpg → /upload/f_auto,q_auto,w_1200,h_630,c_fill/v123/photo.jpg

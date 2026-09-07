@@ -62,7 +62,6 @@ const en = {
 		closeMenu: "Close navigation",
 		localeSwitchAria: "Switch to Turkish",
 		localeSwitchLabel: "TR / EN",
-		cta: "Plan Your Activation",
 		aiCta: "Get AI Suggestions",
 		aiCtaAria: "Open AI assistant for event suggestions",
 		items: [
@@ -81,6 +80,9 @@ const en = {
 		followLabel: "FOLLOW",
 		city: "Üniversite Mah. Sarıgül Sk. İstanbul Teknokent No: 37/1 İç Kapı No: 28, Avcılar / İstanbul",
 		baseline: "Concept · Software · Physical production · Live operation",
+		instagramHandle: "@metasoftco",
+		instagramSubtitle: "Behind the scenes, activations and moments",
+		instagramFollowButton: "Follow on Instagram",
 		links: [
 			{ href: enPaths.routes.work, label: "Work" },
 			{ href: enPaths.routes.capabilities, label: "Capabilities" },
@@ -92,16 +94,18 @@ const en = {
 
 	home: {
 		heroEyebrow: "AI-POWERED EXPERIENTIAL TECHNOLOGY",
-		heroTitleOutline: "Experiences",
-		heroTitleSolid: ["That", "Connect", "Brands"],
-		heroTitleLabel: "Experiences that connect brands",
+		heroTitle: "Experiences that\n{connect} brands.",
+		heroTitleLabel: "Experiences that connect brands.",
 		heroFigureAlt: "Guests taking part in a Ray-Ban photo activation",
 		heroFigureLabel: "LIVE PARTICIPATION",
 		heroFigureCaption: "Ray-Ban · Strip Photo",
-		heroBrief:
-			"MetasoftCo creates branded photo, video, game and installation experiences for brands and agencies—combining creative direction, custom software and live production.",
 		heroPrimaryCta: "Plan Your Activation",
 		heroSecondaryCta: "View Selected Work",
+		heroStats: [
+			{ value: "1,000+", label: "Live events" },
+			{ value: "100+", label: "Brands" },
+			{ value: "5+", label: "Years" },
+		],
 		brandLoopAria: "Selected client collaborations",
 		brandLoopEyebrow: "TRUSTED BY FORWARD-THINKING BRANDS",
 		workEyebrow: "SELECTED WORK",
@@ -191,8 +195,7 @@ const en = {
 		heroLabel: "Let’s build something people can enter.",
 		heroCopy: "Share the audience, venue and campaign goal. We’ll shape the experience.",
 		asideTitle: "Start a conversation",
-		location: "Istanbul, Türkiye",
-		replyTime: "Reply within one business day",
+		location: "Üniversite Mah. Sarıgül Sk. İstanbul Teknokent No: 37/1 İç Kapı No: 28, Avcılar / İstanbul",
 		figureAlt: "MetasoftCo producers reviewing an event brief",
 		form: {
 			name: "Name *",
@@ -607,8 +610,7 @@ const tr: Phase2Copy = {
 		closeMenu: "Menüyü kapat",
 		localeSwitchAria: "İngilizceye geç",
 		localeSwitchLabel: "TR / EN",
-		cta: "Aktivasyonunuzu Planlayın",
-		aiCta: "Yapay Zekadan Öneri Al",
+		aiCta: "Etkinliğin İçin Öneri Al",
 		aiCtaAria: "Etkinlik önerileri için yapay zeka asistanını aç",
 		items: [
 			{ href: trPaths.routes.work, label: "Projeler" },
@@ -626,6 +628,9 @@ const tr: Phase2Copy = {
 		followLabel: "TAKİP EDİN",
 		city: "Üniversite Mah. Sarıgül Sk. İstanbul Teknokent No: 37/1 İç Kapı No: 28, Avcılar / İstanbul",
 		baseline: "Fikir · Yazılım · Fiziksel üretim · Saha operasyonu",
+		instagramHandle: "@metasoftco",
+		instagramSubtitle: "Sahne arkası, aktivasyonlar ve anlar",
+		instagramFollowButton: "Instagram'da Takip Et",
 		links: [
 			{ href: trPaths.routes.work, label: "Projeler" },
 			{ href: trPaths.routes.capabilities, label: "Hizmetler" },
@@ -636,20 +641,19 @@ const tr: Phase2Copy = {
 	},
 
 	home: {
-		heroEyebrow: "YAPAY ZEKÂ DESTEKLİ DENEYİM TEKNOLOJİSİ",
-		// Mirrors the English structure: the outline word is the subject and the
-		// solid stack is the predicate, keeping every solid line short enough to
-		// clear the portal image and the brief column.
-		heroTitleOutline: "Markaların",
-		heroTitleSolid: ["Ruhunu", "İnsanların", "Anılarına", "İşliyoruz"],
-		heroTitleLabel: "insanlarla buluşturur",
+		heroEyebrow: "YAPAY ZEKÂ DESTEKLİ DENEYİM TEKNOLOJİLERİ",
+		heroTitle: "Markaların ruhunu insanların\n{anılarına} işliyoruz.",
+		heroTitleLabel: "Markaların ruhunu insanların anılarına işliyoruz.",
 		heroFigureAlt: "Ray-Ban fotoğraf aktivasyonuna katılan katılımcılar",
 		heroFigureLabel: "CANLI KATILIM",
 		heroFigureCaption: "Ray-Ban · Strip Photo",
-		heroBrief:
-			"MetasoftCo; markalar ve ajanslar için fotoğraf, video, oyun ve özel kurulumlardan oluşan markalı deneyimler tasarlar ve üretir. Yaratıcı fikirden özel yazılıma, fiziksel üretimden saha operasyonuna kadar tüm süreci tek ekipte buluştururuz.",
 		heroPrimaryCta: "Aktivasyonunuzu Planlayın",
 		heroSecondaryCta: "Seçili Projeleri İnceleyin",
+		heroStats: [
+			{ value: "1.000+", label: "Canlı etkinlik" },
+			{ value: "100+", label: "Marka" },
+			{ value: "5+", label: "Yıl" },
+		],
 		brandLoopAria: "Seçili marka iş birlikleri",
 		brandLoopEyebrow: "YENİLİĞE YÖN VEREN MARKALARIN TERCİHİ",
 		workEyebrow: "SEÇİLİ PROJELER",
@@ -698,8 +702,8 @@ const tr: Phase2Copy = {
 			"Ölçülebilir veriler ve içgörüler, sonraki deneyimleri daha güçlü hâle getirir.",
 		],
 		finalEyebrow: "SIRADAKİ DENEYİM",
-		finalTitle: "Sıradaki kampanyanızı\n{insanların katılmak isteyeceği bir deneyime dönüştürelim.}",
-		finalTitleLabel: "Sıradaki kampanyanızı insanların katılmak isteyeceği bir deneyime dönüştürelim.",
+		finalTitle: "Sıradaki etkinliğinizi\n{insanların katılmak isteyeceği bir deneyime dönüştürelim.}",
+		finalTitleLabel: "Sıradaki etkinliğinizi insanların katılmak isteyeceği bir deneyime dönüştürelim.",
 		finalCopy:
 			"Hedef kitlenizi, mekânı ve kampanya hedefinizi paylaşın. Etkileşimi, teknolojiyi ve saha uygulamasını projenize göre birlikte kurgulayalım.",
 		finalCta: "Aktivasyonunuzu Planlayın",
@@ -745,8 +749,7 @@ const tr: Phase2Copy = {
 		heroLabel: "İnsanları markanızla buluşturan bir deneyim tasarlayalım.",
 		heroCopy: "Hedef kitlenizi, mekânı ve kampanya hedefinizi paylaşın. Deneyimi birlikte şekillendirelim.",
 		asideTitle: "Projenizi konuşalım",
-		location: "İstanbul, Türkiye",
-		replyTime: "Bir iş günü içinde geri dönüş",
+		location: "Üniversite Mah. Sarıgül Sk. İstanbul Teknokent No: 37/1 İç Kapı No: 28, Avcılar / İstanbul",
 		figureAlt: "Etkinlik proje detaylarını inceleyen MetasoftCo ekibi",
 		form: {
 			name: "Ad Soyad *",
@@ -818,9 +821,9 @@ const tr: Phase2Copy = {
 			"İnsanları izleyici olmaktan çıkarıp deneyimin parçasına dönüştüren, markayla gerçek bağ kuran aktivasyonlar tasarlıyor ve sahada hayata geçiriyoruz.",
 		catalogAria: "Tüm projeler",
 		cardLink: "Projeyi İncele",
-		ctaSolid: "Sıradaki kampanyanızı",
+		ctaSolid: "Sıradaki etkinliğinizi",
 		ctaOutline: "katılım odaklı bir deneyime dönüştürelim.",
-		ctaLabel: "Sıradaki kampanyanızı katılım odaklı bir deneyime dönüştürelim.",
+		ctaLabel: "Sıradaki etkinliğinizi katılım odaklı bir deneyime dönüştürelim.",
 		ctaButton: "Aktivasyonunuzu Planlayın",
 	},
 
