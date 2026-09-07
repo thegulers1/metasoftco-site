@@ -4,61 +4,32 @@ import { prisma } from "@/lib/db";
 import { siteConfig, generateServiceSchema, generateBreadcrumbSchema } from "@/lib/site";
 import { cloudinaryOgImage } from "@/lib/cloudinary";
 import { cache } from "react";
-import ServiceDetailClient from "./ServiceDetailClient";
+import ServiceDetailClient from "../../hizmetler/[category]/[service]/ServiceDetailClient";
 import { AdminEditUrlSetter } from "@/components/site/AdminBar";
-import { isEnglishServicePublishable } from "@/lib/publication";
 
 export const revalidate = 3600;
 
 interface PageProps {
-    params: Promise<{
-        category: string;
-        service: string;
-    }>;
+    params: Promise<{ service: string }>;
 }
 
-const getCategoryBySlug = cache(async (slug: string) => {
-    return await prisma.serviceCategory.findUnique({
-        where: { slug },
-    });
-});
-
-const getServiceBySlug = cache(async (slug: string, categoryId: string) => {
+const getSaleServiceBySlug = cache(async (slug: string) => {
     return await prisma.service.findFirst({
-        where: {
-            slug,
-            categoryId,
-            type: "RENTAL",
-        },
+        where: { slug, type: "SALE" },
+        include: { category: true },
     });
 });
 
-const getSaleCounterpart = cache(async (categoryId: string, excludeId: string) => {
-    return await prisma.service.findFirst({
-        where: {
-            categoryId,
-            id: { not: excludeId },
-            type: "SALE",
-            published: true,
-        },
-    });
-});
-
-// Dinamik metadata oluştur
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-    const { category, service: serviceSlug } = await params;
-
-    const categoryData = await getCategoryBySlug(category);
-    if (!categoryData) return {};
-
-    const service = await getServiceBySlug(serviceSlug, categoryData.id);
+    const { service: serviceSlug } = await params;
+    const service = await getSaleServiceBySlug(serviceSlug);
     if (!service) return {};
 
-    const title = service.metaTitle || `${service.title} | ${categoryData.name}`;
+    const title = service.metaTitle || `${service.title} | Sistem Satışı — MetasoftCo`;
     const description = service.metaDescription || service.description || siteConfig.description;
     const keywords = service.metaKeywords || "";
     const image = cloudinaryOgImage(service.ogImage || service.image) || `${siteConfig.url}/og`;
-    const url = `${siteConfig.url}/hizmetler/${category}/${serviceSlug}`;
+    const url = `${siteConfig.url}/urunler/${serviceSlug}`;
 
     return {
         title,
@@ -69,14 +40,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             description,
             url,
             siteName: siteConfig.name,
-            images: [
-                {
-                    url: image,
-                    width: 1200,
-                    height: 630,
-                    alt: service.title,
-                },
-            ],
+            images: [{ url: image, width: 1200, height: 630, alt: service.title }],
             locale: siteConfig.locale,
             type: "website",
         },
@@ -88,32 +52,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         },
         alternates: {
             canonical: url,
-            ...(isEnglishServicePublishable(service, categoryData) && {
-                languages: {
-                    "x-default": url,
-                    "tr": url,
-                    "en": `${siteConfig.url}/en/services/${categoryData.slug_en}/${service.slug_en}`,
-                },
-            }),
         },
     };
 }
 
+export default async function ProductDetailPage({ params }: PageProps) {
+    const { service: serviceSlug } = await params;
 
-export default async function ServiceDetailPage({ params }: PageProps) {
-    const { category, service: serviceSlug } = await params;
-
-    const categoryData = await getCategoryBySlug(category);
-    if (!categoryData) {
-        notFound();
-    }
-
-    const service = await getServiceBySlug(serviceSlug, categoryData.id);
+    const service = await getSaleServiceBySlug(serviceSlug);
     if (!service) {
         notFound();
     }
 
-    // Galeri parse et (eski string[] formatını ve yeni {url,alt}[] formatını destekle)
+    const categoryData = service.category;
+
     const gallery: { url: string; alt: string }[] = service.gallery
         ? (JSON.parse(service.gallery) as (string | { url: string; alt?: string })[]).map(
               (item) =>
@@ -123,37 +75,29 @@ export default async function ServiceDetailPage({ params }: PageProps) {
           )
         : [];
 
-    // Aynı kategorideki diğer hizmetler
     const relatedServices = await prisma.service.findMany({
         where: {
-            categoryId: categoryData.id,
             id: { not: service.id },
-            type: "RENTAL",
+            type: "SALE",
             published: true,
         },
         take: 4,
     });
 
-    // Aynı kategoride kalıcı kurulum/satış ürünü varsa, "Satın Al" CTA'sı için kullanılır
-    const saleCounterpart = await getSaleCounterpart(categoryData.id, service.id);
-
-    // JSON-LD structured data
     const serviceSchema = generateServiceSchema({
         name: service.title,
         description: service.description || "",
-        url: `${siteConfig.url}/hizmetler/${category}/${serviceSlug}`,
+        url: `${siteConfig.url}/urunler/${serviceSlug}`,
         image: service.image || undefined,
         category: categoryData.name,
     });
 
     const breadcrumbSchema = generateBreadcrumbSchema([
         { name: "Anasayfa", url: siteConfig.url },
-        { name: "Hizmetler", url: `${siteConfig.url}/hizmetler` },
-        { name: categoryData.name, url: `${siteConfig.url}/hizmetler/${category}` },
-        { name: service.title, url: `${siteConfig.url}/hizmetler/${category}/${serviceSlug}` },
+        { name: "Ürünler", url: `${siteConfig.url}/urunler` },
+        { name: service.title, url: `${siteConfig.url}/urunler/${serviceSlug}` },
     ]);
 
-    // FAQ JSON-LD schema — Google featured snippet için
     const faqSchema = service.faq ? (() => {
         const items: { q: string; a: string }[] = JSON.parse(service.faq);
         if (!items.length) return null;
@@ -163,15 +107,11 @@ export default async function ServiceDetailPage({ params }: PageProps) {
             "mainEntity": items.map((item) => ({
                 "@type": "Question",
                 "name": item.q,
-                "acceptedAnswer": {
-                    "@type": "Answer",
-                    "text": item.a,
-                },
+                "acceptedAnswer": { "@type": "Answer", "text": item.a },
             })),
         };
     })() : null;
 
-    // VideoObject schema — YouTube URL varsa ekle
     const youtubeIdMatch = service.video?.match(
         /youtube\.com\/(?:watch\?v=|shorts\/|embed\/)([^?&/]+)|youtu\.be\/([^?&/]+)/
     );
@@ -212,8 +152,8 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 relatedServices={relatedServices}
                 gallery={gallery}
                 serviceSchema={serviceSchema}
-                category={category}
-                saleHref={saleCounterpart ? `/urunler/${saleCounterpart.slug}` : undefined}
+                category={categoryData.slug}
+                variant="sale"
             />
         </>
     );

@@ -24,6 +24,7 @@ export type Phase2RouteMap = {
 	home: string;
 	work: string;
 	capabilities: string;
+	products: string;
 	about: string;
 	insights: string;
 	contact: string;
@@ -67,6 +68,7 @@ const en = {
 		items: [
 			{ href: enPaths.routes.work, label: "Work" },
 			{ href: enPaths.routes.capabilities, label: "Capabilities" },
+			{ href: enPaths.routes.products, label: "Product Sales" },
 			{ href: enPaths.routes.about, label: "About" },
 			{ href: enPaths.routes.insights, label: "Insights" },
 			{ href: enPaths.routes.contact, label: "Contact" },
@@ -86,6 +88,7 @@ const en = {
 		links: [
 			{ href: enPaths.routes.work, label: "Work" },
 			{ href: enPaths.routes.capabilities, label: "Capabilities" },
+			{ href: enPaths.routes.products, label: "Product Sales" },
 			{ href: enPaths.routes.about, label: "About" },
 			{ href: enPaths.routes.insights, label: "Insights" },
 			{ href: enPaths.routes.contact, label: "Contact" },
@@ -270,6 +273,7 @@ const en = {
 		heroCopy:
 			"We combine creative direction, custom software, physical production and live operation to design and deliver experiences that connect brands and people in real time.",
 		catalogAria: "Capabilities",
+		filterAll: "All",
 		cardLink: "Explore Capability",
 		endToEndTitle: "One team,\nend to end",
 		process: [
@@ -281,6 +285,26 @@ const en = {
 		ctaSolid: "Turn the brief",
 		ctaOutline: "into a live experience.",
 		ctaButton: "Plan Your Activation",
+	},
+
+	products: {
+		heroSolid: "Own the system.\nNot just",
+		heroOutline: "the event.",
+		heroLabel: "Turnkey systems, built and installed for your organization.",
+		heroCopy:
+			"Beyond one-off rentals, we design, manufacture and permanently install custom interactive systems — bespoke hardware built in-house with laser-cut detailing and 3D-printed parts, running proprietary Unity and Python software tailored to your organization's security and network requirements.",
+		catalogAria: "Products",
+		cardLink: "Explore Product",
+		endToEndTitle: "Hardware and\nsoftware, in-house",
+		process: [
+			{ number: "01", title: "Scope", copy: "We assess your space, audience and long-term technology goals." },
+			{ number: "02", title: "Engineer", copy: "We design bespoke hardware and software built to fit your site." },
+			{ number: "03", title: "Manufacture", copy: "Laser-cut detailing and 3D-printed parts are produced in-house." },
+			{ number: "04", title: "Install", copy: "We deliver a permanent, turnkey installation with on-site commissioning." },
+		],
+		ctaSolid: "Ready to own",
+		ctaOutline: "your installation?",
+		ctaButton: "Request a Quote",
 	},
 
 	insights: {
@@ -534,6 +558,7 @@ const en = {
 	serviceDetail: {
 		crumbHome: "Home",
 		crumbCapabilities: "Capabilities",
+		crumbProducts: "Product Sales",
 		categoryTerm: "Category",
 		fallbackFacts: [
 			{ term: "Setup", value: "Turnkey" },
@@ -548,10 +573,16 @@ const en = {
 		galleryAlt: (index: number) => `Service photo ${index}`,
 		relatedTitle: "Related services",
 		backLabel: "All capabilities",
+		backLabelProducts: "All products",
 		ctaSolid: "Tailor this capability",
 		ctaOutline: "to your event.",
 		ctaPrimary: "Plan Your Activation",
 		ctaSecondary: "See Selected Work",
+		ctaTertiary: "Buy for Your Organization",
+		saleCtaSolid: "Bring this system",
+		saleCtaOutline: "in-house, permanently.",
+		saleCtaPrimary: "Request a Quote",
+		saleCtaSecondary: "See Selected Work",
 	},
 
 	projectDetail: {
@@ -615,6 +646,7 @@ const tr: Phase2Copy = {
 		items: [
 			{ href: trPaths.routes.work, label: "Projeler" },
 			{ href: trPaths.routes.capabilities, label: "Hizmetler" },
+			{ href: trPaths.routes.products, label: "Sistem Satışı" },
 			{ href: trPaths.routes.about, label: "Hakkımızda" },
 			{ href: trPaths.routes.insights, label: "Blog" },
 			{ href: trPaths.routes.contact, label: "İletişim" },
@@ -634,6 +666,7 @@ const tr: Phase2Copy = {
 		links: [
 			{ href: trPaths.routes.work, label: "Projeler" },
 			{ href: trPaths.routes.capabilities, label: "Hizmetler" },
+			{ href: trPaths.routes.products, label: "Sistem Satışı" },
 			{ href: trPaths.routes.about, label: "Hakkımızda" },
 			{ href: trPaths.routes.insights, label: "Blog" },
 			{ href: trPaths.routes.contact, label: "İletişim" },
@@ -673,22 +706,22 @@ const tr: Phase2Copy = {
 		process: [
 			{
 				number: "01",
-				title: "İhtiyacı netleştiririz",
+				title: "İhtiyacı netleştiririz.",
 				copy: "Hedef kitleyi, mekânı, kampanya fikrini ve hedeflenen katılımcı yolculuğunu birlikte tanımlarız.",
 			},
 			{
 				number: "02",
-				title: "Deneyimi tasarlarız",
+				title: "Deneyimi tasarlarız.",
 				copy: "Yaratıcı yaklaşımı, etkileşim akışını ve teknik uygulanabilirliği netleştiririz.",
 			},
 			{
 				number: "03",
-				title: "Sistemi geliştiririz",
+				title: "Sistemi geliştiririz.",
 				copy: "Özel yazılımı, markalı arayüzü, içeriği ve fiziksel bileşenleri tek sistemde birleştiririz.",
 			},
 			{
 				number: "04",
-				title: "Sahada hayata geçiririz",
+				title: "Sahada hayata geçiririz.",
 				copy: "Kurulumdan etkinlik günü operasyonuna kadar tüm süreci sahada yönetiriz.",
 			},
 		],
@@ -834,6 +867,7 @@ const tr: Phase2Copy = {
 		heroCopy:
 			"Yaratıcı fikir, özel yazılım, fiziksel üretim ve saha operasyonunu bir araya getirerek markaları insanlarla buluşturan deneyimleri uçtan uca geliştiriyoruz.",
 		catalogAria: "Hizmetler",
+		filterAll: "Tümü",
 		cardLink: "Hizmeti İncele",
 		endToEndTitle: "Tek ekip,\nuçtan uca çözüm",
 		process: [
@@ -861,6 +895,42 @@ const tr: Phase2Copy = {
 		ctaSolid: "Fikrinizi",
 		ctaOutline: "canlı bir deneyime dönüştürelim.",
 		ctaButton: "Aktivasyonunuzu Planlayın",
+	},
+
+	products: {
+		heroSolid: "Etkinliği değil,\nsistemi",
+		heroOutline: "kalıcı olarak kazanın.",
+		heroLabel: "Kurumunuz için tasarlanan, üretilen ve kalıcı olarak kurulan anahtar teslim sistemler.",
+		heroCopy:
+			"Tek seferlik kiralamanın ötesinde; mekana özel donanımı lazer kesim detaylar ve 3D baskı özel üretim parçalarla ajans bünyesinde üretiyor, kurumunuzun veri güvenliği ve lokal ağ ihtiyaçlarına uygun Unity ve Python tabanlı özel yazılımla kalıcı olarak devreye alıyoruz.",
+		catalogAria: "Ürünler",
+		cardLink: "Ürünü İncele",
+		endToEndTitle: "Donanım ve yazılım,\ntek çatı altında",
+		process: [
+			{
+				number: "01",
+				title: "Kapsam",
+				copy: "Mekanınızı, hedef kitlenizi ve uzun vadeli teknoloji ihtiyacınızı birlikte değerlendiririz.",
+			},
+			{
+				number: "02",
+				title: "Mühendislik",
+				copy: "Mekana özel donanım ve yazılım mimarisini tasarlarız.",
+			},
+			{
+				number: "03",
+				title: "Üretim",
+				copy: "Lazer kesim detaylar ve 3D baskı özel üretim parçaları ajans bünyesinde üretiriz.",
+			},
+			{
+				number: "04",
+				title: "Kurulum",
+				copy: "Sistemi kalıcı olarak devreye alır, anahtar teslim şekilde teslim ederiz.",
+			},
+		],
+		ctaSolid: "Kurumunuz için",
+		ctaOutline: "kalıcı bir sisteme mi ihtiyacınız var?",
+		ctaButton: "Teklif İsteyin",
 	},
 
 	insights: {
@@ -1156,6 +1226,7 @@ const tr: Phase2Copy = {
 	serviceDetail: {
 		crumbHome: "Ana Sayfa",
 		crumbCapabilities: "Hizmetler",
+		crumbProducts: "Sistem Satışı",
 		categoryTerm: "Kategori",
 		fallbackFacts: [
 			{ term: "Kurulum", value: "Anahtar teslim" },
@@ -1170,10 +1241,16 @@ const tr: Phase2Copy = {
 		galleryAlt: (index: number) => `Hizmet görseli ${index}`,
 		relatedTitle: "İlgili hizmetler",
 		backLabel: "Tüm hizmetler",
+		backLabelProducts: "Tüm ürünler",
 		ctaSolid: "Bu hizmeti",
 		ctaOutline: "etkinliğinize uyarlayalım.",
 		ctaPrimary: "Aktivasyonunuzu Planlayın",
 		ctaSecondary: "Seçili Projeleri İnceleyin",
+		ctaTertiary: "Kurumun İçin Satın Al",
+		saleCtaSolid: "Bu sistemi",
+		saleCtaOutline: "kurumunuza kalıcı olarak kazandıralım.",
+		saleCtaPrimary: "Teklif İsteyin",
+		saleCtaSecondary: "Seçili Projeleri İnceleyin",
 	},
 
 	projectDetail: {

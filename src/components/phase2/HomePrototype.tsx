@@ -49,14 +49,12 @@ export default function HomePrototype({
 	const servicePresentation = dictionary.featuredServices;
 
 	const rayBan = projects.find((project) => project.key.includes("ray-ban"));
-	const projectOrder = [
-		"ray-ban-x-strip-photo",
-		"pegasus-airlines-digital-gift-wheel-activation",
-		"tavuk-dunyasi-x-ai-photo",
-	];
-	const orderedProjects = projectOrder
-		.map((key) => projects.find((project) => project.key === key))
-		.filter((project): project is P2ProjectCard & { image: string } => Boolean(project?.image));
+	// `projects` already arrives pre-selected (featured, published) and
+	// pre-ordered from the DB query in page.tsx — no further filtering by
+	// slug here, or newly-featured projects would never make it through.
+	const orderedProjects = projects.filter(
+		(project): project is P2ProjectCard & { image: string } => Boolean(project.image)
+	);
 
 	return (
 		<div className="phase2">

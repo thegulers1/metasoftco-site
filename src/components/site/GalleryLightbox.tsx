@@ -84,7 +84,7 @@ export default function GalleryLightbox({ images, title, variant = "masonry" }: 
                                     muted
                                     playsInline
                                     preload="metadata"
-                                    className={isGrid ? "w-full h-full object-cover" : "w-full h-auto block transition-transform duration-500 group-hover:scale-[1.03]"}
+                                    className={isGrid ? undefined : "w-full h-auto block transition-transform duration-500 group-hover:scale-[1.03]"}
                                 />
                                 <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
                                     <div className="flex items-center justify-center w-12 h-12 rounded-full bg-black/50 backdrop-blur-sm">

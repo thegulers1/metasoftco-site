@@ -20,6 +20,10 @@ interface ServiceDetailClientProps {
     gallery: { url: string; alt?: string }[];
     serviceSchema: Record<string, unknown>;
     category: string;
+    /** "sale" renders the /urunler flat product screen instead of the /hizmetler rental screen. */
+    variant?: "rental" | "sale";
+    /** For rental services with a matching /urunler product, links to it as a third CTA. */
+    saleHref?: string;
 }
 
 /** Parses an editor-managed JSON column, tolerating empty or malformed values. */
@@ -39,18 +43,24 @@ export default function ServiceDetailClient({
     relatedServices,
     gallery,
     serviceSchema,
+    variant = "rental",
+    saleHref,
 }: ServiceDetailClientProps) {
     const { language, setAlternateUrl } = useLanguage();
     const dictionary = phase2Copy(language);
     const copy = dictionary.serviceDetail;
 
     useEffect(() => {
-        const trUrl = `/hizmetler/${categoryData.slug}/${service.slug}`;
-        const enUrl = (service.slug_en && categoryData.slug_en)
-            ? `/en/services/${categoryData.slug_en}/${service.slug_en}`
-            : "/en/services";
+        const trUrl = variant === "sale"
+            ? `/urunler/${service.slug}`
+            : `/hizmetler/${categoryData.slug}/${service.slug}`;
+        const enUrl = variant === "sale"
+            ? (service.slug_en ? `/en/products/${service.slug_en}` : "/en/products")
+            : (service.slug_en && categoryData.slug_en)
+                ? `/en/services/${categoryData.slug_en}/${service.slug_en}`
+                : "/en/services";
         setAlternateUrl(trUrl, enUrl);
-    }, [service.slug, service.slug_en, categoryData.slug, categoryData.slug_en, setAlternateUrl]);
+    }, [variant, service.slug, service.slug_en, categoryData.slug, categoryData.slug_en, setAlternateUrl]);
 
     const isEn = language === "en";
     const title = isEn ? (service.title_en || service.title) : service.title;
@@ -90,13 +100,21 @@ export default function ServiceDetailClient({
             />
 
             <header className="p2-container p2-detail-top">
-                <nav className="p2-detail-top__crumb" aria-label={copy.crumbCapabilities}>
-                    <Link href={dictionary.routes.home}>{copy.crumbHome}</Link>
-                    <span>{"  /  "}</span>
-                    <Link href={dictionary.routes.capabilities}>{copy.crumbCapabilities}</Link>
-                    <span>{"  /  "}</span>
-                    <Link href={categoryHref}>{categoryName}</Link>
-                </nav>
+                {variant === "sale" ? (
+                    <nav className="p2-detail-top__crumb" aria-label={copy.crumbProducts}>
+                        <Link href={dictionary.routes.home}>{copy.crumbHome}</Link>
+                        <span>{"  /  "}</span>
+                        <Link href={dictionary.routes.products}>{copy.crumbProducts}</Link>
+                    </nav>
+                ) : (
+                    <nav className="p2-detail-top__crumb" aria-label={copy.crumbCapabilities}>
+                        <Link href={dictionary.routes.home}>{copy.crumbHome}</Link>
+                        <span>{"  /  "}</span>
+                        <Link href={dictionary.routes.capabilities}>{copy.crumbCapabilities}</Link>
+                        <span>{"  /  "}</span>
+                        <Link href={categoryHref}>{categoryName}</Link>
+                    </nav>
+                )}
 
                 <div className="p2-detail-top__heading">
                     <SignalHeading solid={solid} outline={outline} label={seoTitle} />
@@ -111,12 +129,6 @@ export default function ServiceDetailClient({
                         </div>
                     ))}
                 </dl>
-
-                {service.image && (
-                    <figure className="p2-detail-main-image">
-                        <Image src={service.image} alt={title} fill priority sizes="100vw" />
-                    </figure>
-                )}
             </header>
 
             {service.video && (
@@ -194,9 +206,11 @@ export default function ServiceDetailClient({
                             <Link
                                 key={related.id}
                                 href={
-                                    isEn && categoryData.slug_en && related.slug_en
-                                        ? `/en/services/${categoryData.slug_en}/${related.slug_en}`
-                                        : `/hizmetler/${categoryData.slug}/${related.slug}`
+                                    variant === "sale"
+                                        ? `/urunler/${related.slug}`
+                                        : isEn && categoryData.slug_en && related.slug_en
+                                            ? `/en/services/${categoryData.slug_en}/${related.slug_en}`
+                                            : `/hizmetler/${categoryData.slug}/${related.slug}`
                                 }
                             >
                                 {related.image && <Image src={related.image} alt="" fill sizes="33vw" />}
@@ -208,18 +222,39 @@ export default function ServiceDetailClient({
             )}
 
             <div className="p2-container p2-detail-foot">
-                <Link href={dictionary.routes.capabilities} className="p2-back-link">
-                    <ArrowLeft aria-hidden="true" /> {copy.backLabel}
-                </Link>
+                {variant === "sale" ? (
+                    <Link href={dictionary.routes.products} className="p2-back-link">
+                        <ArrowLeft aria-hidden="true" /> {copy.backLabelProducts}
+                    </Link>
+                ) : (
+                    <Link href={dictionary.routes.capabilities} className="p2-back-link">
+                        <ArrowLeft aria-hidden="true" /> {copy.backLabel}
+                    </Link>
+                )}
             </div>
 
             <section className="p2-screen-cta">
                 <div className="p2-container">
-                    <SignalHeading as="h2" solid={copy.ctaSolid} outline={copy.ctaOutline} />
-                    <div className="p2-screen-cta__actions">
-                        <Link href={dictionary.routes.contact} className="p2-screen-button">{copy.ctaPrimary} <ArrowRight aria-hidden="true" /></Link>
-                        <Link href={dictionary.routes.work} className="p2-screen-button p2-screen-button--secondary">{copy.ctaSecondary} <ArrowRight aria-hidden="true" /></Link>
-                    </div>
+                    {variant === "sale" ? (
+                        <>
+                            <SignalHeading as="h2" solid={copy.saleCtaSolid} outline={copy.saleCtaOutline} />
+                            <div className="p2-screen-cta__actions">
+                                <Link href={dictionary.routes.contact} className="p2-screen-button">{copy.saleCtaPrimary} <ArrowRight aria-hidden="true" /></Link>
+                                <Link href={dictionary.routes.work} className="p2-screen-button p2-screen-button--secondary">{copy.saleCtaSecondary} <ArrowRight aria-hidden="true" /></Link>
+                            </div>
+                        </>
+                    ) : (
+                        <>
+                            <SignalHeading as="h2" solid={copy.ctaSolid} outline={copy.ctaOutline} />
+                            <div className="p2-screen-cta__actions">
+                                <Link href={dictionary.routes.contact} className="p2-screen-button">{copy.ctaPrimary} <ArrowRight aria-hidden="true" /></Link>
+                                <Link href={dictionary.routes.work} className="p2-screen-button p2-screen-button--secondary">{copy.ctaSecondary} <ArrowRight aria-hidden="true" /></Link>
+                                {saleHref && (
+                                    <Link href={saleHref} className="p2-screen-button p2-screen-button--tertiary">{copy.ctaTertiary} <ArrowRight aria-hidden="true" /></Link>
+                                )}
+                            </div>
+                        </>
+                    )}
                 </div>
             </section>
         </article>

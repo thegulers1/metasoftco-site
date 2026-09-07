@@ -26,6 +26,7 @@ interface Service {
     accentText_en: string | null;
     accentColor: string | null;
     order: number;
+    type: string;
     featured: boolean;
     featuredOrder: number;
     categoryId: string;
@@ -75,6 +76,7 @@ export default function NewServicePage() {
         accentColor: null,
         textColor: "light",
         order: 0,
+        type: "RENTAL",
         featured: false,
         featuredOrder: 0,
         categoryId: "",
@@ -382,6 +384,23 @@ export default function NewServicePage() {
                                     </option>
                                 ))}
                             </select>
+                        </div>
+
+                        <div>
+                            <label className="block text-sm font-medium text-black/70 mb-2">
+                                Tür
+                            </label>
+                            <select
+                                value={service.type}
+                                onChange={(e) => setService({ ...service, type: e.target.value })}
+                                className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
+                            >
+                                <option value="RENTAL">Kiralama</option>
+                                <option value="SALE">Satış</option>
+                            </select>
+                            <p className="text-xs text-black/40 mt-1">
+                                Satış olarak işaretlenen hizmetler /urunler altında listelenir ve ilgili kiralama sayfasında &quot;Satın Al&quot; CTA&apos;sı olarak gösterilir.
+                            </p>
                         </div>
 
                         <div>

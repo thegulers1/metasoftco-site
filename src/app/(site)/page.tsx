@@ -33,17 +33,6 @@ export const metadata: Metadata = {
 };
 
 /**
- * The three homepage hero projects are selected by their English slug because
- * that value is stable across both locales; each locale then links through its
- * own slug.
- */
-const featuredSlugs = [
-    "tavuk-dunyasi-x-ai-photo",
-    "pegasus-airlines-digital-gift-wheel-activation",
-    "ray-ban-x-strip-photo",
-];
-
-/**
  * The three homepage services are selected by their English slug because
  * that value is stable across both locales; each locale then links through
  * its own category and service slugs.
@@ -56,7 +45,9 @@ const featuredServiceSlugs = [
 
 const getPrototypeProjects = unstable_cache(
     () => prisma.project.findMany({
-        where: { published: true, slug_en: { in: featuredSlugs } },
+        where: { published: true, featured: true },
+        orderBy: { order: "asc" },
+        take: 3,
         select: { slug: true, slug_en: true, title: true, description: true, image: true },
     }),
     ["phase-2-home-projects-tr"],
@@ -82,16 +73,13 @@ const getPrototypeServices = unstable_cache(
 
 export default async function HomePage() {
     const [projectRecords, serviceRecords] = await Promise.all([getPrototypeProjects(), getPrototypeServices()]);
-    const projects = featuredSlugs
-        .map((slug) => projectRecords.find((record) => record.slug_en === slug))
-        .filter((record): record is NonNullable<typeof record> => Boolean(record))
-        .map((record) => ({
-            key: record.slug_en!,
-            slug: record.slug,
-            title: record.title,
-            description: record.description,
-            image: record.image,
-        }));
+    const projects = projectRecords.map((record) => ({
+        key: record.slug_en || record.slug,
+        slug: record.slug,
+        title: record.title,
+        description: record.description,
+        image: record.image,
+    }));
     const services = featuredServiceSlugs
         .map((slug) => serviceRecords.find((record) => record.slug_en === slug))
         .filter((record): record is NonNullable<typeof record> => Boolean(record))

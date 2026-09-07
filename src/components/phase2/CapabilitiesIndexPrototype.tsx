@@ -1,3 +1,6 @@
+"use client";
+
+import { useMemo, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { IconArrowRight as ArrowRight } from "@tabler/icons-react";
@@ -12,11 +15,32 @@ export interface P2CapabilityCard {
     title: string;
     image: string;
     href: string;
+    categorySlug?: string;
 }
 
-export default function CapabilitiesIndexPrototype({ capabilities, locale }: { capabilities: P2CapabilityCard[]; locale: Phase2Locale }) {
+/** A category filter tab, in display order. */
+export interface P2CapabilityCategory {
+    slug: string;
+    name: string;
+}
+
+export default function CapabilitiesIndexPrototype({
+    capabilities,
+    categories,
+    locale,
+}: {
+    capabilities: P2CapabilityCard[];
+    categories?: P2CapabilityCategory[];
+    locale: Phase2Locale;
+}) {
     const dictionary = phase2Copy(locale);
     const copy = dictionary.capabilities;
+    const [activeCategory, setActiveCategory] = useState<string | null>(null);
+
+    const filtered = useMemo(
+        () => (activeCategory ? capabilities.filter((c) => c.categorySlug === activeCategory) : capabilities),
+        [capabilities, activeCategory]
+    );
 
     return (
         <div className="phase2 p2-screen p2-cap-index">
@@ -25,8 +49,33 @@ export default function CapabilitiesIndexPrototype({ capabilities, locale }: { c
                 <p>{copy.heroCopy}</p>
             </section>
             <section className="p2-container p2-cap-catalog" aria-label={copy.catalogAria}>
+                {categories && categories.length > 1 && (
+                    <div className="p2-cap-filter" role="tablist" aria-label={copy.catalogAria}>
+                        <button
+                            type="button"
+                            role="tab"
+                            aria-selected={activeCategory === null}
+                            className={activeCategory === null ? "is-active" : undefined}
+                            onClick={() => setActiveCategory(null)}
+                        >
+                            <span>{copy.filterAll}</span>
+                        </button>
+                        {categories.map((category) => (
+                            <button
+                                key={category.slug}
+                                type="button"
+                                role="tab"
+                                aria-selected={activeCategory === category.slug}
+                                className={activeCategory === category.slug ? "is-active" : undefined}
+                                onClick={() => setActiveCategory(category.slug)}
+                            >
+                                <span>{category.name}</span>
+                            </button>
+                        ))}
+                    </div>
+                )}
                 <div className="p2-cap-grid">
-                    {capabilities.map((capability, index) => (
+                    {filtered.map((capability, index) => (
                         <Link href={capability.href} key={capability.id} className="p2-cap-card">
                             <div className="p2-cap-card__media"><Image src={capability.image} alt="" fill sizes="(max-width: 760px) 100vw, 33vw" /></div>
                             <div className="p2-cap-card__body"><span className="p2-gradient-number">{String(index + 1).padStart(2, "0")}</span><h2>{capability.title}</h2><span className="p2-card-link">{copy.cardLink} <ArrowRight aria-hidden="true" /></span></div>

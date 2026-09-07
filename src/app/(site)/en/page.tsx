@@ -24,12 +24,6 @@ export const metadata: Metadata = {
     },
 };
 
-const featuredSlugs = [
-    "tavuk-dunyasi-x-ai-photo",
-    "pegasus-airlines-digital-gift-wheel-activation",
-    "ray-ban-x-strip-photo",
-];
-
 /**
  * The three homepage services are selected by their English slug because
  * that value is stable across both locales; each locale then links through
@@ -43,7 +37,9 @@ const featuredServiceSlugs = [
 
 const getPrototypeProjects = unstable_cache(
     () => prisma.project.findMany({
-        where: { published: true, slug_en: { in: featuredSlugs } },
+        where: { published: true, featured: true },
+        orderBy: { order: "asc" },
+        take: 10, // fetched before the EN-publishable filter below, so 3 EN-ready ones can still be found
         select: {
             slug: true,
             slug_en: true,
@@ -82,10 +78,9 @@ const getPrototypeServices = unstable_cache(
 
 export default async function EnglishHomePage() {
     const [projectRecords, serviceRecords] = await Promise.all([getPrototypeProjects(), getPrototypeServices()]);
-    const records = projectRecords.filter(isEnglishProjectPublishable);
-    const projects = featuredSlugs
-        .map((slug) => records.find((record) => record.slug_en === slug))
-        .filter((record): record is NonNullable<typeof record> => Boolean(record))
+    const projects = projectRecords
+        .filter(isEnglishProjectPublishable)
+        .slice(0, 3)
         .map((record) => ({
             key: record.slug_en!,
             slug: record.slug_en!,

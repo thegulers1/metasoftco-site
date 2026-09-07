@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 const getCategories = unstable_cache(
     async () => prisma.serviceCategory.findMany({
         orderBy: { order: "asc" },
-        include: { services: { where: { published: true }, orderBy: { order: "asc" } } },
+        include: { services: { where: { published: true, type: "RENTAL" }, orderBy: { order: "asc" } } },
     }),
     ["service-categories"],
     { revalidate: 60 }
@@ -95,8 +95,12 @@ export default async function HizmetlerPage() {
                 title: service.title,
                 image: capabilityListingImageOverrides[service.id] || service.image!,
                 href: `/hizmetler/${category.slug}/${service.slug}`,
+                categorySlug: category.slug,
             }))
     );
+    const categoryTabs = categories
+        .filter((category) => category.services.some((service) => service.image))
+        .map((category) => ({ slug: category.slug, name: category.name }));
     const faqSchema = generateFAQSchema(serviceFAQs);
 
     return (
@@ -105,7 +109,7 @@ export default async function HizmetlerPage() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
             />
-            <CapabilitiesIndexPrototype capabilities={capabilities} locale="tr" />
+            <CapabilitiesIndexPrototype capabilities={capabilities} categories={categoryTabs} locale="tr" />
         </>
     );
 }

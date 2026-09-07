@@ -60,7 +60,7 @@ export default function VideoPlayer({ src, thumbnailTime, fallbackPoster, title 
                 className={
                     vertical
                         ? "relative mx-auto w-full max-w-[340px] rounded-2xl overflow-hidden shadow-xl"
-                        : "relative w-full rounded-2xl overflow-hidden shadow-xl"
+                        : "relative mx-auto w-full max-w-[800px] rounded-2xl overflow-hidden shadow-xl"
                 }
                 style={{ aspectRatio: vertical ? "9/16" : "16/9" }}
                 aria-label={title}

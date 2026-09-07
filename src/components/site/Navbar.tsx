@@ -17,6 +17,7 @@ const getMenu = (t: (tr: string, en: string) => string, lang: "tr" | "en") =>
             { href: "/en", label: "Home" },
             { href: "/en/projects", label: "Projects" },
             { href: "/en/services", label: "Services" },
+            { href: "/en/products", label: "Product Sales" },
             { href: "/en/hakkimizda", label: "About" },
             { href: "/en/contact", label: "Contact" },
         ]
@@ -24,6 +25,7 @@ const getMenu = (t: (tr: string, en: string) => string, lang: "tr" | "en") =>
             { href: "/", label: "Anasayfa" },
             { href: "/projeler", label: "Projeler" },
             { href: "/hizmetler", label: "Hizmetler" },
+            { href: "/urunler", label: "Sistem Satışı" },
             { href: "/hakkimizda", label: "Hakkımızda" },
             { href: "/iletisim", label: "İletişim" },
         ];

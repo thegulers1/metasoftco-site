@@ -85,7 +85,7 @@ async function getCategoryWithServices(slug: string) {
     return prisma.serviceCategory.findUnique({
         where: { slug },
         include: {
-            services: { where: { published: true }, orderBy: { order: "asc" } },
+            services: { where: { published: true, type: "RENTAL" }, orderBy: { order: "asc" } },
         },
     });
 }
