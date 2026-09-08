@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ServiceFeaturedToggle } from "./ServiceFeaturedToggle";
 import { ServicePublishedToggle } from "./ServicePublishedToggle";
 import { ServiceDeleteButton } from "./ServiceDeleteButton";
+import { ServiceDuplicateButton } from "./ServiceDuplicateButton";
 
 export const dynamic = 'force-dynamic';
 
@@ -127,6 +128,10 @@ export default async function AdminServicesPage() {
                                                     </svg>
                                                     Düzenle
                                                 </Link>
+                                                <ServiceDuplicateButton
+                                                    serviceId={service.id}
+                                                    serviceTitle={service.title}
+                                                />
                                                 <ServiceDeleteButton
                                                     serviceId={service.id}
                                                     serviceTitle={service.title}

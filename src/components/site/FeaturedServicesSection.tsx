@@ -154,6 +154,22 @@ export function FeaturedServicesSection({ services }: FeaturedServicesSectionPro
                         );
                     })}
                 </div>
+
+                {/* Bottom CTA */}
+                <div className="flex justify-center mt-14">
+                    <Link
+                        href={serviceBase}
+                        className="group relative inline-flex items-center gap-2.5 rounded-full px-7 py-3.5 text-[14px] font-bold text-[#071013] transition-transform duration-300 hover:-translate-y-0.5"
+                        style={{
+                            fontFamily: "var(--font-manrope)",
+                            background: "linear-gradient(90deg, #64e5e7, #8b91ff 55%, #ff7476)",
+                            boxShadow: "0 8px 30px -8px rgba(139,145,255,.45)",
+                        }}
+                    >
+                        {t("Tüm Hizmetleri Keşfet", "Explore All Services")}
+                        <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
+                    </Link>
+                </div>
             </div>
         </section>
     );

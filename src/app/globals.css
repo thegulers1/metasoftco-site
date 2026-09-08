@@ -1154,22 +1154,22 @@ html[lang="tr"] .phase2 .p2-signal-title {
 	content: "";
 	pointer-events: none;
 	background:
-		linear-gradient(90deg, rgba(3, 4, 6, 0.68) 0%, rgba(3, 4, 6, 0.32) 42%, rgba(3, 4, 6, 0.44) 100%),
-		linear-gradient(0deg, rgba(3, 4, 6, 0.56) 0%, transparent 44%, rgba(3, 4, 6, 0.24) 100%);
+		linear-gradient(90deg, rgba(3, 4, 6, 0.34) 0%, rgba(3, 4, 6, 0.14) 42%, rgba(3, 4, 6, 0.2) 100%),
+		linear-gradient(0deg, rgba(3, 4, 6, 0.26) 0%, transparent 44%, rgba(3, 4, 6, 0.1) 100%);
 	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.03);
 }
 .p2-editorial-project__image img {
 	object-fit: cover;
-	filter: brightness(0.48) saturate(0.78) contrast(1.1);
+	filter: brightness(0.88) saturate(0.94) contrast(1.05);
 	transition:
 		transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1),
 		filter 0.4s ease;
 }
 .p2-editorial-project--2 .p2-editorial-project__image img {
-	filter: brightness(0.62) saturate(0.88) contrast(1.1);
+	filter: brightness(0.96) saturate(1) contrast(1.05);
 }
 .p2-editorial-project--3 .p2-editorial-project__image img {
-	filter: brightness(0.54) saturate(0.82) contrast(1.1);
+	filter: brightness(0.92) saturate(0.96) contrast(1.05);
 }
 .p2-editorial-project--1 .p2-editorial-project__image img {
 	object-position: 50% 44%;
@@ -1182,7 +1182,7 @@ html[lang="tr"] .phase2 .p2-signal-title {
 }
 .p2-editorial-project:hover .p2-editorial-project__image img {
 	transform: scale(1.025);
-	filter: brightness(0.86) saturate(1) contrast(1.03);
+	filter: brightness(1) saturate(1.02) contrast(1.03);
 }
 
 .p2-home-services {
