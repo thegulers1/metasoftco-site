@@ -4094,7 +4094,7 @@ html[lang="tr"] .phase2 .p2-signal-title {
 	background: linear-gradient(90deg, #54def0, #9277ef 55%, #ff594f);
 }
 .p2-detail-section--about .p2-prose {
-	max-width: none;
+	max-width: 740px;
 	padding-top: 32px;
 	border-top-color: rgba(97, 217, 231, 0.35);
 }

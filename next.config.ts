@@ -154,6 +154,7 @@ const nextConfig: NextConfig = {
       { source: "/photobooth/", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/photobooth", permanent: true },
       { source: "/ai-player-card-yapay-zeka-ile-kisisellestirilmis-futbolcu-kart", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri", permanent: true },
       { source: "/ai-player-card-yapay-zeka-ile-kisisellestirilmis-futbolcu-kart/", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri", permanent: true },
+      { source: "/hizmetler/yapay-zeka-etkinlik-cozumleri/wordportre", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/wordportre-kirala", permanent: true },
     ];
   },
 

@@ -199,12 +199,13 @@ export default function ServiceDetailClient({
             )}
 
             {relatedServices.length > 0 && (
-                <section className="p2-container p2-detail-section p2-selected-work">
+                <section className="p2-container p2-detail-section">
                     <h2>{copy.relatedTitle}</h2>
-                    <div>
-                        {relatedServices.slice(0, 3).map((related) => (
+                    <div className="p2-cap-grid">
+                        {relatedServices.slice(0, 3).map((related, index) => (
                             <Link
                                 key={related.id}
+                                className="p2-cap-card"
                                 href={
                                     variant === "sale"
                                         ? `/urunler/${related.slug}`
@@ -213,8 +214,18 @@ export default function ServiceDetailClient({
                                             : `/hizmetler/${categoryData.slug}/${related.slug}`
                                 }
                             >
-                                {related.image && <Image src={related.image} alt="" fill sizes="33vw" />}
-                                <h3>{isEn ? (related.title_en || related.title) : related.title}</h3>
+                                <div className="p2-cap-card__media">
+                                    {related.image && (
+                                        <Image src={related.image} alt="" fill sizes="(max-width: 760px) 100vw, 33vw" />
+                                    )}
+                                </div>
+                                <div className="p2-cap-card__body">
+                                    <span className="p2-gradient-number">{String(index + 1).padStart(2, "0")}</span>
+                                    <h2>{isEn ? (related.title_en || related.title) : related.title}</h2>
+                                    <span className="p2-card-link">
+                                        {copy.cardLink} <ArrowRight aria-hidden="true" />
+                                    </span>
+                                </div>
                             </Link>
                         ))}
                     </div>
