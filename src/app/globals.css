@@ -4022,6 +4022,8 @@ html[lang="tr"] .phase2 .p2-signal-title {
 	color: var(--p2-muted);
 	font-size: 15px;
 	line-height: 1.75;
+	text-align: justify;
+	text-justify: inter-word;
 }
 .p2-prose ul,
 .p2-prose ol {
