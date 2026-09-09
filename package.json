@@ -11,7 +11,8 @@
     "typecheck": "tsc --noEmit",
     "validate:runtime": "tsx scripts/validate-runtime.ts",
     "test:db-concurrency": "tsx scripts/test-db-concurrency.ts",
-    "test:routes": "tsx scripts/check-public-routes.ts"
+    "test:routes": "tsx scripts/check-public-routes.ts",
+    "test:smtp": "tsx scripts/smtp-verify.ts"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.2.0",
