@@ -60,6 +60,7 @@ export async function PUT(
             order,
             type,
             categoryId,
+            saleCounterpartId,
             // SEO fields
             metaTitle,
             metaDescription,
@@ -112,6 +113,7 @@ export async function PUT(
                 featured,
                 featuredOrder,
                 categoryId,
+                saleCounterpartId: saleCounterpartId || null,
                 metaTitle,
                 metaDescription,
                 metaKeywords,

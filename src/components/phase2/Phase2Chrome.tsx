@@ -137,7 +137,7 @@ export function Phase2Navbar() {
                     <Image src="/blackLogo.png" alt="MetasoftCo" width={160} height={40} priority unoptimized />
                 </Link>
                 <nav className="p2-nav__desktop" aria-label={copy.primaryAria}>
-                    {copy.items.map((item) => <Link key={item.href} href={item.href} className={pathname === item.href || pathname?.startsWith(`${item.href}/`) ? "is-active" : undefined} onClick={() => setOpen(false)}>{item.label}</Link>)}
+                    {copy.items.map((item) => <Link key={item.href} href={item.href} className={pathname === item.href || (item.href !== home && pathname?.startsWith(`${item.href}/`)) ? "is-active" : undefined} onClick={() => setOpen(false)}>{item.label}</Link>)}
                 </nav>
                 {/* Plain anchor: next/link performs its own navigation on click, which would race the upgraded destination below. */}
                 <a href={localeSwitchHref} onClick={onLocaleSwitch} className="p2-nav__locale" aria-label={copy.localeSwitchAria}>

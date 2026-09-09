@@ -30,16 +30,8 @@ const getServiceBySlug = cache(async (slug: string, categoryId: string) => {
             categoryId,
             type: "RENTAL",
         },
-    });
-});
-
-const getSaleCounterpart = cache(async (categoryId: string, excludeId: string) => {
-    return await prisma.service.findFirst({
-        where: {
-            categoryId,
-            id: { not: excludeId },
-            type: "SALE",
-            published: true,
+        include: {
+            saleCounterpart: true,
         },
     });
 });
@@ -134,8 +126,8 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         take: 4,
     });
 
-    // Aynı kategoride kalıcı kurulum/satış ürünü varsa, "Satın Al" CTA'sı için kullanılır
-    const saleCounterpart = await getSaleCounterpart(categoryData.id, service.id);
+    // Bu hizmetin editörde eşleştirilmiş gerçek satış karşılığı varsa "Satın Al" CTA'sı için kullanılır
+    const saleCounterpart = service.saleCounterpart?.published ? service.saleCounterpart : null;
 
     // JSON-LD structured data
     const serviceSchema = generateServiceSchema({

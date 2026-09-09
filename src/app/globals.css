@@ -4084,19 +4084,51 @@ html[lang="tr"] .phase2 .p2-signal-title {
    HTML as .p2-prose, but tuned for long-form reading — a gradient kicker on
    the heading, a brighter lede paragraph, sentence-case subheadings (full
    caps stopped scanning past ~4 words) and a tighter measure. */
-.p2-detail-section--about > h2 {
-	display: inline-flex;
+.p2-detail-section--about > h2,
+.p2-detail-section--faq > h2,
+.p2-detail-section--video > h2,
+.p2-detail-section--specs > h2 {
+	max-width: 820px;
+	margin-inline: auto;
+	display: flex;
 	align-items: center;
 	gap: 14px;
 }
-.p2-detail-section--about > h2::before {
+.p2-detail-section--about > h2::before,
+.p2-detail-section--faq > h2::before,
+.p2-detail-section--video > h2::before,
+.p2-detail-section--specs > h2::before {
 	width: 30px;
 	height: 2px;
 	content: "";
 	background: linear-gradient(90deg, #54def0, #9277ef 55%, #ff594f);
 }
+/* Gallery and related-services keep their full-width grids, but the
+   heading still gets the same gradient kicker mark for page-wide
+   consistency across every .p2-detail-section title. */
+.p2-detail-section--gallery > h2,
+.p2-detail-section--related > h2 {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+}
+.p2-detail-section--gallery > h2::before,
+.p2-detail-section--related > h2::before {
+	width: 30px;
+	height: 2px;
+	content: "";
+	background: linear-gradient(90deg, #54def0, #9277ef 55%, #ff594f);
+}
+.p2-detail-section--video .p2-detail-video {
+	max-width: 820px;
+	margin-inline: auto;
+	margin-top: 32px;
+	padding-top: 32px;
+	border-top: 1px solid var(--p2-line);
+}
 .p2-detail-section--about .p2-prose {
-	max-width: 740px;
+	max-width: 820px;
+	margin-inline: auto;
 	padding-top: 32px;
 	border-top-color: rgba(97, 217, 231, 0.35);
 }
@@ -4143,6 +4175,10 @@ html[lang="tr"] .phase2 .p2-signal-title {
 	border-top: 1px solid var(--p2-line);
 	border-left: 1px solid var(--p2-line);
 }
+.p2-detail-section--specs .p2-spec-grid {
+	max-width: 820px;
+	margin-inline: auto;
+}
 .p2-spec-grid > div {
 	display: grid;
 	grid-template-columns: 150px 1fr;
@@ -4188,6 +4224,12 @@ html[lang="tr"] .phase2 .p2-signal-title {
 /* Accordion FAQ in the selected-screen language. */
 .p2-screen-faq {
 	border-top: 1px solid var(--p2-line);
+}
+/* Service detail page: keep the FAQ column at the same measure and
+   center as the "about" prose above it, so both sections line up. */
+.p2-detail-section--faq .p2-screen-faq {
+	max-width: 820px;
+	margin-inline: auto;
 }
 .p2-screen-faq details {
 	border-bottom: 1px solid var(--p2-line);
@@ -4273,18 +4315,6 @@ html[lang="tr"] .phase2 .p2-signal-title {
 	background: repeating-linear-gradient(135deg, #0b0f12, #0b0f12 12px, #10161a 12px, #10161a 24px);
 }
 
-.p2-detail-video {
-	display: flex;
-	justify-content: center;
-	border: 1px solid var(--p2-line);
-	background: #0d1114;
-}
-.p2-detail-video > div {
-	border-radius: 0;
-	border: 0;
-	background: #0d1114;
-	box-shadow: none;
-}
 .p2-detail-video video,
 .p2-detail-video iframe {
 	display: block;

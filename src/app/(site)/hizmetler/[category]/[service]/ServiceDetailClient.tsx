@@ -132,7 +132,7 @@ export default function ServiceDetailClient({
             </header>
 
             {service.video && (
-                <section className="p2-container p2-detail-section">
+                <section className="p2-container p2-detail-section p2-detail-section--video">
                     <h2>{copy.videoTitle}</h2>
                     <div className="p2-detail-video">
                         <VideoPlayer
@@ -156,7 +156,7 @@ export default function ServiceDetailClient({
             )}
 
             {specs.length > 0 && (
-                <section className="p2-container p2-detail-section">
+                <section className="p2-container p2-detail-section p2-detail-section--specs">
                     <h2>{copy.specsTitle}</h2>
                     <dl className="p2-spec-grid">
                         {specs.map((spec) => (
@@ -170,7 +170,7 @@ export default function ServiceDetailClient({
             )}
 
             {faqs.length > 0 && (
-                <section className="p2-container p2-detail-section">
+                <section className="p2-container p2-detail-section p2-detail-section--faq">
                     <h2>{copy.faqTitle}</h2>
                     <div className="p2-screen-faq">
                         {faqs.map((item, index) => (
@@ -188,7 +188,7 @@ export default function ServiceDetailClient({
             )}
 
             {gallery.length > 0 && (
-                <section className="p2-container p2-detail-section">
+                <section className="p2-container p2-detail-section p2-detail-section--gallery">
                     <h2>{copy.galleryTitle}</h2>
                     <GalleryLightbox
                         variant="grid"
@@ -199,7 +199,7 @@ export default function ServiceDetailClient({
             )}
 
             {relatedServices.length > 0 && (
-                <section className="p2-container p2-detail-section">
+                <section className="p2-container p2-detail-section p2-detail-section--related">
                     <h2>{copy.relatedTitle}</h2>
                     <div className="p2-cap-grid">
                         {relatedServices.slice(0, 3).map((related, index) => (

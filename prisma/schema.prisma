@@ -69,8 +69,16 @@ model Service {
   type               String          @default("RENTAL")
   category           ServiceCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
+  // Explicit pairing for a RENTAL service's "Satın Al" CTA: points at the
+  // specific SALE-type service that is this product's sale counterpart
+  // (not just any sale product in the same category).
+  saleCounterpartId  String?
+  saleCounterpart    Service?        @relation("ServiceSaleLink", fields: [saleCounterpartId], references: [id], onDelete: SetNull)
+  rentalCounterparts Service[]       @relation("ServiceSaleLink")
+
   @@unique([categoryId, slug])
   @@index([categoryId])
+  @@index([saleCounterpartId])
 }
 
 model Project {

@@ -155,7 +155,7 @@ export default async function SektorPage({ params }: PageProps) {
                             </Link>
                         ))}
                     </div>
-                </div>
+                </div> 
 
                 {/* FAQ Section */}
                 <div className="mb-20">
@@ -164,7 +164,7 @@ export default async function SektorPage({ params }: PageProps) {
                             className="text-[var(--acc)]"
                             style={{ fontFamily: "var(--font-jetbrains-mono)", fontSize: 12, letterSpacing: ".14em", fontWeight: 500, textTransform: "uppercase" }}
                         >
-                            {sector.name} Hakkında Sık Sorulan Sorular
+                            {sector.name} Hakkında Sıkça Sorulan Sorular
                         </h2>
                         <div className="h-[1px] flex-1 bg-white/[0.08]" />
                     </div>

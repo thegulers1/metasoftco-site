@@ -34,6 +34,7 @@ interface Service {
     featured: boolean;
     featuredOrder: number;
     categoryId: string;
+    saleCounterpartId: string | null;
     // SEO fields
     metaTitle: string | null;
     metaDescription: string | null;
@@ -60,6 +61,12 @@ interface Category {
     slug: string;
 }
 
+interface SaleOption {
+    id: string;
+    title: string;
+    categoryName: string;
+}
+
 export default function EditServicePage({
     params,
 }: {
@@ -70,6 +77,7 @@ export default function EditServicePage({
     const { showToast } = useToast();
     const [service, setService] = useState<Service | null>(null);
     const [categories, setCategories] = useState<Category[]>([]);
+    const [saleOptions, setSaleOptions] = useState<SaleOption[]>([]);
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [translating, setTranslating] = useState(false);
@@ -77,9 +85,10 @@ export default function EditServicePage({
 
     useEffect(() => {
         async function fetchData() {
-            const [serviceRes, categoriesRes] = await Promise.all([
+            const [serviceRes, categoriesRes, allServicesRes] = await Promise.all([
                 fetch(`/api/services/${id}`),
                 fetch("/api/services/categories"),
+                fetch("/api/services"),
             ]);
 
             if (serviceRes.ok) {
@@ -87,6 +96,17 @@ export default function EditServicePage({
             }
             if (categoriesRes.ok) {
                 setCategories(await categoriesRes.json());
+            }
+            if (allServicesRes.ok) {
+                const cats: { name: string; services: { id: string; title: string; type: string }[] }[] =
+                    await allServicesRes.json();
+                setSaleOptions(
+                    cats.flatMap((cat) =>
+                        cat.services
+                            .filter((s) => s.type === "SALE")
+                            .map((s) => ({ id: s.id, title: s.title, categoryName: cat.name }))
+                    )
+                );
             }
             setLoading(false);
         }
@@ -415,6 +435,31 @@ export default function EditServicePage({
                                 Satış olarak işaretlenen hizmetler /urunler altında listelenir ve ilgili kiralama sayfasında &quot;Satın Al&quot; CTA&apos;sı olarak gösterilir.
                             </p>
                         </div>
+
+                        {service.type === "RENTAL" && (
+                            <div>
+                                <label className="block text-sm font-medium text-black/70 mb-2">
+                                    Satış Karşılığı <span className="text-black/30 font-normal">(bu ürünün gerçek satış sayfası)</span>
+                                </label>
+                                <select
+                                    value={service.saleCounterpartId || ""}
+                                    onChange={(e) =>
+                                        setService({ ...service, saleCounterpartId: e.target.value || null })
+                                    }
+                                    className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
+                                >
+                                    <option value="">— Satın Al butonu gösterme —</option>
+                                    {saleOptions.map((opt) => (
+                                        <option key={opt.id} value={opt.id}>
+                                            {opt.title} ({opt.categoryName})
+                                        </option>
+                                    ))}
+                                </select>
+                                <p className="text-xs text-black/40 mt-1">
+                                    Sadece burada seçilen kayıt bu hizmetin kiralama sayfasında &quot;Satın Al&quot; olarak gösterilir. Boş bırakılırsa buton hiç çıkmaz.
+                                </p>
+                            </div>
+                        )}
 
                         <div>
                             <label className="block text-sm font-medium text-black/70 mb-2">
