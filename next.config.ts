@@ -69,13 +69,38 @@ const nextConfig: NextConfig = {
       },
       {
         source: "/:year(\\d{4})/:month(\\d{2})/:day(\\d{2})/serdar-bostanci-50-yil-ai-fotograf-deneyimi/:path*",
-        destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photo",
+        destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photobooth-kirala",
+        permanent: true,
+      },
+      {
+        source: "/:year(\\d{4})/:month(\\d{2})/:day(\\d{2})/dr-jart-reflex-game-aktivitesi/:path*",
+        destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/reflex-game-hiz-ve-rekabet-oyunu",
+        permanent: true,
+      },
+      {
+        source: "/:year(\\d{4})/:month(\\d{2})/:day(\\d{2})/photobooth/:path*",
+        destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/photobooth-kirala",
+        permanent: true,
+      },
+      {
+        source: "/:year(\\d{4})/:month(\\d{2})/:day(\\d{2})/360-video/:path*",
+        destination: "/hizmetler/video/360-video-booth",
         permanent: true,
       },
 
       // ---------------------------------------------------------
       // 2. ESKİ İNGİLİZCE VE EKSİK KATEGORİ KLASÖRLERİNİ TOPLU YAKALAMA (Wildcard)
       // ---------------------------------------------------------
+      // Bu wildcard'lardan önce, hâlâ karşılığı olan servisler için spesifik
+      // hedefler tanımlanır — aksi halde herkes kategori hub'ına düşer ve asıl
+      // sayfa kaybolur (Semrush/GSC "404" denetiminde bulunan durum).
+      { source: "/hizmetler/ai-event-solutions/ai-greenbox", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-greenbox-kiralama", permanent: true },
+      { source: "/hizmetler/ai-event-solutions/ai-photo", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photobooth-kirala", permanent: true },
+      { source: "/hizmetler/ai-event-solutions/sesli-asistan", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri", permanent: true },
+      { source: "/hizmetler/photobooth-and-photo-activations/momento-ball", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/momento-ball", permanent: true },
+      { source: "/hizmetler/interactive-event-activities/catch-collect-game", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/catch-collect-game", permanent: true },
+      { source: "/hizmetler/interactive-event-activities/charge-bike", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/charge-bike", permanent: true },
+      { source: "/neler-yapiyoruz/interaktif-makinalar/digital-gift-wheel", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/dijital-hediye-carki-aktivasyonu", permanent: true },
       {
         source: "/hizmetler/ai-event-solutions/:path*",
         destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri",
@@ -120,8 +145,8 @@ const nextConfig: NextConfig = {
 
       { source: "/blog/etkinlikte-ai-photobooth-neden-kullanmali", destination: "/blog/etkinliklerde-ai-photobooth-avantajlari", permanent: true },
 
-      { source: "/serdar-bostanci-50-yil-ai-fotograf-deneyimi", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photo", permanent: true },
-      { source: "/serdar-bostanci-50-yil-ai-fotograf-deneyimi/", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photo", permanent: true },
+      { source: "/serdar-bostanci-50-yil-ai-fotograf-deneyimi", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photobooth-kirala", permanent: true },
+      { source: "/serdar-bostanci-50-yil-ai-fotograf-deneyimi/", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photobooth-kirala", permanent: true },
 
       { source: "/video-aktiviteleri", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari", permanent: true },
       { source: "/fotograf-aktiviteleri", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari", permanent: true },
@@ -137,11 +162,15 @@ const nextConfig: NextConfig = {
       { source: "/neler-yapiyoruz/fotograf-aktiviteleri/", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari", permanent: true },
       { source: "/neler-yapiyoruz/yapay-zeka-aktiviteleri", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri", permanent: true },
       { source: "/neler-yapiyoruz/yapay-zeka-aktiviteleri/", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri", permanent: true },
-      { source: "/neler-yapiyoruz/yapay-zeka-aktiviteleri/ai-greenbox", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-greenbox", permanent: true },
-      { source: "/neler-yapiyoruz/yapay-zeka-aktiviteleri/ai-greenbox/", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-greenbox", permanent: true },
+      { source: "/neler-yapiyoruz/yapay-zeka-aktiviteleri/ai-greenbox", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-greenbox-kiralama", permanent: true },
+      { source: "/neler-yapiyoruz/yapay-zeka-aktiviteleri/ai-greenbox/", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-greenbox-kiralama", permanent: true },
+      { source: "/neler-yapiyoruz/yapay-zeka-aktiviteleri/ai-player-card", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-football-card", permanent: true },
+      { source: "/neler-yapiyoruz/yapay-zeka-aktiviteleri/ai-player-card/", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-football-card", permanent: true },
 
-      { source: "/ai-greenbox", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-greenbox", permanent: true },
-      { source: "/ai-greenbox/", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-greenbox", permanent: true },
+      { source: "/ai-greenbox", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-greenbox-kiralama", permanent: true },
+      { source: "/ai-greenbox/", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-greenbox-kiralama", permanent: true },
+      { source: "/ai-photo", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photobooth-kirala", permanent: true },
+      { source: "/ai-photo/", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photobooth-kirala", permanent: true },
       { source: "/ar-photo", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/ar-photo", permanent: true },
       { source: "/ar-photo/", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/ar-photo", permanent: true },
       { source: "/ai-art-bookmark", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-bookmark", permanent: true },
@@ -150,11 +179,48 @@ const nextConfig: NextConfig = {
       { source: "/maze-game/", destination: "/hizmetler", permanent: true },
       { source: "/ai-photo-child", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photo-child", permanent: true },
       { source: "/ai-photo-child/", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photo-child", permanent: true },
-      { source: "/photobooth", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/photobooth", permanent: true },
-      { source: "/photobooth/", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/photobooth", permanent: true },
-      { source: "/ai-player-card-yapay-zeka-ile-kisisellestirilmis-futbolcu-kart", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri", permanent: true },
-      { source: "/ai-player-card-yapay-zeka-ile-kisisellestirilmis-futbolcu-kart/", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri", permanent: true },
+      { source: "/photobooth", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/photobooth-kirala", permanent: true },
+      { source: "/photobooth/", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/photobooth-kirala", permanent: true },
+      { source: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/photobooth", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/photobooth-kirala", permanent: true },
+      { source: "/ai-player-card-yapay-zeka-ile-kisisellestirilmis-futbolcu-kart", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-football-card", permanent: true },
+      { source: "/ai-player-card-yapay-zeka-ile-kisisellestirilmis-futbolcu-kart/", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-football-card", permanent: true },
       { source: "/hizmetler/yapay-zeka-etkinlik-cozumleri/wordportre", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/wordportre-kirala", permanent: true },
+      { source: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-greenbox", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-greenbox-kiralama", permanent: true },
+      { source: "/hizmetler/yapay-zeka-etkinlik-cozumleri/cizim-robotu", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/cizim-robotu-kiralama", permanent: true },
+      { source: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photo", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photobooth-kirala", permanent: true },
+      { source: "/hizmetler/yapay-zeka-etkinlik-cozumleri/sesli-asistan", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri", permanent: true },
+      { source: "/en/services/ai-event-solutions/ai-photo", destination: "/en/services/ai-event-solutions/ai-photobooth", permanent: true },
+
+      // ---------------------------------------------------------
+      // 4. GSC/SEMRUSH 404 DENETİMİNDE BULUNAN TEKİL ESKİ LİNKLER
+      // ---------------------------------------------------------
+      { source: "/strip-photo", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/strip-photo", permanent: true },
+      { source: "/strip-photo/", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/strip-photo", permanent: true },
+      { source: "/ai-star-talk", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-star-talk", permanent: true },
+      { source: "/ai-star-talk/", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-star-talk", permanent: true },
+      { source: "/cabin-photo", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/cabin-photo", permanent: true },
+      { source: "/cabin-photo/", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/cabin-photo", permanent: true },
+      { source: "/gift-wheel", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/dijital-hediye-carki-aktivasyonu", permanent: true },
+      { source: "/gift-wheel/", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/dijital-hediye-carki-aktivasyonu", permanent: true },
+      { source: "/referanslarimiz", destination: "/projeler", permanent: true },
+      { source: "/referanslarimiz/", destination: "/projeler", permanent: true },
+      { source: "/contact", destination: "/en/contact", permanent: true },
+      { source: "/contact/", destination: "/en/contact", permanent: true },
+      { source: "/interactive-quiz", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/quiz-bilgi-yarismasi", permanent: true },
+      { source: "/interactive-quiz/", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/quiz-bilgi-yarismasi", permanent: true },
+      { source: "/digital-quiz", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/quiz-bilgi-yarismasi", permanent: true },
+      { source: "/digital-quiz/", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/quiz-bilgi-yarismasi", permanent: true },
+      { source: "/projeler/undefined", destination: "/projeler", permanent: true },
+
+      // Artık karşılığı olmayan, tamamen kaldırılmış aktiviteler — en yakın
+      // kategori sayfasına yönlendirilir.
+      { source: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/aqua-booth", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari", permanent: true },
+      { source: "/instawall", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri", permanent: true },
+      { source: "/instawall/", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri", permanent: true },
+      { source: "/information-wall", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri", permanent: true },
+      { source: "/information-wall/", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri", permanent: true },
+      { source: "/photobooth-poster", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari", permanent: true },
+      { source: "/photobooth-poster/", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari", permanent: true },
     ];
   },
 
