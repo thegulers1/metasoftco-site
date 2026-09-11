@@ -10,6 +10,7 @@ import { useChatStore } from "@/components/AIChat/useChatStore";
 import { usePathname } from "next/navigation";
 import { isPhase2PrototypePath } from "@/lib/phase2";
 import { Phase2Navbar } from "@/components/phase2/Phase2Chrome";
+import { trackEvent } from "@/lib/analytics";
 
 const getMenu = (t: (tr: string, en: string) => string, lang: "tr" | "en") =>
     lang === "en"
@@ -192,7 +193,11 @@ export default function Navbar() {
                                     <a href="mailto:info@metasoftco.com" className="text-base text-white hover:text-[#22d3ee] transition-colors w-fit">
                                         info@metasoftco.com
                                     </a>
-                                    <a href="tel:+905342334051" className="text-base text-white hover:text-[#22d3ee] transition-colors w-fit">
+                                    <a
+                                        href="tel:+905342334051"
+                                        onClick={() => trackEvent("phone_click", { location: "navbar" })}
+                                        className="text-base text-white hover:text-[#22d3ee] transition-colors w-fit"
+                                    >
                                         +90 534 233 4051
                                     </a>
                                 </div>

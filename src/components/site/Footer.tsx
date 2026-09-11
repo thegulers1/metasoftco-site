@@ -6,6 +6,7 @@ import { useLanguage } from "@/providers/LanguageProvider";
 import { usePathname } from "next/navigation";
 import { isPhase2PrototypePath } from "@/lib/phase2";
 import { Phase2Footer } from "@/components/phase2/Phase2Chrome";
+import { trackEvent } from "@/lib/analytics";
 
 const GOOGLE_MAPS_URL =
     "https://www.google.com/maps/search/?api=1&query=" +
@@ -98,7 +99,11 @@ export default function Footer() {
                                 <a href="mailto:info@metasoftco.com" className="text-[rgba(255,255,255,.7)] hover:text-white transition-colors w-fit">
                                     info@metasoftco.com
                                 </a>
-                                <a href="tel:+905342334051" className="text-[rgba(255,255,255,.7)] hover:text-white transition-colors w-fit">
+                                <a
+                                    href="tel:+905342334051"
+                                    onClick={() => trackEvent("phone_click", { location: "footer" })}
+                                    className="text-[rgba(255,255,255,.7)] hover:text-white transition-colors w-fit"
+                                >
                                     +90 534 233 40 51
                                 </a>
                                 <a

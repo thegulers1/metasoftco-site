@@ -11,6 +11,7 @@ const FloatingBadge = dynamic(() => import("@/components/ServiceSelector/Floatin
 const QuotePanel = dynamic(() => import("@/components/ServiceSelector/QuotePanel").then(m => ({ default: m.QuotePanel })), { ssr: false });
 const ChatButton = dynamic(() => import("@/components/AIChat/ChatButton").then(m => ({ default: m.ChatButton })), { ssr: false });
 const ChatDrawer = dynamic(() => import("@/components/AIChat/ChatDrawer").then(m => ({ default: m.ChatDrawer })), { ssr: false });
+const CookieConsentBanner = dynamic(() => import("@/components/site/CookieConsentBanner"), { ssr: false });
 
 export function Providers({ children }: { children: React.ReactNode }) {
     return (
@@ -24,6 +25,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
                             <QuotePanel />
                             <ChatButton />
                             <ChatDrawer />
+                            <CookieConsentBanner />
                         </ChatProvider>
                     </QuoteProvider>
                 </ToastProvider>

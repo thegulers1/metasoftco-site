@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useQuoteStore } from "./useQuoteStore";
 import { useLanguage } from "@/providers/LanguageProvider";
+import { trackEvent } from "@/lib/analytics";
 import Image from "next/image";
 
 const PARTICIPANT_OPTIONS_TR = ["<50", "50–200", "200–500", "500+"];
@@ -67,6 +68,7 @@ export function QuotePanel() {
 
             if (!res.ok) throw new Error();
             setStatus("success");
+            trackEvent("generate_lead", { form_name: "teklif_talebi", value: selected.length });
             setForm(EMPTY_FORM);
             clear();
             setTimeout(() => {

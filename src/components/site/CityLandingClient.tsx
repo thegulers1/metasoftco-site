@@ -6,6 +6,7 @@ import { useLanguage } from "@/providers/LanguageProvider";
 import GalleryLightbox from "@/components/site/GalleryLightbox";
 import CtaSection from "@/components/site/CtaSection";
 import { addHeadingAnchors } from "@/lib/utils";
+import { trackEvent } from "@/lib/analytics";
 
 interface CityImage { url: string; alt: string; }
 interface DistrictItem { title: string; description: string; }
@@ -311,6 +312,7 @@ export default function CityLandingClient({ page, images, districts, faq, relate
                             </p>
                             <Link
                                 href={contactHref}
+                                onClick={() => trackEvent("cta_click", { cta: "teklif_al", location: "city_landing" })}
                                 className="inline-flex items-center gap-2 text-white font-semibold text-xs uppercase tracking-[0.1em] px-7 py-3.5 rounded-full transition-transform hover:-translate-y-0.5"
                                 style={{ background: "linear-gradient(90deg, #7c3aed, var(--acc))", fontFamily: "var(--font-manrope)" }}
                             >

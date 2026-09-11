@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import { Phone, Mail, MapPin, Send, CheckCircle, AlertCircle, ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 import { useLanguage } from "@/providers/LanguageProvider";
+import { trackEvent } from "@/lib/analytics";
 
 export default function ContactPage() {
     const { t, language, setAlternateUrl } = useLanguage();
@@ -45,6 +46,7 @@ export default function ContactPage() {
             });
             if (res.ok) {
                 setStatus("sent");
+                trackEvent("generate_lead", { form_name: "iletisim" });
                 setForm({ name: "", email: "", phone: "", subject: "", message: "" });
             } else {
                 setStatus("error");
@@ -337,7 +339,14 @@ function ContactItem({
     );
 
     if (href) {
-        return <a href={href}>{content}</a>;
+        const handleClick = () => {
+            if (href.startsWith("tel:")) trackEvent("phone_click", { location: "iletisim_sayfasi" });
+        };
+        return (
+            <a href={href} onClick={handleClick}>
+                {content}
+            </a>
+        );
     }
     return content;
 }

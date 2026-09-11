@@ -70,6 +70,12 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang={lang} className={`${interTight.variable} ${lato.variable} ${spaceGrotesk.variable} ${manrope.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
       <head>
+        {/* Google Consent Mode v2 - default: denied until the user accepts the cookie banner */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',wait_for_update:500});`,
+          }}
+        />
         {/* Google Ads */}
         <script async src="https://www.googletagmanager.com/gtag/js?id=AW-862345276" />
         <script
@@ -77,12 +83,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
             __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','AW-862345276');`,
           }}
         />
-        {/* Ahrefs Analytics */}
-        <script
-          src="https://analytics.ahrefs.com/analytics.js"
-          data-key="SpzZeI8Md0aVoUvjEnlePA"
-          async
-        />
+        {/* Ahrefs Analytics is loaded client-side after consent, see CookieConsentBanner */}
         {/* Google Tag Manager */}
         <script
           dangerouslySetInnerHTML={{

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { siteConfig, generateFAQSchema, generateBreadcrumbSchema } from "@/lib/site";
 import { getSectorBySlug, sectors } from "../data";
 import CtaSection from "@/components/site/CtaSection";
+import TrackedCtaLink from "@/components/site/TrackedCtaLink";
 
 interface PageProps {
     params: Promise<{ sektor: string }>;
@@ -204,13 +205,15 @@ export default async function SektorPage({ params }: PageProps) {
                             >
                                 {sector.cta}
                             </p>
-                            <Link
+                            <TrackedCtaLink
                                 href="/iletisim"
+                                cta="teklif_al"
+                                location="sektorel_yazilim_cozumleri"
                                 className="inline-flex items-center gap-2 text-white font-semibold text-xs uppercase tracking-[0.1em] px-7 py-3.5 rounded-full transition-transform hover:-translate-y-0.5"
                                 style={{ background: "linear-gradient(90deg, #7c3aed, var(--acc))", fontFamily: "var(--font-manrope)" }}
                             >
                                 Teklif Alın
-                            </Link>
+                            </TrackedCtaLink>
                         </div>
                         <div>
                             <h2

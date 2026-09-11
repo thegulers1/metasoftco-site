@@ -4,6 +4,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useLanguage } from "@/providers/LanguageProvider";
+import { trackEvent } from "@/lib/analytics";
 
 export default function CtaSection() {
     const { t, language } = useLanguage();
@@ -75,6 +76,7 @@ export default function CtaSection() {
                         <div className="flex flex-wrap items-center justify-center gap-4">
                             <Link
                                 href={language === "en" ? "/en/contact" : "/iletisim"}
+                                onClick={() => trackEvent("cta_click", { cta: "teklif_al", location: "cta_section" })}
                                 className="inline-flex items-center gap-2 rounded-full bg-white text-[#0a0a0f] px-7 py-3.5 text-[15px] font-semibold hover:bg-gray-200 transition-colors"
                                 style={{ fontFamily: "var(--font-manrope)" }}
                             >
@@ -84,6 +86,7 @@ export default function CtaSection() {
                                 href={whatsappUrl}
                                 target="_blank"
                                 rel="noopener noreferrer"
+                                onClick={() => trackEvent("whatsapp_click", { location: "cta_section" })}
                                 className="inline-flex items-center gap-2 rounded-full border border-white/15 px-7 py-3.5 text-[15px] font-semibold text-white/85 hover:border-white/30 hover:text-white transition-colors"
                                 style={{ fontFamily: "var(--font-manrope)" }}
                             >

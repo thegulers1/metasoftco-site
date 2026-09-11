@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { trackEvent } from "@/lib/analytics";
 
 export default function WhatsAppButton() {
     const phoneNumber = "905342334051"; // Türkiye kodu ile
@@ -23,6 +24,7 @@ export default function WhatsAppButton() {
             href={whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={() => trackEvent("whatsapp_click", { location: "floating_button" })}
             className="whatsapp-floating-button fixed z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg hover:bg-[#20bd5a] hover:scale-110 transition-all duration-300"
             aria-label="WhatsApp ile iletişime geç"
         >
