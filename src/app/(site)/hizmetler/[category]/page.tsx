@@ -81,6 +81,18 @@ interface PageProps {
     params: Promise<{ category: string }>;
 }
 
+/** Editor-authored FAQ (DB) takes priority; falls back to the hardcoded list above. */
+function resolveFaqs(raw: string | null, fallback: { question: string; answer: string }[]) {
+    if (!raw) return fallback;
+    try {
+        const parsed = JSON.parse(raw) as { q: string; a: string }[];
+        if (!Array.isArray(parsed) || parsed.length === 0) return fallback;
+        return parsed.map((item) => ({ question: item.q, answer: item.a }));
+    } catch {
+        return fallback;
+    }
+}
+
 async function getCategoryWithServices(slug: string) {
     return prisma.serviceCategory.findUnique({
         where: { slug },
@@ -138,7 +150,7 @@ export default async function CategoryHubPage({ params }: PageProps) {
         { name: category.name, url: `${siteConfig.url}/hizmetler/${categorySlug}` },
     ]);
 
-    const faqs = categoryFAQs[categorySlug] || [];
+    const faqs = resolveFaqs(category.faq, categoryFAQs[categorySlug] || []);
     const faqSchema = faqs.length > 0 ? generateFAQSchema(faqs) : null;
 
     return (
@@ -159,6 +171,7 @@ export default async function CategoryHubPage({ params }: PageProps) {
                 name={category.name}
                 heroTitle={category.heroTitle}
                 heroCopy={category.heroContent}
+                contentHtml={category.content}
                 services={category.services.map((service) => ({
                     id: service.id,
                     title: service.title,

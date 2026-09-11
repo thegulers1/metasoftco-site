@@ -79,6 +79,18 @@ interface PageProps {
     params: Promise<{ category: string }>;
 }
 
+/** Editor-authored FAQ (DB) takes priority; falls back to the hardcoded list above. */
+function resolveFaqs(raw: string | null, fallback: { question: string; answer: string }[]) {
+    if (!raw) return fallback;
+    try {
+        const parsed = JSON.parse(raw) as { q: string; a: string }[];
+        if (!Array.isArray(parsed) || parsed.length === 0) return fallback;
+        return parsed.map((item) => ({ question: item.q, answer: item.a }));
+    } catch {
+        return fallback;
+    }
+}
+
 async function getCategoryBySlugEn(slugEn: string) {
     return prisma.serviceCategory.findFirst({
         where: { slug_en: slugEn },
@@ -132,7 +144,7 @@ export default async function EnCategoryHubPage({ params }: PageProps) {
         { name: category.name_en || category.name, url: `${siteConfig.url}/en/services/${categorySlugEn}` },
     ]);
 
-    const faqs = categoryFAQsEn[categorySlugEn] || [];
+    const faqs = resolveFaqs(category.faq_en, categoryFAQsEn[categorySlugEn] || []);
     const faqSchema = faqs.length > 0 ? generateFAQSchema(faqs) : null;
 
     return (
@@ -151,6 +163,7 @@ export default async function EnCategoryHubPage({ params }: PageProps) {
                 locale="en"
                 name={category.name_en || category.name}
                 heroCopy={category.metaDescription_en || category.heroContent}
+                contentHtml={category.content_en}
                 services={category.services.map((service) => ({
                     id: service.id,
                     title: service.title_en || service.title,

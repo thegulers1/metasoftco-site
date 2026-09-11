@@ -44,10 +44,12 @@ export async function PUT(
         const {
             name, slug, order,
             heroTitle, heroContent,
+            content, faq,
             // SEO
             metaTitle, metaDescription, metaKeywords,
             // English
-            name_en, metaTitle_en, metaDescription_en, metaKeywords_en
+            name_en, metaTitle_en, metaDescription_en, metaKeywords_en,
+            content_en, faq_en,
         } = body;
 
         const category = await prisma.serviceCategory.update({
@@ -58,6 +60,8 @@ export async function PUT(
                 order,
                 heroTitle,
                 heroContent,
+                content: content || null,
+                faq: faq || null,
                 // SEO
                 metaTitle,
                 metaDescription,
@@ -67,6 +71,8 @@ export async function PUT(
                 metaTitle_en,
                 metaDescription_en,
                 metaKeywords_en,
+                content_en: content_en || null,
+                faq_en: faq_en || null,
             },
         });
 

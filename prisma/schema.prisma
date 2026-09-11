@@ -23,6 +23,10 @@ model ServiceCategory {
   heroContent        String?
   heroTitle          String?
   metaKeywords_en    String?
+  content            String?
+  content_en         String?
+  faq                String?
+  faq_en             String?
   services           Service[]
 }
 

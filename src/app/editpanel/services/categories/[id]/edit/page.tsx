@@ -4,8 +4,14 @@ import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { use } from "react";
 import { useToast } from "@/providers/ToastProvider";
+import RichTextEditor from "@/components/editpanel/RichTextEditor";
 
 export const dynamic = "force-dynamic";
+
+interface FaqItem {
+    q: string;
+    a: string;
+}
 
 interface Category {
     id: string;
@@ -14,6 +20,10 @@ interface Category {
     order: number;
     heroTitle: string | null;
     heroContent: string | null;
+    content: string | null;
+    content_en: string | null;
+    faq: string | null;
+    faq_en: string | null;
     metaTitle: string | null;
     metaDescription: string | null;
     metaKeywords: string | null;
@@ -23,6 +33,67 @@ interface Category {
     metaKeywords_en: string | null;
 }
 
+function parseFaq(raw: string | null): FaqItem[] {
+    if (!raw) return [];
+    try {
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : [];
+    } catch {
+        return [];
+    }
+}
+
+function FaqListEditor({ items, onChange, addLabel, qPlaceholder, aPlaceholder }: {
+    items: FaqItem[];
+    onChange: (items: FaqItem[]) => void;
+    addLabel: string;
+    qPlaceholder: string;
+    aPlaceholder: string;
+}) {
+    return (
+        <div>
+            <div className="flex items-center justify-end mb-3">
+                <button type="button" onClick={() => onChange([...items, { q: "", a: "" }])}
+                    className="text-xs px-3 py-1.5 bg-black text-white rounded-lg hover:bg-black/80 transition">
+                    {addLabel}
+                </button>
+            </div>
+            <div className="space-y-4">
+                {items.map((item, i) => (
+                    <div key={i} className="p-4 bg-black/[0.03] rounded-xl space-y-2">
+                        <div className="flex items-center gap-2">
+                            <span className="text-xs font-bold text-black/40 w-4">{i + 1}</span>
+                            <input type="text" value={item.q}
+                                onChange={(e) => {
+                                    const updated = [...items];
+                                    updated[i] = { ...updated[i], q: e.target.value };
+                                    onChange(updated);
+                                }}
+                                placeholder={qPlaceholder}
+                                className="flex-1 px-3 py-2 bg-white border border-black/10 rounded-lg text-sm focus:outline-none focus:border-black/30" />
+                            <button type="button" onClick={() => onChange(items.filter((_, j) => j !== i))}
+                                className="text-black/30 hover:text-red-500 transition text-lg leading-none">
+                                ×
+                            </button>
+                        </div>
+                        <textarea value={item.a}
+                            onChange={(e) => {
+                                const updated = [...items];
+                                updated[i] = { ...updated[i], a: e.target.value };
+                                onChange(updated);
+                            }}
+                            placeholder={aPlaceholder} rows={2}
+                            className="w-full px-3 py-2 bg-white border border-black/10 rounded-lg text-sm focus:outline-none focus:border-black/30 ml-6" />
+                    </div>
+                ))}
+                {items.length === 0 && (
+                    <p className="text-sm text-black/30 text-center py-4">Henüz soru eklenmedi</p>
+                )}
+            </div>
+        </div>
+    );
+}
+
 export default function EditCategoryPage({ params }: { params: Promise<{ id: string }> }) {
     const { id } = use(params);
     const router = useRouter();
@@ -30,7 +101,7 @@ export default function EditCategoryPage({ params }: { params: Promise<{ id: str
     const [category, setCategory] = useState<Category | null>(null);
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
-    const [activeTab, setActiveTab] = useState<"general" | "seo">("general");
+    const [activeTab, setActiveTab] = useState<"general" | "content" | "seo">("general");
 
     useEffect(() => {
         fetch(`/api/services/categories/${id}`)
@@ -69,6 +140,7 @@ export default function EditCategoryPage({ params }: { params: Promise<{ id: str
 
     const tabs = [
         { id: "general" as const, label: "Genel" },
+        { id: "content" as const, label: "İçerik & SSS" },
         { id: "seo" as const, label: "SEO" },
     ];
 
@@ -196,6 +268,65 @@ export default function EditCategoryPage({ params }: { params: Promise<{ id: str
                                         className="w-full px-4 py-2.5 bg-black/[0.03] border border-black/10 rounded-lg text-sm focus:outline-none focus:border-black/30 resize-none"
                                     />
                                 </div>
+                            </div>
+                        </div>
+                    </>
+                )}
+
+                {activeTab === "content" && (
+                    <>
+                        <div className="bg-white rounded-2xl p-6 shadow-sm">
+                            <h2 className="text-sm font-semibold text-black mb-1">Uzun İçerik (Nedir / Neden / Popüler Türler)</h2>
+                            <p className="text-xs text-black/40 mb-4">
+                                H2/H3 alt başlıklar ve listeler kullanarak bu kategori hakkında ansiklopedik bir metin yazın —
+                                servis listesinin <strong>üzerinde</strong> gösterilir ve arama motorlarının / AI özetlerinin
+                                doğrudan alıntılayabileceği yapıyı sağlar.
+                            </p>
+                            <RichTextEditor
+                                value={category.content || ""}
+                                onChange={(value) => setCategory((prev) => (prev ? { ...prev, content: value } : prev))}
+                                placeholder="Örn: İnteraktif Etkinlik Nedir? ... Popüler Aktivite Türleri ..."
+                            />
+                            <div className="border-t border-black/5 mt-6 pt-4">
+                                <h3 className="text-xs font-semibold text-black/50 uppercase tracking-wider mb-3">İngilizce içerik</h3>
+                                <RichTextEditor
+                                    value={category.content_en || ""}
+                                    onChange={(value) => setCategory((prev) => (prev ? { ...prev, content_en: value } : prev))}
+                                    placeholder="English long-form content..."
+                                />
+                            </div>
+                        </div>
+
+                        <div className="bg-white rounded-2xl p-6 shadow-sm">
+                            <h2 className="text-sm font-semibold text-black mb-1">Sıkça Sorulan Sorular</h2>
+                            <p className="text-xs text-black/40 mb-4">
+                                Bu sorular hem sayfada görünür hem de Google&apos;ın FAQPage yapılandırılmış verisine (schema)
+                                dahil edilir.
+                            </p>
+                            <FaqListEditor
+                                items={parseFaq(category.faq)}
+                                onChange={(items) =>
+                                    setCategory((prev) =>
+                                        prev ? { ...prev, faq: items.length ? JSON.stringify(items) : null } : prev
+                                    )
+                                }
+                                addLabel="+ Soru Ekle"
+                                qPlaceholder="Soru"
+                                aPlaceholder="Cevap"
+                            />
+                            <div className="border-t border-black/5 mt-6 pt-4">
+                                <h3 className="text-xs font-semibold text-black/50 uppercase tracking-wider mb-3">İngilizce SSS</h3>
+                                <FaqListEditor
+                                    items={parseFaq(category.faq_en)}
+                                    onChange={(items) =>
+                                        setCategory((prev) =>
+                                            prev ? { ...prev, faq_en: items.length ? JSON.stringify(items) : null } : prev
+                                        )
+                                    }
+                                    addLabel="+ Add Question"
+                                    qPlaceholder="Question"
+                                    aPlaceholder="Answer"
+                                />
                             </div>
                         </div>
                     </>

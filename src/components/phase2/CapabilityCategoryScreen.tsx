@@ -3,6 +3,7 @@ import Link from "next/link";
 import { IconArrowRight as ArrowRight } from "@tabler/icons-react";
 import { splitSignalTitle, type Phase2Locale } from "@/lib/phase2";
 import { phase2Copy } from "@/lib/phase2-content";
+import { addHeadingAnchors } from "@/lib/utils";
 import { SignalHeading } from "./SignalHeading";
 
 /** A service card already resolved to the active locale by the page. */
@@ -20,6 +21,8 @@ export interface CapabilityCategoryScreenProps {
     /** Editor-supplied display heading; falls back to the category name. */
     heroTitle?: string | null;
     heroCopy?: string | null;
+    /** Editor-authored long-form HTML (H2/H3 + lists) rendered above the service grid. */
+    contentHtml?: string | null;
     services: P2CategoryService[];
     faqs: { question: string; answer: string }[];
 }
@@ -29,6 +32,7 @@ export default function CapabilityCategoryScreen({
     name,
     heroTitle,
     heroCopy,
+    contentHtml,
     services,
     faqs,
 }: CapabilityCategoryScreenProps) {
@@ -60,6 +64,16 @@ export default function CapabilityCategoryScreen({
                     ))}
                 </dl>
             </header>
+
+            {contentHtml && (
+                <section className="p2-container p2-detail-section p2-detail-section--about">
+                    <h2>{copy.aboutTitle}</h2>
+                    <div
+                        className="p2-prose"
+                        dangerouslySetInnerHTML={{ __html: addHeadingAnchors(contentHtml.replace(/&nbsp;/g, " ")) }}
+                    />
+                </section>
+            )}
 
             {services.length > 0 && (
                 <section className="p2-container p2-detail-section" aria-label={copy.catalogAria}>
