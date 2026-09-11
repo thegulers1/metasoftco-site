@@ -1,0 +1,40 @@
+{
+  "cache_type": "visual",
+  "analyzed_at": "2026-09-11T14:23:13Z",
+  "url": "https://www.metasoftco.com/",
+  "url_slug": "homepage",
+  "score": 80,
+  "layout_summary": "Strong above-the-fold hierarchy and responsive width; cookie banner overlaps the mobile WhatsApp CTA and several touch targets are undersized.",
+  "issues": [
+    "The cookie banner overlaps the mobile WhatsApp CTA.",
+    "Four visible mobile touch targets are shorter than 44px.",
+    "The H1 reports vertical text overflow and needs animation-aware regression verification."
+  ],
+  "above_fold": {
+    "h1_visible": true,
+    "cta_visible": true,
+    "hero_image": "https://res.cloudinary.com/dqkehdebg/image/upload/f_auto,q_auto,w_1920/v1786705144/metasoftco/projects/presentation/ray-ban-strip-photo.jpg"
+  },
+  "mobile": {
+    "viewport_meta": true,
+    "horizontal_scroll": false,
+    "base_font_size_px": 16,
+    "touch_targets_ok": false,
+    "undersized_touch_targets": [
+      {"label": "MetasoftCo ana sayfa", "width": 142, "height": 36},
+      {"label": "Gizlilik Politikası", "width": 97.2, "height": 18},
+      {"label": "Reddet", "width": 87.3, "height": 41.5},
+      {"label": "Kabul Et", "width": 90.6, "height": 39.5}
+    ]
+  },
+  "screenshots": [
+    "screenshots/www_metasoftco_com_desktop.png",
+    "screenshots/www_metasoftco_com_laptop.png",
+    "screenshots/www_metasoftco_com_tablet.png",
+    "screenshots/www_metasoftco_com_mobile.png"
+  ],
+  "notes": [
+    "Full-page screenshots were captured with Playwright Chromium.",
+    "The mobile image uses a 2x device scale factor."
+  ]
+}

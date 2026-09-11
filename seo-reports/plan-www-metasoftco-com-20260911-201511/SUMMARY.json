@@ -1,0 +1,147 @@
+{
+  "cache_type": "plan",
+  "analyzed_at": "2026-09-11T20:15:14Z",
+  "domain": "www.metasoftco.com",
+  "industry_template": "publisher",
+  "goals": [
+    "Increase qualified organic traffic to commercial and product-intent pages."
+  ],
+  "priority_tracks": [
+    "performance remediation",
+    "content polish",
+    "commercial page expansion",
+    "authority building"
+  ],
+  "target_pages": [
+    "/",
+    "/blog"
+  ],
+  "competitors": [
+    "competitor-a.com",
+    "competitor-b.com",
+    "competitor-c.com"
+  ],
+  "template_excerpt": "<!-- Updated: 2026-02-07 -->\n# Publisher/Media SEO Strategy Template\n\n## Industry Characteristics\n\n- High content volume\n- Time-sensitive content (news)\n- Ad revenue dependent on traffic\n- Authority and trust critical\n- Competing with social platforms\n- AI Overviews impact on traffic\n\n## Recommended Site Architecture\n\n```\n/\n\u251c\u2500\u2500 Home\n\u251c\u2500\u2500 /news (or /latest)\n\u251c\u2500\u2500 /topics\n\u2502   \u251c\u2500\u2500 /topic-1\n\u2502   \u251c\u2500\u2500 /topic-2\n\u2502   \u2514\u2500\u2500 ...\n\u251c\u2500\u2500 /authors\n\u2502   \u251c\u2500\u2500 /author-1\n\u2502   \u2514\u2500\u2500 ...\n\u251c\u2500\u2500 /opinion\n\u251c\u2500\u2500 /reviews\n\u251c\u2500\u2500 /guides\n\u251c\u2500\u2500 /videos\n\u251c\u2500\u2500 /podcasts\n\u251c\u2500\u2500 /newsletter\n\u251c\u2500\u2500 /about\n\u2502   \u251c\u2500\u2500 /editorial-policy\n\u2502   \u251c\u2500\u2500 /corrections\n\u2502   \u2514\u2500\u2500 /contact\n\u2514\u2500\u2500 /[year]/[month]/[slug] (article URLs)\n```\n\n## Schema Recommendations\n",
+  "discovered_paths": [
+    "/",
+    "/hizmetler",
+    "/projeler",
+    "/blog",
+    "/hakkimizda",
+    "/iletisim",
+    "/urunler",
+    "/gizlilik",
+    "/kullanim-kosullari",
+    "/en",
+    "/en/services",
+    "/en/projects",
+    "/en/blog",
+    "/en/hakkimizda",
+    "/en/contact",
+    "/en/products",
+    "/sektorel-yazilim-cozumleri",
+    "/en/industry-software-solutions",
+    "/sektorel-cozumler",
+    "/en/sector-solutions",
+    "/sektorel-yazilim-cozumleri/tekstil-sektoru-dijital-donusum",
+    "/en/industry-software-solutions/textile-fashion",
+    "/sektorel-yazilim-cozumleri/saglik-sektoru",
+    "/en/industry-software-solutions/healthcare",
+    "/sektorel-yazilim-cozumleri/gida-sektoru"
+  ],
+  "audit_scores": {
+    "cache_type": "audit-scores",
+    "analyzed_at": "2026-09-11T14:20:17Z",
+    "domain": "www.metasoftco.com",
+    "business_type": "publisher",
+    "industry": "media",
+    "overall_score": 61,
+    "category_scores": {
+      "technical": 84,
+      "content": 42,
+      "on_page": 67,
+      "schema": 84,
+      "performance": 35,
+      "geo": 55,
+      "images": 36
+    },
+    "priority_issues": [
+      {
+        "severity": "critical",
+        "issue": "Content: Author or expert attribution signals are limited or absent in the visible content."
+      },
+      {
+        "severity": "critical",
+        "issue": "Geo: Author/date attribution is weak in the visible content."
+      },
+      {
+        "severity": "critical",
+        "issue": "Geo: No strong 134-167 word self-contained answer block was detected."
+      },
+      {
+        "severity": "critical",
+        "issue": "Geo: Server-rendered content confirmation is weak without technical-cache support."
+      },
+      {
+        "severity": "critical",
+        "issue": "Geo: The page has limited question-based heading structure for AI extraction patterns."
+      },
+      {
+        "severity": "critical",
+        "issue": "Images: 1 image(s) exceed the 200KB warning threshold."
+      },
+      {
+        "severity": "critical",
+        "issue": "Images: 10 image(s) use weak or filename-like alt text."
+      },
+      {
+        "severity": "critical",
+        "issue": "Images: 11 below-the-fold sampled image(s) are not lazy loaded."
+      },
+      {
+        "severity": "critical",
+        "issue": "Images: 2 image(s) are missing width/height attributes."
+      },
+      {
+        "severity": "critical",
+        "issue": "Images: 6 sampled image(s) still use legacy raster formats."
+      },
+      {
+        "severity": "critical",
+        "issue": "Performance: CLS is above target at 0.170."
+      },
+      {
+        "severity": "critical",
+        "issue": "Performance: INP is above target at 500ms."
+      }
+    ]
+  },
+  "site_meta": {
+    "cache_type": "site-meta",
+    "analyzed_at": "2026-09-11T14:14:32Z",
+    "domain": "www.metasoftco.com",
+    "homepage_url": "https://www.metasoftco.com/",
+    "business_type": "publisher",
+    "industry": "media",
+    "language": "tr",
+    "country": "TR",
+    "notes": []
+  },
+  "content_calendar": [
+    {
+      "month": "Month 1",
+      "focus": "Money pages",
+      "topics": "refresh homepage messaging, pricing clarity, docs landing page, first comparison page"
+    },
+    {
+      "month": "Month 2",
+      "focus": "Use cases",
+      "topics": "industry solution pages, workflow pages, benchmark-style educational content"
+    },
+    {
+      "month": "Month 3",
+      "focus": "Authority",
+      "topics": "original data post, customer case study, AI-search best-practices guide, second comparison page"
+    }
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "cache_type": "performance",
+  "analyzed_at": "2026-09-11T14:22:23Z",
+  "url": "https://www.metasoftco.com/",
+  "url_slug": "homepage",
+  "score": 90,
+  "scores": {
+    "mobile": 93,
+    "desktop": 86,
+    "accessibility_mobile": 96,
+    "best_practices_mobile": 77,
+    "seo_mobile": 100
+  },
+  "core_web_vitals": {
+    "lcp": "3.07s mobile / 2.55s desktop (lab)",
+    "inp": null,
+    "cls": "0.000 mobile / 0.000 desktop (lab)"
+  },
+  "lab_metrics": {
+    "mobile": {"fcp_ms": 1418.649, "lcp_ms": 3068.649, "tbt_ms": 90, "cls": 0, "speed_index_ms": 1769.627},
+    "desktop": {"fcp_ms": 396.581, "lcp_ms": 2551.831, "tbt_ms": 0, "cls": 0, "speed_index_ms": 891.727}
+  },
+  "page_weight": {
+    "mobile_requests": 81,
+    "mobile_transfer_bytes": 2207348,
+    "desktop_requests": 93,
+    "desktop_transfer_bytes": 2358180
+  },
+  "issues": [
+    "LCP is above 2.5s in both mobile and desktop lab runs.",
+    "Lighthouse estimates about 579 KiB mobile image savings.",
+    "Lighthouse estimates about 309 KiB unused JavaScript on mobile.",
+    "Field INP and other CrUX percentile data are unavailable."
+  ],
+  "recommendations": [
+    "Prioritize and right-size the Ray-Ban LCP image.",
+    "Convert/compress phase2/signal-atmosphere-v2.png.",
+    "Delay or conditionally load analytics and tag-manager scripts.",
+    "Reduce mobile render-blocking CSS and verify again with multiple Lighthouse runs."
+  ],
+  "data_source": "local_lighthouse_lab",
+  "raw_files": [
+    "raw/lighthouse-mobile.json",
+    "raw/lighthouse-desktop.json"
+  ],
+  "limitations": [
+    "No PageSpeed API key or CrUX field data was used.",
+    "INP is intentionally null because lab TBT is not INP."
+  ]
+}

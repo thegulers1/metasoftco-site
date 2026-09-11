@@ -1,0 +1,223 @@
+{
+  "cache_type": "programmatic",
+  "analyzed_at": "2026-09-11T20:17:16Z",
+  "domain": "www.metasoftco.com",
+  "templates": [
+    "en section pages",
+    "hizmetler section pages",
+    "projeler section pages",
+    "blog article pages",
+    "sektorel-yazilim-cozumleri section pages"
+  ],
+  "data_sources": [
+    "blog CMS or editorial publishing source"
+  ],
+  "risks": [
+    "thin sampled pages under 300 words"
+  ],
+  "score": 86,
+  "programmatic_footprint": "moderate",
+  "cache_inputs": {
+    "site_meta": true,
+    "sitemap": false,
+    "used_cached_sitemap": false
+  },
+  "sitemap_url_count": 167,
+  "assessment_summary": {
+    "data_quality": {
+      "score": 100,
+      "status": "good"
+    },
+    "template_uniqueness": {
+      "score": 74,
+      "status": "warning"
+    },
+    "url_structure": {
+      "score": 95,
+      "status": "good"
+    },
+    "internal_linking": {
+      "score": 95,
+      "status": "good"
+    },
+    "thin_content_risk": {
+      "score": 61,
+      "status": "risk"
+    },
+    "index_management": {
+      "score": 92,
+      "status": "good"
+    }
+  },
+  "repeated_sections": [
+    {
+      "segment": "en",
+      "label": "en section pages",
+      "count": 73,
+      "sample_urls": [
+        "https://www.metasoftco.com/en",
+        "https://www.metasoftco.com/en/services",
+        "https://www.metasoftco.com/en/projects"
+      ],
+      "avg_similarity": 0.002
+    },
+    {
+      "segment": "hizmetler",
+      "label": "hizmetler section pages",
+      "count": 50,
+      "sample_urls": [
+        "https://www.metasoftco.com/hizmetler",
+        "https://www.metasoftco.com/hizmetler/sektorel-yazilim-cozumleri",
+        "https://www.metasoftco.com/hizmetler/yapay-zeka-etkinlik-cozumleri"
+      ],
+      "avg_similarity": 0.015
+    },
+    {
+      "segment": "projeler",
+      "label": "projeler section pages",
+      "count": 18,
+      "sample_urls": [
+        "https://www.metasoftco.com/projeler",
+        "https://www.metasoftco.com/projeler/garanti-bbva-genc-x-kulupler-bulusmasi",
+        "https://www.metasoftco.com/projeler/pegasus-hava-yollari-x-dijital-hediye-carki-aktivasyonu"
+      ],
+      "avg_similarity": 0.006
+    },
+    {
+      "segment": "blog",
+      "label": "blog article pages",
+      "count": 9,
+      "sample_urls": [
+        "https://www.metasoftco.com/blog",
+        "https://www.metasoftco.com/blog/stable-diffusion-etkinlik-yuz-donusumu-teknik-analiz",
+        "https://www.metasoftco.com/blog/2026-etkinlik-trendleri-interaktif-teknolojiler"
+      ],
+      "avg_similarity": 0.0
+    },
+    {
+      "segment": "sektorel-yazilim-cozumleri",
+      "label": "sektorel-yazilim-cozumleri section pages",
+      "count": 9,
+      "sample_urls": [
+        "https://www.metasoftco.com/sektorel-yazilim-cozumleri",
+        "https://www.metasoftco.com/sektorel-yazilim-cozumleri/tekstil-sektoru-dijital-donusum",
+        "https://www.metasoftco.com/sektorel-yazilim-cozumleri/saglik-sektoru"
+      ],
+      "avg_similarity": 0.0
+    }
+  ],
+  "issues": [
+    "6 sampled page(s) fell below 300 visible words, which raises thin-content risk if scaled further."
+  ],
+  "recommendations": [
+    "Expand low-depth templates before scaling similar pages or cloning their structure."
+  ],
+  "sampled_pages": [
+    {
+      "url": "https://www.metasoftco.com/en",
+      "status": 200,
+      "word_count": 326,
+      "same_section_links": 18,
+      "canonical_self": true,
+      "error": null
+    },
+    {
+      "url": "https://www.metasoftco.com/en/services",
+      "status": 200,
+      "word_count": 343,
+      "same_section_links": 49,
+      "canonical_self": true,
+      "error": null
+    },
+    {
+      "url": "https://www.metasoftco.com/en/projects",
+      "status": 200,
+      "word_count": 155,
+      "same_section_links": 29,
+      "canonical_self": true,
+      "error": null
+    },
+    {
+      "url": "https://www.metasoftco.com/en/blog",
+      "status": 200,
+      "word_count": 80,
+      "same_section_links": 15,
+      "canonical_self": true,
+      "error": null
+    },
+    {
+      "url": "https://www.metasoftco.com/hizmetler",
+      "status": 200,
+      "word_count": 360,
+      "same_section_links": 38,
+      "canonical_self": true,
+      "error": null
+    },
+    {
+      "url": "https://www.metasoftco.com/hizmetler/sektorel-yazilim-cozumleri",
+      "status": 200,
+      "word_count": 12,
+      "same_section_links": 3,
+      "canonical_self": true,
+      "error": null
+    },
+    {
+      "url": "https://www.metasoftco.com/hizmetler/yapay-zeka-etkinlik-cozumleri",
+      "status": 200,
+      "word_count": 311,
+      "same_section_links": 14,
+      "canonical_self": true,
+      "error": null
+    },
+    {
+      "url": "https://www.metasoftco.com/hizmetler/photobooth-ve-fotograf-aktivasyonlari",
+      "status": 200,
+      "word_count": 285,
+      "same_section_links": 16,
+      "canonical_self": true,
+      "error": null
+    },
+    {
+      "url": "https://www.metasoftco.com/projeler",
+      "status": 200,
+      "word_count": 179,
+      "same_section_links": 17,
+      "canonical_self": true,
+      "error": null
+    },
+    {
+      "url": "https://www.metasoftco.com/projeler/garanti-bbva-genc-x-kulupler-bulusmasi",
+      "status": 200,
+      "word_count": 332,
+      "same_section_links": 5,
+      "canonical_self": true,
+      "error": null
+    },
+    {
+      "url": "https://www.metasoftco.com/projeler/pegasus-hava-yollari-x-dijital-hediye-carki-aktivasyonu",
+      "status": 200,
+      "word_count": 145,
+      "same_section_links": 5,
+      "canonical_self": true,
+      "error": null
+    },
+    {
+      "url": "https://www.metasoftco.com/projeler/tavuk-dunyasi-x-ai-photo",
+      "status": 200,
+      "word_count": 340,
+      "same_section_links": 4,
+      "canonical_self": true,
+      "error": null
+    }
+  ],
+  "similarity": {
+    "average_section_similarity": 0.007,
+    "max_section_similarity": 0.043
+  },
+  "quality_gates": {
+    "low_word_sample_count": 6,
+    "weak_linking_sample_count": 0,
+    "non_200_sitemap_count": 0,
+    "noindex_sample_count": 0
+  }
+}

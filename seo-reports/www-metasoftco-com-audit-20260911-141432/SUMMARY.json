@@ -1,0 +1,67 @@
+{
+  "cache_type": "audit-scores",
+  "analyzed_at": "2026-09-11T14:20:17Z",
+  "domain": "www.metasoftco.com",
+  "business_type": "publisher",
+  "industry": "media",
+  "overall_score": 61,
+  "category_scores": {
+    "technical": 84,
+    "content": 42,
+    "on_page": 67,
+    "schema": 84,
+    "performance": 35,
+    "geo": 55,
+    "images": 36
+  },
+  "priority_issues": [
+    {
+      "severity": "critical",
+      "issue": "Content: Author or expert attribution signals are limited or absent in the visible content."
+    },
+    {
+      "severity": "critical",
+      "issue": "Geo: Author/date attribution is weak in the visible content."
+    },
+    {
+      "severity": "critical",
+      "issue": "Geo: No strong 134-167 word self-contained answer block was detected."
+    },
+    {
+      "severity": "critical",
+      "issue": "Geo: Server-rendered content confirmation is weak without technical-cache support."
+    },
+    {
+      "severity": "critical",
+      "issue": "Geo: The page has limited question-based heading structure for AI extraction patterns."
+    },
+    {
+      "severity": "critical",
+      "issue": "Images: 1 image(s) exceed the 200KB warning threshold."
+    },
+    {
+      "severity": "critical",
+      "issue": "Images: 10 image(s) use weak or filename-like alt text."
+    },
+    {
+      "severity": "critical",
+      "issue": "Images: 11 below-the-fold sampled image(s) are not lazy loaded."
+    },
+    {
+      "severity": "critical",
+      "issue": "Images: 2 image(s) are missing width/height attributes."
+    },
+    {
+      "severity": "critical",
+      "issue": "Images: 6 sampled image(s) still use legacy raster formats."
+    },
+    {
+      "severity": "critical",
+      "issue": "Performance: CLS is above target at 0.170."
+    },
+    {
+      "severity": "critical",
+      "issue": "Performance: INP is above target at 500ms."
+    }
+  ]
+}

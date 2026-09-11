@@ -1,0 +1,78 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://www.metasoftco.com/#organization",
+      "name": "MetasoftCo",
+      "legalName": "MetasoftCo",
+      "url": "https://www.metasoftco.com/",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://www.metasoftco.com/#logo",
+        "url": "https://www.metasoftco.com/blackLogo.png"
+      },
+      "foundingDate": "2020",
+      "founder": {
+        "@type": "Person",
+        "name": "Selami Güler"
+      },
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Üniversite Mah. Sarıgül Sk. İstanbul Teknokent No: 37/1, İç Kapı No: 28",
+        "addressLocality": "Avcılar",
+        "addressRegion": "İstanbul",
+        "postalCode": "34320",
+        "addressCountry": "TR"
+      },
+      "email": "info@metasoftco.com",
+      "telephone": "+90 534 233 4051",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+90 534 233 4051",
+        "contactType": "customer service",
+        "availableLanguage": [
+          "Turkish",
+          "English"
+        ]
+      },
+      "sameAs": [
+        "https://instagram.com/metasoftco",
+        "https://twitter.com/metasoftco",
+        "https://www.linkedin.com/company/metasoftco",
+        "https://www.youtube.com/@MetasoftCo"
+      ]
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://www.metasoftco.com/#website",
+      "url": "https://www.metasoftco.com/",
+      "name": "MetasoftCo",
+      "publisher": {
+        "@id": "https://www.metasoftco.com/#organization"
+      },
+      "inLanguage": [
+        "tr-TR",
+        "en"
+      ]
+    },
+    {
+      "@type": "WebPage",
+      "@id": "https://www.metasoftco.com/#webpage",
+      "url": "https://www.metasoftco.com/",
+      "name": "MetasoftCo | Yapay Zeka Etkinlik & İnteraktif Aktivasyon Ajansı — İstanbul",
+      "description": "Stable Diffusion, ControlNet ve AR teknolojileriyle kurgulanmış yapay zeka etkinlik çözümleri, interaktif aktivasyonlar ve uçtan uca prodüksiyon. İstanbul merkezli dijital deneyim ajansı.",
+      "isPartOf": {
+        "@id": "https://www.metasoftco.com/#website"
+      },
+      "about": {
+        "@id": "https://www.metasoftco.com/#organization"
+      },
+      "primaryImageOfPage": {
+        "@type": "ImageObject",
+        "url": "https://www.metasoftco.com/og"
+      },
+      "inLanguage": "tr-TR"
+    }
+  ]
+}

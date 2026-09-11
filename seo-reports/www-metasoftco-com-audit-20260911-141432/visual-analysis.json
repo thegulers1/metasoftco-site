@@ -1,0 +1,60 @@
+{
+  "url": "https://www.metasoftco.com/",
+  "above_fold": {
+    "h1_visible": true,
+    "cta_visible": true,
+    "hero_image": "https://res.cloudinary.com/dqkehdebg/image/upload/f_auto,q_auto,w_1920/v1786705144/metasoftco/projects/presentation/ray-ban-strip-photo.jpg"
+  },
+  "mobile": {
+    "viewport_meta": true,
+    "horizontal_scroll": false,
+    "touch_targets_ok": false,
+    "undersized_touch_targets": [
+      {
+        "tag": "a",
+        "label": "MetasoftCo ana sayfa",
+        "width": 142,
+        "height": 36
+      },
+      {
+        "tag": "a",
+        "label": "Gizlilik Politikas\u0131",
+        "width": 97.2,
+        "height": 18
+      },
+      {
+        "tag": "button",
+        "label": "Reddet",
+        "width": 87.3,
+        "height": 41.5
+      },
+      {
+        "tag": "button",
+        "label": "Kabul Et",
+        "width": 90.6,
+        "height": 39.5
+      }
+    ]
+  },
+  "layout": {
+    "overlapping_elements": [
+      {
+        "fixed_element": "Deneyiminizi iyile\u015ftirmek ve site trafi\u011fini analiz etmek i\u00e7in \u00e7erezler kullan\u0131yo",
+        "covered_element": "WhatsApp ile ileti\u015fime ge\u00e7"
+      }
+    ],
+    "text_overflow": [
+      {
+        "tag": "h1",
+        "text": "Markalar\u0131n ruhunu insanlar\u0131n an\u0131lar\u0131na i\u015fliyoruz.",
+        "overflow_x": false,
+        "overflow_y": true
+      }
+    ]
+  },
+  "fonts": {
+    "base_size": 16,
+    "readable": true
+  },
+  "error": null
+}

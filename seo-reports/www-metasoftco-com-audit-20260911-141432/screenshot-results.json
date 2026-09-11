@@ -1,0 +1,32 @@
+{
+  "screenshots": [
+    {
+      "url": "https://www.metasoftco.com/",
+      "output": "/Volumes/KIOXIA/PROJECTS/metasoftco/metasoftco-site/seo-reports/www-metasoftco-com-audit-20260911-141432/screenshots/www-metasoftco-com-desktop.png",
+      "viewport": "desktop",
+      "success": true,
+      "error": null
+    },
+    {
+      "url": "https://www.metasoftco.com/",
+      "output": "/Volumes/KIOXIA/PROJECTS/metasoftco/metasoftco-site/seo-reports/www-metasoftco-com-audit-20260911-141432/screenshots/www-metasoftco-com-laptop.png",
+      "viewport": "laptop",
+      "success": true,
+      "error": null
+    },
+    {
+      "url": "https://www.metasoftco.com/",
+      "output": "/Volumes/KIOXIA/PROJECTS/metasoftco/metasoftco-site/seo-reports/www-metasoftco-com-audit-20260911-141432/screenshots/www-metasoftco-com-tablet.png",
+      "viewport": "tablet",
+      "success": true,
+      "error": null
+    },
+    {
+      "url": "https://www.metasoftco.com/",
+      "output": "/Volumes/KIOXIA/PROJECTS/metasoftco/metasoftco-site/seo-reports/www-metasoftco-com-audit-20260911-141432/screenshots/www-metasoftco-com-mobile.png",
+      "viewport": "mobile",
+      "success": true,
+      "error": null
+    }
+  ]
+}

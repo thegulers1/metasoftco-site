@@ -1,0 +1,688 @@
+{
+  "title": "MetasoftCo | Yapay Zeka Etkinlik & \u0130nteraktif Aktivasyon Ajans\u0131 \u2014 \u0130stanbul",
+  "meta_description": "Stable Diffusion, ControlNet ve AR teknolojileriyle kurgulanm\u0131\u015f yapay zeka etkinlik \u00e7\u00f6z\u00fcmleri, interaktif aktivasyonlar ve u\u00e7tan uca prod\u00fcksiyon. \u0130stanbul merkezli dijital deneyim ajans\u0131.",
+  "meta_robots": "index, follow",
+  "canonical": "https://www.metasoftco.com",
+  "h1": [
+    "Markalar\u0131n ruhunu insanlar\u0131n an\u0131lar\u0131na i\u015fliyoruz."
+  ],
+  "h2": [
+    "\u0130nsanlar\u0131 deneyimin par\u00e7as\u0131 yapan projeler.",
+    "Kat\u0131l\u0131mc\u0131y\u0131 i\u00e7eri\u011fin merkezine alan formatlar.",
+    "Nas\u0131l \u00fcretiyoruz",
+    "Marka hik\u00e2yesinde kitleye bir rol verin.",
+    "S\u0131radaki etkinli\u011finizi insanlar\u0131n kat\u0131lmak isteyece\u011fi bir deneyime d\u00f6n\u00fc\u015ft\u00fcrelim."
+  ],
+  "h3": [
+    "Ray-Ban \u00d7 Strip Photo",
+    "ROLLIC SUMMER PARTY X \u015eER\u0130T FOTO",
+    "TCMB AI Greenbox Dijital Foto\u011fraf Aktivasyonu \u2013 \u0130stanbul Finans Merkezi",
+    "AI Photo",
+    "Photobooth",
+    "\u0130htiyac\u0131 netle\u015ftiririz.",
+    "Deneyimi tasarlar\u0131z.",
+    "Sistemi geli\u015ftiririz.",
+    "Sahada hayata ge\u00e7iririz.",
+    "@metasoftco"
+  ],
+  "images": [
+    {
+      "src": "https://mc.yandex.ru/watch/112494438",
+      "alt": "",
+      "width": null,
+      "height": null,
+      "loading": null
+    },
+    {
+      "src": "https://www.metasoftco.com/blackLogo.png",
+      "alt": "MetasoftCo",
+      "width": "160",
+      "height": "40",
+      "loading": null
+    },
+    {
+      "src": "https://res.cloudinary.com/dqkehdebg/image/upload/f_auto,q_auto,w_1920/v1786705144/metasoftco/projects/presentation/ray-ban-strip-photo.jpg",
+      "alt": "Ray-Ban foto\u011fraf aktivasyonuna kat\u0131lan kat\u0131l\u0131mc\u0131lar",
+      "width": null,
+      "height": null,
+      "loading": null
+    },
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/9/9e/Mercedes-Benz_Logo_2010.svg",
+      "alt": "",
+      "width": "126",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Akbank_logo.svg",
+      "alt": "",
+      "width": "110",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://cdn.simpleicons.org/adidas/white",
+      "alt": "",
+      "width": "92",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/e/ed/DeFacto_logo.svg",
+      "alt": "",
+      "width": "112",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://www.metasoftco.com/brands/samsung-logo.png",
+      "alt": "",
+      "width": "150",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://ffo3gv1cf3ir.merlincdn.net/SiteAssets/Bireysel/Navigasyon/turkcell-logo.png?20260814_03-144726",
+      "alt": "",
+      "width": "28",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://cdn.simpleicons.org/redbull/white",
+      "alt": "",
+      "width": "100",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://www.metasoftco.com/brands/nivea-logo.png",
+      "alt": "",
+      "width": "42",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://www.metasoftco.com/brands/rayban-logo.png",
+      "alt": "",
+      "width": "64",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://www.metasoftco.com/brands/pegasus-logo.png",
+      "alt": "",
+      "width": "110",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://cdn.simpleicons.org/vodafone/white",
+      "alt": "",
+      "width": "112",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/a/ac/HARIBO_Logo.svg",
+      "alt": "",
+      "width": "98",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/9/9e/Mercedes-Benz_Logo_2010.svg",
+      "alt": "",
+      "width": "126",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Akbank_logo.svg",
+      "alt": "",
+      "width": "110",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://cdn.simpleicons.org/adidas/white",
+      "alt": "",
+      "width": "92",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/e/ed/DeFacto_logo.svg",
+      "alt": "",
+      "width": "112",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://www.metasoftco.com/brands/samsung-logo.png",
+      "alt": "",
+      "width": "150",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://ffo3gv1cf3ir.merlincdn.net/SiteAssets/Bireysel/Navigasyon/turkcell-logo.png?20260814_03-144726",
+      "alt": "",
+      "width": "28",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://cdn.simpleicons.org/redbull/white",
+      "alt": "",
+      "width": "100",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://www.metasoftco.com/brands/nivea-logo.png",
+      "alt": "",
+      "width": "42",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://www.metasoftco.com/brands/rayban-logo.png",
+      "alt": "",
+      "width": "64",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://www.metasoftco.com/brands/pegasus-logo.png",
+      "alt": "",
+      "width": "110",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://cdn.simpleicons.org/vodafone/white",
+      "alt": "",
+      "width": "112",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/a/ac/HARIBO_Logo.svg",
+      "alt": "",
+      "width": "98",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/9/9e/Mercedes-Benz_Logo_2010.svg",
+      "alt": "",
+      "width": "126",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Akbank_logo.svg",
+      "alt": "",
+      "width": "110",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://cdn.simpleicons.org/adidas/white",
+      "alt": "",
+      "width": "92",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/e/ed/DeFacto_logo.svg",
+      "alt": "",
+      "width": "112",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://www.metasoftco.com/brands/samsung-logo.png",
+      "alt": "",
+      "width": "150",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://ffo3gv1cf3ir.merlincdn.net/SiteAssets/Bireysel/Navigasyon/turkcell-logo.png?20260814_03-144726",
+      "alt": "",
+      "width": "28",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://cdn.simpleicons.org/redbull/white",
+      "alt": "",
+      "width": "100",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://www.metasoftco.com/brands/nivea-logo.png",
+      "alt": "",
+      "width": "42",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://www.metasoftco.com/brands/rayban-logo.png",
+      "alt": "",
+      "width": "64",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://www.metasoftco.com/brands/pegasus-logo.png",
+      "alt": "",
+      "width": "110",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://cdn.simpleicons.org/vodafone/white",
+      "alt": "",
+      "width": "112",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/a/ac/HARIBO_Logo.svg",
+      "alt": "",
+      "width": "98",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/9/9e/Mercedes-Benz_Logo_2010.svg",
+      "alt": "",
+      "width": "126",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/7/7b/Akbank_logo.svg",
+      "alt": "",
+      "width": "110",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://cdn.simpleicons.org/adidas/white",
+      "alt": "",
+      "width": "92",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/e/ed/DeFacto_logo.svg",
+      "alt": "",
+      "width": "112",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://www.metasoftco.com/brands/samsung-logo.png",
+      "alt": "",
+      "width": "150",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://ffo3gv1cf3ir.merlincdn.net/SiteAssets/Bireysel/Navigasyon/turkcell-logo.png?20260814_03-144726",
+      "alt": "",
+      "width": "28",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://cdn.simpleicons.org/redbull/white",
+      "alt": "",
+      "width": "100",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://www.metasoftco.com/brands/nivea-logo.png",
+      "alt": "",
+      "width": "42",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://www.metasoftco.com/brands/rayban-logo.png",
+      "alt": "",
+      "width": "64",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://www.metasoftco.com/brands/pegasus-logo.png",
+      "alt": "",
+      "width": "110",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://cdn.simpleicons.org/vodafone/white",
+      "alt": "",
+      "width": "112",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://upload.wikimedia.org/wikipedia/commons/a/ac/HARIBO_Logo.svg",
+      "alt": "",
+      "width": "98",
+      "height": "28",
+      "loading": null
+    },
+    {
+      "src": "https://res.cloudinary.com/dqkehdebg/image/upload/f_auto,q_auto,w_1920/v1786705144/metasoftco/projects/presentation/ray-ban-strip-photo.jpg",
+      "alt": "Ray-Ban \u00d7 Strip Photo",
+      "width": null,
+      "height": null,
+      "loading": "lazy"
+    },
+    {
+      "src": "https://res.cloudinary.com/dqkehdebg/image/upload/f_auto,q_auto,w_1920/v1784035914/metasoftco/projects/zleuulkvrna6tp1bogf6.png",
+      "alt": "ROLLIC SUMMER PARTY X \u015eER\u0130T FOTO ",
+      "width": null,
+      "height": null,
+      "loading": "lazy"
+    },
+    {
+      "src": "https://res.cloudinary.com/dqkehdebg/image/upload/f_auto,q_auto,w_1920/v1788781389/metasoftco/projects/qixafy5rphdkmoru1shf.png",
+      "alt": "TCMB AI Greenbox Dijital Foto\u011fraf Aktivasyonu \u2013 \u0130stanbul Finans Merkezi",
+      "width": null,
+      "height": null,
+      "loading": "lazy"
+    },
+    {
+      "src": "https://res.cloudinary.com/dqkehdebg/image/upload/f_auto,q_auto,w_1920/v1787118787/metasoftco/services/ai-photobooth.webp",
+      "alt": "AI Photo",
+      "width": null,
+      "height": null,
+      "loading": "lazy"
+    },
+    {
+      "src": "https://res.cloudinary.com/dqkehdebg/image/upload/f_auto,q_auto,w_1920/v1770930595/metasoftco/services/udq9nx0poeyevnzhiqh0.jpg",
+      "alt": "Photobooth",
+      "width": null,
+      "height": null,
+      "loading": "lazy"
+    },
+    {
+      "src": "https://www.metasoftco.com/blackLogo.png",
+      "alt": "MetasoftCo",
+      "width": "160",
+      "height": "40",
+      "loading": "lazy"
+    }
+  ],
+  "links": {
+    "internal": [
+      {
+        "href": "https://www.metasoftco.com/",
+        "text": "",
+        "rel": []
+      },
+      {
+        "href": "https://www.metasoftco.com/",
+        "text": "Anasayfa",
+        "rel": []
+      },
+      {
+        "href": "https://www.metasoftco.com/projeler",
+        "text": "Projeler",
+        "rel": []
+      },
+      {
+        "href": "https://www.metasoftco.com/hizmetler",
+        "text": "Hizmetler",
+        "rel": []
+      },
+      {
+        "href": "https://www.metasoftco.com/urunler",
+        "text": "Sistem Sat\u0131\u015f\u0131",
+        "rel": []
+      },
+      {
+        "href": "https://www.metasoftco.com/hakkimizda",
+        "text": "Hakk\u0131m\u0131zda",
+        "rel": []
+      },
+      {
+        "href": "https://www.metasoftco.com/blog",
+        "text": "Blog",
+        "rel": []
+      },
+      {
+        "href": "https://www.metasoftco.com/iletisim",
+        "text": "\u0130leti\u015fim",
+        "rel": []
+      },
+      {
+        "href": "https://www.metasoftco.com/en",
+        "text": "TR / EN",
+        "rel": []
+      },
+      {
+        "href": "https://www.metasoftco.com/iletisim",
+        "text": "Aktivasyonunuzu Planlay\u0131n",
+        "rel": []
+      },
+      {
+        "href": "https://www.metasoftco.com/projeler",
+        "text": "Se\u00e7ili Projeleri \u0130nceleyin",
+        "rel": []
+      },
+      {
+        "href": "https://www.metasoftco.com/projeler/ray-ban-x-strip-photo",
+        "text": "0 1 0 1 \u00b7 Foto\u011fraf Aktivasyonu Ray-Ban \u00d7 Strip Photo Ray-Ban etkinli\u011finde kat\u0131l\u0131mc\u0131lar, marka atmosf",
+        "rel": []
+      },
+      {
+        "href": "https://www.metasoftco.com/projeler/rollic-summer-party-x-seri-t-foto",
+        "text": "0 2 0 2 \u00b7 Etkinlik Deneyimi ROLLIC SUMMER PARTY X \u015eER\u0130T FOTO Rollic Summer Party 2026 i\u00e7in geli\u015ftird",
+        "rel": []
+      },
+      {
+        "href": "https://www.metasoftco.com/projeler/tcmb-ai-greenbox-dijital-fotograf-aktivasyonu-istanbul-finans-merkezi",
+        "text": "0 3 0 3 \u00b7 Etkinlik Deneyimi TCMB AI Greenbox Dijital Foto\u011fraf Aktivasyonu \u2013 \u0130stanbul Finans Merkezi ",
+        "rel": []
+      },
+      {
+        "href": "https://www.metasoftco.com/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photobooth-kirala",
+        "text": "0 1 0 1 \u00b7 Yapay Zek\u00e2 Foto\u011fraf Aktivasyonu AI Photo Etkinli\u011finizi yapay zek\u00e2 ile unutulmaz bir foto\u011fr",
+        "rel": []
+      },
+      {
+        "href": "https://www.metasoftco.com/hizmetler/photobooth-ve-fotograf-aktivasyonlari/photobooth-kirala",
+        "text": "0 2 0 2 \u00b7 Foto\u011fraf Aktivasyonu Photobooth Kompakt ve \u015f\u0131k tasar\u0131m\u0131yla her mekana uyum sa\u011flayan Photob",
+        "rel": []
+      },
+      {
+        "href": "https://www.metasoftco.com/iletisim",
+        "text": "Aktivasyonunuzu Planlay\u0131n",
+        "rel": []
+      },
+      {
+        "href": "https://www.metasoftco.com/",
+        "text": "",
+        "rel": []
+      },
+      {
+        "href": "https://www.metasoftco.com/projeler",
+        "text": "Projeler",
+        "rel": []
+      },
+      {
+        "href": "https://www.metasoftco.com/hizmetler",
+        "text": "Hizmetler",
+        "rel": []
+      },
+      {
+        "href": "https://www.metasoftco.com/urunler",
+        "text": "Sistem Sat\u0131\u015f\u0131",
+        "rel": []
+      },
+      {
+        "href": "https://www.metasoftco.com/hakkimizda",
+        "text": "Hakk\u0131m\u0131zda",
+        "rel": []
+      },
+      {
+        "href": "https://www.metasoftco.com/blog",
+        "text": "Blog",
+        "rel": []
+      },
+      {
+        "href": "https://www.metasoftco.com/iletisim",
+        "text": "\u0130leti\u015fim",
+        "rel": []
+      }
+    ],
+    "external": [
+      {
+        "href": "https://instagram.com/metasoftco",
+        "text": "Instagram'da Takip Et",
+        "rel": [
+          "nofollow",
+          "noopener",
+          "noreferrer"
+        ]
+      },
+      {
+        "href": "mailto:info@metasoftco.com",
+        "text": "info@metasoftco.com",
+        "rel": []
+      },
+      {
+        "href": "tel:+905342334051",
+        "text": "+90 534 233 40 51",
+        "rel": []
+      },
+      {
+        "href": "https://www.google.com/maps/search/?api=1&query=MetasoftCo%2C%20%C3%9Cniversite%20Mah.%20Sar%C4%B1g%C3%BCl%20Sk.%20%C4%B0stanbul%20Teknokent%20No%3A37%2F1%2C%20Avc%C4%B1lar%2F%C4%B0stanbul",
+        "text": "\u00dcniversite Mah. Sar\u0131g\u00fcl Sk. \u0130stanbul Teknokent No: 37/1 \u0130\u00e7 Kap\u0131 No: 28, Avc\u0131lar / \u0130stanbul",
+        "rel": [
+          "noopener",
+          "noreferrer"
+        ]
+      },
+      {
+        "href": "https://www.linkedin.com/company/metasoftco",
+        "text": "LinkedIn",
+        "rel": [
+          "noopener",
+          "noreferrer"
+        ]
+      },
+      {
+        "href": "https://instagram.com/metasoftco",
+        "text": "Instagram",
+        "rel": [
+          "noopener",
+          "noreferrer"
+        ]
+      },
+      {
+        "href": "https://www.youtube.com/@MetasoftCo",
+        "text": "YouTube",
+        "rel": [
+          "noopener",
+          "noreferrer"
+        ]
+      },
+      {
+        "href": "https://wa.me/905342334051?text=Merhaba%2C%20bilgi%20almak%20istiyorum.",
+        "text": "",
+        "rel": [
+          "noopener",
+          "noreferrer"
+        ]
+      }
+    ]
+  },
+  "schema": [
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "MetasoftCo",
+      "legalName": "MetasoftCo",
+      "url": "https://www.metasoftco.com",
+      "logo": "https://www.metasoftco.com/blackLogo.png",
+      "foundingDate": "2020",
+      "founders": [
+        {
+          "@type": "Person",
+          "name": "Selami G\u00fcler"
+        }
+      ],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "\u00dcniversite Mah. Sar\u0131g\u00fcl Sk. \u0130stanbul Teknokent No: 37/1, \u0130\u00e7 Kap\u0131 No: 28",
+        "addressLocality": "Avc\u0131lar",
+        "addressRegion": "\u0130stanbul",
+        "postalCode": "34320",
+        "addressCountry": "TR"
+      },
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "telephone": "+90 534 233 4051",
+        "contactType": "customer service",
+        "availableLanguage": [
+          "Turkish",
+          "English"
+        ]
+      },
+      "sameAs": [
+        "https://instagram.com/metasoftco",
+        "https://twitter.com/metasoftco",
+        "https://www.linkedin.com/company/metasoftco",
+        "https://www.youtube.com/@MetasoftCo"
+      ]
+    }
+  ],
+  "open_graph": {
+    "og:title": "MetasoftCo | Yapay Zeka Etkinlik & \u0130nteraktif Aktivasyon Ajans\u0131 \u2014 \u0130stanbul",
+    "og:description": "Stable Diffusion, ControlNet ve AR teknolojileriyle kurgulanm\u0131\u015f yapay zeka etkinlik \u00e7\u00f6z\u00fcmleri, interaktif aktivasyonlar ve u\u00e7tan uca prod\u00fcksiyon. \u0130stanbul merkezli dijital deneyim ajans\u0131.",
+    "og:url": "https://www.metasoftco.com",
+    "og:site_name": "MetasoftCo",
+    "og:locale": "tr_TR",
+    "og:image": "https://www.metasoftco.com/og",
+    "og:image:width": "1200",
+    "og:image:height": "630",
+    "og:image:alt": "MetasoftCo | Yapay Zeka Etkinlik & \u0130nteraktif Aktivasyon Ajans\u0131 \u2014 \u0130stanbul",
+    "og:type": "website"
+  },
+  "twitter_card": {
+    "twitter:card": "summary_large_image",
+    "twitter:creator": "@metasoftco",
+    "twitter:title": "MetasoftCo | Yapay Zeka Etkinlik & \u0130nteraktif Aktivasyon Ajans\u0131 \u2014 \u0130stanbul",
+    "twitter:description": "Stable Diffusion, ControlNet ve AR teknolojileriyle kurgulanm\u0131\u015f yapay zeka etkinlik \u00e7\u00f6z\u00fcmleri, interaktif aktivasyonlar ve u\u00e7tan uca prod\u00fcksiyon. \u0130stanbul merkezli dijital deneyim ajans\u0131.",
+    "twitter:image": "https://www.metasoftco.com/og"
+  },
+  "word_count": 402,
+  "hreflang": [
+    {
+      "lang": "x-default",
+      "href": "https://www.metasoftco.com"
+    },
+    {
+      "lang": "tr",
+      "href": "https://www.metasoftco.com"
+    },
+    {
+      "lang": "en",
+      "href": "https://www.metasoftco.com/en"
+    }
+  ]
+}

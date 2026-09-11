@@ -1,0 +1,50 @@
+{
+  "analyzed_at": "2026-09-11T14:20:18Z",
+  "url": "https://www.metasoftco.com/",
+  "scope": "no-api-key specialist workflows",
+  "results": {
+    "geo": {
+      "score": 55,
+      "status": "needs_improvement",
+      "artifact": "GEO-ANALYSIS.md"
+    },
+    "hreflang": {
+      "score": 70,
+      "parity_score": 74,
+      "status": "present_with_gaps",
+      "artifact": "HREFLANG-VALIDATION.md"
+    },
+    "backlinks": {
+      "score": null,
+      "status": "insufficient_data",
+      "factors_scored": 0,
+      "factors_total": 7,
+      "common_crawl": "found_below_ranking_threshold",
+      "artifact": "BACKLINK-ANALYSIS.md"
+    },
+    "local": {
+      "score": 41,
+      "status": "needs_improvement",
+      "business_type": "hybrid",
+      "artifact": "LOCAL-SEO-ANALYSIS-www-metasoftco-com.md"
+    },
+    "sxo": {
+      "score": 65,
+      "status": "aligned_with_gaps",
+      "target_keyword": "yapay zeka etkinlik ajansı",
+      "artifact": "SXO-ANALYSIS.md"
+    }
+  },
+  "highest_priority_findings": [
+    "Reconcile LinkedIn Sarıyer/2016 entity data with website Avcılar/2020 data.",
+    "Add evidence-backed 134-167 word direct-answer blocks and question headings.",
+    "Add English privacy/terms pages and close TR/EN route/content parity gaps.",
+    "Expose verified GBP hours/reviews/place data and complete LocalBusiness schema.",
+    "Add pricing drivers, technical requirements, testimonials, and a structured brief flow."
+  ],
+  "limitations": [
+    "No paid API or API key was used.",
+    "Backlink health is not numerically scoreable with the available Common Crawl result.",
+    "SERP modules and exact rankings were not available from the public search interface."
+  ]
+}

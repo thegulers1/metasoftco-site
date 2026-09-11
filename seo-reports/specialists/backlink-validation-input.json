@@ -1,0 +1,46 @@
+{
+  "cc_data": {
+    "status": "success",
+    "data": {
+      "domain": "metasoftco.com",
+      "in_crawl": true,
+      "in_rankings": false,
+      "pagerank": null,
+      "pagerank_rank": null,
+      "harmonic_centrality": null,
+      "harmonic_centrality_rank": null,
+      "n_hosts": null,
+      "top_referring_domains": [],
+      "referring_domains_sample": 0,
+      "note": "Domain found in CC crawl but below ranking threshold (too small/new for PageRank rankings)."
+    },
+    "error": null,
+    "metadata": {
+      "source": "commoncrawl",
+      "release": "cc-main-2026-jan-feb-mar",
+      "timestamp": "2026-09-11T14:18:14Z"
+    }
+  },
+  "parsed_data": {
+    "h1": ["Markaların ruhunu insanların anılarına işliyoruz."],
+    "h1_suspicious": [],
+    "schema": [
+      {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "MetasoftCo"
+      }
+    ],
+    "links": {
+      "external": []
+    }
+  },
+  "verify_data": null,
+  "moz_data": null,
+  "bing_data": null,
+  "scoring_factors": {
+    "total_factors": 7,
+    "factors_with_data": 0,
+    "score": null
+  }
+}

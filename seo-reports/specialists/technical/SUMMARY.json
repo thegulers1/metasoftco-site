@@ -1,0 +1,48 @@
+{
+  "cache_type": "technical",
+  "analyzed_at": "2026-09-11T14:23:13Z",
+  "url": "https://www.metasoftco.com/",
+  "url_slug": "homepage",
+  "score": 90,
+  "raw_script_score": 84,
+  "findings": {
+    "indexability": "indexable",
+    "canonicals": "self-referential",
+    "mobile": "pass",
+    "cwv": "needs improvement; lab LCP above 2.5s and field INP unavailable",
+    "js_rendering": "critical SEO content is visible in initial HTML",
+    "robots": "available and references sitemap",
+    "sitemap": "167 URLs; first 100 independently validated as 200 and self-canonical"
+  },
+  "category_scores": {
+    "crawlability": 100,
+    "indexability": 100,
+    "security": 88,
+    "url_structure": 100,
+    "mobile": 100,
+    "core_web_vitals": 70,
+    "structured_data": 92,
+    "js_rendering": 90,
+    "indexnow": 68
+  },
+  "issues": [
+    "Lab LCP exceeds 2.5s on mobile and desktop.",
+    "Content-Security-Policy response header is missing.",
+    "IndexNow support was not detected.",
+    "Sitemap includes deprecated priority and changefreq tags on 167 URLs."
+  ],
+  "recommendations": [
+    "Optimize and prioritize the Ray-Ban LCP image and reduce render-blocking work.",
+    "Add and test a Content-Security-Policy header.",
+    "Remove priority and changefreq from sitemap output.",
+    "Consider IndexNow if non-Google discovery speed is valuable."
+  ],
+  "tool_notes": [
+    "The installed sitemap script produced false canonical mismatches because of an href parsing defect.",
+    "Independent BeautifulSoup validation found zero canonical mismatches in the first 100 sitemap URLs."
+  ],
+  "limitations": [
+    "No Search Console, CrUX, or PageSpeed API credentials were used.",
+    "Performance evidence is local Lighthouse lab data, not field CWV data."
+  ]
+}
