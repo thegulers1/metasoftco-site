@@ -1,14 +1,28 @@
 import { Metadata } from "next";
 import Container from "@/components/site/Container";
-import { siteConfig } from "@/lib/site";
+import { siteConfig, ogImageUrl } from "@/lib/site";
+
+const ogTitle = "Gizlilik Politikası | MetasoftCo";
+const ogDescription = "MetasoftCo gizlilik politikası ve KVKK kapsamında kişisel veri işleme esasları.";
+const ogImage = ogImageUrl(ogTitle, ogDescription);
 
 export const metadata: Metadata = {
     title: "Gizlilik Politikası | MetasoftCo",
     description: "MetasoftCo gizlilik politikası ve KVKK kapsamında kişisel veri işleme esasları. Etkinlik hizmetlerinde kişisel verilerinizin nasıl korunduğunu öğrenin.",
     openGraph: {
-        title: "Gizlilik Politikası | MetasoftCo",
-        description: "MetasoftCo gizlilik politikası ve KVKK kapsamında kişisel veri işleme esasları.",
+        title: ogTitle,
+        description: ogDescription,
         url: `${siteConfig.url}/gizlilik`,
+        siteName: siteConfig.name,
+        images: [{ url: ogImage, width: 1200, height: 630, alt: ogTitle }],
+        locale: siteConfig.locale,
+        type: "website",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: ogTitle,
+        description: ogDescription,
+        images: [ogImage],
     },
     alternates: {
         canonical: `${siteConfig.url}/gizlilik`,

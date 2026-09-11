@@ -56,6 +56,11 @@ export const siteConfig = {
     },
 };
 
+/** Builds the dynamic 1200x630 OG image URL for a page's own title/description. */
+export function ogImageUrl(title: string, description: string) {
+    return `${siteConfig.url}/og?title=${encodeURIComponent(title)}&desc=${encodeURIComponent(description.slice(0, 120))}`;
+}
+
 // SEO helper functions
 export function generateMetaTags(page?: {
     title?: string;
@@ -72,8 +77,7 @@ export function generateMetaTags(page?: {
     const keywords = [...siteConfig.keywords, ...(page?.keywords || [])].join(", ");
     const ogTitle = page?.title ? `${page.title} | ${siteConfig.name}` : siteConfig.title;
     const ogDesc = page?.description || siteConfig.description;
-    const image = page?.image ||
-        `${siteConfig.url}/og?title=${encodeURIComponent(ogTitle)}&desc=${encodeURIComponent(ogDesc.slice(0, 120))}`;
+    const image = page?.image || ogImageUrl(ogTitle, ogDesc);
     const url = page?.url || siteConfig.url;
     const type = page?.type || "website";
 

@@ -1,20 +1,33 @@
 import { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
-import { siteConfig } from "@/lib/site";
+import { siteConfig, ogImageUrl } from "@/lib/site";
 import SektorelCozumlerClient from "../../sektorel-cozumler/SektorelCozumlerClient";
 import { isEnglishSectorPagePublishable } from "@/lib/publication";
 
 export const revalidate = 3600;
 
+const ogTitle = "Sector Software Solutions | MetasoftCo";
+const ogDescription = "Digital solutions tailored for different sectors.";
+const ogImage = ogImageUrl(ogTitle, ogDescription);
+
 export const metadata: Metadata = {
     title: "Sector Software Solutions | MetasoftCo",
     description: "Interactive digital activation and software solutions specifically developed by MetasoftCo for different sectors.",
     openGraph: {
-        title: "Sector Software Solutions | MetasoftCo",
-        description: "Digital solutions tailored for different sectors.",
+        title: ogTitle,
+        description: ogDescription,
         url: `${siteConfig.url}/en/sector-solutions`,
+        siteName: siteConfig.name,
+        images: [{ url: ogImage, width: 1200, height: 630, alt: ogTitle }],
         locale: "en_US",
+        type: "website",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: ogTitle,
+        description: ogDescription,
+        images: [ogImage],
     },
     alternates: {
         canonical: `${siteConfig.url}/en/sector-solutions`,

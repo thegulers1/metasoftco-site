@@ -1,20 +1,33 @@
 import { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
-import { siteConfig } from "@/lib/site";
+import { siteConfig, ogImageUrl } from "@/lib/site";
 import InsightsIndexPrototype from "@/components/phase2/InsightsIndexPrototype";
 import { isEnglishBlogPostPublishable } from "@/lib/publication";
 
 export const revalidate = 3600;
 
+const ogTitle = "Blog | MetasoftCo";
+const ogDescription = "Insights on event technology, AI, and digital experiences.";
+const ogImage = ogImageUrl(ogTitle, ogDescription);
+
 export const metadata: Metadata = {
     title: "Blog | MetasoftCo",
     description: "Explore MetasoftCo's blog for insights on event technology, AI activations, photobooth experiences, and digital innovation. Industry news, tips, and success stories.",
     openGraph: {
-        title: "Blog | MetasoftCo",
-        description: "Insights on event technology, AI, and digital experiences.",
+        title: ogTitle,
+        description: ogDescription,
         url: `${siteConfig.url}/en/blog`,
+        siteName: siteConfig.name,
+        images: [{ url: ogImage, width: 1200, height: 630, alt: ogTitle }],
         locale: "en_US",
+        type: "website",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: ogTitle,
+        description: ogDescription,
+        images: [ogImage],
     },
     alternates: {
         canonical: `${siteConfig.url}/en/blog`,

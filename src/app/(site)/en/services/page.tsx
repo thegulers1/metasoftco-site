@@ -1,23 +1,34 @@
 import { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
-import { siteConfig, generateFAQSchema } from "@/lib/site";
+import { siteConfig, generateFAQSchema, ogImageUrl } from "@/lib/site";
 import CapabilitiesIndexPrototype from "@/components/phase2/CapabilitiesIndexPrototype";
 import { isEnglishCategoryPublishable, isEnglishServicePublishable } from "@/lib/publication";
 import { capabilityListingImageOverrides } from "@/lib/phase2-content";
 
 export const revalidate = 3600;
 
+const ogTitle = "Interactive Event Services & Digital Activations | MetasoftCo";
+const ogDescription = "Explore our AI, photo & video, and interactive event services.";
+const ogImage = ogImageUrl(ogTitle, ogDescription);
+
 export const metadata: Metadata = {
     title: "Interactive Event Services & Digital Activations | MetasoftCo",
     description: "AI-powered experiences, photobooth systems, interactive games and custom software by MetasoftCo. Professional digital activation solutions for your events.",
     openGraph: {
-        title: "Interactive Event Services & Digital Activations | MetasoftCo",
-        description: "Explore our AI, photo & video, and interactive event services.",
+        title: ogTitle,
+        description: ogDescription,
         url: `${siteConfig.url}/en/services`,
         siteName: siteConfig.name,
+        images: [{ url: ogImage, width: 1200, height: 630, alt: ogTitle }],
         locale: "en_US",
         type: "website",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: ogTitle,
+        description: ogDescription,
+        images: [ogImage],
     },
     alternates: {
         canonical: `${siteConfig.url}/en/services`,

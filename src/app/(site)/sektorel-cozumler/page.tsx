@@ -1,18 +1,32 @@
 import { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
-import { siteConfig } from "@/lib/site";
+import { siteConfig, ogImageUrl } from "@/lib/site";
 import SektorelCozumlerClient from "./SektorelCozumlerClient";
 
 export const revalidate = 3600;
+
+const ogTitle = "Sektörel Çözümler | Moda, Finans, Otomotiv & Daha Fazlası — MetasoftCo";
+const ogDescription = "Sektörünüze özel interaktif aktivasyon ve yapay zeka etkinlik çözümleri. Moda'dan otomotive, finanstan perakendeye.";
+const ogImage = ogImageUrl(ogTitle, ogDescription);
 
 export const metadata: Metadata = {
     title: "Sektörel Çözümler | Moda, Finans, Otomotiv & Daha Fazlası — MetasoftCo",
     description: "Tekstil, sağlık, finans, otomotiv ve perakende sektörlerine özel interaktif aktivasyon ve yapay zeka etkinlik çözümleri. MetasoftCo, sektörünüzü anlayan ajans.",
     openGraph: {
-        title: "Sektörel Çözümler | Moda, Finans, Otomotiv & Daha Fazlası — MetasoftCo",
-        description: "Sektörünüze özel interaktif aktivasyon ve yapay zeka etkinlik çözümleri. Moda'dan otomotive, finanstan perakendeye.",
+        title: ogTitle,
+        description: ogDescription,
         url: `${siteConfig.url}/sektorel-cozumler`,
+        siteName: siteConfig.name,
+        images: [{ url: ogImage, width: 1200, height: 630, alt: ogTitle }],
+        locale: siteConfig.locale,
+        type: "website",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: ogTitle,
+        description: ogDescription,
+        images: [ogImage],
     },
     alternates: {
         canonical: `${siteConfig.url}/sektorel-cozumler`,

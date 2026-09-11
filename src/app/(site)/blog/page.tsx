@@ -1,18 +1,32 @@
 import { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
-import { siteConfig } from "@/lib/site";
+import { siteConfig, ogImageUrl } from "@/lib/site";
 import InsightsIndexPrototype from "@/components/phase2/InsightsIndexPrototype";
 
 export const revalidate = 3600;
+
+const ogTitle = "Blog | MetasoftCo";
+const ogDescription = "Etkinlik teknolojileri, yapay zeka ve dijital deneyimler üzerine yazılar.";
+const ogImage = ogImageUrl(ogTitle, ogDescription);
 
 export const metadata: Metadata = {
     title: "Blog",
     description: "Etkinlik teknolojileri, yapay zeka, photobooth ve dijital deneyimler üzerine MetasoftCo'nun güncel blog yazıları. Sektörden haberler, ipuçları ve başarı hikayeleri.",
     openGraph: {
-        title: "Blog | MetasoftCo",
-        description: "Etkinlik teknolojileri, yapay zeka ve dijital deneyimler üzerine yazılar.",
+        title: ogTitle,
+        description: ogDescription,
         url: `${siteConfig.url}/blog`,
+        siteName: siteConfig.name,
+        images: [{ url: ogImage, width: 1200, height: 630, alt: ogTitle }],
+        locale: siteConfig.locale,
+        type: "website",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: ogTitle,
+        description: ogDescription,
+        images: [ogImage],
     },
     alternates: {
         canonical: `${siteConfig.url}/blog`,

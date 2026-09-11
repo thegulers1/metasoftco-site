@@ -1,19 +1,33 @@
 import { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
-import { siteConfig, generateFAQSchema } from "@/lib/site";
+import { siteConfig, generateFAQSchema, ogImageUrl } from "@/lib/site";
 import { capabilityListingImageOverrides } from "@/lib/phase2-content";
 import CapabilitiesIndexPrototype from "@/components/phase2/CapabilitiesIndexPrototype";
 
 export const revalidate = 3600;
 
+const ogTitle = "İnteraktif Etkinlik Hizmetleri | Yapay Zeka, Photobooth & Aktivasyon — MetasoftCo";
+const ogDescription = "Yapay zeka fotoğraf aktivasyonları, interaktif oyunlar, photobooth ve AR deneyimleri. MetasoftCo ile etkinliğinizi unutulmaz kılın.";
+const ogImage = ogImageUrl(ogTitle, ogDescription);
+
 export const metadata: Metadata = {
     title: "İnteraktif Etkinlik Hizmetleri | Yapay Zeka, Photobooth & Aktivasyon — MetasoftCo",
     description: "Yapay zeka fotoğraf aktivasyonları, interaktif oyunlar, photobooth ve AR deneyimleri. MetasoftCo ile etkinliğinizi unutulmaz kılın. İstanbul & Türkiye geneli hizmet.",
     openGraph: {
-        title: "İnteraktif Etkinlik Hizmetleri | Yapay Zeka, Photobooth & Aktivasyon — MetasoftCo",
-        description: "Yapay zeka fotoğraf aktivasyonları, interaktif oyunlar, photobooth ve AR deneyimleri. MetasoftCo ile etkinliğinizi unutulmaz kılın.",
+        title: ogTitle,
+        description: ogDescription,
         url: `${siteConfig.url}/hizmetler`,
+        siteName: siteConfig.name,
+        images: [{ url: ogImage, width: 1200, height: 630, alt: ogTitle }],
+        locale: siteConfig.locale,
+        type: "website",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: ogTitle,
+        description: ogDescription,
+        images: [ogImage],
     },
     alternates: {
         canonical: `${siteConfig.url}/hizmetler`,

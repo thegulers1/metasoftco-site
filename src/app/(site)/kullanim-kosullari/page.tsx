@@ -1,14 +1,28 @@
 import { Metadata } from "next";
 import Container from "@/components/site/Container";
-import { siteConfig } from "@/lib/site";
+import { siteConfig, ogImageUrl } from "@/lib/site";
+
+const ogTitle = "Kullanım Koşulları | MetasoftCo";
+const ogDescription = "MetasoftCo web sitesi kullanım koşulları ve hizmet şartları.";
+const ogImage = ogImageUrl(ogTitle, ogDescription);
 
 export const metadata: Metadata = {
     title: "Kullanım Koşulları | MetasoftCo",
     description: "MetasoftCo web sitesi kullanım koşulları ve hizmet şartları. Siteyi kullanarak bu koşulları kabul etmiş sayılırsınız.",
     openGraph: {
-        title: "Kullanım Koşulları | MetasoftCo",
-        description: "MetasoftCo web sitesi kullanım koşulları ve hizmet şartları.",
+        title: ogTitle,
+        description: ogDescription,
         url: `${siteConfig.url}/kullanim-kosullari`,
+        siteName: siteConfig.name,
+        images: [{ url: ogImage, width: 1200, height: 630, alt: ogTitle }],
+        locale: siteConfig.locale,
+        type: "website",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: ogTitle,
+        description: ogDescription,
+        images: [ogImage],
     },
     alternates: {
         canonical: `${siteConfig.url}/kullanim-kosullari`,
@@ -64,7 +78,7 @@ export default function KullanimKosullariPage() {
                                 Fikri Mülkiyet
                             </h2>
                             <p>
-                                Bu sitedeki tüm içerik, görseller ve yazılımlar MetasoftCo'ya aittir. İzinsiz
+                                Bu sitedeki tüm içerik, görseller ve yazılımlar MetasoftCo&apos;ya aittir. İzinsiz
                                 kopyalanamaz veya dağıtılamaz.
                             </p>
                         </div>
