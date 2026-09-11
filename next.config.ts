@@ -145,6 +145,11 @@ const nextConfig: NextConfig = {
 
       { source: "/blog/etkinlikte-ai-photobooth-neden-kullanmali", destination: "/blog/etkinliklerde-ai-photobooth-avantajlari", permanent: true },
 
+      // SALE-type services briefly leaked into the RENTAL-only EN service detail
+      // route before it filtered by type; redirect the old accidental URL to the
+      // real /en/products page for that service.
+      { source: "/en/services/ai-event-solutions/ai-photobooth-commercial-sales", destination: "/en/products/ai-photobooth-commercial-sales", permanent: true },
+
       { source: "/serdar-bostanci-50-yil-ai-fotograf-deneyimi", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photobooth-kirala", permanent: true },
       { source: "/serdar-bostanci-50-yil-ai-fotograf-deneyimi/", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photobooth-kirala", permanent: true },
 

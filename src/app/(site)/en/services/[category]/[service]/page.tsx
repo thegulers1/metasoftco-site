@@ -25,7 +25,7 @@ const getCategoryBySlugEn = cache(async (slug_en: string) => {
 
 const getServiceBySlugEn = cache(async (slug_en: string, categoryId: string) => {
     return await prisma.service.findFirst({
-        where: { slug_en, categoryId },
+        where: { slug_en, categoryId, type: "RENTAL" },
     });
 });
 
