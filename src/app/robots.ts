@@ -1,7 +1,20 @@
 import { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/site";
 
-const disallow = ["/editpanel", "/api", "/login"];
+const disallow = [
+  "/editpanel",
+  "/api",
+  "/login",
+  // WordPress döneminden kalma, artık var olmayan yollar — bot taramalarının
+  // Search Console'da 403/404 gürültüsü üretmemesi için açıkça engellenir.
+  // Vercel'in edge güvenlik duvarı bunları zaten kalıcı olarak reddediyor.
+  "/wp-admin",
+  "/wp-content",
+  "/wp-includes",
+  "/wp-json",
+  "/wp-login.php",
+  "/xmlrpc.php",
+];
 
 export default function robots(): MetadataRoute.Robots {
   return {
