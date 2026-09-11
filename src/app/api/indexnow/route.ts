@@ -1,12 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const INDEXNOW_KEY = process.env.INDEXNOW_KEY || "";
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://metasoftco.com";
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://www.metasoftco.com";
 
 // IndexNow destekleyen arama motorları
 const INDEXNOW_ENDPOINTS = [
     "https://api.indexnow.org/indexnow",
     "https://www.bing.com/indexnow",
+    "https://yandex.com/indexnow",
     "https://search.seznam.cz/indexnow",
 ];
 

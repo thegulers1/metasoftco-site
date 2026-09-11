@@ -122,6 +122,9 @@ export function generateMetaTags(page?: {
         verification: {
             // Google Search Console - buraya verification kodunu ekle
             // google: "your-google-verification-code",
+            // Yandex Webmaster. public/yandex_82d1c7f6daf8f8bf.html dosyasi da
+            // ayni kodu dogruluyor; meta etiketi dosya kaybolursa yedek islevi gorur.
+            yandex: "82d1c7f6daf8f8bf",
         },
     };
 }
