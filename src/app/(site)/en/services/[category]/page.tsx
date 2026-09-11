@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { siteConfig, generateBreadcrumbSchema, generateFAQSchema } from "@/lib/site";
 import CapabilityCategoryScreen from "@/components/phase2/CapabilityCategoryScreen";
+import { isEnglishServicePublishable } from "@/lib/publication";
 
 export const revalidate = 3600;
 
@@ -99,7 +100,7 @@ export default async function EnCategoryHubPage({ params }: PageProps) {
                     id: service.id,
                     title: service.title_en || service.title,
                     image: service.image,
-                    href: service.slug_en
+                    href: isEnglishServicePublishable(service, category)
                         ? `/en/services/${categorySlugEn}/${service.slug_en}`
                         : `/hizmetler/${category.slug}/${service.slug}`,
                 }))}

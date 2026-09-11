@@ -27,10 +27,15 @@ function entry(path: string, lastModified = staticLastModified, priority = 0.6):
 
 /** Indexable means canonical, public, and complete in its own locale. */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-    const [categories, projects, posts, sectorPages] = await Promise.all([
+    const [categories, saleServices, projects, posts, sectorPages] = await Promise.all([
         prisma.serviceCategory.findMany({
             orderBy: { order: "asc" },
-            include: { services: { where: { published: true }, orderBy: { order: "asc" } } },
+            include: { services: { where: { published: true, type: "RENTAL" }, orderBy: { order: "asc" } } },
+        }),
+        prisma.service.findMany({
+            where: { published: true, type: "SALE" },
+            include: { category: true },
+            orderBy: { order: "asc" },
         }),
         prisma.project.findMany({ where: { published: true }, orderBy: { order: "asc" } }),
         prisma.blogPost.findMany({ where: { published: true }, orderBy: { publishedAt: "desc" } }),
@@ -41,10 +46,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         entry("/", staticLastModified, 1), entry("/hizmetler", staticLastModified, 0.9),
         entry("/projeler", staticLastModified, 0.8), entry("/blog", staticLastModified, 0.7),
         entry("/hakkimizda", staticLastModified, 0.7), entry("/iletisim", staticLastModified, 0.7),
+        entry("/urunler", staticLastModified, 0.7),
         entry("/gizlilik", staticLastModified, 0.3), entry("/kullanim-kosullari", staticLastModified, 0.3),
         entry("/en", staticLastModified, 0.9), entry("/en/services", staticLastModified, 0.8),
         entry("/en/projects", staticLastModified, 0.8), entry("/en/blog", staticLastModified, 0.7),
         entry("/en/hakkimizda", staticLastModified, 0.7), entry("/en/contact", staticLastModified, 0.7),
+        entry("/en/products", staticLastModified, 0.7),
         entry("/sektorel-yazilim-cozumleri", staticLastModified, 0.5),
         entry("/en/industry-software-solutions", staticLastModified, 0.5),
         entry("/sektorel-cozumler", staticLastModified, 0.4), entry("/en/sector-solutions", staticLastModified, 0.4),
@@ -64,6 +71,11 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         if (isEnglishServicePublishable(service, category)) pages.push(entry(`/en/services/${category.slug_en}/${service.slug_en}`, service.updatedAt, 0.6));
         return pages;
     }));
+    const productPages = saleServices.flatMap((service) => {
+        const pages: SitemapEntry[] = [entry(`/urunler/${service.slug}`, service.updatedAt, 0.6)];
+        if (isEnglishServicePublishable(service, service.category)) pages.push(entry(`/en/products/${service.slug_en}`, service.updatedAt, 0.6));
+        return pages;
+    });
     const projectPages = projects.flatMap((project) => {
         const pages: SitemapEntry[] = [entry(`/projeler/${project.slug}`, project.updatedAt, 0.6)];
         if (isEnglishProjectPublishable(project)) pages.push(entry(`/en/projects/${project.slug_en}`, project.updatedAt, 0.6));
@@ -81,5 +93,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         return pages;
     });
 
-    return [...staticPages, ...staticIndustryPages, ...categoryPages, ...servicePages, ...projectPages, ...blogPages, ...databaseSectorPages];
+    return [...staticPages, ...staticIndustryPages, ...categoryPages, ...servicePages, ...productPages, ...projectPages, ...blogPages, ...databaseSectorPages];
 }

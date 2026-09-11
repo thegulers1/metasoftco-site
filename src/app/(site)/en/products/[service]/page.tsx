@@ -4,7 +4,7 @@ import { prisma } from "@/lib/db";
 import { siteConfig, generateServiceSchema, generateBreadcrumbSchema } from "@/lib/site";
 import { cloudinaryOgImage } from "@/lib/cloudinary";
 import { cache } from "react";
-import ServiceDetailClient from "../../hizmetler/[category]/[service]/ServiceDetailClient";
+import ServiceDetailClient from "../../../hizmetler/[category]/[service]/ServiceDetailClient";
 import { AdminEditUrlSetter } from "@/components/site/AdminBar";
 import { isEnglishServicePublishable } from "@/lib/publication";
 
@@ -14,23 +14,23 @@ interface PageProps {
     params: Promise<{ service: string }>;
 }
 
-const getSaleServiceBySlug = cache(async (slug: string) => {
+const getSaleServiceBySlugEn = cache(async (slugEn: string) => {
     return await prisma.service.findFirst({
-        where: { slug, type: "SALE" },
+        where: { slug_en: slugEn, type: "SALE" },
         include: { category: true },
     });
 });
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-    const { service: serviceSlug } = await params;
-    const service = await getSaleServiceBySlug(serviceSlug);
-    if (!service) return {};
+    const { service: serviceSlugEn } = await params;
+    const service = await getSaleServiceBySlugEn(serviceSlugEn);
+    if (!service || !isEnglishServicePublishable(service, service.category)) return { robots: { index: false, follow: false } };
 
-    const title = service.metaTitle || `${service.title} | Sistem Satışı — MetasoftCo`;
-    const description = service.metaDescription || service.description || siteConfig.description;
-    const keywords = service.metaKeywords || "";
+    const title = service.metaTitle_en!;
+    const description = service.metaDescription_en!;
+    const keywords = service.metaKeywords_en || "";
     const image = cloudinaryOgImage(service.ogImage || service.image) || `${siteConfig.url}/og`;
-    const url = `${siteConfig.url}/urunler/${serviceSlug}`;
+    const url = `${siteConfig.url}/en/products/${serviceSlugEn}`;
 
     return {
         title,
@@ -41,8 +41,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
             description,
             url,
             siteName: siteConfig.name,
-            images: [{ url: image, width: 1200, height: 630, alt: service.title }],
-            locale: siteConfig.locale,
+            images: [{ url: image, width: 1200, height: 630, alt: service.title_en! }],
+            locale: "en_US",
             type: "website",
         },
         twitter: {
@@ -53,22 +53,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         },
         alternates: {
             canonical: url,
-            ...(isEnglishServicePublishable(service, service.category) && {
-                languages: {
-                    "x-default": url,
-                    "tr": url,
-                    "en": `${siteConfig.url}/en/products/${service.slug_en}`,
-                },
-            }),
+            languages: {
+                "x-default": `${siteConfig.url}/urunler/${service.slug}`,
+                "tr": `${siteConfig.url}/urunler/${service.slug}`,
+                "en": url,
+            },
         },
     };
 }
 
-export default async function ProductDetailPage({ params }: PageProps) {
-    const { service: serviceSlug } = await params;
+export default async function EnglishProductDetailPage({ params }: PageProps) {
+    const { service: serviceSlugEn } = await params;
 
-    const service = await getSaleServiceBySlug(serviceSlug);
-    if (!service) {
+    const service = await getSaleServiceBySlugEn(serviceSlugEn);
+    if (!service || !isEnglishServicePublishable(service, service.category)) {
         notFound();
     }
 
@@ -78,8 +76,8 @@ export default async function ProductDetailPage({ params }: PageProps) {
         ? (JSON.parse(service.gallery) as (string | { url: string; alt?: string })[]).map(
               (item) =>
                   typeof item === "string"
-                      ? { url: item, alt: service.title }
-                      : { url: item.url, alt: item.alt || service.title }
+                      ? { url: item, alt: service.title_en || service.title }
+                      : { url: item.url, alt: item.alt || service.title_en || service.title }
           )
         : [];
 
@@ -93,21 +91,21 @@ export default async function ProductDetailPage({ params }: PageProps) {
     });
 
     const serviceSchema = generateServiceSchema({
-        name: service.title,
-        description: service.description || "",
-        url: `${siteConfig.url}/urunler/${serviceSlug}`,
+        name: service.title_en!,
+        description: service.description_en || "",
+        url: `${siteConfig.url}/en/products/${serviceSlugEn}`,
         image: service.image || undefined,
-        category: categoryData.name,
+        category: categoryData.name_en || categoryData.name,
     });
 
     const breadcrumbSchema = generateBreadcrumbSchema([
-        { name: "Anasayfa", url: siteConfig.url },
-        { name: "Ürünler", url: `${siteConfig.url}/urunler` },
-        { name: service.title, url: `${siteConfig.url}/urunler/${serviceSlug}` },
+        { name: "Home", url: `${siteConfig.url}/en` },
+        { name: "Product Sales", url: `${siteConfig.url}/en/products` },
+        { name: service.title_en!, url: `${siteConfig.url}/en/products/${serviceSlugEn}` },
     ]);
 
-    const faqSchema = service.faq ? (() => {
-        const items: { q: string; a: string }[] = JSON.parse(service.faq);
+    const faqSchema = service.faq_en ? (() => {
+        const items: { q: string; a: string }[] = JSON.parse(service.faq_en!);
         if (!items.length) return null;
         return {
             "@context": "https://schema.org",
@@ -127,8 +125,8 @@ export default async function ProductDetailPage({ params }: PageProps) {
     const videoSchema = youtubeId ? {
         "@context": "https://schema.org",
         "@type": "VideoObject",
-        "name": service.title,
-        "description": service.metaDescription || service.description || service.title,
+        "name": service.title_en!,
+        "description": service.metaDescription_en || service.description_en || service.title_en!,
         "thumbnailUrl": `https://img.youtube.com/vi/${youtubeId}/hqdefault.jpg`,
         "embedUrl": `https://www.youtube.com/embed/${youtubeId}`,
         "contentUrl": `https://www.youtube.com/watch?v=${youtubeId}`,
