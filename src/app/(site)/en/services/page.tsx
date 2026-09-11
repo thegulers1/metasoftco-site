@@ -77,8 +77,12 @@ export default async function EnglishServicesPage() {
                 title: service.title_en!,
                 image: capabilityListingImageOverrides[service.id] || service.image!,
                 href: `/en/services/${category.slug_en}/${service.slug_en}`,
+                categorySlug: category.slug_en!,
             }))
     );
+    const categoryTabs = categories
+        .filter((category) => category.services.some((service) => service.image))
+        .map((category) => ({ slug: category.slug_en!, name: category.name_en || category.name }));
     const faqSchema = generateFAQSchema(serviceFAQs);
 
     return (
@@ -87,7 +91,7 @@ export default async function EnglishServicesPage() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
             />
-            <CapabilitiesIndexPrototype capabilities={capabilities} locale="en" />
+            <CapabilitiesIndexPrototype capabilities={capabilities} categories={categoryTabs} locale="en" />
         </>
     );
 }
