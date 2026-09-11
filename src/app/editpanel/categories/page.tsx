@@ -114,7 +114,7 @@ export default function AdminCategoriesPage() {
                                     </td>
                                     <td className="px-6 py-4 text-right">
                                         <Link
-                                            href={`/editpanel/categories/${category.id}/edit`}
+                                            href={`/editpanel/services/categories/${category.id}/edit`}
                                             className="text-sm text-blue-600 hover:underline mr-4"
                                         >
                                             Düzenle
