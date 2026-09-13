@@ -116,6 +116,8 @@ model Project {
   updatedAt          DateTime  @updatedAt
   slug_en            String?   @unique
   video              String?
+  faq                String?
+  faq_en             String?
 
   @@index([published, featured, order])
 }

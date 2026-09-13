@@ -82,6 +82,8 @@ async function getProject(slug_en: string) {
             projectDate: true,
             createdAt: true,
             order: true,
+            faq: true,
+            faq_en: true,
         },
     });
 }
@@ -150,6 +152,24 @@ export default async function EnglishProjectDetailPage({
         { name: "Tavuk Dünyası × AI Photo", url: `${siteConfig.url}/en/projects/${slug}` },
     ]) : null;
 
+    // FAQ JSON-LD schema — for Google featured snippets
+    const faqSchema = (project.faq_en || project.faq) ? (() => {
+        const items: { q: string; a: string }[] = JSON.parse(project.faq_en || project.faq!);
+        if (!items.length) return null;
+        return {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": items.map((item) => ({
+                "@type": "Question",
+                "name": item.q,
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": item.a,
+                },
+            })),
+        };
+    })() : null;
+
     return (
         <>
             {breadcrumbSchema && (
@@ -157,6 +177,9 @@ export default async function EnglishProjectDetailPage({
             )}
             {videoSchema && (
                 <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchema) }} />
+            )}
+            {faqSchema && (
+                <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
             )}
             <AdminEditUrlSetter url={`/editpanel/projects/${project.id}/edit`} />
             {slug === PHASE_2_RAYBAN_SLUG && project.image ? (

@@ -317,14 +317,7 @@ export default function EditServicePage({
                                 type="text"
                                 value={service.title}
                                 onChange={(e) => {
-                                    const title = e.target.value;
-                                    const slug = title.toLowerCase()
-                                        .replace(/ğ/g, 'g').replace(/ü/g, 'u')
-                                        .replace(/ş/g, 's').replace(/ı/g, 'i')
-                                        .replace(/ö/g, 'o').replace(/ç/g, 'c')
-                                        .replace(/[^a-z0-9]+/g, '-')
-                                        .replace(/^-+|-+$/g, '');
-                                    setService({ ...service, title, slug });
+                                    setService({ ...service, title: e.target.value });
                                 }}
                                 className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
                             />
@@ -339,11 +332,7 @@ export default function EditServicePage({
                                 type="text"
                                 value={service.title_en || ""}
                                 onChange={(e) => {
-                                    const title_en = e.target.value;
-                                    const slug_en = title_en
-                                        ? title_en.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
-                                        : null;
-                                    setService({ ...service, title_en: title_en || null, slug_en });
+                                    setService({ ...service, title_en: e.target.value || null });
                                 }}
                                 className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
                             />

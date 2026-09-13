@@ -30,6 +30,8 @@ interface Project {
     technologies: string | null;
     video: string | null;
     projectDate?: Date | string | null;
+    faq?: string | null;
+    faq_en?: string | null;
 }
 
 interface NextProject {
@@ -72,6 +74,16 @@ function parseGallery(raw: string | null): { url: string; alt?: string }[] {
     }
 }
 
+function parseJsonList<T>(raw: string | null | undefined): T[] {
+    if (!raw) return [];
+    try {
+        const parsed = JSON.parse(raw);
+        return Array.isArray(parsed) ? parsed : [];
+    } catch {
+        return [];
+    }
+}
+
 export default function ProjectDetailClient({ project, nextProject }: { project: Project; nextProject?: NextProject | null }) {
     const { language, setAlternateUrl } = useLanguage();
     const dictionary = phase2Copy(language);
@@ -90,6 +102,7 @@ export default function ProjectDetailClient({ project, nextProject }: { project:
 
     const technologies = parseTechnologies(project.technologies);
     const gallery = parseGallery(project.gallery);
+    const faqs = parseJsonList<{ q: string; a: string }>((isEn && project.faq_en) || project.faq);
     const projectDate = project.projectDate ? new Date(project.projectDate) : null;
     const year = projectDate ? String(projectDate.getFullYear()) : null;
 
@@ -166,6 +179,24 @@ export default function ProjectDetailClient({ project, nextProject }: { project:
                     <h2>{copy.stackTitle}</h2>
                     <div className="p2-tag-row">
                         {technologies.map((tech) => <span key={tech}>{tech}</span>)}
+                    </div>
+                </section>
+            )}
+
+            {faqs.length > 0 && (
+                <section className="p2-container p2-detail-section p2-detail-section--faq">
+                    <h2>{copy.faqTitle}</h2>
+                    <div className="p2-screen-faq">
+                        {faqs.map((item, index) => (
+                            <details key={item.q}>
+                                <summary>
+                                    <span className="p2-gradient-number">{String(index + 1).padStart(2, "0")}</span>
+                                    <h3>{item.q}</h3>
+                                    <i aria-hidden="true">+</i>
+                                </summary>
+                                <p>{item.a}</p>
+                            </details>
+                        ))}
                     </div>
                 </section>
             )}

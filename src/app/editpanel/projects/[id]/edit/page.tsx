@@ -38,6 +38,8 @@ interface Project {
     metaTitle_en: string | null;
     metaDescription_en: string | null;
     metaKeywords_en: string | null;
+    faq: string | null;
+    faq_en: string | null;
 }
 
 export default function EditProjectPage({ params }: { params: Promise<{ id: string }> }) {
@@ -46,7 +48,7 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [translating, setTranslating] = useState(false);
-    const [activeTab, setActiveTab] = useState<"general" | "media" | "seo">("general");
+    const [activeTab, setActiveTab] = useState<"general" | "media" | "seo" | "faq">("general");
     const [project, setProject] = useState<Project | null>(null);
     const [projectId, setProjectId] = useState<string | null>(null);
 
@@ -201,6 +203,15 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
                 >
                     SEO
                 </button>
+                <button
+                    onClick={() => setActiveTab("faq")}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition ${activeTab === "faq"
+                        ? "bg-black text-white"
+                        : "bg-black/5 text-black hover:bg-black/10"
+                        }`}
+                >
+                    FAQ
+                </button>
             </div>
 
             <form onSubmit={handleSubmit} className="max-w-2xl bg-white rounded-2xl p-6 shadow-sm space-y-6">
@@ -217,14 +228,7 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
                                 required
                                 value={project.title}
                                 onChange={(e) => {
-                                    const title = e.target.value;
-                                    const slug = title.toLowerCase()
-                                        .replace(/ğ/g, 'g').replace(/ü/g, 'u')
-                                        .replace(/ş/g, 's').replace(/ı/g, 'i')
-                                        .replace(/ö/g, 'o').replace(/ç/g, 'c')
-                                        .replace(/[^a-z0-9]+/g, '-')
-                                        .replace(/^-+|-+$/g, '');
-                                    setProject({ ...project, title, slug });
+                                    setProject({ ...project, title: e.target.value });
                                 }}
                                 className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
                             />
@@ -238,11 +242,7 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
                                 type="text"
                                 value={project.title_en || ""}
                                 onChange={(e) => {
-                                    const title_en = e.target.value;
-                                    const slug_en = title_en
-                                        ? title_en.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
-                                        : null;
-                                    setProject({ ...project, title_en: title_en || null, slug_en });
+                                    setProject({ ...project, title_en: e.target.value || null });
                                 }}
                                 className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
                             />
@@ -621,6 +621,73 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
                         </div>
                     </>
                 )}
+
+                {/* FAQ Tab */}
+                {activeTab === "faq" && (() => {
+                    const faqItems: { q: string; a: string }[] = project.faq ? JSON.parse(project.faq) : [];
+
+                    const updateFaq = (items: { q: string; a: string }[]) =>
+                        setProject({ ...project, faq: items.length ? JSON.stringify(items) : null });
+
+                    return (
+                        <div>
+                            <div className="flex items-center justify-between mb-3">
+                                <div>
+                                    <label className="block text-sm font-medium text-black/70">Sıkça Sorulan Sorular (FAQ)</label>
+                                    <p className="text-xs text-black/40 mt-0.5">Google'da öne çıkan snippet almak için kullanılır</p>
+                                </div>
+                                <button
+                                    type="button"
+                                    onClick={() => updateFaq([...faqItems, { q: "", a: "" }])}
+                                    className="text-xs px-3 py-1.5 bg-black text-white rounded-lg hover:bg-black/80 transition"
+                                >
+                                    + Soru Ekle
+                                </button>
+                            </div>
+                            <div className="space-y-4">
+                                {faqItems.map((item, i) => (
+                                    <div key={i} className="p-4 bg-[#f5f5f5] rounded-xl space-y-2">
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-xs font-bold text-black/40 w-4">{i + 1}</span>
+                                            <input
+                                                type="text"
+                                                value={item.q}
+                                                onChange={(e) => {
+                                                    const updated = [...faqItems];
+                                                    updated[i] = { ...updated[i], q: e.target.value };
+                                                    updateFaq(updated);
+                                                }}
+                                                placeholder="Soru?"
+                                                className="flex-1 px-3 py-2 bg-white border-0 rounded-lg text-sm text-black focus:outline-none focus:ring-2 focus:ring-black"
+                                            />
+                                            <button
+                                                type="button"
+                                                onClick={() => updateFaq(faqItems.filter((_, j) => j !== i))}
+                                                className="text-black/30 hover:text-red-500 transition text-lg leading-none"
+                                            >
+                                                ×
+                                            </button>
+                                        </div>
+                                        <textarea
+                                            value={item.a}
+                                            onChange={(e) => {
+                                                const updated = [...faqItems];
+                                                updated[i] = { ...updated[i], a: e.target.value };
+                                                updateFaq(updated);
+                                            }}
+                                            placeholder="Cevap..."
+                                            rows={2}
+                                            className="w-full px-3 py-2 bg-white border-0 rounded-lg text-sm text-black focus:outline-none focus:ring-2 focus:ring-black ml-6"
+                                        />
+                                    </div>
+                                ))}
+                                {faqItems.length === 0 && (
+                                    <p className="text-sm text-black/30 text-center py-4">Henüz soru eklenmedi</p>
+                                )}
+                            </div>
+                        </div>
+                    );
+                })()}
 
                 <div className="flex gap-4 pt-4">
                     <button

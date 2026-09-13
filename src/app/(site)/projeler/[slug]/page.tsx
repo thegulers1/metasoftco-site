@@ -82,6 +82,8 @@ async function getProject(slug: string) {
             projectDate: true,
             createdAt: true,
             order: true,
+            faq: true,
+            faq_en: true,
         },
     });
 }
@@ -150,6 +152,24 @@ export default async function ProjectDetailPage({
         { name: phase2Copy("tr").caseStudy.title, url: `${siteConfig.url}/projeler/${slug}` },
     ]) : null;
 
+    // FAQ JSON-LD schema — Google featured snippet için
+    const faqSchema = project.faq ? (() => {
+        const items: { q: string; a: string }[] = JSON.parse(project.faq);
+        if (!items.length) return null;
+        return {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            "mainEntity": items.map((item) => ({
+                "@type": "Question",
+                "name": item.q,
+                "acceptedAnswer": {
+                    "@type": "Answer",
+                    "text": item.a,
+                },
+            })),
+        };
+    })() : null;
+
     return (
         <>
             {breadcrumbSchema && (
@@ -157,6 +177,9 @@ export default async function ProjectDetailPage({
             )}
             {videoSchema && (
                 <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchema) }} />
+            )}
+            {faqSchema && (
+                <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
             )}
             <AdminEditUrlSetter url={`/editpanel/projects/${project.id}/edit`} />
             {slug === PHASE_2_RAYBAN_SLUG && project.image ? (

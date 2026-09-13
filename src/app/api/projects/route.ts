@@ -60,6 +60,8 @@ export async function POST(request: Request) {
             metaTitle_en,
             metaDescription_en,
             metaKeywords_en,
+            faq,
+            faq_en,
         } = body;
 
         const project = await prisma.project.create({
@@ -90,6 +92,8 @@ export async function POST(request: Request) {
                 metaTitle_en,
                 metaDescription_en,
                 metaKeywords_en,
+                faq: faq || null,
+                faq_en: faq_en || null,
             },
         });
 
