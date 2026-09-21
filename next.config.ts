@@ -226,6 +226,12 @@ const nextConfig: NextConfig = {
       { source: "/information-wall/", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri", permanent: true },
       { source: "/photobooth-poster", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari", permanent: true },
       { source: "/photobooth-poster/", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari", permanent: true },
+
+      { source: "/star-map", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/star-map", permanent: true },
+      { source: "/star-map/", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/star-map", permanent: true },
+      { source: "/en/services/photobooth-and-photo-activations/glambot-robot", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari", permanent: true },
+      { source: "/hashtag-photo", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari", permanent: true },
+      { source: "/hashtag-photo/", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari", permanent: true },
     ];
   },
 
