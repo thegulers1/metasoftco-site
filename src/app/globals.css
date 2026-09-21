@@ -559,6 +559,8 @@ main:has(> .phase2) {
 .p2-button--primary {
 	color: #071013 !important;
 	background: linear-gradient(90deg, #64e5e7, #8b91ff 55%, #ff7476);
+	background-repeat: no-repeat;
+	background-origin: border-box;
 	transition:
 		filter 0.2s ease,
 		transform 0.2s ease;
@@ -2687,6 +2689,8 @@ html[lang="tr"] .phase2 .p2-signal-title {
 	padding: 14px 25px;
 	color: #071013 !important;
 	background: linear-gradient(90deg, #64e5e7, #8b91ff 55%, #ff7476);
+	background-repeat: no-repeat;
+	background-origin: border-box;
 	border: 1px solid transparent;
 	border-radius: 12px;
 	font-family: var(--font-manrope), sans-serif;
@@ -2718,7 +2722,7 @@ html[lang="tr"] .phase2 .p2-signal-title {
 }
 .p2-screen-button--tertiary {
 	color: #071013 !important;
-	background: linear-gradient(90deg, #ffd166, #ff9f45 55%, #ff7476);
+	background-image: linear-gradient(90deg, #ffd166, #ff9f45 55%, #ff7476);
 	border-color: transparent;
 }
 .p2-screen-button--tertiary:hover {
@@ -3649,12 +3653,12 @@ html[lang="tr"] .phase2 .p2-signal-title {
 	font-size: clamp(43px, 5.4vw, 72px);
 }
 .p2-about__final .p2-screen-button {
-	background: linear-gradient(90deg, #64e5e7, #8b91ff 55%, #ff7476);
+	background-image: linear-gradient(90deg, #64e5e7, #8b91ff 55%, #ff7476);
 	border-color: transparent;
 	border-radius: 12px;
 }
 .p2-about__final .p2-screen-button:hover {
-	background: linear-gradient(90deg, #64e5e7, #8b91ff 55%, #ff7476);
+	background-image: linear-gradient(90deg, #64e5e7, #8b91ff 55%, #ff7476);
 	filter: brightness(1.08);
 }
 
