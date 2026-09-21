@@ -146,6 +146,7 @@ model BlogPost {
   metaTitle_en       String?
   title_en           String?
   slug_en            String?   @unique
+  serviceIds         String?
 }
 
 model SiteSetting {

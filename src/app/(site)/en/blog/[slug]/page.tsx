@@ -128,6 +128,13 @@ export default async function EnglishBlogPostPage({ params }: Props) {
     ]);
 
     const related = await getRelatedPosts(slug, post.category);
+    const serviceIds: string[] = post.serviceIds ? JSON.parse(post.serviceIds) : [];
+    const relatedServices = serviceIds.length > 0
+        ? await prisma.service.findMany({
+            where: { id: { in: serviceIds }, published: true },
+            include: { category: true },
+        })
+        : [];
 
     return (
         <>
@@ -151,6 +158,7 @@ export default async function EnglishBlogPostPage({ params }: Props) {
                     publishedAt: post.publishedAt,
                 }}
                 related={related}
+                relatedServices={relatedServices}
                 locale="en"
             />
         </>

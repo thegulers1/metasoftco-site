@@ -18,6 +18,17 @@ export interface P2InsightArticle {
     publishedAt: Date | string | null;
 }
 
+export interface P2RelatedService {
+    id: string;
+    title: string;
+    title_en: string | null;
+    slug: string;
+    slug_en: string | null;
+    image: string | null;
+    type: string;
+    category: { slug: string; slug_en: string | null } | null;
+}
+
 /**
  * Editor-authored posts sometimes open with their own <h1>. The screen already
  * renders one in the header, so a second lands on the 104px display ramp and
@@ -31,10 +42,12 @@ function demoteContentHeadings(html: string) {
 export default function InsightsDetailPrototype({
     post,
     related,
+    relatedServices = [],
     locale,
 }: {
     post: P2InsightArticle;
     related: P2InsightCard[];
+    relatedServices?: P2RelatedService[];
     locale: Phase2Locale;
 }) {
     const dictionary = phase2Copy(locale);
@@ -104,6 +117,39 @@ export default function InsightsDetailPrototype({
                         className="p2-prose"
                         dangerouslySetInnerHTML={{ __html: addHeadingAnchors(demoteContentHeadings(post.content.replace(/&nbsp;/g, " "))) }}
                     />
+                </section>
+            )}
+
+            {relatedServices.length > 0 && (
+                <section className="p2-container p2-detail-section p2-detail-section--related">
+                    <h2>{copy.relatedServicesTitle}</h2>
+                    <div className="p2-cap-grid">
+                        {relatedServices.slice(0, 3).map((service, index) => {
+                            const title = locale === "en" ? (service.title_en || service.title) : service.title;
+                            const href = service.type === "SALE"
+                                ? `/urunler/${service.slug}`
+                                : locale === "en" && service.category?.slug_en && service.slug_en
+                                    ? `/en/services/${service.category.slug_en}/${service.slug_en}`
+                                    : `/hizmetler/${service.category?.slug}/${service.slug}`;
+
+                            return (
+                                <Link key={service.id} className="p2-cap-card" href={href}>
+                                    <div className="p2-cap-card__media">
+                                        {service.image && (
+                                            <Image src={service.image} alt="" fill sizes="(max-width: 760px) 100vw, 33vw" />
+                                        )}
+                                    </div>
+                                    <div className="p2-cap-card__body">
+                                        <span className="p2-gradient-number">{String(index + 1).padStart(2, "0")}</span>
+                                        <h2>{title}</h2>
+                                        <span className="p2-card-link">
+                                            {copy.relatedServicesLink} <ArrowRight aria-hidden="true" />
+                                        </span>
+                                    </div>
+                                </Link>
+                            );
+                        })}
+                    </div>
                 </section>
             )}
 

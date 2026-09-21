@@ -45,6 +45,7 @@ export async function POST(request: Request) {
             metaTitle_en,
             metaDescription_en,
             metaKeywords_en,
+            serviceIds,
         } = body;
 
         const post = await prisma.blogPost.create({
@@ -69,6 +70,7 @@ export async function POST(request: Request) {
                 metaTitle_en,
                 metaDescription_en,
                 metaKeywords_en,
+                serviceIds: serviceIds || null,
             },
         });
 

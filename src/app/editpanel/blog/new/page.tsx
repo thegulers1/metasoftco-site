@@ -1,10 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useToast } from "@/providers/ToastProvider";
 import ImageUpload from "@/components/editpanel/ImageUpload";
 import RichTextEditor from "@/components/editpanel/RichTextEditor";
+import ServicePicker, { type ServiceOption } from "@/components/editpanel/ServicePicker";
 
 export const dynamic = 'force-dynamic';
 
@@ -27,13 +28,15 @@ interface BlogFormData {
     metaTitle_en: string;
     metaDescription_en: string;
     metaKeywords_en: string;
+    serviceIds: string[];
 }
 
 export default function NewBlogPostPage() {
     const router = useRouter();
     const { showToast } = useToast();
     const [saving, setSaving] = useState(false);
-    const [activeTab, setActiveTab] = useState<"content" | "seo">("content");
+    const [activeTab, setActiveTab] = useState<"content" | "hizmetler" | "seo">("content");
+    const [allServices, setAllServices] = useState<ServiceOption[]>([]);
     const [formData, setFormData] = useState<BlogFormData>({
         title: "",
         slug: "",
@@ -54,7 +57,25 @@ export default function NewBlogPostPage() {
         metaTitle_en: "",
         metaDescription_en: "",
         metaKeywords_en: "",
+        serviceIds: [],
     });
+
+    useEffect(() => {
+        fetch("/api/services")
+            .then((r) => r.json())
+            .then((data) => {
+                const services: ServiceOption[] = [];
+                if (Array.isArray(data)) {
+                    data.forEach((cat: any) => {
+                        if (cat.services) {
+                            cat.services.forEach((s: any) => services.push({ ...s, category: { name: cat.name, slug: cat.slug } }));
+                        }
+                    });
+                }
+                setAllServices(services);
+            })
+            .catch(() => {});
+    }, []);
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -64,7 +85,10 @@ export default function NewBlogPostPage() {
             const res = await fetch("/api/blog", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData),
+                body: JSON.stringify({
+                    ...formData,
+                    serviceIds: formData.serviceIds.length > 0 ? JSON.stringify(formData.serviceIds) : null,
+                }),
             });
 
             if (res.ok) {
@@ -100,6 +124,15 @@ export default function NewBlogPostPage() {
                         }`}
                 >
                     İçerik
+                </button>
+                <button
+                    onClick={() => setActiveTab("hizmetler")}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition ${activeTab === "hizmetler"
+                        ? "bg-black text-white"
+                        : "bg-black/5 text-black hover:bg-black/10"
+                        }`}
+                >
+                    Önerilen Hizmetler{formData.serviceIds.length > 0 ? ` (${formData.serviceIds.length})` : ""}
                 </button>
                 <button
                     onClick={() => setActiveTab("seo")}
@@ -229,6 +262,14 @@ export default function NewBlogPostPage() {
                             </label>
                         </div>
                     </>
+                )}
+
+                {activeTab === "hizmetler" && (
+                    <ServicePicker
+                        allServices={allServices}
+                        selectedIds={formData.serviceIds}
+                        onChange={(ids) => setFormData({ ...formData, serviceIds: ids })}
+                    />
                 )}
 
                 {activeTab === "seo" && (

@@ -116,6 +116,13 @@ export default async function BlogPostPage({ params }: Props) {
     ]);
 
     const related = await getRelatedPosts(post.slug, post.category);
+    const serviceIds: string[] = post.serviceIds ? JSON.parse(post.serviceIds) : [];
+    const relatedServices = serviceIds.length > 0
+        ? await prisma.service.findMany({
+            where: { id: { in: serviceIds }, published: true },
+            include: { category: true },
+        })
+        : [];
 
     return (
         <>
@@ -128,7 +135,7 @@ export default async function BlogPostPage({ params }: Props) {
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
             />
 
-            <InsightsDetailPrototype post={post} related={related} locale="tr" />
+            <InsightsDetailPrototype post={post} related={related} relatedServices={relatedServices} locale="tr" />
         </>
     );
 }

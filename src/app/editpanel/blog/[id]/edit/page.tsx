@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/providers/ToastProvider";
 import ImageUpload from "@/components/editpanel/ImageUpload";
 import RichTextEditor from "@/components/editpanel/RichTextEditor";
+import ServicePicker, { type ServiceOption } from "@/components/editpanel/ServicePicker";
 
 export const dynamic = 'force-dynamic';
 
@@ -28,6 +29,7 @@ interface BlogFormData {
     metaTitle_en: string;
     metaDescription_en: string;
     metaKeywords_en: string;
+    serviceIds: string[];
 }
 
 export default function EditBlogPostPage({
@@ -40,7 +42,8 @@ export default function EditBlogPostPage({
     const { showToast } = useToast();
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
-    const [activeTab, setActiveTab] = useState<"content" | "seo">("content");
+    const [activeTab, setActiveTab] = useState<"content" | "hizmetler" | "seo">("content");
+    const [allServices, setAllServices] = useState<ServiceOption[]>([]);
     const [formData, setFormData] = useState<BlogFormData>({
         title: "",
         slug: "",
@@ -62,7 +65,25 @@ export default function EditBlogPostPage({
         metaTitle_en: "",
         metaDescription_en: "",
         metaKeywords_en: "",
+        serviceIds: [],
     });
+
+    useEffect(() => {
+        fetch("/api/services")
+            .then((r) => r.json())
+            .then((data) => {
+                const services: ServiceOption[] = [];
+                if (Array.isArray(data)) {
+                    data.forEach((cat: any) => {
+                        if (cat.services) {
+                            cat.services.forEach((s: any) => services.push({ ...s, category: { name: cat.name, slug: cat.slug } }));
+                        }
+                    });
+                }
+                setAllServices(services);
+            })
+            .catch(() => {});
+    }, []);
 
     useEffect(() => {
         async function fetchPost() {
@@ -90,6 +111,7 @@ export default function EditBlogPostPage({
                         metaTitle_en: data.metaTitle_en || "",
                         metaDescription_en: data.metaDescription_en || "",
                         metaKeywords_en: data.metaKeywords_en || "",
+                        serviceIds: data.serviceIds ? JSON.parse(data.serviceIds) : [],
                     });
                 } else {
                     alert("Yazı bulunamadı");
@@ -112,7 +134,10 @@ export default function EditBlogPostPage({
             const res = await fetch(`/api/blog/${id}`, {
                 method: "PUT",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData),
+                body: JSON.stringify({
+                    ...formData,
+                    serviceIds: formData.serviceIds.length > 0 ? JSON.stringify(formData.serviceIds) : null,
+                }),
             });
 
             if (res.ok) {
@@ -152,6 +177,15 @@ export default function EditBlogPostPage({
                         }`}
                 >
                     İçerik
+                </button>
+                <button
+                    onClick={() => setActiveTab("hizmetler")}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition ${activeTab === "hizmetler"
+                        ? "bg-black text-white"
+                        : "bg-black/5 text-black hover:bg-black/10"
+                        }`}
+                >
+                    Önerilen Hizmetler{formData.serviceIds.length > 0 ? ` (${formData.serviceIds.length})` : ""}
                 </button>
                 <button
                     onClick={() => setActiveTab("seo")}
@@ -293,6 +327,14 @@ export default function EditBlogPostPage({
                             </label>
                         </div>
                     </>
+                )}
+
+                {activeTab === "hizmetler" && (
+                    <ServicePicker
+                        allServices={allServices}
+                        selectedIds={formData.serviceIds}
+                        onChange={(ids) => setFormData({ ...formData, serviceIds: ids })}
+                    />
                 )}
 
                 {activeTab === "seo" && (
