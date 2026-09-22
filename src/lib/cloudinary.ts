@@ -8,7 +8,11 @@ export function cloudinaryOptimize(url: string | null | undefined, width?: numbe
     // Zaten transform uygulanmışsa dokunma
     if (url.includes("/upload/f_auto") || url.includes("/upload/q_auto")) return url;
 
-    const transform = width ? `f_auto,q_auto,w_${width}` : "f_auto,q_auto";
+    // Animasyonlu GIF'lerde f_auto/q_auto tek başına Cloudinary'nin durağan bir
+    // kareye düşmesine yol açabilir; fl_animated animasyonun korunmasını garantiler.
+    const isGif = /\.gif($|\?)/i.test(url);
+    const base = isGif ? "f_auto,q_auto,fl_animated" : "f_auto,q_auto";
+    const transform = width ? `${base},w_${width}` : base;
     return url.replace("/upload/", `/upload/${transform}/`);
 }
 

@@ -6,6 +6,7 @@ import { uploadToCloudinary } from "@/lib/cloudinaryUpload";
 import { isVideoUrl } from "@/lib/cloudinary";
 
 const MAX_IMAGE_SIZE = 10 * 1024 * 1024; // 10MB
+const MAX_GIF_SIZE = 100 * 1024 * 1024; // 100MB — animasyonlu GIF'ler statik görsellerden çok daha büyük olabilir
 const MAX_VIDEO_SIZE = 100 * 1024 * 1024; // 100MB
 
 interface GalleryUploadProps {
@@ -55,10 +56,11 @@ export default function GalleryUpload({
 
         for (const file of mediaFiles) {
             const isVideo = file.type.startsWith('video/');
-            const maxSize = isVideo ? MAX_VIDEO_SIZE : MAX_IMAGE_SIZE;
+            const isGif = file.type === 'image/gif';
+            const maxSize = isVideo || isGif ? (isVideo ? MAX_VIDEO_SIZE : MAX_GIF_SIZE) : MAX_IMAGE_SIZE;
 
             if (file.size > maxSize) {
-                setError(isVideo ? "Her video maksimum 100MB olabilir" : "Her görsel maksimum 10MB olabilir");
+                setError(isVideo ? "Her video maksimum 100MB olabilir" : isGif ? "Her GIF maksimum 100MB olabilir" : "Her görsel maksimum 10MB olabilir");
                 continue;
             }
 
