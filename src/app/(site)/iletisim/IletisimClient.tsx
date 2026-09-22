@@ -30,6 +30,7 @@ export default function ContactPage() {
         message: "",
     });
     const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">("idle");
+    const [errorMsg, setErrorMsg] = useState("");
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -38,21 +39,31 @@ export default function ContactPage() {
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setStatus("sending");
+        setErrorMsg("");
         try {
             const res = await fetch("/api/contact", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(form),
             });
+            const data = await res.json().catch(() => ({}));
             if (res.ok) {
                 setStatus("sent");
                 trackEvent("generate_lead", { form_name: "iletisim" });
                 setForm({ name: "", email: "", phone: "", subject: "", message: "" });
             } else {
                 setStatus("error");
+                setErrorMsg(
+                    data?.error ||
+                    t("Mesaj gönderilemedi. Lütfen tekrar deneyin.", "Message could not be sent. Please try again.")
+                );
             }
         } catch {
             setStatus("error");
+            setErrorMsg(t(
+                "Bağlantı hatası. İnternet bağlantınızı kontrol edip tekrar deneyin.",
+                "Connection error. Please check your internet connection and try again."
+            ));
         }
     };
 
@@ -229,14 +240,13 @@ export default function ContactPage() {
                                         placeholder="+90 5XX XXX XX XX"
                                     />
                                 </Field>
-                                <Field label={t("Konu", "Subject")} required>
+                                <Field label={t("Konu", "Subject")}>
                                     <UnderlineInput
                                         type="text"
                                         name="subject"
-                                        required
                                         value={form.subject}
                                         onChange={handleChange}
-                                        placeholder={t("Konu", "Subject")}
+                                        placeholder={t("İsteğe bağlı", "Optional")}
                                     />
                                 </Field>
                             </div>
@@ -257,7 +267,7 @@ export default function ContactPage() {
                             {status === "error" && (
                                 <div className="flex items-center gap-2 text-[#f87171] text-sm pt-4" style={{ fontFamily: "var(--font-manrope)" }}>
                                     <AlertCircle className="w-4 h-4 shrink-0" />
-                                    <span>{t("Mesaj gönderilemedi. Lütfen tekrar deneyin.", "Message could not be sent. Please try again.")}</span>
+                                    <span>{errorMsg}</span>
                                 </div>
                             )}
 

@@ -12,10 +12,11 @@ import {
 export const dynamic = 'force-dynamic';
 
 export async function POST(req: Request) {
-    const { name, email, phone, subject, message } = await req.json().catch(() => ({}));
+    const { name, email, phone, subject: rawSubject, message } = await req.json().catch(() => ({}));
+    const subject = rawSubject || "Genel İletişim";
 
-    if (!name || !email || !subject || !message) {
-        return NextResponse.json({ error: "Zorunlu alanlar eksik." }, { status: 400 });
+    if (!name || !email || !message) {
+        return NextResponse.json({ error: "Ad, e-posta ve mesaj alanları zorunludur." }, { status: 400 });
     }
 
     const replyTo = safeReplyTo(email);

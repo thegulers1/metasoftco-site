@@ -287,20 +287,26 @@ export function QuotePanel() {
                                             />
                                         </div>
 
-                                        {errorMsg && (
-                                            <p className="text-red-600 text-sm">{errorMsg}</p>
-                                        )}
-
-                                        <button
-                                            type="submit"
-                                            disabled={status === "loading" || selected.length === 0}
-                                            className="w-full bg-red-600 text-white font-bold py-3.5 rounded-full hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-widest text-sm mt-2"
-                                        >
-                                            {status === "loading"
-                                                ? tr("Gönderiliyor...", "Sending...")
-                                                : tr("Teklif İste", "Request Quote")
-                                            }
-                                        </button>
+                                        <div className="sticky bottom-0 -mx-6 px-6 pt-3 pb-1 bg-white border-t border-black/8 mt-2 space-y-2">
+                                            {selected.length === 0 && (
+                                                <p className="text-red-600 text-xs font-medium">
+                                                    {tr("Devam etmek için yukarıdan en az bir hizmet seçin.", "Select at least one service above to continue.")}
+                                                </p>
+                                            )}
+                                            {errorMsg && (
+                                                <p className="text-red-600 text-sm">{errorMsg}</p>
+                                            )}
+                                            <button
+                                                type="submit"
+                                                disabled={status === "loading" || selected.length === 0}
+                                                className="w-full bg-red-600 text-white font-bold py-3.5 rounded-full hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-widest text-sm"
+                                            >
+                                                {status === "loading"
+                                                    ? tr("Gönderiliyor...", "Sending...")
+                                                    : tr("Teklif İste", "Request Quote")
+                                                }
+                                            </button>
+                                        </div>
                                     </form>
                                 </>
                             )}

@@ -8,6 +8,7 @@ import type { Phase2Locale } from "@/lib/phase2";
 import { phase2Copy } from "@/lib/phase2-content";
 import { SignalHeading } from "./SignalHeading";
 import { useChatStore } from "@/components/AIChat/useChatStore";
+import { trackEvent } from "@/lib/analytics";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
@@ -23,8 +24,10 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
         event.preventDefault();
         setStatus("sending");
 
-        const data = new FormData(event.currentTarget);
+        const currentForm = event.currentTarget;
+        const data = new FormData(currentForm);
         const value = (key: string) => String(data.get(key) ?? "").trim();
+        const company = value("company");
 
         try {
             const response = await fetch("/api/contact", {
@@ -33,11 +36,19 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
                 body: JSON.stringify({
                     name: value("name"),
                     email: value("email"),
-                    subject: `${form.company.replace(" *", "")}: ${value("company")}`,
+                    subject: company
+                        ? `${form.company.replace(" *", "")}: ${company}`
+                        : undefined,
                     message: value("brief"),
                 }),
             });
-            setStatus(response.ok ? "sent" : "error");
+            if (response.ok) {
+                setStatus("sent");
+                trackEvent("generate_lead", { form_name: "iletisim_brief" });
+                currentForm.reset();
+            } else {
+                setStatus("error");
+            }
         } catch {
             setStatus("error");
         }
@@ -61,17 +72,26 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
                     </ul>
                     <figure><Image src="/phase2/contact-producers-v2.png" alt={copy.figureAlt} fill sizes="330px" /></figure>
                 </aside>
-                <form onSubmit={submit}>
-                    <div className="p2-field-grid">
-                        <label>{form.name}<input required name="name" placeholder={form.namePlaceholder} /></label>
-                        <label>{form.company}<input required name="company" placeholder={form.companyPlaceholder} /></label>
+                {status === "sent" ? (
+                    <div className="p2-form-thanks" role="status">
+                        <h2>{form.submitted}</h2>
+                        <p>{form.success}</p>
+                        <button className="p2-screen-button" type="button" onClick={() => setStatus("idle")}>
+                            {form.sendAnother}<ArrowRight aria-hidden="true" />
+                        </button>
                     </div>
-                    <label>{form.email}<input required type="email" name="email" placeholder={form.emailPlaceholder} /></label>
-                    <label>{form.brief}<textarea required name="brief" maxLength={2000} placeholder={form.briefPlaceholder} /></label>
-                    <button className="p2-screen-button" type="submit" disabled={status === "sending"}>{submitLabel}<ArrowRight aria-hidden="true" /></button>
-                    {status === "sent" && <p className="p2-form-success" role="status">{form.success}</p>}
-                    {status === "error" && <p className="p2-form-error" role="alert">{form.error}</p>}
-                </form>
+                ) : (
+                    <form onSubmit={submit}>
+                        <div className="p2-field-grid">
+                            <label>{form.name}<input required name="name" placeholder={form.namePlaceholder} /></label>
+                            <label>{form.company.replace(" *", "")}<input name="company" placeholder={form.companyPlaceholder} /></label>
+                        </div>
+                        <label>{form.email}<input required type="email" name="email" placeholder={form.emailPlaceholder} /></label>
+                        <label>{form.brief}<textarea required name="brief" maxLength={2000} placeholder={form.briefPlaceholder} /></label>
+                        <button className="p2-screen-button" type="submit" disabled={status === "sending"}>{submitLabel}<ArrowRight aria-hidden="true" /></button>
+                        {status === "error" && <p className="p2-form-error" role="alert">{form.error}</p>}
+                    </form>
+                )}
             </section>
             <section className="p2-container p2-next-steps">
                 <h2>{copy.nextStepsTitle}</h2>
