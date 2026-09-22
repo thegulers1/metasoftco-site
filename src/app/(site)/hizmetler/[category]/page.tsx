@@ -110,6 +110,7 @@ export default async function CategoryHubPage({ params }: PageProps) {
                     href: `/hizmetler/${categorySlug}/${service.slug}`,
                 }))}
                 faqs={faqs}
+                updatedAt={category.updatedAt.toISOString()}
             />
         </>
     );

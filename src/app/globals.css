@@ -3057,12 +3057,19 @@ html[lang="tr"] .phase2 .p2-signal-title {
 	margin-top: 25px;
 	margin-inline: auto;
 }
-.p2-detail-top__heading > p {
+.p2-detail-top__heading > p,
+.p2-detail-top__heading > .p2-heading-copy {
 	max-width: 350px;
 	padding-left: 36px;
 	border-left: 1px solid rgba(244, 247, 248, 0.26);
 	font-size: 16px;
 	line-height: 1.55;
+}
+.p2-updated-at {
+	margin-top: 10px;
+	font-size: 12px;
+	line-height: 1.4;
+	color: rgba(244, 247, 248, 0.5);
 }
 .p2-detail-top dl,
 .p2-cap-detail__top dl {
@@ -3836,6 +3843,26 @@ html[lang="tr"] .phase2 .p2-signal-title {
 	opacity: 0.6;
 	cursor: progress;
 }
+.p2-form-thanks {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	gap: 10px;
+	padding: 32px 0;
+}
+.p2-form-thanks h2 {
+	font-size: 22px;
+	color: #76e4b5;
+}
+.p2-form-thanks p {
+	font-size: 14px;
+	opacity: 0.75;
+	max-width: 420px;
+}
+.p2-form-thanks .p2-screen-button {
+	width: auto;
+	margin-top: 10px;
+}
 .p2-next-steps {
 	display: grid;
 	grid-template-columns: 210px 1fr;
@@ -4484,7 +4511,8 @@ html[lang="tr"] .phase2 .p2-signal-title {
 		grid-template-columns: 1fr;
 		gap: 30px;
 	}
-	.p2-detail-top__heading > p {
+	.p2-detail-top__heading > p,
+	.p2-detail-top__heading > .p2-heading-copy {
 		padding: 0;
 		border: 0;
 	}

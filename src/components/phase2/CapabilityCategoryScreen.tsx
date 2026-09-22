@@ -25,6 +25,8 @@ export interface CapabilityCategoryScreenProps {
     contentHtml?: string | null;
     services: P2CategoryService[];
     faqs: { question: string; answer: string }[];
+    /** ISO date string; rendered as a freshness signal next to the hero copy. */
+    updatedAt?: string | null;
 }
 
 export default function CapabilityCategoryScreen({
@@ -35,7 +37,11 @@ export default function CapabilityCategoryScreen({
     contentHtml,
     services,
     faqs,
+    updatedAt,
 }: CapabilityCategoryScreenProps) {
+    const formattedUpdatedAt = updatedAt
+        ? new Date(updatedAt).toLocaleDateString(locale === "en" ? "en-GB" : "tr-TR", { year: "numeric", month: "long", day: "numeric" })
+        : null;
     const dictionary = phase2Copy(locale);
     const copy = dictionary.capabilityCategory;
     const title = heroTitle?.trim() || name;
@@ -53,7 +59,14 @@ export default function CapabilityCategoryScreen({
                 </nav>
                 <div className="p2-detail-top__heading">
                     <SignalHeading solid={solid} outline={outline} label={title} />
-                    {heroCopy && <p>{heroCopy}</p>}
+                    <div className="p2-heading-copy">
+                        {heroCopy && <p>{heroCopy}</p>}
+                        {formattedUpdatedAt && (
+                            <p className="p2-updated-at">
+                                {locale === "en" ? "Last updated" : "Son güncelleme"}: {formattedUpdatedAt}
+                            </p>
+                        )}
+                    </div>
                 </div>
                 <dl>
                     {copy.facts.map((fact) => (

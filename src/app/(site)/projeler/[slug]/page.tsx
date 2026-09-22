@@ -150,7 +150,11 @@ export default async function ProjectDetailPage({
         { name: phase2Copy("tr").caseStudy.crumbHome, url: siteConfig.url },
         { name: phase2Copy("tr").caseStudy.crumbWork, url: `${siteConfig.url}/projeler` },
         { name: phase2Copy("tr").caseStudy.title, url: `${siteConfig.url}/projeler/${slug}` },
-    ]) : null;
+    ]) : generateBreadcrumbSchema([
+        { name: "Anasayfa", url: siteConfig.url },
+        { name: "Projeler", url: `${siteConfig.url}/projeler` },
+        { name: project.title, url: `${siteConfig.url}/projeler/${slug}` },
+    ]);
 
     // FAQ JSON-LD schema — Google featured snippet için
     const faqSchema = project.faq ? (() => {

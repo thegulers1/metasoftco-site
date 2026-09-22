@@ -75,4 +75,9 @@ export function isEnglishSectorPagePublishable(page: {
     return [page.slug_en, page.h1_en, page.excerpt_en, page.content_en, page.metaTitle_en, page.metaDescription_en].every(present);
 }
 
-export const excludedSectorPageSlugs = new Set(["test", "istanbul-ai-photobooth"]);
+export const excludedSectorPageSlugs = new Set([
+    "test",
+    "istanbul-ai-photobooth",
+    "kurumsal-etkinlik-teknolojisi",
+    "fuar-aktivasyonlari",
+]);

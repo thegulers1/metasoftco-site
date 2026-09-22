@@ -171,11 +171,11 @@ const en = {
 		heroLabel: "We make technology physical.",
 		locationChip: "Istanbul  /  Since 2020",
 		heroCopy:
-			"We combine creative direction, custom software, physical production, and live operation to design and deliver experiences that connect brands and people in real time.",
+			"MetasoftCo is an Istanbul-based event technology agency and experience design studio. We combine creative direction, custom software, physical production, and live operation to design and deliver experiences that connect brands and people in real time.",
 		storyTitle: "Built in Istanbul.\nDelivered live.",
 		storyParagraphs: [
 			"We bring creative direction, software, physical production and live operation together under one roof.",
-			"From concept to live delivery, we build experiences that are reliable, measurable and made to move people.",
+			"From concept to live delivery, we build experiences that are reliable, measurable and made to move people. We've been on stage for 100+ brands across product launches, trade shows and corporate events.",
 		],
 		stats: [
 			{ value: "1,000+", label: "Live events" },
@@ -229,6 +229,7 @@ const en = {
 			submitted: "Brief received",
 			success: "Thanks — your brief is ready for our team. We’ll get back to you within one business day.",
 			error: "The brief could not be sent. Please email info@metasoftco.com or try again.",
+			sendAnother: "Send another brief",
 		},
 		nextStepsTitle: "What happens next",
 		nextSteps: [
@@ -755,11 +756,11 @@ const tr: Phase2Copy = {
 		heroLabel: "Teknolojiyi sahneye çıkarıyoruz.",
 		locationChip: "İstanbul  /  2020'den beri",
 		heroCopy:
-			"Yaratıcı fikir, özel yazılım, fiziksel üretim ve saha operasyonunu bir araya getirerek markaları insanlarla gerçek zamanlı buluşturan deneyimler tasarlıyor ve hayata geçiriyoruz.",
+			"MetasoftCo, İstanbul merkezli bir etkinlik teknolojisi ajansı ve deneyim tasarım stüdyosudur. Yaratıcı fikir, özel yazılım, fiziksel üretim ve saha operasyonunu bir araya getirerek markaları insanlarla gerçek zamanlı buluşturan deneyimler tasarlıyor ve hayata geçiriyoruz.",
 		storyTitle: "İstanbul’da geliştiriyoruz.\nSahada hayata geçiriyoruz.",
 		storyParagraphs: [
 			"Yaratıcı fikir, yazılım, fiziksel üretim ve saha operasyonunu tek çatı altında topluyoruz.",
-			"İlk fikirden etkinlik gününe kadar güvenilir, ölçülebilir ve katılım yaratan deneyimler geliştiriyoruz.",
+			"İlk fikirden etkinlik gününe kadar güvenilir, ölçülebilir ve katılım yaratan deneyimler geliştiriyoruz. Ürün lansmanlarından fuar stantlarına, kurumsal etkinliklere kadar 100'den fazla marka için sahne aldık.",
 		],
 		stats: [
 			{ value: "1.000+", label: "Canlı etkinlik" },
@@ -825,6 +826,7 @@ const tr: Phase2Copy = {
 			submitted: "Proje detayları alındı",
 			success: "Teşekkürler — proje detaylarınız ekibimize ulaştı. Bir iş günü içinde size dönüş yapacağız.",
 			error: "Proje detayları gönderilemedi. Lütfen info@metasoftco.com adresine yazın veya tekrar deneyin.",
+			sendAnother: "Yeni bir talep gönder",
 		},
 		nextStepsTitle: "Bundan sonra ne olacak",
 		nextSteps: [

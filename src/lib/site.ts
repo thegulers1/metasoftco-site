@@ -277,6 +277,15 @@ export function generateLocalBusinessSchema() {
                     "@type": "Offer",
                     itemOffered: {
                         "@type": "Service",
+                        name: "Mirror Booth",
+                        serviceType: "Interactive Mirror Photo Booth & Event Technology",
+                        description: "Dev dokunmatik ayna ekranı, yüzlerce dijital filtre ve interaktif efektlerle etkinliklerde anında baskı ve dijital paylaşım sunan photobooth çözümü. İstanbul ve Türkiye geneli kiralık hizmet.",
+                    },
+                },
+                {
+                    "@type": "Offer",
+                    itemOffered: {
+                        "@type": "Service",
                         name: "İnteraktif Oyunlar & Gamification",
                         serviceType: "Event Gamification & Interactive Experience",
                         description: "Kurumsal etkinliklerde çalışan bağlılığını artıran oyunlaştırma çözümleri: Hafıza Oyunu, Dijital Hediye Çarkı, özel oyun mekaniği geliştirme. Sosyal medya entegrasyonu dahil.",

@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
-import { siteConfig, generateFAQSchema, ogImageUrl } from "@/lib/site";
+import { siteConfig, generateFAQSchema, generateBreadcrumbSchema, ogImageUrl } from "@/lib/site";
 import { capabilityListingImageOverrides } from "@/lib/phase2-content";
 import CapabilitiesIndexPrototype from "@/components/phase2/CapabilitiesIndexPrototype";
 
@@ -66,6 +66,10 @@ const serviceFAQs = [
         answer: "Computer Vision ve Artırılmış Gerçeklik (AR) teknolojisiyle donatılmış interaktif bir ayna sistemidir. Unity/WebGL tabanlı gerçek zamanlı render ile misafirler sanal kıyafetler giyebilir, marka karakterlerine dönüşebilir. Özellikle tekstil, moda fuarları ve marka aktivasyonları için idealdir.",
     },
     {
+        question: "Mirror Booth İstanbul'da kiralanabilir mi?",
+        answer: "Evet. MetasoftCo İstanbul merkezli olup Mirror Booth'u Türkiye genelinde etkinliklere kiralık olarak sunar. Dev dokunmatik ayna ekranı, yüzlerce dijital filtre, anında baskı ve QR kod ile dijital paylaşım içerir; kurulum ve söküm hizmeti dahildir.",
+    },
+    {
         question: "Etkinlik için photobooth veya AI fotoğraf sistemi nasıl kurulur?",
         answer: "MetasoftCo ekibi etkinlik alanına 2-3 saat öncesinde gelerek tüm donanım ve yazılım kurulumunu tamamlar. Kompakt sistemler 45 dakikada hazır hale getirilebilir. Kurulum, etkinlik sırası teknik destek ve söküm hizmeti fiyata dahildir.",
     },
@@ -116,9 +120,17 @@ export default async function HizmetlerPage() {
         .filter((category) => category.services.some((service) => service.image))
         .map((category) => ({ slug: category.slug, name: category.name }));
     const faqSchema = generateFAQSchema(serviceFAQs);
+    const breadcrumbSchema = generateBreadcrumbSchema([
+        { name: "Anasayfa", url: siteConfig.url },
+        { name: "Hizmetler", url: `${siteConfig.url}/hizmetler` },
+    ]);
 
     return (
         <>
+            <script
+                type="application/ld+json"
+                dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+            />
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}

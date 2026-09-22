@@ -118,7 +118,13 @@ export default function ServiceDetailClient({
 
                 <div className="p2-detail-top__heading">
                     <SignalHeading solid={solid} outline={outline} label={seoTitle} />
-                    {description && <p>{description}</p>}
+                    <div className="p2-heading-copy">
+                        {description && <p>{description}</p>}
+                        <p className="p2-updated-at">
+                            {isEn ? "Last updated" : "Son güncelleme"}:{" "}
+                            {service.updatedAt.toLocaleDateString(isEn ? "en-GB" : "tr-TR", { year: "numeric", month: "long", day: "numeric" })}
+                        </p>
+                    </div>
                 </div>
 
                 <dl>

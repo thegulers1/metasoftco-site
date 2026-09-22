@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
-import { siteConfig } from "@/lib/site";
+import { siteConfig, generateBreadcrumbSchema } from "@/lib/site";
 import WorkIndexPrototype from "@/components/phase2/WorkIndexPrototype";
 
 export const revalidate = 3600;
@@ -45,5 +45,15 @@ export default async function ProjectsPage() {
         .filter((project) => project.image)
         .map((project) => ({ id: project.id, slug: project.slug, title: project.title, image: project.image! }));
 
-    return <WorkIndexPrototype projects={projects} locale="tr" />;
+    const breadcrumbSchema = generateBreadcrumbSchema([
+        { name: "Anasayfa", url: siteConfig.url },
+        { name: "Projeler", url: `${siteConfig.url}/projeler` },
+    ]);
+
+    return (
+        <>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+            <WorkIndexPrototype projects={projects} locale="tr" />
+        </>
+    );
 }
