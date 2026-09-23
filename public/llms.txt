@@ -31,7 +31,7 @@ Tüm oyunlar marka kimliğiyle tamamen özelleştirilir ve sosyal medya paylaş�
 Etkinlik başarısını somut verilerle ölçen özel analitik paneller: katılım oranı, sosyal medya paylaşım metrikleri, kullanıcı etkileşim süreleri, demografik segmentasyon. KVKK uyumlu açık rıza alımı ve veri işleme altyapısı standarttır. Etkinlik sonrası PDF rapor sunulur.
 
 ### Data-Capture & CRM Modülü (Opsiyonel)
-Fotoğraf, AI ve interaktif oyun aktivasyonlarına talep halinde eklenen veri toplama modülü. Katılımcılar içeriklerine QR kod ile ulaşırken markaya özel mikro sitede ad, şirket ve e-posta gibi bilgilerini paylaşır. Form aydınlatma metniyle sunulur; pazarlama izni ayrı ve isteğe bağlı açık rıza ile alınır. Kayıtlar MetasoftCo'nun kendi CRM altyapısına anlık aktarılır, müşteri markaya özel panelden canlı takip edilir. Veri sorumlusu müşteri marka, MetasoftCo veri işleyendir.
+Fotoğraf, AI ve interaktif oyun aktivasyonlarına talep halinde eklenen veri toplama modülü. Katılımcılar içeriklerine QR kod ile ulaşırken markaya özel mikro sitede ad, şirket ve e-posta gibi bilgilerini paylaşır. Form aydınlatma metniyle sunulur; pazarlama izni ayrı ve isteğe bağlı açık rıza ile alınır. Kayıtlar MetasoftCo'nun kendi CRM altyapısına anlık aktarılır, müşteri markaya özel panelden canlı takip edilir. Veri sorumlusu müşteri marka, MetasoftCo veri işleyendir. Panelde filtreleme, Excel/CSV indirme ve yapay zeka ile istatistik özetleri bulunur; veriler standart olarak 90 gün saklanır. Detay: https://metasoftco.com/hizmetler/data-capture-crm
 
 ## Teknoloji Altyapısı
 
@@ -111,6 +111,7 @@ C: Kurumsal yıl sonu partileri, ürün lansmanları, fuarlar, marka aktivasyonl
 - Projeler / Portfolio: https://metasoftco.com/projeler
 - Blog: https://metasoftco.com/blog
 - Hakkımızda: https://metasoftco.com/hakkimizda
+- Data-Capture & CRM (etkinlikte lead toplama): https://metasoftco.com/hizmetler/data-capture-crm
 - İletişim: https://metasoftco.com/iletisim
 
 ## English Summary

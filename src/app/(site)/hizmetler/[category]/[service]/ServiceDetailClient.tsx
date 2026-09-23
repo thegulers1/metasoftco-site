@@ -9,6 +9,7 @@ import VideoPlayer from "@/components/site/VideoPlayer";
 import { SignalHeading } from "@/components/phase2/SignalHeading";
 import { DataCaptureBlock } from "@/components/phase2/DataCaptureBlock";
 import { dataCaptureCopy } from "@/lib/data-capture";
+import { DATA_CAPTURE_HUB_PATH } from "@/lib/data-capture-hub";
 import { splitSignalTitle } from "@/lib/phase2";
 import { phase2Copy } from "@/lib/phase2-content";
 import { useLanguage } from "@/providers/LanguageProvider";
@@ -169,7 +170,11 @@ export default function ServiceDetailClient({
             )}
 
             {showDataCapture && (
-                <DataCaptureBlock copy={dataCapture} contactHref={dictionary.routes.contact} />
+                <DataCaptureBlock
+                    copy={dataCapture}
+                    contactHref={dictionary.routes.contact}
+                    hubHref={isEn ? undefined : DATA_CAPTURE_HUB_PATH}
+                />
             )}
 
             {specs.length > 0 && (

@@ -5,10 +5,12 @@ import type { DataCaptureCopy } from "@/lib/data-capture";
 interface DataCaptureBlockProps {
     copy: DataCaptureCopy;
     contactHref: string;
+    /** Link to the Data-Capture hub page; omitted where no localized hub exists. */
+    hubHref?: string;
 }
 
 /** Shared Data-Capture / CRM pitch, shown on rental services with the flag on. */
-export function DataCaptureBlock({ copy, contactHref }: DataCaptureBlockProps) {
+export function DataCaptureBlock({ copy, contactHref, hubHref }: DataCaptureBlockProps) {
     return (
         <section
             id="data-capture"
@@ -32,9 +34,16 @@ export function DataCaptureBlock({ copy, contactHref }: DataCaptureBlockProps) {
 
                 <p className="p2-datacapture__legal">{copy.legal}</p>
 
-                <Link href={contactHref} className="p2-screen-button">
-                    {copy.cta} <ArrowRight aria-hidden="true" />
-                </Link>
+                <div className="p2-datacapture__actions">
+                    <Link href={contactHref} className="p2-screen-button">
+                        {copy.cta} <ArrowRight aria-hidden="true" />
+                    </Link>
+                    {hubHref && copy.more && (
+                        <Link href={hubHref} className="p2-screen-button p2-screen-button--secondary">
+                            {copy.more} <ArrowRight aria-hidden="true" />
+                        </Link>
+                    )}
+                </div>
             </div>
         </section>
     );

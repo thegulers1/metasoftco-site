@@ -57,6 +57,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         entry("/sektorel-cozumler", staticLastModified, 0.4), entry("/en/sector-solutions", staticLastModified, 0.4),
         entry("/hizmetler/kurumsal-etkinlik-teknolojisi", staticLastModified, 0.7),
         entry("/hizmetler/fuar-aktivasyonlari", staticLastModified, 0.6),
+        entry("/hizmetler/data-capture-crm", new Date("2026-09-23T00:00:00.000Z"), 0.7),
     ];
 
     const staticIndustryPages = sectors.flatMap((sector) => [

@@ -13,6 +13,7 @@ export interface DataCaptureCopy {
     items: { title: string; body: string }[];
     legal: string;
     cta: string;
+    more?: string;
     faq: { q: string; a: string }[];
 }
 
@@ -36,12 +37,13 @@ const tr: DataCaptureCopy = {
         },
         {
             title: "Size özel müşteri paneli",
-            body: "Size tanımlanan panel üzerinden etkinlik boyunca gelen kayıtları canlı olarak takip eder, etkinlik sonrasında sıcak lead listesini doğrudan satış ekibinizle paylaşırsınız.",
+            body: "Size tanımlanan panelden gelen kayıtları canlı takip eder, filtreler ve Excel/CSV olarak indirirsiniz. Yapay zeka destekli istatistikler etkinliğinizin performansını özetler.",
         },
     ],
     legal:
-        "Data-Capture modülü yalnızca müşterinin talebi ve yazılı onayı ile etkinleştirilir. Toplanan kişisel verilere ilişkin veri sorumlusu müşteri markadır; MetasoftCo bu verileri yalnızca müşterinin talimatları doğrultusunda, veri işleyen sıfatıyla işler. Aydınlatma metni ve rıza metinlerinin nihai içeriği ile onayı müşterinin sorumluluğundadır. Veriler, taraflar arasında kararlaştırılan süre sonunda müşteriye teslim edilir veya silinir.",
+        "Data-Capture modülü yalnızca müşterinin talebi ve yazılı onayı ile etkinleştirilir. Toplanan kişisel verilere ilişkin veri sorumlusu müşteri markadır; MetasoftCo bu verileri yalnızca müşterinin talimatları doğrultusunda, veri işleyen sıfatıyla işler. Aydınlatma metni ve rıza metinlerinin nihai içeriği ile onayı müşterinin sorumluluğundadır. Veriler standart olarak 90 gün saklanır; bu süre içinde panelden indirilebilir, süre sonunda sistemlerimizden silinir. Farklı bir süre sözleşmede kararlaştırılabilir.",
     cta: "Data-Capture ile Teklif Alın",
+    more: "Modülü Detaylı İnceleyin",
     faq: [
         {
             q: "Bu aktivasyonla katılımcı verisi (lead) toplanabilir mi?",
@@ -74,11 +76,11 @@ const en: DataCaptureCopy = {
         },
         {
             title: "Your dedicated client dashboard",
-            body: "Follow incoming records live throughout the event from the dashboard assigned to you, then hand the warm lead list straight to your sales team afterwards.",
+            body: "Follow incoming records live from your dedicated dashboard, filter them and download them as Excel/CSV. AI-generated statistics summarise how your event performed.",
         },
     ],
     legal:
-        "The Data-Capture module is activated only at the client's request and with their written approval. The client brand is the data controller for the personal data collected; MetasoftCo processes it solely on the client's instructions as a data processor. The final wording and approval of the privacy notice and consent texts remain the client's responsibility. Data is handed over to the client or deleted at the end of the period agreed between the parties.",
+        "The Data-Capture module is activated only at the client's request and with their written approval. The client brand is the data controller for the personal data collected; MetasoftCo processes it solely on the client's instructions as a data processor. The final wording and approval of the privacy notice and consent texts remain the client's responsibility. Data is retained for 90 days by default, can be downloaded from the dashboard during that period and is deleted from our systems afterwards. A different period can be agreed in the contract.",
     cta: "Request a Data-Capture Quote",
     faq: [
         {
