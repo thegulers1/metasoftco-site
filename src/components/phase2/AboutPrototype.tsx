@@ -26,6 +26,12 @@ export default function AboutPrototype({ locale }: { locale: Phase2Locale }) {
             <section className="p2-container p2-about__stats">
                 {copy.stats.map((stat) => <div key={stat.label}><strong className="p2-gradient-number">{stat.value}</strong><span>{stat.label}</span></div>)}
             </section>
+            <section className="p2-container p2-about__clients">
+                <span className="p2-about__clients-title">{copy.clientsTitle}</span>
+                <ul>
+                    {copy.clients.map((client) => <li key={client}>{client}</li>)}
+                </ul>
+            </section>
             <section className="p2-container p2-about__principles">
                 {copy.principles.map((principle) => <div key={principle.title}><h3>{principle.title}</h3><p>{principle.copy}</p></div>)}
             </section>

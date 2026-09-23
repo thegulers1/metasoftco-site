@@ -3600,6 +3600,36 @@ html[lang="tr"] .phase2 .p2-signal-title {
 	letter-spacing: 0.07em;
 	text-transform: uppercase;
 }
+.p2-about__clients {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 14px 28px;
+	padding: 32px 0;
+	border-bottom: 1px solid var(--p2-line);
+}
+.p2-about__clients-title {
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 11px;
+	letter-spacing: 0.07em;
+	text-transform: uppercase;
+	color: var(--p2-muted);
+	flex-shrink: 0;
+}
+.p2-about__clients ul {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px 26px;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+.p2-about__clients li {
+	font-size: 15px;
+	font-weight: 500;
+	white-space: nowrap;
+	opacity: 0.85;
+}
 .p2-about__principles {
 	display: grid;
 	grid-template-columns: repeat(3, 1fr);
