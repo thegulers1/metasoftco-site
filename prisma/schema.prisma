@@ -71,6 +71,8 @@ model Service {
   homeTitle_en       String?
   published          Boolean         @default(true)
   type               String          @default("RENTAL")
+  // Shows the shared Data-Capture / CRM block (and its FAQ) on the rental detail page.
+  dataCapture        Boolean         @default(false)
   category           ServiceCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
   // Explicit pairing for a RENTAL service's "Satın Al" CTA: points at the

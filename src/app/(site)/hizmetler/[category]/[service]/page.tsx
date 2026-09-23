@@ -7,6 +7,7 @@ import { cache } from "react";
 import ServiceDetailClient from "./ServiceDetailClient";
 import { AdminEditUrlSetter } from "@/components/site/AdminBar";
 import { isEnglishServicePublishable } from "@/lib/publication";
+import { dataCaptureCopy } from "@/lib/data-capture";
 
 export const revalidate = 3600;
 
@@ -146,8 +147,11 @@ export default async function ServiceDetailPage({ params }: PageProps) {
     ]);
 
     // FAQ JSON-LD schema — Google featured snippet için
-    const faqSchema = service.faq ? (() => {
-        const items: { q: string; a: string }[] = JSON.parse(service.faq);
+    const faqSchema = (() => {
+        const items: { q: string; a: string }[] = [
+            ...(service.faq ? JSON.parse(service.faq) : []),
+            ...(service.dataCapture ? dataCaptureCopy("tr").faq : []),
+        ];
         if (!items.length) return null;
         return {
             "@context": "https://schema.org",
@@ -161,7 +165,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 },
             })),
         };
-    })() : null;
+    })();
 
     // VideoObject schema — YouTube URL varsa ekle
     const youtubeIdMatch = service.video?.match(

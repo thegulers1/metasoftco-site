@@ -69,6 +69,7 @@ export async function PUT(
             // Featured
             featured,
             featuredOrder,
+            dataCapture,
             // Accent / tag
             accentText,
             accentText_en,
@@ -112,6 +113,7 @@ export async function PUT(
                 type: type || "RENTAL",
                 featured,
                 featuredOrder,
+                dataCapture: Boolean(dataCapture),
                 categoryId,
                 saleCounterpartId: saleCounterpartId || null,
                 metaTitle,

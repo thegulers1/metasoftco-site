@@ -18,7 +18,7 @@ Gerçek zamanlı yapay zeka ile misafirlerin portrelerini sanat eserlerine dön�
 Computer Vision ve Artırılmış Gerçeklik (AR) teknolojisiyle donatılmış interaktif aynalar. Unity/WebGL tabanlı gerçek zamanlı render ile misafirler sanal kıyafetler giyebilir, marka karakterlerine dönüşebilir, tarihî kostümler deneyebilir. Gerçek zamanlı segmentasyon teknolojisi ile arka plan otomatik kaldırılır ve dijital sahne üzerine yerleştirilir. Tekstil, moda ve marka aktivasyonu etkinlikleri için özellikle güçlüdür.
 
 ### Photobooth Sistemleri (Dijital & AI Photobooth)
-Kurumsal etkinlikler için özel tasarlanmış dijital photobooth çözümleri: yapay zeka destekli arka plan kaldırma, anlık sosyal medya paylaşımı (Instagram, LinkedIn), marka özelleştirme (logo, renk, çerçeve), anında baskı seçeneği. KVKK uyumlu veri toplama ve gerçek zamanlı analitik raporlama standart olarak dahildir. Tek stand ile 2-3 saat içinde kurulum. Saatte 40-60 kişiye kesintisiz hizmet.
+Kurumsal etkinlikler için özel tasarlanmış dijital photobooth çözümleri: yapay zeka destekli arka plan kaldırma, anlık sosyal medya paylaşımı (Instagram, LinkedIn), marka özelleştirme (logo, renk, çerçeve), anında baskı seçeneği. Talep halinde, KVKK ve GDPR gerekliliklerine uygun kurgulanan veri toplama (Data-Capture) ve CRM modülü eklenebilir. Tek stand ile 2-3 saat içinde kurulum. Saatte 40-60 kişiye kesintisiz hizmet.
 
 ### İnteraktif Oyunlar & Gamification
 Kurumsal etkinliklerde çalışan bağlılığını ve marka bilinirliğini artıran oyunlaştırma çözümleri:
@@ -29,6 +29,9 @@ Tüm oyunlar marka kimliğiyle tamamen özelleştirilir ve sosyal medya paylaş�
 
 ### Kurumsal Yazılım & Etkinlik Analitiği
 Etkinlik başarısını somut verilerle ölçen özel analitik paneller: katılım oranı, sosyal medya paylaşım metrikleri, kullanıcı etkileşim süreleri, demografik segmentasyon. KVKK uyumlu açık rıza alımı ve veri işleme altyapısı standarttır. Etkinlik sonrası PDF rapor sunulur.
+
+### Data-Capture & CRM Modülü (Opsiyonel)
+Fotoğraf, AI ve interaktif oyun aktivasyonlarına talep halinde eklenen veri toplama modülü. Katılımcılar içeriklerine QR kod ile ulaşırken markaya özel mikro sitede ad, şirket ve e-posta gibi bilgilerini paylaşır. Form aydınlatma metniyle sunulur; pazarlama izni ayrı ve isteğe bağlı açık rıza ile alınır. Kayıtlar MetasoftCo'nun kendi CRM altyapısına anlık aktarılır, müşteri markaya özel panelden canlı takip edilir. Veri sorumlusu müşteri marka, MetasoftCo veri işleyendir.
 
 ## Teknoloji Altyapısı
 

@@ -4264,6 +4264,87 @@ html[lang="tr"] .phase2 .p2-signal-title {
 	line-height: 1.6;
 }
 
+/* Shared Data-Capture / CRM module block on rental service pages. */
+.p2-datacapture {
+	max-width: 1040px;
+	margin-inline: auto;
+	padding: clamp(28px, 4vw, 48px);
+	border: 1px solid rgba(97, 217, 231, 0.28);
+	background:
+		radial-gradient(120% 90% at 0% 0%, rgba(84, 222, 240, 0.08), transparent 60%),
+		radial-gradient(90% 80% at 100% 100%, rgba(146, 119, 239, 0.08), transparent 60%);
+}
+.p2-datacapture__eyebrow {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	margin: 0 0 18px;
+	color: #5bd9e8;
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 10px;
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+}
+.p2-datacapture__eyebrow::before {
+	width: 30px;
+	height: 2px;
+	content: "";
+	background: linear-gradient(90deg, #54def0, #9277ef 55%, #ff594f);
+}
+.phase2 .p2-datacapture h2 {
+	max-width: 760px;
+	margin: 0;
+	font-size: clamp(26px, 3.2vw, 40px);
+	line-height: 1.12;
+	text-transform: none;
+	letter-spacing: 0;
+}
+.phase2 .p2-datacapture__intro {
+	max-width: 760px;
+	margin: 18px 0 0;
+	color: rgba(244, 247, 248, 0.76);
+	font-size: 16px;
+	line-height: 1.75;
+}
+.p2-datacapture__grid {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	margin: 36px 0 0;
+	padding: 0;
+	list-style: none;
+	border-top: 1px solid var(--p2-line);
+	border-left: 1px solid var(--p2-line);
+}
+.p2-datacapture__grid > li {
+	padding: 24px;
+	border-right: 1px solid var(--p2-line);
+	border-bottom: 1px solid var(--p2-line);
+}
+.phase2 .p2-datacapture__grid h3 {
+	margin: 12px 0 8px;
+	color: var(--p2-text);
+	font-size: 17px;
+	text-transform: none;
+	letter-spacing: 0;
+}
+.phase2 .p2-datacapture__grid p {
+	margin: 0;
+	color: var(--p2-muted);
+	font-size: 14px;
+	line-height: 1.7;
+}
+.phase2 .p2-datacapture__legal {
+	margin: 24px 0 28px;
+	color: rgba(244, 247, 248, 0.45);
+	font-size: 12px;
+	line-height: 1.65;
+}
+@media (max-width: 760px) {
+	.p2-datacapture__grid {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
 /* Flat chips — project technologies. */
 .p2-tag-row {
 	display: flex;

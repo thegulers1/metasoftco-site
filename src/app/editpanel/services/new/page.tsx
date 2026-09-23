@@ -28,6 +28,7 @@ interface Service {
     order: number;
     type: string;
     featured: boolean;
+    dataCapture: boolean;
     featuredOrder: number;
     categoryId: string;
     // SEO fields
@@ -78,6 +79,7 @@ export default function NewServicePage() {
         order: 0,
         type: "RENTAL",
         featured: false,
+        dataCapture: false,
         featuredOrder: 0,
         categoryId: "",
         metaTitle: null,
@@ -518,6 +520,19 @@ export default function NewServicePage() {
                                 </div>
                             )}
                         </div>
+
+                        <label className="flex items-start gap-3 p-4 bg-[#f5f5f5] rounded-lg cursor-pointer">
+                            <input
+                                type="checkbox"
+                                checked={service.dataCapture}
+                                onChange={(e) => setService({ ...service, dataCapture: e.target.checked })}
+                                className="w-4 h-4 mt-0.5 accent-black cursor-pointer"
+                            />
+                            <span>
+                                <span className="block text-sm font-medium text-black/70">Data-Capture / CRM modülü uygun</span>
+                                <span className="block text-xs text-black/50">Açıkken kiralama sayfasında ortak veri toplama & CRM bölümü ve ilgili SSS otomatik gösterilir.</span>
+                            </span>
+                        </label>
 
                         <div className="grid grid-cols-2 gap-4">
                             <div>

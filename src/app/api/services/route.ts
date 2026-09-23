@@ -53,6 +53,7 @@ export async function POST(request: Request) {
             // Featured
             featured,
             featuredOrder,
+            dataCapture,
             // Accent / tag
             accentText,
             accentText_en,
@@ -89,6 +90,7 @@ export async function POST(request: Request) {
                 type: type || "RENTAL",
                 featured: featured || false,
                 featuredOrder: featuredOrder || 0,
+                dataCapture: Boolean(dataCapture),
                 metaTitle,
                 metaDescription,
                 metaKeywords,

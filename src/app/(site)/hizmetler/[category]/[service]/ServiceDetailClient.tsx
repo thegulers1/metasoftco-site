@@ -7,6 +7,8 @@ import { IconArrowLeft as ArrowLeft, IconArrowRight as ArrowRight } from "@table
 import GalleryLightbox from "@/components/site/GalleryLightbox";
 import VideoPlayer from "@/components/site/VideoPlayer";
 import { SignalHeading } from "@/components/phase2/SignalHeading";
+import { DataCaptureBlock } from "@/components/phase2/DataCaptureBlock";
+import { dataCaptureCopy } from "@/lib/data-capture";
 import { splitSignalTitle } from "@/lib/phase2";
 import { phase2Copy } from "@/lib/phase2-content";
 import { useLanguage } from "@/providers/LanguageProvider";
@@ -74,9 +76,14 @@ export default function ServiceDetailClient({
     const specs = parseJsonList<{ label: string; value: string }>(
         (isEn && service.specs_en) || service.specs
     );
-    const faqs = parseJsonList<{ q: string; a: string }>(
-        (isEn && service.faq_en) || service.faq
-    );
+    const showDataCapture = variant === "rental" && service.dataCapture;
+    const dataCapture = dataCaptureCopy(isEn ? "en" : "tr");
+    // The module's FAQ is appended so the questions in the page's FAQ schema
+    // are also visible on the page.
+    const faqs = [
+        ...parseJsonList<{ q: string; a: string }>((isEn && service.faq_en) || service.faq),
+        ...(showDataCapture ? dataCapture.faq : []),
+    ];
 
     const { solid, outline } = splitSignalTitle(title);
     const categoryHref = isEn && categoryData.slug_en
@@ -159,6 +166,10 @@ export default function ServiceDetailClient({
                         dangerouslySetInnerHTML={{ __html: addHeadingAnchors(content.replace(/&nbsp;/g, " ")) }}
                     />
                 </section>
+            )}
+
+            {showDataCapture && (
+                <DataCaptureBlock copy={dataCapture} contactHref={dictionary.routes.contact} />
             )}
 
             {specs.length > 0 && (
