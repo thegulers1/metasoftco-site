@@ -4,6 +4,7 @@ import { ArrowRight, ArrowUpRight, Sparkles } from "lucide-react";
 import BrandStrip from "@/components/site/BrandStrip";
 import type { Phase2Locale } from "@/lib/phase2";
 import { phase2Copy } from "@/lib/phase2-content";
+import { SOFTWARE_CATEGORY_PATH, softwareHomeCopy } from "@/lib/software";
 import { P2Button, P2Container, P2Eyebrow } from "./Phase2Primitives";
 import { P2Display } from "./P2Display";
 
@@ -278,6 +279,41 @@ export default function HomePrototype({
 					</div>
 				</P2Container>
 			</section>
+
+			{locale === "tr" && (
+				<section
+					className="p2-section p2-home-software"
+					aria-labelledby="software-title">
+					<P2Container>
+						<header className="p2-home-section-head">
+							<P2Eyebrow>{softwareHomeCopy.eyebrow}</P2Eyebrow>
+							<h2
+								id="software-title"
+								aria-label={softwareHomeCopy.titleLabel}>
+								<P2Display text={softwareHomeCopy.title} />
+							</h2>
+							<p className="p2-home-software__lede">{softwareHomeCopy.lede}</p>
+						</header>
+						<ul className="p2-dc-cards p2-dc-cards--4">
+							{softwareHomeCopy.cards.map((card, index) => (
+								<li key={card.title}>
+									<span className="p2-gradient-number">{String(index + 1).padStart(2, "0")}</span>
+									<h3>{card.title}</h3>
+									<p>{card.body}</p>
+								</li>
+							))}
+						</ul>
+						<ul className="p2-home-software__proof">
+							{softwareHomeCopy.proof.map((item) => (
+								<li key={item}>{item}</li>
+							))}
+						</ul>
+						<div className="p2-actions">
+							<P2Button href={SOFTWARE_CATEGORY_PATH}>{softwareHomeCopy.cta}</P2Button>
+						</div>
+					</P2Container>
+				</section>
+			)}
 
 			<section
 				className="p2-home-final"

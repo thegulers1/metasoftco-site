@@ -108,6 +108,12 @@ export function Phase2Navbar() {
     if (!isPhase2PrototypePath(pathname)) return null;
 
     const home = phase2Copy(locale).routes.home;
+    // The most specific matching item wins, so /hizmetler/yazilim-gelistirme
+    // highlights "Yazılım" rather than both it and "Hizmetler".
+    const activeHref = copy.items
+        .map((item) => item.href)
+        .filter((href) => pathname === href || (href !== home && pathname?.startsWith(`${href}/`)))
+        .sort((a, b) => b.length - a.length)[0];
 
     /**
      * The static screens map one-to-one, so their sibling is known at render
@@ -137,7 +143,7 @@ export function Phase2Navbar() {
                     <Image src="/blackLogo.png" alt="MetasoftCo" width={160} height={40} priority unoptimized />
                 </Link>
                 <nav className="p2-nav__desktop" aria-label={copy.primaryAria}>
-                    {copy.items.map((item) => <Link key={item.href} href={item.href} className={pathname === item.href || (item.href !== home && pathname?.startsWith(`${item.href}/`)) ? "is-active" : undefined} onClick={() => setOpen(false)}>{item.label}</Link>)}
+                    {copy.items.map((item) => <Link key={item.href} href={item.href} className={item.href === activeHref ? "is-active" : undefined} onClick={() => setOpen(false)}>{item.label}</Link>)}
                 </nav>
                 {/* Plain anchor: next/link performs its own navigation on click, which would race the upgraded destination below. */}
                 <a href={localeSwitchHref} onClick={onLocaleSwitch} className="p2-nav__locale" aria-label={copy.localeSwitchAria}>

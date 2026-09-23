@@ -27,6 +27,8 @@ export interface CapabilityCategoryScreenProps {
     faqs: { question: string; answer: string }[];
     /** ISO date string; rendered as a freshness signal next to the hero copy. */
     updatedAt?: string | null;
+    /** Replaces the event-toned facts strip and closing CTA (e.g. the software category). */
+    overrides?: Partial<Pick<ReturnType<typeof phase2Copy>["capabilityCategory"], "facts" | "ctaSolid" | "ctaOutline" | "ctaButton">>;
 }
 
 export default function CapabilityCategoryScreen({
@@ -38,12 +40,13 @@ export default function CapabilityCategoryScreen({
     services,
     faqs,
     updatedAt,
+    overrides,
 }: CapabilityCategoryScreenProps) {
     const formattedUpdatedAt = updatedAt
         ? new Date(updatedAt).toLocaleDateString(locale === "en" ? "en-GB" : "tr-TR", { year: "numeric", month: "long", day: "numeric" })
         : null;
     const dictionary = phase2Copy(locale);
-    const copy = dictionary.capabilityCategory;
+    const copy = { ...dictionary.capabilityCategory, ...overrides };
     const title = heroTitle?.trim() || name;
     const { solid, outline } = splitSignalTitle(title);
 

@@ -64,7 +64,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         entry(`/sektorel-yazilim-cozumleri/${sector.slug}`, staticLastModified, 0.5),
         entry(`/en/industry-software-solutions/${sector.slug_en}`, staticLastModified, 0.5),
     ]);
-    const categoryPages = categories.flatMap((category) => {
+    const categoryPages = categories.filter((category) => category.services.length > 0).flatMap((category) => {
         const pages: SitemapEntry[] = [entry(`/hizmetler/${category.slug}`, category.updatedAt, 0.7)];
         if (isEnglishCategoryPublishable(category)) pages.push(entry(`/en/services/${category.slug_en}`, category.updatedAt, 0.7));
         return pages;

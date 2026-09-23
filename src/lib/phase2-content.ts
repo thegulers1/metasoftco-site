@@ -1,3 +1,4 @@
+import { SOFTWARE_CATEGORY_PATH } from "./software";
 import {
 	phase2CapabilityDetailSlugs,
 	phase2CategorySlugs,
@@ -661,6 +662,7 @@ const tr: Phase2Copy = {
 			{ href: trPaths.routes.work, label: "Projeler" },
 			{ href: trPaths.routes.capabilities, label: "Hizmetler" },
 			{ href: trPaths.routes.products, label: "Sistem Satışı" },
+			{ href: SOFTWARE_CATEGORY_PATH, label: "Yazılım" },
 			{ href: trPaths.routes.about, label: "Hakkımızda" },
 			{ href: trPaths.routes.insights, label: "Blog" },
 			{ href: trPaths.routes.contact, label: "İletişim" },
@@ -681,6 +683,7 @@ const tr: Phase2Copy = {
 			{ href: trPaths.routes.work, label: "Projeler" },
 			{ href: trPaths.routes.capabilities, label: "Hizmetler" },
 			{ href: trPaths.routes.products, label: "Sistem Satışı" },
+			{ href: SOFTWARE_CATEGORY_PATH, label: "Yazılım" },
 			{ href: trPaths.routes.about, label: "Hakkımızda" },
 			{ href: trPaths.routes.insights, label: "Blog" },
 			{ href: trPaths.routes.contact, label: "İletişim" },

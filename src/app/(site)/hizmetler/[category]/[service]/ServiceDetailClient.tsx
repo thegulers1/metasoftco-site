@@ -10,6 +10,7 @@ import { SignalHeading } from "@/components/phase2/SignalHeading";
 import { DataCaptureBlock } from "@/components/phase2/DataCaptureBlock";
 import { dataCaptureCopy } from "@/lib/data-capture";
 import { DATA_CAPTURE_HUB_PATH } from "@/lib/data-capture-hub";
+import { SOFTWARE_CATEGORY_PATH, isSoftwareCategory, softwareServiceCopy } from "@/lib/software";
 import { splitSignalTitle } from "@/lib/phase2";
 import { phase2Copy } from "@/lib/phase2-content";
 import { useLanguage } from "@/providers/LanguageProvider";
@@ -51,7 +52,8 @@ export default function ServiceDetailClient({
 }: ServiceDetailClientProps) {
     const { language, setAlternateUrl } = useLanguage();
     const dictionary = phase2Copy(language);
-    const copy = dictionary.serviceDetail;
+    const isSoftware = variant === "rental" && language === "tr" && isSoftwareCategory(categoryData.slug);
+    const copy = isSoftware ? { ...dictionary.serviceDetail, ...softwareServiceCopy } : dictionary.serviceDetail;
 
     useEffect(() => {
         const trUrl = variant === "sale"
@@ -281,7 +283,7 @@ export default function ServiceDetailClient({
                             <SignalHeading as="h2" solid={copy.ctaSolid} outline={copy.ctaOutline} />
                             <div className="p2-screen-cta__actions">
                                 <Link href={dictionary.routes.contact} className="p2-screen-button">{copy.ctaPrimary} <ArrowRight aria-hidden="true" /></Link>
-                                <Link href={dictionary.routes.work} className="p2-screen-button p2-screen-button--secondary">{copy.ctaSecondary} <ArrowRight aria-hidden="true" /></Link>
+                                <Link href={isSoftware ? SOFTWARE_CATEGORY_PATH : dictionary.routes.work} className="p2-screen-button p2-screen-button--secondary">{copy.ctaSecondary} <ArrowRight aria-hidden="true" /></Link>
                                 {saleHref && (
                                     <Link href={saleHref} className="p2-screen-button p2-screen-button--tertiary">{copy.ctaTertiary} <ArrowRight aria-hidden="true" /></Link>
                                 )}

@@ -4454,6 +4454,32 @@ html[lang="tr"] .phase2 .p2-signal-title {
 	margin-top: 20px;
 }
 
+/* Homepage software section (TR only). Reuses .p2-dc-cards for the grid. */
+.phase2 .p2-home-software__lede {
+	max-width: 720px;
+	margin: 22px 0 0;
+	color: rgba(244, 247, 248, 0.76);
+}
+.p2-home-software .p2-dc-cards {
+	margin-top: 40px;
+}
+.p2-home-software__proof {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+	margin: 24px 0 32px;
+	padding: 0;
+	list-style: none;
+}
+.p2-home-software__proof li {
+	padding: 9px 14px;
+	border: 1px solid rgba(91, 217, 232, 0.35);
+	color: rgba(244, 247, 248, 0.8);
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 11px;
+	letter-spacing: 0.04em;
+}
+
 /* Representative dashboard mockup (until a real screenshot is supplied). */
 .p2-dc-panel {
 	padding: 18px;

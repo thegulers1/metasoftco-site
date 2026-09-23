@@ -5,6 +5,7 @@ import { siteConfig, generateBreadcrumbSchema, generateFAQSchema } from "@/lib/s
 import { AdminEditUrlSetter } from "@/components/site/AdminBar";
 import CapabilityCategoryScreen from "@/components/phase2/CapabilityCategoryScreen";
 import { isEnglishCategoryPublishable } from "@/lib/publication";
+import { isSoftwareCategory, softwareCategoryCopy } from "@/lib/software";
 
 export const revalidate = 3600;
 
@@ -46,6 +47,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         title,
         description,
         keywords: category.metaKeywords || undefined,
+        // An empty category (e.g. one still being drafted) is not worth indexing.
+        ...(category.services.length === 0 && { robots: { index: false, follow: true } }),
         openGraph: {
             title,
             description,
@@ -111,6 +114,7 @@ export default async function CategoryHubPage({ params }: PageProps) {
                 }))}
                 faqs={faqs}
                 updatedAt={category.updatedAt.toISOString()}
+                overrides={isSoftwareCategory(categorySlug) ? softwareCategoryCopy : undefined}
             />
         </>
     );
