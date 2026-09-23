@@ -1,14 +1,18 @@
 // Creates the "Yazılım Geliştirme" service category, its five services and
-// three software projects. Services and projects are created UNPUBLISHED so
+// four software projects. Services and projects are created UNPUBLISHED so
 // they can be reviewed in the editpanel first. Re-running only fills in
-// records that do not exist yet; it never overwrites editor changes.
-// Usage: npx tsx scripts/seed-software.ts [--apply]
+// records that do not exist yet; --sync also refreshes the copy of records
+// the editor has not touched. Editor changes are never overwritten.
+// Usage: npx tsx scripts/seed-software.ts [--sync] [--apply]
 import "dotenv/config";
 import { prisma } from "@/lib/db";
 import { SOFTWARE_CATEGORY_SLUG } from "@/lib/software";
 
 const BECOME_HACKER_URL = "https://apps.apple.com/us/app/become-hacker/id6753705802";
 const ZEKAI_URL = "https://apps.apple.com/us/app/zekai-5-logic-puzzles/id6756515513";
+const BECOME_HACKER_PLAY_URL = "https://play.google.com/store/apps/details?id=com.sixsensely.becomehacker";
+const ZEKAI_PLAY_URL = "https://play.google.com/store/apps/details?id=com.sixsensely.zekai";
+const MYSTICSIP_PLAY_URL = "https://play.google.com/store/apps/details?id=com.sixsenselyapp.mysticsip";
 
 const SUPPORT = "İlk yıl bakım ücretsiz";
 
@@ -42,8 +46,9 @@ const category = {
 <h3>Yaptığımız işlerden</h3>
 <ul>
 <li><a href="/projeler/enerjisa-quiz-uygulamasi">Enerjisa Quiz Uygulaması</a>: 400–500 kullanıcıya ulaşan cross-platform bilgi yarışması.</li>
-<li><a href="/projeler/become-hacker">Become Hacker</a>: App Store'da yayında olan siber güvenlik eğitim uygulamamız.</li>
-<li><a href="/projeler/zekai">ZekAI</a>: 25 dilde yayında olan, beş mantık oyununu bir araya getiren mobil oyunumuz.</li>
+<li><a href="/projeler/become-hacker">Become Hacker</a>: App Store ve Google Play'de yayında olan siber güvenlik eğitim uygulamamız.</li>
+<li><a href="/projeler/zekai">ZekAI</a>: iOS ve Android'de 25 dilde yayında olan, beş mantık oyununu bir araya getiren mobil oyunumuz.</li>
+<li><a href="/projeler/mysticsip">MysticSip</a>: Fincan fotoğrafını görüntü işlemeyle yorumlayan, Google Play'de yayında olan yapay zeka uygulamamız.</li>
 <li><a href="/hizmetler/data-capture-crm">Data-Capture CRM ve müşteri paneli</a>: Etkinliklerde lead toplayan kendi CRM altyapımız.</li>
 </ul>`,
     faq: [
@@ -108,7 +113,7 @@ const services: ServiceSeed[] = [
 <h3>Yayın ve sonrası</h3>
 <p>App Store ve Google Play yayın süreçlerini yönetiyoruz. İhtiyaca göre içerik ve kullanıcı yönetimi için web tabanlı bir yönetim paneli de geliştiriyoruz. İlk yıl bakım ücretsiz.</p>
 <h3>Yayında olan uygulamalarımız</h3>
-<p><a href="/projeler/become-hacker">Become Hacker</a> ve <a href="/projeler/zekai">ZekAI</a>, ekibimizin geliştirip App Store'da yayınladığı uygulamalardır.</p>`,
+<p><a href="/projeler/become-hacker">Become Hacker</a> ve <a href="/projeler/zekai">ZekAI</a>, ekibimizin geliştirip hem App Store'da hem Google Play'de yayınladığı cross-platform uygulamalardır. <a href="/projeler/mysticsip">MysticSip</a> ise Google Play'de yayında.</p>`,
         specs: [
             { label: "Platform", value: "iOS · Android" },
             { label: "Teknoloji", value: "React Native (cross-platform)" },
@@ -122,7 +127,7 @@ const services: ServiceSeed[] = [
             },
             {
                 q: "Uygulamanın mağazalarda yayınlanmasını siz mi yapıyorsunuz?",
-                a: "Evet. App Store ve Google Play yayın süreçlerini yönetiyoruz. Kendi uygulamalarımızı da App Store'da yayınladık.",
+                a: "Evet. App Store ve Google Play yayın süreçlerini yönetiyoruz. Kendi uygulamalarımızı da her iki mağazada yayınladık.",
             },
             {
                 q: "Uygulama için yönetim paneli de geliştiriyor musunuz?",
@@ -229,6 +234,7 @@ const services: ServiceSeed[] = [
             "Görüntü işleme, üretken yapay zeka ve otomasyon: Python tabanlı yapay zeka çözümlerini ürünlerinize ve iş süreçlerinize entegre ediyoruz.",
         content: `<h2>Sahada test edilmiş yapay zeka tecrübesi</h2>
 <p>Etkinliklerde katılımcıların fotoğraflarını saniyeler içinde yapay zeka ile dönüştüren sistemlerimizi kendi ekibimiz geliştiriyor ve yoğun kalabalıklar önünde canlı çalıştırıyor. Bu tecrübeyi ürünlerinize ve iş süreçlerinize taşıyoruz.</p>
+<p>Aynı tecrübeyle geliştirdiğimiz <a href="/projeler/mysticsip">MysticSip</a>, kullanıcının yüklediği fincan fotoğrafını görüntü işlemeyle analiz edip yapay zeka ile kişiye özel yorum üretiyor.</p>
 <h3>Neler yapabiliriz?</h3>
 <ul>
 <li>Görüntü işleme ve üretken görsel çözümleri</li>
@@ -332,19 +338,20 @@ const projects = [
         technologies: null as string | null,
         projectUrl: BECOME_HACKER_URL,
         description:
-            "Quiz ve derslerle siber güvenlik öğreten, XP ve seviye sistemiyle kullanıcıyı ilerleten eğitim uygulamamız App Store'da yayında.",
-        content: `<p>Become Hacker, kullanıcılara bir hacker gibi düşünmeyi öğreterek siber güvenlik farkındalığı kazandıran bir eğitim uygulaması. Ekibimiz tarafından geliştirildi ve App Store'da yayında.</p>
+            "Quiz ve derslerle siber güvenlik öğreten, XP ve seviye sistemiyle kullanıcıyı ilerleten eğitim uygulamamız App Store ve Google Play'de yayında.",
+        content: `<p>Become Hacker, kullanıcılara bir hacker gibi düşünmeyi öğreterek siber güvenlik farkındalığı kazandıran bir eğitim uygulaması. Ekibimiz tarafından cross-platform olarak geliştirildi; iOS ve Android'de yayında.</p>
 <h3>Öne çıkanlar</h3>
 <ul>
 <li>Quiz ve derslerle adım adım siber güvenlik eğitimi</li>
 <li>XP kazanma ve seviye atlama ile oyunlaştırılmış ilerleme</li>
 <li>Uygulama içi premium abonelik</li>
-<li>iPhone, iPad, Mac ve Apple Vision Pro desteği</li>
+<li>Android, iPhone, iPad, Mac ve Apple Vision Pro desteği</li>
 </ul>
-<p>Aynı yaklaşımı kurumların çalışan eğitimleri için de uyguluyoruz.</p>`,
+<p>Aynı yaklaşımı kurumların çalışan eğitimleri için de uyguluyoruz.</p>
+<p><a href="${BECOME_HACKER_URL}" target="_blank" rel="noopener noreferrer">App Store</a> · <a href="${BECOME_HACKER_PLAY_URL}" target="_blank" rel="noopener noreferrer">Google Play</a></p>`,
         metaTitle: "Become Hacker | Siber Güvenlik Eğitim Uygulaması | MetasoftCo",
         metaDescription:
-            "Quiz ve derslerle siber güvenlik öğreten, XP ve seviye sistemli eğitim uygulamamız Become Hacker App Store'da yayında.",
+            "Quiz ve derslerle siber güvenlik öğreten, XP ve seviye sistemli eğitim uygulamamız Become Hacker App Store ve Google Play'de.",
     },
     {
         title: "ZekAI: 5 Mantık Oyunu",
@@ -353,8 +360,8 @@ const projects = [
         technologies: null as string | null,
         projectUrl: ZEKAI_URL,
         description:
-            "Sudoku, Kelime Avı, Queens, Tango ve Zip'i 20.000'den fazla bölümle bir araya getiren mobil oyunumuz 25 dilde App Store'da yayında.",
-        content: `<p>ZekAI, beş mantık oyununu tek uygulamada toplayan bir mobil oyun. Ekibimiz tarafından geliştirildi ve 25 dilde App Store'da yayında.</p>
+            "Sudoku, Kelime Avı, Queens, Tango ve Zip'i 20.000'den fazla bölümle bir araya getiren mobil oyunumuz 25 dilde iOS ve Android'de yayında.",
+        content: `<p>ZekAI, beş mantık oyununu tek uygulamada toplayan bir mobil oyun. Ekibimiz tarafından cross-platform olarak geliştirildi; 25 dilde App Store ve Google Play'de yayında.</p>
 <h3>Öne çıkanlar</h3>
 <ul>
 <li>Beş oyun: Sudoku (5 zorlukta 5.000 bölüm), Kelime Avı, Queens, Tango ve Zip</li>
@@ -363,19 +370,52 @@ const projects = [
 <li>Çevrimdışı oynama ve karanlık mod</li>
 <li>Abonelik ve tek seferlik premium seçenekleri</li>
 </ul>
-<p>Aynı oyun ve ilerleme mekaniklerini markalara özel oyunlarda da kullanıyoruz.</p>`,
+<p>Aynı oyun ve ilerleme mekaniklerini markalara özel oyunlarda da kullanıyoruz.</p>
+<p><a href="${ZEKAI_URL}" target="_blank" rel="noopener noreferrer">App Store</a> · <a href="${ZEKAI_PLAY_URL}" target="_blank" rel="noopener noreferrer">Google Play</a></p>`,
         metaTitle: "ZekAI: 5 Mantık Oyunu | Mobil Oyun Projesi | MetasoftCo",
         metaDescription:
             "Sudoku, Kelime Avı, Queens, Tango ve Zip'i 20.000'den fazla bölümle bir araya getiren mobil oyunumuz ZekAI 25 dilde yayında.",
     },
+    {
+        title: "MysticSip: Yapay Zeka Falı",
+        slug: "mysticsip",
+        client: "Kendi ürünümüz",
+        technologies: JSON.stringify(["Yapay zeka", "Görüntü işleme"]),
+        projectUrl: MYSTICSIP_PLAY_URL,
+        description:
+            "Fincan fotoğrafını görüntü işlemeyle analiz edip yapay zeka ile kişiye özel yorum üreten mobil uygulamamız Google Play'de yayında.",
+        content: `<p>MysticSip, kahve falı, tarot ve rüya tabirini yapay zeka ile kişiselleştiren bir mobil uygulama. Ekibimiz tarafından geliştirildi ve Google Play'de yayında.</p>
+<h3>Öne çıkanlar</h3>
+<ul>
+<li>Kullanıcının yüklediği fincan fotoğraflarını görüntü işlemeyle analiz eden yapay zeka kahve falı</li>
+<li>Animasyonlu, interaktif tarot deneyimi</li>
+<li>Anlatılan rüyayı yorumlayan yapay zeka rüya tabiri</li>
+<li>Doğum tarihi ve profile göre kişiselleştirilmiş yorumlar, fal geçmişi</li>
+<li>9 dil desteği; reklam izleyerek coin kazanma modeli</li>
+</ul>
+<p>Görüntü işleme ile üretken yapay zekayı tüketici ürününde bir araya getirdiğimiz bu yaklaşımı, markalara özel yapay zeka çözümlerinde de kullanıyoruz.</p>`,
+        metaTitle: "MysticSip: Yapay Zeka Falı | Mobil Uygulama Projesi | MetasoftCo",
+        metaDescription:
+            "Fincan fotoğrafını görüntü işlemeyle analiz edip yapay zeka ile kişiye özel yorum üreten mobil uygulamamız MysticSip Google Play'de yayında.",
+    },
 ];
+
+/** A record the editor has not touched since the script created it. */
+function untouched(record: { createdAt: Date; updatedAt: Date }) {
+    return record.updatedAt.getTime() - record.createdAt.getTime() < 5_000;
+}
 
 async function main() {
     const apply = process.argv.includes("--apply");
+    // --sync also rewrites the copy of records nobody has edited yet.
+    const sync = process.argv.includes("--sync");
     const log = (msg: string) => console.log(`${apply ? "" : "[dry run] "}${msg}`);
 
     let cat = await prisma.serviceCategory.findUnique({ where: { slug: category.slug } });
-    if (cat) {
+    if (cat && sync && untouched(cat)) {
+        log(`sync category: ${category.slug}`);
+        if (apply) await prisma.serviceCategory.update({ where: { id: cat.id }, data: { content: category.content } });
+    } else if (cat) {
         log(`category exists: ${category.slug}`);
     } else {
         log(`create category: ${category.slug}`);
@@ -388,6 +428,16 @@ async function main() {
 
     for (const service of services) {
         const exists = cat && (await prisma.service.findFirst({ where: { categoryId: cat.id, slug: service.slug } }));
+        if (exists && sync && untouched(exists)) {
+            log(`sync service: ${service.slug}`);
+            if (apply) {
+                await prisma.service.update({
+                    where: { id: exists.id },
+                    data: { content: service.content, faq: JSON.stringify(service.faq) },
+                });
+            }
+            continue;
+        }
         if (exists) {
             log(`service exists: ${service.slug}`);
             continue;
@@ -408,7 +458,19 @@ async function main() {
     }
 
     for (const [index, project] of projects.entries()) {
-        if (await prisma.project.findUnique({ where: { slug: project.slug } })) {
+        const existing = await prisma.project.findUnique({ where: { slug: project.slug } });
+        if (existing && sync && untouched(existing)) {
+            log(`sync project: ${project.slug}`);
+            if (apply) {
+                const { description, content, metaDescription, technologies, projectUrl } = project;
+                await prisma.project.update({
+                    where: { id: existing.id },
+                    data: { description, content, metaDescription, technologies, projectUrl },
+                });
+            }
+            continue;
+        }
+        if (existing) {
             log(`project exists: ${project.slug}`);
             continue;
         }

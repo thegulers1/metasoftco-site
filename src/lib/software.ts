@@ -51,7 +51,7 @@ export const softwareHomeCopy = {
     ],
     proof: [
         "Enerjisa · 400–500 kullanıcılı quiz uygulaması",
-        "App Store'da yayında: Become Hacker, ZekAI",
+        "App Store & Google Play'de yayında: Become Hacker, ZekAI, MysticSip",
         "Data-Capture CRM ve müşteri paneli",
     ],
     cta: "Yazılım Projenizi Konuşalım",
