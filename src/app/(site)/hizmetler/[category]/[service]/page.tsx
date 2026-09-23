@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { siteConfig, generateServiceSchema, generateBreadcrumbSchema } from "@/lib/site";
 import { cloudinaryOgImage } from "@/lib/cloudinary";
@@ -45,7 +45,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     if (!categoryData) return {};
 
     const service = await getServiceBySlug(serviceSlug, categoryData.id);
-    if (!service) return {};
+    if (!service || !service.published) return {};
 
     const title = service.metaTitle || `${service.title} | ${categoryData.name}`;
     const description = service.metaDescription || service.description || siteConfig.description;
@@ -101,9 +101,15 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         notFound();
     }
 
+    // Draft or deleted services permanently redirect to their category (or the
+    // services index when the category has nothing live), so old links and
+    // indexed URLs land somewhere useful instead of a 404.
     const service = await getServiceBySlug(serviceSlug, categoryData.id);
-    if (!service) {
-        notFound();
+    if (!service || !service.published) {
+        const liveInCategory = await prisma.service.count({
+            where: { categoryId: categoryData.id, published: true, type: "RENTAL" },
+        });
+        permanentRedirect(liveInCategory > 0 ? `/hizmetler/${category}` : "/hizmetler");
     }
 
     // Galeri parse et (eski string[] formatını ve yeni {url,alt}[] formatını destekle)

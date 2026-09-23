@@ -194,6 +194,10 @@ const nextConfig: NextConfig = {
       { source: "/hizmetler/yapay-zeka-etkinlik-cozumleri/cizim-robotu", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/cizim-robotu-kiralama", permanent: true },
       { source: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photo", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photobooth-kirala", permanent: true },
       { source: "/hizmetler/yapay-zeka-etkinlik-cozumleri/sesli-asistan", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri", permanent: true },
+      // Old slugs still receiving organic/AI-assistant traffic (GA4, 2026-09).
+      { source: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/aura-photobooth-kiralama-biofeedback-sensorlu-gercek-zamanli-aura-fotografciligi", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/aura-photobooth-kiralama", permanent: true },
+      { source: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/photobooth-kiralama", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/photobooth-kirala", permanent: true },
+      { source: "/hizmetler/yapay-zeka-etkinlik-cozumleri/wordportre-kirala", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/wordportre-kirala", permanent: true },
       { source: "/en/services/ai-event-solutions/ai-photo", destination: "/en/services/ai-event-solutions/ai-photobooth", permanent: true },
 
       // ---------------------------------------------------------
