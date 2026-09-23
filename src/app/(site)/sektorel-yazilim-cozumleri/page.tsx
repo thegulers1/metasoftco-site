@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { siteConfig } from "@/lib/site";
 import SektorelYazilimClient from "./SektorelYazilimClient";
+import { getSectors } from "@/lib/industry-pages";
 
 export const revalidate = 3600;
 
@@ -34,6 +35,11 @@ export const metadata: Metadata = {
     },
 };
 
-export default function CozumlerPage() {
-    return <SektorelYazilimClient />;
+export default async function CozumlerPage() {
+    const sectors = await getSectors();
+    return (
+        <SektorelYazilimClient
+            sectors={sectors.map(({ slug, slug_en, name, name_en }) => ({ slug, slug_en, name, name_en }))}
+        />
+    );
 }

@@ -1,6 +1,9 @@
 import { Metadata } from "next";
 import { siteConfig, ogImageUrl } from "@/lib/site";
 import SektorelYazilimClient from "@/app/(site)/sektorel-yazilim-cozumleri/SektorelYazilimClient";
+import { getSectors, hasEnglish } from "@/lib/industry-pages";
+
+export const revalidate = 3600;
 
 const ogTitle = "Industry-Specific Software & Digital Transformation | MetasoftCo";
 const ogDescription = "Interactive event and software solutions tailored for your industry.";
@@ -42,6 +45,12 @@ export const metadata: Metadata = {
     },
 };
 
-export default function EnPage() {
-    return <SektorelYazilimClient lang="en" />;
+export default async function EnPage() {
+    const sectors = (await getSectors()).filter(hasEnglish);
+    return (
+        <SektorelYazilimClient
+            lang="en"
+            sectors={sectors.map(({ slug, slug_en, name, name_en }) => ({ slug, slug_en, name, name_en }))}
+        />
+    );
 }

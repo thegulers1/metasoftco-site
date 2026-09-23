@@ -9,7 +9,7 @@ import {
     isEnglishSectorPagePublishable,
     isEnglishServicePublishable,
 } from "@/lib/publication";
-import { sectors } from "./(site)/sektorel-yazilim-cozumleri/data";
+import { getSectors, hasEnglish } from "@/lib/industry-pages";
 
 export const dynamic = "force-dynamic";
 
@@ -60,9 +60,9 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         entry("/hizmetler/data-capture-crm", new Date("2026-09-23T00:00:00.000Z"), 0.7),
     ];
 
-    const staticIndustryPages = sectors.flatMap((sector) => [
-        entry(`/sektorel-yazilim-cozumleri/${sector.slug}`, staticLastModified, 0.5),
-        entry(`/en/industry-software-solutions/${sector.slug_en}`, staticLastModified, 0.5),
+    const industryPages = (await getSectors()).flatMap((sector) => [
+        entry(`/sektorel-yazilim-cozumleri/${sector.slug}`, sector.updatedAt, 0.5),
+        ...(hasEnglish(sector) ? [entry(`/en/industry-software-solutions/${sector.slug_en}`, sector.updatedAt, 0.5)] : []),
     ]);
     const categoryPages = categories.filter((category) => category.services.length > 0).flatMap((category) => {
         const pages: SitemapEntry[] = [entry(`/hizmetler/${category.slug}`, category.updatedAt, 0.7)];
@@ -96,5 +96,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         return pages;
     });
 
-    return [...staticPages, ...staticIndustryPages, ...categoryPages, ...servicePages, ...productPages, ...projectPages, ...blogPages, ...databaseSectorPages];
+    return [...staticPages, ...industryPages, ...categoryPages, ...servicePages, ...productPages, ...projectPages, ...blogPages, ...databaseSectorPages];
 }

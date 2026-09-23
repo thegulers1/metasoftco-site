@@ -3,15 +3,23 @@
 import Link from "next/link";
 import { motion } from "motion/react";
 import CtaSection from "@/components/site/CtaSection";
-import { sectors } from "./data";
+
+/** A sector card already filtered to the active locale by the page. */
+export interface SectorCard {
+    slug: string;
+    slug_en: string | null;
+    name: string;
+    name_en: string;
+}
 
 interface SektorelYazilimClientProps {
     lang?: "tr" | "en";
+    sectors: SectorCard[];
 }
 
 const ACCENTS = ["#7c3aed", "#22d3ee", "#e879f9", "#fb923c", "#4ade80", "#a78bfa"];
 
-export default function SektorelYazilimClient({ lang = "tr" }: SektorelYazilimClientProps) {
+export default function SektorelYazilimClient({ lang = "tr", sectors }: SektorelYazilimClientProps) {
     const isEn = lang === "en";
 
     return (

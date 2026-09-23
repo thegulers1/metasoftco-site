@@ -2,7 +2,8 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { siteConfig, generateFAQSchema, generateBreadcrumbSchema } from "@/lib/site";
-import { getSectorBySlug, sectors } from "../data";
+import { getSectorBySlug, getSectors, hasEnglish } from "@/lib/industry-pages";
+import { addHeadingAnchors } from "@/lib/utils";
 import CtaSection from "@/components/site/CtaSection";
 import TrackedCtaLink from "@/components/site/TrackedCtaLink";
 
@@ -10,13 +11,15 @@ interface PageProps {
     params: Promise<{ sektor: string }>;
 }
 
+export const revalidate = 3600;
+
 export async function generateStaticParams() {
-    return sectors.map((s) => ({ sektor: s.slug }));
+    return (await getSectors()).map((s) => ({ sektor: s.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { sektor } = await params;
-    const sector = getSectorBySlug(sektor);
+    const sector = await getSectorBySlug(sektor);
     if (!sector) return {};
 
     const url = `${siteConfig.url}/sektorel-yazilim-cozumleri/${sector.slug}`;
@@ -38,18 +41,20 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         twitter: { card: "summary_large_image", title: sector.metaTitle, description: sector.metaDescription },
         alternates: {
             canonical: url,
-            languages: {
-                tr: url,
-                en: `${siteConfig.url}/en/industry-software-solutions/${sector.slug_en}`,
-                "x-default": url,
-            },
+            ...(hasEnglish(sector) && {
+                languages: {
+                    tr: url,
+                    en: `${siteConfig.url}/en/industry-software-solutions/${sector.slug_en}`,
+                    "x-default": url,
+                },
+            }),
         },
     };
 }
 
 export default async function SektorPage({ params }: PageProps) {
     const { sektor } = await params;
-    const sector = getSectorBySlug(sektor);
+    const sector = await getSectorBySlug(sektor);
     if (!sector) notFound();
 
     const faqSchema = generateFAQSchema(sector.faqs);
@@ -113,13 +118,11 @@ export default async function SektorPage({ params }: PageProps) {
                         </h2>
                         <div className="h-[1px] flex-1 bg-white/[0.08]" />
                     </div>
-                    <div className="space-y-5" style={{ fontFamily: "var(--font-manrope)" }}>
-                        {sector.deepDive.map((paragraph, i) => (
-                            <p key={i} className="text-[rgba(255,255,255,.6)]" style={{ fontSize: 15.5, lineHeight: 1.7 }}>
-                                {paragraph}
-                            </p>
-                        ))}
-                    </div>
+<div
+                        className="prose prose-invert max-w-none prose-p:text-[rgba(255,255,255,.6)] prose-p:text-[15.5px] prose-p:leading-[1.7] prose-headings:text-white prose-a:text-[var(--acc)] prose-li:text-[rgba(255,255,255,.6)]"
+                        style={{ fontFamily: "var(--font-manrope)" }}
+                        dangerouslySetInnerHTML={{ __html: addHeadingAnchors(sector.contentHtml.replace(/&nbsp;/g, " ")) }}
+                    />
                 </div>
 
                 {/* Services Section */}

@@ -84,6 +84,15 @@ export default function AdminLayout({
                         Sektörel Çözümler
                     </Link>
                     <Link
+                        href="/editpanel/sektorel-yazilim"
+                        className="flex items-center gap-3 px-4 py-2 text-sm text-black/70 hover:bg-black/5 rounded-lg transition"
+                    >
+                        <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4" />
+                        </svg>
+                        Sektörel Yazılım
+                    </Link>
+                    <Link
                         href="/editpanel/contacts"
                         className="flex items-center gap-3 px-4 py-2 text-sm text-black/70 hover:bg-black/5 rounded-lg transition"
                     >

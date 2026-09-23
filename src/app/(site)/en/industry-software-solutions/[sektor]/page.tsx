@@ -2,20 +2,23 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { siteConfig, generateFAQSchema, generateBreadcrumbSchema } from "@/lib/site";
-import { getSectorBySlugEn, sectors } from "@/app/(site)/sektorel-yazilim-cozumleri/data";
+import { getSectorBySlugEn, getSectors, hasEnglish } from "@/lib/industry-pages";
+import { addHeadingAnchors } from "@/lib/utils";
 import CtaSection from "@/components/site/CtaSection";
 
 interface PageProps {
     params: Promise<{ sektor: string }>;
 }
 
+export const revalidate = 3600;
+
 export async function generateStaticParams() {
-    return sectors.map((s) => ({ sektor: s.slug_en }));
+    return (await getSectors()).filter(hasEnglish).map((s) => ({ sektor: s.slug_en }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { sektor } = await params;
-    const sector = getSectorBySlugEn(sektor);
+    const sector = await getSectorBySlugEn(sektor);
     if (!sector) return {};
 
     const url = `${siteConfig.url}/en/industry-software-solutions/${sector.slug_en}`;
@@ -48,7 +51,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function SektorEnPage({ params }: PageProps) {
     const { sektor } = await params;
-    const sector = getSectorBySlugEn(sektor);
+    const sector = await getSectorBySlugEn(sektor);
     if (!sector) notFound();
 
     const faqSchema = generateFAQSchema(sector.faqs_en);
@@ -112,13 +115,11 @@ export default async function SektorEnPage({ params }: PageProps) {
                         </h2>
                         <div className="h-[1px] flex-1 bg-white/[0.08]" />
                     </div>
-                    <div className="space-y-5" style={{ fontFamily: "var(--font-manrope)" }}>
-                        {sector.deepDive_en.map((paragraph, i) => (
-                            <p key={i} className="text-[rgba(255,255,255,.6)]" style={{ fontSize: 15.5, lineHeight: 1.7 }}>
-                                {paragraph}
-                            </p>
-                        ))}
-                    </div>
+<div
+                        className="prose prose-invert max-w-none prose-p:text-[rgba(255,255,255,.6)] prose-p:text-[15.5px] prose-p:leading-[1.7] prose-headings:text-white prose-a:text-[var(--acc)] prose-li:text-[rgba(255,255,255,.6)]"
+                        style={{ fontFamily: "var(--font-manrope)" }}
+                        dangerouslySetInnerHTML={{ __html: addHeadingAnchors(sector.contentHtml_en.replace(/&nbsp;/g, " ")) }}
+                    />
                 </div>
 
                 {/* Services Section */}

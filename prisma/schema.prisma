@@ -234,6 +234,45 @@ model SectorPage {
   faq_en             String?
 }
 
+/// /sektorel-yazilim-cozumleri (TR) and /en/industry-software-solutions (EN)
+/// pages, managed from the editpanel "Sektörel Yazılım" section.
+model IndustryPage {
+  id                 String   @id @default(cuid())
+  slug               String   @unique
+  slug_en            String?  @unique
+  name               String
+  name_en            String?
+  title              String
+  title_en           String?
+  heroSubtitle       String?
+  intro              String?
+  intro_en           String?
+  /// Editor HTML ("Yaklaşımımız" section)
+  content            String?
+  content_en         String?
+  /// JSON: [{ name, desc, href }]
+  services           String?
+  services_en        String?
+  /// JSON: [{ q, a }]
+  faq                String?
+  faq_en             String?
+  cta                String?
+  cta_en             String?
+  metaTitle          String?
+  metaTitle_en       String?
+  metaDescription    String?
+  metaDescription_en String?
+  /// Comma separated
+  metaKeywords       String?
+  metaKeywords_en    String?
+  published          Boolean  @default(true)
+  order              Int      @default(0)
+  createdAt          DateTime @default(now())
+  updatedAt          DateTime @updatedAt
+
+  @@index([published, order])
+}
+
 model Media {
   id        String   @id @default(cuid())
   url       String
