@@ -348,7 +348,8 @@ const projects = [
 <li>Android, iPhone, iPad, Mac ve Apple Vision Pro desteği</li>
 </ul>
 <p>Aynı yaklaşımı kurumların çalışan eğitimleri için de uyguluyoruz.</p>
-<p><a href="${BECOME_HACKER_URL}" target="_blank" rel="noopener noreferrer">App Store</a> · <a href="${BECOME_HACKER_PLAY_URL}" target="_blank" rel="noopener noreferrer">Google Play</a></p>`,
+<p><a href="${BECOME_HACKER_URL}" target="_blank" rel="noopener noreferrer">App Store</a> · <a href="${BECOME_HACKER_PLAY_URL}" target="_blank" rel="noopener noreferrer">Google Play</a></p>
+<p><em>Uygulama, ortağımızın geliştirici hesabı üzerinden yayınlanıyor; Google Play'de SixSensely adıyla yer alıyor.</em></p>`,
         metaTitle: "Become Hacker | Siber Güvenlik Eğitim Uygulaması | MetasoftCo",
         metaDescription:
             "Quiz ve derslerle siber güvenlik öğreten, XP ve seviye sistemli eğitim uygulamamız Become Hacker App Store ve Google Play'de.",
@@ -371,7 +372,8 @@ const projects = [
 <li>Abonelik ve tek seferlik premium seçenekleri</li>
 </ul>
 <p>Aynı oyun ve ilerleme mekaniklerini markalara özel oyunlarda da kullanıyoruz.</p>
-<p><a href="${ZEKAI_URL}" target="_blank" rel="noopener noreferrer">App Store</a> · <a href="${ZEKAI_PLAY_URL}" target="_blank" rel="noopener noreferrer">Google Play</a></p>`,
+<p><a href="${ZEKAI_URL}" target="_blank" rel="noopener noreferrer">App Store</a> · <a href="${ZEKAI_PLAY_URL}" target="_blank" rel="noopener noreferrer">Google Play</a></p>
+<p><em>Uygulama, ortağımızın geliştirici hesabı üzerinden yayınlanıyor; Google Play'de SixSensely adıyla yer alıyor.</em></p>`,
         metaTitle: "ZekAI: 5 Mantık Oyunu | Mobil Oyun Projesi | MetasoftCo",
         metaDescription:
             "Sudoku, Kelime Avı, Queens, Tango ve Zip'i 20.000'den fazla bölümle bir araya getiren mobil oyunumuz ZekAI 25 dilde yayında.",
@@ -393,7 +395,8 @@ const projects = [
 <li>Doğum tarihi ve profile göre kişiselleştirilmiş yorumlar, fal geçmişi</li>
 <li>9 dil desteği; reklam izleyerek coin kazanma modeli</li>
 </ul>
-<p>Görüntü işleme ile üretken yapay zekayı tüketici ürününde bir araya getirdiğimiz bu yaklaşımı, markalara özel yapay zeka çözümlerinde de kullanıyoruz.</p>`,
+<p>Görüntü işleme ile üretken yapay zekayı tüketici ürününde bir araya getirdiğimiz bu yaklaşımı, markalara özel yapay zeka çözümlerinde de kullanıyoruz.</p>
+<p><em>Uygulama, ortağımızın geliştirici hesabı üzerinden yayınlanıyor; Google Play'de SixSensely adıyla yer alıyor.</em></p>`,
         metaTitle: "MysticSip: Yapay Zeka Falı | Mobil Uygulama Projesi | MetasoftCo",
         metaDescription:
             "Fincan fotoğrafını görüntü işlemeyle analiz edip yapay zeka ile kişiye özel yorum üreten mobil uygulamamız MysticSip Google Play'de yayında.",
