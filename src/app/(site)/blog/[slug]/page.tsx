@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { prisma } from "@/lib/db";
-import { siteConfig, generateBreadcrumbSchema } from "@/lib/site";
+import { siteConfig, generateBreadcrumbSchema, generateFaqSchema, parseFaq } from "@/lib/site";
 import { cloudinaryOgImage } from "@/lib/cloudinary";
 import InsightsDetailPrototype from "@/components/phase2/InsightsDetailPrototype";
 import { isEnglishBlogPostPublishable } from "@/lib/publication";
@@ -115,6 +115,7 @@ export default async function BlogPostPage({ params }: Props) {
         { name: post.title, url: `${siteConfig.url}/blog/${post.slug}` },
     ]);
 
+    const faq = parseFaq(post.faq);
     const related = await getRelatedPosts(post.slug, post.category);
     const serviceIds: string[] = post.serviceIds ? JSON.parse(post.serviceIds) : [];
     const relatedServices = serviceIds.length > 0
@@ -134,8 +135,14 @@ export default async function BlogPostPage({ params }: Props) {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
             />
+            {faq.length > 0 && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(generateFaqSchema(faq)) }}
+                />
+            )}
 
-            <InsightsDetailPrototype post={post} related={related} relatedServices={relatedServices} locale="tr" />
+            <InsightsDetailPrototype post={post} faq={faq} related={related} relatedServices={relatedServices} locale="tr" />
         </>
     );
 }

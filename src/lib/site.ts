@@ -395,6 +395,31 @@ export function generateBreadcrumbSchema(items: { name: string; url: string }[])
     };
 }
 
+export interface FaqEntry { q: string; a: string; }
+
+/** Parses a stored FAQ JSON column, skipping entries missing a question or answer. */
+export function parseFaq(json: string | null | undefined): FaqEntry[] {
+    if (!json) return [];
+    try {
+        const items = JSON.parse(json);
+        return Array.isArray(items) ? items.filter((item) => item?.q?.trim() && item?.a?.trim()) : [];
+    } catch {
+        return [];
+    }
+}
+
+export function generateFaqSchema(items: FaqEntry[]) {
+    return {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        mainEntity: items.map((item) => ({
+            "@type": "Question",
+            name: item.q,
+            acceptedAnswer: { "@type": "Answer", text: item.a },
+        })),
+    };
+}
+
 // JSON-LD structured data for service
 export function generateServiceSchema(service: {
     name: string;

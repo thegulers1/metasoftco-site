@@ -65,6 +65,8 @@ export async function PUT(
             metaDescription_en,
             metaKeywords_en,
             serviceIds,
+            faq,
+            faq_en,
         } = body;
 
         // publishedAt güncelle
@@ -99,6 +101,8 @@ export async function PUT(
                 metaDescription_en,
                 metaKeywords_en,
                 serviceIds: serviceIds || null,
+                faq: faq || null,
+                faq_en: faq_en || null,
             },
         });
 

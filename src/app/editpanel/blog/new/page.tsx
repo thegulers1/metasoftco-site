@@ -6,6 +6,7 @@ import { useToast } from "@/providers/ToastProvider";
 import ImageUpload from "@/components/editpanel/ImageUpload";
 import RichTextEditor from "@/components/editpanel/RichTextEditor";
 import ServicePicker, { type ServiceOption } from "@/components/editpanel/ServicePicker";
+import FaqListEditor, { type FaqItem } from "@/components/editpanel/FaqListEditor";
 
 export const dynamic = 'force-dynamic';
 
@@ -29,13 +30,21 @@ interface BlogFormData {
     metaDescription_en: string;
     metaKeywords_en: string;
     serviceIds: string[];
+    faq: FaqItem[];
+    faq_en: FaqItem[];
+}
+
+/** Drops half-filled rows; an empty list is stored as null. */
+function faqJson(items: FaqItem[]) {
+    const filled = items.filter((item) => item.q.trim() && item.a.trim());
+    return filled.length > 0 ? JSON.stringify(filled) : null;
 }
 
 export default function NewBlogPostPage() {
     const router = useRouter();
     const { showToast } = useToast();
     const [saving, setSaving] = useState(false);
-    const [activeTab, setActiveTab] = useState<"content" | "hizmetler" | "seo">("content");
+    const [activeTab, setActiveTab] = useState<"content" | "hizmetler" | "sss" | "seo">("content");
     const [allServices, setAllServices] = useState<ServiceOption[]>([]);
     const [formData, setFormData] = useState<BlogFormData>({
         title: "",
@@ -58,6 +67,8 @@ export default function NewBlogPostPage() {
         metaDescription_en: "",
         metaKeywords_en: "",
         serviceIds: [],
+        faq: [],
+        faq_en: [],
     });
 
     useEffect(() => {
@@ -88,6 +99,8 @@ export default function NewBlogPostPage() {
                 body: JSON.stringify({
                     ...formData,
                     serviceIds: formData.serviceIds.length > 0 ? JSON.stringify(formData.serviceIds) : null,
+                    faq: faqJson(formData.faq),
+                    faq_en: faqJson(formData.faq_en),
                 }),
             });
 
@@ -133,6 +146,15 @@ export default function NewBlogPostPage() {
                         }`}
                 >
                     Önerilen Hizmetler{formData.serviceIds.length > 0 ? ` (${formData.serviceIds.length})` : ""}
+                </button>
+                <button
+                    onClick={() => setActiveTab("sss")}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition ${activeTab === "sss"
+                        ? "bg-black text-white"
+                        : "bg-black/5 text-black hover:bg-black/10"
+                        }`}
+                >
+                    SSS{formData.faq.length > 0 ? ` (${formData.faq.length})` : ""}
                 </button>
                 <button
                     onClick={() => setActiveTab("seo")}
@@ -270,6 +292,20 @@ export default function NewBlogPostPage() {
                         selectedIds={formData.serviceIds}
                         onChange={(ids) => setFormData({ ...formData, serviceIds: ids })}
                     />
+                )}
+
+                {activeTab === "sss" && (
+                    <div className="space-y-8">
+                        <p className="text-xs text-black/40">Yazının sonunda hizmet sayfalarındaki gibi açılır-kapanır gösterilir ve Google&apos;a FAQ şeması olarak gönderilir.</p>
+                        <div>
+                            <label className="block text-sm font-medium text-black/70 mb-2">Sıkça Sorulan Sorular (TR)</label>
+                            <FaqListEditor items={formData.faq} onChange={(items) => setFormData({ ...formData, faq: items })} addLabel="+ Soru Ekle" />
+                        </div>
+                        <div>
+                            <label className="block text-sm font-medium text-black/70 mb-2">Sıkça Sorulan Sorular (EN)</label>
+                            <FaqListEditor items={formData.faq_en} onChange={(items) => setFormData({ ...formData, faq_en: items })} addLabel="+ Add Question" />
+                        </div>
+                    </div>
                 )}
 
                 {activeTab === "seo" && (

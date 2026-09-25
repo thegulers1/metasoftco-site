@@ -1,7 +1,7 @@
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { prisma } from "@/lib/db";
-import { siteConfig, generateBreadcrumbSchema } from "@/lib/site";
+import { siteConfig, generateBreadcrumbSchema, generateFaqSchema, parseFaq } from "@/lib/site";
 import InsightsDetailPrototype from "@/components/phase2/InsightsDetailPrototype";
 import { isEnglishBlogPostPublishable } from "@/lib/publication";
 
@@ -127,6 +127,7 @@ export default async function EnglishBlogPostPage({ params }: Props) {
         { name: title, url: `${siteConfig.url}/en/blog/${slug}` },
     ]);
 
+    const faq = parseFaq(post.faq_en);
     const related = await getRelatedPosts(slug, post.category);
     const serviceIds: string[] = post.serviceIds ? JSON.parse(post.serviceIds) : [];
     const relatedServices = serviceIds.length > 0
@@ -146,6 +147,12 @@ export default async function EnglishBlogPostPage({ params }: Props) {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
             />
+            {faq.length > 0 && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(generateFaqSchema(faq)) }}
+                />
+            )}
 
             <InsightsDetailPrototype
                 post={{
@@ -157,6 +164,7 @@ export default async function EnglishBlogPostPage({ params }: Props) {
                     author: post.author,
                     publishedAt: post.publishedAt,
                 }}
+                faq={faq}
                 related={related}
                 relatedServices={relatedServices}
                 locale="en"

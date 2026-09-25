@@ -4,6 +4,7 @@ import { IconArrowLeft as ArrowLeft, IconArrowRight as ArrowRight } from "@table
 import type { Phase2Locale } from "@/lib/phase2";
 import { phase2Copy } from "@/lib/phase2-content";
 import { addHeadingAnchors } from "@/lib/utils";
+import type { FaqEntry } from "@/lib/site";
 import { SignalHeading } from "./SignalHeading";
 import { P2InsightMeta, formatInsightDate, insightReadMinutes } from "./InsightsShared";
 import type { P2InsightCard } from "./InsightsIndexPrototype";
@@ -41,11 +42,13 @@ function demoteContentHeadings(html: string) {
 
 export default function InsightsDetailPrototype({
     post,
+    faq = [],
     related,
     relatedServices = [],
     locale,
 }: {
     post: P2InsightArticle;
+    faq?: FaqEntry[];
     related: P2InsightCard[];
     relatedServices?: P2RelatedService[];
     locale: Phase2Locale;
@@ -117,6 +120,24 @@ export default function InsightsDetailPrototype({
                         className="p2-prose"
                         dangerouslySetInnerHTML={{ __html: addHeadingAnchors(demoteContentHeadings(post.content.replace(/&nbsp;/g, " "))) }}
                     />
+                </section>
+            )}
+
+            {faq.length > 0 && (
+                <section className="p2-container p2-detail-section p2-detail-section--faq">
+                    <h2>{copy.faqTitle}</h2>
+                    <div className="p2-screen-faq">
+                        {faq.map((item, index) => (
+                            <details key={item.q}>
+                                <summary>
+                                    <span className="p2-gradient-number">{String(index + 1).padStart(2, "0")}</span>
+                                    <h3>{item.q}</h3>
+                                    <i aria-hidden="true">+</i>
+                                </summary>
+                                <p>{item.a}</p>
+                            </details>
+                        ))}
+                    </div>
                 </section>
             )}
 

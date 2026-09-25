@@ -149,6 +149,8 @@ model BlogPost {
   title_en           String?
   slug_en            String?   @unique
   serviceIds         String?
+  faq                String?
+  faq_en             String?
 }
 
 model SiteSetting {
