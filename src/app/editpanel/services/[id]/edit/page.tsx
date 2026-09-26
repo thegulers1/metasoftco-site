@@ -54,6 +54,7 @@ interface Service {
     faq_en: string | null;
     specs: string | null;
     specs_en: string | null;
+    presentationPoints: string | null;
 }
 
 interface Category {
@@ -995,6 +996,23 @@ export default function EditServicePage({
                                         <p className="text-sm text-black/30 text-center py-4">Henüz özellik eklenmedi</p>
                                     )}
                                 </div>
+                            </div>
+
+                            {/* Presentation */}
+                            <div className="mt-8">
+                                <label className="block text-sm font-medium text-black/70">Sunum Maddeleri</label>
+                                <p className="text-xs text-black/40 mt-0.5 mb-3">
+                                    /sunum sayfasında ve PDF&apos;te bu hizmetin sayfasında madde olarak görünür. Her satıra bir madde,
+                                    en fazla 4 madde. Boş bırakılırsa yalnızca kısa açıklama gösterilir. Teknik özelliklerin ilk 4 tanesi de
+                                    sunum sayfasında tablo olarak yer alır.
+                                </p>
+                                <textarea
+                                    value={service.presentationPoints || ""}
+                                    onChange={(e) => setService({ ...service, presentationPoints: e.target.value || null })}
+                                    placeholder={"Markanıza özel arayüz ve tasarım\nAnında baskı ya da QR ile dijital paylaşım\nİsteğe bağlı Data-Capture ile lead toplama"}
+                                    rows={4}
+                                    className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-sm text-black focus:outline-none focus:ring-2 focus:ring-black"
+                                />
                             </div>
                         </>
                     );

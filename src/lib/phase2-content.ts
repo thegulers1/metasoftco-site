@@ -687,6 +687,7 @@ const tr: Phase2Copy = {
 			{ href: SOFTWARE_CATEGORY_PATH, label: "Yazılım" },
 			{ href: trPaths.routes.about, label: "Hakkımızda" },
 			{ href: trPaths.routes.insights, label: "Blog" },
+			{ href: "/sunum", label: "Sunum 2026 (PDF)" },
 			{ href: trPaths.routes.contact, label: "İletişim" },
 		],
 	},

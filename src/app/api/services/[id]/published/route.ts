@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { prisma } from "@/lib/db";
+import { PRESENTATION_CACHE_TAG } from "@/lib/presentation";
 
 export const dynamic = 'force-dynamic';
 
@@ -19,6 +21,9 @@ export async function PATCH(
             where: { id },
             data: { published: body.published },
         });
+
+        revalidateTag(PRESENTATION_CACHE_TAG, { expire: 0 });
+        revalidatePath("/sunum");
 
         return NextResponse.json(service);
     } catch (error) {

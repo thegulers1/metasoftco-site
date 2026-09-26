@@ -4,6 +4,13 @@ const nextConfig: NextConfig = {
   output: "standalone",
   poweredByHeader: false,
 
+  // Headless Chrome for the /sunum PDF export: keep it out of the bundle and
+  // ship Chromium's compressed binaries with the PDF route.
+  serverExternalPackages: ["@sparticuz/chromium", "puppeteer-core"],
+  outputFileTracingIncludes: {
+    "/api/sunum/pdf": ["./node_modules/@sparticuz/chromium/bin/**"],
+  },
+
   async headers() {
     return [
       {

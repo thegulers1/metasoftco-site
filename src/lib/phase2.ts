@@ -83,7 +83,7 @@ function normalizePath(pathname: string) {
 const englishExactPaths = new Set<string>(["/en", phase2Routes.en.about, phase2Routes.en.contact]);
 const englishPrefixes = [phase2Routes.en.work, phase2Routes.en.capabilities, phase2Routes.en.products, phase2Routes.en.insights];
 
-const turkishExactPaths = new Set<string>(["/", phase2Routes.tr.about, phase2Routes.tr.contact]);
+const turkishExactPaths = new Set<string>(["/", phase2Routes.tr.about, phase2Routes.tr.contact, "/sunum"]);
 const turkishPrefixes = [phase2Routes.tr.work, phase2Routes.tr.capabilities, phase2Routes.tr.products, phase2Routes.tr.insights];
 
 export function isPhase2PrototypePath(pathname: string | null) {

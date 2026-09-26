@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { prisma } from "@/lib/db";
 import { prismaErrorMessage } from "@/lib/apiError";
+import { PRESENTATION_CACHE_TAG } from "@/lib/presentation";
 
 export const dynamic = 'force-dynamic';
 
@@ -87,6 +88,7 @@ export async function PUT(
             faq_en,
             specs,
             specs_en,
+            presentationPoints,
         } = body;
 
         const service = await prisma.service.update({
@@ -132,6 +134,7 @@ export async function PUT(
                 faq_en: faq_en || null,
                 specs: specs || null,
                 specs_en: specs_en || null,
+                presentationPoints: presentationPoints?.trim() || null,
             },
         });
 
@@ -150,6 +153,8 @@ export async function PUT(
         revalidatePath(`/urunler/${service.slug}`);
         revalidatePath('/urunler');
         revalidatePath('/');
+        revalidateTag(PRESENTATION_CACHE_TAG, { expire: 0 });
+        revalidatePath('/sunum');
 
         return NextResponse.json(service);
     } catch (error) {
@@ -175,6 +180,8 @@ export async function DELETE(
         revalidatePath('/en/services');
         revalidatePath('/urunler');
         revalidatePath('/');
+        revalidateTag(PRESENTATION_CACHE_TAG, { expire: 0 });
+        revalidatePath('/sunum');
 
         return NextResponse.json({ success: true });
     } catch (error) {

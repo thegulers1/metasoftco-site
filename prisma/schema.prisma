@@ -73,7 +73,9 @@ model Service {
   type               String          @default("RENTAL")
   // Shows the shared Data-Capture / CRM block (and its FAQ) on the rental detail page.
   dataCapture        Boolean         @default(false)
-  category           ServiceCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  // Short bullet points (one per line) shown on this service's /sunum page.
+  presentationPoints String?
+  category          ServiceCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
 
   // Explicit pairing for a RENTAL service's "Satın Al" CTA: points at the
   // specific SALE-type service that is this product's sale counterpart
