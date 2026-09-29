@@ -37,7 +37,7 @@ export const dataCaptureHub = {
         },
         {
             title: "QR ile mikro site",
-            body: "İçeriğine ulaşmak için ekrandaki QR kodu okutur ve markanıza özel tasarlanan mikro siteye gelir.",
+            body: "İçeriğine ulaşmak ya da oyunlarda skor tablosunda yer almak için ekrandaki QR kodu okutur ve markanıza özel tasarlanan mikro siteye gelir.",
         },
         {
             title: "Form ve onaylar",

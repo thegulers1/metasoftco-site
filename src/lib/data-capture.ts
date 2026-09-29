@@ -94,6 +94,39 @@ const en: DataCaptureCopy = {
     ],
 };
 
-export function dataCaptureCopy(locale: DataCaptureLocale): DataCaptureCopy {
-    return locale === "en" ? en : tr;
+// Games produce no content to hand over: the lead form is the optional
+// scoreboard sign-up instead, so the delivery-based lines are swapped out.
+const trGame: Partial<DataCaptureCopy> & { firstItem: DataCaptureCopy["items"][number]; firstFaqAnswer: string } = {
+    intro:
+        "Talep etmeniz halinde bu oyuna Data-Capture modülünü ekliyoruz. Skor tablosunda yer almak isteyen katılımcılar kısa bir form doldurur; fuar veya lansman sonrasında satış ekibiniz bu listeyi nitelikli potansiyel müşteri olarak takip eder.",
+    firstItem: {
+        title: "QR ile skor tablosu kaydı",
+        body: "İsteğe bağlı skor tablosunda yer almak isteyen katılımcı QR kodu okutur ve markanıza özel mikro sitede ad, şirket ve e-posta gibi, birlikte belirlediğimiz alanları doldurur. Oyun formsuz da oynanabilir.",
+    },
+    firstFaqAnswer:
+        "Evet, isteğe bağlı skor tablosu ile. Talep etmeniz halinde Data-Capture modülü eklenir: skor tablosunda yer almak isteyen katılımcı QR kodu okutup markanıza özel mikro sitede ad, şirket ve e-posta gibi bilgilerini paylaşır. Kayıtlar MetasoftCo'nun kendi CRM altyapısına anlık aktarılır ve size özel panelden canlı olarak takip edilir.",
+};
+
+const enGame: typeof trGame = {
+    intro:
+        "On request, we add the Data-Capture module to this game. Players who want to appear on the scoreboard fill in a short form, giving your sales team a qualified lead list to follow up after the trade show or launch.",
+    firstItem: {
+        title: "Scoreboard sign-up via QR",
+        body: "Players who want to appear on the optional scoreboard scan a QR code and fill in fields we define together, such as name, company and email, on a micro-site designed for your brand. The game can also be played without the form.",
+    },
+    firstFaqAnswer:
+        "Yes, through an optional scoreboard. On request we add the Data-Capture module: players who want to appear on the scoreboard scan a QR code and share details such as name, company and email on a micro-site designed for your brand. Records flow instantly into MetasoftCo's own CRM infrastructure and can be followed live from your dedicated dashboard.",
+};
+
+/** `isGame` swaps content delivery for the optional scoreboard sign-up. */
+export function dataCaptureCopy(locale: DataCaptureLocale, isGame = false): DataCaptureCopy {
+    const base = locale === "en" ? en : tr;
+    if (!isGame) return base;
+    const game = locale === "en" ? enGame : trGame;
+    return {
+        ...base,
+        intro: game.intro ?? base.intro,
+        items: [game.firstItem, ...base.items.slice(1)],
+        faq: [{ ...base.faq[0], a: game.firstFaqAnswer }, ...base.faq.slice(1)],
+    };
 }

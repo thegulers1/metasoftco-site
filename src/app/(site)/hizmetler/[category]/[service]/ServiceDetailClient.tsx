@@ -82,11 +82,11 @@ export default function ServiceDetailClient({
         (isEn && service.specs_en) || service.specs
     );
     const showDataCapture = variant === "rental" && service.dataCapture;
-    const dataCapture = dataCaptureCopy(isEn ? "en" : "tr");
     // Event rentals (not software) get the shared logistics block and FAQ.
     const showRentalOps = variant === "rental" && !isSoftwareCategory(categoryData.slug);
     const rentalOps = rentalOpsCopy(isEn ? "en" : "tr");
     const output = toRentalOutput(service.outputType);
+    const dataCapture = dataCaptureCopy(isEn ? "en" : "tr", output === "none");
     // Quote links carry the product so the contact form arrives pre-filled.
     const quoteHref = showRentalOps
         ? `${dictionary.routes.contact}?urun=${encodeURIComponent(rentalProductName(title, isEn ? "en" : "tr"))}`

@@ -163,7 +163,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         const ownFaq: { q: string; a: string }[] = service.faq ? JSON.parse(service.faq) : [];
         const items: { q: string; a: string }[] = [
             ...(isEventRental ? mergeRentalFaq(ownFaq, service.title, "tr", toRentalOutput(service.outputType)) : ownFaq),
-            ...(service.dataCapture ? dataCaptureCopy("tr").faq : []),
+            ...(service.dataCapture ? dataCaptureCopy("tr", toRentalOutput(service.outputType) === "none").faq : []),
         ];
         if (!items.length) return null;
         return {

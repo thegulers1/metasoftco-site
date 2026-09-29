@@ -115,7 +115,7 @@ export default async function EnglishServiceDetailPage({ params }: PageProps) {
         const ownFaq: { q: string; a: string }[] = JSON.parse(service.faq_en || service.faq || "[]");
         const items = [
             ...(isSoftwareCategory(categoryData!.slug) ? ownFaq : mergeRentalFaq(ownFaq, service.title_en!, "en", toRentalOutput(service.outputType))),
-            ...(service.dataCapture ? dataCaptureCopy("en").faq : []),
+            ...(service.dataCapture ? dataCaptureCopy("en", toRentalOutput(service.outputType) === "none").faq : []),
         ];
         if (!items.length) return null;
         return {
