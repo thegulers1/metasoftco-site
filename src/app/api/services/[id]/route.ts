@@ -71,7 +71,7 @@ export async function PUT(
             featured,
             featuredOrder,
             dataCapture,
-            photoPrint,
+            outputType,
             // Accent / tag
             accentText,
             accentText_en,
@@ -117,7 +117,7 @@ export async function PUT(
                 featured,
                 featuredOrder,
                 dataCapture: Boolean(dataCapture),
-                photoPrint: Boolean(photoPrint),
+                outputType: ["digital", "print"].includes(outputType) ? outputType : "none",
                 categoryId,
                 saleCounterpartId: saleCounterpartId || null,
                 metaTitle,

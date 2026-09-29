@@ -11,7 +11,7 @@ import { DataCaptureBlock } from "@/components/phase2/DataCaptureBlock";
 import { RentalOpsBlock } from "@/components/phase2/RentalOpsBlock";
 import { dataCaptureCopy } from "@/lib/data-capture";
 import { DATA_CAPTURE_HUB_PATH } from "@/lib/data-capture-hub";
-import { mergeRentalFaq, rentalOpsCopy, rentalProductName } from "@/lib/rental-ops";
+import { mergeRentalFaq, rentalOpsCopy, rentalProductName, toRentalOutput } from "@/lib/rental-ops";
 import { SOFTWARE_CATEGORY_PATH, isSoftwareCategory, softwareServiceCopy } from "@/lib/software";
 import { splitSignalTitle } from "@/lib/phase2";
 import { phase2Copy } from "@/lib/phase2-content";
@@ -86,6 +86,7 @@ export default function ServiceDetailClient({
     // Event rentals (not software) get the shared logistics block and FAQ.
     const showRentalOps = variant === "rental" && !isSoftwareCategory(categoryData.slug);
     const rentalOps = rentalOpsCopy(isEn ? "en" : "tr");
+    const output = toRentalOutput(service.outputType);
     // Quote links carry the product so the contact form arrives pre-filled.
     const quoteHref = showRentalOps
         ? `${dictionary.routes.contact}?urun=${encodeURIComponent(rentalProductName(title, isEn ? "en" : "tr"))}`
@@ -94,7 +95,7 @@ export default function ServiceDetailClient({
     // are also visible on the page.
     const ownFaqs = parseJsonList<{ q: string; a: string }>((isEn && service.faq_en) || service.faq);
     const faqs = [
-        ...(showRentalOps ? mergeRentalFaq(ownFaqs, title, isEn ? "en" : "tr") : ownFaqs),
+        ...(showRentalOps ? mergeRentalFaq(ownFaqs, title, isEn ? "en" : "tr", output) : ownFaqs),
         ...(showDataCapture ? dataCapture.faq : []),
     ];
 
@@ -204,7 +205,7 @@ export default function ServiceDetailClient({
             )}
 
             {showRentalOps && (
-                <RentalOpsBlock copy={rentalOps} contactHref={quoteHref} showPrint={service.photoPrint} />
+                <RentalOpsBlock copy={rentalOps} contactHref={quoteHref} output={output} />
             )}
 
             {faqs.length > 0 && (

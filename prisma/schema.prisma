@@ -73,8 +73,9 @@ model Service {
   type               String          @default("RENTAL")
   // Shows the shared Data-Capture / CRM block (and its FAQ) on the rental detail page.
   dataCapture        Boolean         @default(false)
-  // Physical photo print product: the rental block lists "750 prints included" only when on.
-  photoPrint         Boolean         @default(false)
+  // What a guest takes away: "none" (games), "digital" (QR share) or "print"
+  // (digital + physical print). Drives the shared rental block's scope lines.
+  outputType         String          @default("none")
   // Short bullet points (one per line) shown on this service's /sunum page.
   presentationPoints String?
   category          ServiceCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)

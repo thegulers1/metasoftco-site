@@ -1,17 +1,17 @@
 import Link from "next/link";
 import { IconArrowRight as ArrowRight } from "@tabler/icons-react";
-import type { RentalOpsCopy } from "@/lib/rental-ops";
+import type { RentalOpsCopy, RentalOutput } from "@/lib/rental-ops";
 
 interface RentalOpsBlockProps {
     copy: RentalOpsCopy;
     contactHref: string;
-    /** Physical photo print product: adds the print line to the scope list. */
-    showPrint?: boolean;
+    /** What the guest takes away; decides the sharing / print lines. */
+    output: RentalOutput;
 }
 
 /** Shared logistics / scope / service-area block, shown on every event rental service. */
-export function RentalOpsBlock({ copy, contactHref, showPrint = false }: RentalOpsBlockProps) {
-    const scope = showPrint ? [...copy.scope, copy.printScope] : copy.scope;
+export function RentalOpsBlock({ copy, contactHref, output }: RentalOpsBlockProps) {
+    const scope = copy.scope(output);
     return (
         <section
             id="kiralama"

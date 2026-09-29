@@ -9,7 +9,7 @@ import { AdminEditUrlSetter } from "@/components/site/AdminBar";
 import { isEnglishServicePublishable } from "@/lib/publication";
 import { dataCaptureCopy } from "@/lib/data-capture";
 import { isSoftwareCategory } from "@/lib/software";
-import { mergeRentalFaq, rentalAreaServed } from "@/lib/rental-ops";
+import { mergeRentalFaq, rentalAreaServed, toRentalOutput } from "@/lib/rental-ops";
 
 export const revalidate = 3600;
 
@@ -114,7 +114,7 @@ export default async function EnglishServiceDetailPage({ params }: PageProps) {
     const faqSchema = (() => {
         const ownFaq: { q: string; a: string }[] = JSON.parse(service.faq_en || service.faq || "[]");
         const items = [
-            ...(isSoftwareCategory(categoryData!.slug) ? ownFaq : mergeRentalFaq(ownFaq, service.title_en!, "en")),
+            ...(isSoftwareCategory(categoryData!.slug) ? ownFaq : mergeRentalFaq(ownFaq, service.title_en!, "en", toRentalOutput(service.outputType))),
             ...(service.dataCapture ? dataCaptureCopy("en").faq : []),
         ];
         if (!items.length) return null;

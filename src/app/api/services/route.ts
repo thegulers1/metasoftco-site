@@ -54,7 +54,7 @@ export async function POST(request: Request) {
             featured,
             featuredOrder,
             dataCapture,
-            photoPrint,
+            outputType,
             // Accent / tag
             accentText,
             accentText_en,
@@ -92,7 +92,7 @@ export async function POST(request: Request) {
                 featured: featured || false,
                 featuredOrder: featuredOrder || 0,
                 dataCapture: Boolean(dataCapture),
-                photoPrint: Boolean(photoPrint),
+                outputType: ["digital", "print"].includes(outputType) ? outputType : "none",
                 metaTitle,
                 metaDescription,
                 metaKeywords,

@@ -19,18 +19,27 @@ export const SERVICE_CITIES = [
     "Sapanca",
 ];
 
+/**
+ * What a guest takes away, set per service in the editpanel (`outputType`):
+ * games produce nothing to share, photo/video activations a digital file,
+ * print activations a digital file plus a physical print.
+ */
+export type RentalOutput = "none" | "digital" | "print";
+
+export function toRentalOutput(value: string | null | undefined): RentalOutput {
+    return value === "digital" || value === "print" ? value : "none";
+}
+
 export interface RentalOpsCopy {
     eyebrow: string;
     title: string;
     logisticsTitle: string;
     logistics: { term: string; value: string }[];
     scopeTitle: string;
-    scope: string[];
-    /** Added to `scope` only for services flagged `photoPrint`. */
-    printScope: string;
+    scope: (output: RentalOutput) => string[];
     serviceArea: string;
     cta: string;
-    faq: (serviceTitle: string) => { q: string; a: string }[];
+    faq: (serviceTitle: string, output: RentalOutput) => { q: string; a: string }[];
 }
 
 const cityList = (locale: RentalOpsLocale) => {
@@ -49,17 +58,17 @@ const tr: RentalOpsCopy = {
         { term: "Saha ekibi", value: "Etkinlik boyunca alanda en az 2 teknik personel." },
     ],
     scopeTitle: "Hizmet kapsamına dahil",
-    scope: [
+    scope: (output) => [
         "Nakliye, kurulum ve söküm",
         "Etkinlik boyunca teknik saha personeli",
-        "Markaya özel arayüz ve çıktı tasarımı",
+        output === "none" ? "Markaya özel oyun ve ekran arayüzü" : "Markaya özel arayüz ve çıktı tasarımı",
         "Kiosk dış giydirmesi (marka kaplaması)",
-        "QR ile anında dijital paylaşım",
+        ...(output === "none" ? [] : ["QR ile anında dijital paylaşım"]),
+        ...(output === "print" ? ["Saniyeler içinde fiziksel baskı, 750 adet baskı dahil"] : []),
     ],
-    printScope: "Saniyeler içinde fiziksel baskı, 750 adet baskı dahil",
     serviceArea: `İstanbul Teknokent (Avcılar) merkezli MetasoftCo olarak ${cityList("tr")} başta olmak üzere Türkiye genelindeki kurumsal etkinlik, lansman ve fuarlar için anahtar teslim kurulum sağlıyoruz.`,
     cta: "Etkinliğiniz İçin Teklif Alın",
-    faq: (serviceTitle) => [
+    faq: (serviceTitle, output) => [
         {
             q: `${serviceTitle} kiralama fiyatı nasıl belirlenir?`,
             a: "Fiyat; etkinlik süresi, şehir ve lokasyon, cihaz sayısı ve kişiselleştirme kapsamına göre belirlenir. Tekliflerimiz anahtar teslimdir: nakliye, kurulum, teknik personel ve markaya özel tasarım fiyata dahildir. Etkinlik tarihinizi ve şehrinizi paylaşın, size net bir teklif iletelim.",
@@ -70,7 +79,9 @@ const tr: RentalOpsCopy = {
         },
         {
             q: "Markaya özel kişiselleştirme yapıyor musunuz?",
-            a: "Evet. Ekran arayüzü, fotoğraf ve çıktı tasarımları ile kioskun dış giydirmesi markanıza özel hazırlanır.",
+            a: output === "none"
+                ? "Evet. Oyun ve ekran arayüzü ile kioskun dış giydirmesi markanıza özel hazırlanır."
+                : "Evet. Ekran arayüzü, fotoğraf ve çıktı tasarımları ile kioskun dış giydirmesi markanıza özel hazırlanır.",
         },
         {
             q: "Kurulum ne kadar sürer?",
@@ -94,17 +105,17 @@ const en: RentalOpsCopy = {
         { term: "On-site crew", value: "At least 2 technicians on site throughout the event." },
     ],
     scopeTitle: "Included in the service",
-    scope: [
+    scope: (output) => [
         "Transport, setup and teardown",
         "Technical crew throughout the event",
-        "Branded interface and output design",
+        output === "none" ? "Branded game and screen interface" : "Branded interface and output design",
         "Branded kiosk wrap",
-        "Instant digital sharing via QR",
+        ...(output === "none" ? [] : ["Instant digital sharing via QR"]),
+        ...(output === "print" ? ["Physical prints within seconds, 750 prints included"] : []),
     ],
-    printScope: "Physical prints within seconds, 750 prints included",
     serviceArea: `Based at İstanbul Teknokent (Avcılar), MetasoftCo provides turnkey installations for corporate events, launches and trade shows across Türkiye, including ${cityList("en")}.`,
     cta: "Get a Quote for Your Event",
-    faq: (serviceTitle) => [
+    faq: (serviceTitle, output) => [
         {
             q: `How is ${serviceTitle} rental pricing determined?`,
             a: "Pricing depends on event duration, city and venue, number of devices and the scope of customisation. Our quotes are turnkey: transport, setup, technical crew and branded design are included. Share your event date and city and we will send you a clear quote.",
@@ -115,7 +126,9 @@ const en: RentalOpsCopy = {
         },
         {
             q: "Do you offer brand customisation?",
-            a: "Yes. The screen interface, photo and output designs and the kiosk wrap are all designed for your brand.",
+            a: output === "none"
+                ? "Yes. The game and screen interface and the kiosk wrap are designed for your brand."
+                : "Yes. The screen interface, photo and output designs and the kiosk wrap are all designed for your brand.",
         },
         {
             q: "How long does setup take?",
@@ -155,10 +168,11 @@ export function mergeRentalFaq(
     serviceFaq: { q: string; a: string }[],
     serviceTitle: string,
     locale: RentalOpsLocale,
+    output: RentalOutput,
 ): { q: string; a: string }[] {
     const own = new Set(serviceFaq.map((item) => item.q.trim().toLocaleLowerCase("tr")));
     const shared = rentalOpsCopy(locale)
-        .faq(rentalProductName(serviceTitle, locale))
+        .faq(rentalProductName(serviceTitle, locale), output)
         .filter((item) => !own.has(item.q.trim().toLocaleLowerCase("tr")));
     return [...serviceFaq, ...shared];
 }

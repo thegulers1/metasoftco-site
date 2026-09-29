@@ -33,7 +33,7 @@ interface Service {
     type: string;
     featured: boolean;
     dataCapture: boolean;
-    photoPrint: boolean;
+    outputType: string;
     featuredOrder: number;
     categoryId: string;
     saleCounterpartId: string | null;
@@ -616,17 +616,17 @@ export default function EditServicePage({
                             </span>
                         </label>
 
-                        <label className="flex items-start gap-3 p-4 bg-[#f5f5f5] rounded-lg cursor-pointer">
-                            <input
-                                type="checkbox"
-                                checked={service.photoPrint}
-                                onChange={(e) => setService({ ...service, photoPrint: e.target.checked })}
-                                className="w-4 h-4 mt-0.5 accent-black cursor-pointer"
-                            />
-                            <span>
-                                <span className="block text-sm font-medium text-black/70">Baskılı ürün (fiziksel fotoğraf baskısı var)</span>
-                                <span className="block text-xs text-black/50">Açıkken kiralama sayfasındaki hizmet kapsamı listesinde “saniyeler içinde baskı, 750 adet baskı dahil” satırı gösterilir.</span>
-                            </span>
+                        <label className="block p-4 bg-[#f5f5f5] rounded-lg">
+                            <span className="block text-sm font-medium text-black/70 mb-2">Çıktı türü (kiralama kapsamı)</span>
+                            <select
+                                value={service.outputType}
+                                onChange={(e) => setService({ ...service, outputType: e.target.value })}
+                                className="w-full px-3 py-2 bg-white border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
+                            >
+                                <option value="none">Yok: oyun / etkileşim (QR paylaşım ve çıktı satırı gösterilmez)</option>
+                                <option value="digital">Dijital: QR ile paylaşım + çıktı tasarımı</option>
+                                <option value="print">Dijital + baskı: yukarıdakiler + 750 adet baskı dahil</option>
+                            </select>
                         </label>
 
                         <div className="grid grid-cols-2 gap-4">
