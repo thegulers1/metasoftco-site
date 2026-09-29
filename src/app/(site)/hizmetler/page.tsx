@@ -71,23 +71,23 @@ const serviceFAQs = [
     },
     {
         question: "Etkinlik için photobooth veya AI fotoğraf sistemi nasıl kurulur?",
-        answer: "MetasoftCo ekibi etkinlik alanına 2-3 saat öncesinde gelerek tüm donanım ve yazılım kurulumunu tamamlar. Kompakt sistemler 45 dakikada hazır hale getirilebilir. Kurulum, etkinlik sırası teknik destek ve söküm hizmeti fiyata dahildir.",
+        answer: "Kurulumu etkinlikten 1 gün önce ya da etkinlik günü 3–4 saat önce yaparız; cihaz başına ortalama 30–40 dakika sürer. Mekândan yalnızca standart bir 220V priz isteriz, interneti kendi 5G altyapımızla getiririz. Nakliye, kurulum, etkinlik boyunca teknik personel ve söküm fiyata dahildir.",
     },
     {
         question: "İstanbul dışında hizmet veriyor musunuz?",
-        answer: "Evet, İstanbul merkezli olmakla birlikte Ankara, İzmir, Bursa ve Türkiye genelinde etkinlik kurulum ve hizmet sunmaktayız. Uluslararası etkinlikler için de talep alıyoruz.",
+        answer: "Evet. İstanbul Teknokent merkezliyiz ve Türkiye genelinde hizmet veriyoruz; bugüne kadar İstanbul, Ankara, İzmir, Antalya, Bodrum, Adana, Diyarbakır, Kocaeli, Sapanca ve Çorum'da kurulum yaptık. Şehir dışı etkinliklerde ulaşım ve konaklama teklife dahil edilir ya da sizin organizasyonunuzla planlanır.",
     },
     {
         question: "KVKK kapsamında fotoğraf verileri nasıl korunuyor?",
-        answer: "Her kullanıcıya kiosk ekranında Türkçe açık rıza formu gösterilir ve onay alınmadan işlem başlamaz. Toplanan veriler etkinlik bitiminden sonra belirlenen süre içinde güvenli biçimde silinir. İstek üzerine KVKK uyumluluk belgesi sunulur.",
+        answer: "Veri toplanan kurgularda form aydınlatma metniyle sunulur; pazarlama izni ayrı ve isteğe bağlı açık rızayla alınır. Veri sorumlusu müşteri marka, MetasoftCo ise müşterinin talimatlarıyla hareket eden veri işleyendir. Veriler standart olarak 90 gün saklanır ve süre sonunda sistemlerimizden silinir.",
     },
     {
         question: "Etkinlik sırasında teknik destek sağlıyor musunuz?",
-        answer: "Evet. Her etkinlikte en az bir teknik uzman yerinde bulunur. Büyük etkinliklerde çoklu teknik destek ekibi görevlendirilir. Olası teknik sorunlara müdahale için tüm yedek ekipman sahaya getirilir.",
+        answer: "Evet. Etkinlik boyunca alanda en az 2 teknik personelimiz bulunur; kurulumdan sökümüne kadar sistemi aynı ekip yönetir.",
     },
     {
         question: "Fiyat teklifi nasıl alabilirim?",
-        answer: "info@metasoftco.com adresine etkinlik tarihi, lokasyon, tahmini katılımcı sayısı ve istenen hizmetleri belirterek e-posta gönderebilir ya da +90 534 233 4051 numaralı telefonu arayabilirsiniz. 24 saat içinde detaylı teklif sunulur.",
+        answer: "info@metasoftco.com adresine etkinlik tarihi, lokasyon, tahmini katılımcı sayısı ve istenen hizmetleri belirterek e-posta gönderebilir ya da +90 534 233 4051 numaralı telefonu arayabilirsiniz. Bir iş günü içinde dönüş yapılır. İletişim formundaki etkinlik tarihi, şehir ve katılımcı sayısı alanları teklifi hızlandırır.",
     },
     {
         question: "Sistemler ve oyunlar marka kimliğiyle özelleştirilebilir mi?",
@@ -95,7 +95,7 @@ const serviceFAQs = [
     },
     {
         question: "Etkinlik sonrası analitik rapor alınabilir mi?",
-        answer: "Evet. Gerçek zamanlı analitik panel ile katılım sayısı, paylaşım oranları, en popüler saatler ve etkileşim süreleri raporlanır. Etkinlik sonrasında 24-48 saat içinde PDF rapor sunulur.",
+        answer: "Evet. Data-Capture modülüyle toplanan kayıtları size özel panelden canlı takip eder, filtreler ve Excel/CSV olarak indirirsiniz; yapay zeka destekli istatistikler etkinliğin performansını özetler.",
     },
     {
         question: "MetasoftCo ile iletişime nasıl geçebilirim?",

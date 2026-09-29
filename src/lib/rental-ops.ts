@@ -17,6 +17,7 @@ export const SERVICE_CITIES = [
     "Diyarbakır",
     "Kocaeli",
     "Sapanca",
+    "Çorum",
 ];
 
 /**
