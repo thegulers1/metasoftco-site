@@ -427,6 +427,7 @@ export function generateServiceSchema(service: {
     url: string;
     image?: string;
     category: string;
+    areaServed?: Record<string, unknown>[];
 }) {
     return {
         "@context": "https://schema.org",
@@ -446,7 +447,7 @@ export function generateServiceSchema(service: {
                 "https://www.youtube.com/@MetasoftCo",
             ],
         },
-        areaServed: {
+        areaServed: service.areaServed ?? {
             "@type": "Country",
             name: "Turkey",
         },

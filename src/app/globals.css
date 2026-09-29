@@ -4350,6 +4350,79 @@ html[lang="tr"] .phase2 .p2-signal-title {
 	}
 }
 
+/* Shared rental logistics / scope block on event service pages. */
+.p2-rentalops__cols {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 32px;
+	margin: 32px 0 0;
+}
+.phase2 .p2-rentalops__cols h3 {
+	margin: 0 0 14px;
+	color: var(--p2-text);
+	font-size: 17px;
+	text-transform: none;
+	letter-spacing: 0;
+}
+.p2-rentalops__list {
+	margin: 0;
+	border-top: 1px solid var(--p2-line);
+}
+.p2-rentalops__list > div {
+	display: grid;
+	grid-template-columns: 110px minmax(0, 1fr);
+	gap: 12px;
+	padding: 12px 0;
+	border-bottom: 1px solid var(--p2-line);
+}
+.p2-rentalops__list dt {
+	color: #5bd9e8;
+	font-family: var(--font-jetbrains-mono), monospace;
+	font-size: 11px;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+.p2-rentalops__list dd {
+	margin: 0;
+	color: var(--p2-muted);
+	font-size: 14px;
+	line-height: 1.6;
+}
+.p2-rentalops__scope {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	border-top: 1px solid var(--p2-line);
+}
+.p2-rentalops__scope li {
+	position: relative;
+	padding: 12px 0 12px 22px;
+	border-bottom: 1px solid var(--p2-line);
+	color: var(--p2-muted);
+	font-size: 14px;
+	line-height: 1.6;
+}
+.p2-rentalops__scope li::before {
+	position: absolute;
+	top: 12px;
+	left: 0;
+	content: "✓";
+	color: #5bd9e8;
+}
+.phase2 .p2-rentalops__area {
+	margin: 28px 0 24px;
+	font-size: 15px;
+}
+@media (max-width: 760px) {
+	.p2-rentalops__cols {
+		grid-template-columns: minmax(0, 1fr);
+	}
+	.p2-rentalops__list > div {
+		grid-template-columns: minmax(0, 1fr);
+		gap: 4px;
+	}
+}
+
 /* /hizmetler/data-capture-crm hub page. */
 .p2-dc-section > h2 {
 	display: flex;

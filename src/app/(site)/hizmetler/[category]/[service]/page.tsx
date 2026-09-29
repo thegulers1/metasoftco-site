@@ -8,6 +8,8 @@ import ServiceDetailClient from "./ServiceDetailClient";
 import { AdminEditUrlSetter } from "@/components/site/AdminBar";
 import { isEnglishServicePublishable } from "@/lib/publication";
 import { dataCaptureCopy } from "@/lib/data-capture";
+import { isSoftwareCategory } from "@/lib/software";
+import { mergeRentalFaq, rentalAreaServed, rentalMetaTitle } from "@/lib/rental-ops";
 
 export const revalidate = 3600;
 
@@ -47,7 +49,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const service = await getServiceBySlug(serviceSlug, categoryData.id);
     if (!service || !service.published) return {};
 
-    const title = service.metaTitle || `${service.title} | ${categoryData.name}`;
+    const title = service.metaTitle || (isSoftwareCategory(categoryData.slug)
+        ? `${service.title} | ${categoryData.name}`
+        : rentalMetaTitle(service.title, "tr"));
     const description = service.metaDescription || service.description || siteConfig.description;
     const keywords = service.metaKeywords || "";
     const image = cloudinaryOgImage(service.ogImage || service.image) || `${siteConfig.url}/og`;
@@ -137,12 +141,14 @@ export default async function ServiceDetailPage({ params }: PageProps) {
     const saleCounterpart = service.saleCounterpart?.published ? service.saleCounterpart : null;
 
     // JSON-LD structured data
+    const isEventRental = !isSoftwareCategory(categoryData.slug);
     const serviceSchema = generateServiceSchema({
         name: service.title,
         description: service.description || "",
         url: `${siteConfig.url}/hizmetler/${category}/${serviceSlug}`,
         image: service.image || undefined,
         category: categoryData.name,
+        ...(isEventRental && { areaServed: rentalAreaServed() }),
     });
 
     const breadcrumbSchema = generateBreadcrumbSchema([
@@ -154,8 +160,9 @@ export default async function ServiceDetailPage({ params }: PageProps) {
 
     // FAQ JSON-LD schema — Google featured snippet için
     const faqSchema = (() => {
+        const ownFaq: { q: string; a: string }[] = service.faq ? JSON.parse(service.faq) : [];
         const items: { q: string; a: string }[] = [
-            ...(service.faq ? JSON.parse(service.faq) : []),
+            ...(isEventRental ? mergeRentalFaq(ownFaq, service.title, "tr") : ownFaq),
             ...(service.dataCapture ? dataCaptureCopy("tr").faq : []),
         ];
         if (!items.length) return null;

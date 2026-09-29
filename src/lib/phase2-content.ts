@@ -104,7 +104,7 @@ const en = {
 		heroFigureAlt: "Guests taking part in a Ray-Ban photo activation",
 		heroFigureLabel: "LIVE PARTICIPATION",
 		heroFigureCaption: "Ray-Ban · Strip Photo",
-		heroPrimaryCta: "Plan Your Activation",
+		heroPrimaryCta: "Get a Quote for Your Event",
 		heroSecondaryCta: "View Selected Work",
 		heroStats: [
 			{ value: "1,000+", label: "Live events" },
@@ -163,7 +163,7 @@ const en = {
 		finalTitleLabel: "Make the next campaign something people can enter.",
 		finalCopy:
 			"Share the audience, venue and campaign goal. We’ll shape the interaction, system and live delivery around the brief.",
-		finalCta: "Plan Your Activation",
+		finalCta: "Get a Quote for Your Event",
 	},
 
 	about: {
@@ -197,7 +197,7 @@ const en = {
 		],
 		finalSolid: "Bring us the brief.",
 		finalOutline: "We’ll build the experience.",
-		finalCta: "Plan Your Activation",
+		finalCta: "Get a Quote for Your Event",
 	},
 
 	contact: {
@@ -272,7 +272,7 @@ const en = {
 		ctaSolid: "Make the next\ncampaign",
 		ctaOutline: "something people can enter.",
 		ctaLabel: "Make the next campaign something people can enter.",
-		ctaButton: "Plan Your Activation",
+		ctaButton: "Get a Quote for Your Event",
 	},
 
 	capabilities: {
@@ -293,7 +293,7 @@ const en = {
 		],
 		ctaSolid: "Turn the brief",
 		ctaOutline: "into a live experience.",
-		ctaButton: "Plan Your Activation",
+		ctaButton: "Get a Quote for Your Event",
 	},
 
 	products: {
@@ -330,7 +330,7 @@ const en = {
 		ctaSolid: "Have a brief worth",
 		ctaOutline: "writing about?",
 		ctaLabel: "Have a brief worth writing about?",
-		ctaButton: "Plan Your Activation",
+		ctaButton: "Get a Quote for Your Event",
 	},
 
 	insightDetail: {
@@ -349,7 +349,7 @@ const en = {
 		ctaSolid: "Turn the idea",
 		ctaOutline: "into a live experience.",
 		ctaLabel: "Turn the idea into a live experience.",
-		ctaButton: "Plan Your Activation",
+		ctaButton: "Get a Quote for Your Event",
 	},
 
 	workDetail: {
@@ -397,7 +397,7 @@ const en = {
 		nextHref: enPaths.projectHref(phase2ProjectSlugs.nextProject.en),
 		ctaSolid: "Build an experience",
 		ctaOutline: "people take with them.",
-		ctaButton: "Plan Your Activation",
+		ctaButton: "Get a Quote for Your Event",
 	},
 
 	capabilityDetail: {
@@ -464,7 +464,7 @@ const en = {
 		],
 		ctaSolid: "Turn one portrait",
 		ctaOutline: "into a campaign moment.",
-		ctaPrimary: "Plan Your Activation",
+		ctaPrimary: "Get a Quote for Your Event",
 		ctaSecondary: "See Selected Work",
 	},
 
@@ -565,7 +565,7 @@ const en = {
 		faqTitle: "Frequently asked questions",
 		ctaSolid: "Bring this experience",
 		ctaOutline: "to your next event.",
-		ctaButton: "Plan Your Activation",
+		ctaButton: "Get a Quote for Your Event",
 	},
 
 	serviceDetail: {
@@ -590,7 +590,7 @@ const en = {
 		backLabelProducts: "All products",
 		ctaSolid: "Tailor this capability",
 		ctaOutline: "to your event.",
-		ctaPrimary: "Plan Your Activation",
+		ctaPrimary: "Get a Quote for Your Event",
 		ctaSecondary: "See Selected Work",
 		ctaTertiary: "Buy for Your Organization",
 		saleCtaSolid: "Bring this system",
@@ -616,7 +616,7 @@ const en = {
 		backLabel: "All work",
 		ctaSolid: "Build something",
 		ctaOutline: "people step into.",
-		ctaButton: "Plan Your Activation",
+		ctaButton: "Get a Quote for Your Event",
 	},
 
 	/** Presentation overrides for the three homepage hero projects, keyed by English slug. */
@@ -699,7 +699,7 @@ const tr: Phase2Copy = {
 		heroFigureAlt: "Ray-Ban fotoğraf aktivasyonuna katılan katılımcılar",
 		heroFigureLabel: "CANLI KATILIM",
 		heroFigureCaption: "Ray-Ban · Strip Photo",
-		heroPrimaryCta: "Aktivasyonunuzu Planlayın",
+		heroPrimaryCta: "Etkinliğiniz İçin Teklif Alın",
 		heroSecondaryCta: "Seçili Projeleri İnceleyin",
 		heroStats: [
 			{ value: "1.000+", label: "Canlı etkinlik" },
@@ -758,7 +758,7 @@ const tr: Phase2Copy = {
 		finalTitleLabel: "Sıradaki etkinliğinizi insanların katılmak isteyeceği bir deneyime dönüştürelim.",
 		finalCopy:
 			"Hedef kitlenizi, mekânı ve kampanya hedefinizi paylaşın. Etkileşimi, teknolojiyi ve saha uygulamasını projenize göre birlikte kurgulayalım.",
-		finalCta: "Aktivasyonunuzu Planlayın",
+		finalCta: "Etkinliğiniz İçin Teklif Alın",
 	},
 
 	about: {
@@ -798,7 +798,7 @@ const tr: Phase2Copy = {
 		],
 		finalSolid: "İhtiyacı siz anlatın.",
 		finalOutline: "Deneyimi biz hayata geçirelim.",
-		finalCta: "Aktivasyonunuzu Planlayın",
+		finalCta: "Etkinliğiniz İçin Teklif Alın",
 	},
 
 	contact: {
@@ -883,7 +883,7 @@ const tr: Phase2Copy = {
 		ctaSolid: "Sıradaki etkinliğinizi",
 		ctaOutline: "katılım odaklı bir deneyime dönüştürelim.",
 		ctaLabel: "Sıradaki etkinliğinizi katılım odaklı bir deneyime dönüştürelim.",
-		ctaButton: "Aktivasyonunuzu Planlayın",
+		ctaButton: "Etkinliğiniz İçin Teklif Alın",
 	},
 
 	capabilities: {
@@ -920,7 +920,7 @@ const tr: Phase2Copy = {
 		],
 		ctaSolid: "Fikrinizi",
 		ctaOutline: "canlı bir deneyime dönüştürelim.",
-		ctaButton: "Aktivasyonunuzu Planlayın",
+		ctaButton: "Etkinliğiniz İçin Teklif Alın",
 	},
 
 	products: {
@@ -973,7 +973,7 @@ const tr: Phase2Copy = {
 		ctaSolid: "Anlatmaya değer",
 		ctaOutline: "bir projeniz mi var?",
 		ctaLabel: "Anlatmaya değer bir projeniz mi var?",
-		ctaButton: "Aktivasyonunuzu Planlayın",
+		ctaButton: "Etkinliğiniz İçin Teklif Alın",
 	},
 
 	insightDetail: {
@@ -992,7 +992,7 @@ const tr: Phase2Copy = {
 		ctaSolid: "Fikri",
 		ctaOutline: "canlı bir deneyime dönüştürelim.",
 		ctaLabel: "Fikri canlı bir deneyime dönüştürelim.",
-		ctaButton: "Aktivasyonunuzu Planlayın",
+		ctaButton: "Etkinliğiniz İçin Teklif Alın",
 	},
 
 	workDetail: {
@@ -1051,7 +1051,7 @@ const tr: Phase2Copy = {
 		nextHref: trPaths.projectHref(phase2ProjectSlugs.nextProject.tr),
 		ctaSolid: "Katılımcıların yanında götüreceği",
 		ctaOutline: "bir deneyim tasarlayın.",
-		ctaButton: "Aktivasyonunuzu Planlayın",
+		ctaButton: "Etkinliğiniz İçin Teklif Alın",
 	},
 
 	capabilityDetail: {
@@ -1150,7 +1150,7 @@ const tr: Phase2Copy = {
 		],
 		ctaSolid: "Tek bir portreyi",
 		ctaOutline: "markanıza özel bir deneyime dönüştürün.",
-		ctaPrimary: "Aktivasyonunuzu Planlayın",
+		ctaPrimary: "Etkinliğiniz İçin Teklif Alın",
 		ctaSecondary: "Seçili Projeleri İnceleyin",
 	},
 
@@ -1250,7 +1250,7 @@ const tr: Phase2Copy = {
 		faqTitle: "Sıkça sorulan sorular",
 		ctaSolid: "Bu deneyimi",
 		ctaOutline: "etkinliğinize taşıyalım.",
-		ctaButton: "Aktivasyonunuzu Planlayın",
+		ctaButton: "Etkinliğiniz İçin Teklif Alın",
 	},
 
 	serviceDetail: {
@@ -1275,7 +1275,7 @@ const tr: Phase2Copy = {
 		backLabelProducts: "Tüm ürünler",
 		ctaSolid: "Bu hizmeti",
 		ctaOutline: "etkinliğinize uyarlayalım.",
-		ctaPrimary: "Aktivasyonunuzu Planlayın",
+		ctaPrimary: "Etkinliğiniz İçin Teklif Alın",
 		ctaSecondary: "Seçili Projeleri İnceleyin",
 		ctaTertiary: "Kurumun İçin Satın Al",
 		saleCtaSolid: "Bu sistemi",
@@ -1301,7 +1301,7 @@ const tr: Phase2Copy = {
 		backLabel: "Tüm projeler",
 		ctaSolid: "Benzer bir deneyimi",
 		ctaOutline: "sizin için kuralım.",
-		ctaButton: "Aktivasyonunuzu Planlayın",
+		ctaButton: "Etkinliğiniz İçin Teklif Alın",
 	},
 
 	featuredProjects: {

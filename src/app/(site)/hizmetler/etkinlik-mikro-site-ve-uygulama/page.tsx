@@ -1,5 +1,3 @@
-import fs from "node:fs";
-import path from "node:path";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -7,14 +5,15 @@ import { IconArrowRight as ArrowRight } from "@tabler/icons-react";
 import { prisma } from "@/lib/db";
 import { siteConfig, generateBreadcrumbSchema } from "@/lib/site";
 import { SignalHeading } from "@/components/phase2/SignalHeading";
-import { DATA_CAPTURE_HUB_PATH, dataCaptureHub as copy } from "@/lib/data-capture-hub";
-import { EVENT_SOFTWARE_HUB_PATH } from "@/lib/event-software-hub";
-import { AlternateUrl } from "./AlternateUrl";
-import { PanelMockup } from "./PanelMockup";
+import { EVENT_SOFTWARE_HUB_PATH, eventSoftwareHub as copy } from "@/lib/event-software-hub";
+import { DATA_CAPTURE_HUB_PATH } from "@/lib/data-capture-hub";
+import { SOFTWARE_CATEGORY_PATH } from "@/lib/software";
+import { rentalAreaServed } from "@/lib/rental-ops";
+import { AlternateUrl } from "../data-capture-crm/AlternateUrl";
 
 export const revalidate = 3600;
 
-const url = `${siteConfig.url}${DATA_CAPTURE_HUB_PATH}`;
+const url = `${siteConfig.url}${EVENT_SOFTWARE_HUB_PATH}`;
 
 export const metadata: Metadata = {
     title: copy.metaTitle,
@@ -33,27 +32,18 @@ export const metadata: Metadata = {
     alternates: { canonical: url },
 };
 
-/** A real dashboard screenshot dropped into public/data-capture/ replaces the mockup. */
-function findPanelImage(): string | null {
-    for (const ext of ["webp", "png", "jpg"]) {
-        const file = `data-capture/panel.${ext}`;
-        if (fs.existsSync(path.join(process.cwd(), "public", file))) return `/${file}`;
-    }
-    return null;
-}
-
+/** Featured event activations, i.e. the physical side the micro-site plugs into. */
 async function getActivities() {
     return prisma.service.findMany({
-        where: { dataCapture: true, published: true, type: "RENTAL", image: { not: null } },
+        where: { featured: true, published: true, type: "RENTAL", image: { not: null } },
         include: { category: true },
-        orderBy: [{ featured: "desc" }, { featuredOrder: "asc" }, { order: "asc" }],
+        orderBy: [{ featuredOrder: "asc" }, { order: "asc" }],
         take: 6,
     });
 }
 
-export default async function DataCaptureHubPage() {
+export default async function EventSoftwareHubPage() {
     const activities = await getActivities();
-    const panelImage = findPanelImage();
 
     const breadcrumbSchema = generateBreadcrumbSchema([
         { name: "Anasayfa", url: siteConfig.url },
@@ -63,10 +53,11 @@ export default async function DataCaptureHubPage() {
     const serviceSchema = {
         "@context": "https://schema.org",
         "@type": "Service",
-        name: "Data-Capture & CRM — Etkinlik Lead Toplama",
+        name: "Etkinlik Mikro Sitesi, Uygulaması ve Fiziksel Kurulum",
+        serviceType: "Etkinlik teknolojisi ve etkinlik yazılımı",
         description: copy.metaDescription,
         url,
-        areaServed: "TR",
+        areaServed: rentalAreaServed(),
         provider: { "@type": "Organization", name: siteConfig.name, url: siteConfig.url },
     };
     const faqSchema = {
@@ -84,7 +75,7 @@ export default async function DataCaptureHubPage() {
             {[breadcrumbSchema, serviceSchema, faqSchema].map((schema, index) => (
                 <script key={index} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
             ))}
-            <AlternateUrl trUrl={DATA_CAPTURE_HUB_PATH} />
+            <AlternateUrl trUrl={EVENT_SOFTWARE_HUB_PATH} />
 
             <header className="p2-container p2-detail-top">
                 <nav className="p2-detail-top__crumb" aria-label="Hizmetler">
@@ -124,48 +115,34 @@ export default async function DataCaptureHubPage() {
             </section>
 
             <section className="p2-container p2-detail-section p2-dc-section">
-                <h2>{copy.panelTitle}</h2>
-                <div className="p2-dc-split">
-                    <div>
-                        <p className="p2-dc-intro">{copy.panelIntro}</p>
-                        <ul className="p2-dc-features">
-                            {copy.panelFeatures.map((feature) => (
-                                <li key={feature.title}>
-                                    <h3>{feature.title}</h3>
-                                    <p>{feature.body}</p>
-                                </li>
-                            ))}
-                        </ul>
-                    </div>
-                    <figure className="p2-dc-figure">
-                        {panelImage ? (
-                            <Image src={panelImage} alt="MetasoftCo Data-Capture müşteri paneli" width={1600} height={1000} sizes="(max-width: 760px) 100vw, 50vw" />
-                        ) : (
-                            <PanelMockup />
-                        )}
-                        <figcaption>{copy.panelCaption}</figcaption>
-                    </figure>
-                </div>
-            </section>
-
-            <section className="p2-container p2-detail-section p2-dc-section">
-                <h2>{copy.complianceTitle}</h2>
-                <p className="p2-dc-intro">{copy.complianceIntro}</p>
+                <h2>{copy.whyTitle}</h2>
+                <p className="p2-dc-intro">{copy.whyIntro}</p>
                 <ul className="p2-dc-cards p2-dc-cards--2">
-                    {copy.compliance.map((item) => (
+                    {copy.why.map((item) => (
                         <li key={item.title}>
                             <h3>{item.title}</h3>
                             <p>{item.body}</p>
                         </li>
                     ))}
                 </ul>
-                <p className="p2-dc-legal">{copy.legal}</p>
             </section>
 
             <section className="p2-container p2-detail-section p2-dc-section">
-                <h2>{copy.scenariosTitle}</h2>
+                <h2>{copy.buildTitle}</h2>
                 <ul className="p2-dc-cards p2-dc-cards--4">
-                    {copy.scenarios.map((item) => (
+                    {copy.build.map((item) => (
+                        <li key={item.title}>
+                            <h3>{item.title}</h3>
+                            <p>{item.body}</p>
+                        </li>
+                    ))}
+                </ul>
+            </section>
+
+            <section className="p2-container p2-detail-section p2-dc-section">
+                <h2>{copy.proofTitle}</h2>
+                <ul className="p2-dc-cards p2-dc-cards--2">
+                    {copy.proof.map((item) => (
                         <li key={item.title}>
                             <h3>{item.title}</h3>
                             <p>{item.body}</p>
@@ -173,8 +150,8 @@ export default async function DataCaptureHubPage() {
                     ))}
                 </ul>
                 <p className="p2-dc-more">
-                    <Link href={EVENT_SOFTWARE_HUB_PATH} className="p2-back-link">
-                        Mikro site, QR davetiye ve check-in ile uçtan uca kurgu <ArrowRight aria-hidden="true" />
+                    <Link href={DATA_CAPTURE_HUB_PATH} className="p2-back-link">
+                        Data-Capture & CRM modülünü inceleyin <ArrowRight aria-hidden="true" />
                     </Link>
                 </p>
             </section>
@@ -227,7 +204,7 @@ export default async function DataCaptureHubPage() {
                     <SignalHeading as="h2" solid={copy.ctaSolid} outline={copy.ctaOutline} />
                     <div className="p2-screen-cta__actions">
                         <Link href="/iletisim" className="p2-screen-button">{copy.ctaPrimary} <ArrowRight aria-hidden="true" /></Link>
-                        <Link href="/projeler" className="p2-screen-button p2-screen-button--secondary">{copy.ctaSecondary} <ArrowRight aria-hidden="true" /></Link>
+                        <Link href={SOFTWARE_CATEGORY_PATH} className="p2-screen-button p2-screen-button--secondary">{copy.ctaSecondary} <ArrowRight aria-hidden="true" /></Link>
                     </div>
                 </div>
             </section>

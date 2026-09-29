@@ -7,6 +7,9 @@ import { cache } from "react";
 import ServiceDetailClient from "@/app/(site)/hizmetler/[category]/[service]/ServiceDetailClient";
 import { AdminEditUrlSetter } from "@/components/site/AdminBar";
 import { isEnglishServicePublishable } from "@/lib/publication";
+import { dataCaptureCopy } from "@/lib/data-capture";
+import { isSoftwareCategory } from "@/lib/software";
+import { mergeRentalFaq, rentalAreaServed } from "@/lib/rental-ops";
 
 export const revalidate = 3600;
 
@@ -104,7 +107,27 @@ export default async function EnglishServiceDetailPage({ params }: PageProps) {
         url: `${siteConfig.url}/en/services/${category}/${serviceSlug}`,
         image: service.image || undefined,
         category: categoryData!.name_en!,
+        ...(!isSoftwareCategory(categoryData!.slug) && { areaServed: rentalAreaServed() }),
     });
+
+    // Mirrors the FAQ list the page renders, so every question in the schema is visible.
+    const faqSchema = (() => {
+        const ownFaq: { q: string; a: string }[] = JSON.parse(service.faq_en || service.faq || "[]");
+        const items = [
+            ...(isSoftwareCategory(categoryData!.slug) ? ownFaq : mergeRentalFaq(ownFaq, service.title_en!, "en")),
+            ...(service.dataCapture ? dataCaptureCopy("en").faq : []),
+        ];
+        if (!items.length) return null;
+        return {
+            "@context": "https://schema.org",
+            "@type": "FAQPage",
+            mainEntity: items.map((item) => ({
+                "@type": "Question",
+                name: item.q,
+                acceptedAnswer: { "@type": "Answer", text: item.a },
+            })),
+        };
+    })();
 
     const breadcrumbSchema = generateBreadcrumbSchema([
         { name: "Home", url: `${siteConfig.url}/en` },
@@ -134,6 +157,12 @@ export default async function EnglishServiceDetailPage({ params }: PageProps) {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
             />
+            {faqSchema && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
+                />
+            )}
             {videoSchema && (
                 <script
                     type="application/ld+json"
