@@ -2,7 +2,8 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { FormEvent, useState } from "react";
+import { FormEvent, Suspense, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { IconArrowRight as ArrowRight, IconMail as Mail, IconMapPin as MapPin, IconPhone as Phone, IconSend as Send } from "@tabler/icons-react";
 import type { Phase2Locale } from "@/lib/phase2";
 import { phase2Copy } from "@/lib/phase2-content";
@@ -27,7 +28,6 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
         const currentForm = event.currentTarget;
         const data = new FormData(currentForm);
         const value = (key: string) => String(data.get(key) ?? "").trim();
-        const company = value("company");
 
         try {
             const response = await fetch("/api/contact", {
@@ -36,15 +36,18 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
                 body: JSON.stringify({
                     name: value("name"),
                     email: value("email"),
-                    subject: company
-                        ? `${form.company.replace(" *", "")}: ${company}`
-                        : undefined,
+                    phone: value("phone"),
+                    company: value("company"),
+                    product: value("product"),
+                    eventDate: value("eventDate"),
+                    city: value("city"),
+                    guests: value("guests"),
                     message: value("brief"),
                 }),
             });
             if (response.ok) {
                 setStatus("sent");
-                trackEvent("generate_lead", { form_name: "iletisim_brief" });
+                trackEvent("generate_lead", { form_name: "iletisim_brief", product: value("product") || undefined });
                 currentForm.reset();
             } else {
                 setStatus("error");
@@ -54,6 +57,7 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
         }
     }
 
+    const optional = (label: string) => label.replace(" *", "");
     const submitLabel = status === "sending" ? form.submitting : status === "sent" ? form.submitted : form.submit;
 
     return (
@@ -84,9 +88,21 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
                     <form onSubmit={submit}>
                         <div className="p2-field-grid">
                             <label>{form.name}<input required name="name" placeholder={form.namePlaceholder} /></label>
-                            <label>{form.company.replace(" *", "")}<input name="company" placeholder={form.companyPlaceholder} /></label>
+                            <label>{optional(form.company)}<input name="company" placeholder={form.companyPlaceholder} /></label>
                         </div>
-                        <label>{form.email}<input required type="email" name="email" placeholder={form.emailPlaceholder} /></label>
+                        <div className="p2-field-grid p2-field-grid--spaced">
+                            <label>{form.email}<input required type="email" name="email" placeholder={form.emailPlaceholder} /></label>
+                            <label>{optional(form.phone)}<input type="tel" name="phone" placeholder={form.phonePlaceholder} /></label>
+                        </div>
+                        <p className="p2-form-hint">{form.detailsHint}</p>
+                        <div className="p2-field-grid">
+                            <label>{optional(form.date)}<input type="date" name="eventDate" /></label>
+                            <label>{optional(form.venue)}<input name="city" placeholder={form.venuePlaceholder} /></label>
+                            <label>{optional(form.audience)}<input type="number" inputMode="numeric" min={1} name="guests" placeholder={form.audiencePlaceholder} /></label>
+                            <Suspense fallback={<ProductField label={form.product} placeholder={form.productPlaceholder} />}>
+                                <LinkedProductField label={form.product} placeholder={form.productPlaceholder} />
+                            </Suspense>
+                        </div>
                         <label>{form.brief}<textarea required name="brief" maxLength={2000} placeholder={form.briefPlaceholder} /></label>
                         <button className="p2-screen-button" type="submit" disabled={status === "sending"}>{submitLabel}<ArrowRight aria-hidden="true" /></button>
                         {status === "error" && <p className="p2-form-error" role="alert">{form.error}</p>}
@@ -118,4 +134,14 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
             </section>
         </article>
     );
+}
+
+function ProductField({ label, placeholder, initial = "" }: { label: string; placeholder: string; initial?: string }) {
+    return <label>{label}<input key={initial} name="product" defaultValue={initial} placeholder={placeholder} /></label>;
+}
+
+/** Service pages link here with ?urun=<product>, so the request arrives tagged with it. */
+function LinkedProductField({ label, placeholder }: { label: string; placeholder: string }) {
+    const initial = useSearchParams().get("urun")?.slice(0, 120) ?? "";
+    return <ProductField label={label} placeholder={placeholder} initial={initial} />;
 }

@@ -11,9 +11,28 @@ import {
 
 export const dynamic = 'force-dynamic';
 
+/** Optional event details a visitor can add; each is capped so a pasted wall of text stays readable. */
+const EVENT_FIELDS = [
+    ["product", "İlgilenilen ürün"],
+    ["company", "Şirket"],
+    ["eventDate", "Etkinlik tarihi"],
+    ["city", "Şehir / mekân"],
+    ["guests", "Tahmini katılımcı"],
+] as const;
+
+function optionalText(value: unknown, max = 200): string {
+    return typeof value === "string" ? value.trim().slice(0, max) : "";
+}
+
 export async function POST(req: Request) {
-    const { name, email, phone, subject: rawSubject, message } = await req.json().catch(() => ({}));
-    const subject = rawSubject || "Genel İletişim";
+    const body = await req.json().catch(() => ({}));
+    const { name, email, message } = body;
+    const phone = optionalText(body.phone, 40);
+    const details = EVENT_FIELDS
+        .map(([key, label]) => ({ label, value: optionalText(body[key]) }))
+        .filter((row) => row.value);
+    const product = optionalText(body.product);
+    const subject = optionalText(body.subject) || (product ? `Teklif Talebi: ${product}` : "Genel İletişim");
 
     if (!name || !email || !message) {
         return NextResponse.json({ error: "Ad, e-posta ve mesaj alanları zorunludur." }, { status: 400 });
@@ -23,6 +42,12 @@ export async function POST(req: Request) {
     if (!replyTo) {
         return NextResponse.json({ error: "Geçerli bir e-posta adresi girin." }, { status: 400 });
     }
+
+    const row = (label: string, value: string) => `
+                        <tr>
+                            <td style="padding: 8px 0; font-weight: bold; color: #555; width: 150px;">${label}:</td>
+                            <td style="padding: 8px 0;">${value}</td>
+                        </tr>`;
 
     try {
         const transporter = getTransporter();
@@ -36,6 +61,7 @@ export async function POST(req: Request) {
                 `Ad Soyad: ${name}`,
                 `E-Posta: ${email}`,
                 `Telefon: ${phone || "—"}`,
+                ...details.map((d) => `${d.label}: ${d.value}`),
                 `Konu: ${subject}`,
                 "",
                 "Mesaj:",
@@ -47,22 +73,11 @@ export async function POST(req: Request) {
                         Yeni İletişim Formu Mesajı
                     </h2>
                     <table style="width: 100%; border-collapse: collapse;">
-                        <tr>
-                            <td style="padding: 8px 0; font-weight: bold; color: #555; width: 120px;">Ad Soyad:</td>
-                            <td style="padding: 8px 0;">${escapeHtml(name)}</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 8px 0; font-weight: bold; color: #555;">E-Posta:</td>
-                            <td style="padding: 8px 0;"><a href="mailto:${escapeHtml(replyTo)}">${escapeHtml(replyTo)}</a></td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 8px 0; font-weight: bold; color: #555;">Telefon:</td>
-                            <td style="padding: 8px 0;">${escapeHtml(phone) || "—"}</td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 8px 0; font-weight: bold; color: #555;">Konu:</td>
-                            <td style="padding: 8px 0;">${escapeHtml(subject)}</td>
-                        </tr>
+                        ${row("Ad Soyad", escapeHtml(name))}
+                        ${row("E-Posta", `<a href="mailto:${escapeHtml(replyTo)}">${escapeHtml(replyTo)}</a>`)}
+                        ${row("Telefon", escapeHtml(phone) || "—")}
+                        ${details.map((d) => row(d.label, escapeHtml(d.value))).join("")}
+                        ${row("Konu", escapeHtml(subject))}
                     </table>
                     <h3 style="color: #333; margin-top: 24px;">Mesaj:</h3>
                     <div style="background: #f4f4f4; border-left: 4px solid #dc2626; padding: 16px; border-radius: 4px; white-space: pre-wrap;">

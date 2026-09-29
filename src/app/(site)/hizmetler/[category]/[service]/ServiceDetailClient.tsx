@@ -11,7 +11,7 @@ import { DataCaptureBlock } from "@/components/phase2/DataCaptureBlock";
 import { RentalOpsBlock } from "@/components/phase2/RentalOpsBlock";
 import { dataCaptureCopy } from "@/lib/data-capture";
 import { DATA_CAPTURE_HUB_PATH } from "@/lib/data-capture-hub";
-import { mergeRentalFaq, rentalOpsCopy } from "@/lib/rental-ops";
+import { mergeRentalFaq, rentalOpsCopy, rentalProductName } from "@/lib/rental-ops";
 import { SOFTWARE_CATEGORY_PATH, isSoftwareCategory, softwareServiceCopy } from "@/lib/software";
 import { splitSignalTitle } from "@/lib/phase2";
 import { phase2Copy } from "@/lib/phase2-content";
@@ -86,6 +86,10 @@ export default function ServiceDetailClient({
     // Event rentals (not software) get the shared logistics block and FAQ.
     const showRentalOps = variant === "rental" && !isSoftwareCategory(categoryData.slug);
     const rentalOps = rentalOpsCopy(isEn ? "en" : "tr");
+    // Quote links carry the product so the contact form arrives pre-filled.
+    const quoteHref = showRentalOps
+        ? `${dictionary.routes.contact}?urun=${encodeURIComponent(rentalProductName(title, isEn ? "en" : "tr"))}`
+        : dictionary.routes.contact;
     // Shared questions are appended so the questions in the page's FAQ schema
     // are also visible on the page.
     const ownFaqs = parseJsonList<{ q: string; a: string }>((isEn && service.faq_en) || service.faq);
@@ -200,7 +204,7 @@ export default function ServiceDetailClient({
             )}
 
             {showRentalOps && (
-                <RentalOpsBlock copy={rentalOps} contactHref={dictionary.routes.contact} />
+                <RentalOpsBlock copy={rentalOps} contactHref={quoteHref} />
             )}
 
             {faqs.length > 0 && (
@@ -292,7 +296,7 @@ export default function ServiceDetailClient({
                         <>
                             <SignalHeading as="h2" solid={copy.ctaSolid} outline={copy.ctaOutline} />
                             <div className="p2-screen-cta__actions">
-                                <Link href={dictionary.routes.contact} className="p2-screen-button">{copy.ctaPrimary} <ArrowRight aria-hidden="true" /></Link>
+                                <Link href={quoteHref} className="p2-screen-button">{copy.ctaPrimary} <ArrowRight aria-hidden="true" /></Link>
                                 <Link href={isSoftware ? SOFTWARE_CATEGORY_PATH : dictionary.routes.work} className="p2-screen-button p2-screen-button--secondary">{copy.ctaSecondary} <ArrowRight aria-hidden="true" /></Link>
                                 {saleHref && (
                                     <Link href={saleHref} className="p2-screen-button p2-screen-button--tertiary">{copy.ctaTertiary} <ArrowRight aria-hidden="true" /></Link>
