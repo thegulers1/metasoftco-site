@@ -71,6 +71,7 @@ export async function PUT(
             featured,
             featuredOrder,
             dataCapture,
+            photoPrint,
             // Accent / tag
             accentText,
             accentText_en,
@@ -116,6 +117,7 @@ export async function PUT(
                 featured,
                 featuredOrder,
                 dataCapture: Boolean(dataCapture),
+                photoPrint: Boolean(photoPrint),
                 categoryId,
                 saleCounterpartId: saleCounterpartId || null,
                 metaTitle,

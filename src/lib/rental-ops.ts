@@ -26,6 +26,8 @@ export interface RentalOpsCopy {
     logistics: { term: string; value: string }[];
     scopeTitle: string;
     scope: string[];
+    /** Added to `scope` only for services flagged `photoPrint`. */
+    printScope: string;
     serviceArea: string;
     cta: string;
     faq: (serviceTitle: string) => { q: string; a: string }[];
@@ -53,8 +55,8 @@ const tr: RentalOpsCopy = {
         "Markaya özel arayüz ve çıktı tasarımı",
         "Kiosk dış giydirmesi (marka kaplaması)",
         "QR ile anında dijital paylaşım",
-        "Baskılı aktivasyonlarda saniyeler içinde fiziksel baskı, 750 adet baskı dahil",
     ],
+    printScope: "Saniyeler içinde fiziksel baskı, 750 adet baskı dahil",
     serviceArea: `İstanbul Teknokent (Avcılar) merkezli MetasoftCo olarak ${cityList("tr")} başta olmak üzere Türkiye genelindeki kurumsal etkinlik, lansman ve fuarlar için anahtar teslim kurulum sağlıyoruz.`,
     cta: "Etkinliğiniz İçin Teklif Alın",
     faq: (serviceTitle) => [
@@ -98,8 +100,8 @@ const en: RentalOpsCopy = {
         "Branded interface and output design",
         "Branded kiosk wrap",
         "Instant digital sharing via QR",
-        "For print activations, physical prints within seconds, 750 prints included",
     ],
+    printScope: "Physical prints within seconds, 750 prints included",
     serviceArea: `Based at İstanbul Teknokent (Avcılar), MetasoftCo provides turnkey installations for corporate events, launches and trade shows across Türkiye, including ${cityList("en")}.`,
     cta: "Get a Quote for Your Event",
     faq: (serviceTitle) => [

@@ -204,7 +204,7 @@ export default function ServiceDetailClient({
             )}
 
             {showRentalOps && (
-                <RentalOpsBlock copy={rentalOps} contactHref={quoteHref} />
+                <RentalOpsBlock copy={rentalOps} contactHref={quoteHref} showPrint={service.photoPrint} />
             )}
 
             {faqs.length > 0 && (

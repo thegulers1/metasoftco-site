@@ -33,6 +33,7 @@ interface Service {
     type: string;
     featured: boolean;
     dataCapture: boolean;
+    photoPrint: boolean;
     featuredOrder: number;
     categoryId: string;
     saleCounterpartId: string | null;
@@ -612,6 +613,19 @@ export default function EditServicePage({
                             <span>
                                 <span className="block text-sm font-medium text-black/70">Data-Capture / CRM modülü uygun</span>
                                 <span className="block text-xs text-black/50">Açıkken kiralama sayfasında ortak veri toplama & CRM bölümü ve ilgili SSS otomatik gösterilir.</span>
+                            </span>
+                        </label>
+
+                        <label className="flex items-start gap-3 p-4 bg-[#f5f5f5] rounded-lg cursor-pointer">
+                            <input
+                                type="checkbox"
+                                checked={service.photoPrint}
+                                onChange={(e) => setService({ ...service, photoPrint: e.target.checked })}
+                                className="w-4 h-4 mt-0.5 accent-black cursor-pointer"
+                            />
+                            <span>
+                                <span className="block text-sm font-medium text-black/70">Baskılı ürün (fiziksel fotoğraf baskısı var)</span>
+                                <span className="block text-xs text-black/50">Açıkken kiralama sayfasındaki hizmet kapsamı listesinde “saniyeler içinde baskı, 750 adet baskı dahil” satırı gösterilir.</span>
                             </span>
                         </label>
 

@@ -5,10 +5,13 @@ import type { RentalOpsCopy } from "@/lib/rental-ops";
 interface RentalOpsBlockProps {
     copy: RentalOpsCopy;
     contactHref: string;
+    /** Physical photo print product: adds the print line to the scope list. */
+    showPrint?: boolean;
 }
 
 /** Shared logistics / scope / service-area block, shown on every event rental service. */
-export function RentalOpsBlock({ copy, contactHref }: RentalOpsBlockProps) {
+export function RentalOpsBlock({ copy, contactHref, showPrint = false }: RentalOpsBlockProps) {
+    const scope = showPrint ? [...copy.scope, copy.printScope] : copy.scope;
     return (
         <section
             id="kiralama"
@@ -34,7 +37,7 @@ export function RentalOpsBlock({ copy, contactHref }: RentalOpsBlockProps) {
                     <div>
                         <h3>{copy.scopeTitle}</h3>
                         <ul className="p2-rentalops__scope">
-                            {copy.scope.map((item) => (
+                            {scope.map((item) => (
                                 <li key={item}>{item}</li>
                             ))}
                         </ul>
