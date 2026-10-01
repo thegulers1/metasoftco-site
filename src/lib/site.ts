@@ -345,13 +345,6 @@ export function generateSoftwareApplicationSchema() {
             "Real-time Image Processing",
             "KVKK Compliant Data Management",
         ],
-        aggregateRating: {
-            "@type": "AggregateRating",
-            ratingValue: "5",
-            bestRating: "5",
-            worstRating: "1",
-            ratingCount: "120",
-        },
         offers: {
             "@type": "Offer",
             priceCurrency: "TRY",
