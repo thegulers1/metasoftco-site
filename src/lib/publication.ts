@@ -75,9 +75,17 @@ export function isEnglishSectorPagePublishable(page: {
     return [page.slug_en, page.h1_en, page.excerpt_en, page.content_en, page.metaTitle_en, page.metaDescription_en].every(present);
 }
 
+/** SectorPage rows served as city landing pages under /hizmetler/<slug>. */
+export const cityLandingSlugs = [
+    "istanbul-ai-photobooth",
+    "ankara-photobooth-kiralama",
+    "izmir-photobooth-kiralama",
+    "antalya-photobooth-kiralama",
+];
+
 export const excludedSectorPageSlugs = new Set([
     "test",
-    "istanbul-ai-photobooth",
+    ...cityLandingSlugs,
     "kurumsal-etkinlik-teknolojisi",
     "fuar-aktivasyonlari",
 ]);

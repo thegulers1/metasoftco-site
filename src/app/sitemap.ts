@@ -2,6 +2,7 @@ import { MetadataRoute } from "next";
 import { prisma } from "@/lib/db";
 import { siteConfig } from "@/lib/site";
 import {
+    cityLandingSlugs,
     excludedSectorPageSlugs,
     isEnglishBlogPostPublishable,
     isEnglishCategoryPublishable,
@@ -57,6 +58,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         entry("/sektorel-cozumler", staticLastModified, 0.4), entry("/en/sector-solutions", staticLastModified, 0.4),
         entry("/hizmetler/kurumsal-etkinlik-teknolojisi", staticLastModified, 0.7),
         entry("/hizmetler/fuar-aktivasyonlari", staticLastModified, 0.6),
+        ...sectorPages.filter((page) => cityLandingSlugs.includes(page.slug)).map((page) => entry(`/hizmetler/${page.slug}`, page.updatedAt, 0.6)),
         entry("/hizmetler/data-capture-crm", new Date("2026-09-23T00:00:00.000Z"), 0.7),
         entry("/hizmetler/etkinlik-mikro-site-ve-uygulama", new Date("2026-09-29T00:00:00.000Z"), 0.7),
         entry("/sunum", new Date("2026-09-26T00:00:00.000Z"), 0.6),

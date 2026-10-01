@@ -3,12 +3,12 @@ import { CityPage, cityMetadata } from "../_city/CityPage";
 
 export const revalidate = 3600;
 
-const SLUG = "istanbul-ai-photobooth";
+const SLUG = "ankara-photobooth-kiralama";
 
 export function generateMetadata(): Promise<Metadata> {
     return cityMetadata(SLUG);
 }
 
-export default function IstanbulAiPhotoboothPage() {
+export default function AnkaraPhotoboothPage() {
     return <CityPage slug={SLUG} />;
 }

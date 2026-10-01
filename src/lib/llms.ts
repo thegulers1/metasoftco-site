@@ -41,6 +41,9 @@ const SOLUTION_PAGES = [
     { title: "Kurumsal Etkinlik Teknolojisi", path: "/hizmetler/kurumsal-etkinlik-teknolojisi", note: "Lansman, fuar ve kurumsal etkinlikler için uçtan uca etkinlik teknolojisi." },
     { title: "Fuar Aktivasyonları", path: "/hizmetler/fuar-aktivasyonlari", note: "Fuar standında katılım ve lead toplama odaklı aktivasyonlar." },
     { title: "İstanbul AI Photobooth", path: "/hizmetler/istanbul-ai-photobooth", note: "İstanbul'da yapay zeka photobooth kiralama." },
+    { title: "Ankara Photobooth Kiralama", path: "/hizmetler/ankara-photobooth-kiralama", note: "Ankara'da photobooth ve etkinlik teknolojisi kiralama." },
+    { title: "İzmir Photobooth Kiralama", path: "/hizmetler/izmir-photobooth-kiralama", note: "İzmir'de photobooth ve etkinlik teknolojisi kiralama." },
+    { title: "Antalya Photobooth Kiralama", path: "/hizmetler/antalya-photobooth-kiralama", note: "Antalya'da photobooth ve etkinlik teknolojisi kiralama." },
     { title: "Yazılım Geliştirme", path: `/hizmetler/${SOFTWARE_CATEGORY_SLUG}`, note: "Mobil uygulama, web uygulaması ve panel, süreç yazılımı, yapay zeka entegrasyonu, oyun ve eğitim uygulamaları." },
 ];
 
