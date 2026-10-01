@@ -52,8 +52,8 @@ const cities: City[] = [
         toCity: "İzmir'e",
         ofCity: "İzmir'deki",
         order: 2,
-        reference: "İzmir, bugüne kadar kurulum yaptığımız şehirler arasında.",
-        referenceAnswer: "Evet. İzmir, bugüne kadar kurulum yaptığımız şehirler arasında.",
+        reference: "İzmir'de Turkcell için photobooth kurulumu yaptık.",
+        referenceAnswer: "Evet. İzmir'de Turkcell için photobooth kurulumu yaptık.",
         venues: "Fuar stantları, kurumsal etkinlikler, lansmanlar, bayi toplantıları ve yıl sonu kutlamaları için kurulum yapıyoruz.",
     },
     {

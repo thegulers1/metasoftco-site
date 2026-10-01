@@ -1,10 +1,10 @@
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { siteConfig } from "@/lib/site";
 
 import SectorPageClient from "../../../sektorel-cozumler/SectorPageClient";
-import { isEnglishSectorPagePublishable } from "@/lib/publication";
+import { cityLandingSlugs, isEnglishSectorPagePublishable } from "@/lib/publication";
 
 export const revalidate = 3600;
 
@@ -42,6 +42,7 @@ export default async function SectorPageEN({ params }: PageProps) {
     const { slug_en } = await params;
     const page = await getPage(slug_en);
     if (!page || !page.published || !isEnglishSectorPagePublishable(page)) notFound();
+    if (cityLandingSlugs.includes(page.slug)) permanentRedirect(`/en/services/${page.slug_en}`);
 
     const images = page.images ? JSON.parse(page.images) : [];
 

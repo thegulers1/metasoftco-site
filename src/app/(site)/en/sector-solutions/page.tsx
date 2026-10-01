@@ -3,7 +3,7 @@ import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { siteConfig, ogImageUrl } from "@/lib/site";
 import SektorelCozumlerClient from "../../sektorel-cozumler/SektorelCozumlerClient";
-import { isEnglishSectorPagePublishable } from "@/lib/publication";
+import { cityLandingSlugs, isEnglishSectorPagePublishable } from "@/lib/publication";
 
 export const revalidate = 3600;
 
@@ -60,6 +60,8 @@ export default async function SectorSolutionsEN() {
         h1: page.h1_en!,
         excerpt: page.excerpt_en!,
         ogImage: page.ogImage,
+        // City pages are served under /en/services rather than this route.
+        href: cityLandingSlugs.includes(page.slug) ? `/en/services/${page.slug_en}` : undefined,
     }));
 
     return <SektorelCozumlerClient pages={enPages} lang="en" />;

@@ -127,8 +127,8 @@ export default function AboutClient() {
                             style={{ fontFamily: "var(--font-manrope)", fontSize: 19, lineHeight: 1.55 }}
                         >
                             {t(
-                                "2020'de İstanbul Bakırköy'de kurulan MetasoftCo, Türkiye'de yapay zeka destekli etkinlik teknolojilerinin öncüsüdür.",
-                                "Founded in 2020 in Bakırköy, Istanbul, MetasoftCo is a pioneer of AI-powered event technology in Turkey."
+                                "2020'de İstanbul'da kurulan ve İstanbul Teknokent'te (Avcılar) çalışan MetasoftCo, Türkiye'de yapay zeka destekli etkinlik teknolojilerinin öncüsüdür.",
+                                "Founded in Istanbul in 2020 and based at İstanbul Teknokent (Avcılar), MetasoftCo is a pioneer of AI-powered event technology in Turkey."
                             )}
                         </motion.p>
                     </div>

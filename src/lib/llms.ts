@@ -30,6 +30,7 @@ const COMPANY_FACTS = [
 
 const CITY_REFERENCES = [
     "Ankara: TRT, Anadolu Ajansı",
+    "İzmir: Turkcell",
     "Antalya: Nirvana otelde bir tohum markası etkinliği",
     "Diyarbakır: Turkcell",
     "Çorum: Turkcell",
