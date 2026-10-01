@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { siteConfig, ogImageUrl } from "@/lib/site";
+import { excludedSectorPageSlugs } from "@/lib/publication";
 import SektorelCozumlerClient from "./SektorelCozumlerClient";
 
 export const revalidate = 3600;
@@ -49,6 +50,11 @@ const getSectorPages = unstable_cache(
 );
 
 export default async function SektorelCozumlerPage() {
-    const pages = await getSectorPages();
+    // Pages that live under /hizmetler are linked there directly rather than
+    // through a /sektorel-cozumler redirect.
+    const pages = (await getSectorPages()).map((page) => ({
+        ...page,
+        href: excludedSectorPageSlugs.has(page.slug) ? `/hizmetler/${page.slug}` : undefined,
+    }));
     return <SektorelCozumlerClient pages={pages} />;
 }

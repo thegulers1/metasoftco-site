@@ -11,6 +11,8 @@ interface SectorPageItem {
     h1: string | null;
     excerpt: string | null;
     ogImage: string | null;
+    /** Set when the page is served outside the sector-solutions route. */
+    href?: string;
 }
 
 interface SektorelCozumlerClientProps {
@@ -82,7 +84,7 @@ export default function SektorelCozumlerClient({ pages, lang = "tr" }: SektorelC
                             transition={{ duration: 0.5, delay: index * 0.05 }}
                         >
                             <Link
-                                href={`${serviceHref}/${page.slug}`}
+                                href={page.href ?? `${serviceHref}/${page.slug}`}
                                 className="group relative flex flex-col rounded-[20px] overflow-hidden border border-white/10 transition-all duration-[.4s] ease-[cubic-bezier(.2,.8,.2,1)] hover:-translate-y-3 hover:border-white/30"
                                 style={{ background: "linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02))" }}
                             >
