@@ -153,6 +153,8 @@ Sıra ticari niyete ve sezona göre.
 | 9 | Etkinlik Aktivasyonunun Başarısı Nasıl Ölçülür? | 22, 18 | Ocak |
 | 10 | Kampüs ve Gençlik Etkinliklerinde Marka Aktivasyonu | 11, 13 | Ocak |
 
+Durum (1 Ekim 2026): 1, 2 ve 3 numaralı yazılar editpanel'de yayınlanmamış taslak. Ankara, İzmir ve Antalya şehir sayfaları Türkçe ve İngilizce yayında.
+
 Yazı dışı işler:
 
 - **Şehir sayfaları** (43, 44, 45): Ankara, İzmir, Antalya için İstanbul sayfasının eşi. Blog yazısı değil, hizmet sayfası olmalı.
