@@ -160,7 +160,7 @@ Yazı dışı işler:
 
 ## Mevcut yazılarda yapılacaklar
 
-SSS şeması 13 yazının yalnızca 4'ünde var. Aşağıdaki 9 yazıya 4–6 soruluk SSS eklenecek:
+1 Ekim 2026'da aşağıdaki 9 yazıya SSS eklendi (`scripts/add-blog-faqs.ts`); 13 yazının tamamında artık SSS şeması var:
 
 - kurumsal-fotograf-aktiviteleri
 - stable-diffusion-etkinlik-yuz-donusumu-teknik-analiz
