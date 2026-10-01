@@ -37,7 +37,7 @@ const content = `<p><strong>Kısa cevap:</strong> Kurumsal yılbaşı partisi ve
 <h2>Gala gecesi için aktiviteler</h2>
 
 <h3>Mirror Booth: karşılama alanında şık bir fotoğraf köşesi</h3>
-<p><a href="${base}/photobooth-ve-fotograf-aktivasyonlari/mirror-booth">Mirror Booth</a>'un ekranı büyük bir dokunmatik aynadır; misafir aynaya bakarak poz verir. Fotoğraf marka logolu dijital çerçeveyle basılır ve QR kod ile telefona da iner. 4 m² alan yeterlidir; fuayede ya da karşılama alanında kurulduğunda yemek başlamadan önceki kokteyl saatini doldurur.</p>
+<p><a href="${base}/photobooth-ve-fotograf-aktivasyonlari/mirror-booth">Mirror Booth</a>'un ekranı büyük bir dokunmatik aynadır; misafir aynaya bakarak poz verir. Fotoğraf marka logolu dijital çerçeveyle basılır ve QR kod ile telefona da iner. 4 m² alan yeterlidir ve saatte ortalama 60–80 kişiye hizmet verir; fuayede ya da karşılama alanında kurulduğunda yemek başlamadan önceki kokteyl saatini doldurur.</p>
 
 <h3>Aura Photobooth: kişiye özel bir hatıra</h3>
 <p><a href="${base}/photobooth-ve-fotograf-aktivasyonlari/aura-photobooth-kiralama">Aura Photobooth</a>, sensörlerle aldığı veriyi misafirin fotoğrafında renkli bir aura olarak görselleştirir. Her misafirin sonucu farklı çıktığı için masalarda konuşulan bir hatıraya dönüşür. Baskılı ve dijital çıktı verir.</p>
@@ -50,6 +50,7 @@ const content = `<p><strong>Kısa cevap:</strong> Kurumsal yılbaşı partisi ve
 <ul>
 <li><strong>AI Photobooth:</strong> 80–120 kişi</li>
 <li><strong>Photobooth:</strong> 70–80 kişi; misafirler gruplar hâlinde çekilirse 150 kişiye kadar</li>
+<li><strong>Mirror Booth:</strong> 60–80 kişi</li>
 <li><strong>Cabin Photo:</strong> yaklaşık 50 kişi</li>
 <li><strong>360 Video Booth:</strong> 40–50 kişi</li>
 </ul>

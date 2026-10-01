@@ -29,7 +29,7 @@ const targets: Target[] = [
         metaDescription:
             "Mirror Booth kiralama: dokunmatik ayna ekranlı photobooth, anında baskı ve QR ile dijital paylaşım. 4 m² alan yeterli; nakliye, kurulum ve teknik personel dahil.",
         section: `${MARKER}
-<p>Mirror Booth için <strong>4 m² alan</strong> yeterlidir. Mekândan tek bir standart 220V priz bekliyoruz; internet kendi 5G mobil altyapımızla gelir. Kurulum etkinlikten bir gün önce ya da etkinlik günü 3–4 saat önce yapılır ve cihaz başına ortalama 30–40 dakika sürer.</p>
+<p>Mirror Booth için <strong>4 m² alan</strong> yeterlidir. Saatte ortalama 60–80 kişiye hizmet verir. Mekândan tek bir standart 220V priz bekliyoruz; internet kendi 5G mobil altyapımızla gelir. Kurulum etkinlikten bir gün önce ya da etkinlik günü 3–4 saat önce yapılır ve cihaz başına ortalama 30–40 dakika sürer.</p>
 <h3><strong>Baskı, Dijital Çıktı ve Marka Uyarlaması</strong></h3>
 <p>Her fotoğraf saniyeler içinde basılır; pakete 750 adet baskı dahildir. Aynı fotoğraf QR kod ile misafirin telefonuna dijital olarak da ulaşır. Fotoğraflar marka logolu, kurumsal renklerde dijital çerçeveyle çıkar; kiosk markanıza göre giydirilir, ekran arayüzü markaya özel tasarlanır.</p>
 <h3><strong>Kiralamaya Dahil Olanlar</strong></h3>
@@ -42,6 +42,10 @@ const targets: Target[] = [
             {
                 q: "Mirror Booth için ne kadar alan gerekir?",
                 a: "4 m² alan yeterlidir. Mekândan tek bir standart 220V priz bekliyoruz; internet kendi 5G mobil altyapımızla gelir.",
+            },
+            {
+                q: "Mirror Booth saatte kaç kişiye hizmet verir?",
+                a: "Saatte ortalama 60–80 kişiye hizmet verir.",
             },
             {
                 q: "Mirror Booth baskı veriyor mu, yoksa yalnızca dijital mi?",
