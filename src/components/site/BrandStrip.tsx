@@ -10,18 +10,18 @@ type Brand = {
 const brands: Brand[] = [
     {
         name: "Mercedes-Benz",
-        src: "https://upload.wikimedia.org/wikipedia/commons/9/9e/Mercedes-Benz_Logo_2010.svg",
+        src: "/brands/mercedes-benz-logo.svg",
         width: 126,
     },
     {
         name: "Akbank",
-        src: "https://upload.wikimedia.org/wikipedia/commons/7/7b/Akbank_logo.svg",
+        src: "/brands/akbank-logo.svg",
         width: 110,
     },
-    { name: "Adidas", src: "https://cdn.simpleicons.org/adidas/white", width: 92 },
+    { name: "Adidas", src: "/brands/adidas-logo.svg", width: 92 },
     {
         name: "DeFacto",
-        src: "https://upload.wikimedia.org/wikipedia/commons/e/ed/DeFacto_logo.svg",
+        src: "/brands/defacto-logo.svg",
         width: 112,
     },
     {
@@ -32,10 +32,10 @@ const brands: Brand[] = [
     },
     {
         name: "Turkcell",
-        src: "https://ffo3gv1cf3ir.merlincdn.net/SiteAssets/Bireysel/Navigasyon/turkcell-logo.png?20260814_03-144726",
+        src: "/brands/turkcell-logo.png",
         width: 28,
     },
-    { name: "Red Bull", src: "https://cdn.simpleicons.org/redbull/white", width: 100 },
+    { name: "Red Bull", src: "/brands/redbull-logo.svg", width: 100 },
     {
         name: "Nivea",
         src: "/brands/nivea-logo.png",
@@ -53,10 +53,10 @@ const brands: Brand[] = [
         width: 110,
         variant: "screen",
     },
-    { name: "Vodafone", src: "https://cdn.simpleicons.org/vodafone/white", width: 112 },
+    { name: "Vodafone", src: "/brands/vodafone-logo.svg", width: 112 },
     {
         name: "Haribo",
-        src: "https://upload.wikimedia.org/wikipedia/commons/a/ac/HARIBO_Logo.svg",
+        src: "/brands/haribo-logo.svg",
         width: 98,
     },
 ];
