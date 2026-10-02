@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { prisma } from "@/lib/db";
+import { getRelatedServices } from "@/lib/project-services";
 import { siteConfig } from "@/lib/site";
 import { cloudinaryOgImage } from "@/lib/cloudinary";
 import { notFound } from "next/navigation";
@@ -84,6 +85,7 @@ async function getProject(slug: string) {
             order: true,
             faq: true,
             faq_en: true,
+            serviceIds: true,
         },
     });
 }
@@ -122,6 +124,7 @@ export default async function ProjectDetailPage({
     if (!project) notFound();
 
     const nextProject = await getNextProject(project.id, project.order);
+    const relatedServices = await getRelatedServices(project.serviceIds, "tr");
 
     const gallery: { url: string; alt: string }[] = project.gallery
         ? (JSON.parse(project.gallery) as (string | { url: string; alt?: string })[]).map((item) =>
@@ -197,7 +200,7 @@ export default async function ProjectDetailPage({
                     locale="tr"
                 />
             ) : (
-                <ProjectDetailClient project={project} nextProject={nextProject} />
+                <ProjectDetailClient project={project} nextProject={nextProject} relatedServices={relatedServices} />
             )}
         </>
     );

@@ -1851,6 +1851,10 @@ html[lang="tr"] .phase2 .p2-signal-title {
 	background: var(--p2-surface);
 	border-block: 1px solid var(--p2-line);
 }
+/* Same band on a regular project page, where it sits between detail sections. */
+.p2-case-capability--inline {
+	margin-top: 40px;
+}
 .p2-case-capability .p2-container {
 	display: flex;
 	align-items: center;

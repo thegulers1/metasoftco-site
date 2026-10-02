@@ -125,6 +125,7 @@ model Project {
   video              String?
   faq                String?
   faq_en             String?
+  serviceIds         String?
 
   @@index([published, featured, order])
 }

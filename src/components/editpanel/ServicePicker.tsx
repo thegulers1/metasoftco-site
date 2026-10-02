@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export interface ServiceOption {
     id: string;
@@ -11,16 +11,35 @@ export interface ServiceOption {
     category: { name: string; slug: string } | null;
 }
 
+/** Loads every service, flattened out of its category, for the picker. */
+export function useServiceOptions(): ServiceOption[] {
+    const [services, setServices] = useState<ServiceOption[]>([]);
+    useEffect(() => {
+        fetch("/api/services")
+            .then((r) => r.json())
+            .then((data: { name: string; slug: string; services?: Omit<ServiceOption, "category">[] }[]) => {
+                if (!Array.isArray(data)) return;
+                setServices(data.flatMap((cat) =>
+                    (cat.services || []).map((s) => ({ ...s, category: { name: cat.name, slug: cat.slug } }))
+                ));
+            })
+            .catch(() => {});
+    }, []);
+    return services;
+}
+
 const label = "block text-xs font-semibold text-black/60 uppercase tracking-wider mb-2";
 
 export default function ServicePicker({
     allServices,
     selectedIds,
     onChange,
+    hint = 'Seçilen hizmetler, yazının altında "Önerilen Hizmetler" olarak gösterilir.',
 }: {
     allServices: ServiceOption[];
     selectedIds: string[];
     onChange: (ids: string[]) => void;
+    hint?: string;
 }) {
     const [search, setSearch] = useState("");
 
@@ -42,7 +61,7 @@ export default function ServicePicker({
     return (
         <div className="max-w-3xl space-y-6">
             <p className="text-xs text-black/40">
-                Seçilen hizmetler, yazının altında "Önerilen Hizmetler" olarak gösterilir.
+                {hint}
             </p>
 
             {selectedServices.length > 0 && (

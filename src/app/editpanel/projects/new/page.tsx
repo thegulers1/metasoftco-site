@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useToast } from "@/providers/ToastProvider";
 import ImageUpload from "@/components/editpanel/ImageUpload";
 import GalleryUpload from "@/components/editpanel/GalleryUpload";
+import ServicePicker, { useServiceOptions } from "@/components/editpanel/ServicePicker";
 
 export const dynamic = 'force-dynamic';
 
@@ -36,6 +37,7 @@ interface Project {
     metaKeywords_en: string | null;
     faq: string | null;
     faq_en: string | null;
+    serviceIds: string | null;
 }
 
 export default function NewProjectPage() {
@@ -43,7 +45,8 @@ export default function NewProjectPage() {
     const { showToast } = useToast();
     const [saving, setSaving] = useState(false);
     const [translating, setTranslating] = useState(false);
-    const [activeTab, setActiveTab] = useState<"general" | "media" | "seo" | "faq">("general");
+    const [activeTab, setActiveTab] = useState<"general" | "media" | "services" | "seo" | "faq">("general");
+    const allServices = useServiceOptions();
 
     const [project, setProject] = useState<Project>({
         title: "",
@@ -73,6 +76,7 @@ export default function NewProjectPage() {
         metaKeywords_en: null,
         faq: null,
         faq_en: null,
+        serviceIds: null,
     });
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -135,6 +139,8 @@ export default function NewProjectPage() {
         }
     };
 
+    const selectedServiceIds: string[] = project.serviceIds ? JSON.parse(project.serviceIds) : [];
+
     return (
         <div>
             <div className="flex items-center justify-between mb-8">
@@ -183,6 +189,15 @@ export default function NewProjectPage() {
                         }`}
                 >
                     Medya
+                </button>
+                <button
+                    onClick={() => setActiveTab("services")}
+                    className={`px-4 py-2 rounded-lg text-sm font-medium transition ${activeTab === "services"
+                        ? "bg-black text-white"
+                        : "bg-black/5 text-black hover:bg-black/10"
+                        }`}
+                >
+                    İlgili Hizmetler{selectedServiceIds.length > 0 ? ` (${selectedServiceIds.length})` : ""}
                 </button>
                 <button
                     onClick={() => setActiveTab("seo")}
@@ -442,6 +457,15 @@ export default function NewProjectPage() {
                 )}
 
                 {/* SEO Tab */}
+                {activeTab === "services" && (
+                    <ServicePicker
+                        allServices={allServices}
+                        selectedIds={selectedServiceIds}
+                        onChange={(ids) => setProject({ ...project, serviceIds: ids.length > 0 ? JSON.stringify(ids) : null })}
+                        hint='Seçilen hizmetler, proje sayfasında "Bu projedeki aktivasyon" bağlantısı olarak gösterilir.'
+                    />
+                )}
+
                 {activeTab === "seo" && (
                     <>
                         <div>

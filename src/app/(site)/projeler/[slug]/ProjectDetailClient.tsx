@@ -34,6 +34,11 @@ interface Project {
     faq_en?: string | null;
 }
 
+interface RelatedService {
+    title: string;
+    href: string;
+}
+
 interface NextProject {
     slug: string;
     slug_en: string | null;
@@ -84,7 +89,7 @@ function parseJsonList<T>(raw: string | null | undefined): T[] {
     }
 }
 
-export default function ProjectDetailClient({ project, nextProject }: { project: Project; nextProject?: NextProject | null }) {
+export default function ProjectDetailClient({ project, nextProject, relatedServices = [] }: { project: Project; nextProject?: NextProject | null; relatedServices?: RelatedService[] }) {
     const { language, setAlternateUrl } = useLanguage();
     const dictionary = phase2Copy(language);
     const copy = dictionary.projectDetail;
@@ -211,6 +216,15 @@ export default function ProjectDetailClient({ project, nextProject }: { project:
                     />
                 </section>
             )}
+
+            {relatedServices.map((service) => (
+                <section key={service.href} className="p2-case-capability p2-case-capability--inline">
+                    <div className="p2-container">
+                        <span>{copy.serviceLabel}</span>
+                        <Link href={service.href}><strong>{service.title}</strong><ArrowRight aria-hidden="true" /></Link>
+                    </div>
+                </section>
+            ))}
 
             {nextProject && nextHref && (
                 <section className="p2-container p2-detail-section">

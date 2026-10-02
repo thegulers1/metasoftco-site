@@ -1,5 +1,6 @@
 import { Metadata } from "next";
 import { prisma } from "@/lib/db";
+import { getRelatedServices } from "@/lib/project-services";
 import { generateBreadcrumbSchema, siteConfig } from "@/lib/site";
 import { notFound } from "next/navigation";
 import { AdminEditUrlSetter } from "@/components/site/AdminBar";
@@ -84,6 +85,7 @@ async function getProject(slug_en: string) {
             order: true,
             faq: true,
             faq_en: true,
+            serviceIds: true,
         },
     });
 }
@@ -122,6 +124,7 @@ export default async function EnglishProjectDetailPage({
     if (!project || !isEnglishProjectPublishable(project)) notFound();
 
     const nextProject = await getNextProject(project.id, project.order);
+    const relatedServices = await getRelatedServices(project.serviceIds, "en");
 
     const gallery: { url: string; alt: string }[] = project.gallery
         ? (JSON.parse(project.gallery) as (string | { url: string; alt?: string })[]).map((item) =>
@@ -193,7 +196,7 @@ export default async function EnglishProjectDetailPage({
                     locale="en"
                 />
             ) : (
-                <ProjectDetailClient project={project} nextProject={nextProject} />
+                <ProjectDetailClient project={project} nextProject={nextProject} relatedServices={relatedServices} />
             )}
         </>
     );
