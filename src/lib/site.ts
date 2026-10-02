@@ -306,7 +306,7 @@ export function generateLocalBusinessSchema() {
                         "@type": "Service",
                         name: "Etkinlik Analitiği & Kurumsal Yazılım",
                         serviceType: "Event Analytics & Custom Software Development",
-                        description: "Etkinlik başarısını somut verilerle ölçen özel analitik paneller. KVKK uyumlu veri toplama, gerçek zamanlı katılım metrikleri ve etkinlik sonrası PDF raporlama.",
+                        description: "Etkinlik başarısını somut verilerle ölçen özel analitik paneller. KVKK uyumlu veri toplama, gerçek zamanlı katılım metrikleri ve talep halinde etkinlik sonrası PDF rapor.",
                     },
                 },
             ],

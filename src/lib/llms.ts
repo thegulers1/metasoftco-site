@@ -22,9 +22,9 @@ const COMPANY_FACTS = [
     "Saha ekibi: etkinlik boyunca alanda en az 2 teknik personel.",
     "Mekândan beklenen: tek bir standart 220V priz. İnternet kendi 5G mobil altyapımızla gelir.",
     "Kiosklar marka kaplamasıyla (dış giydirme) teslim edilir; ekran arayüzü markaya özel tasarlanır.",
-    "Baskılı aktivasyonlarda saniyeler içinde fiziksel baskı; pakete 750 adet baskı dahildir. Dijital aktivasyonlarda QR ile anında paylaşım.",
+    "Baskılı aktivasyonlarda saniyeler içinde fiziksel baskı; pakete 750 adet baskı dahildir. Dijital aktivasyonlarda QR kod ile anında paylaşım (SMS ile gönderim yoktur).",
     "Oyunlarda isteğe bağlı skor tablosu: katılımcı QR okutup form doldurursa skor tablosunda yer alır (Data-Capture ile lead toplama).",
-    "Data-Capture & CRM: kayıtlar kendi CRM altyapımıza anlık düşer, müşteri panelinden canlı takip ve Excel/CSV indirme; veriler standart 90 gün saklanır. Veri sorumlusu müşteri, MetasoftCo veri işleyendir.",
+    "Data-Capture & CRM: kayıtlar kendi CRM altyapımıza anlık düşer, müşteri panelinden canlı takip ve Excel/CSV indirme; veriler standart 90 gün saklanır; talep halinde etkinlik sonrası PDF rapor hazırlanır. Veri sorumlusu müşteri, MetasoftCo veri işleyendir.",
     "Etkinlik mikro sitesi (davet, kayıt, etkinlik sonrası galeri) 2 günde teslim edilir; QR davetiye ve check-in kiosku kurgulanabilir.",
 ];
 

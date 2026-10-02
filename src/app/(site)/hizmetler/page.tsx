@@ -59,7 +59,7 @@ const serviceFAQs = [
     },
     {
         question: "Yapay zeka yüz değiştirme (face swap) teknolojisi nasıl çalışır?",
-        answer: "Katılımcının yüzü kameradan alınır, LoRA ve ControlNet tabanlı yapay zeka modeli 5-15 saniye içinde yüzü seçilen konsepte (Forbes kapak, Cyberpunk, Rönesans vb.) dönüştürür. Yüz benzerliği %99 doğrulukla korunur. Sonuç e-posta, SMS veya QR kod ile anında paylaşılır.",
+        answer: "Katılımcının yüzü kameradan alınır, LoRA ve ControlNet tabanlı yapay zeka modeli 5-15 saniye içinde yüzü seçilen konsepte (Forbes kapak, Cyberpunk, Rönesans vb.) dönüştürür. Yüz benzerliği %99 doğrulukla korunur. Sonuç QR kod veya e-posta ile anında paylaşılır.",
     },
     {
         question: "AI Fashion Mirror veya Akıllı Ayna nedir?",
@@ -95,7 +95,7 @@ const serviceFAQs = [
     },
     {
         question: "Etkinlik sonrası analitik rapor alınabilir mi?",
-        answer: "Evet. Data-Capture modülüyle toplanan kayıtları size özel panelden canlı takip eder, filtreler ve Excel/CSV olarak indirirsiniz; yapay zeka destekli istatistikler etkinliğin performansını özetler.",
+        answer: "Evet. Data-Capture modülüyle toplanan kayıtları size özel panelden canlı takip eder, filtreler ve Excel/CSV olarak indirirsiniz; yapay zeka destekli istatistikler etkinliğin performansını özetler. Talep halinde etkinlik sonrası PDF rapor da hazırlanır.",
     },
     {
         question: "MetasoftCo ile iletişime nasıl geçebilirim?",
