@@ -10,6 +10,7 @@ import { phase2Copy } from "@/lib/phase2-content";
 import { SignalHeading } from "./SignalHeading";
 import { useChatStore } from "@/components/AIChat/useChatStore";
 import { trackEvent } from "@/lib/analytics";
+import { getAttribution } from "@/lib/attribution";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
@@ -43,6 +44,7 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
                     city: value("city"),
                     guests: value("guests"),
                     message: value("brief"),
+                    attribution: getAttribution(),
                 }),
             });
             if (response.ok) {

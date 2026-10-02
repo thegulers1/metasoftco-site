@@ -8,6 +8,7 @@ import {
     safeReplyTo,
     sanitizeHeader,
 } from "@/lib/mailer";
+import { attributionRows } from "@/lib/attribution";
 
 export const dynamic = 'force-dynamic';
 
@@ -31,6 +32,7 @@ export async function POST(req: Request) {
     const details = EVENT_FIELDS
         .map(([key, label]) => ({ label, value: optionalText(body[key]) }))
         .filter((row) => row.value);
+    const source = attributionRows(body.attribution);
     const product = optionalText(body.product);
     const subject = optionalText(body.subject) || (product ? `Teklif Talebi: ${product}` : "Genel İletişim");
 
@@ -63,6 +65,7 @@ export async function POST(req: Request) {
                 `Telefon: ${phone || "—"}`,
                 ...details.map((d) => `${d.label}: ${d.value}`),
                 `Konu: ${subject}`,
+                ...source.map((d) => `${d.label}: ${d.value}`),
                 "",
                 "Mesaj:",
                 String(message),
@@ -78,6 +81,7 @@ export async function POST(req: Request) {
                         ${row("Telefon", escapeHtml(phone) || "—")}
                         ${details.map((d) => row(d.label, escapeHtml(d.value))).join("")}
                         ${row("Konu", escapeHtml(subject))}
+                        ${source.map((d) => row(d.label, escapeHtml(d.value))).join("")}
                     </table>
                     <h3 style="color: #333; margin-top: 24px;">Mesaj:</h3>
                     <div style="background: #f4f4f4; border-left: 4px solid #dc2626; padding: 16px; border-radius: 4px; white-space: pre-wrap;">

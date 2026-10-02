@@ -4,6 +4,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { useQuoteStore } from "./useQuoteStore";
 import { useLanguage } from "@/providers/LanguageProvider";
+import { getAttribution } from "@/lib/attribution";
 import { trackEvent } from "@/lib/analytics";
 import Image from "next/image";
 
@@ -63,6 +64,7 @@ export function QuotePanel() {
                             : `/hizmetler/${s.categorySlug}/${s.slug}`,
                     })),
                     language,
+                    attribution: getAttribution(),
                 }),
             });
 

@@ -2,6 +2,7 @@ import Navbar from "@/components/site/Navbar";
 import Footer from "@/components/site/Footer";
 import WhatsAppButton from "@/components/site/WhatsAppButton";
 import { AdminBarProvider } from "@/components/site/AdminBar";
+import AttributionCapture from "@/components/site/AttributionCapture";
 
 export default function SiteLayout({
     children,
@@ -14,6 +15,7 @@ export default function SiteLayout({
             <main id="main-content" className="pb-24 sm:pb-0">{children}</main>
             <Footer />
             <WhatsAppButton />
+            <AttributionCapture />
         </AdminBarProvider>
     );
 }

@@ -8,6 +8,8 @@ import {
     safeReplyTo,
     sanitizeHeader,
 } from "@/lib/mailer";
+import { attributionRows } from "@/lib/attribution";
+import { siteConfig } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 
@@ -19,7 +21,8 @@ interface QuoteService {
 
 export async function POST(req: Request) {
     try {
-        const { name, email, phone, eventDate, participants, notes, services, language } = await req.json();
+        const { name, email, phone, eventDate, participants, notes, services, language, attribution } = await req.json();
+        const source = attributionRows(attribution);
 
         if (!name || !email || !phone || !services?.length) {
             return NextResponse.json({ error: "Zorunlu alanlar eksik." }, { status: 400 });
@@ -33,11 +36,11 @@ export async function POST(req: Request) {
         const transporter = getTransporter();
 
         const serviceListHtml = (services as QuoteService[])
-            .map(s => `<li style="margin-bottom:6px;"><a href="https://metasoftco.com${escapeHtml(s.url)}" style="color:#dc2626;">${escapeHtml(s.title)}</a></li>`)
+            .map(s => `<li style="margin-bottom:6px;"><a href="${siteConfig.url}${escapeHtml(s.url)}" style="color:#dc2626;">${escapeHtml(s.title)}</a></li>`)
             .join("");
 
         const serviceListText = (services as QuoteService[])
-            .map(s => `• ${s.title} — https://metasoftco.com${s.url}`)
+            .map(s => `• ${s.title} — ${siteConfig.url}${s.url}`)
             .join("\n");
 
         // MetasoftCo'ya giden email
@@ -46,7 +49,7 @@ export async function POST(req: Request) {
             to: getRecipient(),
             replyTo,
             subject: `[Teklif Talebi] ${sanitizeHeader(name, 80)} — ${services.length} hizmet`,
-            text: serviceListText,
+            text: [serviceListText, ...source.map((d) => `${d.label}: ${d.value}`)].join("\n"),
             html: `
                 <div style="font-family:sans-serif;max-width:600px;margin:0 auto;">
                     <h2 style="color:#dc2626;border-bottom:2px solid #dc2626;padding-bottom:8px;">
@@ -59,6 +62,7 @@ export async function POST(req: Request) {
                         <tr><td style="padding:8px 0;font-weight:bold;color:#555;">Etkinlik Tarihi:</td><td>${escapeHtml(eventDate) || "—"}</td></tr>
                         <tr><td style="padding:8px 0;font-weight:bold;color:#555;">Katılımcı Sayısı:</td><td>${escapeHtml(participants) || "—"}</td></tr>
                         <tr><td style="padding:8px 0;font-weight:bold;color:#555;">Dil:</td><td>${language === "en" ? "English" : "Türkçe"}</td></tr>
+                        ${source.map((d) => `<tr><td style="padding:8px 0;font-weight:bold;color:#555;">${d.label}:</td><td>${escapeHtml(d.value)}</td></tr>`).join("")}
                     </table>
                     <h3 style="color:#333;margin-bottom:8px;">Seçilen Hizmetler (${services.length}):</h3>
                     <ul style="padding-left:16px;margin-bottom:24px;">${serviceListHtml}</ul>

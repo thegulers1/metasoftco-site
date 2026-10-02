@@ -4,6 +4,7 @@ import { useRef, useState, useEffect } from "react";
 import { Phone, Mail, MapPin, Send, CheckCircle, AlertCircle, ArrowRight } from "lucide-react";
 import { motion } from "motion/react";
 import { useLanguage } from "@/providers/LanguageProvider";
+import { getAttribution } from "@/lib/attribution";
 import { trackEvent } from "@/lib/analytics";
 
 export default function ContactPage() {
@@ -44,7 +45,7 @@ export default function ContactPage() {
             const res = await fetch("/api/contact", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(form),
+                body: JSON.stringify({ ...form, attribution: getAttribution() }),
             });
             const data = await res.json().catch(() => ({}));
             if (res.ok) {
@@ -299,7 +300,7 @@ export default function ContactPage() {
                         allowFullScreen
                         loading="lazy"
                         referrerPolicy="no-referrer-when-downgrade"
-                        title="Metasoftco Konum"
+                        title="MetasoftCo Konum"
                     />
                 </div>
             </div>
