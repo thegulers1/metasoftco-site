@@ -4,6 +4,7 @@ import { prisma } from "@/lib/db";
 import { siteConfig, ogImageUrl } from "@/lib/site";
 import { isEnglishProjectPublishable } from "@/lib/publication";
 import HomePrototype from "@/components/phase2/HomePrototype";
+import { getHomeHeroImage } from "@/lib/home-hero";
 
 export const revalidate = 3600;
 
@@ -88,7 +89,7 @@ const getPrototypeServices = unstable_cache(
 );
 
 export default async function EnglishHomePage() {
-    const [projectRecords, serviceRecords] = await Promise.all([getPrototypeProjects(), getPrototypeServices()]);
+    const [projectRecords, serviceRecords, heroImage] = await Promise.all([getPrototypeProjects(), getPrototypeServices(), getHomeHeroImage()]);
     const projects = projectRecords
         .filter(isEnglishProjectPublishable)
         .slice(0, 3)
@@ -111,5 +112,5 @@ export default async function EnglishHomePage() {
             image: record.image,
         }));
 
-    return <HomePrototype projects={projects} services={services} locale="en" />;
+    return <HomePrototype projects={projects} services={services} heroImage={heroImage} locale="en" />;
 }

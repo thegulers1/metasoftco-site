@@ -3,6 +3,7 @@ import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { siteConfig } from "@/lib/site";
 import HomePrototype from "@/components/phase2/HomePrototype";
+import { getHomeHeroImage } from "@/lib/home-hero";
 
 export const revalidate = 3600;
 
@@ -72,7 +73,7 @@ const getPrototypeServices = unstable_cache(
 );
 
 export default async function HomePage() {
-    const [projectRecords, serviceRecords] = await Promise.all([getPrototypeProjects(), getPrototypeServices()]);
+    const [projectRecords, serviceRecords, heroImage] = await Promise.all([getPrototypeProjects(), getPrototypeServices(), getHomeHeroImage()]);
     const projects = projectRecords.map((record) => ({
         key: record.slug_en || record.slug,
         slug: record.slug,
@@ -92,5 +93,5 @@ export default async function HomePage() {
             image: record.image,
         }));
 
-    return <HomePrototype projects={projects} services={services} locale="tr" />;
+    return <HomePrototype projects={projects} services={services} heroImage={heroImage} locale="tr" />;
 }

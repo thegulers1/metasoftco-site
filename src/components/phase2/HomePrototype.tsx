@@ -38,9 +38,11 @@ export interface P2ServiceCard {
 export default function HomePrototype({
 	projects,
 	services,
+	heroImage,
 	locale,
 }: {
 	projects: P2ProjectCard[];
+	heroImage: string | null;
 	services: P2ServiceCard[];
 	locale: Phase2Locale;
 }) {
@@ -49,7 +51,6 @@ export default function HomePrototype({
 	const presentation = dictionary.featuredProjects;
 	const servicePresentation = dictionary.featuredServices;
 
-	const rayBan = projects.find((project) => project.key.includes("ray-ban"));
 	// `projects` already arrives pre-selected (featured, published) and
 	// pre-ordered from the DB query in page.tsx — no further filtering by
 	// slug here, or newly-featured projects would never make it through.
@@ -96,12 +97,12 @@ export default function HomePrototype({
 							))}
 						</div>
 					</div>
-					{rayBan?.image && (
+					{heroImage && (
 						<figure className="p2-signal-portal">
 							<div className="p2-signal-portal__frame">
 								<div className="p2-signal-portal__image">
 									<Image
-										src={rayBan.image}
+										src={heroImage}
 										alt={copy.heroFigureAlt}
 										fill
 										priority
