@@ -1,6 +1,7 @@
 /* eslint-disable @next/next/no-img-element -- plain <img> keeps slides identical in the page and in the headless-Chrome PDF */
 import { siteConfig } from "@/lib/site";
 import type { Deck, DeckCategory, DeckService } from "@/lib/presentation-deck";
+import { MEDIA_ZONE_HEIGHT } from "@/lib/presentation-layout";
 import "./presentation.css";
 
 /**
@@ -12,6 +13,10 @@ import "./presentation.css";
  */
 
 const CITIES = ["İstanbul", "Ankara", "İzmir", "Antalya", "Bodrum", "Adana", "Diyarbakır", "Kocaeli", "Sapanca"];
+/** Service slide geometry in cqw; mirrors .pz-service__media in presentation.css. */
+const MEDIA_LEFT = 4;
+const MEDIA_TOP = 3.6;
+const MEDIA_GUTTER = 3.4;
 const SITE_HOST = siteConfig.url.replace(/^https?:\/\/(www\.)?/, "");
 
 export type SlidePage = {
@@ -234,23 +239,26 @@ function ServiceSlide({
     lazy: boolean;
 }) {
     const loading = lazy ? "lazy" : undefined;
+    const media = service.media;
     return (
         <Slide className="pz-service">
-            {service.image ? (
-                <div className={`pz-service__media${service.thumbs.length ? "" : " is-single"}`}>
-                    <div className="pz-service__main">
-                        {service.backdrop && (
-                            <img className="pz-service__backdrop" src={service.backdrop} alt="" aria-hidden="true" loading={loading} />
-                        )}
-                        <img className="pz-service__photo" src={service.image} alt={service.title} loading={loading} />
-                    </div>
-                    {service.thumbs.length > 0 && (
-                        <div className="pz-service__thumbs" style={{ gridTemplateColumns: `repeat(${service.thumbs.length}, 1fr)` }}>
-                            {service.thumbs.map((url) => (
-                                <img key={url} src={url} alt="" loading={loading} />
-                            ))}
-                        </div>
-                    )}
+            {media ? (
+                <div
+                    className="pz-service__media"
+                    style={{
+                        top: `${MEDIA_TOP + (MEDIA_ZONE_HEIGHT - media.h) / 2}cqw`,
+                        width: `${media.w}cqw`,
+                        height: `${media.h}cqw`,
+                    }}>
+                    {media.items.map((item, i) => (
+                        <img
+                            key={item.url}
+                            src={item.url}
+                            alt={i === 0 ? service.title : ""}
+                            loading={loading}
+                            style={{ left: `${item.x}cqw`, top: `${item.y}cqw`, width: `${item.w}cqw`, height: `${item.h}cqw` }}
+                        />
+                    ))}
                 </div>
             ) : (
                 <div className="pz-service__media is-text">
@@ -267,7 +275,7 @@ function ServiceSlide({
                     </div>
                 </div>
             )}
-            <div className="pz-service__copy">
+            <div className="pz-service__copy" style={media ? { left: `${MEDIA_LEFT + media.w + MEDIA_GUTTER}cqw` } : undefined}>
                 <div className="pz-service__row">
                     <span className="pz-eyebrow">
                         {category.name}

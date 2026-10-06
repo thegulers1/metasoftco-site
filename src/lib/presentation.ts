@@ -2,6 +2,7 @@ import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { cloudinaryOptimize, isVideoUrl } from "@/lib/cloudinary";
 import type { Deck, DeckCategory, DeckService, DeckSpec } from "@/lib/presentation-deck";
+import { layoutMedia, type MediaSource } from "@/lib/presentation-layout";
 
 /**
  * Data for the /sunum page and its PDF export. The deck is built from the
@@ -24,7 +25,6 @@ const MAX_SPECS = 4;
  * already-derived variant; a fresh transform per image makes the PDF slow.
  */
 const MAIN_IMAGE_WIDTH = 1200;
-const THUMB_WIDTH = 640;
 const COVER_IMAGE_WIDTH = 1080;
 
 const SOFTWARE_CATEGORY_SLUG = "yazilim-gelistirme";
@@ -122,26 +122,54 @@ export function parsePresentationPoints(value: string | null | undefined) {
         .slice(0, MAX_POINTS);
 }
 
-/**
- * A small, heavily blurred JPEG of the photo. Blurring in Cloudinary rather
- * than with a CSS filter matters for the PDF: Chrome embeds filtered layers
- * as uncompressed bitmaps, which tripled the file size.
- */
-function blurredBackdrop(url: string | null) {
-    if (!url || !url.includes("res.cloudinary.com") || !url.includes("/image/upload/")) return null;
-    return url.replace("/image/upload/", "/image/upload/e_blur:2000,q_auto:low,w_160,f_jpg/");
-}
+/** Slide width in CSS px at print size, and how much sharper than that photos are requested. */
+const SLIDE_PX = 1600;
+const PIXEL_DENSITY = 1.6;
+/** next/image device sizes: Cloudinary usually has these variants derived already. */
+const IMAGE_WIDTHS = [640, 828, 1080, 1200, 1920];
 
 /**
  * Gallery items can be videos. A slide cannot play one, so a Cloudinary video
- * becomes a still frame from its first second; any other video is dropped.
+ * is shown as a still frame from its first second; any other video is skipped.
  */
-function thumbUrl(url: string) {
-    if (!isVideoUrl(url)) return cloudinaryOptimize(url, THUMB_WIDTH);
+function stillFrame(url: string) {
+    if (!isVideoUrl(url)) return url;
     if (!url.includes("res.cloudinary.com") || !url.includes("/video/upload/")) return null;
-    return url
-        .replace("/video/upload/", `/video/upload/so_1,w_${THUMB_WIDTH},q_auto,f_jpg/`)
-        .replace(/\.[a-z0-9]+($|\?)/i, ".jpg$1");
+    return url.replace("/video/upload/", "/video/upload/so_1,f_jpg/").replace(/\.[a-z0-9]+($|\?)/i, ".jpg$1");
+}
+
+/** Delivery URL sized for a photo drawn `cqw` wide on the slide. */
+function sizedUrl(url: string, cqw: number) {
+    const needed = (cqw / 100) * SLIDE_PX * PIXEL_DENSITY;
+    const width = IMAGE_WIDTHS.find((w) => w >= needed) ?? IMAGE_WIDTHS[IMAGE_WIDTHS.length - 1];
+    if (url.includes("/video/upload/so_1,f_jpg/")) return url.replace("so_1,f_jpg/", `so_1,f_jpg,q_auto,w_${width}/`);
+    return cloudinaryOptimize(url, width);
+}
+
+/**
+ * Width ÷ height of a Cloudinary asset, read from its fl_getinfo endpoint.
+ * The layout is built from these ratios so no photo is cropped. A versioned
+ * URL never changes, so the answer is cached for a month; a failed lookup
+ * throws and is therefore not cached.
+ */
+const fetchImageRatio = unstable_cache(
+    async (url: string): Promise<number> => {
+        const infoUrl = url.includes("/video/upload/so_1,f_jpg/")
+            ? url.replace("so_1,f_jpg/", "so_1,f_jpg,fl_getinfo/")
+            : url.replace("/image/upload/", "/image/upload/fl_getinfo/");
+        const res = await fetch(infoUrl, { signal: AbortSignal.timeout(8000) });
+        const info = (await res.json()) as { input?: { width?: number; height?: number } };
+        const { width, height } = info.input ?? {};
+        if (!res.ok || !width || !height) throw new Error(`No size for ${url}`);
+        return width / height;
+    },
+    ["presentation-image-ratio"],
+    { revalidate: 60 * 60 * 24 * 30 },
+);
+
+async function mediaSource(url: string): Promise<MediaSource> {
+    if (!url.includes("res.cloudinary.com")) return { url, ratio: null };
+    return { url, ratio: await fetchImageRatio(url).catch(() => null) };
 }
 
 function formatDate(date: Date) {
@@ -166,52 +194,66 @@ async function loadDeck(): Promise<Deck> {
 
     const now = Date.now();
     let latest = 0;
-    let coverImage: string | null = null;
+    let coverImage = null as string | null;
 
-    const deckCategories = categories
-        .filter((category) => category.services.length > 0)
-        .map((category, index): DeckCategory => {
-            const isSoftware = category.slug === SOFTWARE_CATEGORY_SLUG;
-            latest = Math.max(latest, category.updatedAt.getTime());
+    const deckCategories = await Promise.all(
+        categories
+            .filter((category) => category.services.length > 0)
+            .map(async (category, index): Promise<DeckCategory> => {
+                const isSoftware = category.slug === SOFTWARE_CATEGORY_SLUG;
+                latest = Math.max(latest, category.updatedAt.getTime());
 
-            const services = category.services.map((service): DeckService => {
-                latest = Math.max(latest, service.updatedAt.getTime());
-                const gallery = galleryUrls(service.gallery);
-                const image = [service.image, ...gallery].find((url) => url && !isVideoUrl(url)) || null;
-                const thumbs = gallery.filter((url) => url !== image).slice(0, 3);
-                if (service.slug === COVER_SERVICE_SLUG && image) coverImage = image;
+                const services = await Promise.all(
+                    category.services.map(async (service): Promise<DeckService> => {
+                        latest = Math.max(latest, service.updatedAt.getTime());
+                        const gallery = galleryUrls(service.gallery);
+                        const image = [service.image, ...gallery].find((url) => url && !isVideoUrl(url)) || null;
+                        if (service.slug === COVER_SERVICE_SLUG && image) coverImage = image;
 
-                const specs = parseJsonArray<DeckSpec>(service.specs)
-                    .filter((spec) => spec?.label?.trim() && spec?.value?.trim())
-                    .slice(0, MAX_SPECS);
-                const created = service.createdAt;
-                const isNew = now - created.getTime() < NEW_WINDOW_DAYS * 86_400_000;
+                        let media: DeckService["media"] = null;
+                        if (image) {
+                            const extras = gallery
+                                .filter((url) => url !== image)
+                                .map(stillFrame)
+                                .filter((url): url is string => Boolean(url))
+                                .slice(0, 3);
+                            const [main, ...thumbs] = await Promise.all([image, ...extras].map(mediaSource));
+                            const layout = layoutMedia(main, thumbs);
+                            media = { ...layout, items: layout.items.map((item) => ({ ...item, url: sizedUrl(item.url, item.w) })) };
+                        }
 
+                        const specs = parseJsonArray<DeckSpec>(service.specs)
+                            .filter((spec) => spec?.label?.trim() && spec?.value?.trim())
+                            .slice(0, MAX_SPECS);
+                        const created = service.createdAt;
+                        const isNew = now - created.getTime() < NEW_WINDOW_DAYS * 86_400_000;
+
+                        return {
+                            id: service.id,
+                            title: displayTitle(service.title, service.homeTitle),
+                            lead: trimToSentences(stripHtml(service.description), MAX_LEAD_LENGTH),
+                            points: parsePresentationPoints(service.presentationPoints),
+                            specs: specs.length ? specs : isSoftware ? SOFTWARE_SPECS : EVENT_SPECS,
+                            image: image ? cloudinaryOptimize(image, MAIN_IMAGE_WIDTH) : null,
+                            media,
+                            href: `/hizmetler/${category.slug}/${service.slug}`,
+                            isRental: !isSoftware,
+                            newSince: isNew ? `${TR_MONTHS[created.getMonth()]} ${created.getFullYear()}` : null,
+                        };
+                    }),
+                );
+
+                const heroLead = trimToSentences(stripHtml(category.heroContent), 220);
                 return {
-                    id: service.id,
-                    title: displayTitle(service.title, service.homeTitle),
-                    lead: trimToSentences(stripHtml(service.description), MAX_LEAD_LENGTH),
-                    points: parsePresentationPoints(service.presentationPoints),
-                    specs: specs.length ? specs : isSoftware ? SOFTWARE_SPECS : EVENT_SPECS,
-                    image: image ? cloudinaryOptimize(image, MAIN_IMAGE_WIDTH) : null,
-                    backdrop: blurredBackdrop(image),
-                    thumbs: image ? thumbs.map(thumbUrl).filter((url): url is string => Boolean(url)) : [],
-                    href: `/hizmetler/${category.slug}/${service.slug}`,
-                    isRental: !isSoftware,
-                    newSince: isNew ? `${TR_MONTHS[created.getMonth()]} ${created.getFullYear()}` : null,
+                    id: category.id,
+                    no: String(index + 1).padStart(2, "0"),
+                    name: category.name,
+                    lead: CATEGORY_LEADS[category.slug] ?? heroLead,
+                    cover: services.find((service) => service.image)?.image ?? null,
+                    services,
                 };
-            });
-
-            const heroLead = trimToSentences(stripHtml(category.heroContent), 220);
-            return {
-                id: category.id,
-                no: String(index + 1).padStart(2, "0"),
-                name: category.name,
-                lead: CATEGORY_LEADS[category.slug] ?? heroLead,
-                cover: services.find((service) => service.image)?.image ?? null,
-                services,
-            };
-        });
+            }),
+    );
 
     const firstImage = deckCategories.flatMap((c) => c.services).find((s) => s.image)?.image ?? null;
 
@@ -224,7 +266,7 @@ async function loadDeck(): Promise<Deck> {
 }
 
 // Bump the key suffix when the deck's shape changes, so a stale cached deck is not served after a deploy.
-export const getPresentationDeck = unstable_cache(loadDeck, [PRESENTATION_CACHE_TAG, "v3"], {
+export const getPresentationDeck = unstable_cache(loadDeck, [PRESENTATION_CACHE_TAG, "v4"], {
     revalidate: 300,
     tags: [PRESENTATION_CACHE_TAG],
 });

@@ -3,6 +3,8 @@
  * components. Loading the deck from the database lives in presentation.ts.
  */
 
+import type { MediaLayout } from "@/lib/presentation-layout";
+
 export type DeckSpec = { label: string; value: string };
 
 export type DeckService = {
@@ -11,10 +13,10 @@ export type DeckService = {
     lead: string;
     points: string[];
     specs: DeckSpec[];
+    /** Lead photo, used for the cover and the category overview. */
     image: string | null;
-    /** Tiny pre-blurred copy of `image`, shown behind it where the frame is wider or taller than the photo. */
-    backdrop: string | null;
-    thumbs: string[];
+    /** Photo block for the service slide; null when the service has no picture. */
+    media: MediaLayout | null;
     href: string;
     isRental: boolean;
     newSince: string | null;

@@ -515,77 +515,24 @@
 }
 
 /* ---------- service ---------- */
+/* The photo block is sized and positioned per service (see presentation-layout.ts):
+   each photo's box has exactly the photo's own proportions, so nothing is cropped. */
 .pz-service__media {
 	position: absolute;
 	left: 4cqw;
+}
+.pz-service__media img {
+	position: absolute;
+	max-width: none;
+	object-fit: cover;
+	border-radius: 0.7cqw;
+	background: #0e1216;
+}
+.pz-service__media.is-text {
 	top: 3.6cqw;
 	bottom: 7.6cqw;
 	width: 43cqw;
 	display: grid;
-	grid-template-rows: 1fr 11cqw;
-	gap: 1cqw;
-}
-.pz-service__media.is-single,
-.pz-service__media.is-text {
-	grid-template-rows: 1fr;
-}
-.pz-service__main {
-	position: relative;
-	overflow: hidden;
-	min-height: 0;
-	border-radius: 0.8cqw;
-	clip-path: polygon(0 0, 100% 0, 100% 100%, 5% 100%, 0 91%);
-}
-/* The photo is never cropped: it is fitted whole into the frame, and a blurred
-   copy of itself (pre-blurred by Cloudinary, darkened by ::before) fills
-   whatever the frame's shape leaves over. */
-.pz-service__main {
-	background: #0e1216;
-}
-.pz-service__main .pz-service__backdrop {
-	position: absolute;
-	inset: 0;
-	width: 100%;
-	height: 100%;
-	object-fit: cover;
-}
-.pz-service__main::before {
-	content: "";
-	position: absolute;
-	inset: 0;
-	z-index: 1;
-	background: rgba(7, 9, 11, 0.68);
-}
-.pz-service__main .pz-service__photo {
-	position: relative;
-	z-index: 2;
-	width: 100%;
-	height: 100%;
-	object-fit: contain;
-}
-.pz-service__main::after {
-	content: "";
-	position: absolute;
-	z-index: 3;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	width: 0.22cqw;
-	background: var(--pz-grad-v);
-}
-.pz-service__thumbs {
-	display: grid;
-	grid-auto-rows: minmax(0, 1fr);
-	gap: 1cqw;
-	min-height: 0;
-	overflow: hidden;
-}
-.pz-service__thumbs img {
-	width: 100%;
-	height: 100%;
-	object-fit: contain;
-	border-radius: 0.6cqw;
-	background: #0e1216;
 }
 .pz-service__panel {
 	position: relative;
@@ -653,7 +600,8 @@
 	overflow: hidden;
 }
 .pz-service__lead {
-	font-size: 1.22cqw;
+	font-size: 1.32cqw;
+	max-width: 46cqw;
 	line-height: 1.55;
 	color: rgba(244, 247, 248, 0.74);
 	display: -webkit-box;
