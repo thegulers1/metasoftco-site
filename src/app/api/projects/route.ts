@@ -54,6 +54,7 @@ export async function POST(request: Request) {
             metaKeywords,
             ogImage,
             // English fields
+            slug_en,
             title_en,
             description_en,
             content_en,
@@ -87,6 +88,7 @@ export async function POST(request: Request) {
                 metaKeywords,
                 ogImage,
                 // English fields
+                slug_en: slug_en || null,
                 title_en,
                 description_en,
                 content_en,

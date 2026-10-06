@@ -1,6 +1,6 @@
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
-import { cloudinaryOptimize } from "@/lib/cloudinary";
+import { cloudinaryOptimize, isVideoUrl } from "@/lib/cloudinary";
 import type { Deck, DeckCategory, DeckService, DeckSpec } from "@/lib/presentation-deck";
 
 /**
@@ -122,6 +122,28 @@ export function parsePresentationPoints(value: string | null | undefined) {
         .slice(0, MAX_POINTS);
 }
 
+/**
+ * A small, heavily blurred JPEG of the photo. Blurring in Cloudinary rather
+ * than with a CSS filter matters for the PDF: Chrome embeds filtered layers
+ * as uncompressed bitmaps, which tripled the file size.
+ */
+function blurredBackdrop(url: string | null) {
+    if (!url || !url.includes("res.cloudinary.com") || !url.includes("/image/upload/")) return null;
+    return url.replace("/image/upload/", "/image/upload/e_blur:2000,q_auto:low,w_160,f_jpg/");
+}
+
+/**
+ * Gallery items can be videos. A slide cannot play one, so a Cloudinary video
+ * becomes a still frame from its first second; any other video is dropped.
+ */
+function thumbUrl(url: string) {
+    if (!isVideoUrl(url)) return cloudinaryOptimize(url, THUMB_WIDTH);
+    if (!url.includes("res.cloudinary.com") || !url.includes("/video/upload/")) return null;
+    return url
+        .replace("/video/upload/", `/video/upload/so_1,w_${THUMB_WIDTH},q_auto,f_jpg/`)
+        .replace(/\.[a-z0-9]+($|\?)/i, ".jpg$1");
+}
+
 function formatDate(date: Date) {
     return new Intl.DateTimeFormat("tr-TR", {
         day: "2-digit",
@@ -155,7 +177,7 @@ async function loadDeck(): Promise<Deck> {
             const services = category.services.map((service): DeckService => {
                 latest = Math.max(latest, service.updatedAt.getTime());
                 const gallery = galleryUrls(service.gallery);
-                const image = service.image || gallery[0] || null;
+                const image = [service.image, ...gallery].find((url) => url && !isVideoUrl(url)) || null;
                 const thumbs = gallery.filter((url) => url !== image).slice(0, 3);
                 if (service.slug === COVER_SERVICE_SLUG && image) coverImage = image;
 
@@ -172,7 +194,8 @@ async function loadDeck(): Promise<Deck> {
                     points: parsePresentationPoints(service.presentationPoints),
                     specs: specs.length ? specs : isSoftware ? SOFTWARE_SPECS : EVENT_SPECS,
                     image: image ? cloudinaryOptimize(image, MAIN_IMAGE_WIDTH) : null,
-                    thumbs: image ? thumbs.map((url) => cloudinaryOptimize(url, THUMB_WIDTH)) : [],
+                    backdrop: blurredBackdrop(image),
+                    thumbs: image ? thumbs.map(thumbUrl).filter((url): url is string => Boolean(url)) : [],
                     href: `/hizmetler/${category.slug}/${service.slug}`,
                     isRental: !isSoftware,
                     newSince: isNew ? `${TR_MONTHS[created.getMonth()]} ${created.getFullYear()}` : null,
@@ -200,7 +223,8 @@ async function loadDeck(): Promise<Deck> {
     };
 }
 
-export const getPresentationDeck = unstable_cache(loadDeck, [PRESENTATION_CACHE_TAG], {
+// Bump the key suffix when the deck's shape changes, so a stale cached deck is not served after a deploy.
+export const getPresentationDeck = unstable_cache(loadDeck, [PRESENTATION_CACHE_TAG, "v3"], {
     revalidate: 300,
     tags: [PRESENTATION_CACHE_TAG],
 });

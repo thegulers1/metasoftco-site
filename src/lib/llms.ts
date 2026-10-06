@@ -12,7 +12,7 @@ import { EVENT_SOFTWARE_HUB_PATH, eventSoftwareHub } from "./event-software-hub"
 
 const base = siteConfig.url;
 
-const COMPANY_FACTS = [
+export const COMPANY_FACTS = [
     "Kuruluş: 2020, İstanbul. Yazılım şirketi olarak kuruldu, ardından etkinlik teknolojilerine geçti; yazılım ve donanım aynı ekipte.",
     "Merkez: İstanbul Teknokent, Avcılar/İstanbul.",
     "Deneyim: 1.000+ etkinlik, 100+ marka.",

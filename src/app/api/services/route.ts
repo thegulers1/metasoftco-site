@@ -60,12 +60,16 @@ export async function POST(request: Request) {
             accentText_en,
             accentColor,
             // English fields
+            slug_en,
             title_en,
             description_en,
             content_en,
             metaTitle_en,
             metaDescription_en,
             metaKeywords_en,
+            faq,
+            faq_en,
+            published,
         } = body;
 
         const service = await prisma.service.create({
@@ -98,12 +102,16 @@ export async function POST(request: Request) {
                 metaKeywords,
                 ogImage,
                 // English fields
+                slug_en: slug_en || null,
                 title_en,
                 description_en,
                 content_en,
                 metaTitle_en,
                 metaDescription_en,
                 metaKeywords_en,
+                faq: faq || null,
+                faq_en: faq_en || null,
+                published: published ?? true,
             },
         });
 

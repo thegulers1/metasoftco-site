@@ -6,11 +6,7 @@ export const dynamic = 'force-dynamic';
 
 async function getProjects() {
     const projects = await prisma.project.findMany({
-        orderBy: [
-            { featured: "desc" },
-            { order: "asc" },
-            { createdAt: "desc" },
-        ],
+        orderBy: { createdAt: "desc" },
     });
     return projects;
 }
@@ -22,12 +18,20 @@ export default async function AdminProjectsPage() {
         <div>
             <div className="flex items-center justify-between mb-8">
                 <h1 className="text-2xl font-bold text-black">Projeler</h1>
-                <Link
-                    href="/editpanel/projects/new"
-                    className="px-4 py-2 bg-black text-white text-sm font-medium rounded-lg hover:bg-black/80 transition"
-                >
-                    + Yeni Proje
-                </Link>
+                <div className="flex items-center gap-3">
+                    <Link
+                        href="/editpanel/ai?tur=proje"
+                        className="px-4 py-2 bg-black/5 text-black text-sm font-medium rounded-lg hover:bg-black/10 transition"
+                    >
+                        AI ile Oluştur
+                    </Link>
+                    <Link
+                        href="/editpanel/projects/new"
+                        className="px-4 py-2 bg-black text-white text-sm font-medium rounded-lg hover:bg-black/80 transition"
+                    >
+                        + Yeni Proje
+                    </Link>
+                </div>
             </div>
 
             <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
@@ -113,7 +117,17 @@ export default async function AdminProjectsPage() {
                                         )}
                                     </div>
                                 </td>
-                                <td className="px-6 py-4 text-right">
+                                <td className="px-6 py-4 text-right whitespace-nowrap">
+                                    {project.published && (
+                                        <a
+                                            href={`/projeler/${project.slug}`}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-sm text-black/50 hover:text-black hover:underline mr-4"
+                                        >
+                                            Görüntüle ↗
+                                        </a>
+                                    )}
                                     <Link
                                         href={`/editpanel/projects/${project.id}/edit`}
                                         className="text-sm text-blue-600 hover:underline mr-4"

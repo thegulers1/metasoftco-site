@@ -26,12 +26,20 @@ export default async function AdminServicesPage() {
         <div>
             <div className="flex items-center justify-between mb-8">
                 <h1 className="text-2xl font-bold text-black">Hizmetler</h1>
-                <Link
-                    href="/editpanel/services/new"
-                    className="px-4 py-2 bg-black text-white text-sm font-medium rounded-lg hover:bg-black/80 transition"
-                >
-                    + Yeni Hizmet
-                </Link>
+                <div className="flex items-center gap-3">
+                    <Link
+                        href="/editpanel/ai?tur=hizmet"
+                        className="px-4 py-2 bg-black/5 text-black text-sm font-medium rounded-lg hover:bg-black/10 transition"
+                    >
+                        AI ile Oluştur
+                    </Link>
+                    <Link
+                        href="/editpanel/services/new"
+                        className="px-4 py-2 bg-black text-white text-sm font-medium rounded-lg hover:bg-black/80 transition"
+                    >
+                        + Yeni Hizmet
+                    </Link>
+                </div>
             </div>
 
             {categories.map((category) => (

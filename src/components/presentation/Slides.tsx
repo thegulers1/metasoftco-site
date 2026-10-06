@@ -239,7 +239,10 @@ function ServiceSlide({
             {service.image ? (
                 <div className={`pz-service__media${service.thumbs.length ? "" : " is-single"}`}>
                     <div className="pz-service__main">
-                        <img src={service.image} alt={service.title} loading={loading} />
+                        {service.backdrop && (
+                            <img className="pz-service__backdrop" src={service.backdrop} alt="" aria-hidden="true" loading={loading} />
+                        )}
+                        <img className="pz-service__photo" src={service.image} alt={service.title} loading={loading} />
                     </div>
                     {service.thumbs.length > 0 && (
                         <div className="pz-service__thumbs" style={{ gridTemplateColumns: `repeat(${service.thumbs.length}, 1fr)` }}>

@@ -4775,11 +4775,13 @@ html[lang="tr"] .phase2 .p2-signal-title {
 .p2-media-grid {
 	display: grid;
 	grid-template-columns: repeat(3, minmax(0, 1fr));
-	align-items: start;
 	gap: 18px;
 }
+/* Uploads arrive in mixed orientations; a fixed frame keeps every row level
+   and the lightbox still shows the uncropped original. */
 .p2-media-grid > * {
 	position: relative;
+	aspect-ratio: 4/3;
 	overflow: hidden;
 	border-radius: 14px;
 	background: #0d1114;
@@ -4789,7 +4791,8 @@ html[lang="tr"] .phase2 .p2-signal-title {
 .p2-media-grid video {
 	display: block;
 	width: 100%;
-	height: auto;
+	height: 100%;
+	object-fit: cover;
 	filter: brightness(0.72) saturate(0.9);
 	transition:
 		transform 0.55s cubic-bezier(0.2, 0.7, 0.2, 1),

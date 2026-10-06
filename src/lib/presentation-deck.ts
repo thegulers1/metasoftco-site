@@ -12,6 +12,8 @@ export type DeckService = {
     points: string[];
     specs: DeckSpec[];
     image: string | null;
+    /** Tiny pre-blurred copy of `image`, shown behind it where the frame is wider or taller than the photo. */
+    backdrop: string | null;
     thumbs: string[];
     href: string;
     isRental: boolean;
