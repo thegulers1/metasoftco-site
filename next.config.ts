@@ -56,6 +56,7 @@ const nextConfig: NextConfig = {
     return [
       // Intent-preserving public migrations.
       { source: "/isler", destination: "/projeler", permanent: true },
+      { source: "/en/hakkimizda", destination: "/en/about", permanent: true },
       {
         source: "/sektorel-cozumler/istanbul-ai-photobooth",
         destination: "/hizmetler/istanbul-ai-photobooth",

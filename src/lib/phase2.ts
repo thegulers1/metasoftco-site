@@ -20,7 +20,7 @@ export const phase2Routes = {
         work: "/en/projects",
         capabilities: "/en/services",
         products: "/en/products",
-        about: "/en/hakkimizda",
+        about: "/en/about",
         insights: "/en/blog",
         contact: "/en/contact",
     },

@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     },
     alternates: {
         canonical: `${siteConfig.url}/hakkimizda`,
-        languages: { "x-default": `${siteConfig.url}/hakkimizda`, tr: `${siteConfig.url}/hakkimizda`, en: `${siteConfig.url}/en/hakkimizda` },
+        languages: { "x-default": `${siteConfig.url}/hakkimizda`, tr: `${siteConfig.url}/hakkimizda`, en: `${siteConfig.url}/en/about` },
     },
 };
 

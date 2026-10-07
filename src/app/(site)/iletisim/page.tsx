@@ -3,7 +3,7 @@ import { siteConfig } from "@/lib/site";
 import ContactPrototype from "@/components/phase2/ContactPrototype";
 
 export const metadata: Metadata = {
-    title: "İletişim",
+    title: "İletişim ve Teklif Talebi | MetasoftCo",
     description: "MetasoftCo ile iletişime geçin. Etkinlikleriniz için yapay zeka ve interaktif aktivite çözümleri sunuyoruz.",
     alternates: {
         canonical: `${siteConfig.url}/iletisim`,

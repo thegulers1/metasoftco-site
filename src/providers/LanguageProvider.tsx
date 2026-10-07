@@ -20,7 +20,7 @@ const staticAlternates: Record<string, { tr: string; en: string }> = {
     "/hizmetler": { tr: "/hizmetler", en: "/en/services" },
     "/projeler": { tr: "/projeler", en: "/en/projects" },
     "/blog": { tr: "/blog", en: "/en/blog" },
-    "/hakkimizda": { tr: "/hakkimizda", en: "/en/hakkimizda" },
+    "/hakkimizda": { tr: "/hakkimizda", en: "/en/about" },
     "/iletisim": { tr: "/iletisim", en: "/en/contact" },
     "/sektorel-cozumler": { tr: "/sektorel-cozumler", en: "/en/sector-solutions" },
     "/sektorel-yazilim-cozumleri": { tr: "/sektorel-yazilim-cozumleri", en: "/en/industry-software-solutions" },

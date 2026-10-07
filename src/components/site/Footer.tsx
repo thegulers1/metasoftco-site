@@ -76,7 +76,7 @@ export default function Footer() {
                                 <Link href={localizedHref(language, "/blog", "/en/blog")} className="text-[rgba(255,255,255,.7)] hover:text-white transition-colors">
                                     Blog
                                 </Link>
-                                <Link href={localizedHref(language, "/hakkimizda", "/en/hakkimizda")} className="text-[rgba(255,255,255,.7)] hover:text-white transition-colors">
+                                <Link href={localizedHref(language, "/hakkimizda", "/en/about")} className="text-[rgba(255,255,255,.7)] hover:text-white transition-colors">
                                     {t("Hakkımızda", "About")}
                                 </Link>
                                 <Link href={localizedHref(language, "/iletisim", "/en/contact")} className="text-[rgba(255,255,255,.7)] hover:text-white transition-colors">

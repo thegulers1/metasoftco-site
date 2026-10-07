@@ -107,6 +107,11 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
                         </div>
                         <label>{form.brief}<textarea required name="brief" maxLength={2000} placeholder={form.briefPlaceholder} /></label>
                         <button className="p2-screen-button" type="submit" disabled={status === "sending"}>{submitLabel}<ArrowRight aria-hidden="true" /></button>
+                        <p className="p2-form-note">
+                            {locale === "en"
+                                ? <>The details you send are used only to respond to your request. See our <Link href="/gizlilik">Privacy Policy</Link> (Turkish).</>
+                                : <>Gönderdiğiniz bilgiler yalnızca talebinize dönüş yapmak için KVKK kapsamında işlenir. Ayrıntılar için <Link href="/gizlilik">Gizlilik Politikası</Link>.</>}
+                        </p>
                         {status === "error" && <p className="p2-form-error" role="alert">{form.error}</p>}
                     </form>
                 )}

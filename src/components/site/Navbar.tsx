@@ -19,7 +19,7 @@ const getMenu = (t: (tr: string, en: string) => string, lang: "tr" | "en") =>
             { href: "/en/projects", label: "Projects" },
             { href: "/en/services", label: "Services" },
             { href: "/en/products", label: "Product Sales" },
-            { href: "/en/hakkimizda", label: "About" },
+            { href: "/en/about", label: "About" },
             { href: "/en/contact", label: "Contact" },
         ]
         : [

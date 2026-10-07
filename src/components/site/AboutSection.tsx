@@ -33,7 +33,7 @@ export function AboutSection() {
                             )}
                         </p>
                         <Link
-                            href={language === "en" ? "/en/hakkimizda" : "/hakkimizda"}
+                            href={language === "en" ? "/en/about" : "/hakkimizda"}
                             className="inline-flex items-center gap-2 text-sm font-bold uppercase tracking-widest text-[#e5e5e5] border-b-2 border-white/20 pb-0.5 hover:text-white hover:border-white/50 transition-colors"
                         >
                             {t("Daha Fazla", "Learn More")}

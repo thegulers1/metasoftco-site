@@ -14,7 +14,7 @@ export function addHeadingAnchors(html: string): string {
     if (/\bid\s*=/i.test(attrs)) return `<${tag}${attrs}>${inner}</${tag}>`;
     const text = inner.replace(/<[^>]+>/g, "").trim();
     let slug = text
-      .toLowerCase()
+      .toLocaleLowerCase("tr")
       .replace(/ğ/g, "g").replace(/ü/g, "u").replace(/ş/g, "s")
       .replace(/ı/g, "i").replace(/ö/g, "o").replace(/ç/g, "c")
       .replace(/[^a-z0-9]+/g, "-")

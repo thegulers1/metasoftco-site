@@ -11,7 +11,7 @@ const ogDescription = "Etkinlik teknolojileri, yapay zeka ve dijital deneyimler 
 const ogImage = ogImageUrl(ogTitle, ogDescription);
 
 export const metadata: Metadata = {
-    title: "Blog",
+    title: "Blog: Etkinlik Teknolojileri ve Yapay Zeka | MetasoftCo",
     description: "Etkinlik teknolojileri, yapay zeka, photobooth ve dijital deneyimler üzerine MetasoftCo'nun güncel blog yazıları. Sektörden haberler, ipuçları ve başarı hikayeleri.",
     openGraph: {
         title: ogTitle,

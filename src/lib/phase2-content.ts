@@ -177,6 +177,7 @@ const en = {
 		storyParagraphs: [
 			"We bring creative direction, software, physical production and live operation together under one roof.",
 			"From concept to live delivery, we build experiences that are reliable, measurable and made to move people. We've been on stage for 100+ brands across product launches, trade shows and corporate events.",
+			"The company was founded in 2020 by brothers Selami Güler and Selçuk Güler. Its registered name is MetasoftCo Yazılım İletişim Hizmetleri Ticaret Limited Şirketi.",
 		],
 		stats: [
 			{ value: "1,000+", label: "Live events" },
@@ -192,6 +193,7 @@ const en = {
 		clientsTitle: "Brands we've worked with",
 		clients: [
 			"Adidas", "Akbank", "Allianz", "Garanti BBVA", "Defacto", "Ray-Ban",
+			"Mercedes-Benz", "Samsung", "Turkcell", "Vodafone", "Red Bull", "Nivea", "Haribo",
 			"Pegasus Airlines", "BSH", "Nesquik", "Akmerkez", "Central Bank of Turkey (TCMB)",
 			"Rollic", "Corny", "BUD", "AME'28", "Tavuk Dünyası", "Origins",
 		],
@@ -675,7 +677,7 @@ const tr: Phase2Copy = {
 	},
 
 	footer: {
-		tagline: "İstanbul Üniversitesi Teknopark'ta markalar ve ajanslar için geliştirdiğimiz yapay zekâ destekli deneyim teknolojileri.",
+		tagline: "İstanbul Teknokent'te markalar ve ajanslar için geliştirdiğimiz yapay zekâ destekli deneyim teknolojileri.",
 		exploreLabel: "KEŞFET",
 		contactLabel: "İLETİŞİM",
 		followLabel: "TAKİP EDİN",
@@ -776,6 +778,7 @@ const tr: Phase2Copy = {
 		storyParagraphs: [
 			"Yaratıcı fikir, yazılım, fiziksel üretim ve saha operasyonunu tek çatı altında topluyoruz.",
 			"İlk fikirden etkinlik gününe kadar güvenilir, ölçülebilir ve katılım yaratan deneyimler geliştiriyoruz. Ürün lansmanlarından fuar stantlarına, kurumsal etkinliklere kadar 100'den fazla marka için sahne aldık.",
+			"Şirketi 2020'de Selami Güler ve Selçuk Güler kardeşler kurdu. Ticari unvanımız MetasoftCo Yazılım İletişim Hizmetleri Ticaret Limited Şirketi'dir.",
 		],
 		stats: [
 			{ value: "1.000+", label: "Canlı etkinlik" },
@@ -797,6 +800,7 @@ const tr: Phase2Copy = {
 		clientsTitle: "Birlikte çalıştığımız markalar",
 		clients: [
 			"Adidas", "Akbank", "Allianz", "Garanti BBVA", "Defacto", "Ray-Ban",
+			"Mercedes-Benz", "Samsung", "Turkcell", "Vodafone", "Red Bull", "Nivea", "Haribo",
 			"Pegasus Hava Yolları", "BSH", "Nesquik", "Akmerkez", "Türkiye Cumhuriyet Merkez Bankası (TCMB)",
 			"Rollic", "Corny", "BUD", "AME'28", "Tavuk Dünyası", "Origins",
 		],

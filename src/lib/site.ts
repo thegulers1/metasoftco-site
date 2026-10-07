@@ -4,7 +4,7 @@ export const siteConfig = {
     name: "MetasoftCo",
     title: "MetasoftCo | Yapay Zeka Etkinlik & İnteraktif Aktivasyon Ajansı — İstanbul",
     description:
-        "Stable Diffusion, ControlNet ve AR teknolojileriyle kurgulanmış yapay zeka etkinlik çözümleri, interaktif aktivasyonlar ve uçtan uca prodüksiyon. İstanbul merkezli dijital deneyim ajansı.",
+        "Etkinlik, lansman ve fuarlar için yapay zeka destekli photobooth, interaktif oyun ve aktivasyon kiralama. Kurulum ve saha operasyonu dahil; İstanbul merkezli, Türkiye geneli hizmet.",
     url: "https://www.metasoftco.com",
     locale: "tr_TR",
 
@@ -50,9 +50,9 @@ export const siteConfig = {
 
     // Company Info (for structured data)
     company: {
-        legalName: "MetasoftCo",
+        legalName: "MetasoftCo Yazılım İletişim Hizmetleri Ticaret Limited Şirketi",
         foundingDate: "2020",
-        founders: ["Selami Güler"],
+        founders: ["Selami Güler", "Selçuk Güler"],
     },
 };
 

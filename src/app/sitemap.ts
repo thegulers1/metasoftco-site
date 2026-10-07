@@ -51,7 +51,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         entry("/gizlilik", staticLastModified, 0.3), entry("/kullanim-kosullari", staticLastModified, 0.3),
         entry("/en", staticLastModified, 0.9), entry("/en/services", staticLastModified, 0.8),
         entry("/en/projects", staticLastModified, 0.8), entry("/en/blog", staticLastModified, 0.7),
-        entry("/en/hakkimizda", staticLastModified, 0.7), entry("/en/contact", staticLastModified, 0.7),
+        entry("/en/about", staticLastModified, 0.7), entry("/en/contact", staticLastModified, 0.7),
         entry("/en/products", staticLastModified, 0.7),
         entry("/sektorel-yazilim-cozumleri", staticLastModified, 0.5),
         entry("/en/industry-software-solutions", staticLastModified, 0.5),

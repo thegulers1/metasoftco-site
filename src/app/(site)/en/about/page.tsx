@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: ogTitle,
         description: ogDescription,
-        url: `${siteConfig.url}/en/hakkimizda`,
+        url: `${siteConfig.url}/en/about`,
         siteName: siteConfig.name,
         images: [{ url: ogImage, width: 1200, height: 630, alt: ogTitle }],
         locale: "en_US",
@@ -25,11 +25,11 @@ export const metadata: Metadata = {
         images: [ogImage],
     },
     alternates: {
-        canonical: `${siteConfig.url}/en/hakkimizda`,
+        canonical: `${siteConfig.url}/en/about`,
         languages: {
             "x-default": `${siteConfig.url}/hakkimizda`,
             "tr": `${siteConfig.url}/hakkimizda`,
-            "en": `${siteConfig.url}/en/hakkimizda`,
+            "en": `${siteConfig.url}/en/about`,
         },
     },
 };

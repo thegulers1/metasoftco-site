@@ -226,6 +226,10 @@ export function Phase2Footer() {
             </div>
             <div className="p2-container p2-footer__base">
                 <span>© 2026 MetasoftCo</span>
+                <span className="p2-footer__legal">
+                    <Link href="/gizlilik">{locale === "en" ? "Privacy Policy (TR)" : "Gizlilik Politikası"}</Link>
+                    <Link href="/kullanim-kosullari">{locale === "en" ? "Terms of Use (TR)" : "Kullanım Koşulları"}</Link>
+                </span>
                 <span>{copy.baseline}</span>
             </div>
         </footer>

@@ -306,7 +306,7 @@ export default function NewServicePage() {
                                 value={service.title}
                                 onChange={(e) => {
                                     const title = e.target.value;
-                                    const slug = title.toLowerCase()
+                                    const slug = title.toLocaleLowerCase("tr")
                                         .replace(/ğ/g, 'g').replace(/ü/g, 'u')
                                         .replace(/ş/g, 's').replace(/ı/g, 'i')
                                         .replace(/ö/g, 'o').replace(/ç/g, 'c')
