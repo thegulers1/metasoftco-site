@@ -56,6 +56,12 @@ export interface DraftResult {
     unmatchedActivities: string[];
 }
 
+/** A rewrite of an existing service page, for review in the edit form. */
+export interface ServiceRevision {
+    draft: Draft;
+    missing: string[];
+}
+
 /** Shapes a draft into the body its create endpoint expects. Always unpublished. */
 export function draftToPayload(kind: DraftKind, draft: Draft): Record<string, unknown> {
     const json = <T,>(items: T[] | undefined) => (items && items.length > 0 ? JSON.stringify(items) : null);

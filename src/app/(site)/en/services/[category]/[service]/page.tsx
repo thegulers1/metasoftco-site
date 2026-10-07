@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { notFound } from "next/navigation";
+import { notFound, permanentRedirect, redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { siteConfig, generateServiceSchema, generateBreadcrumbSchema } from "@/lib/site";
 import { cloudinaryOgImage } from "@/lib/cloudinary";
@@ -78,8 +78,15 @@ export default async function EnglishServiceDetailPage({ params }: PageProps) {
     const categoryData = await getCategoryBySlugEn(category);
     if (!categoryData) notFound();
 
+    // A service whose English record is incomplete falls back to its live
+    // Turkish page (temporary: the English page may still be published later).
+    // Draft or deleted services permanently redirect to the services index,
+    // so old links and indexed URLs land somewhere useful instead of a 404.
     const service = await getServiceBySlugEn(serviceSlug, categoryData!.id);
-    if (!service || !isEnglishServicePublishable(service, categoryData!)) notFound();
+    if (!service || !isEnglishServicePublishable(service, categoryData!)) {
+        if (service?.published) redirect(`/hizmetler/${categoryData!.slug}/${service.slug}`);
+        permanentRedirect("/en/services");
+    }
 
     // Galeri parse et (eski string[] formatını ve yeni {url,alt}[] formatını destekle)
     const gallery: { url: string; alt: string }[] = service.gallery

@@ -8,6 +8,7 @@ import ImageUpload from "@/components/editpanel/ImageUpload";
 import GalleryUpload from "@/components/editpanel/GalleryUpload";
 import VideoUpload from "@/components/editpanel/VideoUpload";
 import RichTextEditor from "@/components/editpanel/RichTextEditor";
+import type { ServiceRevision } from "@/lib/ai-draft-shared";
 
 export const dynamic = 'force-dynamic';
 
@@ -84,6 +85,12 @@ export default function EditServicePage({
     const [loading, setLoading] = useState(true);
     const [saving, setSaving] = useState(false);
     const [translating, setTranslating] = useState(false);
+    // "AI ile güncelle": a note rewrites this page's fields in the form; nothing is saved until Kaydet.
+    const [aiOpen, setAiOpen] = useState(false);
+    const [aiBrief, setAiBrief] = useState("");
+    const [aiBusy, setAiBusy] = useState(false);
+    const [aiMissing, setAiMissing] = useState<string[] | null>(null);
+    const [beforeAi, setBeforeAi] = useState<Service | null>(null);
     const [activeTab, setActiveTab] = useState<"general" | "media" | "seo" | "content">("general");
 
     useEffect(() => {
@@ -177,6 +184,50 @@ export default function EditServicePage({
         }
     };
 
+    const handleAiRevise = async () => {
+        if (!service) return;
+        setAiBusy(true);
+        try {
+            const res = await fetch("/api/ai/draft", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ kind: "service", serviceId: id, brief: aiBrief }),
+            });
+            const data = await res.json().catch(() => ({ error: "Sunucu yanıt vermedi (süre aşımı olabilir)." }));
+            if (!res.ok) throw new Error(data.error || "Sayfa yeniden yazılamadı");
+            const { draft, missing } = data as ServiceRevision;
+            const json = (items: unknown[]) => (items.length > 0 ? JSON.stringify(items) : null);
+            // Keep the first pre-AI version, so "Geri al" still works after a second attempt.
+            setBeforeAi((previous) => previous ?? service);
+            setService({
+                ...service,
+                title: draft.title,
+                homeTitle: draft.homeTitle || service.homeTitle,
+                description: draft.summary,
+                content: draft.content,
+                metaTitle: draft.metaTitle,
+                metaDescription: draft.metaDescription,
+                metaKeywords: draft.metaKeywords,
+                faq: json(draft.faq),
+                outputType: draft.outputType || service.outputType,
+                title_en: draft.title_en,
+                homeTitle_en: draft.homeTitle_en || service.homeTitle_en,
+                description_en: draft.summary_en,
+                content_en: draft.content_en,
+                metaTitle_en: draft.metaTitle_en,
+                metaDescription_en: draft.metaDescription_en,
+                metaKeywords_en: draft.metaKeywords_en,
+                faq_en: json(draft.faq_en),
+            });
+            setAiMissing(missing);
+            showToast("Alanlar dolduruldu. Kontrol edip Kaydet'e basın.", "success");
+        } catch (error) {
+            showToast(error instanceof Error ? error.message : "Sayfa yeniden yazılamadı", "error");
+        } finally {
+            setAiBusy(false);
+        }
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         if (!service) return;
@@ -265,6 +316,81 @@ export default function EditServicePage({
                         </>
                     )}
                 </button>
+            </div>
+
+            {/* AI revise */}
+            <div className="mb-6 bg-white rounded-2xl shadow-sm">
+                <button
+                    type="button"
+                    onClick={() => setAiOpen(!aiOpen)}
+                    aria-expanded={aiOpen}
+                    className="w-full flex items-center justify-between px-6 py-4 text-left"
+                >
+                    <span>
+                        <span className="block text-sm font-semibold text-black">AI ile güncelle</span>
+                        <span className="block text-xs text-black/50">
+                            Neyin değişmesi gerektiğini yazın; başlık, açıklama, içerik, SEO alanları ve SSS yeniden yazılıp forma doldurulur.
+                        </span>
+                    </span>
+                    <span className="text-black/40 text-lg leading-none">{aiOpen ? "−" : "+"}</span>
+                </button>
+                {aiOpen && (
+                    <div className="px-6 pb-6 space-y-3">
+                        <textarea
+                            value={aiBrief}
+                            onChange={(e) => setAiBrief(e.target.value)}
+                            rows={5}
+                            placeholder="Örnek: Bu hizmet artık kabin içinde çekiliyor. Katılımcı kabine giriyor, ekrandan kapak tasarımını seçiyor, fotoğrafı çekiliyor ve baskısını alıyor. 4 m² alan yetiyor, saatte 50 kişi. 'magazin fotoğraf kabini' aramasında çıkmak istiyoruz."
+                            className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-sm text-black focus:outline-none focus:ring-2 focus:ring-black"
+                        />
+                        <p className="text-xs text-black/40">
+                            Yazmadığınız ölçü ve kapasite uydurulmaz; eksikler aşağıda soru olarak listelenir. Sayfanın adresi ve kategorisi değişmez.
+                            Hiçbir şey kendiliğinden kaydedilmez.
+                        </p>
+                        <div className="flex items-center gap-3">
+                            <button
+                                type="button"
+                                onClick={handleAiRevise}
+                                disabled={aiBusy || aiBrief.trim().length < 20}
+                                className="px-4 py-2 bg-black text-white text-sm font-medium rounded-lg hover:bg-black/80 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                {aiBusy ? "Yeniden yazılıyor… (1–2 dk sürebilir)" : "Alanları doldur"}
+                            </button>
+                            {beforeAi && !aiBusy && (
+                                <button
+                                    type="button"
+                                    onClick={() => {
+                                        setService(beforeAi);
+                                        setBeforeAi(null);
+                                        setAiMissing(null);
+                                    }}
+                                    className="px-4 py-2 bg-black/5 text-black text-sm font-medium rounded-lg hover:bg-black/10 transition"
+                                >
+                                    Geri al
+                                </button>
+                            )}
+                        </div>
+                        {aiMissing && (
+                            <div className="p-4 bg-amber-50 rounded-lg">
+                                <p className="text-sm font-medium text-amber-900">
+                                    Alanlar dolduruldu, henüz kaydedilmedi. Sekmeleri kontrol edip Kaydet&apos;e basın.
+                                </p>
+                                {aiMissing.length > 0 && (
+                                    <>
+                                        <p className="mt-3 text-xs font-medium text-amber-900">
+                                            Eksik kalan bilgiler (notunuza ekleyip yeniden deneyebilirsiniz):
+                                        </p>
+                                        <ul className="mt-1 list-disc pl-5 text-xs text-amber-900 space-y-1">
+                                            {aiMissing.map((question) => (
+                                                <li key={question}>{question}</li>
+                                            ))}
+                                        </ul>
+                                    </>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                )}
             </div>
 
             {/* Tabs */}

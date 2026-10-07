@@ -7,7 +7,7 @@ import OpenAI from "openai";
 import { prisma } from "./db";
 import { COMPANY_FACTS } from "./llms";
 import { SOFTWARE_CATEGORY_SLUG } from "./software";
-import type { DraftKind, DraftResult } from "./ai-draft-shared";
+import type { Draft, DraftKind, DraftResult, ServiceRevision } from "./ai-draft-shared";
 
 const MODEL = process.env.OPENAI_CONTENT_MODEL || "gpt-5.5";
 
@@ -22,6 +22,7 @@ const PRODUCT_FACTS = [
     "Mirror Booth: 4 m² alan, saatte 60–80 kişi.",
     "360 Video Booth: 3 m² alan, saatte 40–50 kişi, baskı yok.",
     "Cabin Photo: 5 m² alan, saatte yaklaşık 50 kişi.",
+    "Magazine Cover (Magazin Fotoğraf Kabini): kabin ölçüsü 230 × 180 × 120 cm (yükseklik × genişlik × derinlik), saatte 70–80 kişi; çıktı hem baskı hem QR ile dijital.",
 ];
 
 const string = { type: "string" } as const;
@@ -335,4 +336,94 @@ export async function generateDrafts(kind: DraftKind, brief: string): Promise<Dr
         if (draft.projectDate && !/^\d{4}-\d{2}-\d{2}$/.test(draft.projectDate)) draft.projectDate = null;
     }
     return { kind, ...result };
+}
+
+const REVISION_PROMPT = `${INTRO}
+Sitede yayında olan bir kiralama hizmeti sayfasını, ekibin notuna göre YENİDEN YAZACAKSIN. Sayfanın şu anki hali ve ekibin notu sana verilecek. "drafts" içinde tam olarak BİR taslak döndür: sayfanın yeni hali.
+
+# Kaynak önceliği
+- Ekibin notu en güncel kaynaktır: hizmetin nasıl çalıştığını not farklı anlatıyorsa notu esas al ve eski anlatımı bırak.
+- Sayfanın şu anki halindeki somut bilgiler (alan, kapasite, çıktı türü) notla çelişmiyorsa korunur. Notla çelişen ya da nota göre artık geçersiz olan bilgi yeni metne alınmaz.
+- Notta bir web adresi ya da başka bir firmanın adı geçiyorsa bu yalnızca ne kastedildiğini anlatmak içindir: o sayfayı göremezsin, içeriğini tahmin etme, firma adını ya da adresi metne yazma.
+
+${SHARED_RULES}
+
+# Arama hedefi
+- Notta hedeflenen bir arama ifadesi ya da "şu aramalarda çıkalım" isteği varsa o ifadeyi title, metaTitle, ilk <h2>, metaDescription ve metaKeywords içinde doğal biçimde kullan. Yoksa sayfanın şu anki arama hedefini koru.
+- İnsanların aynı hizmeti aradığı Türkçe ve İngilizce adları (ör. "magazin fotoğraf kabini", "dergi kapağı photobooth") metaKeywords içinde ve metinde doğal düştüğü yerde geçir. Arama ifadelerini sıralayan cümle ya da SSS sorusu ("hangi adlarla aranır" gibi) yazma.
+
+# Hizmet alanları
+- title: "<Hizmet adı> Kiralama" biçiminde. homeTitle: yalnızca hizmetin kısa adı.
+- slug, slug_en ve categoryId: sayfanın şu anki değerlerini AYNEN geri yaz; adres değişmez.
+- outputType: katılımcı bir şey almıyorsa "none"; yalnızca dijital çıktı/QR varsa "digital"; fiziksel baskı da varsa "print". Nottan anlaşılmıyorsa şu anki değeri koru.
+- summary: hizmeti bir-iki cümleyle anlatan kısa açıklama, en fazla 200 karakter.
+- content: bir <h2> ile başla; şu sırayla <h3> bölümleri: "Nasıl çalışır?" (katılımcının adım adım deneyimi), "Markaya özel tasarım", "Alan ve kurulum" (yalnızca kaynaklardaki ölçülerle; hizmete özgü rakam yoksa genel kurulum bilgileri), "Hangi etkinliklere uygun?".
+- metaTitle: "<Hizmet adı> Kiralama | <kısa ayırt edici ifade> — MetasoftCo". Ayırt edici ifade hizmetin ne verdiğini söyler (ör. "Dergi Kapağı Fotoğraf Baskısı"), hizmet adındaki bir kelimeyi tekrar etmez.
+- faq: bu hizmeti kiralamayı düşünen birinin soracağı 3–5 soru; cevaplar kaynaklardan. Cevabı bilinmeyen soru yazma.
+- "missing": sayfayı güçlendirecek ama kaynaklarda olmayan bilgileri (alan m², saatlik kapasite, çıktı türü, referans proje) soru olarak yaz. Kaynaklarda zaten olan bilgiyi sorma.
+- unmatchedActivities boş liste, instagramCaption boş metin döner.
+
+${facts()}`;
+
+/**
+ * Rewrites an existing service page from a team note. Nothing is saved: the
+ * editor reviews the result in the edit form. The address and category stay
+ * as they are, whatever the model returns, so published URLs keep working.
+ */
+export async function reviseService(serviceId: string, brief: string): Promise<ServiceRevision> {
+    const service = await prisma.service.findUnique({ where: { id: serviceId }, include: { category: true } });
+    if (!service) throw new Error("Hizmet bulunamadı");
+
+    const current = [
+        `Başlık: ${service.title}`,
+        `Kısa ad: ${service.homeTitle ?? ""}`,
+        `Kategori: ${service.category.name}`,
+        `slug: ${service.slug} | slug_en: ${service.slug_en ?? ""} | categoryId: ${service.categoryId} | outputType: ${service.outputType}`,
+        `Kısa açıklama: ${service.description ?? ""}`,
+        `Meta başlık: ${service.metaTitle ?? ""}`,
+        `Meta açıklama: ${service.metaDescription ?? ""}`,
+        `Anahtar kelimeler: ${service.metaKeywords ?? ""}`,
+        `Teknik özellikler: ${service.specs ?? ""}`,
+        `SSS: ${service.faq ?? ""}`,
+        `İçerik: ${service.content ?? ""}`,
+    ].join("\n");
+
+    const extra = {
+        categoryId: { type: "string", enum: [service.categoryId] },
+        homeTitle: string,
+        homeTitle_en: string,
+        outputType: { type: "string", enum: ["none", "digital", "print"] },
+    };
+    const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+    const completion = await openai.chat.completions.create({
+        model: MODEL,
+        messages: [
+            { role: "system", content: REVISION_PROMPT },
+            { role: "user", content: `# Sayfanın şu anki hali\n${current}\n\n# Ekibin notu\n${brief}` },
+        ],
+        response_format: {
+            type: "json_schema",
+            json_schema: { name: "service_revision", strict: true, schema: responseSchema(extra) },
+        },
+    });
+
+    const raw = completion.choices[0]?.message?.content;
+    if (!raw) throw new Error("Model boş yanıt döndürdü");
+    const result = JSON.parse(raw) as { drafts: Draft[]; missing: string[] };
+    const draft = result.drafts[0];
+    if (!draft) throw new Error("Model taslak döndürmedi");
+
+    // Only this site's own pages may be linked from the rewritten copy.
+    const stripLinks = (html: string) => stripUnsafeHtml(html).replace(/<a\s[^>]*href=["'](?!\/)[^"']*["'][^>]*>([\s\S]*?)<\/a>/gi, "$1");
+    return {
+        draft: {
+            ...draft,
+            slug: service.slug,
+            slug_en: service.slug_en ?? "",
+            categoryId: service.categoryId,
+            content: stripLinks(draft.content),
+            content_en: stripUnsafeHtml(draft.content_en).replace(/<a\s[^>]*>([\s\S]*?)<\/a>/gi, "$1"),
+        },
+        missing: result.missing,
+    };
 }

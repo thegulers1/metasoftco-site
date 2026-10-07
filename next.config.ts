@@ -244,6 +244,9 @@ const nextConfig: NextConfig = {
       { source: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/360-video-booth", destination: "/hizmetler/video/360-video-booth", permanent: true },
       { source: "/hashtag-photo", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari", permanent: true },
       { source: "/hashtag-photo/", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari", permanent: true },
+
+      // GSC 404 doğrulaması (2026-10): 360 Video Booth "video" kategorisine taşındı.
+      { source: "/en/services/photobooth-and-photo-activations/360-video-booth", destination: "/en/services/video/360-video-booth", permanent: true },
     ];
   },
 

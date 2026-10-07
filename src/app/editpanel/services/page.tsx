@@ -136,6 +136,34 @@ export default async function AdminServicesPage() {
                                                     </svg>
                                                     Düzenle
                                                 </Link>
+                                                {service.published ? (
+                                                    <a
+                                                        href={
+                                                            service.type === "SALE"
+                                                                ? `/urunler/${service.slug}`
+                                                                : `/hizmetler/${category.slug}/${service.slug}`
+                                                        }
+                                                        target="_blank"
+                                                        rel="noopener noreferrer"
+                                                        title="Sayfayı yeni sekmede aç"
+                                                        className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-black/5 text-black rounded-lg hover:bg-black/10 transition"
+                                                    >
+                                                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                                        </svg>
+                                                        Görüntüle
+                                                    </a>
+                                                ) : (
+                                                    <span
+                                                        title="Taslak: sayfa yayında olmadığı için açılamaz"
+                                                        className="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium bg-black/5 text-black/30 rounded-lg cursor-not-allowed"
+                                                    >
+                                                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                                                        </svg>
+                                                        Görüntüle
+                                                    </span>
+                                                )}
                                                 <ServiceDuplicateButton
                                                     serviceId={service.id}
                                                     serviceTitle={service.title}
