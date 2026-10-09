@@ -88,4 +88,5 @@ export const excludedSectorPageSlugs = new Set([
     ...cityLandingSlugs,
     "kurumsal-etkinlik-teknolojisi",
     "fuar-aktivasyonlari",
+    "magaza-ici-kalici-photobooth",
 ]);

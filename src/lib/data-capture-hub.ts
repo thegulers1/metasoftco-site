@@ -110,6 +110,14 @@ export const dataCaptureHub = {
     faqTitle: "Sıkça sorulan sorular",
     faq: [
         {
+            q: "Marka aktivasyonunda katılımcı verisi toplayan fotoğraf sistemi var mı?",
+            a: "Evet. MetasoftCo'nun photobooth ve yapay zekâ fotoğraf sistemlerine Data-Capture modülü eklenebilir: katılımcı fotoğrafına ulaşmak için QR kodu okutur ve markaya özel formu doldurur, kayıt panelinize anlık düşer.",
+        },
+        {
+            q: "Fotoğraf aktivasyonunda veri toplama adımı deneyimi yavaşlatır mı?",
+            a: "Form katılımcının kendi telefonunda açılır, bu yüzden kiosk önündeki sırayı etkilemez. Formda yalnızca gerçekten kullanacağınız alanları sormanızı öneririz; alan sayısı arttıkça formu dolduranların oranı düşer.",
+        },
+        {
             q: "Data-Capture modülü hangi aktivitelere eklenebilir?",
             a: "AI fotoğraf, photobooth, video booth ve interaktif oyunlar gibi katılımcının tek tek deneyim yaşadığı aktivasyonların büyük çoğunluğuna eklenebilir. Her hizmet sayfasında modülün uygun olup olmadığı belirtilir.",
         },
