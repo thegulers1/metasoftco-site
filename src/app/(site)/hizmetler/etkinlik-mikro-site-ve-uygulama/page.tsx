@@ -11,7 +11,8 @@ import { SOFTWARE_CATEGORY_PATH } from "@/lib/software";
 import { rentalAreaServed } from "@/lib/rental-ops";
 import { AlternateUrl } from "../data-capture-crm/AlternateUrl";
 
-export const revalidate = 3600;
+// Read database content at request time; Docker builds have no database access.
+export const dynamic = "force-dynamic";
 
 const url = `${siteConfig.url}${EVENT_SOFTWARE_HUB_PATH}`;
 

@@ -3,7 +3,8 @@ import { siteConfig, ogImageUrl } from "@/lib/site";
 import { getPresentationDeck } from "@/lib/presentation";
 import SunumClient from "./SunumClient";
 
-export const revalidate = 300;
+// Read database content at request time; Docker builds have no database access.
+export const dynamic = "force-dynamic";
 
 const title = "Sunum 2026 | MetasoftCo Hizmet Sunumu (PDF)";
 const description =

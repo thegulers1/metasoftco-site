@@ -5,7 +5,8 @@ import { siteConfig } from "@/lib/site";
 import CityLandingClient from "@/components/site/CityLandingClient";
 import { isEnglishSectorPagePublishable } from "@/lib/publication";
 
-export const revalidate = 3600;
+// Read database content at request time; Docker builds have no database access.
+export const dynamic = "force-dynamic";
 
 const SLUG = "kurumsal-etkinlik-teknolojisi";
 

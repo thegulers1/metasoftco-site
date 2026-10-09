@@ -4,7 +4,8 @@ import { prisma } from "@/lib/db";
 import { siteConfig, ogImageUrl } from "@/lib/site";
 import InsightsIndexPrototype from "@/components/phase2/InsightsIndexPrototype";
 
-export const revalidate = 3600;
+// Read database content at request time; Docker builds have no database access.
+export const dynamic = "force-dynamic";
 
 const ogTitle = "Blog | MetasoftCo";
 const ogDescription = "Etkinlik teknolojileri, yapay zeka ve dijital deneyimler üzerine yazılar.";

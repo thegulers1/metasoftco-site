@@ -5,7 +5,8 @@ import { siteConfig, ogImageUrl } from "@/lib/site";
 import { capabilityListingImageOverrides } from "@/lib/phase2-content";
 import ProductsIndexPrototype from "@/components/phase2/ProductsIndexPrototype";
 
-export const revalidate = 3600;
+// Read database content at request time; Docker builds have no database access.
+export const dynamic = "force-dynamic";
 
 const ogTitle = "Sistem Satışı & Kalıcı Kurulum | Anahtar Teslim İnteraktif Sistemler — MetasoftCo";
 const ogDescription = "Kurumunuz için tasarlanan, üretilen ve kalıcı olarak kurulan anahtar teslim interaktif sistemler.";

@@ -5,7 +5,8 @@ import { siteConfig, generateFAQSchema, generateBreadcrumbSchema, ogImageUrl } f
 import { capabilityListingImageOverrides } from "@/lib/phase2-content";
 import CapabilitiesIndexPrototype from "@/components/phase2/CapabilitiesIndexPrototype";
 
-export const revalidate = 3600;
+// Read database content at request time; Docker builds have no database access.
+export const dynamic = "force-dynamic";
 
 const ogTitle = "İnteraktif Etkinlik Hizmetleri | Yapay Zeka, Photobooth & Aktivasyon — MetasoftCo";
 const ogDescription = "Yapay zeka fotoğraf aktivasyonları, interaktif oyunlar, photobooth ve AR deneyimleri. MetasoftCo ile etkinliğinizi unutulmaz kılın.";

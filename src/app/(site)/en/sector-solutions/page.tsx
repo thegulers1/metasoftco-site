@@ -5,7 +5,8 @@ import { siteConfig, ogImageUrl } from "@/lib/site";
 import SektorelCozumlerClient from "../../sektorel-cozumler/SektorelCozumlerClient";
 import { cityLandingSlugs, isEnglishSectorPagePublishable } from "@/lib/publication";
 
-export const revalidate = 3600;
+// Read database content at request time; Docker builds have no database access.
+export const dynamic = "force-dynamic";
 
 const ogTitle = "Sector Software Solutions | MetasoftCo";
 const ogDescription = "Digital solutions tailored for different sectors.";

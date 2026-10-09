@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { siteConfig, generateFAQSchema, generateBreadcrumbSchema } from "@/lib/site";
-import { getSectorBySlug, getSectors, hasEnglish } from "@/lib/industry-pages";
+import { getSectorBySlug, hasEnglish } from "@/lib/industry-pages";
 import { addHeadingAnchors } from "@/lib/utils";
 import CtaSection from "@/components/site/CtaSection";
 import TrackedCtaLink from "@/components/site/TrackedCtaLink";
@@ -11,11 +11,8 @@ interface PageProps {
     params: Promise<{ sektor: string }>;
 }
 
-export const revalidate = 3600;
-
-export async function generateStaticParams() {
-    return (await getSectors()).map((s) => ({ sektor: s.slug }));
-}
+// Read database content at request time; Docker builds have no database access.
+export const dynamic = "force-dynamic";
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { sektor } = await params;

@@ -4,7 +4,8 @@ import { prisma } from "@/lib/db";
 import { siteConfig, generateBreadcrumbSchema } from "@/lib/site";
 import WorkIndexPrototype from "@/components/phase2/WorkIndexPrototype";
 
-export const revalidate = 3600;
+// Read database content at request time; Docker builds have no database access.
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
     title: "Projeler | Yapay Zeka & İnteraktif Aktivasyon Referansları — MetasoftCo",

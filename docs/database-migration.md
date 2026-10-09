@@ -72,6 +72,17 @@ connected environment before deploying the image. `.dockerignore` excludes
 `.db-backups` as well as `.env` files, so backups and source credentials are not
 sent in the build context.
 
+Database-backed home, listing, and fixed service pages render at request time,
+so Next.js does not query PostgreSQL while prerendering the image. The generated
+`/llms.txt` and `/llms-full.txt` catalogues also defer reads until runtime and
+retain an hourly data cache. Existing `unstable_cache` query caches retain their
+configured lifetimes. Industry detail routes also render at request time without
+`generateStaticParams`. The root layout reads request headers to choose the page
+language, so these routes cannot use static generation with an empty params list.
+Do not enumerate database slugs during the build or cache an empty result when
+the database is unavailable. The running application still requires a reachable
+`DATABASE_URL`.
+
 This migration is a snapshot, not ongoing replication. If the old production app
 writes to Supabase before its deployment switches to the new database, reconcile
 those later changes before the production switch. Do not run the seed scripts to

@@ -6,7 +6,8 @@ import { capabilityListingImageOverrides } from "@/lib/phase2-content";
 import ProductsIndexPrototype from "@/components/phase2/ProductsIndexPrototype";
 import { isEnglishServicePublishable } from "@/lib/publication";
 
-export const revalidate = 3600;
+// Read database content at request time; Docker builds have no database access.
+export const dynamic = "force-dynamic";
 
 const ogTitle = "Permanent System Sales & Turnkey Installation | MetasoftCo";
 const ogDescription = "Turnkey interactive systems designed, built, and permanently installed for your organization.";

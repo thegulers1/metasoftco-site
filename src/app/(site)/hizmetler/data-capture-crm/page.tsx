@@ -12,7 +12,8 @@ import { EVENT_SOFTWARE_HUB_PATH } from "@/lib/event-software-hub";
 import { AlternateUrl } from "./AlternateUrl";
 import { PanelMockup } from "./PanelMockup";
 
-export const revalidate = 3600;
+// Read database content at request time; Docker builds have no database access.
+export const dynamic = "force-dynamic";
 
 const url = `${siteConfig.url}${DATA_CAPTURE_HUB_PATH}`;
 

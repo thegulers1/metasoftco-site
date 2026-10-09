@@ -6,7 +6,8 @@ import CapabilitiesIndexPrototype from "@/components/phase2/CapabilitiesIndexPro
 import { isEnglishCategoryPublishable, isEnglishServicePublishable } from "@/lib/publication";
 import { capabilityListingImageOverrides } from "@/lib/phase2-content";
 
-export const revalidate = 3600;
+// Read database content at request time; Docker builds have no database access.
+export const dynamic = "force-dynamic";
 
 const ogTitle = "Interactive Event Services & Digital Activations | MetasoftCo";
 const ogDescription = "Explore our AI, photo & video, and interactive event services.";

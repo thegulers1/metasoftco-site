@@ -5,7 +5,8 @@ import { siteConfig, ogImageUrl } from "@/lib/site";
 import InsightsIndexPrototype from "@/components/phase2/InsightsIndexPrototype";
 import { isEnglishBlogPostPublishable } from "@/lib/publication";
 
-export const revalidate = 3600;
+// Read database content at request time; Docker builds have no database access.
+export const dynamic = "force-dynamic";
 
 const ogTitle = "Blog | MetasoftCo";
 const ogDescription = "Insights on event technology, AI, and digital experiences.";

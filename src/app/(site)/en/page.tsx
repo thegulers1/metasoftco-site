@@ -6,7 +6,8 @@ import { isEnglishProjectPublishable } from "@/lib/publication";
 import HomePrototype from "@/components/phase2/HomePrototype";
 import { getHomeHeroImage } from "@/lib/home-hero";
 
-export const revalidate = 3600;
+// Read database content at request time; Docker builds have no database access.
+export const dynamic = "force-dynamic";
 
 const pageTitle = "AI Event Activations & Experiential Technology | MetasoftCo";
 const pageDescription = "AI-powered photo, video, games and interactive installations for brands and agencies—from creative concept and software to on-site production.";

@@ -3,7 +3,8 @@ import { siteConfig } from "@/lib/site";
 import SektorelYazilimClient from "./SektorelYazilimClient";
 import { getSectors } from "@/lib/industry-pages";
 
-export const revalidate = 3600;
+// Read database content at request time; Docker builds have no database access.
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
     title: "Sektörel Yazılım Çözümleri ve Dijital Dönüşüm | MetasoftCo",

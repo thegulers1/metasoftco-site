@@ -3,7 +3,8 @@ import { siteConfig, ogImageUrl } from "@/lib/site";
 import SektorelYazilimClient from "@/app/(site)/sektorel-yazilim-cozumleri/SektorelYazilimClient";
 import { getSectors, hasEnglish } from "@/lib/industry-pages";
 
-export const revalidate = 3600;
+// Read database content at request time; Docker builds have no database access.
+export const dynamic = "force-dynamic";
 
 const ogTitle = "Industry-Specific Software & Digital Transformation | MetasoftCo";
 const ogDescription = "Interactive event and software solutions tailored for your industry.";

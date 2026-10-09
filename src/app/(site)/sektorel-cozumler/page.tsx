@@ -5,7 +5,8 @@ import { siteConfig, ogImageUrl } from "@/lib/site";
 import { excludedSectorPageSlugs } from "@/lib/publication";
 import SektorelCozumlerClient from "./SektorelCozumlerClient";
 
-export const revalidate = 3600;
+// Read database content at request time; Docker builds have no database access.
+export const dynamic = "force-dynamic";
 
 const ogTitle = "Sektörel Çözümler | Moda, Finans, Otomotiv & Daha Fazlası — MetasoftCo";
 const ogDescription = "Sektörünüze özel interaktif aktivasyon ve yapay zeka etkinlik çözümleri. Moda'dan otomotive, finanstan perakendeye.";

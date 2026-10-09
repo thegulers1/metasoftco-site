@@ -5,7 +5,8 @@ import { siteConfig } from "@/lib/site";
 import HomePrototype from "@/components/phase2/HomePrototype";
 import { getHomeHeroImage } from "@/lib/home-hero";
 
-export const revalidate = 3600;
+// Read database content at request time; Docker builds have no database access.
+export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
     title: siteConfig.title,
