@@ -14,21 +14,10 @@ function createPrismaClient() {
         throw new Error("DATABASE_URL environment variable is not set");
     }
 
-    const connectionUrl = new URL(configuredConnectionString);
-    // Supabase pooler port 5432 is session mode. The audit reproduced
-    // EMAXCONNSESSION there under concurrent Next workers. Runtime traffic
-    // must use the transaction pool; DIRECT_URL remains available for Prisma
-    // migrations and other direct administrative work.
-    if (connectionUrl.hostname.endsWith(".pooler.supabase.com") && connectionUrl.port === "5432") {
-        connectionUrl.port = "6543";
-    }
-    const connectionString = connectionUrl.toString();
-
     if (!global.poolGlobal) {
         global.poolGlobal = new Pool({
-            connectionString,
-            // Transaction pooling makes a modest per-process queue safe while
-            // avoiding the session-pool exhaustion reproduced in the audit.
+            connectionString: configuredConnectionString,
+            // Bound connections per Next.js worker to avoid exhausting PostgreSQL.
             max: Number(process.env.DATABASE_POOL_MAX ?? 5),
             idleTimeoutMillis: 5000,
             connectionTimeoutMillis: 5000,

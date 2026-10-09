@@ -3,10 +3,10 @@ import { PrismaPg } from "@prisma/adapter-pg";
 import { Pool } from "pg";
 import "dotenv/config";
 
-const connectionString = process.env.DIRECT_URL || process.env.DATABASE_URL;
+const connectionString = process.env.DATABASE_URL;
 
 if (!connectionString) {
-    throw new Error("DIRECT_URL veya DATABASE_URL tanımlı değil.");
+    throw new Error("DATABASE_URL tanımlı değil.");
 }
 
 const pool = new Pool({ connectionString });

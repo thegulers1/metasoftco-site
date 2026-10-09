@@ -2,6 +2,20 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
+The application, Prisma CLI, and seed/import scripts use only `DATABASE_URL`.
+For local development against the private Coolify PostgreSQL database, keep
+`metasoftco-db-ssh` running in a separate terminal and use this local `.env` value:
+
+```dotenv
+DATABASE_URL="postgresql://metasoftco:<password>@127.0.0.1:15432/metasoftco-site"
+```
+
+On Coolify, set `DATABASE_URL` to the database's internal URL and attach the app
+to the same `coolify` Docker network. `DIRECT_URL` is no longer used.
+
+See [the database migration record](docs/database-migration.md) for backup and
+verification details. Seeds are not required after restoring the existing data.
+
 First, run the development server:
 
 ```bash

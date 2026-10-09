@@ -4,7 +4,8 @@ import { Pool } from "pg";
 import bcrypt from "bcryptjs";
 import "dotenv/config";
 
-const connectionString = process.env.DIRECT_URL!;
+const connectionString = process.env.DATABASE_URL;
+if (!connectionString) throw new Error("DATABASE_URL environment variable is not set");
 const pool = new Pool({ connectionString });
 const adapter = new PrismaPg(pool);
 

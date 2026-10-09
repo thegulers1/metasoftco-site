@@ -21,10 +21,11 @@ ENV NEXT_DISABLE_ESLINT=1
 ENV NEXT_TELEMETRY_DISABLED=1
 # Prisma'nın DB'ye bağlanmadan client generate etmesi için dummy URL
 ENV DATABASE_URL="postgresql://build:build@localhost:5432/build"
-ENV DIRECT_URL="postgresql://build:build@localhost:5432/build"
 
 RUN pnpm prisma generate
-RUN pnpm build
+# The private database is available to the running application, not the image
+# builder. Keep the regular pnpm build database check for connected local builds.
+RUN pnpm typecheck && pnpm exec next build
 
 # Production runner
 FROM base AS runner
