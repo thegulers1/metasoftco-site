@@ -1,0 +1,340 @@
+import { phase2CategorySlugs, phase2Routes, type Phase2Locale } from "@/lib/phase2";
+import { SOFTWARE_CATEGORY_PATH } from "@/lib/software";
+
+/**
+ * Copy for the "Hatıra Masası" homepage designed in Claude Design (October
+ * 2026). Every number is a verified operational fact — 1,000+ events, five
+ * years since the 2020 founding, the ten cities on record — and every
+ * "Referans" names a published project, so do not round up or invent.
+ * Project names and counts come from the database at request time.
+ */
+
+/** Service slugs (Turkish) whose editpanel image feeds the hover preview. */
+export const homeServiceImageSlugs = [
+    "ai-photobooth-kirala",
+    "ai-greenbox-kiralama",
+    "ai-football-card",
+    "ai-draw-portre-cizim",
+    "photobooth-kirala",
+    "strip-photo",
+    "cabin-photo",
+    "glow-box-photo",
+    "dijital-hediye-carki-aktivasyonu",
+    "quiz-bilgi-yarismasi",
+] as const;
+
+/** Project slugs whose cover image is used by the hero souvenirs or a service preview. */
+export const homeProjectImageSlugs = {
+    rayban: "ray-ban-x-strip-photo",
+    tcmb: "tcmb-ai-greenbox-dijital-fotograf-aktivasyonu-istanbul-finans-merkezi",
+    adidas: "adidas-evo-sl-x-ai-try-on-photo",
+} as const;
+
+/** Stable cart keys; the souvenirs on the hero table point at these too. */
+export type HomeServiceKey =
+    | "ai-photo" | "ai-greenbox" | "ai-try-on" | "ai-football-card" | "ai-draw" | "photobooth"
+    | "strip-photo" | "cabin-photo" | "glow-box" | "gift-wheel" | "game-quiz" | "software";
+
+type HomeServiceDef = {
+    key: HomeServiceKey;
+    name: string;
+    desc: string;
+    href: string;
+    image: { service: (typeof homeServiceImageSlugs)[number] } | { project: keyof typeof homeProjectImageSlugs } | null;
+};
+
+type HomeRoutes = Record<keyof typeof phase2Routes.tr, string>;
+
+const trCats = phase2CategorySlugs.tr;
+const enCats = phase2CategorySlugs.en;
+
+const tr = {
+    routes: phase2Routes.tr as HomeRoutes,
+    locales: { tr: phase2Routes.tr.home as string, en: phase2Routes.en.home as string },
+    nav: [
+        { href: phase2Routes.tr.work, label: "PROJELER" },
+        { href: phase2Routes.tr.capabilities, label: "HİZMETLER" },
+        { href: phase2Routes.tr.products, label: "SİSTEM SATIŞI" },
+        { href: SOFTWARE_CATEGORY_PATH, label: "YAZILIM" },
+        { href: phase2Routes.tr.about, label: "HAKKIMIZDA" },
+    ],
+    navAria: "Ana menü",
+    skipLink: "İçeriğe geç",
+    homeAria: "MetasoftCo anasayfa",
+    menuOpen: "Menüyü aç",
+    menuClose: "Menüyü kapat",
+    menuLabel: "MENÜ",
+    localeAria: { tr: "Türkçe", en: "English" },
+    cartButton: (n: number) => `SEPET (${n})`,
+    quoteCta: "TEKLİF AL ↗",
+    cursor: { go: "GİT", write: "YAZ", view: "İNCELE", all: "TÜMÜ", cart: "SEPET", add: "EKLE", remove: "ÇIKAR", ask: "SOR", grab: "TUT", holding: "TUTTUN", flip: "ÇEVİR", plus: "+ EKLE", added: "EKLENDİ" },
+    introWords: ["FİKİR", "YAZILIM", "FİZİKSEL ÜRETİM", "SAHA OPERASYONU"],
+    heroKicker: "(01) — YAPAY ZEKÂ DESTEKLİ DENEYİM TEKNOLOJİLERİ",
+    heroTitle: "Markaların ruhunu insanların anılarına işliyoruz.",
+    heroStats: [
+        { value: "1.000+", label: "ETKİNLİK" },
+        { value: "10", label: "ŞEHİR" },
+        { value: "5+", label: "YIL" },
+    ],
+    heroPrimary: "ETKİNLİĞİNİZ İÇİN TEKLİF ALIN ↗",
+    heroSecondary: "PROJELERİ İNCELEYİN",
+    heroDrag: "SÜRÜKLE · FIRLAT",
+    heroTap: "DOKUN · ÇEVİR",
+    heroCity: "İSTANBUL",
+    heroHowTo: "HATIRAYA TIKLA → ÇEVİR · TEKRAR → SEPETE EKLE",
+    heroScroll: "KAYDIR ↓ — MASA EĞİLİR",
+    souvenirAdd: "+ SEPETE EKLE",
+    marquee: "Oyna ✶ Dokun ✶ Paylaş ✶ Hatırla ✶",
+    workTitle: "Seçili projeler",
+    workMeta: (count: number) => `(02) — ${count} PROJE · KAYDIRDIKÇA İLERLER`,
+    workAll: "Tüm projeler →",
+    brandsTitle: "Yeniliğe yön veren markaların tercihi",
+    brandsMeta: "(03) — REFERANSLAR",
+    servicesTitle: "Etkinliğinize ekleyebileceğiniz deneyimler",
+    servicesMeta: "(04) — DENEYİMLER · SEPETE EKLEYİN",
+    serviceAdd: "+ SEPETE EKLE",
+    serviceAdded: "✓ EKLENDİ",
+    services: [
+        { key: "ai-photo", name: "AI Photo", desc: "Katılımcılar saniyeler içinde farklı dünyalara taşınır, kendi karakterlerini oluşturur.", href: `/hizmetler/${trCats.ai}/ai-photobooth-kirala`, image: { service: "ai-photobooth-kirala" } },
+        { key: "ai-greenbox", name: "AI Greenbox", desc: "Katılımcıları markaya özel tasarlanan dijital dünyalara taşır. Referans: TCMB, Allianz.", href: `/hizmetler/${trCats.ai}/ai-greenbox-kiralama`, image: { service: "ai-greenbox-kiralama" } },
+        { key: "ai-try-on", name: "AI Try-On", desc: "Katılımcı ürünü kamerada üzerinde görür. Referans: adidas EVO SL.", href: `${phase2Routes.tr.work}/adidas-evo-sl-x-ai-try-on-photo`, image: { project: "adidas" } },
+        { key: "ai-football-card", name: "AI Football Card", desc: "Katılımcı kendi futbolcu kartında. Referans: Akmerkez.", href: `/hizmetler/${trCats.ai}/ai-football-card`, image: { service: "ai-football-card" } },
+        { key: "ai-draw", name: "AI Draw", desc: "Yapay zekâ destekli çizim deneyimi. Referans: BSH.", href: `/hizmetler/${trCats.ai}/ai-draw-portre-cizim`, image: { service: "ai-draw-portre-cizim" } },
+        { key: "photobooth", name: "Photobooth", desc: "Markalı çerçeveyle fotoğraf ve GIF; saniyeler içinde baskı, QR ile anında paylaşım.", href: `/hizmetler/${trCats.photo}/photobooth-kirala`, image: { service: "photobooth-kirala" } },
+        { key: "strip-photo", name: "Strip Photo", desc: "Kareler tek şeritte; anında baskı ve QR ile dijital indirme. Referans: Ray-Ban, Rollic.", href: `/hizmetler/${trCats.photo}/strip-photo`, image: { service: "strip-photo" } },
+        { key: "cabin-photo", name: "Kabin Fotoğraf", desc: "Dış kasa tasarımından yazılım arayüzüne anahtar teslim kabin. Referans: Origins, BUD.", href: `/hizmetler/${trCats.photo}/cabin-photo`, image: { service: "cabin-photo" } },
+        { key: "glow-box", name: "Glow Box", desc: "Işıklı fotoğraf kutusu. Referans: AME'28.", href: `/hizmetler/${trCats.photo}/glow-box-photo`, image: { service: "glow-box-photo" } },
+        { key: "gift-wheel", name: "Hediye Çarkı", desc: "Dijital hediye çarkı aktivasyonu. Referans: Pegasus.", href: `/hizmetler/${trCats.interactive}/dijital-hediye-carki-aktivasyonu`, image: { service: "dijital-hediye-carki-aktivasyonu" } },
+        { key: "game-quiz", name: "İnteraktif Oyun & Quiz", desc: "Unity ile markaya özel oyunlar; 400–500 kullanıcılı canlı quiz. Referans: Enerjisa.", href: `/hizmetler/${trCats.interactive}`, image: { service: "quiz-bilgi-yarismasi" } },
+        { key: "software", name: "Yazılım Geliştirme", desc: "Mobil uygulama, web panel, süreç yazılımları ve AI entegrasyonları.", href: SOFTWARE_CATEGORY_PATH, image: null },
+    ] as HomeServiceDef[],
+    whyTitle: "Fikirden sahaya tek ekip",
+    whyMeta: ["NEDEN METASOFTCO", "İSTANBUL TEKNOKENT · AVCILAR"],
+    why: [
+        { title: "Fikir", copy: "Hedef kitleyi, mekânı ve kampanya fikrini katılımcı yolculuğuna çeviririz." },
+        { title: "Yazılım", copy: "Sahada gördüğünüz her yapay zekâ deneyimini, paneli ve oyunu kendi ekibimiz yazar." },
+        { title: "Fiziksel üretim", copy: "Kabinin dış kasasından markalı arayüzüne kadar üretiriz; sabit noktalar için sistemlerimizi satın da alabilirsiniz." },
+        { title: "Saha operasyonu", copy: "İstanbul merkezli, Türkiye geneli kurulum ve etkinlik günü operasyonu." },
+    ],
+    software: {
+        meta: "(05) — YAZILIM GELİŞTİRME",
+        title: "Etkinliklerin arkasındaki yazılım gücü",
+        lede: "Sahada gördüğünüz her yapay zekâ deneyimini, paneli ve oyunu kendi ekibimiz yazıyor. Aynı ekip; mobil uygulamadan şirket içi süreç yazılımlarına kadar markanıza özel projeler geliştiriyor.",
+        cards: [
+            { title: "Mobil Uygulama", body: "iOS ve Android için tek kod tabanıyla cross-platform uygulamalar." },
+            { title: "Web Uygulaması & Panel", body: "Yönetim panelleri, portallar ve kuruma özel CRM çözümleri." },
+            { title: "Süreç Yazılımları", body: "Talep, onay, iş akışı ve raporlama sistemleri." },
+            { title: "Yapay Zekâ & Oyun", body: "AI entegrasyonları, Unity ile oyun ve eğitim uygulamaları." },
+        ],
+        cta: "Yazılım hizmetleri →",
+        href: SOFTWARE_CATEGORY_PATH,
+        terminalTitle: "metasoft@teknokent ~ canlı",
+        terminal: [
+            "$ metasoft deploy enerjisa-quiz --users 500",
+            "  ✓ 400–500 kullanıcı · canlı lider tablosu",
+            "$ metasoft publish become-hacker zekai",
+            "  ✓ App Store & Google Play",
+            "$ metasoft run ai-photo --style \"süper kahraman\"",
+            "  ✓ baskı + QR ile dijital indirme hazır",
+            "$ metasoft sync data-capture --crm",
+            "  ✓ katılımcı verisi müşteri paneline aktarıldı",
+        ],
+    } as { meta: string; title: string; lede: string; cards: { title: string; body: string }[]; cta: string; href: string; terminalTitle: string; terminal: string[] } | null,
+    deck: {
+        kicker: "SUNUM 2026 · PDF",
+        title: "Sektörünüze göre hazırlanmış sunumu alın.",
+        lede: "Sektörünüzü seçin; o sektördeki projelerimizi ve önerdiğimiz deneyimleri içeren sunumu e-postanıza gönderelim.",
+        sectors: ["Otomotiv", "Finans", "Perakende", "FMCG", "Teknoloji", "Kamu & Kurum"],
+        email: "E-posta adresiniz",
+        send: "SUNUMU İSTE ↗",
+        sending: "GÖNDERİLİYOR…",
+        sent: "Talebiniz alındı. Sunumu e-postanıza göndereceğiz.",
+        failed: "Gönderilemedi. Lütfen geçerli bir e-posta girip tekrar deneyin.",
+        view: "Genel sunumu şimdi inceleyin →",
+        viewHref: "/sunum",
+        subject: (sector: string) => `Sunum talebi — ${sector}`,
+        message: (sector: string) => `Anasayfadaki sunum formundan "${sector}" sektörü için sunum istendi.`,
+        visitor: "Anasayfa sunum talebi",
+    },
+    contactMeta: "(06) — SIRADAKİ DENEYİM",
+    contactLede: "Sıradaki etkinliğinizi insanların katılmak isteyeceği bir deneyime dönüştürelim.",
+    contactBig: "Konuşalım.",
+    contactLabels: { email: "E-POSTA", phone: "TELEFON", address: "ADRES", follow: "TAKİP EDİN" },
+    address: "İstanbul Teknokent No: 37/1, İç Kapı No: 28, Avcılar / İstanbul",
+    legal: [
+        { href: "/gizlilik", label: "Gizlilik Politikası" },
+        { href: "/kullanim-kosullari", label: "Kullanım Koşulları" },
+    ],
+    baseline: "FİKİR · YAZILIM · FİZİKSEL ÜRETİM · SAHA OPERASYONU",
+    whatsappText: "Merhaba, bilgi almak istiyorum.",
+    aiButton: "✶ METASOFT AI'YA SOR",
+    /** `name` arrives already upper-cased for display. */
+    toastAdded: (name: string) => `+ ${name} SEPETE EKLENDİ`,
+    toastOpen: "SEPETİ AÇ",
+    cart: {
+        title: (n: number) => `Sepetiniz (${n})`,
+        close: "Sepeti kapat",
+        empty: "Henüz bir şey eklemediniz. Girişteki hatıraları çevirip ekleyin ya da Deneyimler listesinden seçin.",
+        remove: "ÇIKAR",
+        name: "Ad Soyad *",
+        phone: "Telefon *",
+        email: "E-posta *",
+        event: "Etkinlik tarihi ve şehir",
+        consent: "Göndererek, bilgilerinizin teklif hazırlamak için işlenmesini kabul edersiniz.",
+        privacy: "Gizlilik Politikası",
+        submit: "TEKLİF İSTE ↗",
+        sending: "GÖNDERİLİYOR…",
+        needItem: "Önce sepete en az bir deneyim ekleyin.",
+        needFields: "Ad, telefon ve e-posta zorunludur.",
+        failed: "Gönderilemedi. Lütfen tekrar deneyin ya da info@metasoftco.com adresine yazın.",
+        sentTitle: "Talebiniz alındı.",
+        sentBody: "En kısa sürede size dönüş yapacağız.",
+        notes: "Anasayfadaki Hatıra Masası sepetinden gönderildi.",
+    },
+    tags: { ai: "YAPAY ZEKÂ", photo: "FOTOĞRAF", interactive: "İNTERAKTİF", fallback: "AKTİVASYON" },
+};
+
+export type HomeCopy = typeof tr;
+
+const en: HomeCopy = {
+    routes: phase2Routes.en,
+    locales: tr.locales,
+    nav: [
+        { href: phase2Routes.en.work, label: "WORK" },
+        { href: phase2Routes.en.capabilities, label: "SERVICES" },
+        { href: phase2Routes.en.products, label: "PRODUCT SALES" },
+        { href: "/en/services/software-development", label: "SOFTWARE" },
+        { href: phase2Routes.en.about, label: "ABOUT" },
+    ],
+    navAria: "Main menu",
+    skipLink: "Skip to content",
+    homeAria: "MetasoftCo home",
+    menuOpen: "Open menu",
+    menuClose: "Close menu",
+    menuLabel: "MENU",
+    localeAria: tr.localeAria,
+    cartButton: (n: number) => `CART (${n})`,
+    quoteCta: "GET A QUOTE ↗",
+    cursor: { go: "GO", write: "WRITE", view: "VIEW", all: "ALL", cart: "CART", add: "ADD", remove: "REMOVE", ask: "ASK", grab: "GRAB", holding: "GOT IT", flip: "FLIP", plus: "+ ADD", added: "ADDED" },
+    introWords: ["IDEA", "SOFTWARE", "PHYSICAL BUILD", "FIELD OPERATIONS"],
+    heroKicker: "(01) — AI-POWERED EXPERIENCE TECHNOLOGY",
+    heroTitle: "We turn the soul of brands into people's memories.",
+    heroStats: [
+        { value: "1,000+", label: "EVENTS" },
+        { value: "10", label: "CITIES" },
+        { value: "5+", label: "YEARS" },
+    ],
+    heroPrimary: "GET A QUOTE FOR YOUR EVENT ↗",
+    heroSecondary: "SEE OUR WORK",
+    heroDrag: "DRAG · THROW",
+    heroTap: "TAP · FLIP",
+    heroCity: "ISTANBUL",
+    heroHowTo: "CLICK A SOUVENIR → FLIP · AGAIN → ADD TO CART",
+    heroScroll: "SCROLL ↓ — THE TABLE TILTS",
+    souvenirAdd: "+ ADD TO CART",
+    marquee: "Play ✶ Touch ✶ Share ✶ Remember ✶",
+    workTitle: "Selected work",
+    workMeta: (count: number) => `(02) — ${count} PROJECTS · SCROLL TO MOVE`,
+    workAll: "All projects →",
+    brandsTitle: "Chosen by brands that lead with innovation",
+    brandsMeta: "(03) — CLIENTS",
+    servicesTitle: "Experiences you can add to your event",
+    servicesMeta: "(04) — EXPERIENCES · ADD TO CART",
+    serviceAdd: "+ ADD TO CART",
+    serviceAdded: "✓ ADDED",
+    services: [
+        { key: "ai-photo", name: "AI Photo", desc: "Guests are taken to new worlds in seconds and create characters of their own.", href: `/en/services/${enCats.ai}/ai-photobooth`, image: { service: "ai-photobooth-kirala" } },
+        { key: "ai-greenbox", name: "AI Greenbox", desc: "Places guests inside digital worlds designed for the brand. Clients: TCMB, Allianz.", href: `/en/services/${enCats.ai}/ai-greenbox`, image: { service: "ai-greenbox-kiralama" } },
+        { key: "ai-try-on", name: "AI Try-On", desc: "Guests see the product on themselves through the camera. Client: adidas EVO SL.", href: `${phase2Routes.en.work}/adidas-evo-sl-x-ai-try-on-photo`, image: { project: "adidas" } },
+        { key: "ai-football-card", name: "AI Football Card", desc: "Guests star on their own footballer card. Client: Akmerkez.", href: `/en/services/${enCats.ai}/ai-football-card`, image: { service: "ai-football-card" } },
+        { key: "ai-draw", name: "AI Draw", desc: "An AI-assisted drawing experience. Client: BSH.", href: `/en/services/${enCats.ai}/ai-draw`, image: { service: "ai-draw-portre-cizim" } },
+        { key: "photobooth", name: "Photobooth", desc: "Photos and GIFs in a branded frame; prints in seconds and instant sharing by QR code.", href: `/en/services/${enCats.photo}/photobooth-rental`, image: { service: "photobooth-kirala" } },
+        { key: "strip-photo", name: "Strip Photo", desc: "Frames on a single strip; instant print and a digital copy by QR code. Clients: Ray-Ban, Rollic.", href: `/en/services/${enCats.photo}/strip-photo`, image: { service: "strip-photo" } },
+        { key: "cabin-photo", name: "Cabin Photo", desc: "A turnkey booth, from the outer shell design to the software interface. Clients: Origins, BUD.", href: `/en/services/${enCats.photo}/cabin-photo`, image: { service: "cabin-photo" } },
+        { key: "glow-box", name: "Glow Box", desc: "An illuminated photo box. Client: AME'28.", href: `/en/services/${enCats.photo}/glow-box-photo`, image: { service: "glow-box-photo" } },
+        { key: "gift-wheel", name: "Gift Wheel", desc: "A digital gift wheel activation. Client: Pegasus.", href: `/en/services/${enCats.interactive}/dijital-hediye-carki-aktivasyonu`, image: { service: "dijital-hediye-carki-aktivasyonu" } },
+        { key: "game-quiz", name: "Interactive Games & Quiz", desc: "Brand-built Unity games; a live quiz for 400–500 players. Client: Enerjisa.", href: `/en/services/${enCats.interactive}`, image: { service: "quiz-bilgi-yarismasi" } },
+        { key: "software", name: "Software Development", desc: "Mobile apps, web panels, process software and AI integrations.", href: "/en/services/software-development", image: null },
+    ],
+    whyTitle: "One team from idea to venue",
+    whyMeta: ["WHY METASOFTCO", "İSTANBUL TEKNOKENT · AVCILAR"],
+    why: [
+        { title: "Idea", copy: "We turn the audience, the venue and the campaign idea into a guest journey." },
+        { title: "Software", copy: "Every AI experience, panel and game you see on site is written by our own team." },
+        { title: "Physical build", copy: "We build everything from the booth's outer shell to its branded interface; systems can also be bought for permanent spots." },
+        { title: "Field operations", copy: "Based in Istanbul, with setup and event-day operations across Türkiye." },
+    ],
+    software: null,
+    deck: {
+        kicker: "PRESENTATION 2026 · PDF",
+        title: "Get a presentation tailored to your industry.",
+        lede: "Pick your industry and we will email you a presentation with our projects in that field and the experiences we recommend.",
+        sectors: ["Automotive", "Finance", "Retail", "FMCG", "Technology", "Public sector"],
+        email: "Your email address",
+        send: "REQUEST IT ↗",
+        sending: "SENDING…",
+        sent: "Request received. We will email you the presentation.",
+        failed: "Could not send. Please enter a valid email and try again.",
+        view: "View the general presentation now (TR) →",
+        viewHref: "/sunum",
+        subject: (sector: string) => `Sunum talebi (EN) — ${sector}`,
+        message: (sector: string) => `Presentation requested from the English homepage for the "${sector}" industry.`,
+        visitor: "Homepage presentation request",
+    },
+    contactMeta: "(05) — YOUR NEXT EXPERIENCE",
+    contactLede: "Let's turn your next event into an experience people want to be part of.",
+    contactBig: "Let's talk.",
+    contactLabels: { email: "EMAIL", phone: "PHONE", address: "ADDRESS", follow: "FOLLOW" },
+    address: "İstanbul Teknokent No: 37/1, İç Kapı No: 28, Avcılar / Istanbul",
+    legal: [
+        { href: "/gizlilik", label: "Privacy Policy (TR)" },
+        { href: "/kullanim-kosullari", label: "Terms of Use (TR)" },
+    ],
+    baseline: "IDEA · SOFTWARE · PHYSICAL BUILD · FIELD OPERATIONS",
+    whatsappText: "Hello, I would like some information.",
+    aiButton: "✶ ASK METASOFT AI",
+    toastAdded: (name: string) => `+ ${name} ADDED TO CART`,
+    toastOpen: "OPEN CART",
+    cart: {
+        title: (n: number) => `Your cart (${n})`,
+        close: "Close cart",
+        empty: "Nothing here yet. Flip the souvenirs on the table or pick from the Experiences list.",
+        remove: "REMOVE",
+        name: "Full name *",
+        phone: "Phone *",
+        email: "Email *",
+        event: "Event date and city",
+        consent: "By sending, you agree that we process your details to prepare a quote.",
+        privacy: "Privacy Policy (TR)",
+        submit: "REQUEST A QUOTE ↗",
+        sending: "SENDING…",
+        needItem: "Add at least one experience to the cart first.",
+        needFields: "Name, phone and email are required.",
+        failed: "Could not send. Please try again or write to info@metasoftco.com.",
+        sentTitle: "Request received.",
+        sentBody: "We will get back to you shortly.",
+        notes: "Sent from the Hatıra Masası cart on the English homepage.",
+    },
+    tags: { ai: "AI", photo: "PHOTO", interactive: "INTERACTIVE", fallback: "ACTIVATION" },
+};
+
+export function homeCopy(locale: Phase2Locale): HomeCopy {
+    return locale === "en" ? en : tr;
+}
+
+/** Maps the free-text project category from the editpanel onto a short card tag. */
+export function homeProjectTag(category: string | null, locale: Phase2Locale) {
+    const tags = homeCopy(locale).tags;
+    const value = (category ?? "").toLocaleLowerCase("tr");
+    if (value.includes("yapay") || value.startsWith("ai")) return tags.ai;
+    if (value.includes("foto")) return tags.photo;
+    if (value.includes("interaktif") || value.includes("interactive")) return tags.interactive;
+    return tags.fallback;
+}
+
+/** "Türkiye Cumhuriyet Merkez Bankası (TCMB)" reads as "TCMB" at display size. */
+export function homeClientName(client: string | null, title: string) {
+    const name = client?.trim() || title;
+    const short = name.match(/\(([^)]+)\)/)?.[1];
+    return short || name;
+}

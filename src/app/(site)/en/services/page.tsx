@@ -103,7 +103,7 @@ export default async function EnglishServicesPage() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
             />
-            <CapabilitiesIndexPrototype capabilities={capabilities} categories={categoryTabs} locale="en" />
+            <CapabilitiesIndexPrototype capabilities={capabilities} categories={categoryTabs} locale="en" faqs={serviceFAQs.map((item) => ({ q: item.question, a: item.answer }))} />
         </>
     );
 }

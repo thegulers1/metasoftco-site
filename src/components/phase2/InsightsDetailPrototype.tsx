@@ -1,12 +1,11 @@
 import Image from "next/image";
 import Link from "next/link";
-import { IconArrowLeft as ArrowLeft, IconArrowRight as ArrowRight } from "@tabler/icons-react";
 import type { Phase2Locale } from "@/lib/phase2";
 import { phase2Copy } from "@/lib/phase2-content";
 import { addHeadingAnchors } from "@/lib/utils";
 import type { FaqEntry } from "@/lib/site";
-import { SignalHeading } from "./SignalHeading";
-import { P2InsightMeta, formatInsightDate, insightReadMinutes } from "./InsightsShared";
+import { MsCaps, MsCrumbs, MsFacts, MsFaq, MsProse, MsSectionHead } from "@/components/site-ms/parts";
+import { formatInsightDate, insightReadMinutes } from "./InsightsShared";
 import type { P2InsightCard } from "./InsightsIndexPrototype";
 
 export interface P2InsightArticle {
@@ -32,14 +31,20 @@ export interface P2RelatedService {
 
 /**
  * Editor-authored posts sometimes open with their own <h1>. The screen already
- * renders one in the header, so a second lands on the 104px display ramp and
- * breaks the document outline. Demoting to <h2> restores a single h1 and lets
- * addHeadingAnchors give the heading an anchor id like every other subhead.
+ * renders one in the header, so a second would break the document outline.
+ * Demoting to <h2> restores a single h1 and lets addHeadingAnchors give the
+ * heading an anchor id like every other subhead.
  */
 function demoteContentHeadings(html: string) {
     return html.replace(/<(\/?)h1(\s|>)/gi, "<$1h2$2");
 }
 
+const t = {
+    tr: { faqAside: "Konuyla ilgili sorunuz mu var? Bize yazın; aynı gün dönüş yapalım.", servicesMeta: "BU YAZIDAKİ DENEYİMLER", postsMeta: "DİĞER YAZILAR", all: "TÜM YAZILAR →", open: "OKU", view: "İNCELE" },
+    en: { faqAside: "Have a question on the topic? Write to us and we will reply the same day.", servicesMeta: "EXPERIENCES IN THIS POST", postsMeta: "MORE POSTS", all: "ALL POSTS →", open: "READ", view: "VIEW" },
+};
+
+/** /blog/[slug] and /en/blog/[slug], an article layout in the October 2026 design. */
 export default function InsightsDetailPrototype({
     post,
     faq = [],
@@ -55,7 +60,8 @@ export default function InsightsDetailPrototype({
 }) {
     const dictionary = phase2Copy(locale);
     const copy = dictionary.insightDetail;
-    const indexCopy = dictionary.insights;
+    const l = t[locale];
+    const up = (text: string) => text.toLocaleUpperCase(locale === "en" ? "en-US" : "tr-TR");
 
     const publishedAt = formatInsightDate(post.publishedAt, locale);
     const readMinutes = insightReadMinutes(post.content);
@@ -68,105 +74,59 @@ export default function InsightsDetailPrototype({
     ].filter((fact): fact is { term: string; value: string } => Boolean(fact));
 
     return (
-        <article className="phase2 p2-screen p2-insight-detail">
-            <header className="p2-container p2-detail-top">
-                <nav className="p2-detail-top__crumb" aria-label={copy.crumbInsights}>
-                    <Link href={dictionary.routes.home}>{copy.crumbHome}</Link>
-                    <span>{"  /  "}</span>
-                    <Link href={dictionary.routes.insights}>{copy.crumbInsights}</Link>
-                    {post.category && (
-                        <>
-                            <span>{"  /  "}</span>
-                            {post.category}
-                        </>
-                    )}
-                </nav>
+        <article className="ms-page">
+            <section className="ms-hero" style={{ minHeight: 0 }}>
+                <MsCrumbs items={[
+                    { href: dictionary.routes.home, label: up(copy.crumbHome) },
+                    { href: dictionary.routes.insights, label: up(copy.crumbInsights) },
+                    ...(post.category ? [{ label: up(post.category) }] : []),
+                ]} />
+                <h1 className="ms-article-title">{post.title}<span className="ms-acc">.</span></h1>
+                {post.excerpt && <p className="ms-lede" data-reveal>{post.excerpt}</p>}
+                <MsFacts facts={facts} />
+            </section>
 
-                {/* Editorial headlines are full sentences, so they get their own
-                    type ramp rather than the uppercase display treatment the
-                    work and capability screens use for short project names. */}
-                <div className="p2-detail-top__heading">
-                    <h1 className="p2-insight-title">
-                        <span className="p2-insight-title__rule" aria-hidden="true" />
-                        {post.title}
-                    </h1>
-                    {post.excerpt && <p>{post.excerpt}</p>}
-                </div>
-
-                {facts.length > 0 && (
-                    <dl>
-                        {facts.map((fact) => (
-                            <div key={fact.term}>
-                                <dt>{fact.term}</dt>
-                                <dd>{fact.value}</dd>
-                            </div>
-                        ))}
-                    </dl>
-                )}
-
-                {post.image && (
-                    <figure className="p2-detail-main-image">
-                        <Image src={post.image} alt={post.title} fill priority sizes="100vw" />
-                    </figure>
-                )}
-            </header>
+            {post.image && (
+                <figure className="ms-wide-media" data-reveal style={{ marginBottom: 0 }}>
+                    <Image src={post.image} alt={post.title} fill priority sizes="100vw" />
+                </figure>
+            )}
 
             {/* readMinutes is null when the body has no words at all — some
-                records hold a placeholder like "<p></p>", which would otherwise
-                render as a bare hairline rule with nothing under it. */}
+                records hold a placeholder like "<p></p>". */}
             {post.content && readMinutes && (
-                <section className="p2-container p2-detail-section p2-detail-section--about p2-insight-body">
-                    <div
-                        className="p2-prose"
-                        dangerouslySetInnerHTML={{ __html: addHeadingAnchors(demoteContentHeadings(post.content.replace(/&nbsp;/g, " "))) }}
-                    />
+                <section className="ms-article-body">
+                    <MsProse html={addHeadingAnchors(demoteContentHeadings(post.content.replace(/&nbsp;/g, " ")))} />
                 </section>
             )}
 
             {faq.length > 0 && (
-                <section className="p2-container p2-detail-section p2-detail-section--faq">
-                    <h2>{copy.faqTitle}</h2>
-                    <div className="p2-screen-faq">
-                        {faq.map((item, index) => (
-                            <details key={item.q}>
-                                <summary>
-                                    <span className="p2-gradient-number">{String(index + 1).padStart(2, "0")}</span>
-                                    <h3>{item.q}</h3>
-                                    <i aria-hidden="true">+</i>
-                                </summary>
-                                <p>{item.a}</p>
-                            </details>
-                        ))}
+                <section className="ms-faq-wrap" aria-labelledby="ms-post-faq">
+                    <div className="ms-faq-wrap__aside" data-reveal>
+                        <h2 id="ms-post-faq" className="ms-h2">{copy.faqTitle}<span className="ms-acc">.</span></h2>
+                        <p>{l.faqAside}</p>
                     </div>
+                    <MsFaq items={faq} />
                 </section>
             )}
 
             {relatedServices.length > 0 && (
-                <section className="p2-container p2-detail-section p2-detail-section--related">
-                    <h2>{copy.relatedServicesTitle}</h2>
-                    <div className="p2-cap-grid">
-                        {relatedServices.slice(0, 3).map((service, index) => {
+                <section className="ms-section" aria-labelledby="ms-post-services">
+                    <MsSectionHead id="ms-post-services" title={copy.relatedServicesTitle} meta={l.servicesMeta} />
+                    <div className="ms-rows">
+                        {relatedServices.slice(0, 4).map((service, index) => {
                             const title = locale === "en" ? (service.title_en || service.title) : service.title;
                             const href = service.type === "SALE"
                                 ? `/urunler/${service.slug}`
                                 : locale === "en" && service.category?.slug_en && service.slug_en
                                     ? `/en/services/${service.category.slug_en}/${service.slug_en}`
                                     : `/hizmetler/${service.category?.slug}/${service.slug}`;
-
                             return (
-                                <Link key={service.id} className="p2-cap-card" href={href}>
-                                    <div className="p2-cap-card__media">
-                                        {service.image && (
-                                            <Image src={service.image} alt="" fill sizes="(max-width: 760px) 100vw, 33vw" />
-                                        )}
-                                    </div>
-                                    <div className="p2-cap-card__body">
-                                        <span className="p2-gradient-number">{String(index + 1).padStart(2, "0")}</span>
-                                        <h2>{title}</h2>
-                                        <span className="p2-card-link">
-                                            {copy.relatedServicesLink} <ArrowRight aria-hidden="true" />
-                                        </span>
-                                    </div>
+                                <Link key={service.id} href={href} className="ms-row" data-cursor={l.view}>
+                                    <span className="ms-row__num">{String(index + 1).padStart(2, "0")}</span>
+                                    <span className="ms-row__name ms-row__name--sm"><MsCaps text={title} /></span>
+                                    <span />
+                                    <span className="ms-row__arrow" aria-hidden="true">↗</span>
                                 </Link>
                             );
                         })}
@@ -175,39 +135,23 @@ export default function InsightsDetailPrototype({
             )}
 
             {related.length > 0 && (
-                <section className="p2-container p2-detail-section">
-                    <h2>{copy.relatedTitle}</h2>
-                    <div className="p2-insight-grid">
+                <section className="ms-section" aria-labelledby="ms-post-related">
+                    <MsSectionHead id="ms-post-related" title={copy.relatedTitle} meta={l.postsMeta} />
+                    <div className="ms-rows">
                         {related.map((item) => (
-                            <Link key={item.id} href={`${dictionary.routes.insights}/${item.slug}`} className="p2-insight-card">
-                                <div className="p2-insight-card__media">
-                                    {item.image
-                                        ? <Image src={item.image} alt="" fill sizes="(max-width: 760px) 100vw, 33vw" />
-                                        : <span className="p2-insight-media--empty" aria-hidden="true" />}
-                                </div>
-                                <div className="p2-insight-card__body">
-                                    <P2InsightMeta date={formatInsightDate(item.publishedAt, locale)} topic={item.category} />
-                                    <h2>{item.title}</h2>
-                                    <span className="p2-card-link">{indexCopy.cardLink} <ArrowRight aria-hidden="true" /></span>
-                                </div>
+                            <Link key={item.id} href={`${dictionary.routes.insights}/${item.slug}`} className="ms-row ms-row--blog" data-cursor={l.open}>
+                                <span className="ms-row__num">{formatInsightDate(item.publishedAt, locale)}</span>
+                                <span className="ms-row__title">{item.title}</span>
+                                <span className="ms-row__cat">{item.category ? up(item.category) : ""}</span>
+                                <span className="ms-row__arrow" aria-hidden="true">↗</span>
                             </Link>
                         ))}
                     </div>
+                    <div className="ms-actions">
+                        <Link href={dictionary.routes.insights} className="ms-pill ms-pill--line">{l.all}</Link>
+                    </div>
                 </section>
             )}
-
-            <div className="p2-container p2-detail-foot">
-                <Link href={dictionary.routes.insights} className="p2-back-link">
-                    <ArrowLeft aria-hidden="true" /> {copy.backLabel}
-                </Link>
-            </div>
-
-            <section className="p2-screen-cta">
-                <div className="p2-container">
-                    <SignalHeading as="h2" solid={copy.ctaSolid} outline={copy.ctaOutline} label={copy.ctaLabel} />
-                    <Link href={dictionary.routes.contact} className="p2-screen-button">{copy.ctaButton} <ArrowRight aria-hidden="true" /></Link>
-                </div>
-            </section>
         </article>
     );
 }

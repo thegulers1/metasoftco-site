@@ -1,14 +1,14 @@
 /* /sunum listing: intro, sticky selection toolbar and the page stack. */
 
 .sz-page {
-	--sz-grad: linear-gradient(90deg, #64e5e7, #8b91ff 55%, #ff7476);
-	--sz-line: rgba(244, 247, 248, 0.14);
-	--sz-muted: rgba(244, 247, 248, 0.64);
+	--sz-grad: linear-gradient(90deg, #f2ff00, #f2ff00);
+	--sz-line: #1e1e1e;
+	--sz-muted: #8a8780;
 	min-height: 100vh;
-	padding-top: 76px;
-	background: #07090b;
-	color: #f4f7f8;
-	font-family: var(--font-manrope), sans-serif;
+	padding-top: 66px;
+	background: #050505;
+	color: #edeae3;
+	font-family: var(--mh-sans), sans-serif;
 }
 .sz-page *,
 .sz-page *::before,
@@ -23,20 +23,21 @@
 }
 .sz-eyebrow {
 	margin: 0;
-	font-family: var(--font-jetbrains-mono), monospace;
+	font-family: var(--mh-mono), monospace;
 	font-size: 12px;
 	letter-spacing: 0.18em;
 	text-transform: uppercase;
-	color: #8b91ff;
+	color: #f2ff00;
 }
 .sz-intro h1 {
 	margin: 0;
-	max-width: 16ch;
-	font-family: var(--font-space-grotesk), sans-serif;
-	font-weight: 600;
-	font-size: clamp(38px, 5.6vw, 76px);
-	line-height: 0.98;
-	letter-spacing: -0.045em;
+	max-width: 22ch;
+	font-family: var(--mh-display), sans-serif;
+	font-weight: 800;
+	font-size: clamp(34px, 5vw, 72px);
+	line-height: 1.08;
+	letter-spacing: -0.03em;
+	text-transform: uppercase;
 	text-wrap: balance;
 }
 .sz-intro h1 span {
@@ -59,7 +60,7 @@
 	margin: 8px 0 0;
 }
 .sz-facts dt {
-	font-family: var(--font-jetbrains-mono), monospace;
+	font-family: var(--mh-mono), monospace;
 	font-size: 11px;
 	letter-spacing: 0.16em;
 	text-transform: uppercase;
@@ -67,7 +68,7 @@
 }
 .sz-facts dd {
 	margin: 2px 0 0;
-	font-family: var(--font-space-grotesk), sans-serif;
+	font-family: var(--mh-display), sans-serif;
 	font-size: 32px;
 	font-weight: 500;
 	letter-spacing: -0.04em;
@@ -77,9 +78,9 @@
 /* Sticky toolbar under the fixed site navigation. */
 .sz-toolbar {
 	position: sticky;
-	top: 76px;
+	top: 66px;
 	z-index: 20;
-	background: rgba(7, 9, 11, 0.9);
+	background: rgba(5, 5, 5, 0.92);
 	backdrop-filter: blur(14px);
 	-webkit-backdrop-filter: blur(14px);
 	border-block: 1px solid var(--sz-line);
@@ -108,13 +109,13 @@
 	border-radius: 999px;
 	background: transparent;
 	color: var(--sz-muted);
-	font: 600 13px/1 var(--font-manrope), sans-serif;
+	font: 600 13px/1 var(--mh-sans), sans-serif;
 	cursor: pointer;
 	transition: border-color 0.2s, color 0.2s;
 }
 .sz-chip:hover {
-	border-color: rgba(139, 145, 255, 0.6);
-	color: #f4f7f8;
+	border-color: #f2ff00;
+	color: #edeae3;
 }
 .sz-chip small {
 	font-size: 11px;
@@ -123,7 +124,7 @@
 .sz-chip[aria-pressed="true"] {
 	border-color: transparent;
 	background: var(--sz-grad);
-	color: #071013;
+	color: #050505;
 }
 .sz-actions {
 	display: flex;
@@ -138,9 +139,9 @@
 	color: var(--sz-muted);
 }
 .sz-count b {
-	font-family: var(--font-space-grotesk), sans-serif;
+	font-family: var(--mh-display), sans-serif;
 	font-size: 20px;
-	color: #f4f7f8;
+	color: #edeae3;
 }
 .sz-btn {
 	display: inline-flex;
@@ -150,8 +151,8 @@
 	min-height: 46px;
 	padding: 0 20px;
 	border: 1px solid transparent;
-	border-radius: 12px;
-	font: 700 14px/1 var(--font-manrope), sans-serif;
+	border-radius: 99px;
+	font: 700 14px/1 var(--mh-sans), sans-serif;
 	cursor: pointer;
 	transition: filter 0.2s, background 0.2s, opacity 0.2s;
 }
@@ -166,18 +167,18 @@
 }
 .sz-btn--primary {
 	background: var(--sz-grad);
-	color: #071013;
+	color: #050505;
 }
 .sz-btn--primary:not(:disabled):hover {
 	filter: brightness(1.08);
 }
 .sz-btn--ghost {
 	background: transparent;
-	border-color: rgba(139, 145, 255, 0.55);
-	color: #f4f7f8;
+	border-color: #edeae3;
+	color: #edeae3;
 }
 .sz-btn--ghost:not(:disabled):hover {
-	background: rgba(139, 145, 255, 0.1);
+	background: rgba(242, 255, 0, 0.08);
 }
 .sz-btn--text {
 	min-height: 40px;
@@ -218,7 +219,7 @@
 	gap: 10px 16px;
 }
 .sz-page__label {
-	font-family: var(--font-jetbrains-mono), monospace;
+	font-family: var(--mh-mono), monospace;
 	font-size: 11px;
 	letter-spacing: 0.14em;
 	text-transform: uppercase;
@@ -226,7 +227,7 @@
 }
 .sz-page__label b {
 	font-weight: 500;
-	color: #f4f7f8;
+	color: #edeae3;
 }
 .sz-page__frame {
 	overflow: hidden;
@@ -248,8 +249,8 @@
 	border: 1px solid var(--sz-line);
 	border-radius: 999px;
 	background: transparent;
-	color: #f4f7f8;
-	font: 600 13px/1 var(--font-manrope), sans-serif;
+	color: #edeae3;
+	font: 600 13px/1 var(--mh-sans), sans-serif;
 	cursor: pointer;
 }
 .sz-toggle__box {
@@ -261,8 +262,8 @@
 	border-radius: 5px;
 }
 .sz-toggle[aria-pressed="true"] {
-	border-color: rgba(100, 229, 231, 0.55);
-	background: rgba(100, 229, 231, 0.08);
+	border-color: #f2ff00;
+	background: rgba(242, 255, 0, 0.08);
 }
 .sz-toggle[aria-pressed="true"] .sz-toggle__box {
 	border-color: transparent;
@@ -272,7 +273,7 @@
 	content: "";
 	width: 8px;
 	height: 4px;
-	border: 2px solid #071013;
+	border: 2px solid #050505;
 	border-top: 0;
 	border-right: 0;
 	transform: rotate(-45deg) translate(1px, -1px);

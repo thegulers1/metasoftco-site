@@ -98,6 +98,13 @@ export function isPhase2PrototypePath(pathname: string | null) {
     return turkishPrefixes.some((prefix) => normalized.startsWith(prefix));
 }
 
+/** The homepages render their own navigation and footer (src/components/home). */
+export function isHomePath(pathname: string | null) {
+    if (!pathname) return false;
+    const normalized = normalizePath(pathname);
+    return normalized === phase2Routes.tr.home || normalized === phase2Routes.en.home;
+}
+
 /**
  * Sibling path for the screens that map one-to-one between locales. Detail
  * pages are absent on purpose: their slugs differ per locale and are only

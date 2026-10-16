@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import Container from "@/components/site/Container";
 import { siteConfig, ogImageUrl } from "@/lib/site";
 
 const ogTitle = "Gizlilik Politikası | MetasoftCo";
@@ -31,34 +30,22 @@ export const metadata: Metadata = {
 
 export default function GizlilikPage() {
     return (
-        <div className="bg-[#0a0a0f] min-h-screen">
-            <section className="py-32 sm:py-36">
-                <Container>
-                    <span
-                        className="text-[12px] uppercase tracking-[0.14em] text-[var(--acc)]"
-                        style={{ fontFamily: "var(--font-jetbrains-mono)", fontWeight: 500 }}
-                    >
+        <div className="ms-page">
+            <section className="ms-hero" style={{ minHeight: 0, justifyContent: "flex-start" }}>
+                <div className="ms-legal">
+                    <span className="ms-mono ms-acc">
                         KVKK
                     </span>
-                    <h1
-                        className="text-white font-bold tracking-[-0.02em] mt-4 mb-10"
-                        style={{ fontFamily: "var(--font-space-grotesk)", fontSize: "clamp(32px, 5vw, 48px)" }}
-                    >
+                    <h1 className="ms-h1 ms-h1--long" style={{ margin: "14px 0 3vw" }}>
                         Gizlilik Politikası
                     </h1>
-                    <div
-                        className="max-w-[700px] text-[rgba(255,255,255,.64)] space-y-7"
-                        style={{ fontFamily: "var(--font-manrope)", fontSize: 16, lineHeight: 1.7 }}
-                    >
+                    <div className="ms-prose" data-reveal>
                         <p>
                             MetasoftCo olarak kişisel verilerinizin güvenliği konusunda azami önemi gösteriyoruz. Bu
                             politika, 6698 sayılı Kişisel Verilerin Korunması Kanunu (KVKK) çerçevesinde hazırlanmıştır.
                         </p>
                         <div>
-                            <h2
-                                className="text-white mb-3"
-                                style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 20, fontWeight: 600 }}
-                            >
+                            <h2>
                                 Toplanan Veriler
                             </h2>
                             <p>
@@ -67,10 +54,7 @@ export default function GizlilikPage() {
                             </p>
                         </div>
                         <div>
-                            <h2
-                                className="text-white mb-3"
-                                style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 20, fontWeight: 600 }}
-                            >
+                            <h2>
                                 Verilerin Kullanımı
                             </h2>
                             <p>
@@ -79,10 +63,7 @@ export default function GizlilikPage() {
                             </p>
                         </div>
                         <div>
-                            <h2
-                                className="text-white mb-3"
-                                style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 20, fontWeight: 600 }}
-                            >
+                            <h2>
                                 Çerezler
                             </h2>
                             <p>
@@ -91,10 +72,7 @@ export default function GizlilikPage() {
                             </p>
                         </div>
                         <div>
-                            <h2
-                                className="text-white mb-3"
-                                style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 20, fontWeight: 600 }}
-                            >
+                            <h2>
                                 İletişim
                             </h2>
                             <p>
@@ -105,7 +83,7 @@ export default function GizlilikPage() {
                             </p>
                         </div>
                     </div>
-                </Container>
+                </div>
             </section>
         </div>
     );

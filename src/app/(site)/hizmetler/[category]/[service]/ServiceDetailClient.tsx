@@ -3,17 +3,12 @@
 import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { IconArrowLeft as ArrowLeft, IconArrowRight as ArrowRight } from "@tabler/icons-react";
-import GalleryLightbox from "@/components/site/GalleryLightbox";
-import VideoPlayer from "@/components/site/VideoPlayer";
-import { SignalHeading } from "@/components/phase2/SignalHeading";
-import { DataCaptureBlock } from "@/components/phase2/DataCaptureBlock";
-import { RentalOpsBlock } from "@/components/phase2/RentalOpsBlock";
+import { MsCaps, MsCrumbs, MsFacts, MsFaq, MsProse, MsSectionHead, MsWords, splitHtmlSections } from "@/components/site-ms/parts";
+import { MsGallery, MsVideo } from "@/components/site-ms/interactive";
 import { dataCaptureCopy } from "@/lib/data-capture";
 import { DATA_CAPTURE_HUB_PATH } from "@/lib/data-capture-hub";
 import { mergeRentalFaq, rentalOpsCopy, rentalProductName, toRentalOutput } from "@/lib/rental-ops";
 import { SOFTWARE_CATEGORY_PATH, isSoftwareCategory, softwareServiceCopy } from "@/lib/software";
-import { splitSignalTitle } from "@/lib/phase2";
 import { phase2Copy } from "@/lib/phase2-content";
 import { useLanguage } from "@/providers/LanguageProvider";
 import { addHeadingAnchors } from "@/lib/utils";
@@ -43,6 +38,43 @@ function parseJsonList<T>(raw: string | null | undefined): T[] {
     }
 }
 
+const labels = {
+    tr: {
+        videoMeta: "SAHADAN · VİDEO",
+        aboutMeta: "HİZMET HAKKINDA",
+        specsMeta: "TEKNİK ÖZELLİKLER",
+        galleryMeta: "GALERİ",
+        faqAside: "Aradığınız cevap burada yoksa bize yazın; aynı gün dönüş yapalım.",
+        faqWhatsapp: "WHATSAPP’TAN SOR ↗",
+        whatsappText: (title: string) => `Merhaba, ${title} hakkında bilgi almak istiyorum.`,
+        relatedHeading: "Bunlar da ilginizi çekebilir",
+        relatedMeta: "İLGİLİ HİZMETLER",
+        relatedMetaSale: "DİĞER SİSTEMLER",
+        allServices: "TÜM HİZMETLER →",
+        allProducts: "TÜM SİSTEMLER →",
+        updated: "Son güncelleme",
+        gallery: { close: "KAPAT ×", prev: "← ÖNCEKİ", next: "SONRAKİ →" },
+        cursor: { write: "YAZ", go: "GİT", view: "İNCELE" },
+    },
+    en: {
+        videoMeta: "ON SITE · VIDEO",
+        aboutMeta: "ABOUT THE SERVICE",
+        specsMeta: "SPECIFICATIONS",
+        galleryMeta: "GALLERY",
+        faqAside: "If your question is not answered here, write to us and we will reply the same day.",
+        faqWhatsapp: "ASK ON WHATSAPP ↗",
+        whatsappText: (title: string) => `Hello, I would like information about ${title}.`,
+        relatedHeading: "You may also like",
+        relatedMeta: "RELATED SERVICES",
+        relatedMetaSale: "OTHER SYSTEMS",
+        allServices: "ALL SERVICES →",
+        allProducts: "ALL SYSTEMS →",
+        updated: "Last updated",
+        gallery: { close: "CLOSE ×", prev: "← PREV", next: "NEXT →" },
+        cursor: { write: "WRITE", go: "GO", view: "VIEW" },
+    },
+};
+
 export default function ServiceDetailClient({
     service,
     categoryData,
@@ -56,6 +88,7 @@ export default function ServiceDetailClient({
     const dictionary = phase2Copy(language);
     const isSoftware = variant === "rental" && language === "tr" && isSoftwareCategory(categoryData.slug);
     const copy = isSoftware ? { ...dictionary.serviceDetail, ...softwareServiceCopy } : dictionary.serviceDetail;
+    const t = labels[language === "en" ? "en" : "tr"];
 
     useEffect(() => {
         const trUrl = variant === "sale"
@@ -99,7 +132,6 @@ export default function ServiceDetailClient({
         ...(showDataCapture ? dataCapture.faq : []),
     ];
 
-    const { solid, outline } = splitSignalTitle(title);
     const categoryHref = isEn && categoryData.slug_en
         ? `/en/services/${categoryData.slug_en}`
         : `/hizmetler/${categoryData.slug}`;
@@ -113,87 +145,134 @@ export default function ServiceDetailClient({
             : copy.fallbackFacts.map((fact) => ({ term: fact.term, value: fact.value ?? "" }))),
     ];
 
+    const about = content ? splitHtmlSections(addHeadingAnchors(content.replace(/&nbsp;/g, " "))) : null;
+    const relatedHref = (related: Service) =>
+        variant === "sale"
+            ? `/urunler/${related.slug}`
+            : isEn && categoryData.slug_en && related.slug_en
+                ? `/en/services/${categoryData.slug_en}/${related.slug_en}`
+                : `/hizmetler/${categoryData.slug}/${related.slug}`;
+
+    const crumbs = variant === "sale"
+        ? [
+            { href: dictionary.routes.home, label: copy.crumbHome.toLocaleUpperCase("tr-TR") },
+            { href: dictionary.routes.products, label: copy.crumbProducts.toLocaleUpperCase("tr-TR") },
+            { label: title },
+        ]
+        : [
+            { href: dictionary.routes.home, label: copy.crumbHome.toLocaleUpperCase("tr-TR") },
+            { href: dictionary.routes.capabilities, label: copy.crumbCapabilities.toLocaleUpperCase("tr-TR") },
+            { href: categoryHref, label: categoryName },
+        ];
+
     return (
-        <article className="phase2 p2-screen p2-service-detail">
+        <article className="ms-page">
             <script
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
             />
 
-            <header className="p2-container p2-detail-top">
-                {variant === "sale" ? (
-                    <nav className="p2-detail-top__crumb" aria-label={copy.crumbProducts}>
-                        <Link href={dictionary.routes.home}>{copy.crumbHome}</Link>
-                        <span>{"  /  "}</span>
-                        <Link href={dictionary.routes.products}>{copy.crumbProducts}</Link>
-                    </nav>
-                ) : (
-                    <nav className="p2-detail-top__crumb" aria-label={copy.crumbCapabilities}>
-                        <Link href={dictionary.routes.home}>{copy.crumbHome}</Link>
-                        <span>{"  /  "}</span>
-                        <Link href={dictionary.routes.capabilities}>{copy.crumbCapabilities}</Link>
-                        <span>{"  /  "}</span>
-                        <Link href={categoryHref}>{categoryName}</Link>
-                    </nav>
-                )}
-
-                <div className="p2-detail-top__heading">
-                    <SignalHeading solid={solid} outline={outline} label={seoTitle} />
-                    <div className="p2-heading-copy">
-                        {description && <p>{description}</p>}
-                        <p className="p2-updated-at">
-                            {isEn ? "Last updated" : "Son güncelleme"}:{" "}
-                            {service.updatedAt.toLocaleDateString(isEn ? "en-GB" : "tr-TR", { year: "numeric", month: "long", day: "numeric" })}
-                        </p>
+            <section className="ms-hero ms-hero--split">
+                <div className="ms-hero__col">
+                    <MsCrumbs items={crumbs} />
+                    <h1 className={`ms-h1 ms-h1--detail${title.length > 34 ? " ms-h1--long" : ""}`} aria-label={seoTitle}>
+                        <MsWords text={title} accent="last" />
+                    </h1>
+                    {description && <p className="ms-lede" data-reveal>{description}</p>}
+                    <MsFacts facts={facts} />
+                    <div className="ms-actions">
+                        {variant === "sale" ? (
+                            <>
+                                <Link href={dictionary.routes.contact} className="ms-pill ms-pill--acc" data-cursor={t.cursor.write}>{copy.saleCtaPrimary.toLocaleUpperCase(isEn ? "en-US" : "tr-TR")} ↗</Link>
+                                <Link href={dictionary.routes.work} className="ms-pill ms-pill--line" data-cursor={t.cursor.go}>{copy.saleCtaSecondary.toLocaleUpperCase(isEn ? "en-US" : "tr-TR")}</Link>
+                            </>
+                        ) : (
+                            <>
+                                <Link href={quoteHref} className="ms-pill ms-pill--acc" data-cursor={t.cursor.write}>{copy.ctaPrimary.toLocaleUpperCase(isEn ? "en-US" : "tr-TR")} ↗</Link>
+                                <Link href={isSoftware ? SOFTWARE_CATEGORY_PATH : dictionary.routes.work} className="ms-pill ms-pill--line" data-cursor={t.cursor.go}>{copy.ctaSecondary.toLocaleUpperCase(isEn ? "en-US" : "tr-TR")}</Link>
+                                {saleHref && (
+                                    <Link href={saleHref} className="ms-pill ms-pill--line" data-cursor={t.cursor.go}>{copy.ctaTertiary.toLocaleUpperCase(isEn ? "en-US" : "tr-TR")}</Link>
+                                )}
+                            </>
+                        )}
                     </div>
+                    <p className="ms-updated ms-mono">
+                        {t.updated}: {service.updatedAt.toLocaleDateString(isEn ? "en-GB" : "tr-TR", { year: "numeric", month: "long", day: "numeric" })}
+                    </p>
                 </div>
-
-                <dl>
-                    {facts.map((fact) => (
-                        <div key={fact.term}>
-                            <dt>{fact.term}</dt>
-                            <dd>{fact.value}</dd>
-                        </div>
-                    ))}
-                </dl>
-            </header>
+                {service.image && (
+                    <div className="ms-hero__media" data-reveal>
+                        <Image src={service.image} alt={title} fill priority sizes="(max-width: 899px) 100vw, 46vw" />
+                        <span className="ms-hero__tag ms-mono"><MsCaps text={categoryName} /></span>
+                    </div>
+                )}
+            </section>
 
             {service.video && (
-                <section className="p2-container p2-detail-section p2-detail-section--video">
-                    <h2>{copy.videoTitle}</h2>
-                    <div className="p2-detail-video">
-                        <VideoPlayer
-                            src={service.video}
-                            thumbnailTime={service.videoThumbnailTime}
-                            fallbackPoster={service.image}
-                            title={title}
-                        />
+                <section className="ms-section" aria-labelledby="ms-video-title">
+                    <MsSectionHead id="ms-video-title" title={copy.videoTitle.replace(/[?.]$/, "")} meta={t.videoMeta} />
+                    <div data-reveal>
+                        <MsVideo src={service.video} title={title} poster={service.image} />
                     </div>
                 </section>
             )}
 
-            {content && (
-                <section className="p2-container p2-detail-section p2-detail-section--about">
-                    <h2>{copy.aboutTitle}</h2>
-                    <div
-                        className="p2-prose"
-                        dangerouslySetInnerHTML={{ __html: addHeadingAnchors(content.replace(/&nbsp;/g, " ")) }}
-                    />
+            {about && (
+                <section className="ms-section" aria-labelledby="ms-about-title">
+                    <MsSectionHead id="ms-about-title" title={copy.aboutTitle} meta={t.aboutMeta} />
+                    {about.sections.length === 0 ? (
+                        <div data-reveal><MsProse html={about.intro} /></div>
+                    ) : (
+                        <>
+                            {about.intro && <div data-reveal><MsProse html={about.intro} /></div>}
+                            <div className="ms-cards">
+                                {about.sections.map((section, index) => (
+                                    <div key={`${index}-${section.title}`} className={`ms-card${index === 0 ? " ms-card--lead" : ""}`} data-reveal>
+                                        <span className="ms-card__num">{String(index + 1).padStart(2, "0")}</span>
+                                        <h3 className="ms-card__title" id={section.id}><MsCaps text={section.title} /></h3>
+                                        <div className="ms-card__body" dangerouslySetInnerHTML={{ __html: section.html }} />
+                                    </div>
+                                ))}
+                            </div>
+                        </>
+                    )}
                 </section>
             )}
 
             {showDataCapture && (
-                <DataCaptureBlock
-                    copy={dataCapture}
-                    contactHref={dictionary.routes.contact}
-                    hubHref={isEn ? undefined : DATA_CAPTURE_HUB_PATH}
-                />
+                <section id="data-capture" className="ms-accent" aria-labelledby="data-capture-title">
+                    <div className="ms-head">
+                        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
+                            <span className="ms-mono">{dataCapture.eyebrow}</span>
+                            <h2 id="data-capture-title" className="ms-h2">{dataCapture.title}</h2>
+                        </div>
+                        <p style={{ margin: 0, maxWidth: 440, fontSize: 16, lineHeight: 1.5 }}>{dataCapture.intro}</p>
+                    </div>
+                    <ol className="ms-accent__grid">
+                        {dataCapture.items.map((item, index) => (
+                            <li key={item.title}>
+                                <span className="ms-mono">{String(index + 1).padStart(2, "0")}</span>
+                                <h3>{item.title}</h3>
+                                <p>{item.body}</p>
+                            </li>
+                        ))}
+                    </ol>
+                    <div className="ms-head">
+                        <p className="ms-accent__legal">{dataCapture.legal}</p>
+                        <div className="ms-actions">
+                            <Link href={dictionary.routes.contact} className="ms-pill ms-pill--dark" data-cursor={t.cursor.write}>{dataCapture.cta.toLocaleUpperCase(isEn ? "en-US" : "tr-TR")} ↗</Link>
+                            {!isEn && dataCapture.more && (
+                                <Link href={DATA_CAPTURE_HUB_PATH} className="ms-pill ms-pill--dark-line" data-cursor={t.cursor.go}>{dataCapture.more.toLocaleUpperCase("tr-TR")}</Link>
+                            )}
+                        </div>
+                    </div>
+                </section>
             )}
 
             {specs.length > 0 && (
-                <section className="p2-container p2-detail-section p2-detail-section--specs">
-                    <h2>{copy.specsTitle}</h2>
-                    <dl className="p2-spec-grid">
+                <section className="ms-section" aria-labelledby="ms-specs-title">
+                    <MsSectionHead id="ms-specs-title" title={copy.specsTitle} meta={t.specsMeta} />
+                    <dl className="ms-dl" data-reveal>
                         {specs.map((spec) => (
                             <div key={spec.label}>
                                 <dt>{spec.label}</dt>
@@ -205,108 +284,82 @@ export default function ServiceDetailClient({
             )}
 
             {showRentalOps && (
-                <RentalOpsBlock copy={rentalOps} contactHref={quoteHref} output={output} />
-            )}
-
-            {faqs.length > 0 && (
-                <section className="p2-container p2-detail-section p2-detail-section--faq">
-                    <h2>{copy.faqTitle}</h2>
-                    <div className="p2-screen-faq">
-                        {faqs.map((item, index) => (
-                            <details key={item.q}>
-                                <summary>
-                                    <span className="p2-gradient-number">{String(index + 1).padStart(2, "0")}</span>
-                                    <h3>{item.q}</h3>
-                                    <i aria-hidden="true">+</i>
-                                </summary>
-                                <p>{item.a}</p>
-                            </details>
-                        ))}
+                <section id="kiralama" className="ms-section" aria-labelledby="rental-ops-title">
+                    <MsSectionHead id="rental-ops-title" title={rentalOps.title.replace(/\.$/, "")} meta={rentalOps.eyebrow} />
+                    <div className="ms-twocol">
+                        <div data-reveal>
+                            <h3 className="ms-col-label ms-mono" style={{ margin: 0 }}>{rentalOps.logisticsTitle.toLocaleUpperCase(isEn ? "en-US" : "tr-TR")}</h3>
+                            <dl className="ms-dl">
+                                {rentalOps.logistics.map((item) => (
+                                    <div key={item.term}>
+                                        <dt>{item.term}</dt>
+                                        <dd>{item.value}</dd>
+                                    </div>
+                                ))}
+                            </dl>
+                        </div>
+                        <div data-reveal>
+                            <h3 className="ms-col-label ms-mono" style={{ margin: 0 }}>{rentalOps.scopeTitle.toLocaleUpperCase(isEn ? "en-US" : "tr-TR")}</h3>
+                            <ul className="ms-checks">
+                                {rentalOps.scope(output).map((item) => <li key={item}>{item}</li>)}
+                            </ul>
+                        </div>
+                    </div>
+                    <p className="ms-note" data-reveal>{rentalOps.serviceArea}</p>
+                    <div className="ms-actions">
+                        <Link href={quoteHref} className="ms-pill ms-pill--acc" data-cursor={t.cursor.write}>{rentalOps.cta.toLocaleUpperCase(isEn ? "en-US" : "tr-TR")} ↗</Link>
                     </div>
                 </section>
             )}
 
             {gallery.length > 0 && (
-                <section className="p2-container p2-detail-section p2-detail-section--gallery">
-                    <h2>{copy.galleryTitle}</h2>
-                    <GalleryLightbox
-                        variant="grid"
+                <section className="ms-section" aria-labelledby="ms-gallery-title">
+                    <MsSectionHead id="ms-gallery-title" title={copy.galleryTitle} meta={t.galleryMeta} />
+                    <MsGallery
                         images={gallery.map((item, index) => ({ url: item.url, alt: item.alt || copy.galleryAlt(index + 1) }))}
-                        title={title}
+                        labels={t.gallery}
                     />
                 </section>
             )}
 
-            {relatedServices.length > 0 && (
-                <section className="p2-container p2-detail-section p2-detail-section--related">
-                    <h2>{copy.relatedTitle}</h2>
-                    <div className="p2-cap-grid">
-                        {relatedServices.slice(0, 3).map((related, index) => (
-                            <Link
-                                key={related.id}
-                                className="p2-cap-card"
-                                href={
-                                    variant === "sale"
-                                        ? `/urunler/${related.slug}`
-                                        : isEn && categoryData.slug_en && related.slug_en
-                                            ? `/en/services/${categoryData.slug_en}/${related.slug_en}`
-                                            : `/hizmetler/${categoryData.slug}/${related.slug}`
-                                }
-                            >
-                                <div className="p2-cap-card__media">
-                                    {related.image && (
-                                        <Image src={related.image} alt="" fill sizes="(max-width: 760px) 100vw, 33vw" />
-                                    )}
-                                </div>
-                                <div className="p2-cap-card__body">
-                                    <span className="p2-gradient-number">{String(index + 1).padStart(2, "0")}</span>
-                                    <h2>{isEn ? (related.title_en || related.title) : related.title}</h2>
-                                    <span className="p2-card-link">
-                                        {copy.cardLink} <ArrowRight aria-hidden="true" />
-                                    </span>
-                                </div>
-                            </Link>
-                        ))}
+            {faqs.length > 0 && (
+                <section className="ms-faq-wrap" aria-labelledby="ms-faq-title">
+                    <div className="ms-faq-wrap__aside" data-reveal>
+                        <h2 id="ms-faq-title" className="ms-h2">{copy.faqTitle}<span className="ms-acc">.</span></h2>
+                        <p>{t.faqAside}</p>
+                        <a
+                            href={`https://wa.me/905342334051?text=${encodeURIComponent(t.whatsappText(title))}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="ms-pill ms-pill--line"
+                            data-cursor={t.cursor.write}>
+                            {t.faqWhatsapp}
+                        </a>
                     </div>
+                    <MsFaq items={faqs} />
                 </section>
             )}
 
-            <div className="p2-container p2-detail-foot">
-                {variant === "sale" ? (
-                    <Link href={dictionary.routes.products} className="p2-back-link">
-                        <ArrowLeft aria-hidden="true" /> {copy.backLabelProducts}
-                    </Link>
-                ) : (
-                    <Link href={dictionary.routes.capabilities} className="p2-back-link">
-                        <ArrowLeft aria-hidden="true" /> {copy.backLabel}
-                    </Link>
-                )}
-            </div>
-
-            <section className="p2-screen-cta">
-                <div className="p2-container">
-                    {variant === "sale" ? (
-                        <>
-                            <SignalHeading as="h2" solid={copy.saleCtaSolid} outline={copy.saleCtaOutline} />
-                            <div className="p2-screen-cta__actions">
-                                <Link href={dictionary.routes.contact} className="p2-screen-button">{copy.saleCtaPrimary} <ArrowRight aria-hidden="true" /></Link>
-                                <Link href={dictionary.routes.work} className="p2-screen-button p2-screen-button--secondary">{copy.saleCtaSecondary} <ArrowRight aria-hidden="true" /></Link>
-                            </div>
-                        </>
-                    ) : (
-                        <>
-                            <SignalHeading as="h2" solid={copy.ctaSolid} outline={copy.ctaOutline} />
-                            <div className="p2-screen-cta__actions">
-                                <Link href={quoteHref} className="p2-screen-button">{copy.ctaPrimary} <ArrowRight aria-hidden="true" /></Link>
-                                <Link href={isSoftware ? SOFTWARE_CATEGORY_PATH : dictionary.routes.work} className="p2-screen-button p2-screen-button--secondary">{copy.ctaSecondary} <ArrowRight aria-hidden="true" /></Link>
-                                {saleHref && (
-                                    <Link href={saleHref} className="p2-screen-button p2-screen-button--tertiary">{copy.ctaTertiary} <ArrowRight aria-hidden="true" /></Link>
-                                )}
-                            </div>
-                        </>
-                    )}
-                </div>
-            </section>
+            {relatedServices.length > 0 && (
+                <section className="ms-section" aria-labelledby="ms-related-title">
+                    <MsSectionHead id="ms-related-title" title={t.relatedHeading} meta={variant === "sale" ? t.relatedMetaSale : t.relatedMeta} />
+                    <div className="ms-rows">
+                        {relatedServices.slice(0, 4).map((related, index) => (
+                            <Link key={related.id} href={relatedHref(related)} className="ms-row" data-cursor={t.cursor.view}>
+                                <span className="ms-row__num">{String(index + 1).padStart(2, "0")}</span>
+                                <span className="ms-row__name ms-row__name--sm"><MsCaps text={isEn ? (related.title_en || related.title) : related.title} /></span>
+                                <span />
+                                <span className="ms-row__arrow" aria-hidden="true">↗</span>
+                            </Link>
+                        ))}
+                    </div>
+                    <div className="ms-actions">
+                        <Link href={variant === "sale" ? dictionary.routes.products : dictionary.routes.capabilities} className="ms-pill ms-pill--line" data-cursor={t.cursor.go}>
+                            {variant === "sale" ? t.allProducts : t.allServices}
+                        </Link>
+                    </div>
+                </section>
+            )}
         </article>
     );
 }

@@ -1,8 +1,6 @@
-"use client";
-
 import Link from "next/link";
-import { motion } from "motion/react";
-import CtaSection from "@/components/site/CtaSection";
+import { MsWords } from "@/components/site-ms/parts";
+import { MsClock } from "@/components/site-ms/interactive";
 
 /** A sector card already filtered to the active locale by the page. */
 export interface SectorCard {
@@ -17,86 +15,47 @@ interface SektorelYazilimClientProps {
     sectors: SectorCard[];
 }
 
-const ACCENTS = ["#7c3aed", "#22d3ee", "#e879f9", "#fb923c", "#4ade80", "#a78bfa"];
+const copy = {
+    tr: { kicker: (n: number) => `(SEKTÖRE ÖZEL DİJİTAL DÖNÜŞÜM) — ${n} SEKTÖR`, city: "İSTANBUL", title: "Sektörel yazılım\nçözümleri.", lede: "Her sektörün iş akışı, mevzuatı ve kullanıcısı farklıdır. Etkinlik yazılımlarını geliştiren aynı ekip; sektörünüze özel panel, mobil uygulama ve süreç yazılımlarını da geliştirir.", open: "İNCELE", all: "TÜM YAZILIM HİZMETLERİ →", allHref: "/hizmetler/yazilim-gelistirme" },
+    en: { kicker: (n: number) => `(SECTOR-SPECIFIC DIGITAL TRANSFORMATION) — ${n} SECTORS`, city: "ISTANBUL", title: "Sectoral software\nsolutions.", lede: "Every sector has its own workflow, regulation and users. The team that builds our event software also builds sector-specific panels, mobile apps and process software.", open: "VIEW", all: "ALL SOFTWARE SERVICES →", allHref: "/en/services/software-development" },
+};
 
+/** /sektorel-yazilim-cozumleri and /en/industry-software-solutions, as full-width rows. */
 export default function SektorelYazilimClient({ lang = "tr", sectors }: SektorelYazilimClientProps) {
+    const t = copy[lang];
     const isEn = lang === "en";
 
     return (
-        <div className="min-h-screen bg-[#0a0a0f]">
-            {/* Hero */}
-            <section className="relative overflow-hidden">
-                <div
-                    className="aurora-blob aurora-drift"
-                    style={{ width: 640, height: 640, top: "-18%", left: "4%", background: "radial-gradient(circle, rgba(124,58,237,0.35), transparent 70%)" }}
-                />
-                <div
-                    className="aurora-blob aurora-drift2"
-                    style={{ width: 560, height: 560, top: "-12%", right: "0%", background: "radial-gradient(circle, rgba(34,211,238,0.3), transparent 70%)" }}
-                />
-                <div
-                    className="absolute inset-0 pointer-events-none"
-                    style={{ background: "linear-gradient(180deg, rgba(10,10,15,.1), rgba(10,10,15,.84))" }}
-                />
-                <div className="relative z-10 max-w-[1240px] mx-auto px-6 sm:px-12 pt-32 pb-16">
-                    <div className="max-w-[920px]">
-                        <span
-                            className="text-[12px] uppercase tracking-[0.14em] text-[var(--acc)]"
-                            style={{ fontFamily: "var(--font-jetbrains-mono)", fontWeight: 500 }}
-                        >
-                            {isEn ? "SECTOR-SPECIFIC DIGITAL TRANSFORMATION" : "SEKTÖRE ÖZEL DİJİTAL DÖNÜŞÜM"}
-                        </span>
-                        <motion.h1
-                            initial={{ opacity: 0, y: 16 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.7 }}
-                            className="text-white font-bold tracking-[-0.02em] leading-[0.98] mt-4"
-                            style={{ fontFamily: "var(--font-space-grotesk)", fontSize: "clamp(36px, 6vw, 64px)" }}
-                        >
-                            {isEn ? "Sectoral software" : "Sektörel yazılım"}
-                            <br />
-                            <span className="shimmer-text">{isEn ? "solutions." : "çözümleri."}</span>
-                        </motion.h1>
-                    </div>
+        <div className="ms-page">
+            <section className="ms-hero">
+                <div className="ms-hero__bar ms-mono">
+                    <span>{t.kicker(sectors.length)}</span>
+                    <MsClock label={t.city} />
+                </div>
+                <h1 className="ms-h1" aria-label={t.title.replace("\n", " ")}>
+                    <MsWords text={t.title} accent="last" />
+                </h1>
+                <div className="ms-hero__foot">
+                    <p className="ms-lede" data-reveal style={{ maxWidth: 720 }}>{t.lede}</p>
+                    <Link href={t.allHref} className="ms-pill ms-pill--line">{t.all}</Link>
                 </div>
             </section>
-
-            {/* Sectors Grid */}
-            <section className="relative max-w-[1240px] mx-auto px-6 sm:px-12 py-16 sm:py-20">
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-                    {sectors.map((sector, index) => {
-                        const c1 = ACCENTS[index % ACCENTS.length];
-                        return (
-                            <Link
-                                key={sector.slug}
-                                href={
-                                    isEn
-                                        ? `/en/industry-software-solutions/${sector.slug_en}`
-                                        : `/sektorel-yazilim-cozumleri/${sector.slug}`
-                                }
-                                className="group relative rounded-[20px] overflow-hidden border border-white/10 p-8 transition-all duration-300 hover:-translate-y-1.5 hover:border-white/30"
-                                style={{ background: "linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02))" }}
-                            >
-                                <div
-                                    className="absolute inset-0 pointer-events-none opacity-[.18]"
-                                    style={{ background: `radial-gradient(circle at 80% -10%, ${c1}, transparent 60%)` }}
-                                />
-                                <div className="relative flex items-start justify-between gap-3">
-                                    <h3
-                                        className="text-white"
-                                        style={{ fontFamily: "var(--font-space-grotesk)", fontSize: 20, fontWeight: 600, lineHeight: 1.25 }}
-                                    >
-                                        {isEn ? sector.name_en : sector.name}
-                                    </h3>
-                                    <span className="text-[17px] font-semibold shrink-0" style={{ color: c1 }}>→</span>
-                                </div>
-                            </Link>
-                        );
-                    })}
+            <section className="ms-section">
+                <div className="ms-rows">
+                    {sectors.map((sector, index) => (
+                        <Link
+                            key={sector.slug}
+                            href={isEn ? `/en/industry-software-solutions/${sector.slug_en}` : `/sektorel-yazilim-cozumleri/${sector.slug}`}
+                            className="ms-row"
+                            data-cursor={t.open}>
+                            <span className="ms-row__num">{String(index + 1).padStart(2, "0")}</span>
+                            <span className="ms-row__name">{isEn ? sector.name_en : sector.name}</span>
+                            <span />
+                            <span className="ms-row__arrow" aria-hidden="true">↗</span>
+                        </Link>
+                    ))}
                 </div>
             </section>
-
-            <CtaSection />
         </div>
     );
 }

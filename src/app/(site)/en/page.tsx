@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
-import { unstable_cache } from "next/cache";
-import { prisma } from "@/lib/db";
 import { siteConfig, ogImageUrl } from "@/lib/site";
-import { isEnglishProjectPublishable } from "@/lib/publication";
-import HomePrototype from "@/components/phase2/HomePrototype";
-import { getHomeHeroImage } from "@/lib/home-hero";
+import HomeExperience from "@/components/home/HomeExperience";
+import { homeFontClassName } from "@/components/home/fonts";
+import { getHomeData } from "@/lib/home-data";
 
 // Read database content at request time; Docker builds have no database access.
 export const dynamic = "force-dynamic";
@@ -37,81 +35,7 @@ export const metadata: Metadata = {
     },
 };
 
-/**
- * The three homepage services are selected by their English slug because
- * that value is stable across both locales; each locale then links through
- * its own category and service slugs.
- */
-const featuredServiceSlugs = [
-    "aura-photobooth-rental-real-time-aura-photography-with-biofeedback-sensors",
-    "ai-photobooth",
-    "photobooth-rental",
-];
-
-const getPrototypeProjects = unstable_cache(
-    () => prisma.project.findMany({
-        where: { published: true, featured: true },
-        orderBy: { order: "asc" },
-        take: 10, // fetched before the EN-publishable filter below, so 3 EN-ready ones can still be found
-        select: {
-            slug: true,
-            slug_en: true,
-            title_en: true,
-            description_en: true,
-            content_en: true,
-            metaTitle_en: true,
-            metaDescription_en: true,
-            image: true,
-            category: true,
-        },
-    }),
-    ["phase-2-home-projects"],
-    { revalidate: 3600 }
-);
-
-const getPrototypeServices = unstable_cache(
-    () => prisma.service.findMany({
-        where: { published: true, slug_en: { in: featuredServiceSlugs } },
-        select: {
-            slug: true,
-            slug_en: true,
-            title: true,
-            title_en: true,
-            homeTitle: true,
-            homeTitle_en: true,
-            description: true,
-            description_en: true,
-            image: true,
-            category: { select: { slug: true, slug_en: true } },
-        },
-    }),
-    ["phase-2-home-services"],
-    { revalidate: 3600 }
-);
-
 export default async function EnglishHomePage() {
-    const [projectRecords, serviceRecords, heroImage] = await Promise.all([getPrototypeProjects(), getPrototypeServices(), getHomeHeroImage()]);
-    const projects = projectRecords
-        .filter(isEnglishProjectPublishable)
-        .slice(0, 3)
-        .map((record) => ({
-            key: record.slug_en!,
-            slug: record.slug_en!,
-            title: record.title_en,
-            description: record.description_en,
-            image: record.image,
-        }));
-    const services = featuredServiceSlugs
-        .map((slug) => serviceRecords.find((record) => record.slug_en === slug))
-        .filter((record): record is NonNullable<typeof record> => Boolean(record))
-        .map((record) => ({
-            key: record.slug_en!,
-            categorySlug: record.category.slug_en || record.category.slug,
-            slug: record.slug_en!,
-            title: record.homeTitle_en || record.title_en || record.homeTitle || record.title,
-            description: record.description_en || record.description,
-            image: record.image,
-        }));
-
-    return <HomePrototype projects={projects} services={services} heroImage={heroImage} locale="en" />;
+    const data = await getHomeData("en");
+    return <HomeExperience locale="en" fontClassName={homeFontClassName} {...data} />;
 }

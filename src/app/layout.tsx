@@ -4,6 +4,7 @@ import { Inter_Tight, Lato, Space_Grotesk, Manrope, JetBrains_Mono } from "next/
 import { headers } from "next/headers";
 import { siteConfig, generateMetaTags, generateOrganizationSchema } from "@/lib/site";
 import { Providers } from "@/providers/Providers";
+import { homeIntroScript } from "@/lib/home-intro";
 
 // next/font varsayılan olarak her aileyi <link rel="preload"> ile yükler.
 // Yalnızca birkaç eski `site/` bileşeninde geçen aileler preload edilmez:
@@ -70,6 +71,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang={lang} className={`${interTight.variable} ${lato.variable} ${spaceGrotesk.variable} ${manrope.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
       <head>
+        {/* Homepage intro: decided before first paint, see src/lib/home-intro.ts */}
+        <script dangerouslySetInnerHTML={{ __html: homeIntroScript }} />
         {/* Google Consent Mode v2 - default: denied until the user accepts the cookie banner */}
         <script
           dangerouslySetInnerHTML={{

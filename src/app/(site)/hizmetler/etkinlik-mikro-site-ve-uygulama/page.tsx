@@ -1,10 +1,9 @@
 import { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
-import { IconArrowRight as ArrowRight } from "@tabler/icons-react";
 import { prisma } from "@/lib/db";
 import { siteConfig, generateBreadcrumbSchema } from "@/lib/site";
-import { SignalHeading } from "@/components/phase2/SignalHeading";
+import { MsCrumbs, MsFacts, MsFaq, MsSectionHead, MsWords } from "@/components/site-ms/parts";
+import { MsCatalog } from "@/components/site-ms/interactive";
 import { EVENT_SOFTWARE_HUB_PATH, eventSoftwareHub as copy } from "@/lib/event-software-hub";
 import { DATA_CAPTURE_HUB_PATH } from "@/lib/data-capture-hub";
 import { SOFTWARE_CATEGORY_PATH } from "@/lib/software";
@@ -72,142 +71,107 @@ export default async function EventSoftwareHubPage() {
     };
 
     return (
-        <article className="phase2 p2-screen p2-service-detail p2-dc-hub">
+        <article className="ms-page">
             {[breadcrumbSchema, serviceSchema, faqSchema].map((schema, index) => (
                 <script key={index} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
             ))}
             <AlternateUrl trUrl={EVENT_SOFTWARE_HUB_PATH} />
 
-            <header className="p2-container p2-detail-top">
-                <nav className="p2-detail-top__crumb" aria-label="Hizmetler">
-                    <Link href="/">Ana Sayfa</Link>
-                    <span>{"  /  "}</span>
-                    <Link href="/hizmetler">Hizmetler</Link>
-                    <span>{"  /  "}</span>
-                    <span>{copy.crumb}</span>
-                </nav>
-                <div className="p2-detail-top__heading">
-                    <SignalHeading solid={copy.titleSolid} outline={copy.titleOutline} />
-                    <div className="p2-heading-copy">
-                        <p>{copy.lede}</p>
+            <section className="ms-hero">
+                <MsCrumbs items={[{ href: "/", label: "ANA SAYFA" }, { href: "/hizmetler", label: "HİZMETLER" }, { label: copy.crumb.toLocaleUpperCase("tr-TR") }]} />
+                <h1 className="ms-h1 ms-h1--long" aria-label={`${copy.titleSolid} ${copy.titleOutline}`}>
+                    <MsWords text={`${copy.titleSolid}\n${copy.titleOutline}`} accent="last" />
+                </h1>
+                <div className="ms-hero__foot">
+                    <p className="ms-lede" data-reveal style={{ maxWidth: 760 }}>{copy.lede}</p>
+                    <div className="ms-actions">
+                        <Link href="/iletisim" className="ms-pill ms-pill--acc">{copy.ctaPrimary.toLocaleUpperCase("tr-TR")} ↗</Link>
+                        <Link href={SOFTWARE_CATEGORY_PATH} className="ms-pill ms-pill--line">{copy.ctaSecondary.toLocaleUpperCase("tr-TR")}</Link>
                     </div>
                 </div>
-                <dl>
-                    {copy.facts.map((fact) => (
-                        <div key={fact.term}>
-                            <dt>{fact.term}</dt>
-                            <dd>{fact.value}</dd>
+                <MsFacts facts={copy.facts} />
+            </section>
+
+            <section className="ms-section" aria-labelledby="es-steps">
+                <MsSectionHead id="es-steps" title={copy.stepsTitle} meta="NASIL ÇALIŞIR" />
+                <div className="ms-cards">
+                    {copy.steps.map((item, index) => (
+                        <div key={item.title} className="ms-card" data-reveal>
+                            <span className="ms-card__num">{String(index + 1).padStart(2, "0")}</span>
+                            <h3 className="ms-card__title">{item.title}</h3>
+                            <p className="ms-card__body" style={{ margin: 0 }}>{item.body}</p>
                         </div>
                     ))}
-                </dl>
-            </header>
-
-            <section className="p2-container p2-detail-section p2-dc-section">
-                <h2>{copy.stepsTitle}</h2>
-                <ol className="p2-dc-cards p2-dc-cards--4">
-                    {copy.steps.map((step, index) => (
-                        <li key={step.title}>
-                            <span className="p2-gradient-number">{String(index + 1).padStart(2, "0")}</span>
-                            <h3>{step.title}</h3>
-                            <p>{step.body}</p>
-                        </li>
-                    ))}
-                </ol>
+                </div>
             </section>
 
-            <section className="p2-container p2-detail-section p2-dc-section">
-                <h2>{copy.whyTitle}</h2>
-                <p className="p2-dc-intro">{copy.whyIntro}</p>
-                <ul className="p2-dc-cards p2-dc-cards--2">
-                    {copy.why.map((item) => (
-                        <li key={item.title}>
-                            <h3>{item.title}</h3>
-                            <p>{item.body}</p>
-                        </li>
+            <section className="ms-section" aria-labelledby="es-why">
+                <MsSectionHead id="es-why" title={copy.whyTitle} meta="NEDEN" />
+                <p className="ms-lede" data-reveal>{copy.whyIntro}</p>
+                <div className="ms-cards">
+                    {copy.why.map((item, index) => (
+                        <div key={item.title} className="ms-card" data-reveal>
+                            <span className="ms-card__num">{String(index + 1).padStart(2, "0")}</span>
+                            <h3 className="ms-card__title">{item.title}</h3>
+                            <p className="ms-card__body" style={{ margin: 0 }}>{item.body}</p>
+                        </div>
                     ))}
-                </ul>
+                </div>
             </section>
 
-            <section className="p2-container p2-detail-section p2-dc-section">
-                <h2>{copy.buildTitle}</h2>
-                <ul className="p2-dc-cards p2-dc-cards--4">
-                    {copy.build.map((item) => (
-                        <li key={item.title}>
-                            <h3>{item.title}</h3>
-                            <p>{item.body}</p>
-                        </li>
+            <section className="ms-section" aria-labelledby="es-build">
+                <MsSectionHead id="es-build" title={copy.buildTitle} meta="NELER GELİŞTİRİYORUZ" />
+                <div className="ms-cards">
+                    {copy.build.map((item, index) => (
+                        <div key={item.title} className="ms-card" data-reveal>
+                            <span className="ms-card__num">{String(index + 1).padStart(2, "0")}</span>
+                            <h3 className="ms-card__title">{item.title}</h3>
+                            <p className="ms-card__body" style={{ margin: 0 }}>{item.body}</p>
+                        </div>
                     ))}
-                </ul>
+                </div>
             </section>
 
-            <section className="p2-container p2-detail-section p2-dc-section">
-                <h2>{copy.proofTitle}</h2>
-                <ul className="p2-dc-cards p2-dc-cards--2">
-                    {copy.proof.map((item) => (
-                        <li key={item.title}>
-                            <h3>{item.title}</h3>
-                            <p>{item.body}</p>
-                        </li>
+            <section className="ms-section" aria-labelledby="es-proof">
+                <MsSectionHead id="es-proof" title={copy.proofTitle} meta="SAHADAN" />
+                <div className="ms-cards">
+                    {copy.proof.map((item, index) => (
+                        <div key={item.title} className="ms-card" data-reveal>
+                            <span className="ms-card__num">{String(index + 1).padStart(2, "0")}</span>
+                            <h3 className="ms-card__title">{item.title}</h3>
+                            <p className="ms-card__body" style={{ margin: 0 }}>{item.body}</p>
+                        </div>
                     ))}
-                </ul>
-                <p className="p2-dc-more">
-                    <Link href={DATA_CAPTURE_HUB_PATH} className="p2-back-link">
-                        Data-Capture & CRM modülünü inceleyin <ArrowRight aria-hidden="true" />
-                    </Link>
-                </p>
+                </div>
+                <div className="ms-actions">
+                    <Link href={DATA_CAPTURE_HUB_PATH} className="ms-pill ms-pill--line">DATA-CAPTURE &amp; CRM MODÜLÜNÜ İNCELEYİN →</Link>
+                </div>
             </section>
 
             {activities.length > 0 && (
-                <section className="p2-container p2-detail-section p2-detail-section--related">
-                    <h2>{copy.activitiesTitle}</h2>
-                    <div className="p2-cap-grid">
-                        {activities.map((service, index) => (
-                            <Link key={service.id} className="p2-cap-card" href={`/hizmetler/${service.category.slug}/${service.slug}`}>
-                                <div className="p2-cap-card__media">
-                                    {service.image && <Image src={service.image} alt="" fill sizes="(max-width: 760px) 100vw, 33vw" />}
-                                </div>
-                                <div className="p2-cap-card__body">
-                                    <span className="p2-gradient-number">{String(index + 1).padStart(2, "0")}</span>
-                                    <h3>{service.title}</h3>
-                                    <span className="p2-card-link">
-                                        Hizmeti İncele <ArrowRight aria-hidden="true" />
-                                    </span>
-                                </div>
-                            </Link>
-                        ))}
+                <section aria-labelledby="es-activities" style={{ paddingTop: "4vw" }}>
+                    <div style={{ padding: "0 var(--ms-gut)" }}>
+                        <MsSectionHead id="es-activities" title={copy.activitiesTitle} meta="DENEYİMLER" />
                     </div>
-                    <p className="p2-dc-more">
-                        <Link href="/hizmetler" className="p2-back-link">
-                            {copy.activitiesLink} <ArrowRight aria-hidden="true" />
-                        </Link>
-                    </p>
+                    <MsCatalog
+                        items={activities.map((service) => ({ key: service.id, href: `/hizmetler/${service.category.slug}/${service.slug}`, name: service.title, image: service.image }))}
+                        allLabel=""
+                        countLabel="DENEYİM"
+                        labels={{ grid: "IZGARA", list: "LİSTE", view: "Görünüm", open: "İNCELE" }}
+                        showChips={false}
+                    />
+                    <div className="ms-actions" style={{ padding: "0 var(--ms-gut)" }}>
+                        <Link href="/hizmetler" className="ms-pill ms-pill--line">{copy.activitiesLink.toLocaleUpperCase("tr-TR")} →</Link>
+                    </div>
                 </section>
             )}
 
-            <section className="p2-container p2-detail-section p2-detail-section--faq">
-                <h2>{copy.faqTitle}</h2>
-                <div className="p2-screen-faq">
-                    {copy.faq.map((item, index) => (
-                        <details key={item.q}>
-                            <summary>
-                                <span className="p2-gradient-number">{String(index + 1).padStart(2, "0")}</span>
-                                <h3>{item.q}</h3>
-                                <i aria-hidden="true">+</i>
-                            </summary>
-                            <p>{item.a}</p>
-                        </details>
-                    ))}
+            <section className="ms-faq-wrap" aria-labelledby="es-faq">
+                <div className="ms-faq-wrap__aside" data-reveal>
+                    <h2 id="es-faq" className="ms-h2">{copy.faqTitle}<span className="ms-acc">.</span></h2>
+                    <p>Aradığınız cevap burada yoksa bize yazın; aynı gün dönüş yapalım.</p>
                 </div>
-            </section>
-
-            <section className="p2-screen-cta">
-                <div className="p2-container">
-                    <SignalHeading as="h2" solid={copy.ctaSolid} outline={copy.ctaOutline} />
-                    <div className="p2-screen-cta__actions">
-                        <Link href="/iletisim" className="p2-screen-button">{copy.ctaPrimary} <ArrowRight aria-hidden="true" /></Link>
-                        <Link href={SOFTWARE_CATEGORY_PATH} className="p2-screen-button p2-screen-button--secondary">{copy.ctaSecondary} <ArrowRight aria-hidden="true" /></Link>
-                    </div>
-                </div>
+                <MsFaq items={copy.faq} />
             </section>
         </article>
     );

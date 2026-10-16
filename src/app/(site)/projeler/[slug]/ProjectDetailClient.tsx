@@ -3,11 +3,8 @@
 import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { IconArrowLeft as ArrowLeft, IconArrowRight as ArrowRight } from "@tabler/icons-react";
-import GalleryLightbox from "@/components/site/GalleryLightbox";
-import VideoPlayer from "@/components/site/VideoPlayer";
-import { SignalHeading } from "@/components/phase2/SignalHeading";
-import { splitSignalTitle } from "@/lib/phase2";
+import { MsCaps, MsCrumbs, MsFacts, MsFaq, MsProse, MsSectionHead, MsWords, splitHtmlSections } from "@/components/site-ms/parts";
+import { MsGallery, MsVideo } from "@/components/site-ms/interactive";
 import { phase2Copy } from "@/lib/phase2-content";
 import { useLanguage } from "@/providers/LanguageProvider";
 import { addHeadingAnchors } from "@/lib/utils";
@@ -89,10 +86,16 @@ function parseJsonList<T>(raw: string | null | undefined): T[] {
     }
 }
 
+const labels = {
+    tr: { videoMeta: "SAHADAN · VİDEO", aboutMeta: "PROJE HAKKINDA", stackMeta: "TEKNOLOJİ", galleryMeta: "GALERİ", faqAside: "Benzer bir aktivasyon mu planlıyorsunuz? Bize yazın; aynı gün dönüş yapalım.", gallery: { close: "KAPAT ×", prev: "← ÖNCEKİ", next: "SONRAKİ →" }, quote: "ETKİNLİĞİNİZ İÇİN TEKLİF ALIN ↗", cursor: { view: "İNCELE", go: "GİT", write: "YAZ" } },
+    en: { videoMeta: "ON SITE · VIDEO", aboutMeta: "ABOUT THE PROJECT", stackMeta: "TECHNOLOGY", galleryMeta: "GALLERY", faqAside: "Planning something similar? Write to us and we will reply the same day.", gallery: { close: "CLOSE ×", prev: "← PREV", next: "NEXT →" }, quote: "GET A QUOTE FOR YOUR EVENT ↗", cursor: { view: "VIEW", go: "GO", write: "WRITE" } },
+};
+
 export default function ProjectDetailClient({ project, nextProject, relatedServices = [] }: { project: Project; nextProject?: NextProject | null; relatedServices?: RelatedService[] }) {
     const { language, setAlternateUrl } = useLanguage();
     const dictionary = phase2Copy(language);
     const copy = dictionary.projectDetail;
+    const t = labels[language === "en" ? "en" : "tr"];
 
     useEffect(() => {
         const trUrl = `/projeler/${project.slug}`;
@@ -101,6 +104,7 @@ export default function ProjectDetailClient({ project, nextProject, relatedServi
     }, [project.slug, project.slug_en, setAlternateUrl]);
 
     const isEn = language === "en";
+    const up = (text: string) => text.toLocaleUpperCase(isEn ? "en-US" : "tr-TR");
     const title = isEn ? (project.title_en || project.title) : project.title;
     const description = isEn ? (project.description_en || project.description) : project.description;
     const content = isEn ? (project.content_en || project.content) : project.content;
@@ -111,10 +115,6 @@ export default function ProjectDetailClient({ project, nextProject, relatedServi
     const projectDate = project.projectDate ? new Date(project.projectDate) : null;
     const year = projectDate ? String(projectDate.getFullYear()) : null;
 
-    const { solid, outline } = splitSignalTitle(title);
-
-    // The stack is deliberately absent here: it gets its own section below, and
-    // a full technology list overflows a quarter-width fact cell.
     const facts = [
         project.client && { term: copy.clientTerm, value: project.client },
         project.category && { term: copy.formatTerm, value: project.category },
@@ -125,137 +125,116 @@ export default function ProjectDetailClient({ project, nextProject, relatedServi
     const nextHref = nextProject
         ? (isEn ? `/en/projects/${nextProject.slug_en || nextProject.slug}` : `/projeler/${nextProject.slug}`)
         : null;
+    const about = content ? splitHtmlSections(addHeadingAnchors(content.replace(/&nbsp;/g, " "))) : null;
 
     return (
-        <article className="phase2 p2-screen p2-project-detail">
-            <header className="p2-container p2-detail-top">
-                <nav className="p2-detail-top__crumb" aria-label={copy.crumbWork}>
-                    <Link href={dictionary.routes.home}>{copy.crumbHome}</Link>
-                    <span>{"  /  "}</span>
-                    <Link href={dictionary.routes.work}>{copy.crumbWork}</Link>
-                    <span>{"  /  "}</span>
-                    {project.category || title}
-                </nav>
-
-                <div className="p2-detail-top__heading">
-                    <SignalHeading solid={solid} outline={outline} label={title} />
-                    {description && <p>{description}</p>}
+        <article className="ms-page">
+            <section className="ms-hero ms-hero--split">
+                <div className="ms-hero__col">
+                    <MsCrumbs items={[
+                        { href: dictionary.routes.home, label: up(copy.crumbHome) },
+                        { href: dictionary.routes.work, label: up(copy.crumbWork) },
+                        { label: project.category || title },
+                    ]} />
+                    <h1 className={`ms-h1 ms-h1--detail${title.length > 34 ? " ms-h1--long" : ""}`} aria-label={title}>
+                        <MsWords text={title} accent="last" />
+                    </h1>
+                    {description && <p className="ms-lede" data-reveal>{description}</p>}
+                    <MsFacts facts={facts} />
+                    <div className="ms-actions">
+                        <Link href={dictionary.routes.contact} className="ms-pill ms-pill--acc" data-cursor={t.cursor.write}>{t.quote}</Link>
+                        {project.projectUrl && (
+                            <a href={project.projectUrl} target="_blank" rel="noopener noreferrer" className="ms-pill ms-pill--line" data-cursor={t.cursor.go}>{up(copy.siteValue)} ↗</a>
+                        )}
+                    </div>
                 </div>
-
-                {facts.length > 0 && (
-                    <dl>
-                        {facts.map((fact) => (
-                            <div key={fact.term}>
-                                <dt>{fact.term}</dt>
-                                <dd>{fact.value}</dd>
-                            </div>
-                        ))}
-                    </dl>
-                )}
-
                 {project.image && (
-                    <figure className="p2-detail-main-image">
-                        <Image src={project.image} alt={title} fill priority sizes="100vw" />
-                    </figure>
+                    <div className="ms-hero__media" data-reveal>
+                        <Image src={project.image} alt={title} fill priority sizes="(max-width: 899px) 100vw, 46vw" />
+                        {project.client && <span className="ms-hero__tag ms-mono"><MsCaps text={project.client} /></span>}
+                    </div>
                 )}
-            </header>
+            </section>
 
             {project.video && (
-                <section className="p2-container p2-detail-section">
-                    <h2>{copy.videoTitle}</h2>
-                    <div className="p2-detail-video">
-                        <VideoPlayer src={project.video} fallbackPoster={project.image} title={title} />
-                    </div>
+                <section className="ms-section" aria-labelledby="ms-pvideo">
+                    <MsSectionHead id="ms-pvideo" title={copy.videoTitle.replace(/[?.]$/, "")} meta={t.videoMeta} />
+                    <div data-reveal><MsVideo src={project.video} title={title} poster={project.image} /></div>
                 </section>
             )}
 
-            {content && (
-                <section className="p2-container p2-detail-section p2-detail-section--about">
-                    <h2>{copy.aboutTitle}</h2>
-                    <div
-                        className="p2-prose"
-                        dangerouslySetInnerHTML={{ __html: addHeadingAnchors(content.replace(/&nbsp;/g, " ")) }}
-                    />
+            {about && (
+                <section className="ms-section" aria-labelledby="ms-pabout">
+                    <MsSectionHead id="ms-pabout" title={copy.aboutTitle} meta={t.aboutMeta} />
+                    {about.sections.length === 0 ? (
+                        <div data-reveal><MsProse html={about.intro} /></div>
+                    ) : (
+                        <>
+                            {about.intro && <div data-reveal><MsProse html={about.intro} /></div>}
+                            <div className="ms-cards">
+                                {about.sections.map((section, index) => (
+                                    <div key={`${index}-${section.title}`} className={`ms-card${index === 0 ? " ms-card--lead" : ""}`} data-reveal>
+                                        <span className="ms-card__num">{String(index + 1).padStart(2, "0")}</span>
+                                        <h3 className="ms-card__title" id={section.id}><MsCaps text={section.title} /></h3>
+                                        <div className="ms-card__body" dangerouslySetInnerHTML={{ __html: section.html }} />
+                                    </div>
+                                ))}
+                            </div>
+                        </>
+                    )}
                 </section>
             )}
 
             {technologies.length > 0 && (
-                <section className="p2-container p2-detail-section">
-                    <h2>{copy.stackTitle}</h2>
-                    <div className="p2-tag-row">
+                <section className="ms-section" aria-labelledby="ms-pstack">
+                    <MsSectionHead id="ms-pstack" title={copy.stackTitle} meta={t.stackMeta} small />
+                    <div className="ms-tags" data-reveal>
                         {technologies.map((tech) => <span key={tech}>{tech}</span>)}
                     </div>
                 </section>
             )}
 
-            {faqs.length > 0 && (
-                <section className="p2-container p2-detail-section p2-detail-section--faq">
-                    <h2>{copy.faqTitle}</h2>
-                    <div className="p2-screen-faq">
-                        {faqs.map((item, index) => (
-                            <details key={item.q}>
-                                <summary>
-                                    <span className="p2-gradient-number">{String(index + 1).padStart(2, "0")}</span>
-                                    <h3>{item.q}</h3>
-                                    <i aria-hidden="true">+</i>
-                                </summary>
-                                <p>{item.a}</p>
-                            </details>
-                        ))}
-                    </div>
-                </section>
-            )}
-
             {gallery.length > 0 && (
-                <section className="p2-container p2-detail-section">
-                    <h2>{copy.galleryTitle}</h2>
-                    <GalleryLightbox
-                        variant="grid"
-                        images={gallery.map((item, index) => ({ url: item.url, alt: item.alt || copy.galleryAlt(index + 1) }))}
-                        title={title}
-                    />
+                <section className="ms-section" aria-labelledby="ms-pgallery">
+                    <MsSectionHead id="ms-pgallery" title={copy.galleryTitle} meta={t.galleryMeta} />
+                    <MsGallery images={gallery.map((item, index) => ({ url: item.url, alt: item.alt || copy.galleryAlt(index + 1) }))} labels={t.gallery} />
                 </section>
             )}
 
-            {relatedServices.map((service) => (
-                <section key={service.href} className="p2-case-capability p2-case-capability--inline">
-                    <div className="p2-container">
-                        <span>{copy.serviceLabel}</span>
-                        <Link href={service.href}><strong>{service.title}</strong><ArrowRight aria-hidden="true" /></Link>
+            {faqs.length > 0 && (
+                <section className="ms-faq-wrap" aria-labelledby="ms-pfaq">
+                    <div className="ms-faq-wrap__aside" data-reveal>
+                        <h2 id="ms-pfaq" className="ms-h2">{copy.faqTitle}<span className="ms-acc">.</span></h2>
+                        <p>{t.faqAside}</p>
                     </div>
+                    <MsFaq items={faqs} />
                 </section>
-            ))}
+            )}
+
+            {relatedServices.length > 0 && (
+                <div style={{ marginTop: "2vw" }}>
+                    {relatedServices.map((service) => (
+                        <Link key={service.href} href={service.href} className="ms-capability" data-cursor={t.cursor.view}>
+                            <span>{copy.serviceLabel}</span>
+                            <strong><MsCaps text={service.title} /> ↗</strong>
+                        </Link>
+                    ))}
+                </div>
+            )}
 
             {nextProject && nextHref && (
-                <section className="p2-container p2-detail-section">
-                    <Link href={nextHref} className="p2-next-project p2-next-project--standalone">
-                        <div>
-                            <span>{copy.nextLabel}</span>
-                            <h2>{nextTitle}</h2>
+                <section className="ms-section">
+                    <Link href={nextHref} className="ms-next" data-cursor={t.cursor.view}>
+                        <div className="ms-next__copy">
+                            <span className="ms-mono">{up(copy.nextLabel)} →</span>
+                            <h2 className="ms-next__title">{nextTitle && <MsCaps text={nextTitle} />}</h2>
                         </div>
-                        {nextProject.image && <Image src={nextProject.image} alt="" fill sizes="55vw" />}
-                        <ArrowRight aria-hidden="true" />
+                        <div className="ms-next__media">
+                            {nextProject.image && <Image src={nextProject.image} alt="" fill sizes="(max-width: 899px) 100vw, 50vw" />}
+                        </div>
                     </Link>
                 </section>
             )}
-
-            <div className="p2-container p2-detail-foot">
-                <Link href={dictionary.routes.work} className="p2-back-link">
-                    <ArrowLeft aria-hidden="true" /> {copy.backLabel}
-                </Link>
-                {project.projectUrl && (
-                    <a href={project.projectUrl} target="_blank" rel="noopener noreferrer" className="p2-back-link">
-                        {copy.siteValue} <ArrowRight aria-hidden="true" />
-                    </a>
-                )}
-            </div>
-
-            <section className="p2-screen-cta">
-                <div className="p2-container">
-                    <SignalHeading as="h2" solid={copy.ctaSolid} outline={copy.ctaOutline} />
-                    <Link href={dictionary.routes.contact} className="p2-screen-button">{copy.ctaButton} <ArrowRight aria-hidden="true" /></Link>
-                </div>
-            </section>
         </article>
     );
 }

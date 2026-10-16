@@ -5,7 +5,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Globe, Menu, Sparkles, X } from "lucide-react";
-import { isPhase2PrototypePath, phase2LocaleFromPath, phase2SiblingPath } from "@/lib/phase2";
+import { isHomePath, isPhase2PrototypePath, phase2LocaleFromPath, phase2SiblingPath } from "@/lib/phase2";
 import { phase2Copy } from "@/lib/phase2-content";
 import { useChatStore } from "@/components/AIChat/useChatStore";
 
@@ -105,7 +105,7 @@ export function Phase2Navbar() {
         return () => window.removeEventListener("keydown", onKeyDown);
     }, [open]);
 
-    if (!isPhase2PrototypePath(pathname)) return null;
+    if (!isPhase2PrototypePath(pathname) || isHomePath(pathname)) return null;
 
     const home = phase2Copy(locale).routes.home;
     // The most specific matching item wins, so /hizmetler/yazilim-gelistirme
@@ -195,7 +195,7 @@ export function Phase2Footer() {
     const dictionary = phase2Copy(locale);
     const copy = dictionary.footer;
 
-    if (!isPhase2PrototypePath(pathname)) return null;
+    if (!isPhase2PrototypePath(pathname) || isHomePath(pathname)) return null;
 
     return (
         <footer className="p2-footer">

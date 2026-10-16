@@ -136,7 +136,7 @@ export default async function HizmetlerPage() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
             />
-            <CapabilitiesIndexPrototype capabilities={capabilities} categories={categoryTabs} locale="tr" />
+            <CapabilitiesIndexPrototype capabilities={capabilities} categories={categoryTabs} locale="tr" faqs={serviceFAQs.map((item) => ({ q: item.question, a: item.answer }))} />
         </>
     );
 }

@@ -1,34 +1,74 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import { FormEvent, Suspense, useState } from "react";
+import { FormEvent, Suspense, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { IconArrowRight as ArrowRight, IconMail as Mail, IconMapPin as MapPin, IconPhone as Phone, IconSend as Send } from "@tabler/icons-react";
 import type { Phase2Locale } from "@/lib/phase2";
 import { phase2Copy } from "@/lib/phase2-content";
-import { SignalHeading } from "./SignalHeading";
-import { useChatStore } from "@/components/AIChat/useChatStore";
+import { MsWords } from "@/components/site-ms/parts";
+import { MsClock } from "@/components/site-ms/interactive";
 import { trackEvent } from "@/lib/analytics";
 import { getAttribution } from "@/lib/attribution";
 
 type Status = "idle" | "sending" | "sent" | "error";
 
+const t = {
+    tr: {
+        kicker: "(İLETİŞİM) — TEKLİF TALEBİ",
+        city: "İSTANBUL",
+        talk: "PROJENİZİ KONUŞALIM",
+        next: "BUNDAN SONRA NE OLACAK",
+        sizes: ["0–200", "200–1.000", "1.000–5.000", "5.000+"],
+        products: ["AI Photo", "AI Greenbox", "Photobooth", "Strip Photo", "İnteraktif Oyun", "Hediye Çarkı", "Video Booth", "VR & AR", "Yazılım Geliştirme", "Emin değilim"],
+        productsLabel: "İLGİLENDİĞİNİZ ÜRÜN · BİRDEN FAZLA SEÇEBİLİRSİNİZ",
+        sent: "✓",
+        newRequest: "YENİ TALEP",
+        email: "E-POSTA GÖNDERİN",
+        work: "PROJELERİ İNCELEYİN",
+        whatsapp: "WHATSAPP’TAN YAZIN ↗",
+        whatsappText: "Merhaba, bilgi almak istiyorum.",
+        cursor: { pick: "SEÇ", send: "GÖNDER", write: "YAZ", call: "ARA" },
+    },
+    en: {
+        kicker: "(CONTACT) — QUOTE REQUEST",
+        city: "ISTANBUL",
+        talk: "LET'S TALK ABOUT YOUR PROJECT",
+        next: "WHAT HAPPENS NEXT",
+        sizes: ["0–200", "200–1,000", "1,000–5,000", "5,000+"],
+        products: ["AI Photo", "AI Greenbox", "Photobooth", "Strip Photo", "Interactive Games", "Gift Wheel", "Video Booth", "VR & AR", "Software Development", "Not sure yet"],
+        productsLabel: "PRODUCTS YOU ARE INTERESTED IN · PICK AS MANY AS YOU LIKE",
+        sent: "✓",
+        newRequest: "NEW REQUEST",
+        email: "SEND AN EMAIL",
+        work: "SEE OUR WORK",
+        whatsapp: "WRITE ON WHATSAPP ↗",
+        whatsappText: "Hello, I would like some information.",
+        cursor: { pick: "PICK", send: "SEND", write: "WRITE", call: "CALL" },
+    },
+};
+
+/** /iletisim and /en/contact — the "İletişim" design of October 2026. */
 export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
     const dictionary = phase2Copy(locale);
     const copy = dictionary.contact;
     const form = copy.form;
-    const { open: openChat } = useChatStore();
+    const l = t[locale];
 
     const [status, setStatus] = useState<Status>("idle");
+    const [size, setSize] = useState("");
+    const [products, setProducts] = useState<string[]>([]);
+    const [linkedProduct, setLinkedProduct] = useState("");
+
+    const toggleProduct = (label: string) =>
+        setProducts((current) => (current.includes(label) ? current.filter((p) => p !== label) : [...current, label]));
 
     async function submit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
         setStatus("sending");
-
         const currentForm = event.currentTarget;
         const data = new FormData(currentForm);
         const value = (key: string) => String(data.get(key) ?? "").trim();
+        const product = [linkedProduct, ...products].filter(Boolean).join(", ");
 
         try {
             const response = await fetch("/api/contact", {
@@ -39,18 +79,21 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
                     email: value("email"),
                     phone: value("phone"),
                     company: value("company"),
-                    product: value("product"),
+                    product,
                     eventDate: value("eventDate"),
                     city: value("city"),
-                    guests: value("guests"),
+                    guests: size,
                     message: value("brief"),
                     attribution: getAttribution(),
                 }),
             });
             if (response.ok) {
                 setStatus("sent");
-                trackEvent("generate_lead", { form_name: "iletisim_brief", product: value("product") || undefined });
+                trackEvent("generate_lead", { form_name: "iletisim_brief", product: product || undefined });
                 currentForm.reset();
+                setSize("");
+                setProducts([]);
+                window.scrollTo({ top: 0, behavior: "smooth" });
             } else {
                 setStatus("error");
             }
@@ -59,96 +102,128 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
         }
     }
 
-    const optional = (label: string) => label.replace(" *", "");
-    const submitLabel = status === "sending" ? form.submitting : status === "sent" ? form.submitted : form.submit;
+    const optional = (label: string) => label.replace(" *", "").toLocaleUpperCase(locale === "en" ? "en-US" : "tr-TR");
+    const required = (label: string) => label.toLocaleUpperCase(locale === "en" ? "en-US" : "tr-TR");
 
     return (
-        <article className="phase2 p2-screen p2-contact">
-            <header className="p2-container p2-screen-hero">
-                <SignalHeading solid={copy.heroSolid} outline={copy.heroOutline} label={copy.heroLabel} />
-                <p>{copy.heroCopy}</p>
-            </header>
-            <section className="p2-container p2-contact-panel">
-                <aside>
-                    <h2>{copy.asideTitle}</h2>
-                    <ul>
-                        <li><Phone aria-hidden="true" /><a href="tel:+905342334051">+90 534 233 40 51</a></li>
-                        <li><Mail aria-hidden="true" /><a href="mailto:info@metasoftco.com">info@metasoftco.com</a></li>
-                        <li><MapPin aria-hidden="true" /><span>{copy.location}</span></li>
-                    </ul>
-                    <figure><Image src="/phase2/contact-producers-v2.png" alt={copy.figureAlt} fill sizes="330px" /></figure>
-                </aside>
-                {status === "sent" ? (
-                    <div className="p2-form-thanks" role="status">
-                        <h2>{form.submitted}</h2>
-                        <p>{form.success}</p>
-                        <button className="p2-screen-button" type="button" onClick={() => setStatus("idle")}>
-                            {form.sendAnother}<ArrowRight aria-hidden="true" />
-                        </button>
+        <article className="ms-page">
+            <section className="ms-hero">
+                <div className="ms-hero__bar ms-mono">
+                    <span>{l.kicker}</span>
+                    <MsClock label={l.city} />
+                </div>
+                <h1 className="ms-h1 ms-h1--long" aria-label={copy.heroLabel}>
+                    <MsWords text={`${copy.heroSolid}\n${copy.heroOutline}`} accent="last" />
+                </h1>
+                <div className="ms-hero__foot">
+                    <p className="ms-lede" data-reveal style={{ maxWidth: 620 }}>{copy.heroCopy}</p>
+                </div>
+            </section>
+
+            <section className="ms-contact">
+                <div className="ms-contact__aside" data-reveal>
+                    <div className="ms-contact__direct">
+                        <span className="ms-mono ms-acc">{l.talk}</span>
+                        <a href="tel:+905342334051" className="ms-contact__big" data-cursor={l.cursor.call} onClick={() => trackEvent("phone_click", { location: "contact_page" })}>+90 534 233 40 51</a>
+                        <a href="mailto:info@metasoftco.com" className="ms-contact__big ms-contact__big--sm" data-cursor={l.cursor.write}>info@metasoftco.com</a>
+                        <span className="ms-mut" style={{ fontSize: 15, lineHeight: 1.5, maxWidth: 420 }}>{copy.location}</span>
                     </div>
-                ) : (
-                    <form onSubmit={submit}>
-                        <div className="p2-field-grid">
-                            <label>{form.name}<input required name="name" placeholder={form.namePlaceholder} /></label>
-                            <label>{optional(form.company)}<input name="company" placeholder={form.companyPlaceholder} /></label>
+                    <div>
+                        <span className="ms-mono ms-mut" style={{ display: "block", paddingBottom: 12 }}>{l.next}</span>
+                        <ol className="ms-nextsteps">
+                            {copy.nextSteps.map((step) => (
+                                <li key={step.number}>
+                                    <span className="ms-mono ms-acc">{step.number}</span>
+                                    <div>
+                                        <h3>{step.title}</h3>
+                                        <p>{step.copy}</p>
+                                    </div>
+                                </li>
+                            ))}
+                        </ol>
+                    </div>
+                </div>
+
+                <div data-reveal>
+                    {status === "sent" ? (
+                        <div className="ms-contact__done" role="status">
+                            <span className="ms-contact__tick">{l.sent}</span>
+                            <h2 className="ms-h2">{form.submitted}</h2>
+                            <p className="ms-lede">{form.success}</p>
+                            <button type="button" className="ms-pill ms-pill--line" onClick={() => setStatus("idle")}>{l.newRequest}</button>
                         </div>
-                        <div className="p2-field-grid p2-field-grid--spaced">
-                            <label>{form.email}<input required type="email" name="email" placeholder={form.emailPlaceholder} /></label>
-                            <label>{optional(form.phone)}<input type="tel" name="phone" placeholder={form.phonePlaceholder} /></label>
-                        </div>
-                        <p className="p2-form-hint">{form.detailsHint}</p>
-                        <div className="p2-field-grid">
-                            <label>{optional(form.date)}<input type="date" name="eventDate" /></label>
-                            <label>{optional(form.venue)}<input name="city" placeholder={form.venuePlaceholder} /></label>
-                            <label>{optional(form.audience)}<input type="number" inputMode="numeric" min={1} name="guests" placeholder={form.audiencePlaceholder} /></label>
-                            <Suspense fallback={<ProductField label={form.product} placeholder={form.productPlaceholder} />}>
-                                <LinkedProductField label={form.product} placeholder={form.productPlaceholder} />
-                            </Suspense>
-                        </div>
-                        <label>{form.brief}<textarea required name="brief" maxLength={2000} placeholder={form.briefPlaceholder} /></label>
-                        <button className="p2-screen-button" type="submit" disabled={status === "sending"}>{submitLabel}<ArrowRight aria-hidden="true" /></button>
-                        <p className="p2-form-note">
-                            {locale === "en"
-                                ? <>The details you send are used only to respond to your request. See our <Link href="/gizlilik">Privacy Policy</Link> (Turkish).</>
-                                : <>Gönderdiğiniz bilgiler yalnızca talebinize dönüş yapmak için KVKK kapsamında işlenir. Ayrıntılar için <Link href="/gizlilik">Gizlilik Politikası</Link>.</>}
-                        </p>
-                        {status === "error" && <p className="p2-form-error" role="alert">{form.error}</p>}
-                    </form>
-                )}
+                    ) : (
+                        <form className="ms-form" onSubmit={submit}>
+                            <div className="ms-form__grid">
+                                <label className="ms-field"><span>{required(form.name)}</span><input className="ms-input" required name="name" autoComplete="name" placeholder={form.namePlaceholder} /></label>
+                                <label className="ms-field"><span>{optional(form.company)}</span><input className="ms-input" name="company" autoComplete="organization" placeholder={form.companyPlaceholder} /></label>
+                                <label className="ms-field"><span>{required(form.email)}</span><input className="ms-input" required type="email" name="email" autoComplete="email" placeholder={form.emailPlaceholder} /></label>
+                                <label className="ms-field"><span>{optional(form.phone)}</span><input className="ms-input" type="tel" name="phone" autoComplete="tel" placeholder={form.phonePlaceholder} /></label>
+                            </div>
+                            <p className="ms-form__hint">{form.detailsHint}</p>
+                            <div className="ms-form__grid">
+                                <label className="ms-field"><span>{optional(form.date)}</span><input className="ms-input" type="date" name="eventDate" /></label>
+                                <label className="ms-field"><span>{optional(form.venue)}</span><input className="ms-input" name="city" placeholder={form.venuePlaceholder} /></label>
+                            </div>
+                            <div className="ms-field">
+                                <span>{optional(form.audience)}</span>
+                                <div className="ms-chips" role="radiogroup" aria-label={optional(form.audience)} style={{ marginTop: 8 }}>
+                                    {l.sizes.map((label) => (
+                                        <button key={label} type="button" role="radio" aria-checked={size === label} className="ms-chip" data-cursor={l.cursor.pick} onClick={() => setSize(size === label ? "" : label)}>{label}</button>
+                                    ))}
+                                </div>
+                            </div>
+                            <div className="ms-field">
+                                <span>{l.productsLabel}</span>
+                                <Suspense fallback={null}>
+                                    <LinkedProduct onProduct={setLinkedProduct} />
+                                </Suspense>
+                                <div className="ms-chips" style={{ marginTop: 8 }}>
+                                    {linkedProduct && !l.products.includes(linkedProduct) && (
+                                        <button type="button" className="ms-chip" aria-pressed="true" onClick={() => setLinkedProduct("")}>{linkedProduct} ×</button>
+                                    )}
+                                    {l.products.map((label) => (
+                                        <button key={label} type="button" aria-pressed={products.includes(label)} className="ms-chip" data-cursor={l.cursor.pick} onClick={() => toggleProduct(label)}>{label.toLocaleUpperCase(locale === "en" ? "en-US" : "tr-TR")}</button>
+                                    ))}
+                                </div>
+                            </div>
+                            <label className="ms-field"><span>{required(form.brief)}</span><textarea className="ms-input" required name="brief" rows={4} maxLength={2000} placeholder={form.briefPlaceholder} /></label>
+                            <div className="ms-form__foot">
+                                <p className="ms-form__note">
+                                    {locale === "en"
+                                        ? <>The details you send are used only to respond to your request. See our <Link href="/gizlilik">Privacy Policy</Link> (Turkish).</>
+                                        : <>Gönderdiğiniz bilgiler yalnızca talebinize dönüş yapmak için KVKK kapsamında işlenir. Ayrıntılar için <Link href="/gizlilik">Gizlilik Politikası</Link>.</>}
+                                </p>
+                                <button className="ms-pill ms-pill--acc" type="submit" disabled={status === "sending"} data-cursor={l.cursor.send}>
+                                    {(status === "sending" ? form.submitting : form.submit).toLocaleUpperCase(locale === "en" ? "en-US" : "tr-TR")} ↗
+                                </button>
+                            </div>
+                            {status === "error" && <p className="ms-error" role="alert">{form.error}</p>}
+                        </form>
+                    )}
+                </div>
             </section>
-            <section className="p2-container p2-next-steps">
-                <h2>{copy.nextStepsTitle}</h2>
-                <ol>{copy.nextSteps.map((step) => <li key={step.number}><span className="p2-gradient-number">{step.number}</span><h3>{step.title}</h3><p>{step.copy}</p></li>)}</ol>
-            </section>
-            <section className="p2-container p2-contact-lite">
-                <Send aria-hidden="true" />
-                <h2>{copy.liteTitle}</h2>
-                <p>{copy.liteCopy}</p>
-                <Link href="mailto:info@metasoftco.com">{copy.liteMailLabel} <ArrowRight aria-hidden="true" /></Link>
-                <button type="button" onClick={() => openChat(locale)}>{copy.liteWorkLabel} <ArrowRight aria-hidden="true" /></button>
-            </section>
-            <section className="p2-contact-final">
-                <Image src="/phase2/about-production-stage-v2.png" alt="" fill sizes="100vw" />
+
+            <section className="ms-lite" data-reveal>
                 <div>
-                    <SignalHeading as="h2" solid={copy.finalSolid} outline={copy.finalOutline} />
-                    <h2>{copy.finalTail}</h2>
-                    <p>
-                        <span><Phone aria-hidden="true" /> +90 534 233 40 51</span>
-                        <span><Mail aria-hidden="true" /> info@metasoftco.com</span>
-                        <span><MapPin aria-hidden="true" /> {copy.location}</span>
-                    </p>
+                    <h2 className="ms-h2 ms-h2--sm">{copy.liteTitle}</h2>
+                    <p className="ms-mut" style={{ margin: "10px 0 0", fontSize: 16 }}>{copy.liteCopy}</p>
+                </div>
+                <div className="ms-actions">
+                    <a href="mailto:info@metasoftco.com" className="ms-pill ms-pill--line" data-cursor={l.cursor.write}>{l.email}</a>
+                    <Link href={dictionary.routes.work} className="ms-pill ms-pill--line">{l.work}</Link>
+                    <a href={`https://wa.me/905342334051?text=${encodeURIComponent(l.whatsappText)}`} target="_blank" rel="noopener noreferrer" className="ms-pill ms-pill--acc" data-cursor={l.cursor.write} onClick={() => trackEvent("whatsapp_click", { location: "contact_page" })}>{l.whatsapp}</a>
                 </div>
             </section>
         </article>
     );
 }
 
-function ProductField({ label, placeholder, initial = "" }: { label: string; placeholder: string; initial?: string }) {
-    return <label>{label}<input key={initial} name="product" defaultValue={initial} placeholder={placeholder} /></label>;
-}
-
 /** Service pages link here with ?urun=<product>, so the request arrives tagged with it. */
-function LinkedProductField({ label, placeholder }: { label: string; placeholder: string }) {
+function LinkedProduct({ onProduct }: { onProduct: (product: string) => void }) {
     const initial = useSearchParams().get("urun")?.slice(0, 120) ?? "";
-    return <ProductField label={label} placeholder={placeholder} initial={initial} />;
+    useEffect(() => {
+        if (initial) onProduct(initial);
+    }, [initial, onProduct]);
+    return null;
 }

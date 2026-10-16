@@ -1,7 +1,9 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { trackEvent } from "@/lib/analytics";
+import { isHomePath } from "@/lib/phase2";
 
 export default function WhatsAppButton() {
     const phoneNumber = "905342334051"; // Türkiye kodu ile
@@ -17,7 +19,12 @@ export default function WhatsAppButton() {
         );
     }, []);
 
+    const pathname = usePathname();
+
     const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`;
+
+    // The homepage carries its own WhatsApp pill (src/components/home).
+    if (isHomePath(pathname)) return null;
 
     return (
         <a

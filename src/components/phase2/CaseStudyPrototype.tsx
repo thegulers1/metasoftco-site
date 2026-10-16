@@ -1,10 +1,9 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, Check } from "lucide-react";
-import VideoPlayer from "@/components/site/VideoPlayer";
 import type { Phase2Locale } from "@/lib/phase2";
 import { phase2Copy } from "@/lib/phase2-content";
-import { P2Container, P2Eyebrow, P2FinalCta, P2SectionHeading } from "./Phase2Primitives";
+import { MsCrumbs, MsFacts, MsSectionHead, MsSteps, MsWords } from "@/components/site-ms/parts";
+import { MsGallery, MsVideo } from "@/components/site-ms/interactive";
 
 interface GalleryItem { url: string; alt: string }
 
@@ -16,99 +15,94 @@ interface CaseStudyPrototypeProps {
     locale: Phase2Locale;
 }
 
+const g = {
+    tr: { close: "KAPAT ×", prev: "← ÖNCEKİ", next: "SONRAKİ →" },
+    en: { close: "CLOSE ×", prev: "← PREV", next: "NEXT →" },
+};
+
+/** Bespoke Tavuk Dünyası × AI Photo case study, in the October 2026 design. */
 export default function CaseStudyPrototype({ image, video, gallery, year, locale }: CaseStudyPrototypeProps) {
     const dictionary = phase2Copy(locale);
     const copy = dictionary.caseStudy;
+    const up = (text: string) => text.toLocaleUpperCase(locale === "en" ? "en-US" : "tr-TR");
 
     return (
-        <div className="phase2">
-            <section className="p2-case-hero" aria-labelledby="case-title">
-                <P2Container>
-                    <nav className="p2-breadcrumbs" aria-label={copy.breadcrumbAria}>
-                        <Link href={dictionary.routes.home}>{copy.crumbHome}</Link><span>/</span>
-                        <Link href={dictionary.routes.work}>{copy.crumbWork}</Link><span>/</span>
-                        <span>{copy.title}</span>
-                    </nav>
-                    <div className="p2-case-hero__heading">
-                        <div><P2Eyebrow>{copy.eyebrow}</P2Eyebrow><h1 id="case-title">{copy.title}</h1></div>
-                        <p>{copy.lede}</p>
-                    </div>
-                    <dl className="p2-case-facts">
-                        {copy.facts.map((fact) => <div key={fact.term}><dt>{fact.term}</dt><dd>{fact.value ?? year}</dd></div>)}
-                    </dl>
-                    {image && <figure className="p2-case-hero__image"><Image src={image} alt={copy.imageAlt} fill priority sizes="100vw" /><figcaption>{copy.imageCaption}</figcaption></figure>}
-                </P2Container>
+        <article className="ms-page">
+            <section className="ms-hero">
+                <div className="ms-hero__bar ms-mono">
+                    <MsCrumbs items={[
+                        { href: dictionary.routes.home, label: up(copy.crumbHome) },
+                        { href: dictionary.routes.work, label: up(copy.crumbWork) },
+                        { label: up(copy.title) },
+                    ]} />
+                    <span>{copy.eyebrow}</span>
+                </div>
+                <h1 className="ms-h1 ms-h1--long" id="case-title" aria-label={copy.title}>
+                    <MsWords text={copy.title} accent="last" />
+                </h1>
+                <div className="ms-hero__foot">
+                    <p className="ms-lede" data-reveal style={{ maxWidth: 760 }}>{copy.lede}</p>
+                </div>
+                <MsFacts facts={copy.facts.map((fact) => ({ term: fact.term, value: fact.value ?? year }))} />
             </section>
 
-            <section className="p2-section" aria-labelledby="opportunity-title">
-                <P2Container className="p2-case-intro">
-                    <P2SectionHeading eyebrow={copy.opportunityEyebrow} title={copy.opportunityTitle} />
-                    <div>
-                        <p className="p2-lede">{copy.opportunityLede}</p>
-                        <p>{copy.opportunityCopy}</p>
-                    </div>
-                </P2Container>
+            {image && (
+                <figure className="ms-wide-media" data-reveal style={{ marginBottom: 0 }}>
+                    <Image src={image} alt={copy.imageAlt} fill priority sizes="100vw" />
+                    <figcaption className="ms-hero__tag ms-mono">{copy.imageCaption}</figcaption>
+                </figure>
+            )}
+
+            <section className="ms-section" aria-labelledby="opportunity-title">
+                <MsSectionHead id="opportunity-title" title={copy.opportunityTitle.replace(/\.$/, "")} meta={copy.opportunityEyebrow} />
+                <p className="ms-lede" data-reveal>{copy.opportunityLede}</p>
+                <p className="ms-note" data-reveal style={{ fontSize: 16 }}>{copy.opportunityCopy}</p>
             </section>
 
-            <section className="p2-section p2-section--surface" aria-labelledby="concept-title">
-                <P2Container>
-                    <P2SectionHeading eyebrow={copy.conceptEyebrow} title={copy.conceptTitle} copy={copy.conceptCopy} />
-                    <ol className="p2-journey-grid">
-                        {copy.journey.map((step) => <li key={step.number}><span>{step.number}</span><h3>{step.title}</h3><p>{step.copy}</p></li>)}
-                    </ol>
-                </P2Container>
+            <section className="ms-section" aria-labelledby="concept-title">
+                <MsSectionHead id="concept-title" title={copy.conceptTitle.replace(/\.$/, "")} meta={copy.conceptEyebrow} />
+                <p className="ms-lede" data-reveal>{copy.conceptCopy}</p>
+                <MsSteps steps={copy.journey.map((step) => ({ title: step.title, copy: step.copy }))} />
             </section>
 
             {video && (
-                <section className="p2-section" aria-labelledby="execution-title">
-                    <P2Container className="p2-video-proof__grid">
-                        <div>
-                            <P2SectionHeading eyebrow={copy.executionEyebrow} title={copy.executionTitle} />
-                            <p>{copy.executionCopy}</p>
-                            <ul className="p2-check-list">
-                                {copy.executionChecklist.map((item) => <li key={item}><Check aria-hidden="true" />{item}</li>)}
+                <section className="ms-section" aria-labelledby="execution-title">
+                    <MsSectionHead id="execution-title" title={copy.executionTitle.replace(/\.$/, "")} meta={copy.executionEyebrow} />
+                    <div className="ms-twocol">
+                        <div data-reveal>
+                            <p className="ms-lede" style={{ marginBottom: 20 }}>{copy.executionCopy}</p>
+                            <ul className="ms-checks">
+                                {copy.executionChecklist.map((item) => <li key={item}>{item}</li>)}
                             </ul>
                         </div>
-                        <VideoPlayer src={video} title={copy.videoTitle} fallbackPoster={image} />
-                    </P2Container>
+                        <div data-reveal><MsVideo src={video} title={copy.videoTitle} poster={image} /></div>
+                    </div>
                 </section>
             )}
 
             {gallery.length > 0 && (
-                <section className="p2-section p2-section--surface" aria-labelledby="gallery-title">
-                    <P2Container>
-                        <P2SectionHeading eyebrow={copy.galleryEyebrow} title={copy.galleryTitle} />
-                        <div className="p2-case-gallery">
-                            {gallery.map((item, index) => <figure key={`${item.url}-${index}`}><Image src={item.url} alt={item.alt || copy.galleryAlt(index + 1)} fill sizes="(max-width: 760px) 100vw, 33vw" /></figure>)}
-                        </div>
-                    </P2Container>
+                <section className="ms-section" aria-labelledby="gallery-title">
+                    <MsSectionHead id="gallery-title" title={copy.galleryTitle.replace(/\.$/, "")} meta={copy.galleryEyebrow} />
+                    <MsGallery images={gallery.map((item, index) => ({ url: item.url, alt: item.alt || copy.galleryAlt(index + 1) }))} labels={g[locale]} />
                 </section>
             )}
 
-            <section className="p2-section" aria-labelledby="record-title">
-                <P2Container className="p2-case-record">
-                    <P2SectionHeading eyebrow={copy.recordEyebrow} title={copy.recordTitle} />
-                    <div className="p2-record-list">
-                        {copy.record.map((item, index) => <div key={item}><span>{String(index + 1).padStart(2, "0")}</span><p>{item}</p></div>)}
-                    </div>
-                </P2Container>
+            <section className="ms-section" aria-labelledby="record-title">
+                <MsSectionHead id="record-title" title={copy.recordTitle.replace(/\.$/, "")} meta={copy.recordEyebrow} />
+                <div className="ms-rows" data-reveal>
+                    {copy.record.map((item, index) => (
+                        <div key={item} className="ms-row" style={{ gridTemplateColumns: "4.5vw minmax(0, 1fr)" }}>
+                            <span className="ms-row__num">{String(index + 1).padStart(2, "0")}</span>
+                            <span style={{ fontSize: 18, lineHeight: 1.45 }}>{item}</span>
+                        </div>
+                    ))}
+                </div>
             </section>
 
-            <section className="p2-case-capability">
-                <P2Container>
-                    <span>{copy.capabilityLabel}</span>
-                    <Link href={copy.capabilityHref}><strong>{copy.capabilityTitle}</strong><ArrowRight aria-hidden="true" /></Link>
-                </P2Container>
-            </section>
-
-            <P2FinalCta
-                contactHref={dictionary.routes.contact}
-                eyebrow={copy.finalEyebrow}
-                title={copy.finalTitle}
-                copy={copy.finalCopy}
-                primaryLabel={copy.finalPrimary}
-                secondary={{ label: copy.finalSecondary, href: dictionary.routes.work }}
-            />
-        </div>
+            <Link href={copy.capabilityHref} className="ms-capability">
+                <span>{copy.capabilityLabel}</span>
+                <strong>{copy.capabilityTitle} ↗</strong>
+            </Link>
+        </article>
     );
 }

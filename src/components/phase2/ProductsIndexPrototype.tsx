@@ -1,41 +1,51 @@
-import Image from "next/image";
 import Link from "next/link";
-import { IconArrowRight as ArrowRight } from "@tabler/icons-react";
 import type { Phase2Locale } from "@/lib/phase2";
 import { phase2Copy } from "@/lib/phase2-content";
-import { SignalHeading } from "./SignalHeading";
-import { P2Display } from "./P2Display";
+import { MsSectionHead, MsSteps, MsWords } from "@/components/site-ms/parts";
+import { MsCatalog, MsClock } from "@/components/site-ms/interactive";
 import type { P2CapabilityCard } from "./CapabilitiesIndexPrototype";
 
+const t = {
+    tr: { kicker: (n: number) => `(SİSTEM SATIŞI) — ${n} SİSTEM`, city: "İSTANBUL", count: "SİSTEM", view: { grid: "IZGARA", list: "LİSTE", view: "Görünüm", open: "İNCELE" }, processMeta: "SATIN ALMA SÜRECİ", write: "YAZ" },
+    en: { kicker: (n: number) => `(PRODUCT SALES) — ${n} SYSTEMS`, city: "ISTANBUL", count: "SYSTEMS", view: { grid: "GRID", list: "LIST", view: "View", open: "VIEW" }, processMeta: "HOW BUYING WORKS", write: "WRITE" },
+};
+
+/** /urunler and /en/products, laid out like the "Hizmetler" design. */
 export default function ProductsIndexPrototype({ products, locale }: { products: P2CapabilityCard[]; locale: Phase2Locale }) {
     const dictionary = phase2Copy(locale);
     const copy = dictionary.products;
+    const l = t[locale];
+    const up = (text: string) => text.toLocaleUpperCase(locale === "en" ? "en-US" : "tr-TR");
 
     return (
-        <div className="phase2 p2-screen p2-cap-index">
-            <section className="p2-screen-hero p2-container">
-                <SignalHeading solid={copy.heroSolid} outline={copy.heroOutline} label={copy.heroLabel} />
-                <p>{copy.heroCopy}</p>
-            </section>
-            <section className="p2-container p2-cap-catalog" aria-label={copy.catalogAria}>
-                <div className="p2-cap-grid">
-                    {products.map((product, index) => (
-                        <Link href={product.href} key={product.id} className="p2-cap-card">
-                            <div className="p2-cap-card__media"><Image src={product.image} alt="" fill sizes="(max-width: 760px) 100vw, 33vw" /></div>
-                            <div className="p2-cap-card__body"><span className="p2-gradient-number">{String(index + 1).padStart(2, "0")}</span><h2>{product.title}</h2><span className="p2-card-link">{copy.cardLink} <ArrowRight aria-hidden="true" /></span></div>
-                        </Link>
-                    ))}
+        <div className="ms-page">
+            <section className="ms-hero">
+                <div className="ms-hero__bar ms-mono">
+                    <span>{l.kicker(products.length)}</span>
+                    <MsClock label={l.city} />
                 </div>
-                <div className="p2-end-to-end">
-                    <h2><P2Display text={copy.endToEndTitle} /></h2>
-                    <ol>{copy.process.map((step) => <li key={step.number}><span className="p2-gradient-number">{step.number}</span><h3>{step.title}</h3><p>{step.copy}</p></li>)}</ol>
+                <h1 className="ms-h1" aria-label={copy.heroLabel}>
+                    <MsWords text={`${copy.heroSolid}\n${copy.heroOutline}`} accent={[copy.heroSolid.split(/\s+/).length]} />
+                </h1>
+                <div className="ms-hero__foot">
+                    <p className="ms-lede" data-reveal style={{ maxWidth: 620 }}>{copy.heroCopy}</p>
+                    <Link href={dictionary.routes.contact} className="ms-pill ms-pill--acc" data-cursor={l.write}>{up(copy.ctaButton)} ↗</Link>
                 </div>
             </section>
-            <section className="p2-screen-cta p2-screen-cta--audience">
-                <div className="p2-container">
-                    <SignalHeading as="h2" solid={copy.ctaSolid} outline={copy.ctaOutline} />
-                    <Link href={dictionary.routes.contact} className="p2-screen-button">{copy.ctaButton} <ArrowRight aria-hidden="true" /></Link>
-                </div>
+
+            <section aria-label={copy.catalogAria}>
+                <MsCatalog
+                    items={products.map((product) => ({ key: product.id, href: product.href, name: product.title, image: product.image }))}
+                    allLabel=""
+                    countLabel={l.count}
+                    labels={l.view}
+                    showChips={false}
+                />
+            </section>
+
+            <section className="ms-section" aria-labelledby="ms-products-process">
+                <MsSectionHead id="ms-products-process" title={copy.endToEndTitle.replace(/\n/g, " ")} meta={l.processMeta} />
+                <MsSteps steps={copy.process.map((step) => ({ title: step.title, copy: step.copy }))} />
             </section>
         </div>
     );

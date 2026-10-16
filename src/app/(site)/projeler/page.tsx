@@ -35,7 +35,7 @@ const getProjects = unstable_cache(
     async () => prisma.project.findMany({
         where: { published: true },
         orderBy: { order: "asc" },
-        select: { id: true, slug: true, slug_en: true, image: true, title: true, title_en: true, category: true, description: true, description_en: true, content_en: true, metaTitle_en: true, metaDescription_en: true },
+        select: { id: true, slug: true, slug_en: true, image: true, title: true, title_en: true, category: true, client: true, description: true, description_en: true, content_en: true, metaTitle_en: true, metaDescription_en: true },
     }),
     ["projects-list"],
     { revalidate: 60 }
@@ -44,7 +44,7 @@ const getProjects = unstable_cache(
 export default async function ProjectsPage() {
     const projects = (await getProjects())
         .filter((project) => project.image)
-        .map((project) => ({ id: project.id, slug: project.slug, title: project.title, image: project.image! }));
+        .map((project) => ({ id: project.id, slug: project.slug, title: project.title, image: project.image!, client: project.client, category: project.category }));
 
     const breadcrumbSchema = generateBreadcrumbSchema([
         { name: "Anasayfa", url: siteConfig.url },

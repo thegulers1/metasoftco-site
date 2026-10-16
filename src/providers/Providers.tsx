@@ -9,7 +9,6 @@ import { ChatProvider } from "@/components/AIChat/useChatStore";
 
 const FloatingBadge = dynamic(() => import("@/components/ServiceSelector/FloatingBadge").then(m => ({ default: m.FloatingBadge })), { ssr: false });
 const QuotePanel = dynamic(() => import("@/components/ServiceSelector/QuotePanel").then(m => ({ default: m.QuotePanel })), { ssr: false });
-const ChatButton = dynamic(() => import("@/components/AIChat/ChatButton").then(m => ({ default: m.ChatButton })), { ssr: false });
 const ChatDrawer = dynamic(() => import("@/components/AIChat/ChatDrawer").then(m => ({ default: m.ChatDrawer })), { ssr: false });
 const CookieConsentBanner = dynamic(() => import("@/components/site/CookieConsentBanner"), { ssr: false });
 
@@ -23,7 +22,6 @@ export function Providers({ children }: { children: React.ReactNode }) {
                             {children}
                             <FloatingBadge />
                             <QuotePanel />
-                            <ChatButton />
                             <ChatDrawer />
                             <CookieConsentBanner />
                         </ChatProvider>

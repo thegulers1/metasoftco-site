@@ -1,10 +1,9 @@
-import Image from "next/image";
 import Link from "next/link";
-import { IconArrowRight as ArrowRight } from "@tabler/icons-react";
-import { splitSignalTitle, type Phase2Locale } from "@/lib/phase2";
+import type { Phase2Locale } from "@/lib/phase2";
 import { phase2Copy } from "@/lib/phase2-content";
 import { addHeadingAnchors } from "@/lib/utils";
-import { SignalHeading } from "./SignalHeading";
+import { MsCrumbs, MsFacts, MsFaq, MsProse, MsSectionHead, MsWords } from "@/components/site-ms/parts";
+import { MsCatalog, MsClock } from "@/components/site-ms/interactive";
 
 /** A service card already resolved to the active locale by the page. */
 export interface P2CategoryService {
@@ -21,7 +20,7 @@ export interface CapabilityCategoryScreenProps {
     /** Editor-supplied display heading; falls back to the category name. */
     heroTitle?: string | null;
     heroCopy?: string | null;
-    /** Editor-authored long-form HTML (H2/H3 + lists) rendered above the service grid. */
+    /** Editor-authored long-form HTML (H2/H3 + lists), rendered below the service list. */
     contentHtml?: string | null;
     services: P2CategoryService[];
     faqs: { question: string; answer: string }[];
@@ -31,6 +30,12 @@ export interface CapabilityCategoryScreenProps {
     overrides?: Partial<Pick<ReturnType<typeof phase2Copy>["capabilityCategory"], "facts" | "ctaSolid" | "ctaOutline" | "ctaButton">>;
 }
 
+const t = {
+    tr: { kicker: (n: number) => `(KATEGORİ) — ${n} DENEYİM`, city: "İSTANBUL", count: "DENEYİM", view: { grid: "IZGARA", list: "LİSTE", view: "Görünüm", open: "İNCELE" }, aboutMeta: "KATEGORİ HAKKINDA", faqAside: "Aradığınız cevap burada yoksa bize yazın; aynı gün dönüş yapalım.", updated: "Son güncelleme", write: "YAZ" },
+    en: { kicker: (n: number) => `(CATEGORY) — ${n} EXPERIENCES`, city: "ISTANBUL", count: "EXPERIENCES", view: { grid: "GRID", list: "LIST", view: "View", open: "VIEW" }, aboutMeta: "ABOUT THE CATEGORY", faqAside: "If your question is not answered here, write to us and we will reply the same day.", updated: "Last updated", write: "WRITE" },
+};
+
+/** /hizmetler/[category] and /en/services/[category], in the "Hizmetler" design. */
 export default function CapabilityCategoryScreen({
     locale,
     name,
@@ -47,94 +52,63 @@ export default function CapabilityCategoryScreen({
         : null;
     const dictionary = phase2Copy(locale);
     const copy = { ...dictionary.capabilityCategory, ...overrides };
+    const l = t[locale];
     const title = heroTitle?.trim() || name;
-    const { solid, outline } = splitSignalTitle(title);
+    const up = (text: string) => text.toLocaleUpperCase(locale === "en" ? "en-US" : "tr-TR");
 
     return (
-        <div className="phase2 p2-screen p2-cap-category">
-            <header className="p2-container p2-detail-top">
-                <nav className="p2-detail-top__crumb" aria-label={copy.crumbCapabilities}>
-                    <Link href={dictionary.routes.home}>{copy.crumbHome}</Link>
-                    <span>{"  /  "}</span>
-                    <Link href={dictionary.routes.capabilities}>{copy.crumbCapabilities}</Link>
-                    <span>{"  /  "}</span>
-                    {name}
-                </nav>
-                <div className="p2-detail-top__heading">
-                    <SignalHeading solid={solid} outline={outline} label={title} />
-                    <div className="p2-heading-copy">
-                        {heroCopy && <p>{heroCopy}</p>}
-                        {formattedUpdatedAt && (
-                            <p className="p2-updated-at">
-                                {locale === "en" ? "Last updated" : "Son güncelleme"}: {formattedUpdatedAt}
-                            </p>
-                        )}
-                    </div>
+        <div className="ms-page">
+            <section className="ms-hero">
+                <div className="ms-hero__bar ms-mono">
+                    <MsCrumbs items={[
+                        { href: dictionary.routes.home, label: up(copy.crumbHome) },
+                        { href: dictionary.routes.capabilities, label: up(copy.crumbCapabilities) },
+                        { label: name },
+                    ]} />
+                    <MsClock label={l.city} />
                 </div>
-                <dl>
-                    {copy.facts.map((fact) => (
-                        <div key={fact.term}>
-                            <dt>{fact.term}</dt>
-                            <dd>{fact.value ?? String(services.length)}</dd>
-                        </div>
-                    ))}
-                </dl>
-            </header>
+                <h1 className={`ms-h1${title.length > 28 ? " ms-h1--long" : ""}`} aria-label={title}>
+                    <MsWords text={title} accent="last" />
+                </h1>
+                <div className="ms-hero__foot">
+                    <div style={{ display: "flex", flexDirection: "column", gap: 14, maxWidth: 720 }}>
+                        {heroCopy && <p className="ms-lede" data-reveal>{heroCopy}</p>}
+                        {formattedUpdatedAt && <p className="ms-updated ms-mono">{l.updated}: {formattedUpdatedAt}</p>}
+                    </div>
+                    <Link href={dictionary.routes.contact} className="ms-pill ms-pill--acc" data-cursor={l.write}>{up(copy.ctaButton)} ↗</Link>
+                </div>
+                <MsFacts facts={copy.facts.map((fact) => ({ term: fact.term, value: fact.value ?? String(services.length) }))} />
+            </section>
 
-            {contentHtml && (
-                <section className="p2-container p2-detail-section p2-detail-section--about">
-                    <h2>{copy.aboutTitle}</h2>
-                    <div
-                        className="p2-prose"
-                        dangerouslySetInnerHTML={{ __html: addHeadingAnchors(contentHtml.replace(/&nbsp;/g, " ")) }}
+            {services.length > 0 && (
+                <section aria-label={copy.catalogAria}>
+                    <h2 className="ms-sr">{copy.catalogTitle}</h2>
+                    <MsCatalog
+                        items={services.map((service) => ({ key: service.id, href: service.href, name: service.title, image: service.image }))}
+                        allLabel=""
+                        countLabel={l.count}
+                        labels={l.view}
+                        showChips={false}
                     />
                 </section>
             )}
 
-            {services.length > 0 && (
-                <section className="p2-container p2-detail-section" aria-label={copy.catalogAria}>
-                    <h2>{copy.catalogTitle}</h2>
-                    <div className="p2-cap-grid">
-                        {services.map((service, index) => (
-                            <Link href={service.href} key={service.id} className="p2-cap-card">
-                                <div className={`p2-cap-card__media${service.image ? "" : " p2-cap-card__media--empty"}`}>
-                                    {service.image && <Image src={service.image} alt="" fill sizes="(max-width: 760px) 100vw, 33vw" />}
-                                </div>
-                                <div className="p2-cap-card__body">
-                                    <span className="p2-gradient-number">{String(index + 1).padStart(2, "0")}</span>
-                                    <h2>{service.title}</h2>
-                                    <span className="p2-card-link">{copy.cardLink} <ArrowRight aria-hidden="true" /></span>
-                                </div>
-                            </Link>
-                        ))}
-                    </div>
+            {contentHtml && (
+                <section className="ms-section" aria-labelledby="ms-cat-about">
+                    <MsSectionHead id="ms-cat-about" title={copy.aboutTitle} meta={l.aboutMeta} />
+                    <div data-reveal><MsProse html={addHeadingAnchors(contentHtml.replace(/&nbsp;/g, " "))} /></div>
                 </section>
             )}
 
             {faqs.length > 0 && (
-                <section className="p2-container p2-detail-section p2-detail-section--tail">
-                    <h2>{copy.faqTitle}</h2>
-                    <div className="p2-screen-faq">
-                        {faqs.map((faq, index) => (
-                            <details key={faq.question}>
-                                <summary>
-                                    <span className="p2-gradient-number">{String(index + 1).padStart(2, "0")}</span>
-                                    <h3>{faq.question}</h3>
-                                    <i aria-hidden="true">+</i>
-                                </summary>
-                                <p>{faq.answer}</p>
-                            </details>
-                        ))}
+                <section className="ms-faq-wrap" aria-labelledby="ms-cat-faq">
+                    <div className="ms-faq-wrap__aside" data-reveal>
+                        <h2 id="ms-cat-faq" className="ms-h2">{copy.faqTitle}<span className="ms-acc">.</span></h2>
+                        <p>{l.faqAside}</p>
                     </div>
+                    <MsFaq items={faqs.map((faq) => ({ q: faq.question, a: faq.answer }))} />
                 </section>
             )}
-
-            <section className="p2-screen-cta p2-screen-cta--audience">
-                <div className="p2-container">
-                    <SignalHeading as="h2" solid={copy.ctaSolid} outline={copy.ctaOutline} />
-                    <Link href={dictionary.routes.contact} className="p2-screen-button">{copy.ctaButton} <ArrowRight aria-hidden="true" /></Link>
-                </div>
-            </section>
         </div>
     );
 }
