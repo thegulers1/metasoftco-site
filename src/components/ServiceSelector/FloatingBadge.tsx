@@ -24,9 +24,9 @@ export function FloatingBadge() {
                     exit={{ opacity: 0, y: 24, scale: 0.9 }}
                     transition={{ type: "spring", damping: 20, stiffness: 260 }}
                     onClick={handleClick}
-                    className="quote-floating-badge fixed z-[200] flex items-center gap-3 bg-[#FF3B3F] text-black px-6 py-4 rounded-full shadow-2xl hover:opacity-90 transition-opacity cursor-pointer font-semibold"
+                    className="quote-floating-badge fixed z-[200] flex items-center gap-3 bg-[#f2ff00] text-[#050505] px-6 py-4 rounded-full shadow-2xl hover:opacity-90 transition-opacity cursor-pointer font-semibold"
                 >
-                    <span className="flex items-center justify-center w-6 h-6 bg-black text-[#FF3B3F] rounded-full text-xs font-black">
+                    <span className="flex items-center justify-center w-6 h-6 bg-[#050505] text-[#f2ff00] rounded-full text-xs font-black">
                         {count}
                     </span>
                     <span className="quote-floating-label text-sm font-semibold whitespace-nowrap">

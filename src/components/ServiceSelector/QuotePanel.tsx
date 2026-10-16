@@ -206,7 +206,7 @@ export function QuotePanel() {
                                                 onChange={handleChange}
                                                 required
                                                 placeholder={tr("Adınız Soyadınız", "Your full name")}
-                                                className="w-full border border-black/15 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-red-500 transition-colors"
+                                                className="w-full border border-black/15 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-black transition-colors"
                                             />
                                         </div>
 
@@ -222,7 +222,7 @@ export function QuotePanel() {
                                                 onChange={handleChange}
                                                 required
                                                 placeholder="ornek@sirket.com"
-                                                className="w-full border border-black/15 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-red-500 transition-colors"
+                                                className="w-full border border-black/15 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-black transition-colors"
                                             />
                                         </div>
 
@@ -238,7 +238,7 @@ export function QuotePanel() {
                                                 onChange={handleChange}
                                                 required
                                                 placeholder="+90 5XX XXX XX XX"
-                                                className="w-full border border-black/15 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-red-500 transition-colors"
+                                                className="w-full border border-black/15 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-black transition-colors"
                                             />
                                         </div>
 
@@ -252,7 +252,7 @@ export function QuotePanel() {
                                                 name="eventDate"
                                                 value={form.eventDate}
                                                 onChange={handleChange}
-                                                className="w-full border border-black/15 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-red-500 transition-colors text-black/70"
+                                                className="w-full border border-black/15 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-black transition-colors text-black/70"
                                             />
                                         </div>
 
@@ -265,7 +265,7 @@ export function QuotePanel() {
                                                 name="participants"
                                                 value={form.participants}
                                                 onChange={handleChange}
-                                                className="w-full border border-black/15 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-red-500 transition-colors text-black/70 bg-white"
+                                                className="w-full border border-black/15 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-black transition-colors text-black/70 bg-white"
                                             >
                                                 <option value="">{tr("Seçiniz", "Select")}</option>
                                                 {(language === "en" ? PARTICIPANT_OPTIONS_EN : PARTICIPANT_OPTIONS_TR).map(opt => (
@@ -285,7 +285,7 @@ export function QuotePanel() {
                                                 onChange={handleChange}
                                                 rows={3}
                                                 placeholder={tr("Etkinliğiniz hakkında ek bilgi...", "Additional details about your event...")}
-                                                className="w-full border border-black/15 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-red-500 transition-colors resize-none"
+                                                className="w-full border border-black/15 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:border-black transition-colors resize-none"
                                             />
                                         </div>
 
@@ -301,7 +301,7 @@ export function QuotePanel() {
                                             <button
                                                 type="submit"
                                                 disabled={status === "loading" || selected.length === 0}
-                                                className="w-full bg-red-600 text-white font-bold py-3.5 rounded-full hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-widest text-sm"
+                                                className="w-full bg-[#050505] text-[#f2ff00] font-bold py-3.5 rounded-full hover:bg-black transition-colors disabled:opacity-50 disabled:cursor-not-allowed uppercase tracking-widest text-sm"
                                             >
                                                 {status === "loading"
                                                     ? tr("Gönderiliyor...", "Sending...")

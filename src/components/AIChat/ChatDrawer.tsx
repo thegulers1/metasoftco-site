@@ -55,23 +55,23 @@ export function ChatDrawer() {
                         animate={{ x: 0, opacity: 1 }}
                         exit={{ x: "100%", opacity: 0 }}
                         transition={{ type: "spring", damping: 28, stiffness: 280 }}
-                        className="fixed bottom-0 right-0 z-[210] flex flex-col w-full sm:w-96 sm:bottom-6 sm:rounded-2xl overflow-hidden shadow-2xl"
+                        className="fixed bottom-0 right-0 z-[210] flex flex-col w-full sm:w-96 sm:bottom-6 sm:rounded-2xl overflow-hidden shadow-2xl border border-[#2a2a27]"
                         style={{ height: "min(600px, 90dvh)" }}
                     >
                         {/* Header */}
                         <div
                             className="flex items-center justify-between px-4 py-3.5 shrink-0"
-                            style={{ background: "linear-gradient(90deg, #7c3aed, var(--acc))" }}
+                            style={{ background: "#f2ff00", color: "#050505" }}
                         >
                             <div className="flex items-center gap-2.5">
-                                <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center">
-                                    <Sparkles className="w-4 h-4 text-white" />
+                                <div className="w-8 h-8 rounded-full bg-[#050505] flex items-center justify-center">
+                                    <Sparkles className="w-4 h-4 text-[#f2ff00]" />
                                 </div>
                                 <div>
-                                    <p className="text-white text-sm font-semibold leading-none">
+                                    <p className="text-[#050505] text-sm font-semibold leading-none">
                                         MetasoftCo AI
                                     </p>
-                                    <p className="text-white/70 text-xs mt-0.5">
+                                    <p className="text-[#050505]/70 text-xs mt-0.5">
                                         {language === "en"
                                             ? "Event advisor"
                                             : "Etkinlik danışmanı"}
@@ -80,7 +80,7 @@ export function ChatDrawer() {
                             </div>
                             <button
                                 onClick={close}
-                                className="w-7 h-7 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center text-white transition-colors"
+                                className="w-7 h-7 rounded-full bg-[#050505]/10 hover:bg-[#050505]/20 flex items-center justify-center text-[#050505] transition-colors"
                                 aria-label={language === "en" ? "Close" : "Kapat"}
                             >
                                 <X className="w-4 h-4" />
@@ -88,7 +88,7 @@ export function ChatDrawer() {
                         </div>
 
                         {/* Messages */}
-                        <div className="flex-1 flex flex-col bg-zinc-900 overflow-hidden">
+                        <div className="flex-1 flex flex-col bg-[#0e0e0d] overflow-hidden">
                             <ChatMessages />
                         </div>
 

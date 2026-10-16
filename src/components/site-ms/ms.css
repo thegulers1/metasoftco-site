@@ -363,7 +363,7 @@ body:has(.ms) {
 .ms-nav__logo img {
 	display: block;
 	width: auto;
-	height: 22px;
+	height: 34px;
 	filter: brightness(0) invert(1);
 }
 

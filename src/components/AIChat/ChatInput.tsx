@@ -40,7 +40,7 @@ export function ChatInput() {
             : "Etkinliğini anlat...";
 
     return (
-        <div className="border-t border-zinc-700 px-3 py-3 flex items-end gap-2 bg-zinc-900">
+        <div className="border-t border-[#1e1e1e] px-3 py-3 flex items-end gap-2 bg-[#0e0e0d]">
             <textarea
                 ref={textareaRef}
                 value={value}
@@ -50,14 +50,14 @@ export function ChatInput() {
                 placeholder={placeholder}
                 rows={1}
                 disabled={isLoading}
-                className="flex-1 resize-none bg-zinc-800 text-zinc-100 placeholder-zinc-500 text-sm rounded-xl px-3.5 py-2.5 outline-none focus:ring-1 focus:ring-red-500 disabled:opacity-50 transition-all"
+                className="flex-1 resize-none bg-[#1c1c1a] text-[#edeae3] placeholder-[#8a8780] text-sm rounded-xl px-3.5 py-2.5 outline-none focus:ring-1 focus:ring-[#f2ff00] disabled:opacity-50 transition-all"
                 style={{ minHeight: "42px", maxHeight: "120px" }}
             />
             <button
                 onClick={handleSend}
                 disabled={!value.trim() || isLoading}
-                className="shrink-0 w-10 h-10 rounded-xl disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center text-white transition-opacity hover:opacity-90"
-                style={{ background: "linear-gradient(90deg, #7c3aed, var(--acc))" }}
+                className="shrink-0 w-10 h-10 rounded-xl disabled:opacity-40 disabled:cursor-not-allowed flex items-center justify-center text-[#050505] transition-opacity hover:opacity-90"
+                style={{ background: "#f2ff00", color: "#050505" }}
                 aria-label={language === "en" ? "Send" : "Gönder"}
             >
                 <SendHorizonal className="w-4 h-4" />

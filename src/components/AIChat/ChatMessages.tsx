@@ -47,7 +47,7 @@ function ServiceCard({
         : `/hizmetler/${catSlug}/${slug}`;
 
     return (
-        <div className="flex items-center gap-3 bg-zinc-700/60 rounded-xl p-2.5 pr-3">
+        <div className="flex items-center gap-3 bg-[#1c1c1a] border border-[#2a2a27] rounded-xl p-2.5 pr-3">
             {/* Image */}
             <div className="w-14 h-14 rounded-lg overflow-hidden shrink-0 bg-zinc-600">
                 {service.image ? (
@@ -69,11 +69,11 @@ function ServiceCard({
 
             {/* Name + link */}
             <div className="flex-1 min-w-0">
-                <p className="text-zinc-100 text-xs font-semibold leading-tight truncate">{name}</p>
+                <p className="text-[#edeae3] text-xs font-semibold leading-tight truncate">{name}</p>
                 <Link
                     href={href}
                     target="_blank"
-                    className="inline-flex items-center gap-1 text-red-400 hover:text-red-300 text-xs mt-1 transition-colors"
+                    className="inline-flex items-center gap-1 text-[#f2ff00] hover:text-[#f2ff00]/80 text-xs mt-1 transition-colors"
                 >
                     {isEn ? "View details" : "İncele"}
                     <ArrowRight className="w-3 h-3" />
@@ -118,7 +118,7 @@ function ServiceCards({
             {/* Teklif İste CTA */}
             <button
                 onClick={handleQuote}
-                className="w-full flex items-center justify-center gap-2 bg-red-600 hover:bg-red-700 active:scale-95 text-white text-xs font-bold py-2.5 rounded-xl transition-all mt-1"
+                className="w-full flex items-center justify-center gap-2 bg-[#f2ff00] hover:brightness-110 active:scale-95 text-[#050505] text-xs font-bold py-2.5 rounded-xl transition-all mt-1"
             >
                 <FileText className="w-3.5 h-3.5" />
                 {isEn ? "Request a Quote →" : "Teklif İste →"}
@@ -136,17 +136,17 @@ function MessageBubble({ message }: { message: Message }) {
             {!isUser && (
                 <div
                     className="w-7 h-7 rounded-full flex items-center justify-center shrink-0 mt-0.5 mr-2"
-                    style={{ background: "linear-gradient(90deg, #7c3aed, var(--acc))" }}
+                    style={{ background: "#f2ff00", color: "#050505" }}
                 >
-                    <span className="text-white text-xs font-bold">M</span>
+                    <span className="text-[#050505] text-xs font-bold">M</span>
                 </div>
             )}
             <div className={`max-w-[85%] ${isUser ? "" : "flex-1"}`}>
                 <div
                     className={`px-3.5 py-2.5 rounded-2xl text-sm ${
                         isUser
-                            ? "bg-red-600 text-white rounded-br-sm"
-                            : "bg-zinc-800 text-zinc-100 rounded-bl-sm"
+                            ? "bg-[#f2ff00] text-[#050505] rounded-br-sm"
+                            : "bg-[#1c1c1a] text-[#edeae3] rounded-bl-sm"
                     }`}
                 >
                     {renderText(message.content)}
@@ -166,10 +166,10 @@ function MessageBubble({ message }: { message: Message }) {
 function TypingIndicator() {
     return (
         <div className="flex justify-start">
-            <div className="w-7 h-7 rounded-full bg-red-600 flex items-center justify-center shrink-0 mt-0.5 mr-2">
-                <span className="text-white text-xs font-bold">M</span>
+            <div className="w-7 h-7 rounded-full bg-[#f2ff00] flex items-center justify-center shrink-0 mt-0.5 mr-2">
+                <span className="text-[#050505] text-xs font-bold">M</span>
             </div>
-            <div className="bg-zinc-800 px-4 py-3 rounded-2xl rounded-bl-sm flex items-center gap-1">
+            <div className="bg-[#1c1c1a] px-4 py-3 rounded-2xl rounded-bl-sm flex items-center gap-1">
                 {[0, 1, 2].map((i) => (
                     <span
                         key={i}
