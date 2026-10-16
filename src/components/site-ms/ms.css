@@ -364,7 +364,7 @@ body:has(.ms) {
 	display: block;
 	width: auto;
 	height: 22px;
-	filter: invert(1);
+	filter: brightness(0) invert(1);
 }
 
 .ms-nav__spacer {
