@@ -363,7 +363,7 @@ body:has(.ms) {
 .ms-nav__logo img {
 	display: block;
 	width: auto;
-	height: 34px;
+	height: 68px;
 	filter: brightness(0) invert(1);
 }
 
@@ -2651,5 +2651,11 @@ html[data-mh-js] .ms-w > span {
 	.ms-closing__big {
 		font-size: clamp(24px, 7.8vw, 60px);
 		overflow-wrap: anywhere;
+	}
+}
+
+@media (max-width: 899px) {
+	.ms-nav__logo img {
+		height: 48px;
 	}
 }
