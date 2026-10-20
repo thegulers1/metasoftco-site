@@ -1,0 +1,112 @@
+<p><strong>What is face swap?</strong> Face swap is the use of artificial intelligence to detect a face in a photo or video and replace it with another person's or character's face while keeping the angle, lighting and expression. In this article we explain how the technology works, how it differs from deepfakes, what safe use looks like and how it is used at events.</p>
+
+<h2>What Does Face Swap Mean? A Short Definition</h2>
+<p>In everyday use, "face swap" covers two things: two people's faces trading places, and one person's face being placed into a ready-made scene, character or costume. The face swap you meet at events and brand activations is almost always the second: the guest's face is placed inside a visual world designed in advance.</p>
+<p>Face swap is often confused with deepfakes. The difference lies less in the technology than in purpose and consent. Face swap is visual entertainment a person chooses, knowing the result is a transformation. A deepfake usually means content made to show someone saying or doing something they never did, often without their knowledge.</p>
+
+<h2>How Does AI Face Swap Work? (4 Steps)</h2>
+<p>Whatever the tool, AI face swapping goes through four basic steps:</p>
+<ol>
+<li><strong>Face detection:</strong> The model finds the face or faces in the image and marks their boundaries.</li>
+<li><strong>Landmarks:</strong> Around 68 key points, such as the corners of the eyes, the tip of the nose, the edges of the lips and the jawline, are marked within milliseconds. They describe the angle and expression of the face.</li>
+<li><strong>Alignment and encoding:</strong> The face is aligned to the angle of the target image, and an encoder turns it into a numerical representation of the person's identity.</li>
+<li><strong>Generation and blending:</strong> The model generates the new face in the target scene, blending skin tone, light direction and edges so the face looks like a natural part of the scene rather than pasted on.</li>
+</ol>
+
+<h3>Deep learning and CNNs</h3>
+<p>Face swap systems are built on convolutional neural networks (CNNs). Trained on large numbers of face images, these networks learn to recognise anatomical features such as eye position, jaw structure and nose shape. Face detection and landmarking are done with them.</p>
+
+<h3>GANs (Generative Adversarial Networks)</h3>
+<p>The first generation of realistic face swap relied on GANs. Two networks work against each other: one generates images, the other tries to tell real from generated. Over time this competition produces convincing results.</p>
+
+<h3>Diffusion models: Stable Diffusion, ControlNet and identity preservation</h3>
+<p>In recent years diffusion models have become the main technology behind face swapping. Models such as Stable Diffusion build an image step by step from noise. Extra layers steer that process: ControlNet holds pose, facial structure and composition steady, while approaches such as IP-Adapter and InstantID carry the identity from a reference photo into the new image. With LoRA a model can be taught a specific style, costume or product.</p>
+<p>The difference with diffusion is that the face is not just copied into a scene; the scene is regenerated together with the face. Hair, light and clothing fit the concept as well, so the result looks less like a montage and more like a new photograph. MetasoftCo's event systems use this Stable Diffusion, ControlNet and LoRA based approach.</p>
+
+<h2>Face Swap vs Deepfake vs AI Avatar</h2>
+<table>
+<thead>
+<tr><th></th><th>Face swap</th><th>Deepfake</th><th>AI avatar</th></tr>
+</thead>
+<tbody>
+<tr><td>What it does</td><td>Places a face into another image or character</td><td>Shows a person saying or doing something they never did</td><td>Generates a new, stylised digital character from a person's photos</td></tr>
+<tr><td>Output</td><td>Usually a photo, sometimes a short video</td><td>Mostly video and audio</td><td>Photo, profile image, 3D character</td></tr>
+<tr><td>Consent</td><td>The person uses their own face knowingly</td><td>Often made without the person knowing</td><td>The person uploads their own photos knowingly</td></tr>
+<tr><td>Typical use</td><td>Entertainment, event activations, campaigns</td><td>Fraud and disinformation (misuse)</td><td>Social media, games, personal branding</td></tr>
+</tbody>
+</table>
+
+<h2>How to Swap Faces with AI</h2>
+<p>There are three ways to do it. Which one fits depends on the quality you expect, how many people you need to serve and where the photos are processed.</p>
+
+<h3>With phone apps</h3>
+<p>App stores offer many face swap apps. You usually take a selfie, pick a template and get the result within seconds. It is practical for personal use. The point to watch is that the photo is often uploaded to the app's servers: check the privacy policy for how long photos are kept and whether they are used to train models.</p>
+
+<h3>With web tools</h3>
+<p>Browser-based tools let you upload two photos and swap the faces, or generate new images from a reference photo. Some also let you run open-source models (such as Stable Diffusion workflows) on your own computer; the photo then never leaves your device, but you need a powerful graphics card.</p>
+
+<h3>With a professional set-up at an event</h3>
+<p>Giving hundreds of guests the same quality at a launch, trade show stand or corporate event takes a kiosk, camera, lighting, printer and concepts designed for that event working together. <a href="/en/services/ai-event-solutions/ai-photobooth">AI photo booth rental</a> is built for exactly this: the guest poses, picks a concept on screen and within seconds the result is printed and sent to their phone via QR code.</p>
+
+<table>
+<thead>
+<tr><th></th><th>Phone app</th><th>Web tool</th><th>Professional event set-up</th></tr>
+</thead>
+<tbody>
+<tr><td>Quality</td><td>Depends on the templates</td><td>Varies by tool</td><td>Event-specific concepts, studio lighting</td></tr>
+<tr><td>Speed</td><td>Seconds</td><td>Seconds to minutes</td><td>Seconds; one station serves 40–60 guests an hour</td></tr>
+<tr><td>Privacy</td><td>Depends on the app's policy</td><td>Varies by tool</td><td>Retention agreed in writing with the client</td></tr>
+<tr><td>Cost</td><td>Free or subscription</td><td>Free or credit based</td><td>Turnkey rental per event</td></tr>
+</tbody>
+</table>
+
+<h2>Is Face Swap Safe? Consent, KVKK/GDPR and Deepfake Risks</h2>
+<p>A face directly identifies a person. Whether face swap is safe therefore depends less on the technology than on how the data is handled. At events, the main points are:</p>
+<ul>
+<li><strong>Clear, informed participation:</strong> Guests should know their photo will be taken, how it will be transformed and where it will go. A photo should only be processed once the guest has posed and chosen a concept themselves.</li>
+<li><strong>Privacy notice and separate consents:</strong> If a form is used, the privacy notice is shown with it. Consent to marketing is collected separately and optionally, never as a condition for receiving the content.</li>
+<li><strong>Retention:</strong> How long photos are kept should be decided before the event. In MetasoftCo's Data-Capture set-ups, data is kept for 90 days by default and then deleted; a different period can be agreed in the contract. At some events photos are deleted when the event ends.</li>
+<li><strong>Children:</strong> Activations for children should run with a parent's consent and supervision.</li>
+<li><strong>Using celebrity faces:</strong> Putting a celebrity's face into campaign visuals without permission carries serious legal risk under personality rights and advertising rules. Work with a well-known person should secure the use of their likeness by contract.</li>
+<li><strong>Labelling:</strong> A watermark or frame note stating that an image was made with AI prevents it from being misread wherever it is shared.</li>
+</ul>
+<p>Responsibility for the data should also be clear from the start: the client brand is the data controller for personal data collected at the event, and the technology provider processes it only on the brand's instructions.</p>
+
+<h2>Face Swap Use Cases at Events</h2>
+<ul>
+<li><strong>Product launches:</strong> Guests step into the product's advertising world or become the campaign character.</li>
+<li><strong>Brand activations:</strong> Scenes, costumes and magazine covers in the brand's colours and identity.</li>
+<li><strong>Corporate events:</strong> Team fun with scenes built around company history or the event theme.</li>
+<li><strong>Trade shows:</strong> An interaction point that builds a queue at the stand and brings visitors back.</li>
+<li><strong>Sports and fan events:</strong> Player cards made with the guest's own name and photo.</li>
+</ul>
+
+<h3>Akmerkez: EURO 2024 themed AI Football Card</h3>
+<p>At the EURO 2024 themed experience we built for Akmerkez, visitors became personalised football player cards with their own photos and names. Face swap was combined with card designs in the tournament's look, and each output was designed as a tournament keepsake to share. See the <a href="/en/services/ai-event-solutions/ai-football-card">AI football card rental</a> page for the same technology.</p>
+
+<h3>Central Bank of the Republic of Türkiye: AI Greenbox at Istanbul Finance Center</h3>
+<p>At the Central Bank's Merkez Akademi event at Istanbul Finance Center, we took guests into digital worlds designed for the institution. Face recognition kept each person's expressions and features; photos were printed on the spot and sent to phones via QR code. Given the finance sector's sensitivity to data, photos were deleted when the event ended.</p>
+
+<h3>DeFacto x Afra Saraçoğlu: AI virtual try-on</h3>
+<p>Virtual try-on is another application of identity-preserving AI. At the launch of DeFacto's Afra Saraçoğlu collection, guests saw outfits from the collection on themselves within seconds, without changing clothes. Here the clothing changed rather than the face, but the same diffusion-based approach kept the person's face and posture. <a href="/en/projects/defacto-x-afra-saracoglu-ai-fashion-experience">See the DeFacto project</a>.</p>
+
+<h2>6 Tips for a High-Quality Face Swap</h2>
+<ol>
+<li><strong>Lighting:</strong> Soft light from the front gives the best result. Harsh side light or backlight makes facial features harder to read.</li>
+<li><strong>Angle:</strong> A face looking straight at the camera or at a slight angle gives the most natural result. Similarity drops in profile shots.</li>
+<li><strong>Glasses, hats and hair:</strong> Sunglasses covering the eyes, hats covering the forehead and hair falling across the face make identity harder for the model to read.</li>
+<li><strong>Resolution:</strong> The face must be large and sharp enough in the frame; detail is lost in distant or blurry photos.</li>
+<li><strong>Scene choice:</strong> The closer the face angle and light in the target scene are to the photo, the more convincing the result. That is why event concepts are designed around the shooting area.</li>
+<li><strong>Skin tone matching:</strong> A good system adapts skin tone to the scene while keeping the person's own tone. If people do not recognise themselves, the settings are wrong.</li>
+</ol>
+
+<h2>Face Swap with the MetasoftCo AI Photo Booth</h2>
+<p>MetasoftCo's AI photo booth is designed for event conditions: changing light, crowds and the need for speed. This is how it works:</p>
+<ul>
+<li>The guest poses in front of the branded kiosk and picks one of the event-specific concepts on the touchscreen.</li>
+<li>The photo is processed within seconds; one station serves an average of 40–60 guests an hour. For larger crowds we add stations.</li>
+<li>The result reaches the guest's phone instantly via QR code and can be printed on site; print packages include 750 prints.</li>
+<li>The kiosk wrap, screen interface and output design are made for the brand.</li>
+<li>All we need from the venue is a standard 220V socket; we bring our own 5G connection. Installation takes about 30–40 minutes per device, and at least 2 technicians stay on site throughout the event.</li>
+</ul>
+<p>For concept ideas and a quote for your event, see our <a href="/en/services/ai-event-solutions/ai-photobooth">AI photo booth rental</a> page or <a href="/en/contact">get in touch</a>.</p>

@@ -2,7 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter_Tight, Lato, Space_Grotesk, Manrope, JetBrains_Mono } from "next/font/google";
 import { headers } from "next/headers";
-import { siteConfig, generateMetaTags, generateOrganizationSchema } from "@/lib/site";
+import { siteConfig, generateMetaTags, generateOrganizationSchema, generateWebSiteSchema } from "@/lib/site";
 import { Providers } from "@/providers/Providers";
 import { homeIntroScript } from "@/lib/home-intro";
 
@@ -64,6 +64,7 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: { children: React.ReactNode }) {
   const organizationSchema = generateOrganizationSchema();
+  const webSiteSchema = generateWebSiteSchema();
   const headersList = await headers();
   const pathname = headersList.get("x-pathname") ?? "";
   const lang = pathname.startsWith("/en") ? "en" : "tr";
@@ -115,6 +116,12 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(organizationSchema),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(webSiteSchema),
           }}
         />
       </head>

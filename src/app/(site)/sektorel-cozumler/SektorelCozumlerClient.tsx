@@ -1,4 +1,5 @@
-import { MsWords } from "@/components/site-ms/parts";
+import Link from "next/link";
+import { MsSectionHead, MsWords } from "@/components/site-ms/parts";
 import { MsCatalog, MsClock } from "@/components/site-ms/interactive";
 
 interface SectorPageItem {
@@ -25,6 +26,8 @@ const copy = {
         lede: "Moda markası için Virtual Try-On, banka için gamification, otomotiv için AR test sürüşü — her sektörün kitlesi farklı tepki verir, farklı motivasyonla paylaşır. MetasoftCo, sektörünüzün dinamiklerini bilerek brief'i çözer.",
         count: "SAYFA",
         view: { grid: "IZGARA", list: "LİSTE", view: "Görünüm", open: "İNCELE" },
+        guideTitle: "Hangi sayfada ne var",
+        guideMeta: "ŞEHİR VE ETKİNLİK TÜRÜ",
     },
     en: {
         kicker: (n: number) => `(SECTOR SOLUTIONS) — ${n} PAGES`,
@@ -33,6 +36,8 @@ const copy = {
         lede: "Virtual Try-On for fashion brands, gamification for banks, AR test drives for automotive — every sector's audience reacts differently and shares with different motivations. MetasoftCo solves the brief knowing your sector's dynamics.",
         count: "PAGES",
         view: { grid: "GRID", list: "LIST", view: "View", open: "VIEW" },
+        guideTitle: "What each page covers",
+        guideMeta: "CITY AND EVENT TYPE",
     },
 };
 
@@ -67,6 +72,21 @@ export default function SektorelCozumlerClient({ pages, lang = "tr" }: SektorelC
                 labels={t.view}
                 showChips={false}
             />
+            {/* The catalog shows names only; this gives each page its one-line scope as text. */}
+            {pages.some((page) => page.excerpt) && (
+                <section className="ms-section" aria-labelledby="ms-sector-guide">
+                    <MsSectionHead id="ms-sector-guide" title={t.guideTitle} meta={t.guideMeta} />
+                    <ol className="ms-principles">
+                        {pages.filter((page) => page.excerpt).map((page, index) => (
+                            <li key={page.id}>
+                                <span>{String(index + 1).padStart(2, "0")}</span>
+                                <h3><Link href={page.href ?? `${base}/${page.slug}`}>{page.h1 || page.title} ↗</Link></h3>
+                                <p>{page.excerpt}</p>
+                            </li>
+                        ))}
+                    </ol>
+                </section>
+            )}
         </div>
     );
 }

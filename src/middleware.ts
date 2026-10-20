@@ -28,7 +28,18 @@ function isProtectedApiWrite(request: NextRequest) {
     return !PUBLIC_API_WRITES.some((prefix) => pathname === prefix || pathname.startsWith(`${prefix}/`));
 }
 
+// The bare domain answered 200 with the same pages as www; Google had already
+// folded it into www, so make that a real permanent redirect. The proxy keeps
+// the original Host header, and local/preview hosts never match.
+const APEX_HOST = "metasoftco.com";
+const CANONICAL_ORIGIN = "https://www.metasoftco.com";
+
 export default async function middleware(request: NextRequest) {
+    const host = request.headers.get("host")?.split(":")[0].toLowerCase();
+    if (host === APEX_HOST) {
+        const { pathname, search } = request.nextUrl;
+        return NextResponse.redirect(`${CANONICAL_ORIGIN}${pathname}${search}`, 301);
+    }
     if (request.nextUrl.pathname.startsWith("/editpanel")) {
         return (authMiddleware as unknown as (req: NextRequest) => ReturnType<typeof NextResponse.next>)(request);
     }

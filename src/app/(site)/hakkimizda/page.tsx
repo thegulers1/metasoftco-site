@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { siteConfig, ogImageUrl } from "@/lib/site";
 import AboutPrototype from "@/components/phase2/AboutPrototype";
+import { aboutSchemas } from "@/lib/about-content";
 
 const ogTitle = "Hakkımızda | MetasoftCo — İstanbul Dijital Deneyim & Aktivasyon Ajansı";
 const ogDescription = "5 yılda 1.000+ etkinlik, 100+ marka. Teknolojiyi sahneye çıkaran İstanbul merkezli ajans.";
@@ -31,5 +32,12 @@ export const metadata: Metadata = {
 };
 
 export default function HakkimizdaPage() {
-    return <AboutPrototype locale="tr" />;
+    return (
+        <>
+            {aboutSchemas("tr", siteConfig.url).map((schema, index) => (
+                <script key={index} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+            ))}
+            <AboutPrototype locale="tr" />
+        </>
+    );
 }

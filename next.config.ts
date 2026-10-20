@@ -21,6 +21,9 @@ const nextConfig: NextConfig = {
           { key: "X-XSS-Protection", value: "1; mode=block" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
           { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
+          // HTTPS only from here on. No includeSubDomains: not every subdomain
+          // is guaranteed to serve HTTPS.
+          { key: "Strict-Transport-Security", value: "max-age=31536000" },
         ],
       },
       // HTML dokümanları asla "taze" varsayılmamalı. Bir sayfa tarayıcıda

@@ -54,10 +54,10 @@ const tr = {
     nav: [
         { href: phase2Routes.tr.work, label: "PROJELER" },
         { href: phase2Routes.tr.capabilities, label: "HİZMETLER" },
-        { href: phase2Routes.tr.products, label: "SİSTEM SATIŞI" },
-        { href: SOFTWARE_CATEGORY_PATH, label: "YAZILIM" },
         { href: phase2Routes.tr.about, label: "HAKKIMIZDA" },
-    ],
+        { href: phase2Routes.tr.insights, label: "BLOG" },
+        { href: phase2Routes.tr.contact, label: "İLETİŞİM" },
+    ] as { href: string; label: string }[],
     navAria: "Ana menü",
     skipLink: "İçeriğe geç",
     homeAria: "MetasoftCo anasayfa",
@@ -71,6 +71,8 @@ const tr = {
     introWords: ["FİKİR", "YAZILIM", "FİZİKSEL ÜRETİM", "SAHA OPERASYONU"],
     heroKicker: "(01) — YAPAY ZEKÂ DESTEKLİ DENEYİM TEKNOLOJİLERİ",
     heroTitle: "Markaların ruhunu insanların anılarına işliyoruz.",
+    // Plain statement of what we do, under the slogan headline.
+    heroLede: "İstanbul merkezli etkinlik teknolojisi şirketi: AI photobooth, photobooth, interaktif oyun ve aktivasyonları anahtar teslim kiralıyoruz.",
     heroStats: [
         { value: "1.000+", label: "ETKİNLİK" },
         { value: "10", label: "ŞEHİR" },
@@ -202,9 +204,9 @@ const en: HomeCopy = {
     nav: [
         { href: phase2Routes.en.work, label: "WORK" },
         { href: phase2Routes.en.capabilities, label: "SERVICES" },
-        { href: phase2Routes.en.products, label: "PRODUCT SALES" },
-        { href: "/en/services/software-development", label: "SOFTWARE" },
         { href: phase2Routes.en.about, label: "ABOUT" },
+        { href: phase2Routes.en.insights, label: "INSIGHTS" },
+        { href: phase2Routes.en.contact, label: "CONTACT" },
     ],
     navAria: "Main menu",
     skipLink: "Skip to content",
@@ -219,6 +221,7 @@ const en: HomeCopy = {
     introWords: ["IDEA", "SOFTWARE", "PHYSICAL BUILD", "FIELD OPERATIONS"],
     heroKicker: "(01) — AI-POWERED EXPERIENCE TECHNOLOGY",
     heroTitle: "We turn the soul of brands into people's memories.",
+    heroLede: "Istanbul-based event technology company: we rent AI photo booths, photo booths, interactive games and activations, delivered turnkey.",
     heroStats: [
         { value: "1,000+", label: "EVENTS" },
         { value: "10", label: "CITIES" },

@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { prisma } from "@/lib/db";
 import { getRelatedServices } from "@/lib/project-services";
-import { generateBreadcrumbSchema, siteConfig } from "@/lib/site";
+import { generateBreadcrumbSchema, generateProjectSchema, siteConfig, snippet } from "@/lib/site";
 import { notFound } from "next/navigation";
 import { AdminEditUrlSetter } from "@/components/site/AdminBar";
 import ProjectDetailClient from "@/app/(site)/projeler/[slug]/ProjectDetailClient";
@@ -27,10 +27,10 @@ export async function generateMetadata({
     if (!project || !isEnglishProjectPublishable(project)) return { robots: { index: false, follow: false } };
 
     const isPrototype = slug === PHASE_2_CASE_SLUG;
-    const title = isPrototype ? "Tavuk Dünyası AI Photo Activation | MetasoftCo" : `${project.title_en} | MetasoftCo`;
+    const title = isPrototype ? "Tavuk Dünyası AI Photo Activation | MetasoftCo" : project.metaTitle_en || `${project.title_en} | MetasoftCo`;
     const description = isPrototype
         ? "A live Tavuk Dünyası AI portrait activation combining a branded kiosk, custom visual scenarios and a personal digital image for each guest."
-        : project.description_en!;
+        : project.metaDescription_en || snippet(project.description_en!);
     const image = project.image || `${siteConfig.url}/og?title=${encodeURIComponent(project.title_en!)}`;
     const url = `${siteConfig.url}/en/projects/${slug}`;
 
@@ -82,6 +82,7 @@ async function getProject(slug_en: string) {
             video: true,
             projectDate: true,
             createdAt: true,
+            updatedAt: true,
             order: true,
             faq: true,
             faq_en: true,
@@ -149,6 +150,17 @@ export default async function EnglishProjectDetailPage({
         "uploadDate": (project.projectDate || project.createdAt).toISOString().split("T")[0],
     } : null;
 
+    const projectSchema = generateProjectSchema({
+        title: project.title_en || project.title,
+        description: snippet(project.description_en || project.description || project.title),
+        url: `${siteConfig.url}/en/projects/${slug}`,
+        image: project.image,
+        client: project.client,
+        date: project.projectDate || project.createdAt,
+        updatedAt: project.updatedAt,
+        locale: "en",
+    });
+
     const breadcrumbSchema = slug === PHASE_2_CASE_SLUG ? generateBreadcrumbSchema([
         { name: "Home", url: `${siteConfig.url}/en` },
         { name: "Work", url: `${siteConfig.url}/en/projects` },
@@ -175,6 +187,7 @@ export default async function EnglishProjectDetailPage({
 
     return (
         <>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }} />
             {breadcrumbSchema && (
                 <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
             )}

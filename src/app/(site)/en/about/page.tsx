@@ -1,6 +1,7 @@
 import { Metadata } from "next";
 import { siteConfig, ogImageUrl } from "@/lib/site";
 import AboutPrototype from "@/components/phase2/AboutPrototype";
+import { aboutSchemas } from "@/lib/about-content";
 
 const ogTitle = "About Us | MetasoftCo";
 const ogDescription = "We are a passionate team dedicated to turning innovative ideas into amazing experiences.";
@@ -35,5 +36,12 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-    return <AboutPrototype locale="en" />;
+    return (
+        <>
+            {aboutSchemas("en", siteConfig.url).map((schema, index) => (
+                <script key={index} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }} />
+            ))}
+            <AboutPrototype locale="en" />
+        </>
+    );
 }

@@ -1,0 +1,112 @@
+<p><strong>Face swap ne demek?</strong> Face swap (Türkçesiyle yüz değiştirme), yapay zekânın bir fotoğraf ya da videodaki yüzü algılayıp başka bir kişinin veya karakterin yüzüyle, açı, ışık ve ifadeyi koruyarak değiştirmesidir. Bu yazıda teknolojinin nasıl çalıştığını, deepfake'ten farkını, güvenli kullanımın koşullarını ve etkinliklerde nasıl uygulandığını anlatıyoruz.</p>
+
+<h2>Face Swap Ne Demek? Kısa Tanım</h2>
+<p>"Face swap" İngilizcede "yüz takası" anlamına gelir. Günlük kullanımda iki farklı şeyi kapsar: iki kişinin yüzünün birbiriyle yer değiştirmesi ve bir kişinin yüzünün hazır bir sahneye, karaktere ya da kostüme yerleştirilmesi. Etkinliklerde ve marka aktivasyonlarında karşılaşılan face swap neredeyse her zaman ikincisidir: katılımcının yüzü, önceden tasarlanmış bir görsel dünyanın içine yerleştirilir.</p>
+<p>Face swap ile deepfake sık sık karıştırılır. Aradaki fark teknolojiden çok amaçtan ve rızadan kaynaklanır. Face swap, kişinin kendi isteğiyle ve sonucun bir dönüşüm olduğunu bilerek yaptığı bir görsel eğlencedir. Deepfake ise genellikle birini söylemediği bir şeyi söylüyor ya da yapmadığı bir şeyi yapıyor gibi göstermek için, çoğu zaman o kişinin haberi olmadan üretilen içeriği ifade eder.</p>
+
+<h2>Yapay Zeka ile Yüz Değiştirme Nasıl Çalışır? (4 Adım)</h2>
+<p>Hangi araç kullanılırsa kullanılsın, yapay zeka ile yüz değiştirme dört temel adımdan geçer:</p>
+<ol>
+<li><strong>Yüz tespiti:</strong> Model, görüntüdeki yüzü ya da yüzleri bulur ve her birinin sınırlarını belirler.</li>
+<li><strong>Referans noktaları (landmark):</strong> Göz köşeleri, burun ucu, dudak kenarları ve çene hattı gibi yaklaşık 68 kritik nokta milisaniyeler içinde işaretlenir. Bu noktalar yüzün açısını ve ifadesini tarif eder.</li>
+<li><strong>Hizalama ve kodlama:</strong> Yüz, hedef görseldeki açıya göre hizalanır ve bir encoder ile yüzün kimliğini taşıyan sayısal bir temsile dönüştürülür.</li>
+<li><strong>Üretim ve harmanlama (blending):</strong> Model yeni yüzü hedef sahneye üretir; ten tonu, ışık yönü ve kenar geçişleri harmanlanarak yüzün sahneye "yapıştırılmış" değil, sahnenin doğal bir parçası gibi görünmesi sağlanır.</li>
+</ol>
+
+<h3>Derin öğrenme ve CNN'ler</h3>
+<p>Face swap sistemlerinin temelinde evrişimsel sinir ağları (CNN) vardır. Bu ağlar çok sayıda yüz görüntüsü üzerinde eğitilerek göz pozisyonu, çene yapısı ve burun şekli gibi anatomik özellikleri tanımayı öğrenir. Yüz tespiti ve landmark adımları bu ağlarla yapılır.</p>
+
+<h3>GAN (Üretici Çekişmeli Ağlar)</h3>
+<p>İlk nesil gerçekçi face swap sistemleri GAN mimarisine dayanıyordu. İki sinir ağı birbirine karşı çalışır: biri görüntü üretir, diğeri üretilen görüntünün gerçek mi sahte mi olduğunu ayırt etmeye çalışır. Bu rekabet zamanla inandırıcı sonuçlar ortaya çıkarır.</p>
+
+<h3>Difüzyon modelleri: Stable Diffusion, ControlNet ve kimlik koruma</h3>
+<p>Son yıllarda yüz değiştirmenin asıl teknolojisi difüzyon modelleri oldu. Stable Diffusion gibi modeller görüntüyü gürültüden adım adım üretir. Bu üretimi yönlendirmek için ek katmanlar kullanılır: ControlNet pozu, yüz hatlarını ve kompozisyonu sabit tutar; IP-Adapter ve InstantID gibi yaklaşımlar ise referans fotoğraftaki kimliği yeni görsele taşır. LoRA ile belirli bir stil, kostüm ya da ürün modele öğretilebilir.</p>
+<p>Difüzyon tabanlı yaklaşımın farkı şudur: yüz yalnızca bir sahneye kopyalanmaz, sahne yüzle birlikte yeniden üretilir. Bu yüzden saç, ışık ve kıyafet de konsepte uyar; sonuç bir montajdan çok yeni bir fotoğrafa benzer. MetasoftCo'nun etkinlik sistemleri de Stable Diffusion, ControlNet ve LoRA tabanlı bu yaklaşımı kullanır.</p>
+
+<h2>Face Swap, Deepfake ve AI Avatar Arasındaki Fark</h2>
+<table>
+<thead>
+<tr><th></th><th>Face swap</th><th>Deepfake</th><th>AI avatar</th></tr>
+</thead>
+<tbody>
+<tr><td>Ne yapar?</td><td>Bir yüzü başka bir görsele ya da karaktere yerleştirir</td><td>Bir kişiyi gerçekte söylemediği ya da yapmadığı bir şeyi yapıyor gibi gösterir</td><td>Kişinin fotoğraflarından yeni, stilize bir dijital karakter üretir</td></tr>
+<tr><td>Çıktı</td><td>Genellikle fotoğraf, bazen kısa video</td><td>Çoğunlukla video ve ses</td><td>Fotoğraf, profil görseli, 3D karakter</td></tr>
+<tr><td>Rıza</td><td>Kişi kendi yüzünü bilerek kullanır</td><td>Çoğu zaman kişinin haberi yoktur</td><td>Kişi kendi fotoğraflarını bilerek yükler</td></tr>
+<tr><td>Tipik kullanım</td><td>Eğlence, etkinlik aktivasyonu, kampanya</td><td>Dolandırıcılık, dezenformasyon (kötü kullanım)</td><td>Sosyal medya, oyun, kişisel marka</td></tr>
+</tbody>
+</table>
+
+<h2>Yapay Zeka ile Yüz Değiştirme Nasıl Yapılır?</h2>
+<p>Yüz değiştirme yapmanın üç yolu var. Hangisinin uygun olduğu; kalite beklentisine, kaç kişiye hizmet verileceğine ve fotoğrafların nerede işlendiğine göre değişir.</p>
+
+<h3>Telefon uygulamaları ile</h3>
+<p>Mağazalarda çok sayıda yüz değiştirme uygulaması bulunur. Genellikle bir selfie çekip hazır şablonlardan birini seçersiniz; sonuç birkaç saniye içinde gelir. Kişisel kullanım için pratiktir. Dikkat edilmesi gereken nokta, fotoğrafın çoğu zaman uygulamanın sunucusuna yüklenmesidir: gizlilik politikasında fotoğrafın ne kadar süre saklandığını ve model eğitiminde kullanılıp kullanılmadığını kontrol edin.</p>
+
+<h3>Web tabanlı araçlarla</h3>
+<p>Tarayıcıdan çalışan araçlar, iki fotoğraf yükleyip yüzleri değiştirmenize ya da bir referans fotoğraftan yeni görseller üretmenize izin verir. Bazıları açık kaynak modelleri (Stable Diffusion tabanlı iş akışları gibi) bilgisayarınızda çalıştırma imkânı da sunar; bu durumda fotoğraf cihazınızdan çıkmaz ama güçlü bir ekran kartı gerekir.</p>
+
+<h3>Etkinlikte profesyonel kurulumla</h3>
+<p>Bir lansmanda, fuar standında ya da kurumsal etkinlikte yüzlerce kişiye aynı kalitede sonuç vermek için kiosk, kamera, ışık, yazıcı ve etkinliğe özel hazırlanmış konseptler birlikte çalışmalıdır. <a href="/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photobooth-kirala">AI Photobooth kiralama</a> bu ihtiyaç için tasarlanmıştır: katılımcı poz verir, ekrandan konsepti seçer ve sonuç saniyeler içinde hem basılır hem de QR kodla telefonuna iner.</p>
+
+<table>
+<thead>
+<tr><th></th><th>Telefon uygulaması</th><th>Web aracı</th><th>Etkinlikte profesyonel kurulum</th></tr>
+</thead>
+<tbody>
+<tr><td>Kalite</td><td>Hazır şablonlara bağlı</td><td>Araca göre değişir</td><td>Etkinliğe özel konsept, stüdyo ışığı</td></tr>
+<tr><td>Hız</td><td>Saniyeler</td><td>Saniyeler ile dakikalar</td><td>Saniyeler; tek istasyon saatte 40–60 kişi</td></tr>
+<tr><td>Gizlilik</td><td>Uygulamanın politikasına bağlı</td><td>Araca göre değişir</td><td>Saklama süresi müşteriyle yazılı belirlenir</td></tr>
+<tr><td>Maliyet</td><td>Ücretsiz ya da abonelik</td><td>Ücretsiz ya da kredi bazlı</td><td>Etkinlik başına anahtar teslim kiralama</td></tr>
+</tbody>
+</table>
+
+<h2>Face Swap Güvenli mi? KVKK, Rıza ve Deepfake Riskleri</h2>
+<p>Yüz, kişiyi doğrudan tanımlayan bir veridir. Bu yüzden face swap'in güvenli olup olmadığı kullanılan teknolojiden çok verinin nasıl işlendiğine bağlıdır. Etkinliklerde dikkat edilmesi gereken başlıca noktalar şunlardır:</p>
+<ul>
+<li><strong>Açık ve bilinçli katılım:</strong> Katılımcı fotoğrafının çekileceğini, nasıl dönüştürüleceğini ve nereye gideceğini bilmelidir. Fotoğraf ancak kişi kendisi poz verip konsepti seçtiğinde işlenmelidir.</li>
+<li><strong>Aydınlatma metni ve ayrı izinler:</strong> Bir form kullanılıyorsa, KVKK aydınlatma metni formla birlikte sunulur. Pazarlama iletişimi izni, içeriğin teslimine bağlanmadan ayrı ve isteğe bağlı bir onayla alınır.</li>
+<li><strong>Saklama süresi:</strong> Fotoğrafların ne kadar süre tutulacağı etkinlikten önce belirlenmelidir. MetasoftCo'nun Data-Capture kurgularında veriler standart olarak 90 gün saklanır ve süre sonunda silinir; farklı bir süre sözleşmede kararlaştırılabilir. Bazı etkinliklerde fotoğraflar etkinlik bitiminde silinir.</li>
+<li><strong>Çocuklar:</strong> Çocuklara yönelik aktivasyonlarda katılım ebeveynin onayı ve gözetimiyle yapılmalıdır.</li>
+<li><strong>Ünlü yüzleri kullanmak:</strong> Bir ünlünün yüzünü izinsiz olarak bir kampanya görselinde kullanmak, kişilik hakları ve reklam mevzuatı açısından ciddi risk taşır. Ünlü bir isimle yapılan çalışmalarda yüzün kullanımı sözleşmeyle güvence altına alınmalıdır.</li>
+<li><strong>Etiketleme:</strong> Üretilen görselin yapay zekâ ile oluşturulduğunu belirten bir filigran ya da çerçeve notu, içeriğin paylaşıldığı yerde yanlış anlaşılmasını önler.</li>
+</ul>
+<p>Veri sorumluluğu konusunu da baştan netleştirmek gerekir: etkinlikte toplanan kişisel verilerin veri sorumlusu müşteri markadır; teknoloji sağlayıcısı bu verileri yalnızca markanın talimatıyla, veri işleyen olarak işler. Ayrıntılar için <a href="/hizmetler/data-capture-crm">Data-Capture ve CRM</a> sayfamıza bakabilirsiniz.</p>
+
+<h2>Etkinliklerde Face Swap Kullanım Senaryoları</h2>
+<ul>
+<li><strong>Ürün lansmanları:</strong> Katılımcılar ürünün reklam dünyasına ya da kampanya karakterine dönüşür.</li>
+<li><strong>Marka aktivasyonları:</strong> Marka renkleri ve kimliğiyle uyumlu sahneler, kostümler ve dergi kapakları.</li>
+<li><strong>Kurumsal etkinlikler:</strong> Şirket tarihine ya da etkinlik temasına göre tasarlanmış sahnelerle ekip içi eğlence.</li>
+<li><strong>Fuarlar:</strong> Stant önünde sıra oluşturan, ziyaretçinin standa dönmesini sağlayan bir etkileşim noktası.</li>
+<li><strong>Spor ve taraftar etkinlikleri:</strong> Katılımcının kendi adıyla ve fotoğrafıyla hazırlanan oyuncu kartları.</li>
+</ul>
+
+<h3>Akmerkez: EURO 2024 temalı AI Football Card</h3>
+<p>Akmerkez için EURO 2024 temasıyla kurduğumuz deneyimde ziyaretçiler, kendi fotoğrafları ve isimleriyle kişiselleştirilmiş futbolcu kartlarına dönüştü. Face swap burada turnuva estetiğini taşıyan kart tasarımıyla birleşti; her çıktı paylaşılmak üzere tasarlanmış bir turnuva hatırasıydı. <a href="/projeler/akmerkez-x-ai-football-card">Projeyi inceleyin</a> ya da aynı teknolojiyle çalışan <a href="/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-football-card">AI Football Card kiralama</a> sayfasına göz atın.</p>
+
+<h3>TCMB: İstanbul Finans Merkezi'nde AI Greenbox</h3>
+<p>Türkiye Cumhuriyet Merkez Bankası'nın İstanbul Finans Merkezi'ndeki Merkez Akademi etkinliğinde katılımcıları, kuruma özel tasarlanan dijital dünyalara taşıdık. Yüz tanıma, kişilerin mimiklerini ve karakteristik hatlarını korudu; fotoğraflar anında basıldı ve QR kodla telefona aktarıldı. Finans sektörünün veri hassasiyeti nedeniyle fotoğraflar etkinlik bitiminde silindi. <a href="/projeler/tcmb-ai-greenbox-dijital-fotograf-aktivasyonu-istanbul-finans-merkezi">TCMB projesini inceleyin</a>.</p>
+
+<h3>DeFacto x Afra Saraçoğlu: yapay zeka ile sanal deneme</h3>
+<p>Yüz koruma teknolojisinin bir başka uygulaması da sanal denemedir. DeFacto'nun Afra Saraçoğlu koleksiyonu lansmanında misafirler, kıyafet değiştirmeden koleksiyonun kombinlerini saniyeler içinde kendi üzerlerinde gördü. Burada değişen yüz değil kıyafetti; ancak kişinin yüzünü ve duruşunu koruyan aynı difüzyon tabanlı yaklaşım kullanıldı. <a href="/projeler/defacto-x-afra-saracoglu-ai-fashion-experience">DeFacto projesini inceleyin</a>.</p>
+
+<h2>Kaliteli Bir Face Swap Sonucu İçin 6 İpucu</h2>
+<ol>
+<li><strong>Işık:</strong> Yüze önden ve yumuşak gelen ışık en iyi sonucu verir. Sert yan ışık ya da arkadan gelen ışık yüz hatlarının yanlış okunmasına neden olur.</li>
+<li><strong>Açı:</strong> Kameraya doğrudan ya da hafif açıyla bakan yüz en doğal sonucu verir. Profil fotoğraflarında benzerlik düşer.</li>
+<li><strong>Gözlük, şapka ve saç:</strong> Gözleri kapatan güneş gözlükleri, alnı örten şapkalar ve yüzün önüne düşen saçlar modelin kimliği okumasını zorlaştırır.</li>
+<li><strong>Çözünürlük:</strong> Yüzün kadrajda yeterince büyük ve net olması gerekir; uzaktan çekilmiş ya da bulanık fotoğraflarda detay kaybolur.</li>
+<li><strong>Sahne seçimi:</strong> Hedef sahnedeki yüz açısı ve ışık, çekilen fotoğrafa ne kadar yakınsa sonuç o kadar inandırıcı olur. Etkinlik konseptleri bu yüzden çekim alanına göre tasarlanır.</li>
+<li><strong>Ten tonu eşleştirme:</strong> İyi bir sistem ten tonunu sahneye uyarlar ama kişinin kendi tonunu da korur. Sonuçta kişi kendini tanımıyorsa ayar yanlıştır.</li>
+</ol>
+
+<h2>MetasoftCo AI Photobooth ile Face Swap</h2>
+<p>MetasoftCo'nun AI Photobooth sistemi, etkinlik ortamının koşullarına göre tasarlandı: değişken ışık, kalabalık ve hız gereksinimi. Kurgu şöyle çalışır:</p>
+<ul>
+<li>Katılımcı markalı kioskun önünde poz verir ve dokunmatik ekrandan etkinliğe özel hazırlanan konseptlerden birini seçer.</li>
+<li>Fotoğraf saniyeler içinde işlenir; tek bir istasyon saatte ortalama 40–60 kişiye hizmet verir. Kalabalık etkinliklerde istasyon sayısı artırılır.</li>
+<li>Sonuç QR kodla anında telefona iner ve istenirse yerinde basılır; baskılı paketlerde 750 adet baskı dahildir.</li>
+<li>Kiosk giydirmesi, ekran arayüzü ve çıktı tasarımı markaya özel hazırlanır.</li>
+<li>Mekândan yalnızca standart bir 220V priz istenir; internet kendi 5G modemlerimizle gelir. Kurulum cihaz başına ortalama 30–40 dakika sürer ve etkinlik boyunca alanda en az 2 teknik personel bulunur.</li>
+</ul>
+<p>Etkinliğiniz için konsept önerisi ve teklif almak isterseniz <a href="/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photobooth-kirala">AI Photobooth kiralama</a> sayfamızı inceleyebilir ya da <a href="/iletisim">bizimle iletişime geçebilirsiniz</a>.</p>

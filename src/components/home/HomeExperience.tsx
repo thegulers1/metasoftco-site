@@ -587,6 +587,7 @@ export default function HomeExperience({
                 <div className="mh-hero__copy">
                     <span className="mh-mono mh-meta">{copy.heroKicker}</span>
                     <h1 id="mh-hero-title" className="mh-display mh-hero__title">{copy.heroTitle}</h1>
+                    <p className="mh-hero__lede">{copy.heroLede}</p>
                     <div className="mh-hero__stats mh-mono">
                         {copy.heroStats.map((stat) => (
                             <span key={stat.label}><b>{stat.value}</b> {stat.label}</span>

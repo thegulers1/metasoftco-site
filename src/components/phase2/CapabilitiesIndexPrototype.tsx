@@ -30,6 +30,16 @@ const t = {
         faqTitle: "Sıkça sorulan sorular",
         faqAside: "Aradığınız cevap burada yoksa bize yazın; aynı gün dönüş yapalım.",
         faqCta: "SORUNUZU İLETİN ↗",
+        popularLabel: "En çok kiralananlar",
+        // Plain text links with the exact rental phrasing people search for.
+        popular: [
+            { label: "AI Photobooth kiralama", href: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photobooth-kirala" },
+            { label: "Photobooth kiralama", href: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/photobooth-kirala" },
+            { label: "Mirror Booth kiralama", href: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/mirror-booth" },
+            { label: "360 Video Booth kiralama", href: "/hizmetler/video/360-video-booth" },
+            { label: "Aura Photobooth kiralama", href: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/aura-photobooth-kiralama" },
+            { label: "Reflex Game kiralama", href: "/hizmetler/interaktif-etkinlik-aktiviteleri/reflex-game-hiz-ve-rekabet-oyunu" },
+        ],
     },
     en: {
         kicker: (n: number, k: number) => `(SERVICES) — ${n} EXPERIENCES · ${k} CATEGORIES`,
@@ -41,6 +51,15 @@ const t = {
         faqTitle: "Frequently asked questions",
         faqAside: "If your question is not answered here, write to us and we will reply the same day.",
         faqCta: "SEND YOUR QUESTION ↗",
+        popularLabel: "Most rented",
+        popular: [
+            { label: "AI photo booth rental", href: "/en/services/ai-event-solutions/ai-photobooth" },
+            { label: "Photo booth rental", href: "/en/services/photobooth-and-photo-activations/photobooth-rental" },
+            { label: "Mirror booth rental", href: "/en/services/photobooth-and-photo-activations/mirror-booth" },
+            { label: "360 video booth rental", href: "/en/services/video/360-video-booth" },
+            { label: "Aura photo booth rental", href: "/en/services/photobooth-and-photo-activations/aura-photobooth-rental" },
+            { label: "Reflex game rental", href: "/en/services/interactive-event-activities/interactive-reflex-game-for-events" },
+        ],
     },
 };
 
@@ -82,6 +101,11 @@ export default function CapabilitiesIndexPrototype({
                     <p className="ms-lede" data-reveal style={{ maxWidth: 620 }}>{copy.heroCopy}</p>
                     <Link href={dictionary.routes.contact} className="ms-pill ms-pill--acc" data-cursor={l.view.open}>{l.cta}</Link>
                 </div>
+                <nav aria-label={l.popularLabel} className="ms-chips" data-reveal>
+                    {l.popular.map((link) => (
+                        <Link key={link.href} href={link.href} className="ms-chip">{link.label}</Link>
+                    ))}
+                </nav>
             </section>
 
             {categories && categories.length > 0 && <MsBand words={categories.map((category) => category.name)} />}

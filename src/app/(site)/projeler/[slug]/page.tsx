@@ -7,7 +7,7 @@ import { notFound } from "next/navigation";
 import { AdminEditUrlSetter } from "@/components/site/AdminBar";
 import ProjectDetailClient from "./ProjectDetailClient";
 import { isEnglishProjectPublishable } from "@/lib/publication";
-import { generateBreadcrumbSchema } from "@/lib/site";
+import { generateBreadcrumbSchema, generateProjectSchema, snippet } from "@/lib/site";
 import { phase2ProjectSlugs } from "@/lib/phase2";
 import { phase2Copy } from "@/lib/phase2-content";
 import CaseStudyPrototype from "@/components/phase2/CaseStudyPrototype";
@@ -26,12 +26,12 @@ export async function generateMetadata({
     const { slug } = await params;
     const project = await prisma.project.findUnique({
         where: { slug, published: true },
-        select: { title: true, description: true, image: true, slug_en: true, title_en: true, description_en: true, content_en: true, metaTitle_en: true, metaDescription_en: true },
+        select: { title: true, description: true, metaTitle: true, metaDescription: true, image: true, slug_en: true, title_en: true, description_en: true, content_en: true, metaTitle_en: true, metaDescription_en: true },
     });
     if (!project) return {};
 
-    const title = `${project.title} | MetasoftCo`;
-    const description = project.description || siteConfig.description;
+    const title = project.metaTitle || `${project.title} | MetasoftCo`;
+    const description = project.metaDescription || snippet(project.description || siteConfig.description);
     const image = cloudinaryOgImage(project.image) || `${siteConfig.url}/og?title=${encodeURIComponent(project.title)}`;
     const url = `${siteConfig.url}/projeler/${slug}`;
 
@@ -82,6 +82,7 @@ async function getProject(slug: string) {
             video: true,
             projectDate: true,
             createdAt: true,
+            updatedAt: true,
             order: true,
             faq: true,
             faq_en: true,
@@ -159,6 +160,17 @@ export default async function ProjectDetailPage({
         { name: project.title, url: `${siteConfig.url}/projeler/${slug}` },
     ]);
 
+    const projectSchema = generateProjectSchema({
+        title: project.title,
+        description: snippet(project.description || project.title),
+        url: `${siteConfig.url}/projeler/${slug}`,
+        image: project.image,
+        client: project.client,
+        date: project.projectDate || project.createdAt,
+        updatedAt: project.updatedAt,
+        locale: "tr",
+    });
+
     // FAQ JSON-LD schema — Google featured snippet için
     const faqSchema = project.faq ? (() => {
         const items: { q: string; a: string }[] = JSON.parse(project.faq);
@@ -179,6 +191,7 @@ export default async function ProjectDetailPage({
 
     return (
         <>
+            <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(projectSchema) }} />
             {breadcrumbSchema && (
                 <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
             )}

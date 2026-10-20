@@ -8,13 +8,13 @@ import CapabilitiesIndexPrototype from "@/components/phase2/CapabilitiesIndexPro
 // Read database content at request time; Docker builds have no database access.
 export const dynamic = "force-dynamic";
 
-const ogTitle = "İnteraktif Etkinlik Hizmetleri | Yapay Zeka, Photobooth & Aktivasyon — MetasoftCo";
-const ogDescription = "Yapay zeka fotoğraf aktivasyonları, interaktif oyunlar, photobooth ve AR deneyimleri. MetasoftCo ile etkinliğinizi unutulmaz kılın.";
+const ogTitle = "Etkinlik Teknolojisi Kiralama: AI, Photobooth, Oyun | MetasoftCo";
+const ogDescription = "Yapay zeka fotoğraf, photobooth, interaktif oyun ve AR aktivasyonlarını anahtar teslim kiralayın. İstanbul merkezli, Türkiye geneli kurulum ve saha ekibi.";
 const ogImage = ogImageUrl(ogTitle, ogDescription);
 
 export const metadata: Metadata = {
-    title: "İnteraktif Etkinlik Hizmetleri | Yapay Zeka, Photobooth & Aktivasyon — MetasoftCo",
-    description: "Yapay zeka fotoğraf aktivasyonları, interaktif oyunlar, photobooth ve AR deneyimleri. MetasoftCo ile etkinliğinizi unutulmaz kılın. İstanbul & Türkiye geneli hizmet.",
+    title: "Etkinlik Teknolojisi Kiralama: AI, Photobooth, Oyun | MetasoftCo",
+    description: ogDescription,
     openGraph: {
         title: ogTitle,
         description: ogDescription,
@@ -60,7 +60,7 @@ const serviceFAQs = [
     },
     {
         question: "Yapay zeka yüz değiştirme (face swap) teknolojisi nasıl çalışır?",
-        answer: "Katılımcının yüzü kameradan alınır, LoRA ve ControlNet tabanlı yapay zeka modeli 5-15 saniye içinde yüzü seçilen konsepte (Forbes kapak, Cyberpunk, Rönesans vb.) dönüştürür. Yüz benzerliği %99 doğrulukla korunur. Sonuç QR kod veya e-posta ile anında paylaşılır.",
+        answer: "Katılımcının fotoğrafı kiosk kamerasıyla çekilir; LoRA ve ControlNet tabanlı yapay zeka modeli yüzün hatlarını ve ifadesini koruyarak fotoğrafı saniyeler içinde seçilen konsepte (dergi kapağı, Cyberpunk, Rönesans vb.) dönüştürür. Sonuç QR kod veya e-posta ile anında paylaşılır, istenirse yerinde basılır.",
     },
     {
         question: "AI Fashion Mirror veya Akıllı Ayna nedir?",

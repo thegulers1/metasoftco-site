@@ -4,6 +4,7 @@ import { prisma } from "@/lib/db";
 import { siteConfig, generateBreadcrumbSchema, generateFaqSchema, parseFaq } from "@/lib/site";
 import InsightsDetailPrototype from "@/components/phase2/InsightsDetailPrototype";
 import { isEnglishBlogPostPublishable } from "@/lib/publication";
+import { blogAuthorSchema, findTeamMember, teamMemberPath } from "@/lib/team";
 
 export const revalidate = 3600;
 
@@ -102,13 +103,10 @@ export default async function EnglishBlogPostPage({ params }: Props) {
         image: post.image || post.ogImage || `${siteConfig.url}/og`,
         datePublished: post.publishedAt?.toISOString(),
         dateModified: post.updatedAt.toISOString(),
-        author: {
-            "@type": "Organization",
-            name: post.author || siteConfig.name,
-            url: siteConfig.url,
-        },
+        author: blogAuthorSchema(post.author, "en"),
         publisher: {
             "@type": "Organization",
+            "@id": `${siteConfig.url}/#organization`,
             name: siteConfig.name,
             url: siteConfig.url,
             logo: { "@type": "ImageObject", url: `${siteConfig.url}/blackLogo.png` },
@@ -126,6 +124,9 @@ export default async function EnglishBlogPostPage({ params }: Props) {
         { name: "Blog", url: `${siteConfig.url}/en/blog` },
         { name: title, url: `${siteConfig.url}/en/blog/${slug}` },
     ]);
+
+    const author = findTeamMember(post.author);
+    const authorHref = author ? teamMemberPath(author, "en") : undefined;
 
     const faq = parseFaq(post.faq_en);
     const related = await getRelatedPosts(slug, post.category);
@@ -163,11 +164,13 @@ export default async function EnglishBlogPostPage({ params }: Props) {
                     category: post.category,
                     author: post.author,
                     publishedAt: post.publishedAt,
+                    updatedAt: post.updatedAt,
                 }}
                 faq={faq}
                 related={related}
                 relatedServices={relatedServices}
                 locale="en"
+                authorHref={authorHref}
             />
         </>
     );

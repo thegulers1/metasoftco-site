@@ -5,6 +5,7 @@ import { siteConfig, generateBreadcrumbSchema, generateFaqSchema, parseFaq } fro
 import { cloudinaryOgImage } from "@/lib/cloudinary";
 import InsightsDetailPrototype from "@/components/phase2/InsightsDetailPrototype";
 import { isEnglishBlogPostPublishable } from "@/lib/publication";
+import { blogAuthorSchema, findTeamMember, teamMemberPath } from "@/lib/team";
 
 export const revalidate = 3600;
 
@@ -90,13 +91,10 @@ export default async function BlogPostPage({ params }: Props) {
         image: cloudinaryOgImage(post.image || post.ogImage) || `${siteConfig.url}/og`,
         datePublished: post.publishedAt?.toISOString(),
         dateModified: post.updatedAt.toISOString(),
-        author: {
-            "@type": "Organization",
-            name: post.author || siteConfig.name,
-            url: siteConfig.url,
-        },
+        author: blogAuthorSchema(post.author, "tr"),
         publisher: {
             "@type": "Organization",
+            "@id": `${siteConfig.url}/#organization`,
             name: siteConfig.name,
             url: siteConfig.url,
             logo: { "@type": "ImageObject", url: `${siteConfig.url}/blackLogo.png` },
@@ -114,6 +112,9 @@ export default async function BlogPostPage({ params }: Props) {
         { name: "Blog", url: `${siteConfig.url}/blog` },
         { name: post.title, url: `${siteConfig.url}/blog/${post.slug}` },
     ]);
+
+    const author = findTeamMember(post.author);
+    const authorHref = author ? teamMemberPath(author, "tr") : undefined;
 
     const faq = parseFaq(post.faq);
     const related = await getRelatedPosts(post.slug, post.category);
@@ -142,7 +143,7 @@ export default async function BlogPostPage({ params }: Props) {
                 />
             )}
 
-            <InsightsDetailPrototype post={post} faq={faq} related={related} relatedServices={relatedServices} locale="tr" />
+            <InsightsDetailPrototype post={post} faq={faq} related={related} relatedServices={relatedServices} locale="tr" authorHref={authorHref} />
         </>
     );
 }

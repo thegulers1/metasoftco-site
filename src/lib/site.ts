@@ -1,4 +1,5 @@
 import { cloudinaryOptimize } from "./cloudinary";
+import { SERVICE_CITIES } from "./rental-ops";
 
 export const siteConfig = {
     name: "MetasoftCo",
@@ -39,6 +40,11 @@ export const siteConfig = {
         twitter: "@metasoftco",
         instagram: "@metasoftco",
         youtube: "https://www.youtube.com/@MetasoftCo",
+        // Filled in when the URLs are confirmed; empty values stay out of sameAs.
+        pinterest: "",
+        facebook: "",
+        googleBusiness: "",
+        wikidata: "",
     },
 
     // Contact
@@ -129,15 +135,35 @@ export function generateMetaTags(page?: {
     };
 }
 
-// JSON-LD structured data for organization
+// Public profiles of the company itself. Empty entries are skipped, so a
+// profile (Google Business Profile, Wikidata…) can be filled in later.
+const companyProfiles = [
+    `https://instagram.com/${siteConfig.social.instagram.replace("@", "")}`,
+    `https://twitter.com/${siteConfig.social.twitter.replace("@", "")}`,
+    "https://www.linkedin.com/company/metasoftco",
+    siteConfig.social.youtube,
+    siteConfig.social.pinterest,
+    siteConfig.social.facebook,
+    siteConfig.social.googleBusiness,
+    siteConfig.social.wikidata,
+];
+
+// JSON-LD for the company, rendered on every page from the root layout.
+// ProfessionalService carries the address, service area and contact details
+// AI answers and local results look for; Organization keeps it a company.
 export function generateOrganizationSchema() {
     return {
         "@context": "https://schema.org",
-        "@type": "Organization",
+        "@type": ["Organization", "ProfessionalService"],
+        "@id": `${siteConfig.url}/#organization`,
         name: siteConfig.name,
         legalName: siteConfig.company.legalName,
+        description: siteConfig.description,
         url: siteConfig.url,
         logo: `${siteConfig.url}/blackLogo.png`,
+        image: `${siteConfig.url}/og`,
+        email: siteConfig.contact.email,
+        telephone: siteConfig.contact.phone,
         foundingDate: siteConfig.company.foundingDate,
         founders: siteConfig.company.founders.map((name) => ({
             "@type": "Person",
@@ -151,18 +177,42 @@ export function generateOrganizationSchema() {
             postalCode: "34320",
             addressCountry: "TR",
         },
+        geo: {
+            "@type": "GeoCoordinates",
+            latitude: 40.9917,
+            longitude: 28.7189,
+        },
+        areaServed: [
+            { "@type": "Country", name: "Türkiye" },
+            ...SERVICE_CITIES.map((name) => ({ "@type": "City", name })),
+        ],
         contactPoint: {
             "@type": "ContactPoint",
             telephone: siteConfig.contact.phone,
+            email: siteConfig.contact.email,
             contactType: "customer service",
             availableLanguage: ["Turkish", "English"],
+            hoursAvailable: {
+                "@type": "OpeningHoursSpecification",
+                dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                opens: "09:00",
+                closes: "18:00",
+            },
         },
-        sameAs: [
-            `https://instagram.com/${siteConfig.social.instagram.replace("@", "")}`,
-            `https://twitter.com/${siteConfig.social.twitter.replace("@", "")}`,
-            "https://www.linkedin.com/company/metasoftco",
-            siteConfig.social.youtube,
-        ],
+        sameAs: companyProfiles.filter(Boolean),
+    };
+}
+
+/** WebSite entity for the root layout; ties pages to the publisher above. */
+export function generateWebSiteSchema() {
+    return {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        "@id": `${siteConfig.url}/#website`,
+        name: siteConfig.name,
+        url: siteConfig.url,
+        inLanguage: ["tr-TR", "en-US"],
+        publisher: { "@id": `${siteConfig.url}/#organization` },
     };
 }
 
@@ -243,7 +293,7 @@ export function generateLocalBusinessSchema() {
                         "@type": "Service",
                         name: "AI Photo & Face Swap",
                         serviceType: "AI Photography & Event Technology",
-                        description: "Stable Diffusion ve ControlNet teknolojisiyle etkinliklerde misafirlerin yüzlerini saniyeler içinde Forbes kapak, Cyberpunk, Rönesans gibi farklı konseptlere dönüştürür. LoRA tabanlı mimari %99 yüz doğruluğu sağlar.",
+                        description: "Stable Diffusion ve ControlNet teknolojisiyle etkinliklerde misafirlerin yüzlerini saniyeler içinde Forbes kapak, Cyberpunk, Rönesans gibi farklı konseptlere dönüştürür.",
                     },
                 },
                 {
@@ -448,6 +498,51 @@ export function generateServiceSchema(service: {
             "@type": "Offer",
             availability: "https://schema.org/InStock",
             areaServed: "TR",
+        },
+    };
+}
+
+/** Cuts long editor copy to a search-snippet length at a word boundary. */
+export function snippet(text: string, max = 158) {
+    const clean = text.replace(/\s+/g, " ").trim();
+    if (clean.length <= max) return clean;
+    return clean.slice(0, max - 1).replace(/[\s,;:—–-]+\S*$/, "") + "…";
+}
+
+/**
+ * Case study schema for a project page: an Article about the client brand,
+ * written and published by MetasoftCo, so "who built X for Y" questions can
+ * be answered from the page itself.
+ */
+export function generateProjectSchema(project: {
+    title: string;
+    description: string;
+    url: string;
+    image: string | null;
+    client: string | null;
+    date: Date;
+    updatedAt?: Date;
+    locale: "tr" | "en";
+}) {
+    return {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: project.title,
+        description: project.description,
+        url: project.url,
+        mainEntityOfPage: { "@type": "WebPage", "@id": project.url },
+        ...(project.image && { image: project.image }),
+        datePublished: project.date.toISOString(),
+        ...(project.updatedAt && { dateModified: project.updatedAt.toISOString() }),
+        inLanguage: project.locale === "en" ? "en-US" : "tr-TR",
+        articleSection: project.locale === "en" ? "Case study" : "Vaka çalışması",
+        ...(project.client && { about: { "@type": "Organization", name: project.client } }),
+        author: { "@type": "Organization", "@id": `${siteConfig.url}/#organization`, name: siteConfig.name, url: siteConfig.url },
+        publisher: {
+            "@type": "Organization",
+            "@id": `${siteConfig.url}/#organization`,
+            name: siteConfig.name,
+            logo: { "@type": "ImageObject", url: `${siteConfig.url}/blackLogo.png` },
         },
     };
 }

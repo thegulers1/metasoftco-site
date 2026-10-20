@@ -543,7 +543,7 @@ html[data-mh-js] .ms [data-reveal].is-in {
 	gap: 3vw;
 	min-height: 72vh;
 	box-sizing: border-box;
-	padding: 150px var(--ms-gut) 5vw;
+	padding: 170px var(--ms-gut) 5vw;
 }
 
 .ms-hero--split {
@@ -552,7 +552,7 @@ html[data-mh-js] .ms [data-reveal].is-in {
 	align-items: end;
 	gap: 4vw;
 	min-height: 0;
-	padding-top: 130px;
+	padding-top: 150px;
 	padding-bottom: 4vw;
 }
 
@@ -780,7 +780,7 @@ html[data-mh-js] .ms-w > span {
 
 .ms-catalog__bar {
 	position: sticky;
-	top: 66px;
+	top: 108px;
 	z-index: 20;
 	display: flex;
 	flex-wrap: wrap;
@@ -1832,7 +1832,7 @@ html[data-mh-js] .ms-w > span {
 	.ms-hero {
 		min-height: 0;
 		gap: 22px;
-		padding-top: 110px;
+		padding-top: 120px;
 		padding-bottom: 40px;
 	}
 
@@ -1852,7 +1852,7 @@ html[data-mh-js] .ms-w > span {
 	}
 
 	.ms-catalog__bar {
-		top: 58px;
+		top: 78px;
 	}
 
 	.ms-band {

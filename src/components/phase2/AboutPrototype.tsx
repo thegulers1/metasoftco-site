@@ -1,7 +1,9 @@
 import Image from "next/image";
+import Link from "next/link";
+import { aboutDetail } from "@/lib/about-content";
 import type { Phase2Locale } from "@/lib/phase2";
 import { phase2Copy } from "@/lib/phase2-content";
-import { MsBand, MsCaps, MsSectionHead, MsWords } from "@/components/site-ms/parts";
+import { MsBand, MsCaps, MsFaq, MsSectionHead, MsWords } from "@/components/site-ms/parts";
 import { MsClock } from "@/components/site-ms/interactive";
 
 const t = {
@@ -14,6 +16,7 @@ export default function AboutPrototype({ locale }: { locale: Phase2Locale }) {
     const dictionary = phase2Copy(locale);
     const copy = dictionary.about;
     const l = t[locale];
+    const detail = aboutDetail(locale);
     const [storyLead, storyAccent] = copy.storyTitle.split("\n");
 
     return (
@@ -44,6 +47,13 @@ export default function AboutPrototype({ locale }: { locale: Phase2Locale }) {
                 </div>
             </section>
 
+            <section className="ms-section" aria-labelledby="ms-about-intro">
+                <MsSectionHead id="ms-about-intro" title={detail.introTitle} meta="METASOFTCO" />
+                <div className="ms-prose ms-prose--wide" data-reveal>
+                    {detail.intro.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+                </div>
+            </section>
+
             <section className="ms-section">
                 <div className="ms-story">
                     <div className="ms-story__copy" data-reveal>
@@ -57,6 +67,39 @@ export default function AboutPrototype({ locale }: { locale: Phase2Locale }) {
                         <span className="ms-hero__tag ms-mono">{l.imageTag}</span>
                     </div>
                 </div>
+            </section>
+
+            <section className="ms-section" aria-labelledby="ms-about-origin">
+                <MsSectionHead id="ms-about-origin" title={detail.originTitle} meta="2020" />
+                <div className="ms-prose ms-prose--wide" data-reveal>
+                    {detail.origin.map((paragraph) => <p key={paragraph}>{paragraph}</p>)}
+                </div>
+            </section>
+
+            <section className="ms-section" aria-labelledby="ms-about-services">
+                <MsSectionHead id="ms-about-services" title={detail.servicesTitle} meta={detail.servicesMeta} />
+                <ol className="ms-principles">
+                    {detail.services.map((service, index) => (
+                        <li key={service.href} data-reveal>
+                            <span>{String(index + 1).padStart(2, "0")}</span>
+                            <h3><Link href={service.href}>{service.name} ↗</Link></h3>
+                            <p>{service.copy}</p>
+                        </li>
+                    ))}
+                </ol>
+            </section>
+
+            <section className="ms-section" aria-labelledby="ms-about-field">
+                <MsSectionHead id="ms-about-field" title={detail.fieldTitle} meta={detail.fieldMeta} />
+                <ol className="ms-principles">
+                    {detail.field.map((item, index) => (
+                        <li key={item.title} data-reveal>
+                            <span>{String(index + 1).padStart(2, "0")}</span>
+                            <h3>{item.title}</h3>
+                            <p>{item.copy}</p>
+                        </li>
+                    ))}
+                </ol>
             </section>
 
             <section className="ms-section" aria-labelledby="ms-about-brands">
@@ -77,6 +120,33 @@ export default function AboutPrototype({ locale }: { locale: Phase2Locale }) {
                         </li>
                     ))}
                 </ol>
+            </section>
+
+            <section className="ms-section" aria-labelledby="ms-about-team">
+                <MsSectionHead id="ms-about-team" title={detail.teamTitle} meta={detail.teamMeta} />
+                <div className="ms-rows">
+                    {detail.team.map((person, index) => {
+                        const row = (
+                            <>
+                                <span className="ms-row__num">{String(index + 1).padStart(2, "0")}</span>
+                                <span className="ms-row__name ms-row__name--sm">{person.name}</span>
+                                <span className="ms-row__cat">{person.role.toLocaleUpperCase(locale === "en" ? "en-US" : "tr-TR")}</span>
+                                <span className="ms-row__arrow" aria-hidden="true">{person.href ? "↗" : ""}</span>
+                            </>
+                        );
+                        return person.href
+                            ? <Link key={person.name} href={person.href} className="ms-row">{row}</Link>
+                            : <div key={person.name} className="ms-row">{row}</div>;
+                    })}
+                </div>
+            </section>
+
+            <section className="ms-faq-wrap" aria-labelledby="ms-about-faq">
+                <div className="ms-faq-wrap__aside" data-reveal>
+                    <h2 id="ms-about-faq" className="ms-h2">{detail.faqTitle}<span className="ms-acc">.</span></h2>
+                    <p>{detail.faqAside}</p>
+                </div>
+                <MsFaq items={detail.faq} />
             </section>
         </article>
     );

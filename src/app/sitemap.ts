@@ -11,6 +11,7 @@ import {
     isEnglishServicePublishable,
 } from "@/lib/publication";
 import { getSectors, hasEnglish } from "@/lib/industry-pages";
+import { team, teamMemberPath } from "@/lib/team";
 
 export const dynamic = "force-dynamic";
 
@@ -66,6 +67,10 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         entry("/hizmetler/data-capture-crm", new Date("2026-09-23T00:00:00.000Z"), 0.7),
         entry("/hizmetler/etkinlik-mikro-site-ve-uygulama", new Date("2026-09-29T00:00:00.000Z"), 0.7),
         entry("/sunum", new Date("2026-09-26T00:00:00.000Z"), 0.6),
+        ...team.flatMap((member) => [
+            entry(teamMemberPath(member, "tr"), new Date("2026-10-20T00:00:00.000Z"), 0.4),
+            entry(teamMemberPath(member, "en"), new Date("2026-10-20T00:00:00.000Z"), 0.4),
+        ]),
     ];
 
     const industryPages = (await getSectors()).flatMap((sector) => [

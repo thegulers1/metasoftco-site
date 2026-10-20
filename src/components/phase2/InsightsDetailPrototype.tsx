@@ -16,6 +16,7 @@ export interface P2InsightArticle {
     category: string | null;
     author: string | null;
     publishedAt: Date | string | null;
+    updatedAt?: Date | string | null;
 }
 
 export interface P2RelatedService {
@@ -39,9 +40,14 @@ function demoteContentHeadings(html: string) {
     return html.replace(/<(\/?)h1(\s|>)/gi, "<$1h2$2");
 }
 
+/** The accent dot closes a statement; a title that already ends in ?, ! or . keeps its own mark. */
+function endsWithMark(title: string) {
+    return /[?!.…]$/.test(title.trim());
+}
+
 const t = {
-    tr: { faqAside: "Konuyla ilgili sorunuz mu var? Bize yazın; aynı gün dönüş yapalım.", servicesMeta: "BU YAZIDAKİ DENEYİMLER", postsMeta: "DİĞER YAZILAR", all: "TÜM YAZILAR →", open: "OKU", view: "İNCELE" },
-    en: { faqAside: "Have a question on the topic? Write to us and we will reply the same day.", servicesMeta: "EXPERIENCES IN THIS POST", postsMeta: "MORE POSTS", all: "ALL POSTS →", open: "READ", view: "VIEW" },
+    tr: { updated: "Son güncelleme", aboutAuthor: (name: string) => `YAZAR HAKKINDA: ${name.toLocaleUpperCase("tr-TR")} ↗`, faqAside: "Konuyla ilgili sorunuz mu var? Bize yazın; aynı gün dönüş yapalım.", servicesMeta: "BU YAZIDAKİ DENEYİMLER", postsMeta: "DİĞER YAZILAR", all: "TÜM YAZILAR →", open: "OKU", view: "İNCELE" },
+    en: { updated: "Last updated", aboutAuthor: (name: string) => `ABOUT THE AUTHOR: ${name.toLocaleUpperCase("en-US")} ↗`, faqAside: "Have a question on the topic? Write to us and we will reply the same day.", servicesMeta: "EXPERIENCES IN THIS POST", postsMeta: "MORE POSTS", all: "ALL POSTS →", open: "READ", view: "VIEW" },
 };
 
 /** /blog/[slug] and /en/blog/[slug], an article layout in the October 2026 design. */
@@ -51,12 +57,15 @@ export default function InsightsDetailPrototype({
     related,
     relatedServices = [],
     locale,
+    authorHref,
 }: {
     post: P2InsightArticle;
     faq?: FaqEntry[];
     related: P2InsightCard[];
     relatedServices?: P2RelatedService[];
     locale: Phase2Locale;
+    /** Profile page of a known author; the byline links there. */
+    authorHref?: string;
 }) {
     const dictionary = phase2Copy(locale);
     const copy = dictionary.insightDetail;
@@ -64,11 +73,18 @@ export default function InsightsDetailPrototype({
     const up = (text: string) => text.toLocaleUpperCase(locale === "en" ? "en-US" : "tr-TR");
 
     const publishedAt = formatInsightDate(post.publishedAt, locale);
+    // Shown only once the post has changed on a later day than it was published.
+    const updatedAt = post.updatedAt && post.publishedAt
+        && new Date(post.updatedAt).toDateString() !== new Date(post.publishedAt).toDateString()
+        && new Date(post.updatedAt) > new Date(post.publishedAt)
+        ? formatInsightDate(post.updatedAt, locale)
+        : null;
     const readMinutes = insightReadMinutes(post.content);
 
     const facts = [
         post.author && { term: copy.authorTerm, value: post.author },
         publishedAt && { term: copy.dateTerm, value: publishedAt },
+        updatedAt && { term: l.updated, value: updatedAt },
         post.category && { term: copy.categoryTerm, value: post.category },
         readMinutes && { term: copy.readTerm, value: copy.readValue(readMinutes) },
     ].filter((fact): fact is { term: string; value: string } => Boolean(fact));
@@ -81,9 +97,14 @@ export default function InsightsDetailPrototype({
                     { href: dictionary.routes.insights, label: up(copy.crumbInsights) },
                     ...(post.category ? [{ label: up(post.category) }] : []),
                 ]} />
-                <h1 className="ms-article-title">{post.title}<span className="ms-acc">.</span></h1>
+                <h1 className="ms-article-title">{post.title}{!endsWithMark(post.title) && <span className="ms-acc">.</span>}</h1>
                 {post.excerpt && <p className="ms-lede" data-reveal>{post.excerpt}</p>}
                 <MsFacts facts={facts} />
+                {post.author && authorHref && (
+                    <p className="ms-mono" style={{ marginTop: 18 }}>
+                        <Link href={authorHref} rel="author" className="ms-acc">{l.aboutAuthor(post.author)}</Link>
+                    </p>
+                )}
             </section>
 
             {post.image && (

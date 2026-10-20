@@ -93,7 +93,8 @@ export function MsSectionHead({
         <div className="ms-head" data-reveal>
             <Tag id={id} className={`ms-h2${small ? " ms-h2--sm" : ""}`}>
                 {title}
-                {dot && <span className="ms-acc">.</span>}
+                {/* A question or exclamation keeps its own mark instead of the accent dot. */}
+                {dot && !(typeof title === "string" && /[?!.…]$/.test(title.trim())) && <span className="ms-acc">.</span>}
             </Tag>
             {meta && <span className="ms-mono">{meta}</span>}
         </div>
