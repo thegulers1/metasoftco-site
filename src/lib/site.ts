@@ -5,7 +5,7 @@ export const siteConfig = {
     name: "MetasoftCo",
     title: "MetasoftCo | Yapay Zeka Etkinlik & İnteraktif Aktivasyon Ajansı — İstanbul",
     description:
-        "Etkinlik, lansman ve fuarlar için yapay zeka destekli photobooth, interaktif oyun ve aktivasyon kiralama. Kurulum ve saha operasyonu dahil; İstanbul merkezli, Türkiye geneli hizmet.",
+        "Etkinlik, lansman ve fuarlar için yapay zeka photobooth, interaktif oyun ve aktivasyon kiralama. Kurulum dahil, İstanbul merkezli, Türkiye geneli.",
     url: "https://www.metasoftco.com",
     locale: "tr_TR",
 
