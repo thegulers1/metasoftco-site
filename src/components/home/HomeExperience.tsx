@@ -90,7 +90,6 @@ export default function HomeExperience({
     const counterRef = useRef<HTMLSpanElement>(null);
     const barRef = useRef<HTMLDivElement>(null);
     const wordsRef = useRef<HTMLDivElement>(null);
-    const clockRef = useRef<HTMLSpanElement>(null);
     const mqRef = useRef<HTMLDivElement>(null);
     const projRef = useRef<HTMLElement>(null);
     const projTrackRef = useRef<HTMLDivElement>(null);
@@ -228,16 +227,6 @@ export default function HomeExperience({
         }, { rootMargin: "0px 0px -10% 0px" });
         root.querySelectorAll("[data-reveal]").forEach((el) => io.observe(el));
 
-        const tick = () => {
-            if (clockRef.current) {
-                clockRef.current.textContent = new Date().toLocaleTimeString("tr-TR", {
-                    timeZone: "Europe/Istanbul", hour: "2-digit", minute: "2-digit", second: "2-digit",
-                });
-            }
-        };
-        tick();
-        const clock = window.setInterval(tick, 1000);
-
         const prog = (el: HTMLElement) => {
             const r = el.getBoundingClientRect(), d = r.height - innerHeight;
             return d > 0 ? Math.min(1, Math.max(0, -r.top / d)) : 0;
@@ -351,7 +340,6 @@ export default function HomeExperience({
             s.table?.destroy();
             s.table = null;
             cancelAnimationFrame(raf);
-            clearInterval(clock);
             clearInterval(termTimer);
             clearTimeout(resizeTimer);
             timers.forEach(clearTimeout);
@@ -585,7 +573,6 @@ export default function HomeExperience({
 
             <section ref={heroRef} className="mh-hero" aria-labelledby="mh-hero-title">
                 <div className="mh-hero__copy">
-                    <span className="mh-mono mh-meta">{copy.heroKicker}</span>
                     <h1 id="mh-hero-title" className="mh-display mh-hero__title">{copy.heroTitle}</h1>
                     <p className="mh-hero__lede">{copy.heroLede}</p>
                     <div className="mh-hero__stats mh-mono">
@@ -595,13 +582,19 @@ export default function HomeExperience({
                     </div>
                     <div className="mh-hero__ctas">
                         <Link href={copy.routes.contact} className="mh-pill mh-pill--acc" data-cursor={copy.cursor.write}>{copy.heroPrimary}</Link>
-                        <Link href={copy.routes.work} className="mh-pill mh-pill--line" data-cursor={copy.cursor.go}>{copy.heroSecondary}</Link>
+                        <Link href={copy.routes.products} className="mh-pill mh-pill--line" data-cursor={copy.cursor.go}>{copy.heroSecondary}</Link>
                     </div>
+                    <ul className="mh-hero__logos" aria-label={copy.heroLogos}>
+                        {brands.slice(0, 6).map((brand) => (
+                            <li key={brand.name}>
+                                {/* eslint-disable-next-line @next/next/no-img-element -- static SVG/PNG logos */}
+                                <img src={brand.src} alt={brand.name} className={brand.variant ? `mh-brand mh-brand--${brand.variant}` : "mh-brand"} />
+                            </li>
+                        ))}
+                    </ul>
                 </div>
                 <div className="mh-hero__side mh-mono" aria-hidden="true">
                     <span className="mh-hero__drag"><span className="mh-dot" /><span className="mh-only-fine">{copy.heroDrag}</span><span className="mh-only-touch">{copy.heroTap}</span></span>
-                    <span className="mh-meta">{copy.heroCity} <span ref={clockRef}>--:--:--</span></span>
-                    <span className="mh-meta mh-only-fine">{copy.heroHowTo}</span>
                 </div>
 
                 <div ref={physRef} className="mh-table" aria-hidden="true">
@@ -684,6 +677,21 @@ export default function HomeExperience({
                         <span>{copy.marquee}</span>
                     </div>
                 </div>
+            </section>
+
+            <section className="mh-section mh-aud" aria-labelledby="mh-aud-title">
+                <div className="mh-head" data-reveal>
+                    <h2 id="mh-aud-title" className="mh-display mh-h2">{copy.audience.title}</h2>
+                </div>
+                <ul className="mh-aud__list">
+                    {copy.audience.items.map((item, index) => (
+                        <li key={item.name} className="mh-aud__item" data-reveal style={{ ["--d" as string]: `${index * 0.06}s` }}>
+                            <h3 className="mh-aud__name">{item.name}</h3>
+                            <p className="mh-aud__desc">{item.desc}</p>
+                            <Link href={item.href} className="mh-aud__cta mh-mono" data-cursor={copy.cursor.go}>{item.cta}</Link>
+                        </li>
+                    ))}
+                </ul>
             </section>
 
             <section ref={projRef} className="mh-work" aria-labelledby="mh-work-title">

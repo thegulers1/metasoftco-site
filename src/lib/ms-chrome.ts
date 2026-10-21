@@ -12,15 +12,15 @@ type NavLink = { href: string; label: string };
 
 const tr = {
     nav: [
+        { href: phase2Routes.tr.capabilities, label: "KİRALAMA" },
+        { href: phase2Routes.tr.products, label: "SATIN ALMA" },
         { href: phase2Routes.tr.work, label: "PROJELER" },
-        { href: phase2Routes.tr.capabilities, label: "HİZMETLER" },
         { href: phase2Routes.tr.about, label: "HAKKIMIZDA" },
-        { href: phase2Routes.tr.insights, label: "BLOG" },
         { href: phase2Routes.tr.contact, label: "İLETİŞİM" },
     ] as NavLink[],
     /** Shown in the mobile menu and the footer so these sections stay one click away. */
     more: [
-        { href: phase2Routes.tr.products, label: "Sistem Satışı" },
+        { href: phase2Routes.tr.insights, label: "Blog" },
         { href: SOFTWARE_CATEGORY_PATH, label: "Yazılım" },
         { href: "/sektorel-cozumler", label: "Sektörel Çözümler" },
         { href: "/sektorel-yazilim-cozumleri", label: "Sektörel Yazılım" },
@@ -61,14 +61,14 @@ export type MsChromeCopy = typeof tr;
 
 const en: MsChromeCopy = {
     nav: [
+        { href: phase2Routes.en.capabilities, label: "RENTAL" },
+        { href: phase2Routes.en.products, label: "BUY" },
         { href: phase2Routes.en.work, label: "WORK" },
-        { href: phase2Routes.en.capabilities, label: "SERVICES" },
         { href: phase2Routes.en.about, label: "ABOUT" },
-        { href: phase2Routes.en.insights, label: "INSIGHTS" },
         { href: phase2Routes.en.contact, label: "CONTACT" },
     ],
     more: [
-        { href: phase2Routes.en.products, label: "Product Sales" },
+        { href: phase2Routes.en.insights, label: "Insights" },
         { href: "/en/services/software-development", label: "Software" },
         { href: "/en/sector-solutions", label: "Sector Solutions" },
         { href: "/en/industry-software-solutions", label: "Industry Software" },
