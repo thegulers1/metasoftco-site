@@ -1,46 +1,14 @@
 import "./globals.css";
+import "./fonts.css";
 import type { Metadata } from "next";
-import { Inter_Tight, Lato, Space_Grotesk, Manrope, JetBrains_Mono } from "next/font/google";
 import { headers } from "next/headers";
 import { siteConfig, generateMetaTags, generateOrganizationSchema, generateWebSiteSchema } from "@/lib/site";
 import { Providers } from "@/providers/Providers";
 import { homeIntroScript } from "@/lib/home-intro";
 
-// next/font varsayılan olarak her aileyi <link rel="preload"> ile yükler.
-// Yalnızca birkaç eski `site/` bileşeninde geçen aileler preload edilmez:
-// aksi halde her sayfada indirilip kullanılmadıkları için tarayıcı
-// "preloaded but not used" uyarısı veriyor ve boşuna bant genişliği harcanıyordu.
-const interTight = Inter_Tight({
-  subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700", "800", "900"],
-  variable: "--font-inter-tight",
-  preload: false,
-});
-
-const lato = Lato({
-  subsets: ["latin"],
-  weight: ["100", "300", "400", "700", "900"],
-  variable: "--font-lato",
-  preload: false,
-});
-
-const spaceGrotesk = Space_Grotesk({
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
-  variable: "--font-space-grotesk",
-});
-
-const manrope = Manrope({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
-  variable: "--font-manrope",
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ["latin"],
-  weight: ["500"],
-  variable: "--font-jetbrains-mono",
-});
+// Fonts are self-hosted (src/app/fonts.css, public/fonts). next/font/google
+// downloaded them during the build, and the Coolify build server got URLs
+// from Google that Turbopack rejects, which failed deploys.
 
 export const metadata: Metadata = {
   ...generateMetaTags(),
@@ -70,7 +38,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const lang = pathname.startsWith("/en") ? "en" : "tr";
 
   return (
-    <html lang={lang} className={`${interTight.variable} ${lato.variable} ${spaceGrotesk.variable} ${manrope.variable} ${jetbrainsMono.variable}`} suppressHydrationWarning>
+    <html lang={lang} suppressHydrationWarning>
       <head>
         {/* Homepage intro: decided before first paint, see src/lib/home-intro.ts */}
         <script dangerouslySetInnerHTML={{ __html: homeIntroScript }} />
