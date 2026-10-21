@@ -1769,6 +1769,11 @@ html[data-mh-js] .mh [data-reveal].is-in {
 	color: var(--mh-on-acc);
 }
 
+.mh-float__icon {
+	display: none;
+	flex: none;
+}
+
 .mh-float__dot {
 	width: 8px;
 	height: 8px;
@@ -2439,5 +2444,49 @@ html[data-mh-js] .mh [data-reveal].is-in {
 @media (max-width: 899px) {
 	.mh-nav__logo img {
 		height: 48px;
+	}
+}
+
+/* Phones: the two floating actions shrink to round icons stacked in one corner,
+   so they stop covering text at the bottom of the screen. */
+@media (max-width: 899px) {
+	.mh-float {
+		right: var(--mh-gut);
+		left: auto;
+		justify-content: center;
+		width: 48px;
+		height: 48px;
+		padding: 0 !important;
+		box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
+	}
+
+	.mh .mh-float--wa {
+		left: auto;
+		bottom: 76px;
+		background: var(--mh-fg);
+	}
+
+	.mh-float__icon {
+		display: block;
+	}
+
+	.mh-float__label {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+	}
+
+	.mh-toast {
+		bottom: 136px;
+	}
+
+	.mh-float--wa .mh-float__dot {
+		position: absolute;
+		top: 9px;
+		right: 9px;
+		box-shadow: 0 0 0 2px var(--mh-fg);
 	}
 }

@@ -282,12 +282,16 @@ export function MsBehaviour() {
                 target="_blank"
                 rel="noopener noreferrer"
                 className="ms-float ms-float--wa"
+                aria-label="WhatsApp"
                 data-cursor={copy.cursor.write}
                 onClick={() => trackEvent("whatsapp_click", { location: "floating_pill" })}>
-                <span className="ms-float__dot" />WHATSAPP
+                <span className="ms-float__dot" />
+                <svg className="ms-float__icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-4.5 4v-4h0A2.5 2.5 0 0 1 4 13.5z" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" /></svg>
+                <span className="ms-float__label">WHATSAPP</span>
             </a>
-            <button type="button" className="ms-float ms-float--ai" data-cursor={copy.cursor.ask} onClick={() => openChat(locale)}>
-                {copy.ai}
+            <button type="button" className="ms-float ms-float--ai" aria-label={copy.ai.replace("✶", "").trim()} data-cursor={copy.cursor.ask} onClick={() => openChat(locale)}>
+                <svg className="ms-float__icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3c.6 4.6 2.9 7.4 9 9-6.1 1.6-8.4 4.4-9 9-.6-4.6-2.9-7.4-9-9 6.1-1.6 8.4-4.4 9-9z" fill="currentColor" /></svg>
+                <span className="ms-float__label">{copy.ai}</span>
             </button>
         </>
     );

@@ -1,3 +1,4 @@
+import { shortServiceTitle } from "@/lib/service-listing";
 import { Metadata } from "next";
 import Link from "next/link";
 import { prisma } from "@/lib/db";
@@ -154,7 +155,8 @@ export default async function EventSoftwareHubPage() {
                         <MsSectionHead id="es-activities" title={copy.activitiesTitle} meta="DENEYİMLER" />
                     </div>
                     <MsCatalog
-                        items={activities.map((service) => ({ key: service.id, href: `/hizmetler/${service.category.slug}/${service.slug}`, name: service.title, image: service.image }))}
+                        itemHeading="h3"
+                        items={activities.map((service) => ({ key: service.id, href: `/hizmetler/${service.category.slug}/${service.slug}`, name: shortServiceTitle(service.title, service.homeTitle), image: service.image }))}
                         allLabel=""
                         countLabel="DENEYİM"
                         labels={{ grid: "IZGARA", list: "LİSTE", view: "Görünüm", open: "İNCELE" }}

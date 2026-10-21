@@ -138,6 +138,7 @@ export default function CityLandingClient({ page, images, districts, faq, relate
                         <MsSectionHead id="ms-city-activities" title={t.activities} meta={t.activitiesMeta} />
                     </div>
                     <MsCatalog
+                        itemHeading="h3"
                         items={relatedServices.map((service) => ({
                             key: service.id,
                             href: lang === "en"

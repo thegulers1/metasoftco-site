@@ -1,3 +1,4 @@
+import { shortServiceTitle } from "@/lib/service-listing";
 import fs from "node:fs";
 import path from "node:path";
 import { Metadata } from "next";
@@ -180,7 +181,8 @@ export default async function DataCaptureHubPage() {
                         <MsSectionHead id="dc-activities" title={copy.activitiesTitle} meta="DATA-CAPTURE İLE ÇALIŞAN" />
                     </div>
                     <MsCatalog
-                        items={activities.map((service) => ({ key: service.id, href: `/hizmetler/${service.category.slug}/${service.slug}`, name: service.title, image: service.image }))}
+                        itemHeading="h3"
+                        items={activities.map((service) => ({ key: service.id, href: `/hizmetler/${service.category.slug}/${service.slug}`, name: shortServiceTitle(service.title, service.homeTitle), image: service.image }))}
                         allLabel=""
                         countLabel="DENEYİM"
                         labels={{ grid: "IZGARA", list: "LİSTE", view: "Görünüm", open: "İNCELE" }}

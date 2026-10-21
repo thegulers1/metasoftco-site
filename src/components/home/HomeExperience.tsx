@@ -825,16 +825,21 @@ export default function HomeExperience({
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mh-float mh-float--wa mh-mono"
+                aria-label="WhatsApp"
                 data-cursor={copy.cursor.write}
                 onClick={() => trackEvent("whatsapp_click", { location: "home_pill" })}>
-                <span className="mh-float__dot" />WHATSAPP
+                <span className="mh-float__dot" />
+                <svg className="mh-float__icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-4.5 4v-4h0A2.5 2.5 0 0 1 4 13.5z" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" /></svg>
+                <span className="mh-float__label">WHATSAPP</span>
             </a>
             <button
                 type="button"
                 className="mh-float mh-float--ai mh-mono"
+                aria-label={copy.aiButton.replace("✶", "").trim()}
                 data-cursor={copy.cursor.ask}
                 onClick={() => openChat(locale)}>
-                {copy.aiButton}
+                <svg className="mh-float__icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3c.6 4.6 2.9 7.4 9 9-6.1 1.6-8.4 4.4-9 9-.6-4.6-2.9-7.4-9-9 6.1-1.6 8.4-4.4 9-9z" fill="currentColor" /></svg>
+                <span className="mh-float__label">{copy.aiButton}</span>
             </button>
 
             {toast && (
