@@ -5,7 +5,7 @@ import { FormEvent, Suspense, useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import type { Phase2Locale } from "@/lib/phase2";
 import { phase2Copy } from "@/lib/phase2-content";
-import { MsWords } from "@/components/site-ms/parts";
+import { MsWords, upperMixed } from "@/components/site-ms/parts";
 import { MsClock } from "@/components/site-ms/interactive";
 import { trackEvent } from "@/lib/analytics";
 import { homeCopy } from "@/lib/home-content";
@@ -23,7 +23,7 @@ const t = {
         talk: "PROJENİZİ KONUŞALIM",
         next: "BUNDAN SONRA NE OLACAK",
         sizes: ["0–200", "200–1.000", "1.000–5.000", "5.000+"],
-        products: ["AI Photo", "AI Greenbox", "Photobooth", "Strip Photo", "İnteraktif Oyun", "Hediye Çarkı", "Video Booth", "VR & AR", "Yazılım Geliştirme", "Emin değilim"],
+        products: ["AI Photo", "AI Greenbox", "Photobooth", "Strip Photo", "İnteraktif Oyun", "Hediye Çarkı", "360 & GIF Video Booth", "VR & AR", "Yazılım Geliştirme", "Emin değilim"],
         productsLabel: "İLGİLENDİĞİNİZ ÜRÜN · BİRDEN FAZLA SEÇEBİLİRSİNİZ",
         intentLabel: "NE DÜŞÜNÜYORSUNUZ?",
         intents: { rent: "Etkinlik için kiralama", buy: "Kalıcı kurulum, satın alma" },
@@ -44,7 +44,7 @@ const t = {
         talk: "LET'S TALK ABOUT YOUR PROJECT",
         next: "WHAT HAPPENS NEXT",
         sizes: ["0–200", "200–1,000", "1,000–5,000", "5,000+"],
-        products: ["AI Photo", "AI Greenbox", "Photobooth", "Strip Photo", "Interactive Games", "Gift Wheel", "Video Booth", "VR & AR", "Software Development", "Not sure yet"],
+        products: ["AI Photo", "AI Greenbox", "Photobooth", "Strip Photo", "Interactive Games", "Gift Wheel", "360 & GIF Video Booth", "VR & AR", "Software Development", "Not sure yet"],
         productsLabel: "PRODUCTS YOU ARE INTERESTED IN · PICK AS MANY AS YOU LIKE",
         intentLabel: "WHAT ARE YOU LOOKING FOR?",
         intents: { rent: "Rental for an event", buy: "Permanent setup, purchase" },
@@ -234,7 +234,7 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
                                         <button type="button" className="ms-chip" aria-pressed="true" onClick={() => setLinkedProduct("")}>{linkedProduct} ×</button>
                                     )}
                                     {l.products.map((label) => (
-                                        <button key={label} type="button" aria-pressed={products.includes(label)} className="ms-chip" data-cursor={l.cursor.pick} onClick={() => toggleProduct(label)}>{label.toLocaleUpperCase(locale === "en" ? "en-US" : "tr-TR")}</button>
+                                        <button key={label} type="button" aria-pressed={products.includes(label)} className="ms-chip" data-cursor={l.cursor.pick} onClick={() => toggleProduct(label)}>{locale === "en" ? label.toUpperCase() : upperMixed(label)}</button>
                                     ))}
                                 </div>
                             </div>

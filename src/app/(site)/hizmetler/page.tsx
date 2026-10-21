@@ -52,15 +52,15 @@ const getCategories = unstable_cache(
 const serviceFAQs = [
     {
         question: "MetasoftCo hangi hizmetleri sunuyor?",
-        answer: "MetasoftCo; AI destekli fotoğraf dönüşümü (face swap), yapay zeka portre çizimi (AI Draw), AI Fashion Mirror (akıllı ayna & AR), dijital photobooth sistemleri, interaktif oyunlar ve gamification, marka aktivasyonu ve özel yazılım geliştirme hizmetleri sunmaktadır.",
+        answer: "Etkinlikler için anahtar teslim kiralama yapıyoruz: AI photobooth ve yapay zekâ fotoğraf deneyimleri, klasik photobooth ve strip photo, interaktif oyunlar, hediye çarkı, video booth ve VR. Kurulum, markanıza özel tasarım ve sahadaki ekip fiyata dahildir. Mağaza, showroom ya da ofis gibi kalıcı noktalar için sistemlerimizi satın da alabilirsiniz; markanıza özel yazılım da geliştiriyoruz.",
     },
     {
         question: "Yapay zeka etkinlik teknolojilerinde hangi yazılımları kullanıyorsunuz?",
-        answer: "Stable Diffusion (görüntü üretimi), LoRA fine-tuning (kişiselleştirilmiş model eğitimi), ControlNet (yüz yapısı ve pozisyon koruma), Computer Vision (gerçek zamanlı kişi takibi ve segmentasyon), Unity ve WebGL (AR deneyimleri) teknolojileri kullanılmaktadır.",
+        answer: "Sahadaki tüm deneyimlerin yazılımını kendi ekibimiz geliştiriyor. Görüntü üretiminde Stable Diffusion tabanlı modelleri, kişi takibinde görüntü işlemeyi, oyun ve AR deneyimlerinde Unity'yi kullanıyoruz. Sizin için önemli olan şu: deneyim markanıza göre uyarlanır, etkinlik günü internet bağlantısını ve teknik ekibi biz getiririz.",
     },
     {
-        question: "Yapay zeka yüz değiştirme (face swap) teknolojisi nasıl çalışır?",
-        answer: "Katılımcının fotoğrafı kiosk kamerasıyla çekilir; LoRA ve ControlNet tabanlı yapay zeka modeli yüzün hatlarını ve ifadesini koruyarak fotoğrafı saniyeler içinde seçilen konsepte (dergi kapağı, Cyberpunk, Rönesans vb.) dönüştürür. Sonuç QR kod veya e-posta ile anında paylaşılır, istenirse yerinde basılır.",
+        question: "Yapay zeka fotoğraf deneyimi nasıl çalışır?",
+        answer: "Katılımcının fotoğrafı cihazın kamerasıyla çekilir; yapay zekâ yüz hatlarını ve ifadeyi koruyarak fotoğrafı saniyeler içinde seçilen konsepte (dergi kapağı, film afişi, markanıza özel bir dünya) dönüştürür. Sonuç QR kod ya da e-posta ile anında paylaşılır, istenirse yerinde basılır.",
     },
     {
         question: "AI Fashion Mirror veya Akıllı Ayna nedir?",
