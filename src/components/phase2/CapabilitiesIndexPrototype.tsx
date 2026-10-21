@@ -23,7 +23,7 @@ const t = {
     tr: {
         kicker: (n: number, k: number) => `(HİZMETLER) — ${n} DENEYİM · ${k} KATEGORİ`,
         city: "İSTANBUL",
-        cta: "ETKİNLİĞİN İÇİN ÖNERİ AL ↗",
+        cta: "ETKİNLİK İÇİN TEKLİF AL ↗",
         count: "DENEYİM",
         view: { grid: "IZGARA", list: "LİSTE", view: "Görünüm", open: "İNCELE" },
         processMeta: "UÇTAN UCA",
@@ -44,7 +44,7 @@ const t = {
     en: {
         kicker: (n: number, k: number) => `(SERVICES) — ${n} EXPERIENCES · ${k} CATEGORIES`,
         city: "ISTANBUL",
-        cta: "GET IDEAS FOR YOUR EVENT ↗",
+        cta: "GET AN EVENT QUOTE ↗",
         count: "EXPERIENCES",
         view: { grid: "GRID", list: "LIST", view: "View", open: "VIEW" },
         processMeta: "END TO END",

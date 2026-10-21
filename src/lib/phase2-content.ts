@@ -662,7 +662,7 @@ const tr: Phase2Copy = {
 		closeMenu: "Menüyü kapat",
 		localeSwitchAria: "İngilizceye geç",
 		localeSwitchLabel: "TR / EN",
-		aiCta: "Etkinliğin İçin Öneri Al",
+		aiCta: "Metasoft AI’ya Sorun",
 		aiCtaAria: "Etkinlik önerileri için yapay zeka asistanını aç",
 		items: [
 			{ href: trPaths.routes.home, label: "Anasayfa" },
@@ -705,7 +705,7 @@ const tr: Phase2Copy = {
 		heroFigureAlt: "Ray-Ban fotoğraf aktivasyonuna katılan katılımcılar",
 		heroFigureLabel: "CANLI KATILIM",
 		heroFigureCaption: "Ray-Ban · Strip Photo",
-		heroPrimaryCta: "Etkinliğiniz İçin Teklif Alın",
+		heroPrimaryCta: "Etkinlik İçin Teklif Al",
 		heroSecondaryCta: "Seçili Projeleri İnceleyin",
 		heroStats: [
 			{ value: "1.000+", label: "Canlı etkinlik" },
@@ -764,7 +764,7 @@ const tr: Phase2Copy = {
 		finalTitleLabel: "Sıradaki etkinliğinizi insanların katılmak isteyeceği bir deneyime dönüştürelim.",
 		finalCopy:
 			"Hedef kitlenizi, mekânı ve kampanya hedefinizi paylaşın. Etkileşimi, teknolojiyi ve saha uygulamasını projenize göre birlikte kurgulayalım.",
-		finalCta: "Etkinliğiniz İçin Teklif Alın",
+		finalCta: "Etkinlik İçin Teklif Al",
 	},
 
 	about: {
@@ -806,7 +806,7 @@ const tr: Phase2Copy = {
 		],
 		finalSolid: "İhtiyacı siz anlatın.",
 		finalOutline: "Deneyimi biz hayata geçirelim.",
-		finalCta: "Etkinliğiniz İçin Teklif Alın",
+		finalCta: "Etkinlik İçin Teklif Al",
 	},
 
 	contact: {
@@ -877,7 +877,7 @@ const tr: Phase2Copy = {
 		liteTitle: "Henüz tüm detaylar net değil mi?",
 		liteCopy: "Bize kısaca ulaşın ya da önce projelerimizi inceleyin.",
 		liteMailLabel: "E-posta gönderin",
-		liteWorkLabel: "Yapay Zekadan Öneri Al",
+		liteWorkLabel: "Seçili projeleri inceleyin",
 		finalSolid: "Sıradaki",
 		finalOutline: "canlı an",
 		finalTail: "burada başlıyor.",
@@ -894,7 +894,7 @@ const tr: Phase2Copy = {
 		ctaSolid: "Sıradaki etkinliğinizi",
 		ctaOutline: "katılım odaklı bir deneyime dönüştürelim.",
 		ctaLabel: "Sıradaki etkinliğinizi katılım odaklı bir deneyime dönüştürelim.",
-		ctaButton: "Etkinliğiniz İçin Teklif Alın",
+		ctaButton: "Etkinlik İçin Teklif Al",
 	},
 
 	capabilities: {
@@ -931,7 +931,7 @@ const tr: Phase2Copy = {
 		],
 		ctaSolid: "Fikrinizi",
 		ctaOutline: "canlı bir deneyime dönüştürelim.",
-		ctaButton: "Etkinliğiniz İçin Teklif Alın",
+		ctaButton: "Etkinlik İçin Teklif Al",
 	},
 
 	products: {
@@ -967,7 +967,7 @@ const tr: Phase2Copy = {
 		],
 		ctaSolid: "Kurumunuz için",
 		ctaOutline: "kalıcı bir sisteme mi ihtiyacınız var?",
-		ctaButton: "Teklif İsteyin",
+		ctaButton: "Satın Alma Teklifi Al",
 	},
 
 	insights: {
@@ -984,7 +984,7 @@ const tr: Phase2Copy = {
 		ctaSolid: "Anlatmaya değer",
 		ctaOutline: "bir projeniz mi var?",
 		ctaLabel: "Anlatmaya değer bir projeniz mi var?",
-		ctaButton: "Etkinliğiniz İçin Teklif Alın",
+		ctaButton: "Etkinlik İçin Teklif Al",
 	},
 
 	insightDetail: {
@@ -1003,7 +1003,7 @@ const tr: Phase2Copy = {
 		ctaSolid: "Fikri",
 		ctaOutline: "canlı bir deneyime dönüştürelim.",
 		ctaLabel: "Fikri canlı bir deneyime dönüştürelim.",
-		ctaButton: "Etkinliğiniz İçin Teklif Alın",
+		ctaButton: "Etkinlik İçin Teklif Al",
 	},
 
 	workDetail: {
@@ -1062,7 +1062,7 @@ const tr: Phase2Copy = {
 		nextHref: trPaths.projectHref(phase2ProjectSlugs.nextProject.tr),
 		ctaSolid: "Katılımcıların yanında götüreceği",
 		ctaOutline: "bir deneyim tasarlayın.",
-		ctaButton: "Etkinliğiniz İçin Teklif Alın",
+		ctaButton: "Etkinlik İçin Teklif Al",
 	},
 
 	capabilityDetail: {
@@ -1161,7 +1161,7 @@ const tr: Phase2Copy = {
 		],
 		ctaSolid: "Tek bir portreyi",
 		ctaOutline: "markanıza özel bir deneyime dönüştürün.",
-		ctaPrimary: "Etkinliğiniz İçin Teklif Alın",
+		ctaPrimary: "Etkinlik İçin Teklif Al",
 		ctaSecondary: "Seçili Projeleri İnceleyin",
 	},
 
@@ -1261,7 +1261,7 @@ const tr: Phase2Copy = {
 		faqTitle: "Sıkça sorulan sorular",
 		ctaSolid: "Bu deneyimi",
 		ctaOutline: "etkinliğinize taşıyalım.",
-		ctaButton: "Etkinliğiniz İçin Teklif Alın",
+		ctaButton: "Etkinlik İçin Teklif Al",
 	},
 
 	serviceDetail: {
@@ -1286,12 +1286,12 @@ const tr: Phase2Copy = {
 		backLabelProducts: "Tüm ürünler",
 		ctaSolid: "Bu hizmeti",
 		ctaOutline: "etkinliğinize uyarlayalım.",
-		ctaPrimary: "Etkinliğiniz İçin Teklif Alın",
+		ctaPrimary: "Etkinlik İçin Teklif Al",
 		ctaSecondary: "Seçili Projeleri İnceleyin",
 		ctaTertiary: "Kurumun İçin Satın Al",
 		saleCtaSolid: "Bu sistemi",
 		saleCtaOutline: "kurumunuza kalıcı olarak kazandıralım.",
-		saleCtaPrimary: "Teklif İsteyin",
+		saleCtaPrimary: "Satın Alma Teklifi Al",
 		saleCtaSecondary: "Seçili Projeleri İnceleyin",
 	},
 
@@ -1313,7 +1313,7 @@ const tr: Phase2Copy = {
 		backLabel: "Tüm projeler",
 		ctaSolid: "Benzer bir deneyimi",
 		ctaOutline: "sizin için kuralım.",
-		ctaButton: "Etkinliğiniz İçin Teklif Alın",
+		ctaButton: "Etkinlik İçin Teklif Al",
 	},
 
 	featuredProjects: {

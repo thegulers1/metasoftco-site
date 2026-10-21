@@ -47,7 +47,7 @@ export default function CookieConsentBanner() {
             <div className="mx-auto flex max-w-[1240px] flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
                 <p
                     className="text-[13.5px] leading-relaxed text-[rgba(255,255,255,.7)]"
-                    style={{ fontFamily: "var(--font-manrope)" }}
+                    style={{ fontFamily: "var(--mh-sans), system-ui, sans-serif" }}
                 >
                     {t(
                         "Deneyiminizi iyileştirmek ve site trafiğini analiz etmek için çerezler kullanıyoruz.",
@@ -64,14 +64,14 @@ export default function CookieConsentBanner() {
                     <button
                         onClick={() => decide("denied")}
                         className="rounded-full border border-white/15 px-5 py-2.5 text-[13px] font-semibold text-white/80 hover:border-white/30 hover:text-white transition-colors"
-                        style={{ fontFamily: "var(--font-manrope)" }}
+                        style={{ fontFamily: "var(--mh-sans), system-ui, sans-serif" }}
                     >
                         {t("Reddet", "Reject")}
                     </button>
                     <button
                         onClick={() => decide("granted")}
                         className="rounded-full bg-white px-5 py-2.5 text-[13px] font-semibold text-[#0a0a0f] hover:bg-gray-200 transition-colors"
-                        style={{ fontFamily: "var(--font-manrope)" }}
+                        style={{ fontFamily: "var(--mh-sans), system-ui, sans-serif" }}
                     >
                         {t("Kabul Et", "Accept")}
                     </button>

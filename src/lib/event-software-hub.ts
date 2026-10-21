@@ -149,6 +149,6 @@ export const eventSoftwareHub = {
 
     ctaSolid: "Davetiyeden galeriye,",
     ctaOutline: "etkinliğinizi tek ekiple kuralım.",
-    ctaPrimary: "Etkinliğiniz İçin Teklif Alın",
+    ctaPrimary: "Etkinlik İçin Teklif Al",
     ctaSecondary: "Yazılım Hizmetlerimiz",
 };

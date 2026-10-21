@@ -42,7 +42,7 @@ const tr: DataCaptureCopy = {
     ],
     legal:
         "Data-Capture modülü yalnızca müşterinin talebi ve yazılı onayı ile etkinleştirilir. Toplanan kişisel verilere ilişkin veri sorumlusu müşteri markadır; MetasoftCo bu verileri yalnızca müşterinin talimatları doğrultusunda, veri işleyen sıfatıyla işler. Aydınlatma metni ve rıza metinlerinin nihai içeriği ile onayı müşterinin sorumluluğundadır. Veriler standart olarak 90 gün saklanır; bu süre içinde panelden indirilebilir, süre sonunda sistemlerimizden silinir. Farklı bir süre sözleşmede kararlaştırılabilir.",
-    cta: "Data-Capture ile Teklif Alın",
+    cta: "Data-Capture İçin Teklif Al",
     more: "Modülü Detaylı İnceleyin",
     faq: [
         {

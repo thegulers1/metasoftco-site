@@ -68,7 +68,7 @@ const tr: RentalOpsCopy = {
         ...(output === "print" ? ["Saniyeler içinde fiziksel baskı, 750 adet baskı dahil"] : []),
     ],
     serviceArea: `İstanbul Teknokent (Avcılar) merkezli MetasoftCo olarak ${cityList("tr")} başta olmak üzere Türkiye genelindeki kurumsal etkinlik, lansman ve fuarlar için anahtar teslim kurulum sağlıyoruz.`,
-    cta: "Etkinliğiniz İçin Teklif Alın",
+    cta: "Etkinlik İçin Teklif Al",
     faq: (serviceTitle, output) => [
         {
             q: `${serviceTitle} kiralama fiyatı nasıl belirlenir?`,

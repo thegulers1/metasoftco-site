@@ -117,8 +117,8 @@ function AboutSlide({ deck, pageNo }: { deck: Deck; pageNo: number }) {
                     <span>&apos;den beri sahada</span>
                 </div>
                 <div>
-                    <b className="pz-gtext">100+</b>
-                    <span>Kurumsal proje</span>
+                    <b className="pz-gtext">1.000+</b>
+                    <span>Etkinlik</span>
                 </div>
                 <div>
                     <b className="pz-gtext">{CITIES.length}</b>
