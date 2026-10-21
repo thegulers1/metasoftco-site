@@ -422,6 +422,8 @@ export default function HomeExperience({
         const name = String(data.get("name") || "").trim();
         const phone = String(data.get("phone") || "").trim();
         const email = String(data.get("email") || "").trim();
+        const company = String(data.get("company") || "").trim();
+        const intent = copy.cart.intents.find((option) => option.value === data.get("intent")) ?? copy.cart.intents[0];
         if (!cart.length) return setQuote({ status: "error", message: copy.cart.needItem });
         if (!name || !phone || !email) return setQuote({ status: "error", message: copy.cart.needFields });
         setQuote({ status: "sending" });
@@ -434,7 +436,7 @@ export default function HomeExperience({
                     phone,
                     email,
                     eventDate: String(data.get("event") || "").trim(),
-                    notes: copy.cart.notes,
+                    notes: [copy.cart.notesIntent(intent.label), company && copy.cart.notesCompany(company), copy.cart.notes].filter(Boolean).join("\n"),
                     language: locale,
                     attribution: getAttribution(),
                     services: cart.map((key) => {
@@ -447,7 +449,7 @@ export default function HomeExperience({
             if (!res.ok) throw new Error(body.error || copy.cart.failed);
             setQuote({ status: "sent" });
             setCart([]);
-            trackEvent("generate_lead", { form: "home_cart", services: cart.length });
+            trackEvent("generate_lead", { form: "home_cart", services: cart.length, intent: intent.value });
         } catch (error) {
             setQuote({ status: "error", message: error instanceof Error && error.message ? error.message : copy.cart.failed });
         }
@@ -964,10 +966,36 @@ export default function HomeExperience({
                         </div>
                     ) : (
                         <form onSubmit={sendQuote} className="mh-cart__form">
-                            <input name="name" required autoComplete="name" placeholder={copy.cart.name} aria-label={copy.cart.name} className="mh-input" />
-                            <input name="phone" type="tel" required autoComplete="tel" placeholder={copy.cart.phone} aria-label={copy.cart.phone} className="mh-input" />
-                            <input name="email" type="email" required autoComplete="email" placeholder={copy.cart.email} aria-label={copy.cart.email} className="mh-input" />
-                            <input name="event" placeholder={copy.cart.event} aria-label={copy.cart.event} className="mh-input" />
+                            <p className="mh-cart__promise">{copy.cart.promise}</p>
+                            <fieldset className="mh-cart__intent">
+                                <legend className="mh-mono">{copy.cart.intentLabel}</legend>
+                                {copy.cart.intents.map((option, index) => (
+                                    <label key={option.value} className="mh-cart__choice">
+                                        <input type="radio" name="intent" value={option.value} defaultChecked={index === 0} />
+                                        <span>{option.label}</span>
+                                    </label>
+                                ))}
+                            </fieldset>
+                            <label className="mh-field">
+                                <span className="mh-mono">{copy.cart.name}</span>
+                                <input name="name" required autoComplete="name" className="mh-input" />
+                            </label>
+                            <label className="mh-field">
+                                <span className="mh-mono">{copy.cart.company}</span>
+                                <input name="company" autoComplete="organization" className="mh-input" />
+                            </label>
+                            <label className="mh-field">
+                                <span className="mh-mono">{copy.cart.email}</span>
+                                <input name="email" type="email" required autoComplete="email" className="mh-input" />
+                            </label>
+                            <label className="mh-field">
+                                <span className="mh-mono">{copy.cart.phone}</span>
+                                <input name="phone" type="tel" required autoComplete="tel" className="mh-input" />
+                            </label>
+                            <label className="mh-field">
+                                <span className="mh-mono">{copy.cart.event}</span>
+                                <input name="event" className="mh-input" />
+                            </label>
                             <p className="mh-cart__consent">
                                 {copy.cart.consent} <Link href="/gizlilik">{copy.cart.privacy}</Link>
                             </p>

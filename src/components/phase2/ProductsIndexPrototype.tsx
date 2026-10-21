@@ -65,7 +65,7 @@ export default function ProductsIndexPrototype({ products, locale }: { products:
                 </h1>
                 <div className="ms-hero__foot">
                     <p className="ms-lede" data-reveal style={{ maxWidth: 620 }}>{copy.heroCopy}</p>
-                    <Link href={dictionary.routes.contact} className="ms-pill ms-pill--acc" data-cursor={l.write}>{up(copy.ctaButton)} ↗</Link>
+                    <Link href={`${dictionary.routes.contact}?tur=satin-alma`} className="ms-pill ms-pill--acc" data-cursor={l.write}>{up(copy.ctaButton)} ↗</Link>
                 </div>
             </section>
 

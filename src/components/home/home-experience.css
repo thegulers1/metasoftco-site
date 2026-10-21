@@ -1872,8 +1872,10 @@ html[data-mh-js] .mh [data-reveal].is-in {
 .mh-cart__list {
 	display: flex;
 	flex: 1;
+	flex: 0 1 auto;
 	flex-direction: column;
 	gap: 10px;
+	min-height: 64px;
 	padding: 18px 24px;
 	overflow-y: auto;
 }
@@ -1907,9 +1909,78 @@ html[data-mh-js] .mh [data-reveal].is-in {
 	cursor: pointer;
 }
 
+/* The form can be taller than a phone screen, so the foot scrolls on its own. */
 .mh-cart__foot {
+	flex: 1 1 auto;
+	min-height: 0;
 	padding: 20px 24px 26px;
 	border-top: 1px solid var(--mh-line);
+	overflow-y: auto;
+	overscroll-behavior: contain;
+}
+
+.mh-cart__promise {
+	margin: 0 0 8px;
+	font-size: 13px;
+	line-height: 1.5;
+	color: var(--mh-mut);
+}
+
+.mh-cart__intent {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin: 0 0 8px;
+	padding: 0;
+	border: 0;
+}
+
+.mh-cart__intent legend {
+	margin-bottom: 8px;
+	padding: 0;
+	color: var(--mh-mut);
+}
+
+.mh-cart__choice {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	padding: 11px 14px;
+	border: 1px solid var(--mh-line-2);
+	border-radius: 10px;
+	font-size: 14px;
+	cursor: pointer;
+	transition: border-color 0.2s, color 0.2s;
+}
+
+.mh-cart__choice input {
+	margin: 0;
+	accent-color: var(--mh-acc);
+}
+
+.mh-cart__choice:has(input:checked) {
+	border-color: var(--mh-acc);
+}
+
+.mh-cart__choice:has(input:focus-visible) {
+	outline: 2px solid var(--mh-acc);
+	outline-offset: 2px;
+}
+
+.mh-field {
+	display: flex;
+	flex-direction: column;
+	gap: 2px;
+	padding-top: 6px;
+}
+
+.mh-field > .mh-mono {
+	font-size: 11px;
+	color: var(--mh-mut);
+}
+
+.mh-field .mh-input {
+	padding-top: 6px;
 }
 
 .mh-cart__form {

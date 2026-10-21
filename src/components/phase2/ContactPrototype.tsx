@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, Suspense, useEffect, useState } from "react";
+import { FormEvent, Suspense, useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import type { Phase2Locale } from "@/lib/phase2";
 import { phase2Copy } from "@/lib/phase2-content";
@@ -21,6 +21,11 @@ const t = {
         sizes: ["0–200", "200–1.000", "1.000–5.000", "5.000+"],
         products: ["AI Photo", "AI Greenbox", "Photobooth", "Strip Photo", "İnteraktif Oyun", "Hediye Çarkı", "Video Booth", "VR & AR", "Yazılım Geliştirme", "Emin değilim"],
         productsLabel: "İLGİLENDİĞİNİZ ÜRÜN · BİRDEN FAZLA SEÇEBİLİRSİNİZ",
+        intentLabel: "NE DÜŞÜNÜYORSUNUZ?",
+        intents: { rent: "Etkinlik için kiralama", buy: "Kalıcı kurulum, satın alma" },
+        intentNote: "Talep türü",
+        audiences: { ik: "İK & kurum içi etkinlik", ajans: "Ajans & etkinlik organizatörü", satinalma: "Satın alma ekibi", magaza: "Mağaza, showroom & ofis" },
+        audienceNote: "Kitle",
         sent: "✓",
         newRequest: "YENİ TALEP",
         email: "E-POSTA GÖNDERİN",
@@ -37,6 +42,11 @@ const t = {
         sizes: ["0–200", "200–1,000", "1,000–5,000", "5,000+"],
         products: ["AI Photo", "AI Greenbox", "Photobooth", "Strip Photo", "Interactive Games", "Gift Wheel", "Video Booth", "VR & AR", "Software Development", "Not sure yet"],
         productsLabel: "PRODUCTS YOU ARE INTERESTED IN · PICK AS MANY AS YOU LIKE",
+        intentLabel: "WHAT ARE YOU LOOKING FOR?",
+        intents: { rent: "Rental for an event", buy: "Permanent setup, purchase" },
+        intentNote: "Request type",
+        audiences: { ik: "HR & internal events", ajans: "Agency & event organiser", satinalma: "Procurement team", magaza: "Store, showroom & office" },
+        audienceNote: "Audience",
         sent: "✓",
         newRequest: "NEW REQUEST",
         email: "SEND AN EMAIL",
@@ -58,6 +68,11 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
     const [size, setSize] = useState("");
     const [products, setProducts] = useState<string[]>([]);
     const [linkedProduct, setLinkedProduct] = useState("");
+    const [intent, setIntent] = useState<"rent" | "buy">("rent");
+    const [audience, setAudience] = useState<keyof typeof l.audiences | "">("");
+    const presetAudience = useCallback((key: string) => {
+        if (key === "ik" || key === "ajans" || key === "satinalma" || key === "magaza") setAudience(key);
+    }, []);
 
     const toggleProduct = (label: string) =>
         setProducts((current) => (current.includes(label) ? current.filter((p) => p !== label) : [...current, label]));
@@ -69,6 +84,8 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
         const data = new FormData(currentForm);
         const value = (key: string) => String(data.get(key) ?? "").trim();
         const product = [linkedProduct, ...products].filter(Boolean).join(", ");
+        // Request type and audience travel at the top of the message, so every inbox and the panel see them.
+        const tags = [`${l.intentNote}: ${l.intents[intent]}`, audience && `${l.audienceNote}: ${l.audiences[audience]}`].filter(Boolean).join(" · ");
 
         try {
             const response = await fetch("/api/contact", {
@@ -83,13 +100,13 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
                     eventDate: value("eventDate"),
                     city: value("city"),
                     guests: size,
-                    message: value("brief"),
+                    message: `[${tags}]\n\n${value("brief")}`,
                     attribution: getAttribution(),
                 }),
             });
             if (response.ok) {
                 setStatus("sent");
-                trackEvent("generate_lead", { form_name: "iletisim_brief", product: product || undefined });
+                trackEvent("generate_lead", { form_name: "iletisim_brief", product: product || undefined, intent, audience: audience || undefined });
                 currentForm.reset();
                 setSize("");
                 setProducts([]);
@@ -154,6 +171,17 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
                         </div>
                     ) : (
                         <form className="ms-form" onSubmit={submit}>
+                            <Suspense fallback={null}>
+                                <LinkedIntent onIntent={setIntent} onAudience={presetAudience} />
+                            </Suspense>
+                            <div className="ms-field">
+                                <span>{l.intentLabel}</span>
+                                <div className="ms-chips" role="radiogroup" aria-label={l.intentLabel} style={{ marginTop: 8 }}>
+                                    {(["rent", "buy"] as const).map((key) => (
+                                        <button key={key} type="button" role="radio" aria-checked={intent === key} className="ms-chip" data-cursor={l.cursor.pick} onClick={() => setIntent(key)}>{l.intents[key].toLocaleUpperCase(locale === "en" ? "en-US" : "tr-TR")}</button>
+                                    ))}
+                                </div>
+                            </div>
                             <div className="ms-form__grid">
                                 <label className="ms-field"><span>{required(form.name)}</span><input className="ms-input" required name="name" autoComplete="name" placeholder={form.namePlaceholder} /></label>
                                 <label className="ms-field"><span>{optional(form.company)}</span><input className="ms-input" name="company" autoComplete="organization" placeholder={form.companyPlaceholder} /></label>
@@ -225,5 +253,18 @@ function LinkedProduct({ onProduct }: { onProduct: (product: string) => void }) 
     useEffect(() => {
         if (initial) onProduct(initial);
     }, [initial, onProduct]);
+    return null;
+}
+
+/** Homepage audience links arrive with ?kitle=<audience>, purchase links with ?tur=satin-alma. */
+function LinkedIntent({ onIntent, onAudience }: { onIntent: (intent: "rent" | "buy") => void; onAudience: (key: string) => void }) {
+    const params = useSearchParams();
+    const tur = params.get("tur") ?? "";
+    const kitle = params.get("kitle") ?? "";
+    // Both callbacks are stable, so the preset runs once per link, not on every render.
+    useEffect(() => {
+        if (tur === "satin-alma" || kitle === "magaza") onIntent("buy");
+        if (kitle) onAudience(kitle);
+    }, [tur, kitle, onIntent, onAudience]);
     return null;
 }
