@@ -21,7 +21,7 @@ export interface P2CapabilityCategory {
 
 const t = {
     tr: {
-        kicker: (n: number, k: number) => `(HİZMETLER) — ${n} DENEYİM · ${k} KATEGORİ`,
+        kicker: (n: number, k: number) => `(KİRALAMA) — ${n} DENEYİM · ${k} KATEGORİ`,
         city: "İSTANBUL",
         cta: "ETKİNLİK İÇİN TEKLİF AL ↗",
         count: "DENEYİM",
@@ -42,7 +42,7 @@ const t = {
         ],
     },
     en: {
-        kicker: (n: number, k: number) => `(SERVICES) — ${n} EXPERIENCES · ${k} CATEGORIES`,
+        kicker: (n: number, k: number) => `(RENTAL) — ${n} EXPERIENCES · ${k} CATEGORIES`,
         city: "ISTANBUL",
         cta: "GET AN EVENT QUOTE ↗",
         count: "EXPERIENCES",

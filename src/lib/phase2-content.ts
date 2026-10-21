@@ -203,10 +203,10 @@ const en = {
 	},
 
 	contact: {
-		heroSolid: "Let’s build\nsomething",
-		heroOutline: "people can enter.",
-		heroLabel: "Let’s build something people can enter.",
-		heroCopy: "Share the audience, venue and campaign goal. We’ll shape the experience.",
+		heroSolid: "Your quote,",
+		heroOutline: "the same day.",
+		heroLabel: "Your quote, the same day.",
+		heroCopy: "Share the date, city and guest count; we send price and availability for rental or purchase the same day.",
 		asideTitle: "Start a conversation",
 		location: "Üniversite Mah. Sarıgül Sk. İstanbul Teknokent No: 37/1 İç Kapı No: 28, Avcılar / İstanbul",
 		figureAlt: "MetasoftCo producers reviewing an event brief",
@@ -236,7 +236,7 @@ const en = {
 			experienceTypes: ["AI Photo + Video", "Photo Activations", "Interactive Games", "Custom Installations"],
 			brief: "Anything else we should know",
 			briefPlaceholder: "Share your goals, audience, message, must-haves, and any references…",
-			submit: "Send the brief",
+			submit: "Request a quote",
 			submitting: "Sending…",
 			submitted: "Brief received",
 			success: "Thanks — your brief is ready for our team. We’ll get back to you the same day.",
@@ -281,11 +281,11 @@ const en = {
 	},
 
 	capabilities: {
-		heroSolid: "We build\nthe system",
-		heroOutline: "behind the moment.",
-		heroLabel: "We build the system behind the moment.",
+		heroSolid: "Experiences to rent",
+		heroOutline: "for your event.",
+		heroLabel: "Experiences to rent for your event.",
 		heroCopy:
-			"We combine creative direction, custom software, physical production and live operation to design and deliver experiences that connect brands and people in real time.",
+			"From AI photo booths to interactive games, rented turnkey: setup, brand-specific design and the on-site team included. Three days' notice is enough.",
 		catalogAria: "Capabilities",
 		filterAll: "All",
 		cardLink: "Explore Capability",
@@ -810,10 +810,10 @@ const tr: Phase2Copy = {
 	},
 
 	contact: {
-		heroSolid: "İnsanları\nmarkanızla buluşturan",
-		heroOutline: "bir deneyim tasarlayalım.",
-		heroLabel: "İnsanları markanızla buluşturan bir deneyim tasarlayalım.",
-		heroCopy: "Hedef kitlenizi, mekânı ve kampanya hedefinizi paylaşın. Deneyimi birlikte şekillendirelim.",
+		heroSolid: "Teklifinizi",
+		heroOutline: "aynı gün iletelim.",
+		heroLabel: "Teklifinizi aynı gün iletelim.",
+		heroCopy: "Tarih, şehir ve katılımcı sayısını paylaşın; kiralama ya da satın alma için fiyatı ve uygunluğu aynı gün size iletelim.",
 		asideTitle: "Projenizi konuşalım",
 		location: "Üniversite Mah. Sarıgül Sk. İstanbul Teknokent No: 37/1 İç Kapı No: 28, Avcılar / İstanbul",
 		figureAlt: "Etkinlik proje detaylarını inceleyen MetasoftCo ekibi",
@@ -849,7 +849,7 @@ const tr: Phase2Copy = {
 			brief: "Eklemek istedikleriniz",
 			briefPlaceholder:
 				"Hedefinizi, katılımcı kitlenizi, vermek istediğiniz mesajı ve varsa örnek aldığınız işleri paylaşın…",
-			submit: "Proje detaylarını gönder",
+			submit: "Teklif iste",
 			submitting: "Gönderiliyor…",
 			submitted: "Proje detayları alındı",
 			success: "Teşekkürler — proje detaylarınız ekibimize ulaştı. Aynı gün size dönüş yapacağız.",
@@ -898,11 +898,11 @@ const tr: Phase2Copy = {
 	},
 
 	capabilities: {
-		heroSolid: "Deneyimin arkasındaki",
-		heroOutline: "teknolojiyi kuruyoruz.",
-		heroLabel: "Deneyimin arkasındaki teknolojiyi kuruyoruz.",
+		heroSolid: "Etkinliğiniz için",
+		heroOutline: "kiralık deneyimler.",
+		heroLabel: "Etkinliğiniz için kiralık deneyimler.",
 		heroCopy:
-			"Yaratıcı fikir, özel yazılım, fiziksel üretim ve saha operasyonunu bir araya getirerek markaları insanlarla buluşturan deneyimleri uçtan uca geliştiriyoruz.",
+			"AI photobooth'tan interaktif oyunlara; kurulum, markanıza özel tasarım ve sahadaki ekip dahil, anahtar teslim kiralıyoruz. Etkinlikten 3 gün önce haber vermeniz yeterli.",
 		catalogAria: "Hizmetler",
 		filterAll: "Tümü",
 		cardLink: "Hizmeti İncele",
