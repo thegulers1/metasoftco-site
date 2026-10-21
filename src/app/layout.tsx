@@ -40,6 +40,19 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang={lang} suppressHydrationWarning>
       <head>
+        {/* Preload the site's own faces (Turkish letters live in the latin-ext files),
+            so headings don't paint in a fallback font and then jump. */}
+        {[
+          "inter-tight-300-900-normal-latin",
+          "inter-tight-300-900-normal-latin-ext",
+          "unbounded-500-900-normal-latin",
+          "unbounded-500-900-normal-latin-ext",
+          "geist-400-600-normal-latin",
+          "geist-400-600-normal-latin-ext",
+          "geist-mono-400-500-normal-latin",
+        ].map((file) => (
+          <link key={file} rel="preload" href={`/fonts/${file}.woff2`} as="font" type="font/woff2" crossOrigin="anonymous" />
+        ))}
         {/* Homepage intro: decided before first paint, see src/lib/home-intro.ts */}
         <script dangerouslySetInnerHTML={{ __html: homeIntroScript }} />
         {/* Google Consent Mode v2 - default: denied until the user accepts the cookie banner */}
