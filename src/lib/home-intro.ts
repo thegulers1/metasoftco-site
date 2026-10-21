@@ -17,14 +17,10 @@ export function applyHomeIntroFlags(force?: boolean) {
     // Every public page uses scroll reveals; only the homepages have the intro.
     d.setAttribute("data-mh-js", "1");
     if (!force && p !== "/" && p !== "/en") return;
-    let seen = "0";
-    try {
-        seen = sessionStorage.getItem("mh-intro-seen") || "0";
-    } catch {
-        // Storage blocked (private mode, sandboxed preview): play the intro.
-    }
-    const skip = seen === "1" || matchMedia("(prefers-reduced-motion: reduce)").matches;
-    d.setAttribute("data-mh-intro", skip ? "skip" : "play");
+    // The counting curtain is switched off (October 2026): it held the headline
+    // back for ~3.5 s, and most B2B visitors land once. The markup and the
+    // "play" path stay, so turning it back on is a one-line change here.
+    d.setAttribute("data-mh-intro", "skip");
 }
 
 /** Self-contained source for the inline script; it must not reference module scope. */

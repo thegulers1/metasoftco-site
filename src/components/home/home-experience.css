@@ -543,10 +543,11 @@ html[data-mh-intro="play"] .mh-pre {
 	text-wrap: balance;
 }
 
+/* The headline is the first thing a visitor must read: a short rise, no delay. */
 html[data-mh-js] .mh-hero__title {
 	opacity: 0;
-	transform: translateY(40px);
-	animation: mh-rise 1.2s var(--mh-ease) 0.2s forwards;
+	transform: translateY(16px);
+	animation: mh-rise 0.5s var(--mh-ease) forwards;
 }
 
 html[data-mh-intro="play"] .mh-hero__title {
