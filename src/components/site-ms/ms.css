@@ -501,10 +501,11 @@ body:has(.ms) {
 .ms-h2 {
 	max-width: 62vw;
 	margin: 0;
-	font-family: var(--mh-display), sans-serif;
-	font-weight: 800;
+	font-family: var(--mh-heading), var(--mh-display), sans-serif;
+	font-weight: 700;
 	font-size: clamp(32px, 3.8vw, 72px);
-	line-height: 1.08;
+	line-height: 0.98;
+	letter-spacing: -0.045em;
 	text-transform: uppercase;
 	text-wrap: balance;
 }
@@ -587,20 +588,20 @@ html[data-mh-js] .ms [data-reveal].is-in {
 	color: var(--ms-fg);
 }
 
+/* Headings: Inter Tight 700, -0.045em, line-height 0.98; 96px at 1440px wide. */
 .ms-h1 {
 	margin: 0;
-	font-family: var(--mh-display), sans-serif;
-	font-weight: 800;
-	font-size: clamp(44px, 7.4vw, 150px);
-	line-height: 1.12;
-	letter-spacing: -0.035em;
+	font-family: var(--mh-heading), var(--mh-display), sans-serif;
+	font-weight: 700;
+	font-size: clamp(44px, 6.67vw, 96px);
+	line-height: 0.98;
+	letter-spacing: -0.045em;
 	text-transform: uppercase;
 	overflow-wrap: break-word;
 }
 
 .ms-h1--detail {
-	font-size: clamp(34px, 4.3vw, 92px);
-	line-height: 1.08;
+	font-size: clamp(34px, 5vw, 80px);
 }
 
 .ms-h1--long {
@@ -1151,24 +1152,27 @@ html[data-mh-js] .ms-w > span {
 	max-width: 1040px;
 }
 
+/* Article subheads share the page heading face; sentence case keeps long
+   question-style headings readable. */
 .ms-prose h2,
 .ms-prose h3,
 .ms-prose h4 {
 	margin: 2.2em 0 0.7em;
-	font-family: var(--mh-display), sans-serif;
-	font-weight: 800;
-	line-height: 1.12;
-	text-transform: uppercase;
+	font-family: var(--mh-heading), var(--mh-display), sans-serif;
+	font-weight: 700;
+	line-height: 0.98;
+	letter-spacing: -0.045em;
 	color: var(--ms-fg);
 	scroll-margin-top: 110px;
 }
 
 .ms-prose h2 {
-	font-size: clamp(24px, 2.4vw, 40px);
+	font-size: clamp(28px, 3vw, 48px);
 }
 
 .ms-prose h3 {
-	font-size: clamp(19px, 1.7vw, 28px);
+	font-size: clamp(21px, 2vw, 30px);
+	letter-spacing: -0.03em;
 }
 
 .ms-prose h4 {
@@ -2272,11 +2276,11 @@ html[data-mh-js] .ms-w > span {
 .ms-article-title {
 	max-width: 1200px;
 	margin: 0;
-	font-family: var(--mh-display), sans-serif;
+	font-family: var(--mh-heading), var(--mh-display), sans-serif;
 	font-weight: 700;
-	font-size: clamp(30px, 4vw, 76px);
-	line-height: 1.08;
-	letter-spacing: -0.02em;
+	font-size: clamp(32px, 5vw, 80px);
+	line-height: 0.98;
+	letter-spacing: -0.045em;
 	text-wrap: balance;
 }
 
