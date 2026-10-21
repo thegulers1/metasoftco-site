@@ -146,7 +146,7 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
                         <span className="ms-mut" style={{ fontSize: 15, lineHeight: 1.5, maxWidth: 420 }}>{copy.location}</span>
                     </div>
                     <div>
-                        <span className="ms-mono ms-mut" style={{ display: "block", paddingBottom: 12 }}>{l.next}</span>
+                        <h2 className="ms-mono ms-mut" style={{ display: "block", margin: 0, paddingBottom: 12, fontWeight: 400 }}>{l.next}</h2>
                         <ol className="ms-nextsteps">
                             {copy.nextSteps.map((step) => (
                                 <li key={step.number}>

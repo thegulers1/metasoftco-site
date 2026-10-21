@@ -620,7 +620,7 @@ export default function HomeExperience({
                         <div className="mh-badge mh-mono"><span className="mh-badge__dot" />ROLLIC SUMMER PARTY · ALL ACCESS</div>
                     ), (
                         <div className="mh-souv__back mh-souv__back--row is-light mh-mono">
-                            <span>{svcNum("strip-photo")} · ROLLIC × {caps(svcName("strip-photo"))}</span>
+                            <span>ROLLIC × {caps(svcName("strip-photo"))}</span>
                             <span>{copy.souvenirAdd}</span>
                         </div>
                     ))}
@@ -778,7 +778,7 @@ export default function HomeExperience({
                 </ul>
                 <div ref={pvRef} className="mh-preview" aria-hidden="true">
                     {/* eslint-disable-next-line @next/next/no-img-element -- src swaps on hover */}
-                    <img ref={pvImgRef} alt="" />
+                    <img ref={pvImgRef} alt="" hidden />
                     <span ref={pvLabelRef} className="mh-display" />
                 </div>
             </section>

@@ -1453,6 +1453,55 @@ html[data-mh-js] .ms-w > span {
 	border: 0;
 }
 
+.ms-video__poster {
+	position: absolute;
+	inset: 0;
+	display: grid;
+	place-items: center;
+	width: 100%;
+	padding: 0;
+	border: 0;
+	background: #111;
+	cursor: pointer;
+}
+
+.ms-video__poster img {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	opacity: 0.85;
+	transition: opacity 0.3s;
+}
+
+.ms-video__play {
+	position: relative;
+	display: grid;
+	place-items: center;
+	width: 68px;
+	height: 68px;
+	border-radius: 50%;
+	background: var(--ms-acc, #f2ff00);
+	color: #050505;
+	transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.ms-video__poster:hover img,
+.ms-video__poster:focus-visible img {
+	opacity: 1;
+}
+
+.ms-video__poster:hover .ms-video__play,
+.ms-video__poster:focus-visible .ms-video__play {
+	transform: scale(1.08);
+}
+
+.ms-video__poster:focus-visible {
+	outline: 2px solid var(--ms-acc, #f2ff00);
+	outline-offset: 3px;
+}
+
 .ms-gallery {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));

@@ -197,6 +197,8 @@ function youTubeId(url: string): string | null {
 export function MsVideo({ src, title, poster }: { src: string; title: string; poster?: string | null }) {
     const ref = useRef<HTMLVideoElement>(null);
     const id = youTubeId(src);
+    // YouTube's player weighs ~500 KB; it loads only after the visitor presses play.
+    const [playing, setPlaying] = useState(false);
     useEffect(() => {
         const video = ref.current;
         if (!video) return;
@@ -211,13 +213,22 @@ export function MsVideo({ src, title, poster }: { src: string; title: string; po
         const portrait = src.includes("/shorts/");
         return (
             <div className={`ms-video${portrait ? " ms-video--portrait" : ""}`}>
-                <iframe
-                    src={`https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`}
-                    title={title}
-                    loading="lazy"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                />
+                {playing ? (
+                    <iframe
+                        src={`https://www.youtube.com/embed/${id}?rel=0&modestbranding=1&autoplay=1`}
+                        title={title}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                    />
+                ) : (
+                    <button type="button" className="ms-video__poster" onClick={() => setPlaying(true)} aria-label={title}>
+                        {/* eslint-disable-next-line @next/next/no-img-element -- YouTube's own thumbnail */}
+                        <img src={poster || `https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt="" loading="lazy" />
+                        <span className="ms-video__play" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5.5v13l11-6.5z" fill="currentColor" /></svg>
+                        </span>
+                    </button>
+                )}
             </div>
         );
     }
