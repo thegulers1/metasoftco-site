@@ -14,9 +14,11 @@
 	   image renders the same in every PDF viewer. */
 	--pz-grad: url("/sunum/gradient-h.png") center / 100% 100% no-repeat;
 	--pz-grad-v: url("/sunum/gradient-v.png") center / 100% 100% no-repeat;
-	--pz-display: var(--font-space-grotesk), "Helvetica Neue", Arial, sans-serif;
-	--pz-body: var(--font-manrope), "Helvetica Neue", Arial, sans-serif;
-	--pz-mono: var(--font-jetbrains-mono), ui-monospace, Menlo, monospace;
+	/* Same faces as the site (src/app/fonts.css): Inter Tight for headings and
+	   text (it carries the 700/800 weights the slides use), Geist Mono for labels. */
+	--pz-display: var(--mh-heading), "Helvetica Neue", Arial, sans-serif;
+	--pz-body: var(--mh-heading), "Helvetica Neue", Arial, sans-serif;
+	--pz-mono: var(--mh-mono), ui-monospace, Menlo, monospace;
 
 	position: relative;
 	width: 100%;
