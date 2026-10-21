@@ -111,7 +111,9 @@ export default function CapabilitiesIndexPrototype({
             {categories && categories.length > 0 && <MsBand words={categories.map((category) => category.name)} />}
 
             <section aria-label={copy.catalogAria}>
+                <h2 className="ms-sr">{copy.catalogAria}</h2>
                 <MsCatalog
+                    itemHeading="h3"
                     items={items}
                     allLabel={copy.filterAll}
                     countLabel={l.count}

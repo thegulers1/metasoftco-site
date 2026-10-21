@@ -53,6 +53,7 @@ const tr: RentalOpsCopy = {
     title: "Lojistik, kurulum ve hizmet kapsamı",
     logisticsTitle: "Lojistik ve kurulum",
     logistics: [
+        { term: "Haber süresi", value: "Etkinlikten 3 gün önce haber vermeniz yeterli." },
         { term: "Enerji", value: "Tek bir standart 220V priz yeterli." },
         { term: "İnternet", value: "Kendi 5G mobil altyapımızla gelir; mekânın ağına ihtiyaç duymayız." },
         { term: "Kurulum", value: "Etkinlikten 1 gün önce ya da etkinlik günü 3–4 saat önce; cihaz başına ortalama 30–40 dakika." },
@@ -100,6 +101,7 @@ const en: RentalOpsCopy = {
     title: "Logistics, setup and what's included",
     logisticsTitle: "Logistics and setup",
     logistics: [
+        { term: "Notice", value: "Three days before the event is enough." },
         { term: "Power", value: "A single standard 220V socket is enough." },
         { term: "Internet", value: "We bring our own 5G connection; no venue network needed." },
         { term: "Setup", value: "The day before the event or 3–4 hours before doors open; about 30–40 minutes per device." },

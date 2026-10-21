@@ -7,8 +7,8 @@ import { MsBand, MsCaps, MsFaq, MsSectionHead, MsWords } from "@/components/site
 import { MsClock } from "@/components/site-ms/interactive";
 
 const t = {
-    tr: { kicker: "(HAKKIMIZDA) — İSTANBUL / 2020’DEN BERİ", city: "İSTANBUL", band: ["Fikir", "Yazılım", "Fiziksel üretim", "Saha operasyonu"], imageTag: "İSTANBUL TEKNOKENT · AVCILAR", imageAlt: "MetasoftCo üretim ve sahne", brandsMeta: (n: number) => `${n} MARKA`, principlesTitle: "Üç ilke", principlesMeta: "NASIL ÇALIŞIRIZ" },
-    en: { kicker: "(ABOUT) — ISTANBUL / SINCE 2020", city: "ISTANBUL", band: ["Idea", "Software", "Physical build", "Field operations"], imageTag: "İSTANBUL TEKNOKENT · AVCILAR", imageAlt: "MetasoftCo production and stage", brandsMeta: (n: number) => `${n} BRANDS`, principlesTitle: "Three principles", principlesMeta: "HOW WE WORK" },
+    tr: { kicker: "(HAKKIMIZDA) — İSTANBUL / 2020’DEN BERİ", city: "İSTANBUL", band: ["Fikir", "Yazılım", "Fiziksel üretim", "Saha operasyonu"], imageTag: "İSTANBUL TEKNOKENT · AVCILAR", imageAlt: "MetasoftCo üretim ve sahne", brandsMeta: (n: number) => (n > 0 ? "100+ MARKADAN BAZILARI" : ""), principlesTitle: "Üç ilke", principlesMeta: "NASIL ÇALIŞIRIZ" },
+    en: { kicker: "(ABOUT) — ISTANBUL / SINCE 2020", city: "ISTANBUL", band: ["Idea", "Software", "Physical build", "Field operations"], imageTag: "İSTANBUL TEKNOKENT · AVCILAR", imageAlt: "MetasoftCo production and stage", brandsMeta: (n: number) => (n > 0 ? "SOME OF OUR 100+ BRANDS" : ""), principlesTitle: "Three principles", principlesMeta: "HOW WE WORK" },
 };
 
 /** /hakkimizda and /en/about — the "Hakkımızda" design of October 2026. */

@@ -365,6 +365,15 @@ html[data-mh-intro="play"] .mh-pre {
 
 /* ---------- Navigation ---------- */
 
+.mh-sr {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
+
 .mh-skip {
 	position: fixed;
 	left: 12px;

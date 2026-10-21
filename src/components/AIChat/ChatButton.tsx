@@ -28,14 +28,14 @@ export function ChatButton() {
                     aria-label={
                         language === "en"
                             ? "Get event recommendations"
-                            : "Etkinliğin için öneri al"
+                            : "Metasoft AI’ya sorun"
                     }
                 >
                     <Sparkles className="w-4 h-4 shrink-0" />
                     <span className="text-sm font-semibold whitespace-nowrap">
                         {language === "en"
                             ? "Get event ideas →"
-                            : "Etkinliğin için öneri al →"}
+                            : "Metasoft AI’ya sorun →"}
                     </span>
                 </motion.button>
             )}

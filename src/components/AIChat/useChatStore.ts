@@ -36,7 +36,7 @@ interface ChatStore {
 const ChatContext = createContext<ChatStore | undefined>(undefined);
 
 const GREETING: Record<string, string> = {
-    tr: "Merhaba! 👋 Etkinliğin için en uygun deneyimi birlikte bulalım. Ne tür bir etkinlik planlıyorsun?",
+    tr: "Merhaba! 👋 Etkinliğiniz için en uygun deneyimi birlikte bulalım. Ne tür bir etkinlik planlıyorsunuz?",
     en: "Hello! 👋 Let's find the perfect experience for your event together. What kind of event are you planning?",
 };
 

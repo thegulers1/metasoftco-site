@@ -770,13 +770,13 @@ export default function HomeExperience({
             </section>
 
             <section className="mh-contact" aria-labelledby="mh-contact-title">
+                <h2 id="mh-contact-title" className="mh-sr">{copy.contactLede}</h2>
                 <div className="mh-contact__top">
                     <span className="mh-mono mh-meta">{copy.contactMeta}</span>
                     <p>{copy.contactLede}</p>
                 </div>
                 <div className="mh-contact__mid">
                     <a
-                        id="mh-contact-title"
                         href="mailto:info@metasoftco.com"
                         className="mh-display mh-contact__big"
                         data-cursor={copy.cursor.write}

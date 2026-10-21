@@ -88,7 +88,7 @@ const serviceFAQs = [
     },
     {
         question: "Fiyat teklifi nasıl alabilirim?",
-        answer: "info@metasoftco.com adresine etkinlik tarihi, lokasyon, tahmini katılımcı sayısı ve istenen hizmetleri belirterek e-posta gönderebilir ya da +90 534 233 4051 numaralı telefonu arayabilirsiniz. Bir iş günü içinde dönüş yapılır. İletişim formundaki etkinlik tarihi, şehir ve katılımcı sayısı alanları teklifi hızlandırır.",
+        answer: "info@metasoftco.com adresine etkinlik tarihi, lokasyon, tahmini katılımcı sayısı ve istenen hizmetleri belirterek e-posta gönderebilir ya da +90 534 233 4051 numaralı telefonu arayabilirsiniz. Aynı gün dönüş yapılır. İletişim formundaki etkinlik tarihi, şehir ve katılımcı sayısı alanları teklifi hızlandırır.",
     },
     {
         question: "Sistemler ve oyunlar marka kimliğiyle özelleştirilebilir mi?",

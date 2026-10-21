@@ -70,7 +70,9 @@ export default function ProductsIndexPrototype({ products, locale }: { products:
             </section>
 
             <section aria-label={copy.catalogAria}>
+                <h2 className="ms-sr">{copy.catalogAria}</h2>
                 <MsCatalog
+                    itemHeading="h3"
                     items={products.map((product) => ({ key: product.id, href: product.href, name: product.title, image: product.image }))}
                     allLabel=""
                     countLabel={l.count}
