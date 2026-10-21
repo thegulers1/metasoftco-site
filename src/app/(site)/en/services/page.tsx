@@ -4,7 +4,7 @@ import { prisma } from "@/lib/db";
 import { siteConfig, generateFAQSchema, ogImageUrl } from "@/lib/site";
 import CapabilitiesIndexPrototype from "@/components/phase2/CapabilitiesIndexPrototype";
 import { isEnglishCategoryPublishable, isEnglishServicePublishable } from "@/lib/publication";
-import { serviceListingImage } from "@/lib/service-listing";
+import { serviceListingImage, shortServiceTitle } from "@/lib/service-listing";
 
 // Read database content at request time; Docker builds have no database access.
 export const dynamic = "force-dynamic";
@@ -85,7 +85,7 @@ export default async function EnglishServicesPage() {
         category.services
             .map((service) => ({
                 id: service.id,
-                title: service.title_en!,
+                title: shortServiceTitle(service.title_en!, service.homeTitle_en),
                 image: serviceListingImage(service),
                 href: `/en/services/${category.slug_en}/${service.slug_en}`,
                 categorySlug: category.slug_en!,

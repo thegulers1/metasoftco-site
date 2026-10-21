@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { shortServiceTitle } from "@/lib/service-listing";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { siteConfig, generateBreadcrumbSchema, generateFAQSchema } from "@/lib/site";
@@ -108,7 +109,7 @@ export default async function CategoryHubPage({ params }: PageProps) {
                 contentHtml={category.content}
                 services={category.services.map((service) => ({
                     id: service.id,
-                    title: service.title,
+                    title: shortServiceTitle(service.title, service.homeTitle),
                     image: service.image,
                     href: `/hizmetler/${categorySlug}/${service.slug}`,
                 }))}

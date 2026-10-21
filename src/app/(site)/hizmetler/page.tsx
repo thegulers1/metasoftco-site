@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { siteConfig, generateFAQSchema, generateBreadcrumbSchema, ogImageUrl } from "@/lib/site";
-import { serviceListingImage } from "@/lib/service-listing";
+import { serviceListingImage, shortServiceTitle } from "@/lib/service-listing";
 import CapabilitiesIndexPrototype from "@/components/phase2/CapabilitiesIndexPrototype";
 
 // Read database content at request time; Docker builds have no database access.
@@ -110,7 +110,7 @@ export default async function HizmetlerPage() {
         category.services
             .map((service) => ({
                 id: service.id,
-                title: service.title,
+                title: shortServiceTitle(service.title, service.homeTitle),
                 image: serviceListingImage(service),
                 href: `/hizmetler/${category.slug}/${service.slug}`,
                 categorySlug: category.slug,

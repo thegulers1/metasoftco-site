@@ -1575,7 +1575,29 @@ html[data-mh-js] .mh [data-reveal].is-in {
 }
 
 .mh-deck__form {
-	align-items: stretch;
+	align-items: flex-end;
+}
+
+/* Software: one line under the services, not a section of its own. */
+.mh-soft-line {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 12px 4vw;
+	margin: 0 var(--mh-gut) 6vw;
+	padding: 28px 0;
+	border-top: 1px solid var(--mh-line);
+	border-bottom: 1px solid var(--mh-line);
+}
+
+.mh-soft-line p {
+	max-width: 62ch;
+	margin: 0;
+	font-size: 16px;
+	line-height: 1.55;
+	color: var(--mh-mut);
+	text-wrap: pretty;
 }
 
 .mh-deck h2 {
@@ -2289,6 +2311,14 @@ html[data-mh-js] .mh [data-reveal].is-in {
 
 	.mh-deck h2 {
 		font-size: 6.4vw;
+	}
+
+	.mh-deck__form {
+		align-items: flex-start;
+	}
+
+	.mh-soft-line {
+		margin-bottom: 12vw;
 	}
 
 	.mh-inline-form {

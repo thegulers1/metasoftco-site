@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { siteConfig, ogImageUrl } from "@/lib/site";
-import { serviceListingImage } from "@/lib/service-listing";
+import { serviceListingImage, shortServiceTitle } from "@/lib/service-listing";
 import ProductsIndexPrototype from "@/components/phase2/ProductsIndexPrototype";
 
 // Read database content at request time; Docker builds have no database access.
@@ -55,7 +55,7 @@ export default async function UrunlerPage() {
     const products = services
         .map((service) => ({
             id: service.id,
-            title: service.title,
+            title: shortServiceTitle(service.title, service.homeTitle),
             image: serviceListingImage(service),
             href: `/urunler/${service.slug}`,
         }));

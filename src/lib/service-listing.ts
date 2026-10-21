@@ -31,3 +31,30 @@ function galleryStill(gallery: unknown): string | null {
     }
     return null;
 }
+
+/**
+ * Short card title for listing pages. Service titles in the editpanel are
+ * written for search ("İris Fotoğrafçılığı (Iris Photo) ve Makro Göz Çekimi
+ * Etkinlik Aktivasyonu Kiralama"); on a page that is already about renting,
+ * the card only needs the product name. The full title stays on the detail
+ * page and in the page metadata. The editpanel's "home title", when filled,
+ * always wins.
+ */
+export function shortServiceTitle(title: string, homeTitle?: string | null): string {
+    const preset = homeTitle?.trim();
+    if (preset) return preset;
+    let text = title.trim();
+    // Keep what comes before a subtitle: "X | Y", "X: Y", "X - Y"; a question keeps its mark.
+    text = text.split(/\s+[|–—-]\s+|:\s+/)[0];
+    const question = text.indexOf("?");
+    if (question > 0) text = text.slice(0, question + 1);
+    text = text
+        .replace(/^Kurumsal Etkinlikler İçin\s+/i, "")
+        .replace(/\s*\([^)]*\)\s*/g, " ")
+        .replace(/\s+(Etkinlik\s+)?Aktivasyonu?\s+Kiralama$/i, "")
+        .replace(/\s+(Kiralama|Kirala|Rental|Hire)$/i, "")
+        .replace(/\s+(Etkinlik\s+)?Aktivasyonu$/i, "")
+        .replace(/\s{2,}/g, " ")
+        .trim();
+    return text || title.trim();
+}

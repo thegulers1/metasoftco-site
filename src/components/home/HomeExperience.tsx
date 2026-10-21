@@ -78,8 +78,6 @@ export default function HomeExperience({
     const [cartOpen, setCartOpen] = useState(false);
     const [toast, setToast] = useState("");
     const [quote, setQuote] = useState<{ status: "idle" | "sending" | "sent" | "error"; message?: string }>({ status: "idle" });
-    const [sector, setSector] = useState(copy.deck.sectors[0]);
-    const [deck, setDeck] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
     const rootRef = useRef<HTMLDivElement>(null);
     const heroRef = useRef<HTMLElement>(null);
@@ -97,7 +95,6 @@ export default function HomeExperience({
     const pvRef = useRef<HTMLDivElement>(null);
     const pvImgRef = useRef<HTMLImageElement>(null);
     const pvLabelRef = useRef<HTMLSpanElement>(null);
-    const termRef = useRef<HTMLSpanElement>(null);
     const magRef = useRef<HTMLAnchorElement>(null);
     const toastTimer = useRef(0);
     const cartRef = useRef(cart);
@@ -309,38 +306,11 @@ export default function HomeExperience({
         };
         raf = requestAnimationFrame(frame);
 
-        // Terminal typing; reduced motion shows the finished transcript.
-        let termTimer = 0;
-        const lines = copy.software?.terminal ?? [];
-        const term = termRef.current;
-        if (term && lines.length) {
-            if (s.reduced) {
-                term.textContent = lines.join("\n");
-            } else {
-                let li = 0, ci = 0, wait = 0;
-                termTimer = window.setInterval(() => {
-                    if (wait > 0) { wait--; return; }
-                    if (li >= lines.length) { li = 0; ci = 0; term.textContent = ""; return; }
-                    const line = lines[li];
-                    if (line.startsWith("$")) {
-                        ci++;
-                        term.textContent = lines.slice(0, li).join("\n") + (li ? "\n" : "") + line.slice(0, ci);
-                        if (ci >= line.length) { li++; ci = 0; wait = 10; }
-                    } else {
-                        term.textContent = lines.slice(0, li + 1).join("\n");
-                        li++;
-                        wait = li >= lines.length ? 90 : 14;
-                    }
-                }, 32);
-            }
-        }
-
         return () => {
             disposed = true;
             s.table?.destroy();
             s.table = null;
             cancelAnimationFrame(raf);
-            clearInterval(termTimer);
             clearTimeout(resizeTimer);
             timers.forEach(clearTimeout);
             window.removeEventListener("resize", onResize);
@@ -452,31 +422,6 @@ export default function HomeExperience({
             trackEvent("generate_lead", { form: "home_cart", services: cart.length, intent: intent.value });
         } catch (error) {
             setQuote({ status: "error", message: error instanceof Error && error.message ? error.message : copy.cart.failed });
-        }
-    }
-
-    async function sendDeck(event: FormEvent<HTMLFormElement>) {
-        event.preventDefault();
-        const email = String(new FormData(event.currentTarget).get("email") || "").trim();
-        if (!email) return;
-        setDeck("sending");
-        try {
-            const res = await fetch("/api/contact", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    name: copy.deck.visitor,
-                    email,
-                    subject: copy.deck.subject(sector),
-                    message: copy.deck.message(sector),
-                    attribution: getAttribution(),
-                }),
-            });
-            if (!res.ok) throw new Error();
-            setDeck("sent");
-            trackEvent("generate_lead", { form: "home_deck", sector });
-        } catch {
-            setDeck("error");
         }
     }
 
@@ -802,68 +747,25 @@ export default function HomeExperience({
             </section>
 
             {copy.software && (
-                <section className="mh-section mh-soft" aria-labelledby="mh-soft-title">
-                    <div className="mh-soft__copy" data-reveal>
-                        <span className="mh-mono mh-meta">{copy.software.meta}</span>
-                        <h2 id="mh-soft-title" className="mh-display mh-h2">
-                            {copy.software.title}<span className="mh-acc">.</span>
-                        </h2>
-                        <p>{copy.software.lede}</p>
-                        <ul className="mh-soft__cards">
-                            {copy.software.cards.map((card) => (
-                                <li key={card.title}>
-                                    <span>{card.title}</span>
-                                    <span>{card.body}</span>
-                                </li>
-                            ))}
-                        </ul>
-                        <Link href={copy.software.href} className="mh-link mh-mono" data-cursor={copy.cursor.go}>{copy.software.cta}</Link>
-                    </div>
-                    <div className="mh-term" data-reveal style={{ ["--d" as string]: "0.15s" }} aria-hidden="true">
-                        <div className="mh-term__bar mh-mono">
-                            <span /><span /><span className="is-acc" />
-                            <span className="mh-term__title">{copy.software.terminalTitle}</span>
-                        </div>
-                        <div className="mh-term__body mh-mono">
-                            <span ref={termRef} />
-                            <span className="mh-acc mh-term__caret">▍</span>
-                        </div>
-                    </div>
+                <section className="mh-soft-line" aria-label={copy.software.cta}>
+                    <p>{copy.software.line}</p>
+                    <Link href={copy.software.href} className="mh-link mh-mono" data-cursor={copy.cursor.go}>{copy.software.cta}</Link>
                 </section>
             )}
 
             <section className="mh-deck" aria-labelledby="mh-deck-title">
                 <div className="mh-deck__copy">
-                    <span className="mh-mono mh-acc">{copy.deck.kicker}</span>
                     <h2 id="mh-deck-title" className="mh-display">{copy.deck.title}</h2>
                     <p>{copy.deck.lede}</p>
-                    <Link href={copy.deck.viewHref} className="mh-link mh-mono" data-cursor={copy.cursor.go}>{copy.deck.view}</Link>
                 </div>
                 <div className="mh-deck__form">
-                    <div className="mh-chips" role="radiogroup" aria-label={copy.deck.kicker}>
-                        {copy.deck.sectors.map((label) => (
-                            <button
-                                key={label}
-                                type="button"
-                                role="radio"
-                                aria-checked={sector === label}
-                                className={`mh-chip mh-mono${sector === label ? " is-on" : ""}`}
-                                onClick={() => setSector(label)}>
-                                {label}
-                            </button>
-                        ))}
-                    </div>
-                    {deck === "sent" ? (
-                        <p className="mh-display mh-acc mh-done" role="status">{copy.deck.sent}</p>
-                    ) : (
-                        <form className="mh-inline-form" onSubmit={sendDeck}>
-                            <input type="email" name="email" required autoComplete="email" placeholder={copy.deck.email} aria-label={copy.deck.email} className="mh-input" />
-                            <button type="submit" className="mh-pill mh-pill--acc" disabled={deck === "sending"}>
-                                {deck === "sending" ? copy.deck.sending : copy.deck.send}
-                            </button>
-                        </form>
-                    )}
-                    {deck === "error" && <p className="mh-error" role="alert">{copy.deck.failed}</p>}
+                    <Link
+                        href={copy.deck.href}
+                        className="mh-pill mh-pill--acc"
+                        data-cursor={copy.cursor.go}
+                        onClick={() => trackEvent("deck_open", { location: "home" })}>
+                        {copy.deck.cta}
+                    </Link>
                 </div>
             </section>
 
