@@ -38,12 +38,11 @@ function galleryStill(gallery: unknown): string | null {
  * Etkinlik Aktivasyonu Kiralama"); on a page that is already about renting,
  * the card only needs the product name. The full title stays on the detail
  * page and in the page metadata. The editpanel's "home title", when filled,
- * always wins.
+ * wins, trimmed the same way.
  */
 export function shortServiceTitle(title: string, homeTitle?: string | null): string {
-    const preset = homeTitle?.trim();
-    if (preset) return preset;
-    let text = title.trim();
+    // The editpanel's short title wins, but gets the same trimming ("Human vs AI Kiralama" -> "Human vs AI").
+    let text = homeTitle?.trim() || title.trim();
     // Keep what comes before a subtitle: "X | Y", "X: Y", "X - Y"; a question keeps its mark.
     text = text.split(/\s+[|–—-]\s+|:\s+/)[0];
     const question = text.indexOf("?");

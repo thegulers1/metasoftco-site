@@ -21,6 +21,18 @@ const EN_WORDS = new Set([
 
 const isEnWord = (word: string) => EN_WORDS.has(word.toLowerCase().replace(/[^a-z-]/g, ""));
 
+/**
+ * Upper-cases text in JavaScript with the same word rule as MsCaps: Turkish
+ * casing for Turkish words ("İNTERAKTİF"), English casing for the English ones
+ * ("QUIZ", "STRIP"), so a mixed name never reads "QUİZ".
+ */
+export function upperMixed(text: string) {
+    return text
+        .split(/(\s+)/)
+        .map((part) => (isEnWord(part) ? part.toUpperCase() : part.toLocaleUpperCase("tr-TR")))
+        .join("");
+}
+
 /** Text that CSS upper-cases: English words keep English casing on Turkish pages. */
 export function MsCaps({ text }: { text: string }) {
     const parts = text.split(/(\s+)/);

@@ -65,7 +65,7 @@ function CoverSlide({ deck, full, pageNo }: { deck: Deck; full: Deck; pageNo: nu
                 <div className="pz-eyebrow">İnteraktif deneyimler · Yapay zekâ · Yazılım</div>
                 <div className="pz-cover__year pz-gtext">2026</div>
                 <h2>
-                    Hizmet
+                    Hizmet{" "}
                     <br />
                     Sunumu
                 </h2>

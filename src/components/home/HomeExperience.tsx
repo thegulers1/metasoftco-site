@@ -11,6 +11,7 @@ import type { Phase2Locale } from "@/lib/phase2";
 import { homeCopy, type HomeServiceKey } from "@/lib/home-content";
 import { HOME_INTRO_KEY, applyHomeIntroFlags } from "@/lib/home-intro";
 import { startTable, type Table } from "./souvenir-table";
+import { upperMixed } from "@/components/site-ms/parts";
 import "./home-experience.css";
 
 export interface HomeProject {
@@ -48,7 +49,7 @@ const pad = (n: number) => String(n).padStart(2, "0");
  * turn English brand names into "ORİGİNS" and "STRİP PHOTO", so names are
  * cased here: Turkish rules only when the name itself is Turkish.
  */
-const caps = (text: string) => (/[çğıöşüÇĞİÖŞÜ]/.test(text) ? text.toLocaleUpperCase("tr-TR") : text.toUpperCase());
+const caps = (text: string) => (/[çğıöşüÇĞİÖŞÜ]/.test(text) ? upperMixed(text) : text.toUpperCase());
 
 const LETTERS: { ch: string; tone: "acc" | "fg" | "dim" | "outline" }[] = [
     { ch: "M", tone: "acc" }, { ch: "E", tone: "fg" }, { ch: "T", tone: "fg" }, { ch: "A", tone: "dim" }, { ch: "S", tone: "fg" },
