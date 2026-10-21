@@ -2097,6 +2097,16 @@ html[data-mh-js] .mh [data-reveal].is-in {
 		display: none;
 	}
 
+	/* Phones: an empty quote list says nothing, so the quote link takes its place. */
+	.mh-nav__cart.is-empty {
+		display: none;
+	}
+
+	.mh-nav:has(.mh-nav__cart.is-empty) .mh-nav__cta {
+		display: inline-block;
+		font-size: 12px;
+	}
+
 	.mh-hero {
 		min-height: 720px;
 	}

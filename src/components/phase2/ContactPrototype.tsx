@@ -8,9 +8,13 @@ import { phase2Copy } from "@/lib/phase2-content";
 import { MsWords } from "@/components/site-ms/parts";
 import { MsClock } from "@/components/site-ms/interactive";
 import { trackEvent } from "@/lib/analytics";
+import { homeCopy } from "@/lib/home-content";
 import { getAttribution } from "@/lib/attribution";
 
 type Status = "idle" | "sending" | "sent" | "error";
+
+/** Same storage key as the homepage quote list (src/components/home/HomeExperience.tsx). */
+const QUOTE_LIST_KEY = "mh-cart";
 
 const t = {
     tr: {
@@ -70,6 +74,20 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
     const [linkedProduct, setLinkedProduct] = useState("");
     const [intent, setIntent] = useState<"rent" | "buy">("rent");
     const [audience, setAudience] = useState<keyof typeof l.audiences | "">("");
+    // Items the visitor put on the homepage quote list arrive pre-selected here.
+    const [listItems, setListItems] = useState<string[]>([]);
+    useEffect(() => {
+        try {
+            const keys = JSON.parse(localStorage.getItem(QUOTE_LIST_KEY) || "[]");
+            if (!Array.isArray(keys)) return;
+            const names = homeCopy(locale).services
+                .filter((service) => keys.includes(service.key))
+                .map((service) => service.name);
+            // Reading browser storage has to happen after hydration.
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            if (names.length) setListItems(names);
+        } catch { /* storage blocked or corrupt */ }
+    }, [locale]);
     const presetAudience = useCallback((key: string) => {
         if (key === "ik" || key === "ajans" || key === "satinalma" || key === "magaza") setAudience(key);
     }, []);
@@ -83,7 +101,7 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
         const currentForm = event.currentTarget;
         const data = new FormData(currentForm);
         const value = (key: string) => String(data.get(key) ?? "").trim();
-        const product = [linkedProduct, ...products].filter(Boolean).join(", ");
+        const product = [...new Set([linkedProduct, ...listItems, ...products].filter(Boolean))].join(", ");
         // Request type and audience travel at the top of the message, so every inbox and the panel see them.
         const tags = [`${l.intentNote}: ${l.intents[intent]}`, audience && `${l.audienceNote}: ${l.audiences[audience]}`].filter(Boolean).join(" · ");
 
@@ -110,6 +128,8 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
                 currentForm.reset();
                 setSize("");
                 setProducts([]);
+                setListItems([]);
+                try { localStorage.removeItem(QUOTE_LIST_KEY); } catch { /* storage blocked */ }
                 window.scrollTo({ top: 0, behavior: "smooth" });
             } else {
                 setStatus("error");
@@ -186,7 +206,7 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
                                 <label className="ms-field"><span>{required(form.name)}</span><input className="ms-input" required name="name" autoComplete="name" placeholder={form.namePlaceholder} /></label>
                                 <label className="ms-field"><span>{optional(form.company)}</span><input className="ms-input" name="company" autoComplete="organization" placeholder={form.companyPlaceholder} /></label>
                                 <label className="ms-field"><span>{required(form.email)}</span><input className="ms-input" required type="email" name="email" autoComplete="email" placeholder={form.emailPlaceholder} /></label>
-                                <label className="ms-field"><span>{optional(form.phone)}</span><input className="ms-input" type="tel" name="phone" autoComplete="tel" placeholder={form.phonePlaceholder} /></label>
+                                <label className="ms-field"><span>{required(form.phone)}</span><input className="ms-input" required type="tel" name="phone" autoComplete="tel" placeholder={form.phonePlaceholder} /></label>
                             </div>
                             <p className="ms-form__hint">{form.detailsHint}</p>
                             <div className="ms-form__grid">
@@ -207,6 +227,9 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
                                     <LinkedProduct onProduct={setLinkedProduct} />
                                 </Suspense>
                                 <div className="ms-chips" style={{ marginTop: 8 }}>
+                                    {listItems.map((name) => (
+                                        <button key={`list-${name}`} type="button" className="ms-chip" aria-pressed="true" onClick={() => setListItems((current) => current.filter((item) => item !== name))}>{name} ×</button>
+                                    ))}
                                     {linkedProduct && !l.products.includes(linkedProduct) && (
                                         <button type="button" className="ms-chip" aria-pressed="true" onClick={() => setLinkedProduct("")}>{linkedProduct} ×</button>
                                     )}
@@ -215,7 +238,7 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
                                     ))}
                                 </div>
                             </div>
-                            <label className="ms-field"><span>{required(form.brief)}</span><textarea className="ms-input" required name="brief" rows={4} maxLength={2000} placeholder={form.briefPlaceholder} /></label>
+                            <label className="ms-field"><span>{optional(form.brief)}</span><textarea className="ms-input" name="brief" rows={4} maxLength={2000} placeholder={form.briefPlaceholder} /></label>
                             <div className="ms-form__foot">
                                 <p className="ms-form__note">
                                     {locale === "en"

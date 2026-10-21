@@ -234,7 +234,7 @@ const en = {
 			budgetOptions: ["€5K–€10K", "€10K–€25K", "€25K+"],
 			experienceLegend: "What type of experience are you planning? *",
 			experienceTypes: ["AI Photo + Video", "Photo Activations", "Interactive Games", "Custom Installations"],
-			brief: "Tell us about the brief *",
+			brief: "Anything else we should know",
 			briefPlaceholder: "Share your goals, audience, message, must-haves, and any references…",
 			submit: "Send the brief",
 			submitting: "Sending…",
@@ -846,7 +846,7 @@ const tr: Phase2Copy = {
 				"İnteraktif Oyunlar",
 				"Özel Kurulumlar",
 			],
-			brief: "Projenizi anlatın *",
+			brief: "Eklemek istedikleriniz",
 			briefPlaceholder:
 				"Hedefinizi, katılımcı kitlenizi, vermek istediğiniz mesajı ve varsa örnek aldığınız işleri paylaşın…",
 			submit: "Proje detaylarını gönder",

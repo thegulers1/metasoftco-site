@@ -492,7 +492,7 @@ export default function HomeExperience({
                     <span aria-hidden="true">/</span>
                     <a href={copy.locales.en} aria-label={copy.localeAria.en} aria-current={locale === "en" ? "page" : undefined} className={locale === "en" ? "is-on" : undefined}>EN</a>
                 </span>
-                <button type="button" className="mh-nav__cart" onClick={openCart} data-cursor={copy.cursor.cart}>
+                <button type="button" className={`mh-nav__cart${cart.length ? "" : " is-empty"}`} onClick={openCart} data-cursor={copy.cursor.cart}>
                     {copy.cartButton(cart.length)}
                 </button>
                 <Link href={copy.routes.contact} className="mh-nav__cta" data-cursor={copy.cursor.write}>{copy.quoteCta}</Link>
