@@ -8,7 +8,7 @@ import { MsCatalog, MsClock } from "@/components/site-ms/interactive";
 export interface P2CapabilityCard {
     id: string;
     title: string;
-    image: string;
+    image: string | null;
     href: string;
     categorySlug?: string;
 }

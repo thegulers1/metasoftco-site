@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element -- plain <img> keeps slides identical in the page and in the headless-Chrome PDF */
 import { siteConfig } from "@/lib/site";
+import { SERVICE_CITIES } from "@/lib/rental-ops";
 import type { Deck, DeckCategory, DeckService } from "@/lib/presentation-deck";
 import { MEDIA_ZONE_HEIGHT } from "@/lib/presentation-layout";
 import "./presentation.css";
@@ -12,7 +13,8 @@ import "./presentation.css";
  * print page.
  */
 
-const CITIES = ["İstanbul", "Ankara", "İzmir", "Antalya", "Bodrum", "Adana", "Diyarbakır", "Kocaeli", "Sapanca"];
+/** One list for the whole site: 10 provinces, districts in brackets (Sapanca is in Sakarya). */
+const CITIES = SERVICE_CITIES;
 /** Service slide geometry in cqw; mirrors .pz-service__media in presentation.css. */
 const MEDIA_LEFT = 4;
 const MEDIA_TOP = 3.6;

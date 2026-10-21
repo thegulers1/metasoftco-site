@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { siteConfig, generateFAQSchema, generateBreadcrumbSchema, ogImageUrl } from "@/lib/site";
-import { capabilityListingImageOverrides } from "@/lib/phase2-content";
+import { serviceListingImage } from "@/lib/service-listing";
 import CapabilitiesIndexPrototype from "@/components/phase2/CapabilitiesIndexPrototype";
 
 // Read database content at request time; Docker builds have no database access.
@@ -76,7 +76,7 @@ const serviceFAQs = [
     },
     {
         question: "İstanbul dışında hizmet veriyor musunuz?",
-        answer: "Evet. İstanbul Teknokent merkezliyiz ve Türkiye genelinde hizmet veriyoruz; bugüne kadar İstanbul, Ankara, İzmir, Antalya, Bodrum, Adana, Diyarbakır, Kocaeli, Sapanca ve Çorum'da kurulum yaptık. Şehir dışı etkinliklerde ulaşım ve konaklama teklife dahil edilir ya da sizin organizasyonunuzla planlanır.",
+        answer: "Evet. İstanbul Teknokent merkezliyiz ve Türkiye genelinde hizmet veriyoruz; bugüne kadar İstanbul, Ankara, İzmir, Antalya, Muğla (Bodrum), Adana, Diyarbakır, Kocaeli, Sakarya (Sapanca) ve Çorum olmak üzere 10 ilde kurulum yaptık. Şehir dışı etkinliklerde ulaşım ve konaklama teklife dahil edilir ya da sizin organizasyonunuzla planlanır.",
     },
     {
         question: "KVKK kapsamında fotoğraf verileri nasıl korunuyor?",
@@ -108,17 +108,16 @@ export default async function HizmetlerPage() {
     const categories = await getCategories();
     const capabilities = categories.flatMap((category) =>
         category.services
-            .filter((service) => service.image)
             .map((service) => ({
                 id: service.id,
                 title: service.title,
-                image: capabilityListingImageOverrides[service.id] || service.image!,
+                image: serviceListingImage(service),
                 href: `/hizmetler/${category.slug}/${service.slug}`,
                 categorySlug: category.slug,
             }))
     );
     const categoryTabs = categories
-        .filter((category) => category.services.some((service) => service.image))
+        .filter((category) => category.services.length > 0)
         .map((category) => ({ slug: category.slug, name: category.name }));
     const faqSchema = generateFAQSchema(serviceFAQs);
     const breadcrumbSchema = generateBreadcrumbSchema([

@@ -12,11 +12,11 @@ export const SERVICE_CITIES = [
     "Ankara",
     "İzmir",
     "Antalya",
-    "Bodrum",
+    "Muğla (Bodrum)",
     "Adana",
     "Diyarbakır",
     "Kocaeli",
-    "Sapanca",
+    "Sakarya (Sapanca)",
     "Çorum",
 ];
 

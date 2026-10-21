@@ -25,8 +25,8 @@ export interface AboutDetail {
     faq: { q: string; a: string }[];
 }
 
-const CITIES_TR = "İstanbul, Ankara, İzmir, Antalya, Bodrum, Adana, Diyarbakır, Kocaeli, Sapanca ve Çorum";
-const CITIES_EN = "Istanbul, Ankara, Izmir, Antalya, Bodrum, Adana, Diyarbakır, Kocaeli, Sapanca and Çorum";
+const CITIES_TR = "İstanbul, Ankara, İzmir, Antalya, Muğla (Bodrum), Adana, Diyarbakır, Kocaeli, Sakarya (Sapanca) ve Çorum";
+const CITIES_EN = "Istanbul, Ankara, Izmir, Antalya, Muğla (Bodrum), Adana, Diyarbakır, Kocaeli, Sakarya (Sapanca) and Çorum";
 
 const tr: AboutDetail = {
     introTitle: "MetasoftCo nedir?",

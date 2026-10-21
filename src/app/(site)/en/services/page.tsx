@@ -4,7 +4,7 @@ import { prisma } from "@/lib/db";
 import { siteConfig, generateFAQSchema, ogImageUrl } from "@/lib/site";
 import CapabilitiesIndexPrototype from "@/components/phase2/CapabilitiesIndexPrototype";
 import { isEnglishCategoryPublishable, isEnglishServicePublishable } from "@/lib/publication";
-import { capabilityListingImageOverrides } from "@/lib/phase2-content";
+import { serviceListingImage } from "@/lib/service-listing";
 
 // Read database content at request time; Docker builds have no database access.
 export const dynamic = "force-dynamic";
@@ -83,17 +83,16 @@ export default async function EnglishServicesPage() {
         .filter((category) => category.services.length > 0);
     const capabilities = categories.flatMap((category) =>
         category.services
-            .filter((service) => service.image)
             .map((service) => ({
                 id: service.id,
                 title: service.title_en!,
-                image: capabilityListingImageOverrides[service.id] || service.image!,
+                image: serviceListingImage(service),
                 href: `/en/services/${category.slug_en}/${service.slug_en}`,
                 categorySlug: category.slug_en!,
             }))
     );
     const categoryTabs = categories
-        .filter((category) => category.services.some((service) => service.image))
+        .filter((category) => category.services.length > 0)
         .map((category) => ({ slug: category.slug_en!, name: category.name_en || category.name }));
     const faqSchema = generateFAQSchema(serviceFAQs);
 
