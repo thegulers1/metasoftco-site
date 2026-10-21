@@ -121,7 +121,7 @@ function ServiceCards({
                 className="w-full flex items-center justify-center gap-2 bg-[#f2ff00] hover:brightness-110 active:scale-95 text-[#050505] text-xs font-bold py-2.5 rounded-xl transition-all mt-1"
             >
                 <FileText className="w-3.5 h-3.5" />
-                {isEn ? "Request a Quote →" : "Teklif İste →"}
+                {isEn ? "Get a Quote →" : "Teklif Al →"}
             </button>
         </div>
     );

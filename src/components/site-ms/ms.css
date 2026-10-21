@@ -40,7 +40,7 @@ body:has(.ms) {
 }
 
 .ms a:hover {
-	color: var(--ms-acc);
+	color: #ffffff;
 }
 
 :where(.ms) button {
@@ -86,7 +86,7 @@ body:has(.ms) {
 }
 
 .ms-acc {
-	color: var(--ms-acc);
+	color: inherit;
 }
 
 .ms-mut {
@@ -284,7 +284,7 @@ body:has(.ms) {
 	height: 6px;
 	margin: -3px 0 0 -3px;
 	border-radius: 50%;
-	background: var(--ms-acc);
+	background: var(--ms-fg);
 	pointer-events: none;
 }
 
@@ -710,8 +710,8 @@ html[data-mh-js] .ms-w > span {
 	top: 14px;
 	padding: 5px 9px;
 	border-radius: 3px;
-	background: var(--ms-acc);
-	color: var(--ms-on-acc);
+	background: rgba(5, 5, 5, 0.72);
+	color: var(--ms-fg);
 	font-size: 11px;
 	letter-spacing: 0.08em;
 }
@@ -728,8 +728,8 @@ html[data-mh-js] .ms-w > span {
 	margin: 1vw -2vw;
 	padding: 1.1vw 0;
 	overflow: hidden;
-	background: var(--ms-acc);
-	color: var(--ms-on-acc);
+	background: var(--ms-panel-2);
+	color: var(--ms-mut);
 	transform: rotate(-1.2deg);
 }
 
@@ -761,7 +761,7 @@ html[data-mh-js] .ms-w > span {
 	width: 0.5em;
 	height: 0.5em;
 	border-radius: 50%;
-	background: var(--ms-on-acc);
+	background: var(--ms-line-2);
 }
 
 @keyframes ms-band {
@@ -885,8 +885,8 @@ html[data-mh-js] .ms-w > span {
 	text-overflow: ellipsis;
 	padding: 4px 8px;
 	border-radius: 3px;
-	background: var(--ms-acc);
-	color: var(--ms-on-acc);
+	background: rgba(5, 5, 5, 0.72);
+	color: var(--ms-fg);
 	font-size: 11px;
 	letter-spacing: 0.08em;
 	white-space: nowrap;
@@ -897,6 +897,12 @@ html[data-mh-js] .ms-w > span {
 	align-items: baseline;
 	justify-content: space-between;
 	gap: 12px;
+}
+
+/* Card names are h2 elements (projects, services, products) so the grid has a real outline. */
+.ms-tile__name,
+.ms-row__name {
+	margin: 0;
 }
 
 .ms-tile__name {
@@ -911,7 +917,7 @@ html[data-mh-js] .ms-w > span {
 .ms-tile__arrow {
 	flex: none;
 	font-size: 20px;
-	color: var(--ms-acc);
+	color: var(--ms-fg);
 }
 
 .ms-tile__sub {
@@ -953,8 +959,8 @@ html[data-mh-js] .ms-w > span {
 }
 
 .ms .ms-row:hover {
-	background: var(--ms-acc);
-	color: var(--ms-on-acc);
+	background: #161614;
+	color: #ffffff;
 	padding-left: 2.2vw;
 }
 
@@ -1032,7 +1038,7 @@ html[data-mh-js] .ms-w > span {
 }
 
 .ms-steps li:last-child .ms-steps__num {
-	color: var(--ms-acc);
+	color: var(--ms-fg);
 	-webkit-text-stroke: 0;
 }
 
@@ -1071,7 +1077,7 @@ html[data-mh-js] .ms-w > span {
 }
 
 .ms-card:hover {
-	border-color: var(--ms-acc);
+	border-color: var(--ms-fg);
 }
 
 .ms-card--lead {
@@ -1081,7 +1087,7 @@ html[data-mh-js] .ms-w > span {
 .ms-card__num {
 	font-family: var(--mh-mono), monospace;
 	font-size: 12px;
-	color: var(--ms-acc);
+	color: var(--ms-mut);
 }
 
 .ms-card__title {
@@ -1132,7 +1138,7 @@ html[data-mh-js] .ms-w > span {
 	width: 6px;
 	height: 6px;
 	border-radius: 50%;
-	background: var(--ms-acc);
+	background: var(--ms-mut);
 }
 
 .ms-card__body a {
@@ -1223,7 +1229,7 @@ html[data-mh-js] .ms-w > span {
 	width: 7px;
 	height: 7px;
 	border-radius: 50%;
-	background: var(--ms-acc);
+	background: var(--ms-mut);
 }
 
 .ms-prose ol {
@@ -1237,12 +1243,12 @@ html[data-mh-js] .ms-w > span {
 
 .ms-prose ol > li::marker {
 	font-family: var(--mh-mono), monospace;
-	color: var(--ms-acc);
+	color: var(--ms-mut);
 }
 
 .ms-prose blockquote {
 	padding: 4px 0 4px 20px;
-	border-left: 3px solid var(--ms-acc);
+	border-left: 2px solid var(--ms-line-2);
 	color: var(--ms-fg);
 }
 
@@ -1346,7 +1352,7 @@ html[data-mh-js] .ms-w > span {
 	width: 22px;
 	height: 22px;
 	border-radius: 50%;
-	background: var(--ms-acc);
+	background: var(--ms-mut);
 	color: var(--ms-on-acc);
 	font-size: 12px;
 }
@@ -1360,7 +1366,7 @@ html[data-mh-js] .ms-w > span {
 .ms-col-label {
 	padding-bottom: 12px;
 	letter-spacing: 0.08em;
-	color: var(--ms-acc);
+	color: var(--ms-mut);
 }
 
 .ms-note {
@@ -1451,6 +1457,55 @@ html[data-mh-js] .ms-w > span {
 	width: 100%;
 	height: 100%;
 	border: 0;
+}
+
+.ms-video__poster {
+	position: absolute;
+	inset: 0;
+	display: grid;
+	place-items: center;
+	width: 100%;
+	padding: 0;
+	border: 0;
+	background: #111;
+	cursor: pointer;
+}
+
+.ms-video__poster img {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	opacity: 0.85;
+	transition: opacity 0.3s;
+}
+
+.ms-video__play {
+	position: relative;
+	display: grid;
+	place-items: center;
+	width: 68px;
+	height: 68px;
+	border-radius: 50%;
+	background: var(--ms-acc, #f2ff00);
+	color: #050505;
+	transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.ms-video__poster:hover img,
+.ms-video__poster:focus-visible img {
+	opacity: 1;
+}
+
+.ms-video__poster:hover .ms-video__play,
+.ms-video__poster:focus-visible .ms-video__play {
+	transform: scale(1.08);
+}
+
+.ms-video__poster:focus-visible {
+	outline: 2px solid var(--ms-acc, #f2ff00);
+	outline-offset: 3px;
 }
 
 .ms-gallery {
@@ -1786,8 +1841,13 @@ html[data-mh-js] .ms-w > span {
 }
 
 .ms .ms-float--wa:hover {
-	background: var(--ms-acc);
+	background: #ffffff;
 	color: var(--ms-on-acc);
+}
+
+.ms-float__icon {
+	display: none;
+	flex: none;
 }
 
 .ms-float__dot {
@@ -1800,8 +1860,9 @@ html[data-mh-js] .ms-w > span {
 .ms .ms-float--ai {
 	right: var(--ms-gut);
 	padding: 14px 22px;
-	background: var(--ms-acc);
-	color: var(--ms-on-acc);
+	background: var(--ms-panel-2);
+	color: var(--ms-fg);
+	border: 1px solid var(--ms-line-2);
 	box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
 }
 
@@ -2035,8 +2096,8 @@ html[data-mh-js] .ms-w > span {
 }
 
 .ms .ms-capability:hover {
-	background: var(--ms-acc);
-	color: var(--ms-on-acc);
+	background: #161614;
+	color: #ffffff;
 	padding-left: 2.2vw;
 }
 
@@ -2073,7 +2134,7 @@ html[data-mh-js] .ms-w > span {
 }
 
 .ms-next:hover {
-	border-color: var(--ms-acc);
+	border-color: var(--ms-fg);
 }
 
 .ms-next__copy {
@@ -2085,7 +2146,7 @@ html[data-mh-js] .ms-w > span {
 }
 
 .ms-next__copy .ms-mono {
-	color: var(--ms-acc);
+	color: var(--ms-mut);
 }
 
 .ms-next__title {
@@ -2116,7 +2177,7 @@ html[data-mh-js] .ms-w > span {
 	max-width: 1000px;
 	margin: 0;
 	padding-left: 24px;
-	border-left: 3px solid var(--ms-acc);
+	border-left: 2px solid var(--ms-line-2);
 	font-family: var(--mh-display), sans-serif;
 	font-weight: 500;
 	font-size: clamp(20px, 2vw, 34px);
@@ -2327,7 +2388,7 @@ html[data-mh-js] .ms-w > span {
 }
 
 .ms-bignums > div:last-child strong {
-	color: var(--ms-acc);
+	color: var(--ms-fg);
 }
 
 .ms-bignums span {
@@ -2408,7 +2469,7 @@ html[data-mh-js] .ms-w > span {
 }
 
 .ms-wordlist li:hover {
-	color: var(--ms-acc);
+	color: #ffffff;
 }
 
 .ms-principles {
@@ -2430,7 +2491,7 @@ html[data-mh-js] .ms-w > span {
 .ms-principles li > span {
 	font-family: var(--mh-mono), monospace;
 	font-size: 12px;
-	color: var(--ms-acc);
+	color: var(--ms-mut);
 }
 
 .ms-principles h3 {
@@ -2661,5 +2722,45 @@ html[data-mh-js] .ms-w > span {
 @media (max-width: 899px) {
 	.ms-nav__logo img {
 		height: 48px;
+	}
+}
+
+/* Phones: the two floating actions shrink to round icons stacked in one corner,
+   so they stop covering text at the bottom of the screen. */
+@media (max-width: 899px) {
+	.ms-float {
+		right: var(--ms-gut);
+		left: auto;
+		justify-content: center;
+		width: 48px;
+		height: 48px;
+		padding: 0 !important;
+		box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
+	}
+
+	.ms .ms-float--wa {
+		left: auto;
+		bottom: 76px;
+		background: var(--ms-fg);
+	}
+
+	.ms-float__icon {
+		display: block;
+	}
+
+	.ms-float__label {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+	}
+
+	.ms-float--wa .ms-float__dot {
+		position: absolute;
+		top: 9px;
+		right: 9px;
+		box-shadow: 0 0 0 2px var(--ms-fg);
 	}
 }

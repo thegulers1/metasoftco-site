@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { siteConfig, ogImageUrl } from "@/lib/site";
-import { capabilityListingImageOverrides } from "@/lib/phase2-content";
+import { serviceListingImage, shortServiceTitle } from "@/lib/service-listing";
 import ProductsIndexPrototype from "@/components/phase2/ProductsIndexPrototype";
 import { isEnglishServicePublishable } from "@/lib/publication";
 
@@ -54,11 +54,11 @@ const getSaleServices = unstable_cache(
 export default async function EnglishProductsPage() {
     const services = await getSaleServices();
     const products = services
-        .filter((service) => service.image && isEnglishServicePublishable(service, service.category))
+        .filter((service) => isEnglishServicePublishable(service, service.category))
         .map((service) => ({
             id: service.id,
-            title: service.title_en!,
-            image: capabilityListingImageOverrides[service.id] || service.image!,
+            title: shortServiceTitle(service.title_en!, service.homeTitle_en),
+            image: serviceListingImage(service),
             href: `/en/products/${service.slug_en}`,
         }));
 

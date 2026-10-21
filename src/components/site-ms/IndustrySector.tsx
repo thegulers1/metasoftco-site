@@ -18,7 +18,7 @@ const copy = {
         approach: (n: string) => `${n} sektöründe yaklaşımımız`, approachMeta: "YAKLAŞIM",
         services: (n: string) => `${n} için sunduğumuz hizmetler`, servicesMeta: "HİZMETLER",
         faq: (n: string) => `${n} hakkında sıkça sorulan sorular`,
-        quote: "TEKLİF ALIN ↗", contact: "/iletisim", all: "HİZMETLERİ GÖR →", allHref: "/hizmetler", open: "İNCELE",
+        quote: "TEKLİF AL ↗", contact: "/iletisim", all: "HİZMETLERİ GÖR →", allHref: "/hizmetler", open: "İNCELE",
     },
     en: {
         home: "HOME", list: "SECTORAL SOLUTIONS", listHref: "/en/industry-software-solutions", kicker: "SECTORAL SOLUTION",

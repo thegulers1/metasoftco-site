@@ -58,7 +58,9 @@ export default function WorkIndexPrototype({ projects, locale }: { projects: P2W
             </section>
 
             <section aria-label={copy.catalogAria} style={{ marginTop: "-2vw" }}>
+                <h2 className="ms-sr">{copy.catalogAria}</h2>
                 <MsCatalog
+                    itemHeading="h3"
                     items={projects.map((project) => ({
                         key: project.id,
                         href: `${dictionary.routes.work}/${project.slug}`,

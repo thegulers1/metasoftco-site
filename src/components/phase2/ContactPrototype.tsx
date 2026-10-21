@@ -1,16 +1,20 @@
 "use client";
 
 import Link from "next/link";
-import { FormEvent, Suspense, useEffect, useState } from "react";
+import { FormEvent, Suspense, useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import type { Phase2Locale } from "@/lib/phase2";
 import { phase2Copy } from "@/lib/phase2-content";
 import { MsWords } from "@/components/site-ms/parts";
 import { MsClock } from "@/components/site-ms/interactive";
 import { trackEvent } from "@/lib/analytics";
+import { homeCopy } from "@/lib/home-content";
 import { getAttribution } from "@/lib/attribution";
 
 type Status = "idle" | "sending" | "sent" | "error";
+
+/** Same storage key as the homepage quote list (src/components/home/HomeExperience.tsx). */
+const QUOTE_LIST_KEY = "mh-cart";
 
 const t = {
     tr: {
@@ -21,6 +25,11 @@ const t = {
         sizes: ["0–200", "200–1.000", "1.000–5.000", "5.000+"],
         products: ["AI Photo", "AI Greenbox", "Photobooth", "Strip Photo", "İnteraktif Oyun", "Hediye Çarkı", "Video Booth", "VR & AR", "Yazılım Geliştirme", "Emin değilim"],
         productsLabel: "İLGİLENDİĞİNİZ ÜRÜN · BİRDEN FAZLA SEÇEBİLİRSİNİZ",
+        intentLabel: "NE DÜŞÜNÜYORSUNUZ?",
+        intents: { rent: "Etkinlik için kiralama", buy: "Kalıcı kurulum, satın alma" },
+        intentNote: "Talep türü",
+        audiences: { ik: "İK & kurum içi etkinlik", ajans: "Ajans & etkinlik organizatörü", satinalma: "Satın alma ekibi", magaza: "Mağaza, showroom & ofis" },
+        audienceNote: "Kitle",
         sent: "✓",
         newRequest: "YENİ TALEP",
         email: "E-POSTA GÖNDERİN",
@@ -37,6 +46,11 @@ const t = {
         sizes: ["0–200", "200–1,000", "1,000–5,000", "5,000+"],
         products: ["AI Photo", "AI Greenbox", "Photobooth", "Strip Photo", "Interactive Games", "Gift Wheel", "Video Booth", "VR & AR", "Software Development", "Not sure yet"],
         productsLabel: "PRODUCTS YOU ARE INTERESTED IN · PICK AS MANY AS YOU LIKE",
+        intentLabel: "WHAT ARE YOU LOOKING FOR?",
+        intents: { rent: "Rental for an event", buy: "Permanent setup, purchase" },
+        intentNote: "Request type",
+        audiences: { ik: "HR & internal events", ajans: "Agency & event organiser", satinalma: "Procurement team", magaza: "Store, showroom & office" },
+        audienceNote: "Audience",
         sent: "✓",
         newRequest: "NEW REQUEST",
         email: "SEND AN EMAIL",
@@ -58,6 +72,25 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
     const [size, setSize] = useState("");
     const [products, setProducts] = useState<string[]>([]);
     const [linkedProduct, setLinkedProduct] = useState("");
+    const [intent, setIntent] = useState<"rent" | "buy">("rent");
+    const [audience, setAudience] = useState<keyof typeof l.audiences | "">("");
+    // Items the visitor put on the homepage quote list arrive pre-selected here.
+    const [listItems, setListItems] = useState<string[]>([]);
+    useEffect(() => {
+        try {
+            const keys = JSON.parse(localStorage.getItem(QUOTE_LIST_KEY) || "[]");
+            if (!Array.isArray(keys)) return;
+            const names = homeCopy(locale).services
+                .filter((service) => keys.includes(service.key))
+                .map((service) => service.name);
+            // Reading browser storage has to happen after hydration.
+            // eslint-disable-next-line react-hooks/set-state-in-effect
+            if (names.length) setListItems(names);
+        } catch { /* storage blocked or corrupt */ }
+    }, [locale]);
+    const presetAudience = useCallback((key: string) => {
+        if (key === "ik" || key === "ajans" || key === "satinalma" || key === "magaza") setAudience(key);
+    }, []);
 
     const toggleProduct = (label: string) =>
         setProducts((current) => (current.includes(label) ? current.filter((p) => p !== label) : [...current, label]));
@@ -68,7 +101,9 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
         const currentForm = event.currentTarget;
         const data = new FormData(currentForm);
         const value = (key: string) => String(data.get(key) ?? "").trim();
-        const product = [linkedProduct, ...products].filter(Boolean).join(", ");
+        const product = [...new Set([linkedProduct, ...listItems, ...products].filter(Boolean))].join(", ");
+        // Request type and audience travel at the top of the message, so every inbox and the panel see them.
+        const tags = [`${l.intentNote}: ${l.intents[intent]}`, audience && `${l.audienceNote}: ${l.audiences[audience]}`].filter(Boolean).join(" · ");
 
         try {
             const response = await fetch("/api/contact", {
@@ -83,16 +118,18 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
                     eventDate: value("eventDate"),
                     city: value("city"),
                     guests: size,
-                    message: value("brief"),
+                    message: `[${tags}]\n\n${value("brief")}`,
                     attribution: getAttribution(),
                 }),
             });
             if (response.ok) {
                 setStatus("sent");
-                trackEvent("generate_lead", { form_name: "iletisim_brief", product: product || undefined });
+                trackEvent("generate_lead", { form_name: "iletisim_brief", product: product || undefined, intent, audience: audience || undefined });
                 currentForm.reset();
                 setSize("");
                 setProducts([]);
+                setListItems([]);
+                try { localStorage.removeItem(QUOTE_LIST_KEY); } catch { /* storage blocked */ }
                 window.scrollTo({ top: 0, behavior: "smooth" });
             } else {
                 setStatus("error");
@@ -129,7 +166,7 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
                         <span className="ms-mut" style={{ fontSize: 15, lineHeight: 1.5, maxWidth: 420 }}>{copy.location}</span>
                     </div>
                     <div>
-                        <span className="ms-mono ms-mut" style={{ display: "block", paddingBottom: 12 }}>{l.next}</span>
+                        <h2 className="ms-mono ms-mut" style={{ display: "block", margin: 0, paddingBottom: 12, fontWeight: 400 }}>{l.next}</h2>
                         <ol className="ms-nextsteps">
                             {copy.nextSteps.map((step) => (
                                 <li key={step.number}>
@@ -154,11 +191,22 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
                         </div>
                     ) : (
                         <form className="ms-form" onSubmit={submit}>
+                            <Suspense fallback={null}>
+                                <LinkedIntent onIntent={setIntent} onAudience={presetAudience} />
+                            </Suspense>
+                            <div className="ms-field">
+                                <span>{l.intentLabel}</span>
+                                <div className="ms-chips" role="radiogroup" aria-label={l.intentLabel} style={{ marginTop: 8 }}>
+                                    {(["rent", "buy"] as const).map((key) => (
+                                        <button key={key} type="button" role="radio" aria-checked={intent === key} className="ms-chip" data-cursor={l.cursor.pick} onClick={() => setIntent(key)}>{l.intents[key].toLocaleUpperCase(locale === "en" ? "en-US" : "tr-TR")}</button>
+                                    ))}
+                                </div>
+                            </div>
                             <div className="ms-form__grid">
                                 <label className="ms-field"><span>{required(form.name)}</span><input className="ms-input" required name="name" autoComplete="name" placeholder={form.namePlaceholder} /></label>
                                 <label className="ms-field"><span>{optional(form.company)}</span><input className="ms-input" name="company" autoComplete="organization" placeholder={form.companyPlaceholder} /></label>
                                 <label className="ms-field"><span>{required(form.email)}</span><input className="ms-input" required type="email" name="email" autoComplete="email" placeholder={form.emailPlaceholder} /></label>
-                                <label className="ms-field"><span>{optional(form.phone)}</span><input className="ms-input" type="tel" name="phone" autoComplete="tel" placeholder={form.phonePlaceholder} /></label>
+                                <label className="ms-field"><span>{required(form.phone)}</span><input className="ms-input" required type="tel" name="phone" autoComplete="tel" placeholder={form.phonePlaceholder} /></label>
                             </div>
                             <p className="ms-form__hint">{form.detailsHint}</p>
                             <div className="ms-form__grid">
@@ -179,6 +227,9 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
                                     <LinkedProduct onProduct={setLinkedProduct} />
                                 </Suspense>
                                 <div className="ms-chips" style={{ marginTop: 8 }}>
+                                    {listItems.map((name) => (
+                                        <button key={`list-${name}`} type="button" className="ms-chip" aria-pressed="true" onClick={() => setListItems((current) => current.filter((item) => item !== name))}>{name} ×</button>
+                                    ))}
                                     {linkedProduct && !l.products.includes(linkedProduct) && (
                                         <button type="button" className="ms-chip" aria-pressed="true" onClick={() => setLinkedProduct("")}>{linkedProduct} ×</button>
                                     )}
@@ -187,7 +238,7 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
                                     ))}
                                 </div>
                             </div>
-                            <label className="ms-field"><span>{required(form.brief)}</span><textarea className="ms-input" required name="brief" rows={4} maxLength={2000} placeholder={form.briefPlaceholder} /></label>
+                            <label className="ms-field"><span>{optional(form.brief)}</span><textarea className="ms-input" name="brief" rows={4} maxLength={2000} placeholder={form.briefPlaceholder} /></label>
                             <div className="ms-form__foot">
                                 <p className="ms-form__note">
                                     {locale === "en"
@@ -212,7 +263,7 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
                 <div className="ms-actions">
                     <a href="mailto:info@metasoftco.com" className="ms-pill ms-pill--line" data-cursor={l.cursor.write}>{l.email}</a>
                     <Link href={dictionary.routes.work} className="ms-pill ms-pill--line">{l.work}</Link>
-                    <a href={`https://wa.me/905342334051?text=${encodeURIComponent(l.whatsappText)}`} target="_blank" rel="noopener noreferrer" className="ms-pill ms-pill--acc" data-cursor={l.cursor.write} onClick={() => trackEvent("whatsapp_click", { location: "contact_page" })}>{l.whatsapp}</a>
+                    <a href={`https://wa.me/905342334051?text=${encodeURIComponent(l.whatsappText)}`} target="_blank" rel="noopener noreferrer" className="ms-pill ms-pill--line" data-cursor={l.cursor.write} onClick={() => trackEvent("whatsapp_click", { location: "contact_page" })}>{l.whatsapp}</a>
                 </div>
             </section>
         </article>
@@ -225,5 +276,18 @@ function LinkedProduct({ onProduct }: { onProduct: (product: string) => void }) 
     useEffect(() => {
         if (initial) onProduct(initial);
     }, [initial, onProduct]);
+    return null;
+}
+
+/** Homepage audience links arrive with ?kitle=<audience>, purchase links with ?tur=satin-alma. */
+function LinkedIntent({ onIntent, onAudience }: { onIntent: (intent: "rent" | "buy") => void; onAudience: (key: string) => void }) {
+    const params = useSearchParams();
+    const tur = params.get("tur") ?? "";
+    const kitle = params.get("kitle") ?? "";
+    // Both callbacks are stable, so the preset runs once per link, not on every render.
+    useEffect(() => {
+        if (tur === "satin-alma" || kitle === "magaza") onIntent("buy");
+        if (kitle) onAudience(kitle);
+    }, [tur, kitle, onIntent, onAudience]);
     return null;
 }

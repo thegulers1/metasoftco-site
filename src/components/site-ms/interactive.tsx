@@ -67,6 +67,7 @@ export function MsCatalog({
     showChips = true,
     wide,
     defaultView,
+    itemHeading = "h2",
 }: {
     items: MsCatalogItem[];
     allLabel: string;
@@ -77,9 +78,12 @@ export function MsCatalog({
     showToggle?: boolean;
     showChips?: boolean;
     wide?: boolean;
+    /** Heading level of each card name: h3 when the catalog sits under its own h2. */
+    itemHeading?: "h2" | "h3";
     /** Defaults to the grid, or to the list when no item has an image. */
     defaultView?: "grid" | "list";
 }) {
+    const Heading = itemHeading;
     const [cat, setCat] = useState(allLabel);
     const [view, setView] = useState<"grid" | "list">(defaultView ?? (items.some((item) => item.image) ? "grid" : "list"));
     const cats = useMemo(() => {
@@ -142,7 +146,7 @@ export function MsCatalog({
                                 <span className="ms-tile__tag ms-mono">{pad(index)}{item.cat ? <> · <MsCaps text={item.cat} /></> : null}</span>
                             </div>
                             <div className="ms-tile__row">
-                                <span className="ms-tile__name"><MsCaps text={item.name} /></span>
+                                <Heading className="ms-tile__name"><MsCaps text={item.name} /></Heading>
                                 <span className="ms-tile__arrow" aria-hidden="true">↗</span>
                             </div>
                             {item.sub && <span className="ms-tile__sub">{item.sub}</span>}
@@ -159,7 +163,7 @@ export function MsCatalog({
                             data-cursor={labels.open}
                             data-hidden={visible(item) ? undefined : ""}>
                             <span className="ms-row__num">{pad(index)}</span>
-                            <span className={`ms-row__name${rowVariant === "sub" ? " ms-row__name--sm" : ""}`}><MsCaps text={item.name} /></span>
+                            <Heading className={`ms-row__name${rowVariant === "sub" ? " ms-row__name--sm" : ""}`}><MsCaps text={item.name} /></Heading>
                             {rowVariant === "sub" ? (
                                 <>
                                     <span className="ms-row__sub">{item.sub}</span>
@@ -197,6 +201,8 @@ function youTubeId(url: string): string | null {
 export function MsVideo({ src, title, poster }: { src: string; title: string; poster?: string | null }) {
     const ref = useRef<HTMLVideoElement>(null);
     const id = youTubeId(src);
+    // YouTube's player weighs ~500 KB; it loads only after the visitor presses play.
+    const [playing, setPlaying] = useState(false);
     useEffect(() => {
         const video = ref.current;
         if (!video) return;
@@ -211,13 +217,22 @@ export function MsVideo({ src, title, poster }: { src: string; title: string; po
         const portrait = src.includes("/shorts/");
         return (
             <div className={`ms-video${portrait ? " ms-video--portrait" : ""}`}>
-                <iframe
-                    src={`https://www.youtube.com/embed/${id}?rel=0&modestbranding=1`}
-                    title={title}
-                    loading="lazy"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowFullScreen
-                />
+                {playing ? (
+                    <iframe
+                        src={`https://www.youtube.com/embed/${id}?rel=0&modestbranding=1&autoplay=1`}
+                        title={title}
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                    />
+                ) : (
+                    <button type="button" className="ms-video__poster" onClick={() => setPlaying(true)} aria-label={title}>
+                        {/* eslint-disable-next-line @next/next/no-img-element -- YouTube's own thumbnail */}
+                        <img src={poster || `https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt="" loading="lazy" />
+                        <span className="ms-video__play" aria-hidden="true">
+                            <svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5.5v13l11-6.5z" fill="currentColor" /></svg>
+                        </span>
+                    </button>
+                )}
             </div>
         );
     }

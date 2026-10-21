@@ -8,7 +8,7 @@ import { MsCatalog, MsClock } from "@/components/site-ms/interactive";
 export interface P2CapabilityCard {
     id: string;
     title: string;
-    image: string;
+    image: string | null;
     href: string;
     categorySlug?: string;
 }
@@ -21,9 +21,9 @@ export interface P2CapabilityCategory {
 
 const t = {
     tr: {
-        kicker: (n: number, k: number) => `(HİZMETLER) — ${n} DENEYİM · ${k} KATEGORİ`,
+        kicker: (n: number, k: number) => `(KİRALAMA) — ${n} DENEYİM · ${k} KATEGORİ`,
         city: "İSTANBUL",
-        cta: "ETKİNLİĞİN İÇİN ÖNERİ AL ↗",
+        cta: "ETKİNLİK İÇİN TEKLİF AL ↗",
         count: "DENEYİM",
         view: { grid: "IZGARA", list: "LİSTE", view: "Görünüm", open: "İNCELE" },
         processMeta: "UÇTAN UCA",
@@ -42,9 +42,9 @@ const t = {
         ],
     },
     en: {
-        kicker: (n: number, k: number) => `(SERVICES) — ${n} EXPERIENCES · ${k} CATEGORIES`,
+        kicker: (n: number, k: number) => `(RENTAL) — ${n} EXPERIENCES · ${k} CATEGORIES`,
         city: "ISTANBUL",
-        cta: "GET IDEAS FOR YOUR EVENT ↗",
+        cta: "GET AN EVENT QUOTE ↗",
         count: "EXPERIENCES",
         view: { grid: "GRID", list: "LIST", view: "View", open: "VIEW" },
         processMeta: "END TO END",
@@ -111,7 +111,9 @@ export default function CapabilitiesIndexPrototype({
             {categories && categories.length > 0 && <MsBand words={categories.map((category) => category.name)} />}
 
             <section aria-label={copy.catalogAria}>
+                <h2 className="ms-sr">{copy.catalogAria}</h2>
                 <MsCatalog
+                    itemHeading="h3"
                     items={items}
                     allLabel={copy.filterAll}
                     countLabel={l.count}

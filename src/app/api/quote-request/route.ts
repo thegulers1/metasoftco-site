@@ -87,8 +87,8 @@ export async function POST(req: Request) {
                     </h2>
                     <p style="color:#333;line-height:1.6;">
                         ${isEn
-                            ? "We have received your quote request. Our team will review your selections and get back to you within <strong>1–2 business days</strong>."
-                            : "Teklif talebinizi aldık. Ekibimiz seçimlerinizi inceleyecek ve <strong>1–2 iş günü</strong> içinde size dönüş yapacaktır."
+                            ? "We have received your quote request. Our team will review your selections and get back to you <strong>the same day</strong>."
+                            : "Teklif talebinizi aldık. Ekibimiz seçimlerinizi inceleyecek ve <strong>aynı gün</strong> size dönüş yapacaktır."
                         }
                     </p>
                     <h3 style="color:#333;margin-top:24px;margin-bottom:8px;">

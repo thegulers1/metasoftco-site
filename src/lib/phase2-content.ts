@@ -203,10 +203,10 @@ const en = {
 	},
 
 	contact: {
-		heroSolid: "Let’s build\nsomething",
-		heroOutline: "people can enter.",
-		heroLabel: "Let’s build something people can enter.",
-		heroCopy: "Share the audience, venue and campaign goal. We’ll shape the experience.",
+		heroSolid: "Your quote,",
+		heroOutline: "the same day.",
+		heroLabel: "Your quote, the same day.",
+		heroCopy: "Share the date, city and guest count; we send price and availability for rental or purchase the same day.",
 		asideTitle: "Start a conversation",
 		location: "Üniversite Mah. Sarıgül Sk. İstanbul Teknokent No: 37/1 İç Kapı No: 28, Avcılar / İstanbul",
 		figureAlt: "MetasoftCo producers reviewing an event brief",
@@ -234,12 +234,12 @@ const en = {
 			budgetOptions: ["€5K–€10K", "€10K–€25K", "€25K+"],
 			experienceLegend: "What type of experience are you planning? *",
 			experienceTypes: ["AI Photo + Video", "Photo Activations", "Interactive Games", "Custom Installations"],
-			brief: "Tell us about the brief *",
+			brief: "Anything else we should know",
 			briefPlaceholder: "Share your goals, audience, message, must-haves, and any references…",
-			submit: "Send the brief",
+			submit: "Request a quote",
 			submitting: "Sending…",
 			submitted: "Brief received",
-			success: "Thanks — your brief is ready for our team. We’ll get back to you within one business day.",
+			success: "Thanks — your brief is ready for our team. We’ll get back to you the same day.",
 			error: "The brief could not be sent. Please email info@metasoftco.com or try again.",
 			sendAnother: "Send another brief",
 		},
@@ -281,11 +281,11 @@ const en = {
 	},
 
 	capabilities: {
-		heroSolid: "We build\nthe system",
-		heroOutline: "behind the moment.",
-		heroLabel: "We build the system behind the moment.",
+		heroSolid: "Experiences to rent",
+		heroOutline: "for your event.",
+		heroLabel: "Experiences to rent for your event.",
 		heroCopy:
-			"We combine creative direction, custom software, physical production and live operation to design and deliver experiences that connect brands and people in real time.",
+			"From AI photo booths to interactive games, rented turnkey: setup, brand-specific design and the on-site team included. Three days' notice is enough.",
 		catalogAria: "Capabilities",
 		filterAll: "All",
 		cardLink: "Explore Capability",
@@ -662,7 +662,7 @@ const tr: Phase2Copy = {
 		closeMenu: "Menüyü kapat",
 		localeSwitchAria: "İngilizceye geç",
 		localeSwitchLabel: "TR / EN",
-		aiCta: "Etkinliğin İçin Öneri Al",
+		aiCta: "Metasoft AI’ya Sorun",
 		aiCtaAria: "Etkinlik önerileri için yapay zeka asistanını aç",
 		items: [
 			{ href: trPaths.routes.home, label: "Anasayfa" },
@@ -705,7 +705,7 @@ const tr: Phase2Copy = {
 		heroFigureAlt: "Ray-Ban fotoğraf aktivasyonuna katılan katılımcılar",
 		heroFigureLabel: "CANLI KATILIM",
 		heroFigureCaption: "Ray-Ban · Strip Photo",
-		heroPrimaryCta: "Etkinliğiniz İçin Teklif Alın",
+		heroPrimaryCta: "Etkinlik İçin Teklif Al",
 		heroSecondaryCta: "Seçili Projeleri İnceleyin",
 		heroStats: [
 			{ value: "1.000+", label: "Canlı etkinlik" },
@@ -764,7 +764,7 @@ const tr: Phase2Copy = {
 		finalTitleLabel: "Sıradaki etkinliğinizi insanların katılmak isteyeceği bir deneyime dönüştürelim.",
 		finalCopy:
 			"Hedef kitlenizi, mekânı ve kampanya hedefinizi paylaşın. Etkileşimi, teknolojiyi ve saha uygulamasını projenize göre birlikte kurgulayalım.",
-		finalCta: "Etkinliğiniz İçin Teklif Alın",
+		finalCta: "Etkinlik İçin Teklif Al",
 	},
 
 	about: {
@@ -806,14 +806,14 @@ const tr: Phase2Copy = {
 		],
 		finalSolid: "İhtiyacı siz anlatın.",
 		finalOutline: "Deneyimi biz hayata geçirelim.",
-		finalCta: "Etkinliğiniz İçin Teklif Alın",
+		finalCta: "Etkinlik İçin Teklif Al",
 	},
 
 	contact: {
-		heroSolid: "İnsanları\nmarkanızla buluşturan",
-		heroOutline: "bir deneyim tasarlayalım.",
-		heroLabel: "İnsanları markanızla buluşturan bir deneyim tasarlayalım.",
-		heroCopy: "Hedef kitlenizi, mekânı ve kampanya hedefinizi paylaşın. Deneyimi birlikte şekillendirelim.",
+		heroSolid: "Teklifinizi",
+		heroOutline: "aynı gün iletelim.",
+		heroLabel: "Teklifinizi aynı gün iletelim.",
+		heroCopy: "Tarih, şehir ve katılımcı sayısını paylaşın; kiralama ya da satın alma için fiyatı ve uygunluğu aynı gün size iletelim.",
 		asideTitle: "Projenizi konuşalım",
 		location: "Üniversite Mah. Sarıgül Sk. İstanbul Teknokent No: 37/1 İç Kapı No: 28, Avcılar / İstanbul",
 		figureAlt: "Etkinlik proje detaylarını inceleyen MetasoftCo ekibi",
@@ -846,13 +846,13 @@ const tr: Phase2Copy = {
 				"İnteraktif Oyunlar",
 				"Özel Kurulumlar",
 			],
-			brief: "Projenizi anlatın *",
+			brief: "Eklemek istedikleriniz",
 			briefPlaceholder:
 				"Hedefinizi, katılımcı kitlenizi, vermek istediğiniz mesajı ve varsa örnek aldığınız işleri paylaşın…",
-			submit: "Proje detaylarını gönder",
+			submit: "Teklif iste",
 			submitting: "Gönderiliyor…",
 			submitted: "Proje detayları alındı",
-			success: "Teşekkürler — proje detaylarınız ekibimize ulaştı. Bir iş günü içinde size dönüş yapacağız.",
+			success: "Teşekkürler — proje detaylarınız ekibimize ulaştı. Aynı gün size dönüş yapacağız.",
 			error: "Proje detayları gönderilemedi. Lütfen info@metasoftco.com adresine yazın veya tekrar deneyin.",
 			sendAnother: "Yeni bir talep gönder",
 		},
@@ -877,7 +877,7 @@ const tr: Phase2Copy = {
 		liteTitle: "Henüz tüm detaylar net değil mi?",
 		liteCopy: "Bize kısaca ulaşın ya da önce projelerimizi inceleyin.",
 		liteMailLabel: "E-posta gönderin",
-		liteWorkLabel: "Yapay Zekadan Öneri Al",
+		liteWorkLabel: "Seçili projeleri inceleyin",
 		finalSolid: "Sıradaki",
 		finalOutline: "canlı an",
 		finalTail: "burada başlıyor.",
@@ -894,15 +894,15 @@ const tr: Phase2Copy = {
 		ctaSolid: "Sıradaki etkinliğinizi",
 		ctaOutline: "katılım odaklı bir deneyime dönüştürelim.",
 		ctaLabel: "Sıradaki etkinliğinizi katılım odaklı bir deneyime dönüştürelim.",
-		ctaButton: "Etkinliğiniz İçin Teklif Alın",
+		ctaButton: "Etkinlik İçin Teklif Al",
 	},
 
 	capabilities: {
-		heroSolid: "Deneyimin arkasındaki",
-		heroOutline: "teknolojiyi kuruyoruz.",
-		heroLabel: "Deneyimin arkasındaki teknolojiyi kuruyoruz.",
+		heroSolid: "Etkinliğiniz için",
+		heroOutline: "kiralık deneyimler.",
+		heroLabel: "Etkinliğiniz için kiralık deneyimler.",
 		heroCopy:
-			"Yaratıcı fikir, özel yazılım, fiziksel üretim ve saha operasyonunu bir araya getirerek markaları insanlarla buluşturan deneyimleri uçtan uca geliştiriyoruz.",
+			"AI photobooth'tan interaktif oyunlara; kurulum, markanıza özel tasarım ve sahadaki ekip dahil, anahtar teslim kiralıyoruz. Etkinlikten 3 gün önce haber vermeniz yeterli.",
 		catalogAria: "Hizmetler",
 		filterAll: "Tümü",
 		cardLink: "Hizmeti İncele",
@@ -931,7 +931,7 @@ const tr: Phase2Copy = {
 		],
 		ctaSolid: "Fikrinizi",
 		ctaOutline: "canlı bir deneyime dönüştürelim.",
-		ctaButton: "Etkinliğiniz İçin Teklif Alın",
+		ctaButton: "Etkinlik İçin Teklif Al",
 	},
 
 	products: {
@@ -967,7 +967,7 @@ const tr: Phase2Copy = {
 		],
 		ctaSolid: "Kurumunuz için",
 		ctaOutline: "kalıcı bir sisteme mi ihtiyacınız var?",
-		ctaButton: "Teklif İsteyin",
+		ctaButton: "Satın Alma Teklifi Al",
 	},
 
 	insights: {
@@ -984,7 +984,7 @@ const tr: Phase2Copy = {
 		ctaSolid: "Anlatmaya değer",
 		ctaOutline: "bir projeniz mi var?",
 		ctaLabel: "Anlatmaya değer bir projeniz mi var?",
-		ctaButton: "Etkinliğiniz İçin Teklif Alın",
+		ctaButton: "Etkinlik İçin Teklif Al",
 	},
 
 	insightDetail: {
@@ -1003,7 +1003,7 @@ const tr: Phase2Copy = {
 		ctaSolid: "Fikri",
 		ctaOutline: "canlı bir deneyime dönüştürelim.",
 		ctaLabel: "Fikri canlı bir deneyime dönüştürelim.",
-		ctaButton: "Etkinliğiniz İçin Teklif Alın",
+		ctaButton: "Etkinlik İçin Teklif Al",
 	},
 
 	workDetail: {
@@ -1062,7 +1062,7 @@ const tr: Phase2Copy = {
 		nextHref: trPaths.projectHref(phase2ProjectSlugs.nextProject.tr),
 		ctaSolid: "Katılımcıların yanında götüreceği",
 		ctaOutline: "bir deneyim tasarlayın.",
-		ctaButton: "Etkinliğiniz İçin Teklif Alın",
+		ctaButton: "Etkinlik İçin Teklif Al",
 	},
 
 	capabilityDetail: {
@@ -1161,7 +1161,7 @@ const tr: Phase2Copy = {
 		],
 		ctaSolid: "Tek bir portreyi",
 		ctaOutline: "markanıza özel bir deneyime dönüştürün.",
-		ctaPrimary: "Etkinliğiniz İçin Teklif Alın",
+		ctaPrimary: "Etkinlik İçin Teklif Al",
 		ctaSecondary: "Seçili Projeleri İnceleyin",
 	},
 
@@ -1261,7 +1261,7 @@ const tr: Phase2Copy = {
 		faqTitle: "Sıkça sorulan sorular",
 		ctaSolid: "Bu deneyimi",
 		ctaOutline: "etkinliğinize taşıyalım.",
-		ctaButton: "Etkinliğiniz İçin Teklif Alın",
+		ctaButton: "Etkinlik İçin Teklif Al",
 	},
 
 	serviceDetail: {
@@ -1286,12 +1286,12 @@ const tr: Phase2Copy = {
 		backLabelProducts: "Tüm ürünler",
 		ctaSolid: "Bu hizmeti",
 		ctaOutline: "etkinliğinize uyarlayalım.",
-		ctaPrimary: "Etkinliğiniz İçin Teklif Alın",
+		ctaPrimary: "Etkinlik İçin Teklif Al",
 		ctaSecondary: "Seçili Projeleri İnceleyin",
-		ctaTertiary: "Kurumun İçin Satın Al",
+		ctaTertiary: "Kurumunuz İçin Satın Alın",
 		saleCtaSolid: "Bu sistemi",
 		saleCtaOutline: "kurumunuza kalıcı olarak kazandıralım.",
-		saleCtaPrimary: "Teklif İsteyin",
+		saleCtaPrimary: "Satın Alma Teklifi Al",
 		saleCtaSecondary: "Seçili Projeleri İnceleyin",
 	},
 
@@ -1313,7 +1313,7 @@ const tr: Phase2Copy = {
 		backLabel: "Tüm projeler",
 		ctaSolid: "Benzer bir deneyimi",
 		ctaOutline: "sizin için kuralım.",
-		ctaButton: "Etkinliğiniz İçin Teklif Alın",
+		ctaButton: "Etkinlik İçin Teklif Al",
 	},
 
 	featuredProjects: {

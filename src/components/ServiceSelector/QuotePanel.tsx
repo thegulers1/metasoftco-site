@@ -108,7 +108,7 @@ export function QuotePanel() {
                         {/* Header */}
                         <div className="flex items-center justify-between px-6 py-5 border-b border-black/8">
                             <h2 className="text-lg font-bold tracking-tight text-black uppercase">
-                                {tr("Teklif İste", "Request a Quote")}
+                                {tr("Teklif Al", "Get a Quote")}
                             </h2>
                             <button
                                 onClick={closePanel}
@@ -305,7 +305,7 @@ export function QuotePanel() {
                                             >
                                                 {status === "loading"
                                                     ? tr("Gönderiliyor...", "Sending...")
-                                                    : tr("Teklif İste", "Request Quote")
+                                                    : tr("Teklif Al", "Get a Quote")
                                                 }
                                             </button>
                                         </div>

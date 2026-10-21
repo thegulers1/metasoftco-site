@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { shortServiceTitle } from "@/lib/service-listing";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { siteConfig, generateBreadcrumbSchema, generateFAQSchema } from "@/lib/site";
@@ -98,7 +99,7 @@ export default async function EnCategoryHubPage({ params }: PageProps) {
                 contentHtml={category.content_en}
                 services={category.services.map((service) => ({
                     id: service.id,
-                    title: service.title_en || service.title,
+                    title: shortServiceTitle(service.title_en || service.title, service.homeTitle_en),
                     image: service.image,
                     href: isEnglishServicePublishable(service, category)
                         ? `/en/services/${categorySlugEn}/${service.slug_en}`

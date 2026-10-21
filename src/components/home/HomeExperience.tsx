@@ -52,7 +52,7 @@ const caps = (text: string) => (/[çğıöşüÇĞİÖŞÜ]/.test(text) ? text.t
 
 const LETTERS: { ch: string; tone: "acc" | "fg" | "dim" | "outline" }[] = [
     { ch: "M", tone: "acc" }, { ch: "E", tone: "fg" }, { ch: "T", tone: "fg" }, { ch: "A", tone: "dim" }, { ch: "S", tone: "fg" },
-    { ch: "O", tone: "outline" }, { ch: "F", tone: "acc" }, { ch: "T", tone: "fg" }, { ch: "C", tone: "dim" }, { ch: "O", tone: "fg" },
+    { ch: "O", tone: "outline" }, { ch: "F", tone: "fg" }, { ch: "T", tone: "fg" }, { ch: "C", tone: "dim" }, { ch: "O", tone: "fg" },
 ];
 
 export default function HomeExperience({
@@ -78,8 +78,6 @@ export default function HomeExperience({
     const [cartOpen, setCartOpen] = useState(false);
     const [toast, setToast] = useState("");
     const [quote, setQuote] = useState<{ status: "idle" | "sending" | "sent" | "error"; message?: string }>({ status: "idle" });
-    const [sector, setSector] = useState(copy.deck.sectors[0]);
-    const [deck, setDeck] = useState<"idle" | "sending" | "sent" | "error">("idle");
 
     const rootRef = useRef<HTMLDivElement>(null);
     const heroRef = useRef<HTMLElement>(null);
@@ -90,7 +88,6 @@ export default function HomeExperience({
     const counterRef = useRef<HTMLSpanElement>(null);
     const barRef = useRef<HTMLDivElement>(null);
     const wordsRef = useRef<HTMLDivElement>(null);
-    const clockRef = useRef<HTMLSpanElement>(null);
     const mqRef = useRef<HTMLDivElement>(null);
     const projRef = useRef<HTMLElement>(null);
     const projTrackRef = useRef<HTMLDivElement>(null);
@@ -98,7 +95,6 @@ export default function HomeExperience({
     const pvRef = useRef<HTMLDivElement>(null);
     const pvImgRef = useRef<HTMLImageElement>(null);
     const pvLabelRef = useRef<HTMLSpanElement>(null);
-    const termRef = useRef<HTMLSpanElement>(null);
     const magRef = useRef<HTMLAnchorElement>(null);
     const toastTimer = useRef(0);
     const cartRef = useRef(cart);
@@ -228,16 +224,6 @@ export default function HomeExperience({
         }, { rootMargin: "0px 0px -10% 0px" });
         root.querySelectorAll("[data-reveal]").forEach((el) => io.observe(el));
 
-        const tick = () => {
-            if (clockRef.current) {
-                clockRef.current.textContent = new Date().toLocaleTimeString("tr-TR", {
-                    timeZone: "Europe/Istanbul", hour: "2-digit", minute: "2-digit", second: "2-digit",
-                });
-            }
-        };
-        tick();
-        const clock = window.setInterval(tick, 1000);
-
         const prog = (el: HTMLElement) => {
             const r = el.getBoundingClientRect(), d = r.height - innerHeight;
             return d > 0 ? Math.min(1, Math.max(0, -r.top / d)) : 0;
@@ -320,39 +306,11 @@ export default function HomeExperience({
         };
         raf = requestAnimationFrame(frame);
 
-        // Terminal typing; reduced motion shows the finished transcript.
-        let termTimer = 0;
-        const lines = copy.software?.terminal ?? [];
-        const term = termRef.current;
-        if (term && lines.length) {
-            if (s.reduced) {
-                term.textContent = lines.join("\n");
-            } else {
-                let li = 0, ci = 0, wait = 0;
-                termTimer = window.setInterval(() => {
-                    if (wait > 0) { wait--; return; }
-                    if (li >= lines.length) { li = 0; ci = 0; term.textContent = ""; return; }
-                    const line = lines[li];
-                    if (line.startsWith("$")) {
-                        ci++;
-                        term.textContent = lines.slice(0, li).join("\n") + (li ? "\n" : "") + line.slice(0, ci);
-                        if (ci >= line.length) { li++; ci = 0; wait = 10; }
-                    } else {
-                        term.textContent = lines.slice(0, li + 1).join("\n");
-                        li++;
-                        wait = li >= lines.length ? 90 : 14;
-                    }
-                }, 32);
-            }
-        }
-
         return () => {
             disposed = true;
             s.table?.destroy();
             s.table = null;
             cancelAnimationFrame(raf);
-            clearInterval(clock);
-            clearInterval(termTimer);
             clearTimeout(resizeTimer);
             timers.forEach(clearTimeout);
             window.removeEventListener("resize", onResize);
@@ -434,6 +392,8 @@ export default function HomeExperience({
         const name = String(data.get("name") || "").trim();
         const phone = String(data.get("phone") || "").trim();
         const email = String(data.get("email") || "").trim();
+        const company = String(data.get("company") || "").trim();
+        const intent = copy.cart.intents.find((option) => option.value === data.get("intent")) ?? copy.cart.intents[0];
         if (!cart.length) return setQuote({ status: "error", message: copy.cart.needItem });
         if (!name || !phone || !email) return setQuote({ status: "error", message: copy.cart.needFields });
         setQuote({ status: "sending" });
@@ -446,7 +406,7 @@ export default function HomeExperience({
                     phone,
                     email,
                     eventDate: String(data.get("event") || "").trim(),
-                    notes: copy.cart.notes,
+                    notes: [copy.cart.notesIntent(intent.label), company && copy.cart.notesCompany(company), copy.cart.notes].filter(Boolean).join("\n"),
                     language: locale,
                     attribution: getAttribution(),
                     services: cart.map((key) => {
@@ -459,34 +419,9 @@ export default function HomeExperience({
             if (!res.ok) throw new Error(body.error || copy.cart.failed);
             setQuote({ status: "sent" });
             setCart([]);
-            trackEvent("generate_lead", { form: "home_cart", services: cart.length });
+            trackEvent("generate_lead", { form: "home_cart", services: cart.length, intent: intent.value });
         } catch (error) {
             setQuote({ status: "error", message: error instanceof Error && error.message ? error.message : copy.cart.failed });
-        }
-    }
-
-    async function sendDeck(event: FormEvent<HTMLFormElement>) {
-        event.preventDefault();
-        const email = String(new FormData(event.currentTarget).get("email") || "").trim();
-        if (!email) return;
-        setDeck("sending");
-        try {
-            const res = await fetch("/api/contact", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({
-                    name: copy.deck.visitor,
-                    email,
-                    subject: copy.deck.subject(sector),
-                    message: copy.deck.message(sector),
-                    attribution: getAttribution(),
-                }),
-            });
-            if (!res.ok) throw new Error();
-            setDeck("sent");
-            trackEvent("generate_lead", { form: "home_deck", sector });
-        } catch {
-            setDeck("error");
         }
     }
 
@@ -557,7 +492,7 @@ export default function HomeExperience({
                     <span aria-hidden="true">/</span>
                     <a href={copy.locales.en} aria-label={copy.localeAria.en} aria-current={locale === "en" ? "page" : undefined} className={locale === "en" ? "is-on" : undefined}>EN</a>
                 </span>
-                <button type="button" className="mh-nav__cart" onClick={openCart} data-cursor={copy.cursor.cart}>
+                <button type="button" className={`mh-nav__cart${cart.length ? "" : " is-empty"}`} onClick={openCart} data-cursor={copy.cursor.cart}>
                     {copy.cartButton(cart.length)}
                 </button>
                 <Link href={copy.routes.contact} className="mh-nav__cta" data-cursor={copy.cursor.write}>{copy.quoteCta}</Link>
@@ -585,7 +520,6 @@ export default function HomeExperience({
 
             <section ref={heroRef} className="mh-hero" aria-labelledby="mh-hero-title">
                 <div className="mh-hero__copy">
-                    <span className="mh-mono mh-meta">{copy.heroKicker}</span>
                     <h1 id="mh-hero-title" className="mh-display mh-hero__title">{copy.heroTitle}</h1>
                     <p className="mh-hero__lede">{copy.heroLede}</p>
                     <div className="mh-hero__stats mh-mono">
@@ -595,13 +529,19 @@ export default function HomeExperience({
                     </div>
                     <div className="mh-hero__ctas">
                         <Link href={copy.routes.contact} className="mh-pill mh-pill--acc" data-cursor={copy.cursor.write}>{copy.heroPrimary}</Link>
-                        <Link href={copy.routes.work} className="mh-pill mh-pill--line" data-cursor={copy.cursor.go}>{copy.heroSecondary}</Link>
+                        <Link href={copy.routes.products} className="mh-pill mh-pill--line" data-cursor={copy.cursor.go}>{copy.heroSecondary}</Link>
                     </div>
+                    <ul className="mh-hero__logos" aria-label={copy.heroLogos}>
+                        {brands.slice(0, 6).map((brand) => (
+                            <li key={brand.name}>
+                                {/* eslint-disable-next-line @next/next/no-img-element -- static SVG/PNG logos */}
+                                <img src={brand.src} alt={brand.name} className={brand.variant ? `mh-brand mh-brand--${brand.variant}` : "mh-brand"} />
+                            </li>
+                        ))}
+                    </ul>
                 </div>
                 <div className="mh-hero__side mh-mono" aria-hidden="true">
                     <span className="mh-hero__drag"><span className="mh-dot" /><span className="mh-only-fine">{copy.heroDrag}</span><span className="mh-only-touch">{copy.heroTap}</span></span>
-                    <span className="mh-meta">{copy.heroCity} <span ref={clockRef}>--:--:--</span></span>
-                    <span className="mh-meta mh-only-fine">{copy.heroHowTo}</span>
                 </div>
 
                 <div ref={physRef} className="mh-table" aria-hidden="true">
@@ -625,7 +565,7 @@ export default function HomeExperience({
                         <div className="mh-badge mh-mono"><span className="mh-badge__dot" />ROLLIC SUMMER PARTY · ALL ACCESS</div>
                     ), (
                         <div className="mh-souv__back mh-souv__back--row is-light mh-mono">
-                            <span>{svcNum("strip-photo")} · ROLLIC × {caps(svcName("strip-photo"))}</span>
+                            <span>ROLLIC × {caps(svcName("strip-photo"))}</span>
                             <span>{copy.souvenirAdd}</span>
                         </div>
                     ))}
@@ -684,6 +624,21 @@ export default function HomeExperience({
                         <span>{copy.marquee}</span>
                     </div>
                 </div>
+            </section>
+
+            <section className="mh-section mh-aud" aria-labelledby="mh-aud-title">
+                <div className="mh-head" data-reveal>
+                    <h2 id="mh-aud-title" className="mh-display mh-h2">{copy.audience.title}</h2>
+                </div>
+                <ul className="mh-aud__list">
+                    {copy.audience.items.map((item, index) => (
+                        <li key={item.name} className="mh-aud__item" data-reveal style={{ ["--d" as string]: `${index * 0.06}s` }}>
+                            <h3 className="mh-aud__name">{item.name}</h3>
+                            <p className="mh-aud__desc">{item.desc}</p>
+                            <Link href={item.href} className="mh-aud__cta mh-mono" data-cursor={copy.cursor.go}>{item.cta}</Link>
+                        </li>
+                    ))}
+                </ul>
             </section>
 
             <section ref={projRef} className="mh-work" aria-labelledby="mh-work-title">
@@ -768,7 +723,7 @@ export default function HomeExperience({
                 </ul>
                 <div ref={pvRef} className="mh-preview" aria-hidden="true">
                     {/* eslint-disable-next-line @next/next/no-img-element -- src swaps on hover */}
-                    <img ref={pvImgRef} alt="" />
+                    <img ref={pvImgRef} alt="" hidden />
                     <span ref={pvLabelRef} className="mh-display" />
                 </div>
             </section>
@@ -792,79 +747,36 @@ export default function HomeExperience({
             </section>
 
             {copy.software && (
-                <section className="mh-section mh-soft" aria-labelledby="mh-soft-title">
-                    <div className="mh-soft__copy" data-reveal>
-                        <span className="mh-mono mh-meta">{copy.software.meta}</span>
-                        <h2 id="mh-soft-title" className="mh-display mh-h2">
-                            {copy.software.title}<span className="mh-acc">.</span>
-                        </h2>
-                        <p>{copy.software.lede}</p>
-                        <ul className="mh-soft__cards">
-                            {copy.software.cards.map((card) => (
-                                <li key={card.title}>
-                                    <span>{card.title}</span>
-                                    <span>{card.body}</span>
-                                </li>
-                            ))}
-                        </ul>
-                        <Link href={copy.software.href} className="mh-link mh-mono" data-cursor={copy.cursor.go}>{copy.software.cta}</Link>
-                    </div>
-                    <div className="mh-term" data-reveal style={{ ["--d" as string]: "0.15s" }} aria-hidden="true">
-                        <div className="mh-term__bar mh-mono">
-                            <span /><span /><span className="is-acc" />
-                            <span className="mh-term__title">{copy.software.terminalTitle}</span>
-                        </div>
-                        <div className="mh-term__body mh-mono">
-                            <span ref={termRef} />
-                            <span className="mh-acc mh-term__caret">▍</span>
-                        </div>
-                    </div>
+                <section className="mh-soft-line" aria-label={copy.software.cta}>
+                    <p>{copy.software.line}</p>
+                    <Link href={copy.software.href} className="mh-link mh-mono" data-cursor={copy.cursor.go}>{copy.software.cta}</Link>
                 </section>
             )}
 
             <section className="mh-deck" aria-labelledby="mh-deck-title">
                 <div className="mh-deck__copy">
-                    <span className="mh-mono mh-acc">{copy.deck.kicker}</span>
                     <h2 id="mh-deck-title" className="mh-display">{copy.deck.title}</h2>
                     <p>{copy.deck.lede}</p>
-                    <Link href={copy.deck.viewHref} className="mh-link mh-mono" data-cursor={copy.cursor.go}>{copy.deck.view}</Link>
                 </div>
                 <div className="mh-deck__form">
-                    <div className="mh-chips" role="radiogroup" aria-label={copy.deck.kicker}>
-                        {copy.deck.sectors.map((label) => (
-                            <button
-                                key={label}
-                                type="button"
-                                role="radio"
-                                aria-checked={sector === label}
-                                className={`mh-chip mh-mono${sector === label ? " is-on" : ""}`}
-                                onClick={() => setSector(label)}>
-                                {label}
-                            </button>
-                        ))}
-                    </div>
-                    {deck === "sent" ? (
-                        <p className="mh-display mh-acc mh-done" role="status">{copy.deck.sent}</p>
-                    ) : (
-                        <form className="mh-inline-form" onSubmit={sendDeck}>
-                            <input type="email" name="email" required autoComplete="email" placeholder={copy.deck.email} aria-label={copy.deck.email} className="mh-input" />
-                            <button type="submit" className="mh-pill mh-pill--acc" disabled={deck === "sending"}>
-                                {deck === "sending" ? copy.deck.sending : copy.deck.send}
-                            </button>
-                        </form>
-                    )}
-                    {deck === "error" && <p className="mh-error" role="alert">{copy.deck.failed}</p>}
+                    <Link
+                        href={copy.deck.href}
+                        className="mh-pill mh-pill--acc"
+                        data-cursor={copy.cursor.go}
+                        onClick={() => trackEvent("deck_open", { location: "home" })}>
+                        {copy.deck.cta}
+                    </Link>
                 </div>
             </section>
 
             <section className="mh-contact" aria-labelledby="mh-contact-title">
+                <h2 id="mh-contact-title" className="mh-sr">{copy.contactLede}</h2>
                 <div className="mh-contact__top">
                     <span className="mh-mono mh-meta">{copy.contactMeta}</span>
                     <p>{copy.contactLede}</p>
                 </div>
                 <div className="mh-contact__mid">
                     <a
-                        id="mh-contact-title"
                         href="mailto:info@metasoftco.com"
                         className="mh-display mh-contact__big"
                         data-cursor={copy.cursor.write}
@@ -913,16 +825,21 @@ export default function HomeExperience({
                 target="_blank"
                 rel="noopener noreferrer"
                 className="mh-float mh-float--wa mh-mono"
+                aria-label="WhatsApp"
                 data-cursor={copy.cursor.write}
                 onClick={() => trackEvent("whatsapp_click", { location: "home_pill" })}>
-                <span className="mh-float__dot" />WHATSAPP
+                <span className="mh-float__dot" />
+                <svg className="mh-float__icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-4.5 4v-4h0A2.5 2.5 0 0 1 4 13.5z" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinejoin="round" /></svg>
+                <span className="mh-float__label">WHATSAPP</span>
             </a>
             <button
                 type="button"
                 className="mh-float mh-float--ai mh-mono"
+                aria-label={copy.aiButton.replace("✶", "").trim()}
                 data-cursor={copy.cursor.ask}
                 onClick={() => openChat(locale)}>
-                {copy.aiButton}
+                <svg className="mh-float__icon" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true"><path d="M12 3c.6 4.6 2.9 7.4 9 9-6.1 1.6-8.4 4.4-9 9-.6-4.6-2.9-7.4-9-9 6.1-1.6 8.4-4.4 9-9z" fill="currentColor" /></svg>
+                <span className="mh-float__label">{copy.aiButton}</span>
             </button>
 
             {toast && (
@@ -956,10 +873,36 @@ export default function HomeExperience({
                         </div>
                     ) : (
                         <form onSubmit={sendQuote} className="mh-cart__form">
-                            <input name="name" required autoComplete="name" placeholder={copy.cart.name} aria-label={copy.cart.name} className="mh-input" />
-                            <input name="phone" type="tel" required autoComplete="tel" placeholder={copy.cart.phone} aria-label={copy.cart.phone} className="mh-input" />
-                            <input name="email" type="email" required autoComplete="email" placeholder={copy.cart.email} aria-label={copy.cart.email} className="mh-input" />
-                            <input name="event" placeholder={copy.cart.event} aria-label={copy.cart.event} className="mh-input" />
+                            <p className="mh-cart__promise">{copy.cart.promise}</p>
+                            <fieldset className="mh-cart__intent">
+                                <legend className="mh-mono">{copy.cart.intentLabel}</legend>
+                                {copy.cart.intents.map((option, index) => (
+                                    <label key={option.value} className="mh-cart__choice">
+                                        <input type="radio" name="intent" value={option.value} defaultChecked={index === 0} />
+                                        <span>{option.label}</span>
+                                    </label>
+                                ))}
+                            </fieldset>
+                            <label className="mh-field">
+                                <span className="mh-mono">{copy.cart.name}</span>
+                                <input name="name" required autoComplete="name" className="mh-input" />
+                            </label>
+                            <label className="mh-field">
+                                <span className="mh-mono">{copy.cart.company}</span>
+                                <input name="company" autoComplete="organization" className="mh-input" />
+                            </label>
+                            <label className="mh-field">
+                                <span className="mh-mono">{copy.cart.email}</span>
+                                <input name="email" type="email" required autoComplete="email" className="mh-input" />
+                            </label>
+                            <label className="mh-field">
+                                <span className="mh-mono">{copy.cart.phone}</span>
+                                <input name="phone" type="tel" required autoComplete="tel" className="mh-input" />
+                            </label>
+                            <label className="mh-field">
+                                <span className="mh-mono">{copy.cart.event}</span>
+                                <input name="event" className="mh-input" />
+                            </label>
                             <p className="mh-cart__consent">
                                 {copy.cart.consent} <Link href="/gizlilik">{copy.cart.privacy}</Link>
                             </p>

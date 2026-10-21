@@ -84,6 +84,7 @@ export default function CapabilityCategoryScreen({
                 <section aria-label={copy.catalogAria}>
                     <h2 className="ms-sr">{copy.catalogTitle}</h2>
                     <MsCatalog
+                        itemHeading="h3"
                         items={services.map((service) => ({ key: service.id, href: service.href, name: service.title, image: service.image }))}
                         allLabel=""
                         countLabel={l.count}
