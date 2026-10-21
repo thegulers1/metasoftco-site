@@ -263,7 +263,7 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
                 <div className="ms-actions">
                     <a href="mailto:info@metasoftco.com" className="ms-pill ms-pill--line" data-cursor={l.cursor.write}>{l.email}</a>
                     <Link href={dictionary.routes.work} className="ms-pill ms-pill--line">{l.work}</Link>
-                    <a href={`https://wa.me/905342334051?text=${encodeURIComponent(l.whatsappText)}`} target="_blank" rel="noopener noreferrer" className="ms-pill ms-pill--acc" data-cursor={l.cursor.write} onClick={() => trackEvent("whatsapp_click", { location: "contact_page" })}>{l.whatsapp}</a>
+                    <a href={`https://wa.me/905342334051?text=${encodeURIComponent(l.whatsappText)}`} target="_blank" rel="noopener noreferrer" className="ms-pill ms-pill--line" data-cursor={l.cursor.write} onClick={() => trackEvent("whatsapp_click", { location: "contact_page" })}>{l.whatsapp}</a>
                 </div>
             </section>
         </article>

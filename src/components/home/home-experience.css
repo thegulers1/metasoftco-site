@@ -37,7 +37,7 @@ body:has(.mh) {
 }
 
 .mh a:hover {
-	color: var(--mh-acc);
+	color: #ffffff;
 }
 
 :where(.mh) button {
@@ -77,7 +77,7 @@ body:has(.mh) {
 }
 
 .mh-acc {
-	color: var(--mh-acc);
+	color: inherit;
 }
 
 /* Already upper-cased in JS with the right language rules. */
@@ -98,7 +98,7 @@ body:has(.mh) {
 	width: 8px;
 	height: 8px;
 	border-radius: 50%;
-	background: var(--mh-acc);
+	background: var(--mh-fg);
 }
 
 .mh-bar {
@@ -109,7 +109,7 @@ body:has(.mh) {
 .mh-bar__fill {
 	height: 2px;
 	width: 0;
-	background: var(--mh-acc);
+	background: var(--mh-fg);
 }
 
 .mh-only-touch {
@@ -324,7 +324,7 @@ html[data-mh-intro="play"] .mh-pre {
 	height: 6px;
 	margin: -3px 0 0 -3px;
 	border-radius: 50%;
-	background: var(--mh-acc);
+	background: var(--mh-fg);
 	pointer-events: none;
 }
 
@@ -672,7 +672,7 @@ html[data-mh-intro="play"] .mh-hero__title {
 
 .mh-letter--outline {
 	color: transparent;
-	-webkit-text-stroke: calc(var(--u) * 0.35) var(--mh-acc);
+	-webkit-text-stroke: calc(var(--u) * 0.35) var(--mh-fg);
 }
 
 /* Keepsakes: a front and a back face on a card that flips in 3D. */
@@ -780,7 +780,7 @@ html[data-mh-intro="play"] .mh-hero__title {
 	box-sizing: border-box;
 	padding: 0 calc(var(--u) * 1.4);
 	border-radius: calc(var(--u) * 1.6);
-	background: var(--mh-acc);
+	background: var(--mh-fg);
 	color: var(--mh-on-acc);
 	font-size: calc(var(--u) * 0.8);
 	letter-spacing: 0.12em;
@@ -890,7 +890,7 @@ html[data-mh-intro="play"] .mh-hero__title {
 .mh-pass .mh-display {
 	font-weight: 700;
 	font-size: calc(var(--u) * 1.9);
-	color: var(--mh-acc);
+	color: var(--mh-fg);
 }
 
 .mh-fcard {
@@ -902,7 +902,7 @@ html[data-mh-intro="play"] .mh-hero__title {
 	box-sizing: border-box;
 	padding: calc(var(--u) * 0.9);
 	border-radius: calc(var(--u) * 0.8);
-	background: var(--mh-acc);
+	background: var(--mh-fg);
 	color: var(--mh-on-acc);
 }
 
@@ -973,7 +973,7 @@ html[data-mh-intro="play"] .mh-hero__title {
 	margin-left: -5vw;
 	padding: 1.2vw 0;
 	overflow: hidden;
-	background: var(--mh-acc);
+	background: var(--mh-panel);
 	transform: rotate(-3deg);
 }
 
@@ -986,7 +986,7 @@ html[data-mh-intro="play"] .mh-hero__title {
 	font-size: 4.4vw;
 	line-height: 0.95;
 	text-transform: uppercase;
-	color: var(--mh-on-acc);
+	color: var(--mh-mut);
 	will-change: transform;
 }
 
@@ -1089,7 +1089,7 @@ html[data-mh-intro="play"] .mh-hero__title {
 }
 
 .mh-card__num {
-	color: var(--mh-acc);
+	color: var(--mh-mut);
 }
 
 .mh-card__client {
@@ -1108,7 +1108,7 @@ html[data-mh-intro="play"] .mh-hero__title {
 }
 
 .mh .mh-card:hover .mh-card__client {
-	color: var(--mh-acc);
+	color: #ffffff;
 }
 
 .mh-card-all {
@@ -1130,9 +1130,9 @@ html[data-mh-intro="play"] .mh-hero__title {
 }
 
 .mh .mh-card-all:hover {
-	background: var(--mh-acc);
-	border-color: var(--mh-acc);
-	color: var(--mh-on-acc);
+	background: var(--mh-fg);
+	border-color: var(--mh-fg);
+	color: var(--mh-bg);
 }
 
 /* ---------- Shared section frame ---------- */
@@ -1199,7 +1199,7 @@ html[data-mh-js] .mh [data-reveal].is-in {
 }
 
 .mh-brands__grid li:hover {
-	background: var(--mh-acc);
+	background: #161614;
 }
 
 .mh-brand {
@@ -1210,7 +1210,7 @@ html[data-mh-js] .mh [data-reveal].is-in {
 }
 
 .mh-brands__grid li:hover .mh-brand {
-	filter: brightness(0);
+	filter: brightness(0) invert(1);
 }
 
 .mh-brand--screen {
@@ -1295,11 +1295,11 @@ html[data-mh-js] .mh [data-reveal].is-in {
 }
 
 .mh-svc-list:hover .mh-svc {
-	color: #3a3a3a;
+	color: var(--mh-mut);
 }
 
 .mh .mh-svc-list .mh-svc:hover {
-	color: var(--mh-acc);
+	color: #ffffff;
 }
 
 .mh-svc__num,
@@ -1366,7 +1366,7 @@ html[data-mh-js] .mh [data-reveal].is-in {
 	height: 26vw;
 	overflow: hidden;
 	border-radius: 6px;
-	background: var(--mh-acc);
+	background: var(--mh-panel);
 	opacity: 0;
 	pointer-events: none;
 	transition: opacity 0.25s;
@@ -1389,7 +1389,7 @@ html[data-mh-js] .mh [data-reveal].is-in {
 	bottom: 10px;
 	padding: 2px 8px;
 	border-radius: 3px;
-	background: var(--mh-acc);
+	background: var(--mh-fg);
 	color: var(--mh-on-acc);
 	font-size: 1.2vw;
 }
@@ -1429,7 +1429,7 @@ html[data-mh-js] .mh [data-reveal].is-in {
 }
 
 .mh-why__num.is-acc {
-	color: var(--mh-acc);
+	color: var(--mh-fg);
 	-webkit-text-stroke: 0;
 }
 
@@ -1775,7 +1775,7 @@ html[data-mh-js] .mh [data-reveal].is-in {
 }
 
 .mh .mh-float--wa:hover {
-	background: var(--mh-acc);
+	background: #ffffff;
 	color: var(--mh-on-acc);
 }
 
@@ -1794,8 +1794,9 @@ html[data-mh-js] .mh [data-reveal].is-in {
 .mh .mh-float--ai {
 	right: var(--mh-gut);
 	padding: 14px 22px;
-	background: var(--mh-acc);
-	color: var(--mh-on-acc);
+	background: var(--mh-panel);
+	color: var(--mh-fg);
+	border: 1px solid var(--mh-line-2);
 	box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
 }
 

@@ -52,7 +52,7 @@ const caps = (text: string) => (/[çğıöşüÇĞİÖŞÜ]/.test(text) ? text.t
 
 const LETTERS: { ch: string; tone: "acc" | "fg" | "dim" | "outline" }[] = [
     { ch: "M", tone: "acc" }, { ch: "E", tone: "fg" }, { ch: "T", tone: "fg" }, { ch: "A", tone: "dim" }, { ch: "S", tone: "fg" },
-    { ch: "O", tone: "outline" }, { ch: "F", tone: "acc" }, { ch: "T", tone: "fg" }, { ch: "C", tone: "dim" }, { ch: "O", tone: "fg" },
+    { ch: "O", tone: "outline" }, { ch: "F", tone: "fg" }, { ch: "T", tone: "fg" }, { ch: "C", tone: "dim" }, { ch: "O", tone: "fg" },
 ];
 
 export default function HomeExperience({
