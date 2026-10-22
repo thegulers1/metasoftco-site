@@ -292,3 +292,49 @@ model Media {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
+// ─── Teklifler (editpanel/teklifler) ─────────────────────────────────────────
+// A quote is a document: its options/lines are stored as a JSON snapshot so a
+// later product rename or settings change never rewrites a quote already sent.
+// Shape: see src/lib/quotes.ts (QuoteOption[]). Amounts are KDV hariç TL.
+model Quote {
+  id             String   @id @default(cuid())
+  number         String   @unique
+  status         String   @default("DRAFT") // DRAFT | SENT | ACCEPTED | REJECTED
+  company        String
+  contactName    String?
+  contactEmail   String?
+  contactPhone   String?
+  eventName      String?
+  eventDate      String?
+  city           String?
+  venue          String?
+  // null = no shipping row on the PDF; 0 prints "0 TL".
+  shippingAmount Float?
+  vatRate        Int      @default(20)
+  validUntil     DateTime?
+  notes          String?
+  options        Json     @default("[]")
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+
+  @@index([createdAt])
+}
+
+// "Dahil olanlar" maddeleri. outputTypes (none/digital/print, Service.outputType)
+// decides which products get the line pre-ticked; empty = every product.
+model QuoteInclusion {
+  id          String   @id @default(cuid())
+  label       String
+  outputTypes String[] @default([])
+  defaultOn   Boolean  @default(true)
+  order       Int      @default(0)
+}
+
+// Nakliye tutarı by city; amount null = ask every time.
+model QuoteShippingRate {
+  id     String @id @default(cuid())
+  city   String @unique
+  amount Float?
+  order  Int    @default(0)
+}

@@ -1,40 +1,22 @@
 import { NextResponse } from "next/server";
-import puppeteer, { type Browser } from "puppeteer-core";
+import type { Browser } from "puppeteer-core";
+import { launchPdfBrowser } from "@/lib/pdf-browser";
 import { getPresentationDeck } from "@/lib/presentation";
 
 /**
  * GET /api/sunum/pdf?s=<id,id,…> — prints /sunum/yazdir in headless Chrome
  * and returns the PDF. Without `s` the whole presentation is exported.
- * Vercel uses @sparticuz/chromium; locally set CHROME_EXECUTABLE_PATH or
- * rely on the default macOS Chrome location.
+ * Chrome is started by launchPdfBrowser (see src/lib/pdf-browser.ts).
  */
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 export const maxDuration = 60;
 
-const LOCAL_CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 const VIEWPORT = { width: 1600, height: 900, deviceScaleFactor: 1 };
 /** Only the site itself and the image CDN are fetched; analytics and chat scripts are blocked. */
 const ALLOWED_HOSTS = ["res.cloudinary.com"];
 const IMAGE_WAIT_MS = 35_000;
-
-async function launchBrowser(): Promise<Browser> {
-    if (process.env.VERCEL || process.env.AWS_LAMBDA_FUNCTION_NAME) {
-        const chromium = (await import("@sparticuz/chromium")).default;
-        return puppeteer.launch({
-            args: await puppeteer.defaultArgs({ args: chromium.args, headless: "shell" }),
-            executablePath: await chromium.executablePath(),
-            headless: "shell",
-            defaultViewport: VIEWPORT,
-        });
-    }
-    return puppeteer.launch({
-        executablePath: process.env.CHROME_EXECUTABLE_PATH || LOCAL_CHROME,
-        headless: true,
-        defaultViewport: VIEWPORT,
-    });
-}
 
 export async function GET(request: Request) {
     const requestUrl = new URL(request.url);
@@ -58,7 +40,7 @@ export async function GET(request: Request) {
 
     let browser: Browser | null = null;
     try {
-        browser = await launchBrowser();
+        browser = await launchPdfBrowser(VIEWPORT);
         const page = await browser.newPage();
         await page.setRequestInterception(true);
         page.on("request", (req) => {
