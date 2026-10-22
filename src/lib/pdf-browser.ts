@@ -1,6 +1,17 @@
+import { existsSync } from "node:fs";
 import puppeteer, { type Browser } from "puppeteer-core";
 
 const LOCAL_CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
+/** Alpine has shipped the binary under each of these names over the years. */
+const CHROME_CANDIDATES = ["/usr/bin/chromium", "/usr/bin/chromium-browser", "/usr/lib/chromium/chromium", LOCAL_CHROME];
+
+function chromePath() {
+    const configured = process.env.CHROME_EXECUTABLE_PATH;
+    if (configured && existsSync(configured)) return configured;
+    const found = CHROME_CANDIDATES.find((candidate) => existsSync(candidate));
+    if (!found) throw new Error(`Chrome bulunamadı (denenen: ${[configured, ...CHROME_CANDIDATES].filter(Boolean).join(", ")})`);
+    return found;
+}
 
 /**
  * Headless Chrome for the PDF routes (/sunum, teklifler).
@@ -22,7 +33,7 @@ export async function launchPdfBrowser(viewport: { width: number; height: number
     }
     const inContainer = process.platform === "linux";
     return puppeteer.launch({
-        executablePath: process.env.CHROME_EXECUTABLE_PATH || LOCAL_CHROME,
+        executablePath: chromePath(),
         headless: true,
         defaultViewport: viewport,
         args: inContainer ? ["--no-sandbox", "--disable-setuid-sandbox", "--disable-dev-shm-usage", "--disable-gpu"] : [],

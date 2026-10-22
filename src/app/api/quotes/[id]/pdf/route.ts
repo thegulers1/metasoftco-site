@@ -79,7 +79,11 @@ export async function GET(request: NextRequest, { params }: { params: Promise<{ 
         });
     } catch (error) {
         console.error("Error generating quote PDF:", error);
-        return NextResponse.json({ error: "PDF oluşturulamadı, lütfen tekrar deneyin" }, { status: 500 });
+        // Admin-only route: show the cause so a failing PDF can be diagnosed from the panel.
+        return NextResponse.json(
+            { error: "PDF oluşturulamadı, lütfen tekrar deneyin", detail: (error as Error).message },
+            { status: 500 },
+        );
     } finally {
         await browser?.close();
     }
