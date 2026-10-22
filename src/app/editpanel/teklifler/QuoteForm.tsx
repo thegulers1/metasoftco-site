@@ -58,7 +58,7 @@ function shortDescription(text: string, max = 220) {
     const clean = text.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim();
     if (clean.length <= max) return clean;
     let out = "";
-    for (const sentence of clean.match(/[^.!?]+[.!?]+/g) ?? []) {
+    for (const sentence of clean.match(/[^.!?]+[.!?]+/g) || []) {
         if ((out + sentence).length > max) break;
         out += sentence;
     }
@@ -90,7 +90,11 @@ export default function QuoteForm({
     const productById = useMemo(() => new Map(products.map((p) => [p.id, p])), [products]);
     const productGroups = useMemo(() => {
         const groups = new Map<string, QuoteFormProduct[]>();
-        for (const p of products) groups.set(p.category, [...(groups.get(p.category) ?? []), p]);
+        for (const p of products) {
+            const list = groups.get(p.category);
+            if (list) list.push(p);
+            else groups.set(p.category, [p]);
+        }
         return [...groups];
     }, [products]);
 
@@ -107,17 +111,19 @@ export default function QuoteForm({
 
     const addItem = (optionId: string, productId: string) => {
         const product = productById.get(productId);
+        // No ?? / ?. in this file: the browser build's downlevel transform
+        // dropped their temp variables here ("_groups_get is not defined").
         const item: QuoteItem = {
             id: newId(),
-            serviceId: product?.id ?? null,
+            serviceId: product ? product.id : null,
             // Service titles are SEO titles ("AI Photo Kiralama | Etkinlik …"); keep the product name.
-            title: product?.title.split(" | ")[0].replace(/\s+Kiralama$/i, "").trim() ?? "",
+            title: product ? product.title.split(" | ")[0].replace(/\s+Kiralama$/i, "").trim() : "",
             description: product ? shortDescription(product.description) : "",
-            image: product?.image ?? null,
+            image: product && product.image ? product.image : null,
             quantity: 1,
             days: 1,
             amount: 0,
-            inclusions: defaultInclusionsFor(settings.inclusions, product?.outputType ?? null),
+            inclusions: defaultInclusionsFor(settings.inclusions, product ? product.outputType : null),
             note: "",
         };
         updateOption(optionId, (o) => ({ ...o, items: [...o.items, item] }));
@@ -172,7 +178,10 @@ export default function QuoteForm({
         // Open the tab before awaiting so the popup blocker allows it.
         const tab = inline ? window.open("about:blank", "_blank") : null;
         const id = dirty || !values.id ? await save() : values.id;
-        if (!id) return tab?.close();
+        if (!id) {
+            if (tab) tab.close();
+            return;
+        }
         const url = `/api/quotes/${id}/pdf${inline ? "?inline=1" : ""}`;
         if (tab) tab.location.href = url;
         else window.location.href = url;

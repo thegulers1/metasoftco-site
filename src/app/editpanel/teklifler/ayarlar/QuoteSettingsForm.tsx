@@ -133,7 +133,7 @@ export default function QuoteSettingsForm({ initial }: { initial: Settings }) {
                                 className={`${input} w-36`}
                                 type="number"
                                 min={0}
-                                value={rate.amount ?? ""}
+                                value={rate.amount === null ? "" : rate.amount}
                                 onChange={(e) => patchShipping(rate.id, { amount: e.target.value === "" ? null : Number(e.target.value) })}
                                 placeholder="TL"
                             />

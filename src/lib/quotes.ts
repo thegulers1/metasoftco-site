@@ -111,7 +111,7 @@ function str(value: unknown) {
 export function normalizeOptions(value: unknown): QuoteOption[] {
     if (!Array.isArray(value)) return [];
     return value.map((raw) => {
-        const o = (raw ?? {}) as Record<string, unknown>;
+        const o = (raw || {}) as Record<string, unknown>;
         const items = Array.isArray(o.items) ? o.items : [];
         const extras = Array.isArray(o.extras) ? o.extras : [];
         return {
@@ -119,7 +119,7 @@ export function normalizeOptions(value: unknown): QuoteOption[] {
             title: str(o.title),
             discount: Math.max(0, num(o.discount)),
             items: items.map((rawItem) => {
-                const i = (rawItem ?? {}) as Record<string, unknown>;
+                const i = (rawItem || {}) as Record<string, unknown>;
                 return {
                     id: str(i.id) || newId(),
                     serviceId: str(i.serviceId) || null,
@@ -134,7 +134,7 @@ export function normalizeOptions(value: unknown): QuoteOption[] {
                 };
             }),
             extras: extras.map((rawExtra) => {
-                const e = (rawExtra ?? {}) as Record<string, unknown>;
+                const e = (rawExtra || {}) as Record<string, unknown>;
                 return { id: str(e.id) || newId(), label: str(e.label), amount: num(e.amount) };
             }),
         };
