@@ -53,6 +53,8 @@ export default function EditBlogPostPage({
     const [saving, setSaving] = useState(false);
     const [activeTab, setActiveTab] = useState<"content" | "hizmetler" | "sss" | "seo">("content");
     const [allServices, setAllServices] = useState<ServiceOption[]>([]);
+    // The post's live URL as last saved; null while it is a draft (drafts 404 on the site).
+    const [livePath, setLivePath] = useState<string | null>(null);
     const [formData, setFormData] = useState<BlogFormData>({
         title: "",
         slug: "",
@@ -102,6 +104,7 @@ export default function EditBlogPostPage({
                 const res = await fetch(`/api/blog/${id}`);
                 if (res.ok) {
                     const data = await res.json();
+                    setLivePath(data.published && data.slug ? `/blog/${data.slug}` : null);
                     setFormData({
                         title: data.title || "",
                         slug: data.slug || "",
@@ -180,7 +183,21 @@ export default function EditBlogPostPage({
 
     return (
         <div>
-            <h1 className="text-2xl font-bold text-black mb-8">Blog Yazısını Düzenle</h1>
+            <div className="flex items-center justify-between gap-4 mb-8">
+                <h1 className="text-2xl font-bold text-black">Blog Yazısını Düzenle</h1>
+                {livePath ? (
+                    <a
+                        href={livePath}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-4 py-2 bg-black/5 text-black text-sm font-medium rounded-lg hover:bg-black/10 transition"
+                    >
+                        Sayfayı görüntüle ↗
+                    </a>
+                ) : (
+                    <span className="text-xs text-black/40">Taslak: yayınlanınca sayfası görüntülenebilir</span>
+                )}
+            </div>
 
             {/* Tabs */}
             <div className="mb-6 flex gap-2">

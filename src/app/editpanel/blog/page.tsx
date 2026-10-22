@@ -92,7 +92,21 @@ export default async function AdminBlogPage() {
                                     <td className="px-6 py-4 text-sm text-black/70">
                                         {new Date(post.createdAt).toLocaleDateString("tr-TR")}
                                     </td>
-                                    <td className="px-6 py-4 text-right">
+                                    <td className="px-6 py-4 text-right whitespace-nowrap">
+                                        {post.published ? (
+                                            <a
+                                                href={`/blog/${post.slug}`}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="text-sm text-black/50 hover:text-black mr-4"
+                                            >
+                                                Görüntüle ↗
+                                            </a>
+                                        ) : (
+                                            <span className="text-sm text-black/25 mr-4" title="Taslak yazılar sitede görünmez">
+                                                Görüntüle
+                                            </span>
+                                        )}
                                         <Link
                                             href={`/editpanel/blog/${post.id}/edit`}
                                             className="text-sm text-blue-600 hover:underline mr-4"
