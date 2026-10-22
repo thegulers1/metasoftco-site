@@ -95,7 +95,13 @@ export function validUntilFromToday(days: number) {
     return new Date(Date.now() + days * 86_400_000).toISOString().slice(0, 10);
 }
 
-/** MS-2026-001, MS-2026-002 … per calendar year. */
+/**
+ * First number of each year. Starting at 001 tells a customer they are the
+ * first quote we ever sent, so numbering starts higher.
+ */
+const FIRST_QUOTE_SEQ = 67;
+
+/** MS-2026-067, MS-2026-068 … per calendar year. */
 export async function nextQuoteNumber() {
     const prefix = `MS-${new Date().getFullYear()}-`;
     const last = await prisma.quote.findFirst({
@@ -103,7 +109,7 @@ export async function nextQuoteNumber() {
         orderBy: { number: "desc" },
         select: { number: true },
     });
-    const seq = last ? Number(last.number.slice(prefix.length)) + 1 : 1;
+    const seq = Math.max(last ? Number(last.number.slice(prefix.length)) + 1 : 0, FIRST_QUOTE_SEQ);
     return `${prefix}${String(seq).padStart(3, "0")}`;
 }
 
