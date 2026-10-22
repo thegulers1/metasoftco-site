@@ -37,7 +37,7 @@ RUN apk add --no-cache curl
 
 # Headless Chrome for the PDF routes (/api/sunum/pdf, teklif PDF'leri).
 # See src/lib/pdf-browser.ts; without it those routes answer 500.
-RUN apk add --no-cache chromium nss freetype harfbuzz ca-certificates ttf-freefont font-noto
+RUN apk add --no-cache chromium nss freetype harfbuzz ca-certificates font-freefont font-noto
 ENV CHROME_EXECUTABLE_PATH=/usr/bin/chromium
 
 RUN addgroup --system --gid 1001 nodejs
