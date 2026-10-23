@@ -310,6 +310,9 @@ export default function EditProjectPage({ params }: { params: Promise<{ id: stri
                                     onChange={(e) => setProject({ ...project, client: e.target.value || null })}
                                     className="w-full px-4 py-3 bg-[#f5f5f5] border-0 rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
                                 />
+                                <p className="text-xs text-black/40 mt-1">
+                                    Ana sayfadaki proje kartında büyük başlık olarak görünür (örn. État Pur). Boş bırakılırsa uzun proje başlığı kullanılır; parantez içindeki kısaltma varsa o gösterilir, örn. &quot;Türkiye Cumhuriyet Merkez Bankası (TCMB)&quot; → TCMB.
+                                </p>
                             </div>
                         </div>
 
