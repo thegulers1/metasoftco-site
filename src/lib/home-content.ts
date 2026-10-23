@@ -72,7 +72,7 @@ const tr = {
     introWords: ["FİKİR", "YAZILIM", "FİZİKSEL ÜRETİM", "SAHA OPERASYONU"],
     // The headline says what we rent, so HR, event and procurement visitors know in one read.
     heroTitle: "Etkinliğiniz için AI photobooth, photobooth ve interaktif oyun kiralıyoruz.",
-    heroLede: "Kurulum, markanıza özel tasarım ve sahadaki ekip dahil, anahtar teslim. Mağaza, showroom ya da ofis gibi kalıcı noktalar için sistemlerimizi satın da alabilirsiniz.",
+    heroLede: "3 gün önceden haber vermeniz yeterli. Kurulum, markanıza özel tasarım ve sahadaki ekip dahil; teklifiniz aynı gün elinizde.",
     heroStats: [
         { value: "1.000+", label: "ETKİNLİK" },
         { value: "10", label: "ŞEHİR" },
@@ -228,7 +228,7 @@ const en: HomeCopy = {
     cursor: { go: "GO", write: "WRITE", view: "VIEW", all: "ALL", cart: "LIST", add: "ADD", remove: "REMOVE", ask: "ASK", grab: "GRAB", holding: "GOT IT", flip: "FLIP", plus: "+ ADD", added: "ADDED" },
     introWords: ["IDEA", "SOFTWARE", "PHYSICAL BUILD", "FIELD OPERATIONS"],
     heroTitle: "AI photo booths, photo booths and interactive games for rent, for your event.",
-    heroLede: "Turnkey: setup, brand-specific design and the on-site team included. For permanent spots such as stores, showrooms or offices, our systems can also be bought.",
+    heroLede: "Three days' notice is enough. Setup, brand-specific design and the on-site team are included, and your quote arrives the same day.",
     heroStats: [
         { value: "1,000+", label: "EVENTS" },
         { value: "10", label: "CITIES" },
