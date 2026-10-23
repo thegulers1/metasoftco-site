@@ -2253,7 +2253,8 @@ html[data-mh-js] .ms-w > span {
 
 /* ---------- Blog feature card ---------- */
 
-.ms-feature {
+/* .ms .ms-feature: the card is a link, so it must outrank `.ms a` or its text turns light on yellow. */
+.ms .ms-feature {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));
 	align-items: stretch;
@@ -2326,7 +2327,7 @@ html[data-mh-js] .ms-w > span {
 }
 
 @media (max-width: 899px) {
-	.ms-feature {
+	.ms .ms-feature {
 		padding: 22px;
 		gap: 22px;
 	}
