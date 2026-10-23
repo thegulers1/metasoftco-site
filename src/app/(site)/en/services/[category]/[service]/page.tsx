@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { faqPlainText } from "@/lib/faq-text";
 import { notFound, permanentRedirect, redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { siteConfig, generateServiceSchema, generateBreadcrumbSchema } from "@/lib/site";
@@ -131,7 +132,7 @@ export default async function EnglishServiceDetailPage({ params }: PageProps) {
             mainEntity: items.map((item) => ({
                 "@type": "Question",
                 name: item.q,
-                acceptedAnswer: { "@type": "Answer", text: item.a },
+                acceptedAnswer: { "@type": "Answer", text: faqPlainText(item.a) },
             })),
         };
     })();

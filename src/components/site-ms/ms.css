@@ -1597,6 +1597,27 @@ html[data-mh-js] .ms-w > span {
 
 /* ---------- FAQ ---------- */
 
+/* Author box under a blog post's FAQ. */
+.ms-author-box {
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
+	max-width: 760px;
+	margin: 0 var(--ms-gut) 5vw;
+	padding: 24px 0 0;
+	border-top: 1px solid var(--ms-line-2);
+}
+
+.ms-author-box p {
+	margin: 0;
+	font-size: 17px;
+	line-height: 1.5;
+}
+
+.ms-author-box__links {
+	font-size: 12px !important;
+}
+
 .ms-faq-wrap {
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr));

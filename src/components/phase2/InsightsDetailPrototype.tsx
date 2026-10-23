@@ -46,8 +46,8 @@ function endsWithMark(title: string) {
 }
 
 const t = {
-    tr: { updated: "Son güncelleme", aboutAuthor: (name: string) => `YAZAR HAKKINDA: ${name.toLocaleUpperCase("tr-TR")} ↗`, faqAside: "Konuyla ilgili sorunuz mu var? Bize yazın; aynı gün dönüş yapalım.", servicesMeta: "BU YAZIDAKİ DENEYİMLER", postsMeta: "DİĞER YAZILAR", all: "TÜM YAZILAR →", open: "OKU", view: "İNCELE" },
-    en: { updated: "Last updated", aboutAuthor: (name: string) => `ABOUT THE AUTHOR: ${name.toLocaleUpperCase("en-US")} ↗`, faqAside: "Have a question on the topic? Write to us and we will reply the same day.", servicesMeta: "EXPERIENCES IN THIS POST", postsMeta: "MORE POSTS", all: "ALL POSTS →", open: "READ", view: "VIEW" },
+    tr: { updated: "Son güncelleme", aboutAuthor: (name: string) => `YAZAR HAKKINDA: ${name.toLocaleUpperCase("tr-TR")} ↗`, authorMeta: "YAZAR", authorPage: "Yazar sayfası", faqAside: "Konuyla ilgili sorunuz mu var? Bize yazın; aynı gün dönüş yapalım.", servicesMeta: "BU YAZIDAKİ DENEYİMLER", postsMeta: "DİĞER YAZILAR", all: "TÜM YAZILAR →", open: "OKU", view: "İNCELE" },
+    en: { updated: "Last updated", aboutAuthor: (name: string) => `ABOUT THE AUTHOR: ${name.toLocaleUpperCase("en-US")} ↗`, authorMeta: "AUTHOR", authorPage: "Author page", faqAside: "Have a question on the topic? Write to us and we will reply the same day.", servicesMeta: "EXPERIENCES IN THIS POST", postsMeta: "MORE POSTS", all: "ALL POSTS →", open: "READ", view: "VIEW" },
 };
 
 /** /blog/[slug] and /en/blog/[slug], an article layout in the October 2026 design. */
@@ -58,6 +58,7 @@ export default function InsightsDetailPrototype({
     relatedServices = [],
     locale,
     authorHref,
+    authorBox,
 }: {
     post: P2InsightArticle;
     faq?: FaqEntry[];
@@ -66,6 +67,8 @@ export default function InsightsDetailPrototype({
     locale: Phase2Locale;
     /** Profile page of a known author; the byline links there. */
     authorHref?: string;
+    /** Short bio of a known author, shown under the FAQ. */
+    authorBox?: { name: string; bio: string; href: string; linkedin?: string };
 }) {
     const dictionary = phase2Copy(locale);
     const copy = dictionary.insightDetail;
@@ -129,6 +132,24 @@ export default function InsightsDetailPrototype({
                     </div>
                     <MsFaq items={faq} />
                 </section>
+            )}
+
+            {authorBox && (
+                <aside className="ms-author-box" aria-label={l.authorMeta} data-reveal>
+                    <span className="ms-mono">{l.authorMeta}</span>
+                    <p>
+                        <strong>{authorBox.name}</strong> — {authorBox.bio}
+                    </p>
+                    <p className="ms-mono ms-author-box__links">
+                        {authorBox.linkedin && (
+                            <>
+                                <a href={authorBox.linkedin} target="_blank" rel="noopener noreferrer me" className="ms-acc">LinkedIn ↗</a>
+                                {" · "}
+                            </>
+                        )}
+                        <Link href={authorBox.href} rel="author" className="ms-acc">{l.authorPage} →</Link>
+                    </p>
+                </aside>
             )}
 
             {relatedServices.length > 0 && (

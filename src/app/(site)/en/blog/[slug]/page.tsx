@@ -4,7 +4,7 @@ import { prisma } from "@/lib/db";
 import { siteConfig, generateBreadcrumbSchema, generateFaqSchema, parseFaq } from "@/lib/site";
 import InsightsDetailPrototype from "@/components/phase2/InsightsDetailPrototype";
 import { isEnglishBlogPostPublishable } from "@/lib/publication";
-import { blogAuthorSchema, findTeamMember, teamMemberPath } from "@/lib/team";
+import { blogAuthorSchema, findTeamMember, teamMemberLinkedIn, teamMemberPath } from "@/lib/team";
 
 export const revalidate = 3600;
 
@@ -127,6 +127,9 @@ export default async function EnglishBlogPostPage({ params }: Props) {
 
     const author = findTeamMember(post.author);
     const authorHref = author ? teamMemberPath(author, "en") : undefined;
+    const authorBox = author && authorHref
+        ? { name: author.name, bio: author.shortBio.en, href: authorHref, linkedin: teamMemberLinkedIn(author) }
+        : undefined;
 
     const faq = parseFaq(post.faq_en);
     const related = await getRelatedPosts(slug, post.category);
@@ -170,7 +173,7 @@ export default async function EnglishBlogPostPage({ params }: Props) {
                 related={related}
                 relatedServices={relatedServices}
                 locale="en"
-                authorHref={authorHref}
+                authorHref={authorHref} authorBox={authorBox}
             />
         </>
     );

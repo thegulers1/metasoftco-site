@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { faqPlainText } from "@/lib/faq-text";
 import { notFound, permanentRedirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { siteConfig, generateServiceSchema, generateBreadcrumbSchema } from "@/lib/site";
@@ -174,7 +175,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 "name": item.q,
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": item.a,
+                    "text": faqPlainText(item.a),
                 },
             })),
         };

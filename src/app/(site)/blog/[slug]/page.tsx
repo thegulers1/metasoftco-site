@@ -5,7 +5,7 @@ import { siteConfig, generateBreadcrumbSchema, generateFaqSchema, parseFaq } fro
 import { cloudinaryOgImage } from "@/lib/cloudinary";
 import InsightsDetailPrototype from "@/components/phase2/InsightsDetailPrototype";
 import { isEnglishBlogPostPublishable } from "@/lib/publication";
-import { blogAuthorSchema, findTeamMember, teamMemberPath } from "@/lib/team";
+import { blogAuthorSchema, findTeamMember, teamMemberLinkedIn, teamMemberPath } from "@/lib/team";
 
 export const revalidate = 3600;
 
@@ -115,6 +115,9 @@ export default async function BlogPostPage({ params }: Props) {
 
     const author = findTeamMember(post.author);
     const authorHref = author ? teamMemberPath(author, "tr") : undefined;
+    const authorBox = author && authorHref
+        ? { name: author.name, bio: author.shortBio.tr, href: authorHref, linkedin: teamMemberLinkedIn(author) }
+        : undefined;
 
     const faq = parseFaq(post.faq);
     const related = await getRelatedPosts(post.slug, post.category);
@@ -143,7 +146,7 @@ export default async function BlogPostPage({ params }: Props) {
                 />
             )}
 
-            <InsightsDetailPrototype post={post} faq={faq} related={related} relatedServices={relatedServices} locale="tr" authorHref={authorHref} />
+            <InsightsDetailPrototype post={post} faq={faq} related={related} relatedServices={relatedServices} locale="tr" authorHref={authorHref} authorBox={authorBox} />
         </>
     );
 }

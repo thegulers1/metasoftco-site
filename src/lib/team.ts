@@ -13,6 +13,8 @@ export interface TeamMember {
     name: string;
     role: { tr: string; en: string };
     bio: { tr: string[]; en: string[] };
+    /** Two-line author box under blog posts. */
+    shortBio: { tr: string; en: string };
     knowsAbout: string[];
     sameAs: string[];
 }
@@ -34,6 +36,10 @@ export const team: TeamMember[] = [
                 "On the blog he writes about AI face swap, AI photo booths and event technology, drawing on what the team has learned on site.",
             ],
         },
+        shortBio: {
+            tr: "MetasoftCo kurucu ortağı. Marka aktivasyonları için yapay zekâ tabanlı fotoğraf, sanal deneme ve veri toplama sistemleri kuruyor.",
+            en: "Co-founder of MetasoftCo. Builds AI photo, virtual try-on and data capture systems for brand activations.",
+        },
         knowsAbout: [
             "Etkinlik teknolojileri",
             "Yapay zeka fotoğraf aktivasyonu",
@@ -52,6 +58,11 @@ export function findTeamMember(name: string | null | undefined): TeamMember | un
     if (!name) return undefined;
     const key = name.trim().toLocaleLowerCase("tr-TR");
     return team.find((member) => member.name.toLocaleLowerCase("tr-TR") === key);
+}
+
+/** The person's LinkedIn profile, once one is listed in sameAs. */
+export function teamMemberLinkedIn(member: TeamMember) {
+    return member.sameAs.find((url) => url.includes("linkedin.com"));
 }
 
 export function teamMemberPath(member: TeamMember, locale: "tr" | "en") {

@@ -1,4 +1,6 @@
 import { Fragment, type CSSProperties, type ReactNode } from "react";
+import Link from "next/link";
+import { FAQ_LINK } from "@/lib/faq-text";
 
 /**
  * English product and brand words that contain a lowercase "i". Upper-cased
@@ -135,6 +137,20 @@ export interface MsFaqItem {
     a: string;
 }
 
+/** [anchor](/path) in an answer becomes a site link (see src/lib/faq-text.ts). */
+function faqInline(text: string): ReactNode {
+    const parts: ReactNode[] = [];
+    let last = 0;
+    for (const match of text.matchAll(FAQ_LINK)) {
+        const index = match.index || 0;
+        if (index > last) parts.push(text.slice(last, index));
+        parts.push(<Link key={index} href={match[2]} className="ms-acc">{match[1]}</Link>);
+        last = index + match[0].length;
+    }
+    if (last < text.length) parts.push(text.slice(last));
+    return parts.length === 1 ? parts[0] : parts;
+}
+
 /** Native details/summary: every answer is in the HTML for search engines. */
 export function MsFaq({ items, firstOpen = true }: { items: MsFaqItem[]; firstOpen?: boolean }) {
     return (
@@ -146,7 +162,7 @@ export function MsFaq({ items, firstOpen = true }: { items: MsFaqItem[]; firstOp
                         <h3>{item.q}</h3>
                     </summary>
                     <div>
-                        {item.a.split(/\n{2,}/).map((para, i) => <p key={i}>{para}</p>)}
+                        {item.a.split(/\n{2,}/).map((para, i) => <p key={i}>{faqInline(para)}</p>)}
                     </div>
                 </details>
             ))}
