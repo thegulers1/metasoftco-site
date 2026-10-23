@@ -49,8 +49,7 @@ export const team: TeamMember[] = [
             "Interaktif etkinlik oyunları",
             "KVKK uyumlu veri toplama",
         ],
-        // LinkedIn profile URL goes here.
-        sameAs: [""],
+        sameAs: ["https://www.linkedin.com/in/selami-g%C3%BCler-919356109/"],
     },
 ];
 
