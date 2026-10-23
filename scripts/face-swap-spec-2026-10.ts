@@ -5,7 +5,8 @@ import { prisma } from "../src/lib/db";
 // - Guide TR/EN: new meta description and keywords; EN gets the 2 FAQs it lacked.
 // - Incoming links: one FAQ each on AI Photobooth and AI Football Card (TR),
 //   one closing sentence on the TCMB project (TR/EN).
-// Case numbers, images and the LinkedIn URL come later from the team.
+// - The 4-step diagram (GÖRSEL 2) under the steps list, TR/EN.
+// Case numbers, photos and the LinkedIn URL come later from the team.
 // Idempotent; pass --apply to write.
 
 const GUIDE = "yapay-zeka-yuz-degistirme-face-swap-nasil-calisir";
@@ -45,6 +46,23 @@ const serviceFaq: Record<string, Faq> = {
     },
 };
 
+// GÖRSEL 2 of the spec, under the "4 Adım" list (file in public/images/blog/face-swap/).
+const DIAGRAM = "/images/blog/face-swap/face-swap-4-adim.webp";
+const diagram = (alt: string) =>
+    `\n<figure><img src="${DIAGRAM}" width="1600" height="700" loading="lazy" decoding="async" alt="${alt}"></figure>`;
+const diagramTr = diagram("Face swap'in 4 adımı: yüz tespiti, referans noktaları, hizalama ve harmanlama");
+const diagramEn = diagram("The 4 steps of face swap: face detection, landmarks, alignment and blending");
+
+/** Inserts `html` right after the first </ol> that follows `heading`. */
+function afterListUnder(content: string, heading: string, html: string) {
+    const h = content.indexOf(heading);
+    if (h === -1) throw new Error(`Heading not found: ${heading}`);
+    const end = content.indexOf("</ol>", h);
+    if (end === -1) throw new Error(`No list under: ${heading}`);
+    const at = end + "</ol>".length;
+    return content.slice(0, at) + html + content.slice(at);
+}
+
 const tcmbTr = `<p>Kullanılan teknolojinin nasıl çalıştığını <a href="${GUIDE_PATH}">face swap rehberimizde</a> anlattık.</p>`;
 const tcmbEn = `<p>We explain how the technology works in our <a href="${GUIDE_EN_PATH}">face swap guide</a>.</p>`;
 
@@ -65,6 +83,12 @@ async function main() {
     const postData: Record<string, string> = {};
     for (const [key, value] of Object.entries(guide)) {
         if (post[key as keyof typeof guide] !== value) postData[key] = value;
+    }
+    if (post.content && !post.content.includes(DIAGRAM)) {
+        postData.content = afterListUnder(post.content, "Nasıl Çalışır? (4 Adım)", diagramTr);
+    }
+    if (post.content_en && !post.content_en.includes(DIAGRAM)) {
+        postData.content_en = afterListUnder(post.content_en, "How Does AI Face Swap Work? (4 Steps)", diagramEn);
     }
     const faqEn = withFaq(post.faq_en, guideFaqEn);
     if (faqEn) postData.faq_en = faqEn;
