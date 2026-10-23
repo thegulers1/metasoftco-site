@@ -14,6 +14,9 @@ const STRIP_SIZE = 8;
  */
 const notSoftware = { OR: [{ category: null }, { category: { not: "Yazılım" } }] };
 
+/** Project writes in the editpanel invalidate this, so the strip updates at once. */
+export const HOME_PROJECTS_TAG = "home-projects";
+
 const getHomeProjectRecords = unstable_cache(
     () => prisma.project.findMany({
         where: { published: true, image: { not: null }, ...notSoftware },
@@ -33,7 +36,7 @@ const getHomeProjectRecords = unstable_cache(
         },
     }),
     ["home-projects"],
-    { revalidate: 3600 }
+    { revalidate: 3600, tags: [HOME_PROJECTS_TAG] }
 );
 
 const getHomeServiceImages = unstable_cache(

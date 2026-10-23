@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
+import { revalidateTag } from "next/cache";
 import { prisma } from "@/lib/db";
 import { prismaErrorMessage } from "@/lib/apiError";
+import { HOME_PROJECTS_TAG } from "@/lib/home-data";
 
 export const dynamic = 'force-dynamic';
 
@@ -101,6 +103,7 @@ export async function POST(request: Request) {
             },
         });
 
+        revalidateTag(HOME_PROJECTS_TAG, { expire: 0 });
         return NextResponse.json(project, { status: 201 });
     } catch (error) {
         console.error("Error creating project:", error);

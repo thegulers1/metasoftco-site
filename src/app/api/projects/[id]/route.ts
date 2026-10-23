@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { prisma } from "@/lib/db";
 import { prismaErrorMessage } from "@/lib/apiError";
+import { HOME_PROJECTS_TAG } from "@/lib/home-data";
 
 export const dynamic = 'force-dynamic';
 
@@ -116,6 +117,7 @@ export async function PUT(
         revalidatePath(`/projeler/${project.slug}`);
         revalidatePath('/projeler');
         revalidatePath('/');
+        revalidateTag(HOME_PROJECTS_TAG, { expire: 0 });
         if (project.slug_en) {
             revalidatePath(`/en/projects/${project.slug_en}`);
             revalidatePath('/en/projects');
@@ -143,6 +145,7 @@ export async function DELETE(
         revalidatePath('/projeler');
         revalidatePath('/en/projects');
         revalidatePath('/');
+        revalidateTag(HOME_PROJECTS_TAG, { expire: 0 });
 
         return NextResponse.json({ message: "Project deleted successfully" });
     } catch (error) {
