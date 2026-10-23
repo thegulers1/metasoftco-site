@@ -60,6 +60,17 @@ const nextConfig: NextConfig = {
       // Intent-preserving public migrations.
       { source: "/isler", destination: "/projeler", permanent: true },
       { source: "/en/hakkimizda", destination: "/en/about", permanent: true },
+      // Merged into the face swap guide (scripts/merge-face-swap-posts-2026-10.ts).
+      {
+        source: "/blog/etkinliklerde-ai-face-swap-nasil-calisir",
+        destination: "/blog/yapay-zeka-yuz-degistirme-face-swap-nasil-calisir",
+        permanent: true,
+      },
+      {
+        source: "/en/blog/how-ai-face-swap-works-at-events",
+        destination: "/en/blog/how-ai-face-swap-technology-works",
+        permanent: true,
+      },
       {
         source: "/sektorel-cozumler/istanbul-ai-photobooth",
         destination: "/hizmetler/istanbul-ai-photobooth",
