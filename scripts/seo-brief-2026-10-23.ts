@@ -160,6 +160,14 @@ const blogFaq: Faq[] = [
     { q: "Photobooth'tan çıkan fotoğraflar nasıl teslim edilir?", a: "Fotoğraflar saniyeler içinde markaya özel çerçeveyle basılır ve aynı anda QR kod ile misafirin telefonuna dijital olarak iner." },
 ];
 
+const blogFaqEn: Faq[] = [
+    { q: "What is a photo booth?", a: "A photo booth is an event activation where guests take their own photos at a kiosk with a camera, a screen and a printer, and get the result as a print and a digital copy within seconds." },
+    { q: "What does photo booth mean?", a: "A booth is a small enclosed space or stand. The first photo booths were curtained cabins; most booths rented for events today are open kiosks guests pose in front of." },
+    { q: "What are the types of photo booth?", a: "The most common types are the classic photo booth, the enclosed cabin booth (Cabin Photo), the mirror booth, the 360 video booth, the AI photo booth, the aura photo booth and the GIF/video booth. Each suits a different space and event goal." },
+    { q: "How much space does a photo booth need?", a: "About 2 m² for a classic photo booth, about 3 m² for a 360 video booth, about 4 m² for a mirror booth and about 5 m² for an enclosed Cabin Photo, plus a standard 220V socket." },
+    { q: "How do guests get their photos?", a: "Photos are printed within seconds in a branded frame and reach the guest's phone at the same time via a QR code." },
+];
+
 // ---------------------------------------------------------------- run
 
 async function main() {
@@ -204,7 +212,16 @@ async function main() {
             serviceIds: JSON.stringify(ids.map((row) => row.id)),
             faq: JSON.stringify(blogFaq),
             published: true,
+            slug_en: "what-is-a-photo-booth",
+            title_en: "What Is a Photo Booth? Types, How It Works and How to Use One at Events",
+            metaTitle_en: "What Is a Photo Booth? Types and How It Works",
+            metaDescription_en: "A photo booth is a kiosk where guests take their own photos and get an instant print and digital copy. What the word means, the main types and how to choose.",
+            excerpt_en: "A photo booth is an event kiosk where guests take their own photos and get a print and a digital copy within seconds. We explain the main types, how they work and how to pick the right one for your event.",
+            content_en: read("photobooth-nedir-en.html"),
+            metaKeywords_en: "what is a photo booth, photo booth meaning, types of photo booth, photo booth rental, mirror booth, 360 video booth",
+            faq_en: JSON.stringify(blogFaqEn),
         };
+        checkLengths("blog EN", next.metaTitle_en, next.metaDescription_en);
         checkLengths("blog", next.metaTitle, next.metaDescription);
         const post = await prisma.blogPost.findUnique({ where: { slug } });
         if (post) {
