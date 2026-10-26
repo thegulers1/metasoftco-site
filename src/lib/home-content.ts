@@ -71,7 +71,7 @@ const tr = {
     cursor: { go: "GİT", write: "YAZ", view: "İNCELE", all: "TÜMÜ", cart: "LİSTE", add: "EKLE", remove: "ÇIKAR", ask: "SOR", grab: "TUT", holding: "TUTTUN", flip: "ÇEVİR", plus: "+ EKLE", added: "EKLENDİ" },
     introWords: ["FİKİR", "YAZILIM", "FİZİKSEL ÜRETİM", "SAHA OPERASYONU"],
     // The headline says what we rent, so HR, event and procurement visitors know in one read.
-    heroTitle: "Etkinliğiniz için AI photobooth, photobooth ve interaktif oyun kiralıyoruz.",
+    heroTitle: "Etkinliğiniz için AI\u00a0photobooth ve interaktif oyun kiralıyoruz.",
     heroLede: "İstanbul merkezli yapay zekâ etkinlik teknolojisi ajansıyız. 3 gün önceden haber vermeniz yeterli. Kurulum, markanıza özel tasarım ve sahadaki ekip dahil; teklifiniz aynı gün elinizde.",
     heroStats: [
         { value: "1.000+", label: "ETKİNLİK" },
@@ -80,7 +80,6 @@ const tr = {
     ],
     heroPrimary: "ETKİNLİK İÇİN TEKLİF AL ↗",
     heroSecondary: "KALICI KURULUM İÇİN SATIN AL →",
-    heroLogos: "Çalıştığımız markalardan bazıları",
     heroDrag: "SÜRÜKLE · FIRLAT",
     heroTap: "DOKUN · ÇEVİR",
     heroScroll: "KAYDIR ↓",
@@ -227,7 +226,7 @@ const en: HomeCopy = {
     quoteCta: "GET A QUOTE ↗",
     cursor: { go: "GO", write: "WRITE", view: "VIEW", all: "ALL", cart: "LIST", add: "ADD", remove: "REMOVE", ask: "ASK", grab: "GRAB", holding: "GOT IT", flip: "FLIP", plus: "+ ADD", added: "ADDED" },
     introWords: ["IDEA", "SOFTWARE", "PHYSICAL BUILD", "FIELD OPERATIONS"],
-    heroTitle: "AI photo booths, photo booths and interactive games for rent, for your event.",
+    heroTitle: "AI\u00a0photo booths and interactive games for rent, for your event.",
     heroLede: "We are an Istanbul-based AI event technology agency. Three days' notice is enough. Setup, brand-specific design and the on-site team are included, and your quote arrives the same day.",
     heroStats: [
         { value: "1,000+", label: "EVENTS" },
@@ -236,7 +235,6 @@ const en: HomeCopy = {
     ],
     heroPrimary: "GET AN EVENT QUOTE ↗",
     heroSecondary: "BUY FOR A PERMANENT SPOT →",
-    heroLogos: "Some of the brands we work with",
     heroDrag: "DRAG · THROW",
     heroTap: "TAP · FLIP",
     heroScroll: "SCROLL ↓",

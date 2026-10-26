@@ -532,14 +532,6 @@ export default function HomeExperience({
                         <Link href={copy.routes.contact} className="mh-pill mh-pill--acc" data-cursor={copy.cursor.write}>{copy.heroPrimary}</Link>
                         <Link href={copy.routes.products} className="mh-pill mh-pill--line" data-cursor={copy.cursor.go}>{copy.heroSecondary}</Link>
                     </div>
-                    <ul className="mh-hero__logos" aria-label={copy.heroLogos}>
-                        {brands.slice(0, 6).map((brand) => (
-                            <li key={brand.name}>
-                                {/* eslint-disable-next-line @next/next/no-img-element -- static SVG/PNG logos */}
-                                <img src={brand.src} alt={brand.name} className={brand.variant ? `mh-brand mh-brand--${brand.variant}` : "mh-brand"} />
-                            </li>
-                        ))}
-                    </ul>
                 </div>
                 <div className="mh-hero__side mh-mono" aria-hidden="true">
                     <span className="mh-hero__drag"><span className="mh-dot" /><span className="mh-only-fine">{copy.heroDrag}</span><span className="mh-only-touch">{copy.heroTap}</span></span>
