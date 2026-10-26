@@ -72,14 +72,17 @@ export const QUOTE_DEFAULTS_KEY = "quote.defaults";
 
 /** Seed for an empty settings table; mirrors the rental scope in rental-ops.ts. */
 export const DEFAULT_INCLUSIONS: { label: string; outputTypes: OutputType[] }[] = [
-    { label: "Kurulum ve söküm", outputTypes: [] },
-    { label: "Etkinlik boyunca 2 teknik saha personeli", outputTypes: [] },
-    { label: "5G mobil internet bağlantısı", outputTypes: [] },
-    { label: "Kiosk dış giydirmesi (marka kaplaması)", outputTypes: [] },
+    { label: "Kurulum ve söküm", outputTypes: ["none", "digital", "print"] },
+    { label: "Etkinlik boyunca 2 teknik saha personeli", outputTypes: ["none", "digital", "print"] },
+    { label: "5G mobil internet bağlantısı", outputTypes: ["none", "digital", "print"] },
+    { label: "Kiosk dış giydirmesi (marka kaplaması)", outputTypes: ["none", "digital", "print"] },
     { label: "Markaya özel arayüz ve çıktı tasarımı", outputTypes: ["digital", "print"] },
     { label: "Markaya özel oyun ve ekran arayüzü", outputTypes: ["none"] },
     { label: "QR ile anında dijital paylaşım", outputTypes: ["digital", "print"] },
     { label: "750 adet fiziksel baskı", outputTypes: ["print"] },
+    { label: "Etkinlik boyunca alanda dolaşan fotoğrafçı", outputTypes: ["instant"] },
+    { label: "Instax ile anında fiziksel fotoğraf", outputTypes: ["instant"] },
+    { label: "Markaya özel magnetli çerçeve", outputTypes: ["instant"] },
 ];
 
 export function parseQuoteDefaults(value: string | null | undefined): QuoteDefaults {
@@ -192,12 +195,16 @@ export function optionLetter(index: number) {
     return String.fromCharCode(65 + index);
 }
 
-/** Which inclusion labels start ticked for a product with this outputType. */
+/**
+ * Which inclusion labels start ticked for a product with this outputType.
+ * A free-text line (no product) gets the lines shared by every kiosk product.
+ */
 export function defaultInclusionsFor(
     inclusions: { label: string; outputTypes: string[]; defaultOn: boolean }[],
     outputType: string | null,
 ) {
-    return inclusions
-        .filter((inc) => inc.defaultOn && (inc.outputTypes.length === 0 || (outputType !== null && inc.outputTypes.includes(outputType))))
-        .map((inc) => inc.label);
+    const applies = (types: string[]) =>
+        types.length === 0 ||
+        (outputType === null ? ["none", "digital", "print"].every((type) => types.includes(type)) : types.includes(outputType));
+    return inclusions.filter((inc) => inc.defaultOn && applies(inc.outputTypes)).map((inc) => inc.label);
 }

@@ -209,6 +209,36 @@ async function main() {
         }
     }
 
+    // Garanti BBVA: the copy described a touchscreen photobooth with QR sharing;
+    // the event was Şipşak (Instax, magnetic frames, no digital copy).
+    {
+        const project = await prisma.project.findUnique({ where: { slug: GARANTI } });
+        if (!project) throw new Error(`Project not found: ${GARANTI}`);
+        const next = {
+            description: "Garanti BBVA Genç Kulüpler Buluşması'nda fotoğrafçımız öğrencileri Instax ile yerinde çekti; fotoğraflar markaya özel magnetli çerçevelerle elden teslim edildi.",
+            metaTitle: "Garanti BBVA Genç Kulüpler Buluşması: Şipşak Fotoğraf",
+            metaDescription: "Garanti BBVA Genç Kulüpler Buluşması'nda fotoğrafçımız öğrencileri Instax ile yerinde çekti, fotoğrafları markaya özel magnetli çerçevelerle elden verdi.",
+            content: `<p>Garanti BBVA Genç X Kulüpler Buluşması'nda üniversite kulüplerinden öğrenciler bir araya geldi. Biz de etkinliğe şipşak fotoğraf aktivasyonuyla katıldık: fotoğrafçımız alanı dolaşarak öğrencileri kulüp arkadaşlarıyla birlikte Instax ile yerinde çekti.</p>
+<h3>Sıra Yok, Kurulum Yok</h3>
+<p>Öğrencilerin bir kabinin önünde sıra beklemesi yerine fotoğrafçı onlara gitti. Kiosk, priz ya da internet gerektirmeyen bu kurgu, sohbetin ve ikramın arasında doğal kareler yakalamamızı sağladı.</p>
+<h3>Elden Teslim, Markalı Hatıra</h3>
+<p>Instax ile çekilen her fotoğraf makineden anında çıktı, Garanti BBVA Genç'e özel tasarlanmış magnetli çerçeveye yerleştirilip öğrenciye elden verildi. Dijital kopya yerine öğrencilerin yanlarında götürebilecekleri tek ve gerçek bir fotoğraf oldu.</p>
+<p>Bu kurguyu kendi etkinliğiniz için incelemek isterseniz: <a href="/hizmetler/photobooth-ve-fotograf-aktivasyonlari/${SLUG}">Şipşak Fotoğraf Aktivasyonu</a>.</p>`,
+            description_en: "At the Garanti BBVA Young Clubs Meeting our photographer shot students on the spot with Instax cameras and handed each photo over in a branded magnetic frame.",
+            metaTitle_en: "Garanti BBVA Young Clubs Meeting: Instant Photo Activation",
+            metaDescription_en: "At the Garanti BBVA Young Clubs Meeting our photographer roamed the venue shooting students on Instax and handed each photo over in a branded magnetic frame.",
+            content_en: `<p>The Garanti BBVA Young Clubs Meeting brought together students from university clubs. We joined with an instant photo activation: our photographer moved through the venue and shot students with their club friends on Instax cameras.</p>
+<h3>No Queue, No Setup</h3>
+<p>Instead of students queuing in front of a booth, the photographer went to them. With no kiosk, socket or internet needed, we caught natural moments between conversations and catering.</p>
+<h3>Handed Over, Branded</h3>
+<p>Every Instax photo came out of the camera instantly, went into a magnetic frame designed for Garanti BBVA Young and was handed to the student. No digital copy: a single, real photo to take home.</p>`,
+        };
+        checkLengths("garanti", next.metaTitle, next.metaDescription);
+        checkLengths("garanti EN", next.metaTitle_en, next.metaDescription_en);
+        const data = diff(`project/${GARANTI}`, project as unknown as Record<string, unknown>, next);
+        if (Object.keys(data).length) writes.push(() => prisma.project.update({ where: { id: project.id }, data }));
+    }
+
     // Photobooth category FAQ
     {
         const report = (answer: string) => answer.replace(/Evet\. Gerçek zamanlı analitik panel[^]*?Etkinlik sonrasında PDF rapor sunulur\./, "Evet. Talep edilirse etkinlik sonrasında rapor hazırlıyoruz.");
