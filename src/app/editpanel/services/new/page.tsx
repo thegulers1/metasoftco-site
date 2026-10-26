@@ -546,6 +546,7 @@ export default function NewServicePage() {
                                 <option value="none">Yok: oyun / etkileşim (QR paylaşım ve çıktı satırı gösterilmez)</option>
                                 <option value="digital">Dijital: QR ile paylaşım + çıktı tasarımı</option>
                                 <option value="print">Dijital + baskı: yukarıdakiler + 750 adet baskı dahil</option>
+                                <option value="instant">Instax: alanda dolaşan fotoğrafçı, magnetli çerçeve (kiosk, QR ve dijital kopya yok)</option>
                             </select>
                         </label>
 

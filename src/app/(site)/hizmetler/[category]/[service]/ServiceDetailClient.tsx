@@ -290,7 +290,7 @@ export default function ServiceDetailClient({
                         <div data-reveal>
                             <h3 className="ms-col-label ms-mono" style={{ margin: 0 }}>{rentalOps.logisticsTitle.toLocaleUpperCase(isEn ? "en-US" : "tr-TR")}</h3>
                             <dl className="ms-dl">
-                                {rentalOps.logistics.map((item) => (
+                                {rentalOps.logistics(output).map((item) => (
                                     <div key={item.term}>
                                         <dt>{item.term}</dt>
                                         <dd>{item.value}</dd>

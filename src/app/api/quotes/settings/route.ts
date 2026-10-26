@@ -3,7 +3,7 @@ import { prisma } from "@/lib/db";
 import { prismaErrorMessage } from "@/lib/apiError";
 import { QUOTE_DEFAULTS_KEY } from "@/lib/quotes";
 
-const OUTPUT_TYPES = new Set(["none", "digital", "print"]);
+const OUTPUT_TYPES = new Set(["none", "digital", "print", "instant"]);
 
 /** Replaces the inclusion list, the shipping table and the default notes in one go. */
 export async function PUT(req: Request) {

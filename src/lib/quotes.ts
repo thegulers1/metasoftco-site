@@ -15,12 +15,13 @@ export type QuoteStatus = (typeof QUOTE_STATUSES)[number]["value"];
 
 export const DEFAULT_VAT_RATE = 20;
 
-export type OutputType = "none" | "digital" | "print";
+export type OutputType = "none" | "digital" | "print" | "instant";
 
 export const OUTPUT_TYPE_LABELS: Record<OutputType, string> = {
     none: "Oyunlar (çıktısız)",
     digital: "Dijital paylaşımlı",
     print: "Baskılı",
+    instant: "Instax (fotoğrafçı, yalnız fiziksel)",
 };
 
 export interface QuoteItem {

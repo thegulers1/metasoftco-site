@@ -53,6 +53,7 @@ const OUTPUT_LABEL: Record<RentalOutput, string> = {
     none: "oyun/etkileşim, çıktı yok",
     digital: "dijital çıktı, QR ile paylaşım",
     print: "dijital çıktı + anında baskı (750 baskı dahil)",
+    instant: "alanda dolaşan fotoğrafçı, Instax ile fiziksel fotoğraf ve magnetli çerçeve; dijital kopya yok",
 };
 
 /** Plain text from editor HTML, trimmed to a sentence-ish length. */
@@ -181,7 +182,7 @@ export async function buildLlmsFullTxt(): Promise<string> {
     const lines = header();
 
     lines.push("## Kiralama nasıl işler?", "");
-    for (const item of ops.logistics) lines.push(`- ${item.term}: ${item.value}`);
+    for (const item of ops.logistics("print")) lines.push(`- ${item.term}: ${item.value}`);
     lines.push(`- ${ops.serviceArea}`, "");
 
     lines.push("## Çözüm sayfaları", "");

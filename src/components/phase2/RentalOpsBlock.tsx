@@ -26,7 +26,7 @@ export function RentalOpsBlock({ copy, contactHref, output }: RentalOpsBlockProp
                     <div>
                         <h3>{copy.logisticsTitle}</h3>
                         <dl className="p2-rentalops__list">
-                            {copy.logistics.map((item) => (
+                            {copy.logistics(output).map((item) => (
                                 <div key={item.term}>
                                     <dt>{item.term}</dt>
                                     <dd>{item.value}</dd>

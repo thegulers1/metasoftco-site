@@ -23,19 +23,21 @@ export const SERVICE_CITIES = [
 /**
  * What a guest takes away, set per service in the editpanel (`outputType`):
  * games produce nothing to share, photo/video activations a digital file,
- * print activations a digital file plus a physical print.
+ * print activations a digital file plus a physical print, and instant-film
+ * services (Şipşak) a physical photo only: a roaming photographer, no kiosk,
+ * no screen, no digital copy.
  */
-export type RentalOutput = "none" | "digital" | "print";
+export type RentalOutput = "none" | "digital" | "print" | "instant";
 
 export function toRentalOutput(value: string | null | undefined): RentalOutput {
-    return value === "digital" || value === "print" ? value : "none";
+    return value === "digital" || value === "print" || value === "instant" ? value : "none";
 }
 
 export interface RentalOpsCopy {
     eyebrow: string;
     title: string;
     logisticsTitle: string;
-    logistics: { term: string; value: string }[];
+    logistics: (output: RentalOutput) => { term: string; value: string }[];
     scopeTitle: string;
     scope: (output: RentalOutput) => string[];
     serviceArea: string;
@@ -52,43 +54,61 @@ const tr: RentalOpsCopy = {
     eyebrow: "Kurumsal kiralama · Anahtar teslim",
     title: "Lojistik, kurulum ve hizmet kapsamı",
     logisticsTitle: "Lojistik ve kurulum",
-    logistics: [
-        { term: "Haber süresi", value: "Etkinlikten 3 gün önce haber vermeniz yeterli." },
-        { term: "Enerji", value: "Tek bir standart 220V priz yeterli." },
-        { term: "İnternet", value: "Kendi 5G mobil altyapımızla gelir; mekânın ağına ihtiyaç duymayız." },
-        { term: "Kurulum", value: "Etkinlikten 1 gün önce ya da etkinlik günü 3–4 saat önce; cihaz başına ortalama 30–40 dakika." },
-        { term: "Saha ekibi", value: "Etkinlik boyunca alanda en az 2 teknik personel." },
-    ],
+    logistics: (output) => output === "instant"
+        ? [
+            { term: "Haber süresi", value: "Etkinlikten 3 gün önce haber vermeniz yeterli." },
+            { term: "Kurulum", value: "Sabit bir kurulum, priz ya da internet gerekmez; fotoğrafçımız alanda dolaşarak çeker." },
+        ]
+        : [
+            { term: "Haber süresi", value: "Etkinlikten 3 gün önce haber vermeniz yeterli." },
+            { term: "Enerji", value: "Tek bir standart 220V priz yeterli." },
+            { term: "İnternet", value: "Kendi 5G mobil altyapımızla gelir; mekânın ağına ihtiyaç duymayız." },
+            { term: "Kurulum", value: "Etkinlikten 1 gün önce ya da etkinlik günü 3–4 saat önce; cihaz başına ortalama 30–40 dakika." },
+            { term: "Saha ekibi", value: "Etkinlik boyunca alanda en az 2 teknik personel." },
+        ],
     scopeTitle: "Hizmet kapsamına dahil",
-    scope: (output) => [
-        "Nakliye, kurulum ve söküm",
-        "Etkinlik boyunca teknik saha personeli",
-        output === "none" ? "Markaya özel oyun ve ekran arayüzü" : "Markaya özel arayüz ve çıktı tasarımı",
-        "Kiosk dış giydirmesi (marka kaplaması)",
-        ...(output === "none" ? [] : ["QR ile anında dijital paylaşım"]),
-        ...(output === "print" ? ["Saniyeler içinde fiziksel baskı, 750 adet baskı dahil"] : []),
-    ],
+    scope: (output) => output === "instant"
+        ? [
+            "Etkinlik boyunca alanda dolaşan fotoğrafçı",
+            "Instax ile anında fiziksel fotoğraf",
+            "Markaya özel tasarlanmış magnetli çerçeve",
+        ]
+        : [
+            "Nakliye, kurulum ve söküm",
+            "Etkinlik boyunca teknik saha personeli",
+            output === "none" ? "Markaya özel oyun ve ekran arayüzü" : "Markaya özel arayüz ve çıktı tasarımı",
+            "Kiosk dış giydirmesi (marka kaplaması)",
+            ...(output === "none" ? [] : ["QR ile anında dijital paylaşım"]),
+            ...(output === "print" ? ["Saniyeler içinde fiziksel baskı, 750 adet baskı dahil"] : []),
+        ],
     serviceArea: `İstanbul Teknokent (Avcılar) merkezli MetasoftCo olarak ${cityList("tr")} başta olmak üzere Türkiye genelindeki kurumsal etkinlik, lansman ve fuarlar için anahtar teslim kurulum sağlıyoruz.`,
     cta: "Etkinlik İçin Teklif Al",
     faq: (serviceTitle, output) => [
-        {
-            q: `${serviceTitle} kiralama fiyatı nasıl belirlenir?`,
-            a: "Fiyat; etkinlik süresi, şehir ve lokasyon, cihaz sayısı ve kişiselleştirme kapsamına göre belirlenir. Tekliflerimiz anahtar teslimdir: nakliye, kurulum, teknik personel ve markaya özel tasarım fiyata dahildir. Etkinlik tarihinizi ve şehrinizi paylaşın, size net bir teklif iletelim.",
-        },
-        {
+        output === "instant"
+            ? {
+                q: `${serviceTitle} fiyatı nasıl belirlenir?`,
+                a: "Fiyat; etkinlik süresi, şehir, fotoğrafçı sayısı ve çerçeve tasarımının kapsamına göre belirlenir. Etkinlik tarihinizi ve şehrinizi paylaşın, size net bir teklif iletelim.",
+            }
+            : {
+                q: `${serviceTitle} kiralama fiyatı nasıl belirlenir?`,
+                a: "Fiyat; etkinlik süresi, şehir ve lokasyon, cihaz sayısı ve kişiselleştirme kapsamına göre belirlenir. Tekliflerimiz anahtar teslimdir: nakliye, kurulum, teknik personel ve markaya özel tasarım fiyata dahildir. Etkinlik tarihinizi ve şehrinizi paylaşın, size net bir teklif iletelim.",
+            },
+        ...(output === "instant" ? [] : [{
             q: "Sistem kapalı alanlarda ve fuarlarda kullanılabilir mi?",
             a: "Evet. Standart 220V prizin bulunduğu kapalı alanlara, fuar standlarına ve lansman alanlarına kurulur. İnterneti kendi 5G altyapımızla getirdiğimiz için mekânın ağına ihtiyaç duymayız. Gereken alan ürüne göre değişir ve teklif aşamasında netleştirilir.",
-        },
+        }]),
         {
             q: "Markaya özel kişiselleştirme yapıyor musunuz?",
-            a: output === "none"
-                ? "Evet. Oyun ve ekran arayüzü ile kioskun dış giydirmesi markanıza özel hazırlanır."
-                : "Evet. Ekran arayüzü, fotoğraf ve çıktı tasarımları ile kioskun dış giydirmesi markanıza özel hazırlanır.",
+            a: output === "instant"
+                ? "Evet. Fotoğrafların yerleştirildiği magnetli çerçeve markanıza özel tasarlanır."
+                : output === "none"
+                    ? "Evet. Oyun ve ekran arayüzü ile kioskun dış giydirmesi markanıza özel hazırlanır."
+                    : "Evet. Ekran arayüzü, fotoğraf ve çıktı tasarımları ile kioskun dış giydirmesi markanıza özel hazırlanır.",
         },
-        {
+        ...(output === "instant" ? [] : [{
             q: "Kurulum ne kadar sürer?",
             a: "Kurulumu etkinlikten 1 gün önce ya da etkinlik günü 3–4 saat önce yaparız; cihaz başına ortalama 30–40 dakika sürer. Etkinlik boyunca alanda en az 2 teknik personelimiz bulunur.",
-        },
+        }]),
         {
             q: "Hangi şehirlerde hizmet veriyorsunuz?",
             a: `İstanbul merkezliyiz ve Türkiye genelinde hizmet veriyoruz. Bugüne kadar ${cityList("tr")} başta olmak üzere birçok şehirde kurulum yaptık. Şehir dışı etkinliklerde ulaşım ve konaklama teklife dahil edilir ya da sizin organizasyonunuzla planlanır.`,
@@ -100,43 +120,61 @@ const en: RentalOpsCopy = {
     eyebrow: "Corporate rental · Turnkey",
     title: "Logistics, setup and what's included",
     logisticsTitle: "Logistics and setup",
-    logistics: [
-        { term: "Notice", value: "Three days before the event is enough." },
-        { term: "Power", value: "A single standard 220V socket is enough." },
-        { term: "Internet", value: "We bring our own 5G connection; no venue network needed." },
-        { term: "Setup", value: "The day before the event or 3–4 hours before doors open; about 30–40 minutes per device." },
-        { term: "On-site crew", value: "At least 2 technicians on site throughout the event." },
-    ],
+    logistics: (output) => output === "instant"
+        ? [
+            { term: "Notice", value: "Three days before the event is enough." },
+            { term: "Setup", value: "No fixed setup, socket or internet needed; our photographer works the room." },
+        ]
+        : [
+            { term: "Notice", value: "Three days before the event is enough." },
+            { term: "Power", value: "A single standard 220V socket is enough." },
+            { term: "Internet", value: "We bring our own 5G connection; no venue network needed." },
+            { term: "Setup", value: "The day before the event or 3–4 hours before doors open; about 30–40 minutes per device." },
+            { term: "On-site crew", value: "At least 2 technicians on site throughout the event." },
+        ],
     scopeTitle: "Included in the service",
-    scope: (output) => [
-        "Transport, setup and teardown",
-        "Technical crew throughout the event",
-        output === "none" ? "Branded game and screen interface" : "Branded interface and output design",
-        "Branded kiosk wrap",
-        ...(output === "none" ? [] : ["Instant digital sharing via QR"]),
-        ...(output === "print" ? ["Physical prints within seconds, 750 prints included"] : []),
-    ],
+    scope: (output) => output === "instant"
+        ? [
+            "A roaming photographer throughout the event",
+            "Instant physical photos shot on Instax",
+            "Branded magnetic frames",
+        ]
+        : [
+            "Transport, setup and teardown",
+            "Technical crew throughout the event",
+            output === "none" ? "Branded game and screen interface" : "Branded interface and output design",
+            "Branded kiosk wrap",
+            ...(output === "none" ? [] : ["Instant digital sharing via QR"]),
+            ...(output === "print" ? ["Physical prints within seconds, 750 prints included"] : []),
+        ],
     serviceArea: `Based at İstanbul Teknokent (Avcılar), MetasoftCo provides turnkey installations for corporate events, launches and trade shows across Türkiye, including ${cityList("en")}.`,
     cta: "Get a Quote for Your Event",
     faq: (serviceTitle, output) => [
-        {
-            q: `How is ${serviceTitle} rental pricing determined?`,
-            a: "Pricing depends on event duration, city and venue, number of devices and the scope of customisation. Our quotes are turnkey: transport, setup, technical crew and branded design are included. Share your event date and city and we will send you a clear quote.",
-        },
-        {
+        output === "instant"
+            ? {
+                q: `How is ${serviceTitle} pricing determined?`,
+                a: "Pricing depends on event duration, city, the number of photographers and the scope of the frame design. Share your event date and city and we will send you a clear quote.",
+            }
+            : {
+                q: `How is ${serviceTitle} rental pricing determined?`,
+                a: "Pricing depends on event duration, city and venue, number of devices and the scope of customisation. Our quotes are turnkey: transport, setup, technical crew and branded design are included. Share your event date and city and we will send you a clear quote.",
+            },
+        ...(output === "instant" ? [] : [{
             q: "Can the system be used indoors and at trade shows?",
             a: "Yes. It can be installed at any indoor venue, trade show stand or launch area with a standard 220V socket. We bring our own 5G connection, so no venue network is needed. The space required depends on the product and is confirmed when we quote.",
-        },
+        }]),
         {
             q: "Do you offer brand customisation?",
-            a: output === "none"
-                ? "Yes. The game and screen interface and the kiosk wrap are designed for your brand."
-                : "Yes. The screen interface, photo and output designs and the kiosk wrap are all designed for your brand.",
+            a: output === "instant"
+                ? "Yes. The magnetic frames the photos go into are designed for your brand."
+                : output === "none"
+                    ? "Yes. The game and screen interface and the kiosk wrap are designed for your brand."
+                    : "Yes. The screen interface, photo and output designs and the kiosk wrap are all designed for your brand.",
         },
-        {
+        ...(output === "instant" ? [] : [{
             q: "How long does setup take?",
             a: "We set up the day before the event or 3–4 hours before doors open; each device takes about 30–40 minutes. At least 2 of our technicians stay on site throughout the event.",
-        },
+        }]),
         {
             q: "Which cities do you serve?",
             a: `We are based in İstanbul and work across Türkiye, with installations so far in ${cityList("en")}, among others. For events outside İstanbul, travel and accommodation are either included in the quote or arranged by your team.`,
