@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { MsCaps, MsCrumbs, MsFacts, MsFaq, MsProse, MsSectionHead, MsWords, splitHtmlSections } from "@/components/site-ms/parts";
-import { MsGallery, MsVideo } from "@/components/site-ms/interactive";
+import { MsGallery, MsVideo, isWideVideo } from "@/components/site-ms/interactive";
 import { dataCaptureCopy } from "@/lib/data-capture";
 import { DATA_CAPTURE_HUB_PATH } from "@/lib/data-capture-hub";
 import { mergeRentalFaq, rentalOpsCopy, rentalProductName, toRentalOutput } from "@/lib/rental-ops";
@@ -40,7 +40,6 @@ function parseJsonList<T>(raw: string | null | undefined): T[] {
 
 const labels = {
     tr: {
-        videoMeta: "SAHADAN · VİDEO",
         aboutMeta: "HİZMET HAKKINDA",
         specsMeta: "TEKNİK ÖZELLİKLER",
         galleryMeta: "GALERİ",
@@ -57,7 +56,6 @@ const labels = {
         cursor: { write: "YAZ", go: "GİT", view: "İNCELE" },
     },
     en: {
-        videoMeta: "ON SITE · VIDEO",
         aboutMeta: "ABOUT THE SERVICE",
         specsMeta: "SPECIFICATIONS",
         galleryMeta: "GALLERY",
@@ -200,22 +198,17 @@ export default function ServiceDetailClient({
                         {t.updated}: {service.updatedAt.toLocaleDateString(isEn ? "en-GB" : "tr-TR", { year: "numeric", month: "long", day: "numeric" })}
                     </p>
                 </div>
-                {service.image && (
-                    <div className="ms-hero__media" data-reveal>
-                        <Image src={service.image} alt={title} fill priority sizes="(max-width: 899px) 100vw, 46vw" />
+                {(service.video || service.image) && (
+                    <div className={`ms-hero__media${service.video && isWideVideo(service.video) ? " ms-hero__media--wide" : ""}`} data-reveal>
+                        {service.video ? (
+                            <MsVideo src={service.video} title={title} poster={service.image} fill />
+                        ) : (
+                            <Image src={service.image!} alt={title} fill priority sizes="(max-width: 899px) 100vw, 46vw" />
+                        )}
                         <span className="ms-hero__tag ms-mono"><MsCaps text={categoryName} /></span>
                     </div>
                 )}
             </section>
-
-            {service.video && (
-                <section className="ms-section" aria-labelledby="ms-video-title">
-                    <MsSectionHead id="ms-video-title" title={copy.videoTitle.replace(/[?.]$/, "")} meta={t.videoMeta} />
-                    <div data-reveal>
-                        <MsVideo src={service.video} title={title} poster={service.image} />
-                    </div>
-                </section>
-            )}
 
             {about && (
                 <section className="ms-section" aria-labelledby="ms-about-title">

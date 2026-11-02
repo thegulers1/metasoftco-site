@@ -1,0 +1,557 @@
+# MetasoftCo — SEO Uygulama Brifi (Yazılımcı İçin)
+
+**Hazırlayan:** SEO/GEO çalışması, 23 Ekim 2026
+**Kaynaklar:** Google Search Console (90 gün), OpenSEO/DataForSEO kelime hacimleri ve rakip sıralamaları (Türkiye, Türkçe), canlı site taraması
+**Arka plan raporu:** `seo-reports/gsc-openseo-geo-20261020.md` (bölüm 6: rakip analizi)
+
+---
+
+## 0. Nasıl kullanılır
+
+- Her görev bir **kimlik** taşır (ör. `T-01`, `P-03`). Commit mesajında bu kimliği kullan.
+- **Nereden değişir** sütunu işin yerini gösterir:
+  - **DB/editpanel:** Değişiklik veritabanında (editpanel'den ya da script ile yapılır).
+  - **Kod:** Değişiklik repoda.
+- ⚠️ işaretli bilgiler, işletmeden **doğrulanmadan yayına alınmamalı**: fiyat, süre, kapasite gibi rakamlar ve hizmetin gerçekten verilip verilmediği.
+- Tüm metinler son halindedir. Doğrudan kopyala-yapıştır yapılabilir. Uzunluk sınırları kontrol edildi: title ≤ 60, meta açıklama ≤ 160 karakter.
+- Her görevin altında **Kabul kriteri** var. Deploy sonrası bu kriterlerle kontrol edilecek.
+
+### Alan sözlüğü (editpanel ↔ veritabanı)
+
+| Brifte geçen | DB alanı | Nerede görünür |
+|---|---|---|
+| SEO title | `metaTitle` / `metaTitle_en` | Tarayıcı sekmesi, Google başlığı |
+| Meta açıklama | `metaDescription` / `metaDescription_en` | Google sonucundaki açıklama |
+| Başlık (H1) | `title` / `title_en` | Sayfadaki ana başlık |
+| Kısa açıklama | `description` / `description_en` | H1 altındaki giriş metni, kart metinleri |
+| Uzun açıklama / gövde | `content` / `content_en` (HTML) | "Hizmet hakkında" bölümü |
+| SSS | `faq` / `faq_en` (JSON: `[{"q":"…","a":"…"}]`) | SSS bölümü + FAQPage schema |
+
+---
+
+## 1. Özet: yapılacaklar listesi
+
+| # | Görev | Tür | Öncelik | Tahmini süre | Hedef kelime (aylık arama) |
+|---|---|---|---|---|---|
+| T-01 | Aura sayfasına "Aura fotoğrafçılığı nedir?" bölümü | DB | Yüksek | 15 dk | aura fotoğrafçılığı (480) |
+| T-02 | Mirror Booth'a iç linkler | Kod + DB | Orta | 30 dk | mirror booth (260) |
+| T-03 | Sitemap: yeni sayfaların tarihleri | Kod | Orta | 10 dk | — |
+| T-04 | Yeni sayfalar sonrası IndexNow + GSC | Operasyon | Orta | 10 dk | — |
+| P-01 | Hediye Çarkı sayfası | DB | **Çok yüksek** | 45 dk | hediye çarkı (1.000), çark sistemi (170) |
+| P-02 | Photobooth Kiralama sayfası | DB | **Çok yüksek** | 45 dk | fotoğraf kabini (880), photo booth kiralama (170) |
+| P-03 | İstanbul Photobooth sayfası | DB | Yüksek | 30 dk | photobooth istanbul (420) |
+| P-04 | İzmir Photobooth sayfası | DB | Orta | 20 dk | photo booth izmir (340) |
+| P-05 | 360 Video Booth sayfası | DB | Yüksek | 45 dk | 360 video booth (480) |
+| P-06 | Mirror Booth sayfası | DB | Orta | 30 dk | mirror booth (260) |
+| N-01 | **Yeni blog:** Photobooth Nedir? | DB (yeni kayıt) | **Çok yüksek** | 1–2 saat | photobooth nedir (480), photo booth nedir (480), booth ne demek (480) |
+| N-02 | **Yeni hizmet:** Şipşak Fotoğraf Aktivasyonu ⚠️ | DB (yeni kayıt) | Yüksek | 1 saat | şipşak fotoğrafçılık (480) |
+| E-01 | EN karşılıklar (title/meta) | DB | Düşük | 30 dk | — |
+
+**Önerilen sıra:** P-01 → P-02 → N-01 → P-03 → P-05 → T-01 → N-02 → P-06 → T-02 → P-04 → E-01 → T-03 → T-04
+
+---
+
+## 2. Teknik görevler
+
+### T-01 — Aura sayfasına "nedir" bölümü
+**URL:** `/hizmetler/photobooth-ve-fotograf-aktivasyonlari/aura-photobooth-kiralama`
+**Nereden:** DB, Service `slug = aura-photobooth-kiralama`, alan: `content`
+
+Mevcut `content` alanının **en başına** aşağıdaki HTML'i ekle. Başlık şu an sadece SSS'te geçiyor; Google'ın tanım olarak alabilmesi için gövdede H2 olarak bulunması gerekiyor.
+
+```html
+<h2>Aura Fotoğrafçılığı Nedir?</h2>
+<p>Aura fotoğrafçılığı, kişinin o anki fizyolojik verilerini renkli bir ışık alanı (aura) olarak fotoğrafa yansıtan bir çekim tekniğidir. Katılımcı ellerini biofeedback sensörlerinin üzerine koyar; sensörler cilt iletkenliği ve sıcaklık gibi anlık verileri okur, yazılım da bu verileri renklere çevirerek kişinin portresinin çevresine yerleştirir. Her renk farklı bir ruh hâliyle eşleştirilir; bu yüzden aynı kişi bile farklı anlarda farklı bir aura fotoğrafı alabilir.</p>
+<p>Etkinliklerde aura photobooth, sıradan bir fotoğraf kabininden farklı olarak katılımcıya "kendine özel" bir sonuç ve kısa bir renk yorumu verir. Bu yüzden özellikle güzellik, wellness, moda ve lansman etkinliklerinde uzun süre konuşulan, sosyal medyada paylaşılan bir aktivasyondur. Fotoğraf saniyeler içinde basılır ve QR kod ile dijital olarak da paylaşılır.</p>
+```
+
+**Kabul kriteri:** Sayfa kaynağında `<h2>Aura Fotoğrafçılığı Nedir?</h2>` gövde içinde (SSS dışında) bir kez geçiyor.
+
+---
+
+### T-02 — Mirror Booth'a iç linkler
+**Sorun:** "mirror booth kiralama" aramasında Google, asıl sayfa yerine `/hizmetler` sayfasını 37. sırada gösteriyor. Asıl sayfa indekste, ama başka sayfalardan yeterince link almıyor.
+
+Yapılacaklar:
+1. **Photobooth kategori sayfası** (`/hizmetler/photobooth-ve-fotograf-aktivasyonlari`): Kategori `content` alanındaki giriş paragrafına şu cümleyi ekle:
+   `Ayna ekranlı, sesli yönlendirmeli bir deneyim isteyenler için <a href="/hizmetler/photobooth-ve-fotograf-aktivasyonlari/mirror-booth">Mirror Booth kiralama</a> seçeneğimizi inceleyebilirsiniz.`
+2. **Photobooth Kiralama sayfası** (P-02): Bu dokümandaki yeni gövde metninde Mirror Booth'a link zaten var.
+3. **Yeni "Photobooth Nedir?" rehberi** (N-01): Türler tablosunda Mirror Booth'a link var.
+4. **Kod (isteğe bağlı):** Hizmet detay sayfalarındaki "Bunlar da ilginizi çekebilir" bloğu photobooth kategorisinde Mirror Booth'u öne alabiliyorsa, sırasını yukarı çek.
+
+**Kabul kriteri:** En az 3 farklı sayfada "Mirror Booth kiralama" metinli ve mirror-booth URL'sine giden bir `<a>` linki var.
+
+---
+
+### T-03 — Sitemap
+**Dosya:** `src/app/sitemap.ts`
+
+- **DB'den gelen sayfalar** (N-01 blog, N-02 hizmet): Sitemap'e `updatedAt` ile otomatik giriyorlar; ekstra iş yok. Yayın sonrası sitemap'te göründüklerini kontrol et.
+- **Koddan gelen sayfalar:** Koddan gelen bir sayfa (ana sayfa, hakkımızda vb.) bu iş paketinde değişirse, ilgili satırın tarihini `codePageUpdates` içinde güncelle.
+
+**Kabul kriteri:** `https://www.metasoftco.com/sitemap.xml` içinde `/blog/photobooth-nedir` adresi ve (yayınlandıysa) şipşak sayfası var. `lastmod` değerleri yayın tarihini gösteriyor.
+
+---
+
+### T-04 — Yayın sonrası bildirim
+1. **IndexNow:** Değişen tüm URL'leri gönder. Anahtar dosyası `public/0425fca405c94930adf79174658dadaf.txt` yerinde kalmalı. Bu adımı OpenSEO üzerinden SEO tarafı yapabilir; listeyi ona ilet.
+2. **GSC:** URL Denetimi → "Dizine eklenmesini iste". Yalnızca şu 4 sayfa için: hediye çarkı, photobooth kiralama, photobooth nedir, 360 video booth.
+
+---
+
+## 3. Mevcut sayfa güncellemeleri
+
+> Her sayfa için alanlar sırayla verildi. "Değiştirme" yazan alanlara dokunma.
+
+### P-01 — Hediye Çarkı  ★ en hızlı kazanım
+**URL:** `/hizmetler/interaktif-etkinlik-aktiviteleri/dijital-hediye-carki-aktivasyonu` (değişmiyor)
+**Nereden:** DB, Service `slug = dijital-hediye-carki-aktivasyonu`
+**Neden:**
+- "hediye çarkı" ayda 1.000 aranıyor ve rakipler zayıf: en iyisi 1fikir1marka, 10. sırada.
+- Bizim sayfanın H1'i İngilizce ("Digital Gift Wheel Kiralama") ve sayfa "hediye çarkı" ifadesini başlıkta kullanmıyor.
+
+| Alan | Yeni değer |
+|---|---|
+| SEO title (55) | `Hediye Çarkı Kiralama \| Dijital Çarkıfelek — MetasoftCo` |
+| Meta açıklama (154) | `Etkinlik ve fuarlar için hediye çarkı kiralama: dokunmatik ekranlı dijital çarkıfelek, markalı tasarım, isteğe bağlı form ile lead toplama. Kurulum dahil.` |
+| Başlık (H1) | `Hediye Çarkı Kiralama` |
+| Kısa açıklama | `Ziyaretçiler dokunmatik ekrandaki dijital çarkı çevirir, kazandığı hediye saniyeler içinde ekranda belirir. Fuar standında, mağaza açılışında ve lansmanda hem kuyruk oluşturan hem de katılımcı verisi toplayan bir oyun.` |
+
+**Uzun açıklama (`content`), mevcut metnin tamamının yerine:**
+
+```html
+<h2>Hediye Çarkı Nedir?</h2>
+<p>Hediye çarkı (dijital çarkıfelek), etkinlik ziyaretçilerinin dokunmatik bir ekrandaki çarkı çevirerek hediye kazandığı interaktif bir oyundur. Çark birkaç saniye döner, yavaşlar ve durduğu dilimdeki ödül ekranda gösterilir. Klasik çekilişin heyecanını taşır ama fiziksel çarkın ağırlığı, kurulumu ve "hileli mi" tartışması yoktur.</p>
+
+<h2>Etkinlikte Nasıl Çalışır?</h2>
+<ol>
+<li><strong>Katılım:</strong> Ziyaretçi ekrana dokunur. İsterseniz önce QR kodu okutup kısa bir form doldurur (ad, e-posta, telefon, KVKK onayı).</li>
+<li><strong>Çevirme:</strong> Çark markanızın renkleri ve logosuyla döner; ses ve animasyon stant önünde merak uyandırır.</li>
+<li><strong>Sonuç:</strong> Kazanılan hediye ekranda gösterilir, ekibiniz ödülü teslim eder.</li>
+<li><strong>Raporlama:</strong> Form açıksa kayıtlar CRM altyapımıza anlık düşer; etkinlik boyunca müşteri panelinden takip edilir, Excel/CSV olarak indirilir.</li>
+</ol>
+
+<h2>Neden Fuar ve Etkinliklerde Tercih Ediliyor?</h2>
+<ul>
+<li><strong>Stant trafiği:</strong> Dönen çark ve kazanma anı, uzaktan bile dikkat çeker ve sıra oluşturur.</li>
+<li><strong>Kontrollü hediye dağıtımı:</strong> Dilimler ve hediye türleri etkinlik öncesinde birlikte belirlenir. ⚠️ (Stok/olasılık ayarı yapılabiliyorsa şu cümleyi ekleyin: "Her hediyenin çıkma oranı ve adedi önceden ayarlanır, stok bittiğinde dilim otomatik kapanır.")</li>
+<li><strong>Lead toplama:</strong> Oyunu oynamak için form doldurma şartı eklendiğinde çark, nitelikli katılımcı verisi toplayan bir araca dönüşür.</li>
+<li><strong>Tamamen markalı:</strong> Çark dilimleri, arka plan, kazanma ekranı ve kiosk kaplaması markanıza özel tasarlanır.</li>
+</ul>
+
+<h2>Kurulum ve Hizmet Kapsamı</h2>
+<p>Kiralama anahtar teslimdir: kiosk, nakliye, kurulum, söküm, markaya özel arayüz tasarımı ve etkinlik boyunca alanda en az iki teknik personel fiyata dahildir. Mekândan yalnızca tek bir 220V priz bekleriz; internet kendi 5G altyapımızla gelir. Kurulum etkinlikten bir gün önce ya da etkinlik günü 3–4 saat önce yapılır.</p>
+
+<p>Benzer oyunlar: <a href="/hizmetler/interaktif-etkinlik-aktiviteleri/reflex-game-hiz-ve-rekabet-oyunu">Reflex Game</a>, <a href="/hizmetler/interaktif-etkinlik-aktiviteleri/quiz-bilgi-yarismasi">Quiz Bilgi Yarışması</a>, <a href="/hizmetler/interaktif-etkinlik-aktiviteleri">tüm interaktif etkinlik oyunları</a>. Örnek proje: <a href="/projeler/pegasus-hava-yollari-x-dijital-hediye-carki-aktivasyonu">Pegasus Hava Yolları × Dijital Hediye Çarkı</a>.</p>
+```
+
+**SSS (`faq`), mevcut sorular korunup bu 5 soru başa eklenecek:**
+
+```json
+[
+  {"q":"Hediye çarkı nedir?","a":"Hediye çarkı, etkinlik ziyaretçilerinin dokunmatik ekrandaki dijital çarkı çevirerek hediye kazandığı interaktif bir oyundur. Çark durduğunda kazanılan ödül ekranda gösterilir."},
+  {"q":"Hediye çarkı kiralama fiyatı neye göre belirlenir?","a":"Fiyat; etkinlik süresi ve gün sayısı, şehir, markaya özel tasarım kapsamı ve form/lead toplama gibi ek özelliklere göre belirlenir. Kurulum, söküm ve saha personeli fiyata dahildir. Etkinlik tarihi ve şehrinizi paylaşırsanız aynı gün teklif hazırlarız."},
+  {"q":"Çarktaki hediyeleri ve dilimleri biz mi belirliyoruz?","a":"Evet. Dilim sayısı, hediye türleri ve çarkın tasarımı etkinlik öncesinde sizinle birlikte belirlenir; çark markanızın renkleri ve logosuyla hazırlanır."},
+  {"q":"Hediye çarkı ile katılımcı verisi toplanabilir mi?","a":"Evet. Çarkı çevirmeden önce QR ile kısa bir form doldurma adımı eklenebilir. Kayıtlar KVKK onayıyla alınır, etkinlik boyunca müşteri panelinden izlenir ve Excel/CSV olarak indirilir."},
+  {"q":"Hediye çarkı için ne kadar alan ve ne gerekir?","a":"Tek bir kiosk alanı ve standart bir 220V priz yeterlidir. İnternet bağlantısını kendi 5G altyapımızla sağlıyoruz; kurulum ve söküm ekibimiz tarafından yapılır."}
+]
+```
+
+**Kabul kriteri:**
+- `<title>` "Hediye Çarkı Kiralama" ile başlıyor.
+- H1 = "Hediye Çarkı Kiralama".
+- Gövdede "Hediye Çarkı Nedir?" H2'si var.
+- FAQPage schema'da 5 yeni soru var.
+
+---
+
+### P-02 — Photobooth Kiralama  ★ en büyük ticari kelime
+**URL:** `/hizmetler/photobooth-ve-fotograf-aktivasyonlari/photobooth-kirala` (değişmiyor)
+**Nereden:** DB, Service `slug = photobooth-kirala`
+**Neden:**
+- "fotoğraf kabini" ayda 880 aranıyor; Hatıra Atölyesi 3., Harikalar 8. sırada.
+- "photo booth kiralama" ayda 170 aranıyor ve tıklama başı maliyeti 1,9 $.
+- Bizim sayfada "fotoğraf kabini" ifadesi **hiç geçmiyor**.
+
+| Alan | Yeni değer |
+|---|---|
+| SEO title (59) | `Photobooth Kiralama \| Fotoğraf Kabini Kiralama — MetasoftCo` |
+| Meta açıklama (153) | `Etkinlik için photobooth (fotoğraf kabini) kiralama: fotoğraf, GIF, Boomerang, anında baskı ve QR paylaşım. 2 m² alan yeterli; kurulum ve personel dahil.` |
+| Başlık (H1) | `Photobooth Kiralama` (değiştirme) |
+| Kısa açıklama | `Photobooth, yani fotoğraf kabini; misafirlerin kendi fotoğraflarını çekip saniyeler içinde baskı aldığı kompakt bir kiosk. Fotoğraf, GIF ve Boomerang modları, sihirli arka plan ve markaya özel çerçeveyle kurumsal etkinlik, lansman ve fuarlarda.` |
+
+**Uzun açıklama (`content`), mevcut "01–04" bölümleri korunacak; en başa şu iki bölüm, en sona üçüncü bölüm eklenecek:**
+
+En başa:
+```html
+<h2>Fotoğraf Kabini (Photobooth) Nedir?</h2>
+<p>Fotoğraf kabini, Türkçede yaygın adıyla photobooth, katılımcıların kamera, ekran ve baskı makinesinden oluşan bir kiosk ile kendi fotoğraflarını çektiği bir etkinlik aktivasyonudur. Misafir ekrandan modu seçer, geri sayımla poz verir, fotoğraf saniyeler içinde markaya özel çerçeveyle basılır ve QR kod ile telefonuna da iner. Ayrıntılı rehber için: <a href="/blog/photobooth-nedir">Photobooth nedir?</a></p>
+
+<h2>Photobooth Kiralama Neleri Kapsar?</h2>
+<ul>
+<li>Kompakt photobooth kiosku (2 m² alan yeterli), kamera, ışık ve baskı makinesi</li>
+<li>Fotoğraf, GIF ve Boomerang çekim modları; sihirli arka plan (greenbox) ve filtreler</li>
+<li>Markaya özel baskı çerçevesi, karşılama ekranı ve kiosk kaplaması</li>
+<li>Anında fiziksel baskı (pakete 750 baskı dahil) ve QR ile dijital paylaşım</li>
+<li>Nakliye, kurulum, söküm ve etkinlik boyunca en az iki teknik personel</li>
+</ul>
+```
+
+En sona:
+```html
+<h2>Hangi Photobooth Türü Size Uygun?</h2>
+<p>Klasik photobooth hızlı, kompakt ve her mekâna uyar. Daha gösterişli bir sahne isteyenler için <a href="/hizmetler/photobooth-ve-fotograf-aktivasyonlari/mirror-booth">Mirror Booth kiralama</a> (ayna ekranlı), hareketli içerik için <a href="/hizmetler/video/360-video-booth">360 Video Booth</a>, katılımcıyı başka bir karaktere dönüştürmek için <a href="/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photobooth-kirala">AI Photobooth</a> seçeneklerimiz var. Fiyatlandırmayı belirleyen etkenleri <a href="/blog/photobooth-kiralama-fiyati-neye-gore-belirlenir">bu yazımızda</a> anlattık.</p>
+```
+
+**SSS, başa eklenecek 4 soru:**
+
+```json
+[
+  {"q":"Fotoğraf kabini ile photobooth aynı şey mi?","a":"Evet. Photobooth, fotoğraf kabininin İngilizce adıdır. Etkinliklerde kullanılan modern photobooth'lar kapalı kabin yerine açık bir kiosk şeklindedir ve fotoğrafın yanında GIF, Boomerang ve dijital paylaşım da sunar."},
+  {"q":"Photobooth kiralama fiyatı neye göre belirlenir?","a":"Etkinlik süresi, gün sayısı, şehir, baskı adedi ve markaya özel tasarım kapsamı fiyatı belirler. Kurulum, söküm ve saha personeli fiyata dahildir. Etkinlik tarihi ve şehrinizle aynı gün teklif hazırlarız."},
+  {"q":"Photobooth için ne kadar alan gerekir?","a":"Kompakt photobooth için yaklaşık 2 m² alan ve standart bir 220V priz yeterlidir. İnternet bağlantısını kendi 5G altyapımızla sağlıyoruz."},
+  {"q":"Fotoğraflar misafirlere nasıl teslim edilir?","a":"Fotoğraf saniyeler içinde markaya özel çerçeveyle basılır; aynı anda QR kod ile misafirin telefonuna dijital olarak iner. Pakete 750 baskı dahildir."}
+]
+```
+
+**Kabul kriteri:**
+- Title'da "Fotoğraf Kabini Kiralama" geçiyor.
+- Gövdede "Fotoğraf Kabini (Photobooth) Nedir?" H2'si var.
+- Mirror Booth, 360, AI Photobooth ve /blog/photobooth-nedir sayfalarına link var.
+
+---
+
+### P-03 — İstanbul Photobooth
+**URL:** `/hizmetler/istanbul-ai-photobooth` (değişmiyor; URL'yi değiştirmeyin, sıralama geçmişi var)
+**Nereden:** DB, SectorPage `slug = istanbul-ai-photobooth`
+**Neden:**
+- "photobooth istanbul" ve "photo booth istanbul" ayda toplam 420 aranıyor, yıllık %136 artışta ve tıklama başı maliyeti 3,3 $.
+- Hatıra Atölyesi 5–7. sırada.
+- Sayfamız yalnızca "AI Photobooth" diyor.
+
+| Alan | Yeni değer |
+|---|---|
+| SEO title (58) | `Photobooth İstanbul \| AI ve Klasik Photobooth — MetasoftCo` |
+| Meta açıklama (156) | `İstanbul'da photobooth kiralama: AI, klasik, mirror ve 360 booth. Maslak, Levent, Ataşehir, Kadıköy ve tüm ilçelerde kurulum, markalı tasarım ve saha ekibi.` |
+| Başlık (H1) | `İstanbul Photobooth Kiralama: AI, Klasik ve 360 Booth` |
+| Kısa açıklama | `İstanbul Teknokent'teki ekibimizle şehrin her iki yakasında kurumsal etkinlik, lansman, fuar ve AVM aktivasyonları için AI photobooth, klasik photobooth, mirror booth ve 360 video booth kuruyoruz.` |
+
+**Gövdeye eklenecek bölüm** (mevcut "01 İstanbul'da AI Photobooth…" bölümünden hemen sonra):
+
+```html
+<h2>İstanbul'da Kiralayabileceğiniz Photobooth Türleri</h2>
+<ul>
+<li><a href="/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photobooth-kirala">AI Photobooth</a>: misafiri saniyeler içinde markanıza özel bir karaktere ya da sahneye dönüştürür.</li>
+<li><a href="/hizmetler/photobooth-ve-fotograf-aktivasyonlari/photobooth-kirala">Klasik photobooth (fotoğraf kabini)</a>: fotoğraf, GIF, Boomerang ve anında baskı.</li>
+<li><a href="/hizmetler/photobooth-ve-fotograf-aktivasyonlari/mirror-booth">Mirror Booth</a>: dokunmatik ayna ekranlı, sesli yönlendirmeli çekim.</li>
+<li><a href="/hizmetler/video/360-video-booth">360 Video Booth</a>: dönen kamerayla yavaş çekim 360 derece video.</li>
+</ul>
+<p>İstanbul içi etkinliklerde kurulumu genellikle etkinlik günü 3–4 saat önce yapıyoruz; 3 gün önceden haber vermeniz yeterli.</p>
+```
+
+**SSS, başa eklenecek:**
+```json
+[
+  {"q":"İstanbul'da photobooth kiralama hangi ilçelerde yapılıyor?","a":"İstanbul'un tüm ilçelerinde kurulum yapıyoruz; Maslak, Levent, Ataşehir, Şişli, Beşiktaş ve Kadıköy başta olmak üzere oteller, plazalar, fuar alanları ve AVM'lerde düzenli olarak çalışıyoruz."},
+  {"q":"İstanbul'da photobooth için kaç gün önceden rezervasyon yapmalıyım?","a":"3 gün önceden haber vermeniz yeterli; yoğun dönemlerde (yıl sonu, bayram öncesi) daha erken iletişime geçmenizi öneririz. Teklif aynı gün hazırlanır."}
+]
+```
+
+**Kabul kriteri:** Title "Photobooth İstanbul" ile başlıyor ve sayfada 4 booth türüne link var.
+
+---
+
+### P-04 — İzmir Photobooth
+**URL:** `/hizmetler/izmir-photobooth-kiralama`
+**Nereden:** DB, SectorPage `slug = izmir-photobooth-kiralama`
+
+| Alan | Yeni değer |
+|---|---|
+| SEO title (52) | `Photo Booth İzmir \| Photobooth Kiralama — MetasoftCo` |
+| Meta açıklama (151) | `İzmir'de photo booth kiralama: AI photobooth, klasik fotoğraf kabini ve 360 video booth. Kurumsal etkinlik ve fuarlar için kurulum ve saha ekibi dahil.` |
+| Başlık (H1) | `İzmir Photobooth ve Etkinlik Teknolojisi Kiralama` (değiştirme) |
+
+**Gövdeye eklenecek cümle** (ilk paragrafın sonuna):
+`İzmir'de Turkcell başta olmak üzere kurumsal markaların etkinliklerinde kurulum yaptık.`
+
+**Kabul kriteri:** Title "Photo Booth İzmir" ile başlıyor.
+
+---
+
+### P-05 — 360 Video Booth
+**URL:** `/hizmetler/video/360-video-booth`
+**Nereden:** DB, Service `slug = 360-video-booth`
+**Neden:**
+- "360 video booth" ayda 480 aranıyor; wideo360 10., fotokabin 12., Hatıra Atölyesi 14. sırada.
+- Biz yaklaşık 52. sıradayız. Sayfa ince ve SSS'i zayıf.
+
+| Alan | Yeni değer |
+|---|---|
+| SEO title (53) | `360 Video Booth Kiralama \| 360 Derece Video Platformu` |
+| Meta açıklama (152) | `360 video booth kiralama: dönen kamerayla yavaş çekim 360 derece video, markalı grafikler, QR ile anında paylaşım. 3 m² alan; kurulum ve personel dahil.` |
+| Başlık (H1) | `360 Video Booth Kiralama` (değiştirme) |
+
+**Uzun açıklama, en başa eklenecek:**
+```html
+<h2>360 Video Booth Nedir?</h2>
+<p>360 video booth, katılımcının yuvarlak bir platformun üzerinde durduğu ve bir kollu kameranın etrafında dönerek çekim yaptığı video aktivasyonudur. Birkaç saniyelik poz ya da dans, yavaş çekim, hız rampası, müzik ve markalı grafiklerle birleşerek sosyal medyada paylaşılmaya hazır kısa bir videoya dönüşür. Video QR kod ile katılımcının telefonuna anında iner.</p>
+
+<h2>360 Video Booth Nasıl Çalışır?</h2>
+<ol>
+<li>Katılımcı (tek kişi ya da küçük bir grup) platforma çıkar. ⚠️ Platform kapasitesini doğrulayın: "aynı anda X kişiye kadar".</li>
+<li>Operatör çekimi başlatır, kamera kolu katılımcının etrafında döner. ⚠️ Çekim süresini doğrulayın: "yaklaşık X saniye".</li>
+<li>Yazılım yavaş çekim, müzik ve marka grafiklerini otomatik ekler.</li>
+<li>Video, yanındaki ekranda gösterilir ve QR kod ile telefona iner.</li>
+</ol>
+```
+
+**SSS, başa eklenecek:**
+```json
+[
+  {"q":"360 video booth nedir?","a":"360 video booth, katılımcının bir platformda durduğu ve etrafında dönen kamerayla yavaş çekim 360 derece video çekildiği etkinlik aktivasyonudur. Video markalı grafiklerle hazırlanır ve QR kod ile anında paylaşılır."},
+  {"q":"360 video booth için ne kadar alan gerekir?","a":"Platform ve kameranın dönüş alanı için yaklaşık 3 m² alan ve standart bir 220V priz yeterlidir."},
+  {"q":"360 videolar misafirlere nasıl ulaşır?","a":"Video hazırlandıktan sonra ekrandaki QR kodu okutan katılımcı videoyu telefonuna indirir ve doğrudan sosyal medyada paylaşabilir."},
+  {"q":"360 video booth hangi etkinlikler için uygun?","a":"Ürün lansmanları, yıl sonu partileri, gala geceleri, festivaller ve marka aktivasyonları için uygundur; hareketli ve paylaşılabilir içerik üretmek isteyen her etkinlikte kalabalık çeker."}
+]
+```
+
+**Kabul kriteri:** Gövdede "360 Video Booth Nedir?" H2'si var ve SSS en az 4 soru içeriyor.
+
+---
+
+### P-06 — Mirror Booth
+**URL:** `/hizmetler/photobooth-ve-fotograf-aktivasyonlari/mirror-booth`
+**Nereden:** DB, Service `slug = mirror-booth`
+
+| Alan | Yeni değer |
+|---|---|
+| SEO title (54) | `Mirror Booth Kiralama \| Aynalı Photobooth — MetasoftCo` (değiştirme) |
+| Meta açıklama (150) | `Mirror booth kiralama: dokunmatik ayna ekran, sesli yönlendirme, ayna üzerine imza, anında baskı ve QR paylaşım. 4 m² alan; kurulum ve personel dahil.` |
+
+**Uzun açıklama, en başa:**
+```html
+<h2>Mirror Booth Nedir?</h2>
+<p>Mirror booth, boy aynası görünümünde dokunmatik bir ekranın arkasına kamera yerleştirilmiş bir photobooth türüdür. Ayna, katılımcıyı animasyonlar ve sesli komutlarla karşılar, poz vermeye yönlendirir, çekimden sonra fotoğrafın üzerine doğrudan ayna üzerinden imza ya da not ekletir. Fotoğraf saniyeler içinde basılır ve QR kod ile telefona iner. Klasik <a href="/hizmetler/photobooth-ve-fotograf-aktivasyonlari/photobooth-kirala">photobooth kiralama</a> seçeneğine göre daha gösterişli bir sahne yaratır; gala, düğün ve lansmanlarda öne çıkar.</p>
+```
+
+**SSS, başa eklenecek:**
+```json
+[
+  {"q":"Mirror booth nedir?","a":"Mirror booth, dokunmatik bir ayna ekranın arkasında kamera bulunan photobooth türüdür. Ayna katılımcıyı animasyon ve sesli komutlarla yönlendirir; fotoğraf anında basılır ve QR ile paylaşılır."},
+  {"q":"Mirror booth ile klasik photobooth arasındaki fark nedir?","a":"Klasik photobooth kompakt bir kiosk ve ekrandan oluşur. Mirror booth ise boy aynası formunda, daha gösterişli bir sahne kurar; sesli yönlendirme ve ayna üzerine imza gibi etkileşimler sunar. Yaklaşık 4 m² alan gerektirir."}
+]
+```
+
+**Kabul kriteri:** Gövdede "Mirror Booth Nedir?" H2'si var ve photobooth-kirala sayfasına link veriyor.
+
+---
+
+## 4. Yeni sayfalar
+
+### N-01 — Yeni blog yazısı: "Photobooth Nedir?"  ★ en büyük bilgi trafiği
+**Neden:**
+- "photobooth nedir", "photo booth nedir" ve "booth ne demek" her biri ayda 480 aranıyor; toplam yaklaşık 1.440 arama. Aramalar yıllık %177 artışta.
+- fotokabinturkiye 4., wideo360 5. sırada.
+- Bu sorgularda Google AI Overview çıkıyor. İlk 50 kelimedeki tanım bloğu, oraya girmek için yazıldı.
+
+**Kayıt bilgileri (BlogPost, yeni):**
+
+| Alan | Değer |
+|---|---|
+| `slug` | `photobooth-nedir` |
+| URL | `/blog/photobooth-nedir` |
+| `title` (H1) | `Photobooth Nedir? Çeşitleri, Nasıl Çalışır ve Etkinlikte Nasıl Kullanılır?` |
+| `metaTitle` (54) | `Photobooth Nedir? Booth Ne Demek? Türleri ve Kullanımı` |
+| `metaDescription` (156) | `Photobooth (fotoğraf kabini), misafirlerin kendi fotoğrafını çekip anında baskı aldığı kiosktur. Booth ne demek, türleri neler, etkinlikte nasıl kullanılır?` |
+| `excerpt` | `Photobooth, Türkçesiyle fotoğraf kabini; misafirlerin kendi fotoğrafını çekip saniyeler içinde baskı ve dijital kopya aldığı bir etkinlik kioskudur. Booth kelimesinin anlamını, photobooth türlerini, nasıl çalıştığını ve etkinliğe göre doğru seçimi anlatıyoruz.` |
+| `author` | `Selami Güler` |
+| `category` | Mevcut "Etkinlik Teknolojileri" kategorisi |
+| `metaKeywords` | `photobooth nedir, photo booth nedir, booth ne demek, fotoğraf kabini, photobooth kiralama, photobooth çeşitleri` |
+| `image` / `ogImage` | Yeni görsel: klasik photobooth + baskı çıktısı (1200×630). Alt metin: `Etkinlikte photobooth ile fotoğraf çektiren misafirler ve anında basılan fotoğraf` |
+| `serviceIds` | photobooth-kirala, mirror-booth, 360-video-booth, ai-photobooth-kirala |
+| `published` | true |
+
+**İçerik (`content`), HTML:**
+
+```html
+<p><strong>Photobooth nedir?</strong> Photobooth (Türkçesiyle fotoğraf kabini), misafirlerin kamera, ekran ve baskı makinesinden oluşan bir kiosk ile kendi fotoğraflarını çektiği, sonucu saniyeler içinde basılı ve dijital olarak aldığı bir etkinlik aktivasyonudur. Düğünlerden kurumsal etkinliklere, fuarlardan mağaza açılışlarına kadar her yerde kullanılır. Bu rehberde "booth" kelimesinin anlamını, photobooth türlerini, nasıl çalıştığını ve etkinliğinize göre hangisini seçmeniz gerektiğini anlatıyoruz.</p>
+
+<h2>Booth Ne Demek?</h2>
+<p>İngilizce "booth" kelimesi; kabin, küçük bölme ya da stant anlamına gelir. Fuarlardaki standlara da "booth" denir. "Photo booth" ise kelime anlamıyla "fotoğraf kabini"dir. Eskiden perdeli, içine girilen kapalı kabinleri anlatırken bugün etkinliklerde kullanılan photobooth'ların çoğu açık kiosk şeklindedir; misafir kabine girmez, ekranın karşısında poz verir.</p>
+
+<h2>Photobooth Nasıl Çalışır?</h2>
+<ol>
+<li><strong>Mod seçimi:</strong> Misafir dokunmatik ekrandan fotoğraf, GIF ya da Boomerang modunu seçer.</li>
+<li><strong>Geri sayım ve çekim:</strong> Ekrandaki geri sayımla poz verir; kamera ve ışık otomatik çalışır.</li>
+<li><strong>Düzenleme:</strong> Fotoğraf markaya özel çerçeveye yerleştirilir; istenirse arka plan değiştirilir (greenbox) ya da filtre uygulanır.</li>
+<li><strong>Teslim:</strong> Fotoğraf saniyeler içinde basılır, QR kod ile misafirin telefonuna da iner.</li>
+</ol>
+
+<h2>Photobooth Çeşitleri</h2>
+<table>
+<thead><tr><th>Tür</th><th>Nasıl bir deneyim?</th><th>Çıktı</th><th>En uygun etkinlik</th></tr></thead>
+<tbody>
+<tr><td><a href="/hizmetler/photobooth-ve-fotograf-aktivasyonlari/photobooth-kirala">Klasik photobooth</a></td><td>Kompakt kiosk; fotoğraf, GIF, Boomerang</td><td>Baskı + QR</td><td>Her tür etkinlik, dar alanlar</td></tr>
+<tr><td><a href="/hizmetler/photobooth-ve-fotograf-aktivasyonlari/mirror-booth">Mirror booth</a></td><td>Boy aynası formunda dokunmatik ekran, sesli yönlendirme</td><td>Baskı + QR</td><td>Gala, düğün, lansman</td></tr>
+<tr><td><a href="/hizmetler/video/360-video-booth">360 video booth</a></td><td>Platformda dönen kamerayla yavaş çekim video</td><td>Video + QR</td><td>Parti, festival, lansman</td></tr>
+<tr><td><a href="/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photobooth-kirala">AI photobooth</a></td><td>Yapay zekâ misafiri bir karaktere ya da sahneye dönüştürür</td><td>Baskı + QR</td><td>Kurumsal etkinlik, marka aktivasyonu</td></tr>
+<tr><td><a href="/hizmetler/photobooth-ve-fotograf-aktivasyonlari/aura-photobooth-kiralama">Aura photobooth</a></td><td>Biofeedback sensörleriyle kişiye özel renkli aura fotoğrafı</td><td>Baskı + QR</td><td>Güzellik, wellness, moda</td></tr>
+<tr><td><a href="/hizmetler/video/gif-video-booth">GIF &amp; video booth</a></td><td>Hareketli GIF, Boomerang ve kısa video</td><td>Dijital</td><td>Sosyal medya odaklı aktivasyonlar</td></tr>
+</tbody>
+</table>
+
+<h2>Photobooth ile Fotoğraf Kabini Arasındaki Fark</h2>
+<p>Teknik olarak aynı şeydir; "fotoğraf kabini" Türkçe karşılığıdır. Günlük kullanımda "fotoğraf kabini" daha çok AVM'lerdeki ve sokaklardaki jetonlu, kapalı makineleri; "photobooth" ise etkinlik için kiralanan, markaya özel tasarlanan açık kioskları anlatmak için kullanılır.</p>
+
+<h2>Etkinliklerde Photobooth Ne İşe Yarar?</h2>
+<ul>
+<li><strong>Katılım:</strong> Misafirler sırayla değil, kendiliğinden toplanır; etkinlik alanında doğal bir buluşma noktası oluşur.</li>
+<li><strong>Hatıra:</strong> Basılı fotoğraf eve götürülen, markanın logosunu taşıyan somut bir hatıradır.</li>
+<li><strong>Sosyal medya:</strong> QR ile telefona inen fotoğraf ve GIF'ler etkinlik süresince paylaşılır; marka organik erişim kazanır.</li>
+<li><strong>Veri:</strong> İsteğe bağlı kısa bir formla (KVKK onaylı) katılımcı bilgileri toplanabilir.</li>
+</ul>
+
+<h2>Etkinliğiniz İçin Doğru Photobooth Nasıl Seçilir?</h2>
+<ol>
+<li><strong>Alan:</strong> Dar alanlarda klasik photobooth (yaklaşık 2 m²), geniş alanlarda mirror booth (yaklaşık 4 m²) veya 360 video booth (yaklaşık 3 m²).</li>
+<li><strong>Hedef:</strong> Hatıra ve baskı önemliyse klasik ya da mirror booth; sosyal medya videosu istiyorsanız 360 veya GIF booth; "wow" etkisi ve markaya özel bir hikâye istiyorsanız AI photobooth.</li>
+<li><strong>Katılımcı sayısı:</strong> Kalabalık etkinliklerde birden fazla istasyon ya da hızlı çıktı veren bir tür seçin.</li>
+<li><strong>Marka:</strong> Çerçeve, karşılama ekranı ve kiosk kaplamasının markanıza göre tasarlanıp tasarlanmadığını sorun.</li>
+</ol>
+
+<h2>Photobooth Kiralarken Nelere Dikkat Edilmeli?</h2>
+<ul>
+<li>Fiyata kurulum, söküm, nakliye ve saha personelinin dahil olup olmadığı</li>
+<li>Pakete dahil baskı adedi (bizde 750 baskı dahildir)</li>
+<li>Mekândan beklenen elektrik ve internet ihtiyacı (bizde tek bir 220V priz yeterli, internet 5G ile gelir)</li>
+<li>Kurulum zamanı (bizde etkinlikten bir gün önce ya da etkinlik günü 3–4 saat önce)</li>
+<li>Katılımcı fotoğraflarının ne kadar süre ve nerede saklandığı (KVKK)</li>
+</ul>
+<p>Fiyatı etkileyen etkenleri ayrıntılı olarak <a href="/blog/photobooth-kiralama-fiyati-neye-gore-belirlenir">Photobooth kiralama fiyatı neye göre belirlenir?</a> yazımızda anlattık. Etkinliğiniz için <a href="/hizmetler/photobooth-ve-fotograf-aktivasyonlari/photobooth-kirala">photobooth kiralama</a> sayfamızı inceleyebilir ya da <a href="/iletisim">teklif isteyebilirsiniz</a>.</p>
+```
+
+**SSS (`faq`):**
+```json
+[
+  {"q":"Photobooth nedir?","a":"Photobooth (fotoğraf kabini), misafirlerin kamera, ekran ve baskı makinesinden oluşan bir kiosk ile kendi fotoğraflarını çektiği ve sonucu saniyeler içinde basılı ve dijital olarak aldığı bir etkinlik aktivasyonudur."},
+  {"q":"Booth ne demek?","a":"Booth, İngilizcede kabin, bölme veya stant anlamına gelir. Photo booth ise fotoğraf kabini demektir. Fuarlardaki stantlara da booth denir."},
+  {"q":"Photobooth ile fotoğraf kabini aynı şey mi?","a":"Evet. Fotoğraf kabini photobooth'un Türkçe karşılığıdır. Etkinliklerde kiralanan modern photobooth'lar çoğunlukla kapalı kabin değil, açık bir kiosk şeklindedir."},
+  {"q":"Photobooth çeşitleri nelerdir?","a":"En yaygın türler klasik photobooth, mirror booth, 360 video booth, AI photobooth, aura photobooth ve GIF/video booth'tur. Her biri farklı alan ihtiyacına ve etkinlik hedefine uygundur."},
+  {"q":"Photobooth için ne kadar alan gerekir?","a":"Klasik photobooth için yaklaşık 2 m², 360 video booth için yaklaşık 3 m², mirror booth için yaklaşık 4 m² alan ve standart bir 220V priz yeterlidir."},
+  {"q":"Photobooth'tan çıkan fotoğraflar nasıl teslim edilir?","a":"Fotoğraflar saniyeler içinde markaya özel çerçeveyle basılır ve aynı anda QR kod ile misafirin telefonuna dijital olarak iner."}
+]
+```
+
+**Schema:** BlogPosting (yazar: Person, Selami Güler), BreadcrumbList ve FAQPage mevcut şablonda otomatik oluşuyor; ekstra iş yok.
+
+**EN karşılığı (isteğe bağlı, sonraki iş paketi):** `slug_en = what-is-a-photo-booth`, `metaTitle_en = What Is a Photo Booth? Types and How It Works`. İçerik çevirisi yapılmadan EN sürümünü yayına almayın; boş EN sürümü indekslenmemeli.
+
+**Kabul kriteri:**
+- `/blog/photobooth-nedir` 200 dönüyor.
+- İlk paragraf "**Photobooth nedir?**" ile başlıyor.
+- Tablo ve 6 soruluk SSS görünüyor, FAQPage schema var.
+- Sitemap'te listeleniyor.
+- P-02 sayfasından bu yazıya link var.
+
+---
+
+### N-02 — Yeni hizmet sayfası: Şipşak Fotoğraf Aktivasyonu ⚠️
+**Ön koşul:** Bu hizmet gerçekten ayrı bir ürün olarak veriliyorsa yayına alın. A101 Pati ve Garanti BBVA projelerinde "Şipşak Foto" yapıldığı görülüyor. Fotoğrafçının dolaşarak çekim yapıp termal baskı verdiği hizmet bu ise sayfa açılabilir.
+
+**Neden:**
+- "şipşak fotoğrafçılık" ayda 480 aranıyor; wideo360 2., Eddra 8. sırada.
+- "şipşak" ayda 2.400 aranıyor, ama bu kelimenin niyeti karışık; asıl hedef "şipşak fotoğrafçılık".
+
+**Kayıt bilgileri (Service, yeni, `type = RENTAL`):**
+
+| Alan | Değer |
+|---|---|
+| Kategori | Fotoğraf Aktivasyonları & Photobooth (`photobooth-ve-fotograf-aktivasyonlari`) |
+| `slug` | `sipsak-fotograf-aktivasyonu` |
+| URL | `/hizmetler/photobooth-ve-fotograf-aktivasyonlari/sipsak-fotograf-aktivasyonu` |
+| `title` (H1) | `Şipşak Fotoğraf Aktivasyonu` |
+| `metaTitle` (59) | `Şipşak Fotoğrafçılık \| Etkinlikte Anında Baskı — MetasoftCo` |
+| `metaDescription` (158) | `Etkinlikler için şipşak fotoğrafçılık: fotoğrafçımız misafirleri yerinde çeker, markalı çerçeveyle saniyeler içinde basar. Kurumsal etkinlik, fuar ve lansman.` |
+| `description` (kısa) | `Fotoğrafçımız etkinlik alanında dolaşarak misafirleri yerinde çeker; fotoğraf markanıza özel çerçeveyle saniyeler içinde basılır ve misafire elden teslim edilir. Nostaljik şipşak keyfi, kurumsal kalitede.` |
+| `metaKeywords` | `şipşak fotoğrafçılık, şipşak fotoğraf, etkinlik fotoğrafçısı, anında baskı fotoğraf` |
+| Görsel | A101 Pati ve Garanti BBVA proje görsellerinden. Alt metin: `Etkinlikte şipşak fotoğraf çekimi ve markalı anında baskı` |
+
+**Uzun açıklama (`content`):**
+```html
+<h2>Şipşak Fotoğrafçılık Nedir?</h2>
+<p>Şipşak fotoğrafçılık, fotoğrafın çekildiği yerde anında basılıp kişiye teslim edildiği fotoğraf hizmetidir. Adını eski sokak fotoğrafçılarının "şipşak" diye çekip birkaç dakikada teslim ettiği fotoğraflardan alır. Bugün etkinliklerde aynı keyif, profesyonel kamera, yüksek hızlı termal baskı ve markaya özel çerçeve tasarımıyla sunuluyor.</p>
+
+<h2>Etkinlikte Nasıl Çalışır?</h2>
+<ol>
+<li>Fotoğrafçımız etkinlik alanında dolaşır, misafirleri tek tek ya da gruplar hâlinde yerinde çeker.</li>
+<li>Fotoğraf baskı istasyonuna aktarılır, markanıza özel çerçeveye yerleştirilir.</li>
+<li>Baskı saniyeler içinde hazırlanır ve misafire elden teslim edilir. ⚠️ (QR ile dijital kopya veriliyorsa ekleyin: "Dijital kopya QR kod ile telefona iner.")</li>
+</ol>
+
+<h2>Neden Şipşak Fotoğraf?</h2>
+<ul>
+<li><strong>Kimse sırada beklemez:</strong> Misafir kabine gelmez; fotoğrafçı misafire gider. Kokteyl, gala ve açık alan etkinliklerinde doğal anlar yakalanır.</li>
+<li><strong>Somut hatıra:</strong> Markanızın logosunu taşıyan basılı fotoğraf eve götürülür.</li>
+<li><strong>Nostaljik ve sıcak:</strong> Özellikle sosyal sorumluluk, kampüs ve aile etkinliklerinde samimi bir atmosfer yaratır.</li>
+</ul>
+
+<h2>Sahadan Örnekler</h2>
+<p><a href="/projeler/a101-pati-kurtaran-ev-sipsak-foto-aktivasyonu">A101 Pati & Kurtaran Ev</a>: 4 Ekim Hayvanları Koruma Günü'nde ziyaretçilerin can dostlarıyla anılarını saniyeler içinde markalı fotoğraflara dönüştürdük. <a href="/projeler/garanti-bbva-genc-x-kulupler-bulusmasi">Garanti BBVA Genç × Kulüpler Buluşması</a>: üniversite kulüplerinin buluşmasında şipşak fotoğraf aktivasyonu.</p>
+
+<h2>Hizmet Kapsamı</h2>
+<p>Fotoğrafçı, baskı istasyonu, markaya özel çerçeve tasarımı, nakliye, kurulum ve söküm fiyata dahildir. Pakete 750 baskı dahildir. ⚠️ (Bu hizmet için baskı adedi farklıysa düzeltin.) Kiosk ya da sabit bir alan isteyenler için <a href="/hizmetler/photobooth-ve-fotograf-aktivasyonlari/photobooth-kirala">photobooth kiralama</a> seçeneğimize de göz atabilirsiniz.</p>
+```
+
+**SSS:**
+```json
+[
+  {"q":"Şipşak fotoğrafçılık nedir?","a":"Şipşak fotoğrafçılık, fotoğrafın çekildiği yerde anında basılıp kişiye teslim edildiği fotoğraf hizmetidir. Etkinliklerde fotoğrafçı misafirleri yerinde çeker ve markalı çerçeveyle saniyeler içinde basar."},
+  {"q":"Şipşak fotoğraf ile photobooth arasındaki fark nedir?","a":"Photobooth'ta misafir kiosk'a gelip kendi fotoğrafını çeker. Şipşak fotoğrafta ise fotoğrafçı etkinlik alanında dolaşıp misafirleri yerinde çeker; sıra oluşmaz ve daha doğal kareler yakalanır."},
+  {"q":"Şipşak fotoğraflar ne kadar sürede teslim edilir?","a":"Fotoğraf çekildikten sonra baskı istasyonunda saniyeler içinde hazırlanır ve misafire elden teslim edilir."}
+]
+```
+
+**Kabul kriteri:**
+- Sayfa kategori listesinde, sitemap'te ve llms.txt'te görünüyor.
+- İki proje sayfasından bu hizmete link var. Bunun için proje kayıtlarının `serviceIds` alanına yeni hizmeti ekleyin.
+
+---
+
+## 5. E-01 — EN karşılıklar (title/meta)
+
+| Sayfa | `metaTitle_en` | `metaDescription_en` |
+|---|---|---|
+| Hediye çarkı | `Prize Wheel Rental for Events \| Digital Spin Wheel` | `Rent a digital prize wheel for events and trade shows: touchscreen spin-to-win game, branded design and optional lead-capture form. Setup and staff included.` |
+| Photobooth | `Photo Booth Rental for Events in Türkiye \| MetasoftCo` | `Event photo booth rental: photos, GIFs and Boomerangs with instant prints and QR sharing. Needs about 2 m²; delivery, setup and on-site staff included.` |
+| 360 video booth | `360 Video Booth Rental \| Slow-Motion 360 Video` | `360 video booth rental: a rotating camera captures slow-motion 360° video with branded graphics and instant QR sharing. About 3 m²; setup and staff included.` |
+| Mirror booth | `Mirror Booth Rental for Events \| MetasoftCo` | `Mirror booth rental: a touchscreen mirror with voice prompts, on-mirror signatures, instant prints and QR sharing. About 4 m²; setup and staff included.` |
+
+**Not:** EN hediye çarkı URL'si Türkçe slug taşıyor (`/en/services/interactive-event-activities/dijital-hediye-carki-aktivasyonu`). İsteğe bağlı olarak `slug_en` değeri `digital-prize-wheel-rental` yapılabilir. Bu durumda `next.config.ts`'e eski URL'den yeniye **301/308 yönlendirme** eklenmesi şart.
+
+---
+
+## 6. Yazılımcının yapmaması gerekenler
+
+- **Mevcut URL'leri (slug) değiştirmeyin.** Yönlendirme olmadan yapılan her slug değişikliği sıralama kaybettirir.
+- **Boş ya da çevrilmemiş EN sayfalarını yayına almayın.** `isEnglish…Publishable` kontrolleri bunun için var.
+- **⚠️ işaretli cümleleri doğrulamadan yayınlamayın.**
+- **Aynı kelimeyi hedefleyen ikinci bir sayfa açmayın.** Örnek: "photobooth nedir" için ikinci bir yazı ya da "fotoğraf kabini kiralama" için ayrı bir sayfa. Önceki face swap yazıları bu yüzden birleştirilmişti.
+
+---
+
+## 7. Teslim sonrası kontrol listesi
+
+Deploy bittiğinde SEO tarafına "kontrol et" mesajı atın. Aşağıdakiler otomatik olarak doğrulanacak:
+
+- [ ] P-01…P-06: title, meta açıklama, H1 ve yeni H2'ler canlıda
+- [ ] N-01 (ve varsa N-02): 200 dönüyor, sitemap'te, FAQPage schema var
+- [ ] T-01: Aura "nedir" H2'si gövdede
+- [ ] T-02: Mirror Booth'a en az 3 iç link
+- [ ] Değişen URL'ler IndexNow'a gönderildi
+- [ ] 4 öncelikli URL için GSC'de dizine ekleme isteği yapıldı
+
+**Ölçüm:** 17–20 Kasım 2026 civarında GSC karşılaştırması yapılacak. Hedefler:
+- "hediye çarkı" ilk 10
+- "fotoğraf kabini" ilk 20
+- "photobooth nedir" ilk 10
+- "360 video booth" ilk 20

@@ -198,7 +198,16 @@ function youTubeId(url: string): string | null {
 }
 
 /** YouTube (incl. Shorts, shown upright) or a direct video file that plays muted in view. */
-export function MsVideo({ src, title, poster }: { src: string; title: string; poster?: string | null }) {
+/** A regular YouTube video: 16:9, unlike Shorts and our own (mostly vertical) uploads. */
+export function isWideVideo(src: string) {
+    return Boolean(youTubeId(src)) && !src.includes("/shorts/");
+}
+
+/**
+ * `fill` makes the player cover a positioned parent (the hero's media frame)
+ * and loads the poster as the page's main image instead of lazily.
+ */
+export function MsVideo({ src, title, poster, fill }: { src: string; title: string; poster?: string | null; fill?: boolean }) {
     const ref = useRef<HTMLVideoElement>(null);
     const id = youTubeId(src);
     // YouTube's player weighs ~500 KB; it loads only after the visitor presses play.
@@ -206,17 +215,26 @@ export function MsVideo({ src, title, poster }: { src: string; title: string; po
     useEffect(() => {
         const video = ref.current;
         if (!video) return;
+        // Lets the hero frame switch shape; metadata may arrive before hydration.
+        const markOrientation = () => {
+            video.dataset.orientation = video.videoHeight > video.videoWidth ? "portrait" : "landscape";
+        };
+        if (video.readyState >= HTMLMediaElement.HAVE_METADATA) markOrientation();
+        else video.addEventListener("loadedmetadata", markOrientation);
         const io = new IntersectionObserver(([entry]) => {
             if (entry.isIntersecting) video.play().catch(() => {});
             else video.pause();
         }, { threshold: 0.4 });
         io.observe(video);
-        return () => io.disconnect();
+        return () => {
+            video.removeEventListener("loadedmetadata", markOrientation);
+            io.disconnect();
+        };
     }, []);
     if (id) {
         const portrait = src.includes("/shorts/");
         return (
-            <div className={`ms-video${portrait ? " ms-video--portrait" : ""}`}>
+            <div className={`ms-video${portrait ? " ms-video--portrait" : ""}${fill ? " ms-video--fill" : ""}`}>
                 {playing ? (
                     <iframe
                         src={`https://www.youtube.com/embed/${id}?rel=0&modestbranding=1&autoplay=1`}
@@ -226,8 +244,12 @@ export function MsVideo({ src, title, poster }: { src: string; title: string; po
                     />
                 ) : (
                     <button type="button" className="ms-video__poster" onClick={() => setPlaying(true)} aria-label={title}>
-                        {/* eslint-disable-next-line @next/next/no-img-element -- YouTube's own thumbnail */}
-                        <img src={poster || `https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt="" loading="lazy" />
+                        {fill && poster ? (
+                            <MsImg src={poster} alt={title} sizes="(max-width: 899px) 100vw, 46vw" priority />
+                        ) : (
+                            // eslint-disable-next-line @next/next/no-img-element -- YouTube's own thumbnail
+                            <img src={poster || `https://i.ytimg.com/vi/${id}/hqdefault.jpg`} alt="" loading={fill ? "eager" : "lazy"} />
+                        )}
                         <span className="ms-video__play" aria-hidden="true">
                             <svg viewBox="0 0 24 24" width="28" height="28"><path d="M8 5.5v13l11-6.5z" fill="currentColor" /></svg>
                         </span>
@@ -237,7 +259,7 @@ export function MsVideo({ src, title, poster }: { src: string; title: string; po
         );
     }
     return (
-        <div className="ms-video">
+        <div className={`ms-video${fill ? " ms-video--fill" : ""}`}>
             <video ref={ref} src={src} poster={poster ?? undefined} muted loop playsInline controls preload="metadata" aria-label={title} />
         </div>
     );

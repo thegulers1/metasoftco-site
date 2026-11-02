@@ -704,6 +704,21 @@ html[data-mh-js] .ms-w > span {
 	object-fit: cover;
 }
 
+.ms-hero--split .ms-hero__media--wide,
+.ms-hero--split .ms-hero__media:has(video[data-orientation="landscape"]) {
+	align-self: center;
+	aspect-ratio: 16 / 10;
+}
+
+/* The tag must not block the play button, nor cover the running player. */
+.ms-hero__media .ms-hero__tag {
+	pointer-events: none;
+}
+
+.ms-hero__media:has(iframe) .ms-hero__tag {
+	display: none;
+}
+
 .ms-hero__tag {
 	position: absolute;
 	left: 14px;
@@ -1448,6 +1463,18 @@ html[data-mh-js] .ms-w > span {
 .ms-video--portrait {
 	max-width: 420px;
 	aspect-ratio: 9 / 16;
+}
+
+.ms-video--fill {
+	position: absolute;
+	inset: 0;
+	max-width: none;
+	aspect-ratio: auto;
+	border-radius: 0;
+}
+
+.ms-video--fill video {
+	object-fit: cover;
 }
 
 .ms-video iframe,
