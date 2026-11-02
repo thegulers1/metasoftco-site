@@ -21,7 +21,7 @@ const FEATURED: HomeServiceKey[] = ["ai-photo", "photobooth", "strip-photo", "gi
 const PROJECTS_PREFERRED = ["rollic-summer-party-x-seri-t-foto", "origins-x-kabin-fotograf-aktivitesi", "ray-ban-x-strip-photo"];
 const POSTER_COVERS = new Set(["tcmb-ai-greenbox-dijital-fotograf-aktivasyonu-istanbul-finans-merkezi"]);
 
-const CLD = "https://res.cloudinary.com/dqkehdebg/image/upload/f_auto,q_auto,w_900/";
+const CLD = "https://res.cloudinary.com/dqkehdebg/image/upload/";
 /** Real AI outputs from events: the photo taken on site (pinned, black and white) and what came out of the booth. */
 const OUTPUTS = [
     { src: `${CLD}v1768755565/metasoftco/services/gallery/upgvuotswi0bnytltcp3.png`, tr: "AI Photo · Yılbaşı teması", en: "AI Photo · New Year theme" },
@@ -74,7 +74,7 @@ const calm = {
         whyTitle: "3 gün yeter.",
         whyLede: "Yazılımı kendimiz yazıyor, cihazı kendimiz kuruyor, sahada kendimiz duruyoruz; bu yüzden hızlıyız.",
         why: [
-            { value: "3 gün", label: "Etkinlikten 3 gün önce haber vermeniz yeterli." },
+            { value: "1 priz", label: "Tek bir 220V priz yeterli; interneti kendi 5G altyapımızla getiririz." },
             { value: "Aynı gün", label: "Fiyat ve tarih uygunluğu aynı gün elinizde." },
             { value: "1.000+", label: "İstanbul'dan Türkiye'nin 10 iline kurulum." },
             { value: "2+", label: "Etkinlik boyunca sahada en az 2 teknik personel." },
@@ -121,7 +121,7 @@ const calm = {
         whyTitle: "Three days is enough.",
         whyLede: "We write the software, build the booth and stand on site ourselves.",
         why: [
-            { value: "3 days", label: "Three days' notice before the event is enough." },
+            { value: "1 socket", label: "One 220V socket is enough; we bring our own 5G internet." },
             { value: "Same day", label: "Price and date availability in your inbox the same day." },
             { value: "1,000+", label: "Events set up from Istanbul across 10 provinces." },
             { value: "2+", label: "At least 2 technicians on site throughout the event." },

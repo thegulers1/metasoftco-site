@@ -654,8 +654,8 @@
 
 @keyframes hc-fade {
 	0% { opacity: 0; transform: scale(1.04); }
-	5%, 30% { opacity: 1; transform: scale(1); }
-	36%, 100% { opacity: 0; transform: scale(1); }
+	4%, 33.4% { opacity: 1; transform: scale(1); }
+	38%, 100% { opacity: 0; transform: scale(1); }
 }
 
 @keyframes hc-tilt {
@@ -823,7 +823,7 @@
 	}
 
 	.hc-stage__frame {
-		max-width: 420px;
+		max-width: min(320px, 78vw);
 		max-height: none;
 		margin: 0 auto;
 	}
