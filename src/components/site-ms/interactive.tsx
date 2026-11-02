@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties, type SyntheticEvent } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { MsCaps, tiltFor } from "./parts";
@@ -11,7 +11,7 @@ const OPTIMIZABLE_HOSTS = ["res.cloudinary.com", "images.unsplash.com"];
  * next/image for local files and the hosts next.config allows; a plain <img>
  * for anything else (editor-pasted URLs), which next/image would reject.
  */
-export function MsImg({ src, alt, sizes, priority }: { src: string; alt: string; sizes: string; priority?: boolean }) {
+export function MsImg({ src, alt, sizes, priority, onLoad }: { src: string; alt: string; sizes: string; priority?: boolean; onLoad?: (event: SyntheticEvent<HTMLImageElement>) => void }) {
     let optimizable = src.startsWith("/");
     if (!optimizable) {
         try {
@@ -20,9 +20,9 @@ export function MsImg({ src, alt, sizes, priority }: { src: string; alt: string;
             optimizable = false;
         }
     }
-    if (optimizable) return <Image src={src} alt={alt} fill sizes={sizes} priority={priority} />;
+    if (optimizable) return <Image src={src} alt={alt} fill sizes={sizes} priority={priority} onLoad={onLoad} />;
     // eslint-disable-next-line @next/next/no-img-element -- host is not on the next/image allowlist
-    return <img src={src} alt={alt} loading={priority ? "eager" : "lazy"} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />;
+    return <img src={src} alt={alt} loading={priority ? "eager" : "lazy"} onLoad={onLoad} style={{ position: "absolute", inset: 0, width: "100%", height: "100%", objectFit: "cover" }} />;
 }
 
 /** Istanbul wall clock used in the hero bars. */
@@ -265,6 +265,36 @@ export function MsVideo({ src, title, poster, fill }: { src: string; title: stri
     );
 }
 
+/** Cloudinary video uploads (.mov from phones included) in the gallery list. */
+function galleryVideo(url: string) {
+    if (!/^https:\/\/res\.cloudinary\.com\/[^/]+\/video\/upload\//.test(url)) return null;
+    const base = url.replace(/\.[a-z0-9]+$/i, "");
+    // .mov from iPhones is HEVC; Cloudinary re-encodes to H.264 mp4 by extension.
+    return { src: `${base}.mp4`, poster: `${base.replace("/video/upload/", "/video/upload/so_0/")}.jpg` };
+}
+
+/**
+ * A gallery tile. Images taller than the tile (printed frames, phone shots) take
+ * their own shape so nothing is cut off; wider ones keep the cropped grid.
+ */
+function MsGalleryTile({ image, onOpen }: { image: { url: string; alt: string }; onOpen: () => void }) {
+    const [tallRatio, setTallRatio] = useState<string | null>(null);
+    const video = galleryVideo(image.url);
+    return (
+        <button type="button" onClick={onOpen} aria-label={image.alt} data-video={video ? "" : undefined} style={tallRatio ? { aspectRatio: tallRatio } : undefined}>
+            <MsImg
+                src={video ? video.poster : image.url}
+                alt={image.alt}
+                sizes="(max-width: 700px) 100vw, 33vw"
+                onLoad={(event) => {
+                    const { naturalWidth, naturalHeight } = event.currentTarget;
+                    if (naturalWidth / naturalHeight < 0.8) setTallRatio(`${naturalWidth} / ${naturalHeight}`);
+                }}
+            />
+        </button>
+    );
+}
+
 /** Tilted photo grid with a keyboard-friendly lightbox. */
 export function MsGallery({ images, labels }: { images: { url: string; alt: string }[]; labels: { close: string; prev: string; next: string } }) {
     const [open, setOpen] = useState<number | null>(null);
@@ -287,15 +317,17 @@ export function MsGallery({ images, labels }: { images: { url: string; alt: stri
         <>
             <div className="ms-gallery" data-reveal>
                 {images.map((image, index) => (
-                    <button key={`${index}-${image.url}`} type="button" onClick={() => setOpen(index)} aria-label={image.alt}>
-                        <MsImg src={image.url} alt={image.alt} sizes="(max-width: 700px) 100vw, 33vw" />
-                    </button>
+                    <MsGalleryTile key={`${index}-${image.url}`} image={image} onOpen={() => setOpen(index)} />
                 ))}
             </div>
             {open !== null && (
                 <div className="ms-lightbox" role="dialog" aria-modal="true" aria-label={images[open].alt} onClick={() => setOpen(null)}>
                     <div className="ms-lightbox__img" onClick={(event) => event.stopPropagation()}>
-                        <MsImg src={images[open].url} alt={images[open].alt} sizes="100vw" />
+                        {galleryVideo(images[open].url) ? (
+                            <video src={galleryVideo(images[open].url)!.src} poster={galleryVideo(images[open].url)!.poster} controls autoPlay loop playsInline aria-label={images[open].alt} />
+                        ) : (
+                            <MsImg src={images[open].url} alt={images[open].alt} sizes="100vw" />
+                        )}
                     </div>
                     <button type="button" className="ms-lightbox__close" onClick={() => setOpen(null)}>{labels.close}</button>
                     {images.length > 1 && (
