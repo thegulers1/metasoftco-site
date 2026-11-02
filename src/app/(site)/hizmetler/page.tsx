@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { SOFTWARE_CATEGORY_SLUG } from "@/lib/software";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { siteConfig, generateFAQSchema, generateBreadcrumbSchema, ogImageUrl } from "@/lib/site";
@@ -105,7 +106,8 @@ const serviceFAQs = [
 ];
 
 export default async function HizmetlerPage() {
-    const categories = await getCategories();
+    // Software has its own hub (/hizmetler/yazilim-gelistirme); the rental list shows rentals only.
+    const categories = (await getCategories()).filter((category) => category.slug !== SOFTWARE_CATEGORY_SLUG);
     const capabilities = categories.flatMap((category) =>
         category.services
             .map((service) => ({

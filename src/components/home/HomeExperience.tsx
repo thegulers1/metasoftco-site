@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useLayoutEffect, useRef, useState, type FormEvent, type MouseEvent, type ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { brands } from "@/components/site/BrandStrip";
+import { brands } from "@/lib/brands";
 import { useChatStore } from "@/components/AIChat/useChatStore";
 import { trackEvent } from "@/lib/analytics";
 import { getAttribution } from "@/lib/attribution";

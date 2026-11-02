@@ -26,21 +26,14 @@ export function MsImg({ src, alt, sizes, priority, onLoad }: { src: string; alt:
 }
 
 /** Istanbul wall clock used in the hero bars. */
-export function MsClock({ label }: { label: string }) {
-    const ref = useRef<HTMLSpanElement>(null);
-    useEffect(() => {
-        const tick = () => {
-            if (ref.current) {
-                ref.current.textContent = new Date().toLocaleTimeString("tr-TR", {
-                    timeZone: "Europe/Istanbul", hour: "2-digit", minute: "2-digit", second: "2-digit",
-                });
-            }
-        };
-        tick();
-        const id = window.setInterval(tick, 1000);
-        return () => clearInterval(id);
-    }, []);
-    return <span aria-hidden="true">{label} <span ref={ref}>--:--:--</span></span>;
+/**
+ * The live Istanbul clock in the hero bars was removed in the calm redesign
+ * (November 2026): it moved every second and said nothing a buyer needs.
+ * Kept as a no-op so existing pages compile unchanged.
+ */
+export function MsClock(props: { label: string }) {
+    void props;
+    return null;
 }
 
 export interface MsCatalogItem {
