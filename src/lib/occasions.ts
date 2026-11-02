@@ -18,6 +18,8 @@ export interface OccasionService {
     slug: string;
     /** One line: why this experience works for this occasion. */
     why: string;
+    /** Card name on this page when the editpanel title doesn't fit (e.g. an English product name). */
+    name?: string;
 }
 
 export interface OccasionTier {
@@ -122,11 +124,11 @@ export const occasions: Record<string, Occasion> = {
             { slug: "ai-photobooth-kirala", why: "Kar küresi, Noel filmi, 2027 afişi: temalar şirketinize göre hazırlanır." },
             { slug: "strip-photo", why: "Ekipçe sığılan şerit kareler; masaya konan en sevilen hatıra." },
             { slug: "360-video-booth", why: "Gecenin sosyal medyada en çok paylaşılan videosu." },
-            { slug: "dijital-hediye-carki-aktivasyonu", why: "Çekilişi sahnede, herkesin önünde ve adil yapın." },
-            { slug: "quiz-bilgi-yarismasi", why: "Yılın olayları ve şirket kültürü üzerine departmanlar arası yarışma." },
+            { slug: "dijital-hediye-carki-aktivasyonu", name: "Hediye Çarkı", why: "Çekilişi sahnede, herkesin önünde ve adil yapın." },
+            { slug: "quiz-bilgi-yarismasi", name: "Canlı Quiz", why: "Yılın olayları ve şirket kültürü üzerine departmanlar arası yarışma." },
             { slug: "magazine-cover", why: "Herkes yılın dergi kapağında: ödül gecesine de uyar." },
             { slug: "karaoke", why: "Resmi kısmın bittiği an." },
-            { slug: "glow-box-photo", why: "Işıklı kutu, karanlık salonda bile parlayan kareler." },
+            { slug: "glow-box-photo", name: "Glow Box", why: "Işıklı kutu, karanlık salonda bile parlayan kareler." },
         ],
         themesTitle: "Yılbaşı temaları",
         themes: [],

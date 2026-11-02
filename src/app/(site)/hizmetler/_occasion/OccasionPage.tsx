@@ -47,7 +47,7 @@ export async function OccasionPage({ slug }: { slug: string }) {
         return [{
             key: row.id,
             href: `/hizmetler/${row.category.slug}/${row.slug}`,
-            name: shortServiceTitle(row.title, row.homeTitle),
+            name: item.name ?? shortServiceTitle(row.title, row.homeTitle),
             why: item.why,
             image: serviceListingImage(row),
         }];
