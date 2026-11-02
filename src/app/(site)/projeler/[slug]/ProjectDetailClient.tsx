@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { displayTitle } from "@/lib/title-case";
 import Image from "next/image";
 import Link from "next/link";
 import { MsCaps, MsCrumbs, MsFacts, MsFaq, MsProse, MsSectionHead, MsWords, splitHtmlSections } from "@/components/site-ms/parts";
@@ -105,7 +106,7 @@ export default function ProjectDetailClient({ project, nextProject, relatedServi
 
     const isEn = language === "en";
     const up = (text: string) => text.toLocaleUpperCase(isEn ? "en-US" : "tr-TR");
-    const title = isEn ? (project.title_en || project.title) : project.title;
+    const title = displayTitle(isEn ? (project.title_en || project.title) : project.title);
     const description = isEn ? (project.description_en || project.description) : project.description;
     const content = isEn ? (project.content_en || project.content) : project.content;
 
@@ -116,7 +117,7 @@ export default function ProjectDetailClient({ project, nextProject, relatedServi
     const year = projectDate ? String(projectDate.getFullYear()) : null;
 
     const facts = [
-        project.client && { term: copy.clientTerm, value: project.client },
+        project.client && { term: copy.clientTerm, value: displayTitle(project.client) },
         project.category && { term: copy.formatTerm, value: project.category },
         year && { term: copy.yearTerm, value: year },
     ].filter((fact): fact is { term: string; value: string } => Boolean(fact));
@@ -151,7 +152,7 @@ export default function ProjectDetailClient({ project, nextProject, relatedServi
                 {project.image && (
                     <div className="ms-hero__media" data-reveal>
                         <Image src={project.image} alt={title} fill priority sizes="(max-width: 899px) 100vw, 46vw" />
-                        {project.client && <span className="ms-hero__tag ms-mono"><MsCaps text={project.client} /></span>}
+                        {project.client && <span className="ms-hero__tag ms-mono"><MsCaps text={displayTitle(project.client)} /></span>}
                     </div>
                 )}
             </section>

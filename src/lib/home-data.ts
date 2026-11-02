@@ -1,4 +1,5 @@
 import { unstable_cache } from "next/cache";
+import { displayTitle } from "@/lib/title-case";
 import { prisma } from "@/lib/db";
 import { isEnglishProjectPublishable } from "@/lib/publication";
 import { homeClientName, homeCopy, homeProjectImageSlugs, homeProjectTag, homeServiceImageSlugs } from "@/lib/home-content";
@@ -62,7 +63,7 @@ export async function getHomeData(locale: Phase2Locale) {
             key: record.slug,
             href: `${copy.routes.work}/${slug}`,
             client: homeClientName(record.client, title),
-            title,
+            title: displayTitle(title),
             tag: homeProjectTag(record.category, locale),
             image: record.image!,
         };
