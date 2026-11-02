@@ -91,9 +91,8 @@ const tr = {
             {
                 name: "İK & kurum içi etkinlik",
                 desc: "Yılbaşı partisi, bayi toplantısı, şirket günü, lansman. Çalışanlarınızın sıraya girdiği deneyimler; baskı ve QR ile paylaşım dahil.",
-                // Seasonal: points at the year-end party page through December.
-                cta: "Yılbaşı partisi için deneyimler →",
-                href: "/hizmetler/yilbasi-partisi-aktiviteleri",
+                cta: "Kurumların etkinliklerini görün →",
+                href: phase2Routes.tr.work,
             },
             {
                 name: "Ajans & etkinlik organizatörü",

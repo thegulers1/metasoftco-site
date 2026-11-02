@@ -1,5 +1,4 @@
 import { Metadata } from "next";
-import { SOFTWARE_CATEGORY_SLUG } from "@/lib/software";
 import { unstable_cache } from "next/cache";
 import { prisma } from "@/lib/db";
 import { siteConfig, generateFAQSchema, ogImageUrl } from "@/lib/site";
@@ -81,7 +80,7 @@ export default async function EnglishServicesPage() {
             ...category,
             services: category.services.filter((service) => isEnglishServicePublishable(service, category)),
         }))
-        .filter((category) => category.services.length > 0 && category.slug !== SOFTWARE_CATEGORY_SLUG);
+        .filter((category) => category.services.length > 0);
     const capabilities = categories.flatMap((category) =>
         category.services
             .map((service) => ({

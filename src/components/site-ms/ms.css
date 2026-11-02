@@ -21,7 +21,6 @@
 	--ms-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 
 	position: relative;
-	isolation: isolate;
 	min-height: 100vh;
 	background: var(--ms-bg);
 	color: var(--ms-fg);
@@ -2806,356 +2805,42 @@ html[data-mh-js] .ms-w > span {
 	}
 }
 
-/* The two floating actions are round icons stacked in one corner on every
-   screen size, so they never cover text (calm redesign, November 2026). */
-.ms-float {
-	right: var(--ms-gut);
-	left: auto;
-	justify-content: center;
-	width: 48px;
-	height: 48px;
-	padding: 0 !important;
-	box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
-}
-
-.ms .ms-float--wa {
-	left: auto;
-	bottom: 76px;
-	background: var(--ms-fg);
-}
-
-.ms-float__icon {
-	display: block;
-}
-
-.ms-float__label {
-	position: absolute;
-	width: 1px;
-	height: 1px;
-	overflow: hidden;
-	clip-path: inset(50%);
-	white-space: nowrap;
-}
-
-.ms-float--wa .ms-float__dot {
-	position: absolute;
-	top: 9px;
-	right: 9px;
-	box-shadow: 0 0 0 2px var(--ms-fg);
-}
-
-/* ---------- Occasion landing pages (src/components/phase2/OccasionLanding.tsx) ---------- */
-
-.ms-occ__notice {
-	margin: 0;
-	padding-left: 14px;
-	border-left: 2px solid var(--ms-line-2);
-	font-size: 15px;
-	line-height: 1.55;
-	color: var(--ms-mut);
-	text-wrap: pretty;
-}
-
-.ms-occ__tiers {
-	margin: 0;
-	padding: 0;
-	list-style: none;
-	grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
-}
-
-.ms-occ__tiers > .ms-card {
-	gap: 16px;
-}
-
-.ms-occ__products {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 6px;
-	margin: 4px 0 0;
-	padding: 0;
-	list-style: none;
-}
-
-.ms-occ__products li {
-	padding: 5px 10px;
-	border: 1px solid var(--ms-line-2);
-	border-radius: 99px;
-	font-size: 13px;
-	color: var(--ms-fg);
-}
-
-.ms .ms-occ__tier-cta {
-	align-self: flex-start;
-	margin-top: auto;
-	padding-top: 10px;
-	padding-bottom: 3px;
-	border-bottom: 1px solid var(--ms-line-2);
-	font-size: 12px;
-	letter-spacing: 0.06em;
-	color: var(--ms-fg);
-	transition: border-color 0.2s;
-}
-
-.ms .ms-occ__tier-cta:hover,
-.ms .ms-occ__tier-cta:focus-visible {
-	border-color: var(--ms-fg);
-	color: #ffffff;
-}
-
-.ms-occ__closing {
-	align-items: flex-start;
-	border-top: 1px solid var(--ms-line);
-}
-
-/* ---------- Calm type (November 2026) ----------
- * Headings in sentence case and one heading face (Inter Tight) instead of
- * heavy all-caps display type; sizes one step smaller. Small labels (crumbs,
- * chips, tags) keep their upper-case mono voice. Kept last so it wins over
- * the rules above without touching them. */
-
-.ms-h1 {
-	font-size: clamp(38px, 5.2vw, 84px);
-	line-height: 1.03;
-	letter-spacing: -0.035em;
-	text-transform: none;
-}
-
-.ms-h1--long {
-	font-size: clamp(32px, 4.3vw, 72px);
-}
-
-.ms-h2 {
-	font-size: clamp(28px, 3vw, 52px);
-	line-height: 1.06;
-	letter-spacing: -0.03em;
-	text-transform: none;
-}
-
-.ms-h2--sm {
-	font-size: clamp(22px, 2vw, 34px);
-}
-
-.ms-tile__name,
-.ms-row__name,
-.ms-card__title,
-.ms-next__title,
-.ms-capability strong,
-.ms-closing__big {
-	font-family: var(--mh-heading), sans-serif;
-	font-weight: 700;
-	letter-spacing: -0.02em;
-	text-transform: none;
-}
-
-.ms-tile__name,
-.ms-card__title {
-	font-weight: 600;
-	font-size: clamp(18px, 1.4vw, 24px);
-	line-height: 1.2;
-}
-
-.ms-card--lead .ms-card__title {
-	font-size: clamp(20px, 1.8vw, 30px);
-}
-
-.ms-row__name {
-	font-size: clamp(20px, 2vw, 36px);
-	line-height: 1.12;
-}
-
-.ms-next__title {
-	font-size: clamp(22px, 2.2vw, 40px);
-	line-height: 1.1;
-}
-
-.ms-capability strong {
-	font-size: clamp(20px, 1.8vw, 32px);
-	line-height: 1.1;
-}
-
-.ms-closing__big {
-	font-size: clamp(40px, 5.4vw, 112px);
-	line-height: 1;
-	letter-spacing: -0.035em;
-}
-
-/* Buttons read as buttons, not as typewriter labels. */
-.ms-pill {
-	font-family: var(--mh-sans), sans-serif;
-	font-weight: 600;
-	font-size: 14px;
-	letter-spacing: 0.01em;
-}
-
+/* Phones: the two floating actions shrink to round icons stacked in one corner,
+   so they stop covering text at the bottom of the screen. */
 @media (max-width: 899px) {
-	.ms-h1,
-	.ms-h1--long {
-		font-size: clamp(32px, 8.4vw, 56px);
+	.ms-float {
+		right: var(--ms-gut);
+		left: auto;
+		justify-content: center;
+		width: 48px;
+		height: 48px;
+		padding: 0 !important;
+		box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
 	}
-}
 
-/* ---------- Ambient light (every page) ----------
- * A fixed layer behind the content (z-index -1 inside the isolated .ms):
- * three soft lights drifting over a minute, plus a fine grain, so pages have
- * depth instead of sitting on flat black. Still under reduced motion. */
-
-.ms-ambient {
-	position: fixed;
-	inset: 0;
-	z-index: -1;
-	overflow: hidden;
-	pointer-events: none;
-}
-
-.ms-ambient span {
-	position: absolute;
-	border-radius: 50%;
-	filter: blur(90px);
-	will-change: transform;
-}
-
-.ms-ambient span:nth-child(1) {
-	left: -15vw;
-	top: 10vh;
-	width: 55vw;
-	height: 55vw;
-	background: radial-gradient(closest-side, rgba(84, 120, 255, 0.13), transparent 70%);
-	animation: ms-amb-a 46s ease-in-out infinite alternate;
-}
-
-.ms-ambient span:nth-child(2) {
-	right: -18vw;
-	top: 40vh;
-	width: 60vw;
-	height: 60vw;
-	background: radial-gradient(closest-side, rgba(242, 255, 0, 0.08), transparent 70%);
-	animation: ms-amb-b 58s ease-in-out infinite alternate;
-}
-
-.ms-ambient span:nth-child(3) {
-	left: 25vw;
-	bottom: -30vh;
-	width: 50vw;
-	height: 50vw;
-	background: radial-gradient(closest-side, rgba(0, 214, 170, 0.08), transparent 70%);
-	animation: ms-amb-c 52s ease-in-out infinite alternate;
-}
-
-.ms-ambient::after {
-	content: "";
-	position: absolute;
-	inset: 0;
-	opacity: 0.07;
-	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
-@keyframes ms-amb-a {
-	to { transform: translate3d(30vw, 25vh, 0) scale(1.2); }
-}
-
-@keyframes ms-amb-b {
-	to { transform: translate3d(-35vw, -20vh, 0) scale(0.9); }
-}
-
-@keyframes ms-amb-c {
-	to { transform: translate3d(-20vw, -45vh, 0) scale(1.15); }
-}
-
-@media (prefers-reduced-motion: reduce) {
-	.ms-ambient span {
-		animation: none;
+	.ms .ms-float--wa {
+		left: auto;
+		bottom: 76px;
+		background: var(--ms-fg);
 	}
-}
 
-/* ---------- Calm listings (November 2026) ----------
- * Project, rental and product grids: four straight photo cards across, the
- * photo clean (no tag, no tilt), the name below. Chips read as words, not
- * typewriter labels. */
-
-.ms-chip {
-	padding: 9px 16px;
-	font-family: var(--mh-sans), sans-serif;
-	font-size: 14px;
-	letter-spacing: 0;
-	text-transform: none;
-}
-
-.ms-toggle button {
-	font-family: var(--mh-sans), sans-serif;
-	font-size: 13px;
-	letter-spacing: 0;
-	text-transform: none;
-}
-
-.ms-catalog__bar {
-	background: rgba(5, 5, 5, 0.82);
-	backdrop-filter: blur(12px);
-}
-
-.ms-grid,
-.ms-grid--wide {
-	grid-template-columns: repeat(4, minmax(0, 1fr));
-	gap: clamp(36px, 3.4vw, 56px) clamp(16px, 1.6vw, 24px);
-}
-
-.ms-tile {
-	gap: 12px;
-}
-
-.ms-tile__media {
-	aspect-ratio: 4 / 3;
-	border-radius: 18px;
-	background: var(--ms-panel-2);
-	transform: none;
-	transition: transform 0.5s var(--ms-ease), box-shadow 0.5s;
-}
-
-.ms-tile:hover .ms-tile__media {
-	transform: translateY(-6px);
-	box-shadow: 0 24px 50px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(242, 255, 0, 0.18);
-}
-
-.ms-tile__media img {
-	transition: transform 0.8s var(--ms-ease);
-}
-
-.ms-tile:hover .ms-tile__media img {
-	transform: scale(1.05);
-}
-
-.ms-tile__tag,
-.ms-tile__arrow {
-	display: none;
-}
-
-.ms-tile__media--empty {
-	font-family: var(--mh-heading), sans-serif;
-	font-size: 22px;
-	text-transform: none;
-}
-
-.ms-tile__sub {
-	margin-top: 0;
-	font-size: 14px;
-}
-
-@media (max-width: 1100px) {
-	.ms-grid,
-	.ms-grid--wide {
-		grid-template-columns: repeat(3, minmax(0, 1fr));
+	.ms-float__icon {
+		display: block;
 	}
-}
 
-@media (max-width: 760px) {
-	.ms-grid,
-	.ms-grid--wide {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
+	.ms-float__label {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
 	}
-}
 
-@media (max-width: 460px) {
-	.ms-grid,
-	.ms-grid--wide {
-		grid-template-columns: minmax(0, 1fr);
+	.ms-float--wa .ms-float__dot {
+		position: absolute;
+		top: 9px;
+		right: 9px;
+		box-shadow: 0 0 0 2px var(--ms-fg);
 	}
 }

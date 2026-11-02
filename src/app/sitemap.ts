@@ -31,7 +31,6 @@ const codePageUpdated = {
     legal: "2026-10-16",
     corporate: "2026-10-09",
     fairs: "2026-10-09",
-    newYear: "2026-11-02",
     dataCapture: "2026-09-23",
     microSite: "2026-09-29",
     presentation: "2026-09-26",
@@ -101,7 +100,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         entry("/sektorel-cozumler", sectorList, 0.4), entry("/en/sector-solutions", sectorList, 0.4),
         entry("/hizmetler/kurumsal-etkinlik-teknolojisi", day(codePageUpdated.corporate), 0.7),
         entry("/hizmetler/fuar-aktivasyonlari", day(codePageUpdated.fairs), 0.6),
-        entry("/hizmetler/yilbasi-partisi-aktiviteleri", day(codePageUpdated.newYear), 0.7),
         ...sectorPages.filter((page) => page.slug === "magaza-ici-kalici-photobooth").map((page) => entry(`/hizmetler/${page.slug}`, page.updatedAt, 0.6)),
         ...sectorPages.filter((page) => cityLandingSlugs.includes(page.slug)).flatMap((page) => [
             entry(`/hizmetler/${page.slug}`, page.updatedAt, 0.6),

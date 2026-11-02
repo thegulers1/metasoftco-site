@@ -115,13 +115,21 @@ export function MsSectionHead({
     );
 }
 
-/**
- * The tilted, looping word band was removed in the calm redesign (November
- * 2026). Kept as a no-op so existing pages compile unchanged.
- */
-export function MsBand(props: { words: string[] }) {
-    void props;
-    return null;
+/** Tilted accent band with a looping row of words. */
+export function MsBand({ words }: { words: string[] }) {
+    const group = (
+        <div className="ms-band__group">
+            {words.map((word, i) => <span key={i}>{word}</span>)}
+        </div>
+    );
+    return (
+        <div className="ms-band" aria-hidden="true">
+            <div className="ms-band__track">
+                {group}
+                {group}
+            </div>
+        </div>
+    );
 }
 
 export interface MsFaqItem {

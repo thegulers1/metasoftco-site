@@ -101,6 +101,11 @@ export default function CapabilitiesIndexPrototype({
                     <p className="ms-lede" data-reveal style={{ maxWidth: 620 }}>{copy.heroCopy}</p>
                     <Link href={dictionary.routes.contact} className="ms-pill ms-pill--acc" data-cursor={l.view.open}>{l.cta}</Link>
                 </div>
+                <nav aria-label={l.popularLabel} className="ms-chips" data-reveal>
+                    {l.popular.map((link) => (
+                        <Link key={link.href} href={link.href} className="ms-chip">{link.label}</Link>
+                    ))}
+                </nav>
             </section>
 
             {categories && categories.length > 0 && <MsBand words={categories.map((category) => category.name)} />}
@@ -113,7 +118,6 @@ export default function CapabilitiesIndexPrototype({
                     allLabel={copy.filterAll}
                     countLabel={l.count}
                     labels={l.view}
-                    showToggle={false}
                 />
             </section>
 

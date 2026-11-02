@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { siteConfig, ogImageUrl } from "@/lib/site";
-import HomeCalm from "@/components/home/HomeCalm";
+import HomeExperience from "@/components/home/HomeExperience";
+import { homeFontClassName } from "@/components/home/fonts";
 import { getHomeData } from "@/lib/home-data";
 
 // Read database content at request time; Docker builds have no database access.
@@ -36,5 +37,5 @@ export const metadata: Metadata = {
 
 export default async function EnglishHomePage() {
     const data = await getHomeData("en");
-    return <HomeCalm locale="en" projects={data.projects} services={data.services} />;
+    return <HomeExperience locale="en" fontClassName={homeFontClassName} {...data} />;
 }
