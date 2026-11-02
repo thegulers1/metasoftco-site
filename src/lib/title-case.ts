@@ -84,3 +84,36 @@ export function displayTitle(text: string | null | undefined): string {
         })
         .join(" ");
 }
+
+/**
+ * The activity a project was about, read from its title, so listings can lead
+ * with what was done rather than who it was for:
+ * "Rollic Summer Party × Şerit Foto" -> "Şerit Foto",
+ * "DeFacto × Afra Saraçoğlu: AI Fashion Experience" -> "AI Fashion Experience",
+ * "Garanti BBVA Genç X Kulüpler Buluşması - Şipşak Foto" -> "Şipşak Foto",
+ * "TCMB AI Greenbox Dijital Fotoğraf Aktivasyonu – İstanbul Finans Merkezi" -> "AI Greenbox Dijital Fotoğraf".
+ */
+export function projectActivity(title: string, client?: string | null): string {
+    let text = displayTitle(title);
+    // An en dash introduces the venue ("– İstanbul Finans Merkezi"); drop it.
+    text = text.split(/\s+–\s+/)[0];
+    if (/:\s/.test(text)) text = text.slice(text.lastIndexOf(":") + 1);
+    else if (text.includes(" × ")) text = text.slice(text.lastIndexOf(" × ") + 3);
+    else if (/\s-\s/.test(text)) text = text.slice(text.lastIndexOf(" - ") + 3);
+    else if (client) {
+        const brand = displayTitle(client);
+        if (text.toLocaleLowerCase("tr-TR").startsWith(brand.toLocaleLowerCase("tr-TR") + " ")) text = text.slice(brand.length + 1);
+    }
+    text = text.trim();
+    // "Dijital Hediye Çarkı Aktivasyonu" -> "Dijital Hediye Çarkı"; a one-word remainder keeps its noun.
+    const trimmed = text.replace(/\s+(Aktivasyonu|Aktivitesi|Etkinliği)$/u, "");
+    if (trimmed.split(" ").length >= 2) text = trimmed;
+    return ACTIVITY_SHORT[text] ?? (text || displayTitle(title));
+}
+
+/** Activity names that read too long once extracted from their title. */
+const ACTIVITY_SHORT: Record<string, string> = {
+    "AI Greenbox Dijital Fotoğraf": "AI Greenbox",
+    "Özel Tasarım Dev Krem Kutusu ve Hediyeli Gamification": "Dev Krem Kutusu & Gamification",
+    "İnteraktif Profilleme ve Quiz Uygulaması": "İnteraktif Profilleme & Quiz",
+};

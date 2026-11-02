@@ -1,4 +1,4 @@
-import { displayTitle } from "@/lib/title-case";
+import { displayTitle, projectActivity } from "@/lib/title-case";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
@@ -56,7 +56,7 @@ export async function OccasionPage({ slug }: { slug: string }) {
     const projects = occasion.projectSlugs.flatMap((projectSlug) => {
         const row = projectRows.find((project) => project.slug === projectSlug);
         if (!row) return [];
-        return [{ key: row.id, href: `/projeler/${row.slug}`, name: displayTitle(row.title), client: row.client ? displayTitle(row.client) : null, image: row.image }];
+        return [{ key: row.id, href: `/projeler/${row.slug}`, name: projectActivity(row.title, row.client), client: row.client ? displayTitle(row.client) : null, image: row.image }];
     });
 
     const url = `${siteConfig.url}/hizmetler/${slug}`;
