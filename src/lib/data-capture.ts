@@ -10,6 +10,11 @@ export interface DataCaptureCopy {
     eyebrow: string;
     title: string;
     intro: string;
+    /**
+     * Turkish service pages show only this and link to the module page, which
+     * carries the details and the legal text; English has no such page yet.
+     */
+    summary?: string;
     items: { title: string; body: string }[];
     legal: string;
     cta: string;
@@ -20,6 +25,8 @@ export interface DataCaptureCopy {
 const tr: DataCaptureCopy = {
     eyebrow: "Opsiyonel modül · Data-Capture & CRM",
     title: "Bu aktiviteyi lead toplama motoruna dönüştürün",
+    summary:
+        "İsterseniz bu aktivasyona Data-Capture modülünü ekliyoruz: katılımcı içeriğine QR kod ile ulaşırken kısa bir form doldurur, kayıtları size özel panelden canlı izler ve Excel/CSV olarak indirirsiniz. Modül yalnızca yazılı onayınızla açılır; veri sorumlusu markanızdır.",
     intro:
         "Talep etmeniz halinde bu aktivasyona Data-Capture modülünü ekliyoruz. Katılımcıların keyifle yaşadığı deneyim, fuar veya lansman sonrasında satış ekibinizin takip edebileceği nitelikli bir potansiyel müşteri listesine dönüşür.",
     items: [
@@ -97,6 +104,8 @@ const en: DataCaptureCopy = {
 // Games produce no content to hand over: the lead form is the optional
 // scoreboard sign-up instead, so the delivery-based lines are swapped out.
 const trGame: Partial<DataCaptureCopy> & { firstItem: DataCaptureCopy["items"][number]; firstFaqAnswer: string } = {
+    summary:
+        "İsterseniz bu oyuna Data-Capture modülünü ekliyoruz: skor tablosunda yer almak isteyen katılımcı QR kod ile kısa bir form doldurur, kayıtları size özel panelden canlı izler ve Excel/CSV olarak indirirsiniz. Modül yalnızca yazılı onayınızla açılır; veri sorumlusu markanızdır.",
     intro:
         "Talep etmeniz halinde bu oyuna Data-Capture modülünü ekliyoruz. Skor tablosunda yer almak isteyen katılımcılar kısa bir form doldurur; fuar veya lansman sonrasında satış ekibiniz bu listeyi nitelikli potansiyel müşteri olarak takip eder.",
     firstItem: {
@@ -126,6 +135,7 @@ export function dataCaptureCopy(locale: DataCaptureLocale, isGame = false): Data
     return {
         ...base,
         intro: game.intro ?? base.intro,
+        summary: game.summary,
         items: [game.firstItem, ...base.items.slice(1)],
         faq: [{ ...base.faq[0], a: game.firstFaqAnswer }, ...base.faq.slice(1)],
     };

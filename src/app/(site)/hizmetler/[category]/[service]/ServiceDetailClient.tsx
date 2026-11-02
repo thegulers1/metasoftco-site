@@ -239,26 +239,38 @@ export default function ServiceDetailClient({
                             <span className="ms-mono">{dataCapture.eyebrow}</span>
                             <h2 id="data-capture-title" className="ms-h2">{dataCapture.title}</h2>
                         </div>
-                        <p style={{ margin: 0, maxWidth: 440, fontSize: 16, lineHeight: 1.5 }}>{dataCapture.intro}</p>
+                        {dataCapture.summary ? (
+                            <div className="ms-accent__summary">
+                                <p>{dataCapture.summary}</p>
+                                {dataCapture.more && (
+                                    <div className="ms-actions">
+                                        <Link href={DATA_CAPTURE_HUB_PATH} className="ms-pill ms-pill--dark" data-cursor={t.cursor.go}>{dataCapture.more.toLocaleUpperCase("tr-TR")} ↗</Link>
+                                    </div>
+                                )}
+                            </div>
+                        ) : (
+                            <p style={{ margin: 0, maxWidth: 440, fontSize: 16, lineHeight: 1.5 }}>{dataCapture.intro}</p>
+                        )}
                     </div>
-                    <ol className="ms-accent__grid">
-                        {dataCapture.items.map((item, index) => (
-                            <li key={item.title}>
-                                <span className="ms-mono">{String(index + 1).padStart(2, "0")}</span>
-                                <h3>{item.title}</h3>
-                                <p>{item.body}</p>
-                            </li>
-                        ))}
-                    </ol>
-                    <div className="ms-head">
-                        <p className="ms-accent__legal">{dataCapture.legal}</p>
-                        <div className="ms-actions">
-                            <Link href={dictionary.routes.contact} className="ms-pill ms-pill--dark" data-cursor={t.cursor.write}>{dataCapture.cta.toLocaleUpperCase(isEn ? "en-US" : "tr-TR")} ↗</Link>
-                            {!isEn && dataCapture.more && (
-                                <Link href={DATA_CAPTURE_HUB_PATH} className="ms-pill ms-pill--dark-line" data-cursor={t.cursor.go}>{dataCapture.more.toLocaleUpperCase("tr-TR")}</Link>
-                            )}
-                        </div>
-                    </div>
+                    {!dataCapture.summary && (
+                        <>
+                            <ol className="ms-accent__grid">
+                                {dataCapture.items.map((item, index) => (
+                                    <li key={item.title}>
+                                        <span className="ms-mono">{String(index + 1).padStart(2, "0")}</span>
+                                        <h3>{item.title}</h3>
+                                        <p>{item.body}</p>
+                                    </li>
+                                ))}
+                            </ol>
+                            <div className="ms-head">
+                                <p className="ms-accent__legal">{dataCapture.legal}</p>
+                                <div className="ms-actions">
+                                    <Link href={dictionary.routes.contact} className="ms-pill ms-pill--dark" data-cursor={t.cursor.write}>{dataCapture.cta.toLocaleUpperCase("en-US")} ↗</Link>
+                                </div>
+                            </div>
+                        </>
+                    )}
                 </section>
             )}
 

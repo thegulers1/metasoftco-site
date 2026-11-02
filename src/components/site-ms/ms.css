@@ -1409,6 +1409,19 @@ html[data-mh-js] .ms-w > span {
 	color: inherit;
 }
 
+.ms-accent__summary {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+	max-width: 520px;
+}
+
+.ms-accent__summary p {
+	margin: 0;
+	font-size: 16px;
+	line-height: 1.5;
+}
+
 .ms-accent .ms-h2 {
 	max-width: 760px;
 	font-size: clamp(30px, 3.6vw, 68px);
