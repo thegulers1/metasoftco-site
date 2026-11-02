@@ -445,7 +445,16 @@
 }
 
 .hc-item:hover .hc-item__media img {
-	transform: scale(1.04);
+	transform: scale(1.05);
+}
+
+.hc-item__media {
+	transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1), box-shadow 0.5s;
+}
+
+.hc-item:hover .hc-item__media {
+	transform: translateY(-6px);
+	box-shadow: 0 24px 50px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(242, 255, 0, 0.18);
 }
 
 .hc-item__tag {
@@ -471,9 +480,13 @@
 	color: #ffffff;
 }
 
+.hc-cards--4 .hc-item__title {
+	font-size: clamp(17px, 1.5vw, 24px);
+}
+
 .hc-item__copy {
 	margin: 0;
-	font-size: 15px;
+	font-size: clamp(13px, 1vw, 15px);
 	line-height: 1.55;
 	color: var(--hc-text);
 	text-wrap: pretty;
@@ -544,10 +557,6 @@
 /* ---------- Tablet & phone ---------- */
 
 @media (max-width: 1100px) {
-	.hc-cards--4,
-	.hc-facts {
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-	}
 
 	.hc-row {
 		grid-template-columns: 72px minmax(0, 1fr) 32px;
@@ -562,6 +571,14 @@
 	.hc-row__go {
 		grid-column: 3;
 		grid-row: 1;
+	}
+}
+
+/* Four across down to small tablets; two across on phones. */
+@media (max-width: 760px) {
+	.hc-cards--4,
+	.hc-facts {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
 	}
 }
 
@@ -580,8 +597,7 @@
 		flex: 1 1 100%;
 	}
 
-	.hc-cards--3,
-	.hc-facts {
+	.hc-cards--3 {
 		grid-template-columns: minmax(0, 1fr);
 	}
 

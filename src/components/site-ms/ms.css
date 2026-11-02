@@ -21,6 +21,7 @@
 	--ms-ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 
 	position: relative;
+	isolation: isolate;
 	min-height: 100vh;
 	background: var(--ms-bg);
 	color: var(--ms-fg);
@@ -2990,5 +2991,78 @@ html[data-mh-js] .ms-w > span {
 	.ms-h1,
 	.ms-h1--long {
 		font-size: clamp(32px, 8.4vw, 56px);
+	}
+}
+
+/* ---------- Ambient light (every page) ----------
+ * A fixed layer behind the content (z-index -1 inside the isolated .ms):
+ * three soft lights drifting over a minute, plus a fine grain, so pages have
+ * depth instead of sitting on flat black. Still under reduced motion. */
+
+.ms-ambient {
+	position: fixed;
+	inset: 0;
+	z-index: -1;
+	overflow: hidden;
+	pointer-events: none;
+}
+
+.ms-ambient span {
+	position: absolute;
+	border-radius: 50%;
+	filter: blur(90px);
+	will-change: transform;
+}
+
+.ms-ambient span:nth-child(1) {
+	left: -15vw;
+	top: 10vh;
+	width: 55vw;
+	height: 55vw;
+	background: radial-gradient(closest-side, rgba(84, 120, 255, 0.13), transparent 70%);
+	animation: ms-amb-a 46s ease-in-out infinite alternate;
+}
+
+.ms-ambient span:nth-child(2) {
+	right: -18vw;
+	top: 40vh;
+	width: 60vw;
+	height: 60vw;
+	background: radial-gradient(closest-side, rgba(242, 255, 0, 0.08), transparent 70%);
+	animation: ms-amb-b 58s ease-in-out infinite alternate;
+}
+
+.ms-ambient span:nth-child(3) {
+	left: 25vw;
+	bottom: -30vh;
+	width: 50vw;
+	height: 50vw;
+	background: radial-gradient(closest-side, rgba(0, 214, 170, 0.08), transparent 70%);
+	animation: ms-amb-c 52s ease-in-out infinite alternate;
+}
+
+.ms-ambient::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	opacity: 0.07;
+	background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+@keyframes ms-amb-a {
+	to { transform: translate3d(30vw, 25vh, 0) scale(1.2); }
+}
+
+@keyframes ms-amb-b {
+	to { transform: translate3d(-35vw, -20vh, 0) scale(0.9); }
+}
+
+@keyframes ms-amb-c {
+	to { transform: translate3d(-20vw, -45vh, 0) scale(1.15); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.ms-ambient span {
+		animation: none;
 	}
 }

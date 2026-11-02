@@ -178,8 +178,8 @@ export default function HomeCalm({
                 <section className="hc-section" aria-labelledby="hc-svc">
                     <SectionHead id="hc-svc" title={t.servicesTitle} lede={t.servicesLede} href={copy.routes.capabilities} linkLabel={t.servicesAll} />
                     <ul className="hc-cards hc-cards--4">
-                        {featured.map((service) => (
-                            <li key={service.key} data-reveal>
+                        {featured.map((service, index) => (
+                            <li key={service.key} data-reveal style={{ ["--d" as string]: `${index * 0.08}s` }}>
                                 <Link href={service.href} className="hc-item">
                                     <span className="hc-item__media hc-item__media--tall">
                                         <MsImg src={service.image!} alt={service.name} sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 25vw" />
@@ -197,8 +197,8 @@ export default function HomeCalm({
                 <section className="hc-section" aria-labelledby="hc-work">
                     <SectionHead id="hc-work" title={t.projectsTitle} lede={t.projectsLede} href={copy.routes.work} linkLabel={t.projectsAll} />
                     <ul className="hc-cards hc-cards--3">
-                        {shownProjects.map((project) => (
-                            <li key={project.key} data-reveal>
+                        {shownProjects.map((project, index) => (
+                            <li key={project.key} data-reveal style={{ ["--d" as string]: `${index * 0.08}s` }}>
                                 <Link href={project.href} className="hc-item">
                                     <span className="hc-item__media">
                                         <MsImg src={project.image} alt={project.title} sizes="(max-width: 700px) 100vw, 33vw" />
@@ -215,8 +215,8 @@ export default function HomeCalm({
             <section className="hc-section" aria-labelledby="hc-why">
                 <SectionHead id="hc-why" title={t.whyTitle} lede={t.whyLede} />
                 <ul className="hc-facts">
-                    {t.why.map((item) => (
-                        <li key={item.value} data-reveal>
+                    {t.why.map((item, index) => (
+                        <li key={item.value} data-reveal style={{ ["--d" as string]: `${index * 0.08}s` }}>
                             <strong>{item.value}</strong>
                             <span>{item.label}</span>
                         </li>

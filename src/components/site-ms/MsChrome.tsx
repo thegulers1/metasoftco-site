@@ -221,6 +221,12 @@ export function MsBehaviour() {
 
     return (
         <>
+            {/* Slow ambient light and grain behind every page, so content doesn't sit on flat black. */}
+            <div className="ms-ambient" aria-hidden="true">
+                <span />
+                <span />
+                <span />
+            </div>
             <a
                 href={`https://wa.me/905342334051?text=${encodeURIComponent(copy.whatsappText)}`}
                 target="_blank"
