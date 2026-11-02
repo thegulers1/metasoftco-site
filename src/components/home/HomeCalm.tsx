@@ -21,7 +21,7 @@ const POSTER_COVERS = new Set(["tcmb-ai-greenbox-dijital-fotograf-aktivasyonu-is
 
 const calm = {
     tr: {
-        accent: "AI photobooth",
+        accent: "akılda kalan",
         trust: "2020'den bu yana 100+ markanın etkinlik teknolojisi ortağı.",
         primary: "Etkinlik için teklif al",
         secondary: "Kalıcı kurulum için satın al",
@@ -49,7 +49,7 @@ const calm = {
         ctaSecondary: "Sunumu inceleyin",
     },
     en: {
-        accent: "AI photo booths",
+        accent: "Unforgettable",
         trust: "Event technology partner of 100+ brands since 2020.",
         primary: "Get an event quote",
         secondary: "Buy for a permanent spot",
