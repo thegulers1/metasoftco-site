@@ -101,8 +101,11 @@ export function projectActivity(title: string, client?: string | null): string {
     else if (text.includes(" × ")) text = text.slice(text.lastIndexOf(" × ") + 3);
     else if (/\s-\s/.test(text)) text = text.slice(text.lastIndexOf(" - ") + 3);
     else if (client) {
-        const brand = displayTitle(client);
-        if (text.toLocaleLowerCase("tr-TR").startsWith(brand.toLocaleLowerCase("tr-TR") + " ")) text = text.slice(brand.length + 1);
+        // "Türkiye Cumhuriyet Merkez Bankası (TCMB)" is written "TCMB" in the title.
+        const brands = [client, client.match(/\(([^)]+)\)/)?.[1]].filter(Boolean).map((name) => displayTitle(name!.trim()));
+        const lower = text.toLocaleLowerCase("tr-TR");
+        const brand = brands.find((name) => lower.startsWith(name.toLocaleLowerCase("tr-TR") + " "));
+        if (brand) text = text.slice(brand.length + 1);
     }
     text = text.trim();
     // "Dijital Hediye Çarkı Aktivasyonu" -> "Dijital Hediye Çarkı"; a one-word remainder keeps its noun.
