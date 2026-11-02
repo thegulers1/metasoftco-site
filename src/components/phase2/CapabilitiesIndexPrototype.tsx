@@ -37,7 +37,7 @@ const t = {
             { label: "Photobooth kiralama", href: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/photobooth-kirala" },
             { label: "Mirror Booth kiralama", href: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/mirror-booth" },
             { label: "360 Video Booth kiralama", href: "/hizmetler/video/360-video-booth" },
-            { label: "Aura Photobooth kiralama", href: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/aura-photobooth-kiralama" },
+            { label: "Aura photo booth kiralama", href: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/aura-photobooth-kiralama" },
             { label: "Reflex Game kiralama", href: "/hizmetler/interaktif-etkinlik-aktiviteleri/reflex-game-hiz-ve-rekabet-oyunu" },
         ],
     },
