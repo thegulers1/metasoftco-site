@@ -2907,3 +2907,90 @@ html[data-mh-js] .ms-w > span {
 	align-items: flex-start;
 	border-top: 1px solid var(--ms-line);
 }
+
+/* ---------- Calm type (November 2026) ----------
+ * Headings in sentence case and one heading face (Inter Tight) instead of
+ * heavy all-caps display type; sizes one step smaller. Small labels (crumbs,
+ * chips, tags) keep their upper-case mono voice. Kept last so it wins over
+ * the rules above without touching them. */
+
+.ms-h1 {
+	font-size: clamp(38px, 5.2vw, 84px);
+	line-height: 1.03;
+	letter-spacing: -0.035em;
+	text-transform: none;
+}
+
+.ms-h1--long {
+	font-size: clamp(32px, 4.3vw, 72px);
+}
+
+.ms-h2 {
+	font-size: clamp(28px, 3vw, 52px);
+	line-height: 1.06;
+	letter-spacing: -0.03em;
+	text-transform: none;
+}
+
+.ms-h2--sm {
+	font-size: clamp(22px, 2vw, 34px);
+}
+
+.ms-tile__name,
+.ms-row__name,
+.ms-card__title,
+.ms-next__title,
+.ms-capability strong,
+.ms-closing__big {
+	font-family: var(--mh-heading), sans-serif;
+	font-weight: 700;
+	letter-spacing: -0.02em;
+	text-transform: none;
+}
+
+.ms-tile__name,
+.ms-card__title {
+	font-weight: 600;
+	font-size: clamp(18px, 1.4vw, 24px);
+	line-height: 1.2;
+}
+
+.ms-card--lead .ms-card__title {
+	font-size: clamp(20px, 1.8vw, 30px);
+}
+
+.ms-row__name {
+	font-size: clamp(20px, 2vw, 36px);
+	line-height: 1.12;
+}
+
+.ms-next__title {
+	font-size: clamp(22px, 2.2vw, 40px);
+	line-height: 1.1;
+}
+
+.ms-capability strong {
+	font-size: clamp(20px, 1.8vw, 32px);
+	line-height: 1.1;
+}
+
+.ms-closing__big {
+	font-size: clamp(40px, 5.4vw, 112px);
+	line-height: 1;
+	letter-spacing: -0.035em;
+}
+
+/* Buttons read as buttons, not as typewriter labels. */
+.ms-pill {
+	font-family: var(--mh-sans), sans-serif;
+	font-weight: 600;
+	font-size: 14px;
+	letter-spacing: 0.01em;
+}
+
+@media (max-width: 899px) {
+	.ms-h1,
+	.ms-h1--long {
+		font-size: clamp(32px, 8.4vw, 56px);
+	}
+}

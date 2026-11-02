@@ -6,7 +6,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useChatStore } from "@/components/AIChat/useChatStore";
 import { trackEvent } from "@/lib/analytics";
-import { isHomePath, phase2LocaleFromPath, phase2SiblingPath, phase2Routes } from "@/lib/phase2";
+import { phase2LocaleFromPath, phase2SiblingPath, phase2Routes } from "@/lib/phase2";
 import { msChromeCopy, msClosingFor } from "@/lib/ms-chrome";
 
 /**
@@ -52,8 +52,6 @@ export function MsNav() {
             document.body.style.overflow = "";
         };
     }, [open]);
-
-    if (isHomePath(pathname)) return null;
 
     const active = copy.nav
         .map((item) => item.href)
@@ -117,7 +115,6 @@ export function MsNav() {
 export function MsClosing() {
     const pathname = usePathname();
     const magRef = useRef<HTMLAnchorElement>(null);
-    if (isHomePath(pathname)) return null;
 
     const locale = phase2LocaleFromPath(pathname);
     const copy = msChromeCopy(locale);
@@ -186,16 +183,13 @@ export function MsClosing() {
 }
 
 /**
- * Site-wide behaviour for inner pages: the custom cursor, scroll reveals and
- * the floating WhatsApp / AI actions. The homepage runs its own.
+ * Site-wide behaviour on every page, the homepage included: scroll reveals
+ * and the floating WhatsApp / AI actions. (The custom cursor was removed in
+ * the calm redesign of November 2026.)
  */
 export function MsBehaviour() {
     const pathname = usePathname();
-    const dotRef = useRef<HTMLDivElement>(null);
-    const ringRef = useRef<HTMLDivElement>(null);
-    const labelRef = useRef<HTMLSpanElement>(null);
     const { open: openChat, isOpen: chatOpen } = useChatStore();
-    const home = isHomePath(pathname);
     const locale = phase2LocaleFromPath(pathname);
     const copy = msChromeCopy(locale);
 
@@ -224,59 +218,9 @@ export function MsBehaviour() {
         document.querySelector(".ms")?.classList.toggle("ms--chat", chatOpen);
     }, [chatOpen]);
 
-    // Cursor: fine pointers only, never on the homepage (it has its own).
-    useEffect(() => {
-        const root = document.querySelector<HTMLElement>(".ms");
-        if (!root || home) return;
-        const fine = matchMedia("(hover: hover) and (pointer: fine)");
-        const reduced = matchMedia("(prefers-reduced-motion: reduce)");
-        if (!fine.matches || reduced.matches) return;
-        root.classList.add("ms--cursor");
-        const s = { mx: -100, my: -100, rx: -100, ry: -100, size: 44, label: "", shown: "" };
-        const onMove = (event: globalThis.MouseEvent) => {
-            s.mx = event.clientX;
-            s.my = event.clientY;
-        };
-        const onOver = (event: globalThis.MouseEvent) => {
-            const el = (event.target as Element | null)?.closest?.("[data-cursor]");
-            s.label = el?.getAttribute("data-cursor") ?? "";
-        };
-        let raf = 0;
-        const frame = () => {
-            s.rx += (s.mx - s.rx) * 0.18;
-            s.ry += (s.my - s.ry) * 0.18;
-            s.size += ((s.label ? 104 : 44) - s.size) * 0.2;
-            if (s.label !== s.shown && labelRef.current) {
-                s.shown = s.label;
-                labelRef.current.textContent = s.label;
-                labelRef.current.style.opacity = s.label ? "1" : "0";
-            }
-            if (dotRef.current) dotRef.current.style.transform = `translate(${s.mx}px,${s.my}px)`;
-            const ring = ringRef.current;
-            if (ring) {
-                ring.style.width = ring.style.height = `${s.size}px`;
-                ring.style.transform = `translate(${s.rx - s.size / 2}px,${s.ry - s.size / 2}px)`;
-                ring.classList.toggle("is-label", Boolean(s.label));
-            }
-            raf = requestAnimationFrame(frame);
-        };
-        raf = requestAnimationFrame(frame);
-        window.addEventListener("mousemove", onMove);
-        window.addEventListener("mouseover", onOver);
-        return () => {
-            cancelAnimationFrame(raf);
-            window.removeEventListener("mousemove", onMove);
-            window.removeEventListener("mouseover", onOver);
-            root.classList.remove("ms--cursor");
-        };
-    }, [home]);
-
-    if (home) return null;
 
     return (
         <>
-            <div ref={dotRef} className="ms-cursor-dot" aria-hidden="true" />
-            <div ref={ringRef} className="ms-cursor-ring" aria-hidden="true"><span ref={labelRef} /></div>
             <a
                 href={`https://wa.me/905342334051?text=${encodeURIComponent(copy.whatsappText)}`}
                 target="_blank"
