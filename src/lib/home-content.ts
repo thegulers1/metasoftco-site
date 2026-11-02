@@ -71,8 +71,9 @@ const tr = {
     cursor: { go: "GİT", write: "YAZ", view: "İNCELE", all: "TÜMÜ", cart: "LİSTE", add: "EKLE", remove: "ÇIKAR", ask: "SOR", grab: "TUT", holding: "TUTTUN", flip: "ÇEVİR", plus: "+ EKLE", added: "EKLENDİ" },
     introWords: ["FİKİR", "YAZILIM", "FİZİKSEL ÜRETİM", "SAHA OPERASYONU"],
     // The headline says what we rent, so HR, event and procurement visitors know in one read.
-    heroTitle: "Etkinliğiniz için AI\u00a0photobooth ve interaktif oyun kiralıyoruz.",
-    heroLede: "İstanbul merkezli yapay zekâ etkinlik teknolojisi ajansıyız. 3 gün önceden haber vermeniz yeterli. Kurulum, markanıza özel tasarım ve sahadaki ekip dahil; teklifiniz aynı gün elinizde.",
+    heroTitle: "Yapay zekâ ile akılda kalan etkinlikler.",
+    // The headline is the promise; the first sentence keeps the search terms (AI photobooth, kiralama).
+    heroLede: "AI photobooth, photobooth ve interaktif oyunları anahtar teslim kiralıyoruz. 3 gün önceden haber vermeniz yeterli; kurulum, markanıza özel tasarım ve sahadaki ekip dahil, teklifiniz aynı gün elinizde.",
     heroStats: [
         { value: "1.000+", label: "ETKİNLİK" },
         { value: "10", label: "ŞEHİR" },
@@ -91,8 +92,9 @@ const tr = {
             {
                 name: "İK & kurum içi etkinlik",
                 desc: "Yılbaşı partisi, bayi toplantısı, şirket günü, lansman. Çalışanlarınızın sıraya girdiği deneyimler; baskı ve QR ile paylaşım dahil.",
-                cta: "Kurumların etkinliklerini görün →",
-                href: phase2Routes.tr.work,
+                // Seasonal: points at the year-end party page through December.
+                cta: "Yılbaşı partisi için deneyimler →",
+                href: "/hizmetler/yilbasi-partisi-aktiviteleri",
             },
             {
                 name: "Ajans & etkinlik organizatörü",
@@ -226,8 +228,8 @@ const en: HomeCopy = {
     quoteCta: "GET A QUOTE ↗",
     cursor: { go: "GO", write: "WRITE", view: "VIEW", all: "ALL", cart: "LIST", add: "ADD", remove: "REMOVE", ask: "ASK", grab: "GRAB", holding: "GOT IT", flip: "FLIP", plus: "+ ADD", added: "ADDED" },
     introWords: ["IDEA", "SOFTWARE", "PHYSICAL BUILD", "FIELD OPERATIONS"],
-    heroTitle: "AI\u00a0photo booths and interactive games for rent, for your event.",
-    heroLede: "We are an Istanbul-based AI event technology agency. Three days' notice is enough. Setup, brand-specific design and the on-site team are included, and your quote arrives the same day.",
+    heroTitle: "Unforgettable events, powered by AI.",
+    heroLede: "We rent AI photo booths, photo booths and interactive games, delivered turnkey. Three days' notice is enough; setup, brand-specific design and the on-site team are included, and your quote arrives the same day.",
     heroStats: [
         { value: "1,000+", label: "EVENTS" },
         { value: "10", label: "CITIES" },
