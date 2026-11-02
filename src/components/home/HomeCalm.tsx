@@ -35,7 +35,7 @@ const calm = {
         projectsTitle: "Markalarla sahaya çıkardıklarımız",
         projectsLede: "Fikirden kuruluma, gece boyunca sahadaki ekibe kadar bizim imzamızı taşıyan işler.",
         projectsAll: "Tüm projeler",
-        whyTitle: "Neden Metasoft?",
+        whyTitle: "Neden MetasoftCo?",
         whyLede: "Yazılımı kendimiz yazıyor, cihazı kendimiz kuruyor, sahada kendimiz duruyoruz.",
         why: [
             { value: "3 gün", label: "Etkinlikten 3 gün önce haber vermeniz yeterli." },
@@ -63,7 +63,7 @@ const calm = {
         projectsTitle: "Taken to the floor with brands",
         projectsLede: "From the idea to the setup and the crew on the night, work that carries our signature.",
         projectsAll: "All projects",
-        whyTitle: "Why Metasoft?",
+        whyTitle: "Why MetasoftCo?",
         whyLede: "We write the software, build the booth and stand on site ourselves.",
         why: [
             { value: "3 days", label: "Three days' notice before the event is enough." },
