@@ -16,8 +16,9 @@ import "./home-calm.css";
 
 const FEATURED: HomeServiceKey[] = ["ai-photo", "photobooth", "strip-photo", "gift-wheel"];
 const LOGO_COUNT = 10;
-/** A crowd photo reads best full width; poster-like covers do not. */
-const SHOWCASE_PREFERRED = ["rollic-summer-party-x-seri-t-foto", "ray-ban-x-strip-photo"];
+/** Projects whose cover is an on-site photograph; poster-like covers with baked-in text are skipped. */
+const PROJECTS_PREFERRED = ["rollic-summer-party-x-seri-t-foto", "origins-x-kabin-fotograf-aktivitesi", "ray-ban-x-strip-photo"];
+const POSTER_COVERS = new Set(["tcmb-ai-greenbox-dijital-fotograf-aktivasyonu-istanbul-finans-merkezi"]);
 
 const calm = {
     tr: {
@@ -31,7 +32,6 @@ const calm = {
         servicesTitle: "En çok kiralanan deneyimler",
         servicesLede: "Kurulum, markanıza özel tasarım ve sahadaki ekip her kiralamada dahil.",
         servicesAll: "Tüm deneyimler",
-        showcaseLabel: "Sahadan",
         projectsTitle: "Markalarla sahaya çıkardıklarımız",
         projectsLede: "Fikirden kuruluma, gece boyunca sahadaki ekibe kadar bizim imzamızı taşıyan işler.",
         projectsAll: "Tüm projeler",
@@ -60,7 +60,6 @@ const calm = {
         servicesTitle: "Most rented experiences",
         servicesLede: "Setup, brand-specific design and the on-site team come with every rental.",
         servicesAll: "All experiences",
-        showcaseLabel: "On site",
         projectsTitle: "Taken to the floor with brands",
         projectsLede: "From the idea to the setup and the crew on the night, work that carries our signature.",
         projectsAll: "All projects",
@@ -117,8 +116,8 @@ export default function HomeCalm({
     const copy = homeCopy(locale);
     const t = calm[locale];
     const featured = FEATURED.flatMap((key) => services.filter((service) => service.key === key && service.image));
-    const showcase = SHOWCASE_PREFERRED.map((key) => projects.find((project) => project.key === key)).find(Boolean) ?? projects[0];
-    const shownProjects = projects.filter((project) => project !== showcase).slice(0, 3);
+    const preferred = PROJECTS_PREFERRED.flatMap((key) => projects.filter((project) => project.key === key));
+    const shownProjects = [...preferred, ...projects.filter((project) => !preferred.includes(project) && !POSTER_COVERS.has(project.key))].slice(0, 3);
     const marquee = [...t.marquee, ...t.marquee];
 
     return (
@@ -181,29 +180,16 @@ export default function HomeCalm({
                     <ul className="hc-cards hc-cards--4">
                         {featured.map((service) => (
                             <li key={service.key} data-reveal>
-                                <Link href={service.href} className="hc-photo hc-photo--tall">
-                                    <MsImg src={service.image!} alt={service.name} sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 25vw" />
-                                    <span className="hc-photo__body">
-                                        <h3 className="hc-photo__title">{service.name}</h3>
-                                        <span className="hc-photo__copy">{service.desc}</span>
+                                <Link href={service.href} className="hc-item">
+                                    <span className="hc-item__media hc-item__media--tall">
+                                        <MsImg src={service.image!} alt={service.name} sizes="(max-width: 700px) 100vw, (max-width: 1100px) 50vw, 25vw" />
                                     </span>
+                                    <h3 className="hc-item__title">{service.name}</h3>
+                                    <p className="hc-item__copy">{service.desc}</p>
                                 </Link>
                             </li>
                         ))}
                     </ul>
-                </section>
-            )}
-
-            {showcase && (
-                <section className="hc-section" aria-label={`${t.showcaseLabel}: ${showcase.title}`}>
-                    <Link href={showcase.href} className="hc-showcase" data-reveal>
-                        <MsImg src={showcase.image} alt={showcase.title} sizes="100vw" />
-                        <span className="hc-showcase__body">
-                            <span className="hc-photo__tag">{t.showcaseLabel} · {showcase.client}</span>
-                            <span className="hc-showcase__title">{showcase.title}</span>
-                        </span>
-                        <span className="hc-showcase__go" aria-hidden="true">↗</span>
-                    </Link>
                 </section>
             )}
 
@@ -213,12 +199,12 @@ export default function HomeCalm({
                     <ul className="hc-cards hc-cards--3">
                         {shownProjects.map((project) => (
                             <li key={project.key} data-reveal>
-                                <Link href={project.href} className="hc-photo">
-                                    <MsImg src={project.image} alt={project.title} sizes="(max-width: 700px) 100vw, 33vw" />
-                                    <span className="hc-photo__body">
-                                        <span className="hc-photo__tag">{project.client}</span>
-                                        <h3 className="hc-photo__title">{project.title}</h3>
+                                <Link href={project.href} className="hc-item">
+                                    <span className="hc-item__media">
+                                        <MsImg src={project.image} alt={project.title} sizes="(max-width: 700px) 100vw, 33vw" />
                                     </span>
+                                    <span className="hc-item__tag">{project.client}</span>
+                                    <h3 className="hc-item__title">{project.title}</h3>
                                 </Link>
                             </li>
                         ))}
