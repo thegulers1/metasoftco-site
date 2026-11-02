@@ -9,6 +9,7 @@ import { MsWords, upperMixed } from "@/components/site-ms/parts";
 import { MsClock } from "@/components/site-ms/interactive";
 import { trackEvent } from "@/lib/analytics";
 import { homeCopy } from "@/lib/home-content";
+import { occasionLabel } from "@/lib/occasions";
 import { getAttribution } from "@/lib/attribution";
 
 type Status = "idle" | "sending" | "sent" | "error";
@@ -30,6 +31,7 @@ const t = {
         intentNote: "Talep türü",
         audiences: { ik: "İK & kurum içi etkinlik", ajans: "Ajans & etkinlik organizatörü", satinalma: "Satın alma ekibi", magaza: "Mağaza, showroom & ofis" },
         audienceNote: "Kitle",
+        occasionNote: "Etkinlik",
         sent: "✓",
         newRequest: "YENİ TALEP",
         email: "E-POSTA GÖNDERİN",
@@ -51,6 +53,7 @@ const t = {
         intentNote: "Request type",
         audiences: { ik: "HR & internal events", ajans: "Agency & event organiser", satinalma: "Procurement team", magaza: "Store, showroom & office" },
         audienceNote: "Audience",
+        occasionNote: "Occasion",
         sent: "✓",
         newRequest: "NEW REQUEST",
         email: "SEND AN EMAIL",
@@ -71,7 +74,10 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
     const [status, setStatus] = useState<Status>("idle");
     const [size, setSize] = useState("");
     const [products, setProducts] = useState<string[]>([]);
-    const [linkedProduct, setLinkedProduct] = useState("");
+    // ?urun= may carry one product or a comma-separated set (occasion pages).
+    // Names that match a chip select that chip; the rest show as extra chips.
+    const [linkedProducts, setLinkedProducts] = useState<string[]>([]);
+    const [occasion, setOccasion] = useState("");
     const [intent, setIntent] = useState<"rent" | "buy">("rent");
     const [audience, setAudience] = useState<keyof typeof l.audiences | "">("");
     // Items the visitor put on the homepage quote list arrive pre-selected here.
@@ -88,6 +94,10 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
             if (names.length) setListItems(names);
         } catch { /* storage blocked or corrupt */ }
     }, [locale]);
+    const presetProducts = useCallback((names: string[]) => {
+        setProducts((current) => [...new Set([...current, ...names.filter((name) => l.products.includes(name))])]);
+        setLinkedProducts(names.filter((name) => !l.products.includes(name)));
+    }, [l.products]);
     const presetAudience = useCallback((key: string) => {
         if (key === "ik" || key === "ajans" || key === "satinalma" || key === "magaza") setAudience(key);
     }, []);
@@ -101,9 +111,13 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
         const currentForm = event.currentTarget;
         const data = new FormData(currentForm);
         const value = (key: string) => String(data.get(key) ?? "").trim();
-        const product = [...new Set([linkedProduct, ...listItems, ...products].filter(Boolean))].join(", ");
+        const product = [...new Set([...linkedProducts, ...listItems, ...products].filter(Boolean))].join(", ");
         // Request type and audience travel at the top of the message, so every inbox and the panel see them.
-        const tags = [`${l.intentNote}: ${l.intents[intent]}`, audience && `${l.audienceNote}: ${l.audiences[audience]}`].filter(Boolean).join(" · ");
+        const tags = [
+            `${l.intentNote}: ${l.intents[intent]}`,
+            occasion && `${l.occasionNote}: ${occasion}`,
+            audience && `${l.audienceNote}: ${l.audiences[audience]}`,
+        ].filter(Boolean).join(" · ");
 
         try {
             const response = await fetch("/api/contact", {
@@ -129,6 +143,7 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
                 setSize("");
                 setProducts([]);
                 setListItems([]);
+                setLinkedProducts([]);
                 try { localStorage.removeItem(QUOTE_LIST_KEY); } catch { /* storage blocked */ }
                 window.scrollTo({ top: 0, behavior: "smooth" });
             } else {
@@ -224,15 +239,15 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
                             <div className="ms-field">
                                 <span>{l.productsLabel}</span>
                                 <Suspense fallback={null}>
-                                    <LinkedProduct onProduct={setLinkedProduct} />
+                                    <LinkedProduct onProducts={presetProducts} onOccasion={setOccasion} />
                                 </Suspense>
                                 <div className="ms-chips" style={{ marginTop: 8 }}>
                                     {listItems.map((name) => (
                                         <button key={`list-${name}`} type="button" className="ms-chip" aria-pressed="true" onClick={() => setListItems((current) => current.filter((item) => item !== name))}>{name} ×</button>
                                     ))}
-                                    {linkedProduct && !l.products.includes(linkedProduct) && (
-                                        <button type="button" className="ms-chip" aria-pressed="true" onClick={() => setLinkedProduct("")}>{linkedProduct} ×</button>
-                                    )}
+                                    {linkedProducts.map((name) => (
+                                        <button key={`linked-${name}`} type="button" className="ms-chip" aria-pressed="true" onClick={() => setLinkedProducts((current) => current.filter((item) => item !== name))}>{name} ×</button>
+                                    ))}
                                     {l.products.map((label) => (
                                         <button key={label} type="button" aria-pressed={products.includes(label)} className="ms-chip" data-cursor={l.cursor.pick} onClick={() => toggleProduct(label)}>{locale === "en" ? label.toUpperCase() : upperMixed(label)}</button>
                                     ))}
@@ -270,12 +285,20 @@ export default function ContactPrototype({ locale }: { locale: Phase2Locale }) {
     );
 }
 
-/** Service pages link here with ?urun=<product>, so the request arrives tagged with it. */
-function LinkedProduct({ onProduct }: { onProduct: (product: string) => void }) {
-    const initial = useSearchParams().get("urun")?.slice(0, 120) ?? "";
+/**
+ * Service pages link here with ?urun=<product>; occasion pages with
+ * ?durum=<occasion>&urun=<a>,<b>. The request arrives tagged with both.
+ */
+function LinkedProduct({ onProducts, onOccasion }: { onProducts: (names: string[]) => void; onOccasion: (label: string) => void }) {
+    const params = useSearchParams();
+    const urun = params.get("urun")?.slice(0, 300) ?? "";
+    const durum = params.get("durum") ?? "";
     useEffect(() => {
-        if (initial) onProduct(initial);
-    }, [initial, onProduct]);
+        const names = urun.split(",").map((name) => name.trim()).filter(Boolean).slice(0, 8);
+        if (names.length) onProducts(names);
+        const label = occasionLabel(durum);
+        if (label) onOccasion(label);
+    }, [urun, durum, onProducts, onOccasion]);
     return null;
 }
 

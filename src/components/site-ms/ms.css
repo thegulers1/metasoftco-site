@@ -2844,3 +2844,66 @@ html[data-mh-js] .ms-w > span {
 		box-shadow: 0 0 0 2px var(--ms-fg);
 	}
 }
+
+/* ---------- Occasion landing pages (src/components/phase2/OccasionLanding.tsx) ---------- */
+
+.ms-occ__notice {
+	margin: 0;
+	padding-left: 14px;
+	border-left: 2px solid var(--ms-line-2);
+	font-size: 15px;
+	line-height: 1.55;
+	color: var(--ms-mut);
+	text-wrap: pretty;
+}
+
+.ms-occ__tiers {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr));
+}
+
+.ms-occ__tiers > .ms-card {
+	gap: 16px;
+}
+
+.ms-occ__products {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 6px;
+	margin: 4px 0 0;
+	padding: 0;
+	list-style: none;
+}
+
+.ms-occ__products li {
+	padding: 5px 10px;
+	border: 1px solid var(--ms-line-2);
+	border-radius: 99px;
+	font-size: 13px;
+	color: var(--ms-fg);
+}
+
+.ms .ms-occ__tier-cta {
+	align-self: flex-start;
+	margin-top: auto;
+	padding-top: 10px;
+	padding-bottom: 3px;
+	border-bottom: 1px solid var(--ms-line-2);
+	font-size: 12px;
+	letter-spacing: 0.06em;
+	color: var(--ms-fg);
+	transition: border-color 0.2s;
+}
+
+.ms .ms-occ__tier-cta:hover,
+.ms .ms-occ__tier-cta:focus-visible {
+	border-color: var(--ms-fg);
+	color: #ffffff;
+}
+
+.ms-occ__closing {
+	align-items: flex-start;
+	border-top: 1px solid var(--ms-line);
+}
