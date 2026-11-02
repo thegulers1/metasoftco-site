@@ -1,7 +1,7 @@
 import Link from "next/link";
 import type { Phase2Locale } from "@/lib/phase2";
 import { homeCopy, type HomeServiceKey } from "@/lib/home-content";
-import { brands } from "@/components/site/BrandStrip";
+import { brands } from "@/lib/brands";
 import { MsImg } from "@/components/site-ms/interactive";
 import type { HomeProject, HomeService } from "./HomeExperience";
 import "./home-calm.css";
