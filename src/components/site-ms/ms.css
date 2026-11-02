@@ -2805,44 +2805,42 @@ html[data-mh-js] .ms-w > span {
 	}
 }
 
-/* Phones: the two floating actions shrink to round icons stacked in one corner,
-   so they stop covering text at the bottom of the screen. */
-@media (max-width: 899px) {
-	.ms-float {
-		right: var(--ms-gut);
-		left: auto;
-		justify-content: center;
-		width: 48px;
-		height: 48px;
-		padding: 0 !important;
-		box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
-	}
+/* The two floating actions are round icons stacked in one corner on every
+   screen size, so they never cover text (calm redesign, November 2026). */
+.ms-float {
+	right: var(--ms-gut);
+	left: auto;
+	justify-content: center;
+	width: 48px;
+	height: 48px;
+	padding: 0 !important;
+	box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
+}
 
-	.ms .ms-float--wa {
-		left: auto;
-		bottom: 76px;
-		background: var(--ms-fg);
-	}
+.ms .ms-float--wa {
+	left: auto;
+	bottom: 76px;
+	background: var(--ms-fg);
+}
 
-	.ms-float__icon {
-		display: block;
-	}
+.ms-float__icon {
+	display: block;
+}
 
-	.ms-float__label {
-		position: absolute;
-		width: 1px;
-		height: 1px;
-		overflow: hidden;
-		clip-path: inset(50%);
-		white-space: nowrap;
-	}
+.ms-float__label {
+	position: absolute;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+	clip-path: inset(50%);
+	white-space: nowrap;
+}
 
-	.ms-float--wa .ms-float__dot {
-		position: absolute;
-		top: 9px;
-		right: 9px;
-		box-shadow: 0 0 0 2px var(--ms-fg);
-	}
+.ms-float--wa .ms-float__dot {
+	position: absolute;
+	top: 9px;
+	right: 9px;
+	box-shadow: 0 0 0 2px var(--ms-fg);
 }
 
 /* ---------- Occasion landing pages (src/components/phase2/OccasionLanding.tsx) ---------- */
