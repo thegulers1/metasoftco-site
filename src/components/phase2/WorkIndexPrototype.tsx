@@ -1,4 +1,5 @@
 import type { Phase2Locale } from "@/lib/phase2";
+import { projectActivity } from "@/lib/title-case";
 import { phase2Copy } from "@/lib/phase2-content";
 import { homeClientName, homeProjectTag } from "@/lib/home-content";
 import { MsWords } from "@/components/site-ms/parts";
@@ -64,8 +65,9 @@ export default function WorkIndexPrototype({ projects, locale }: { projects: P2W
                     items={projects.map((project) => ({
                         key: project.id,
                         href: `${dictionary.routes.work}/${project.slug}`,
-                        name: homeClientName(project.client ?? null, project.title),
-                        sub: project.title,
+                        // Lead with the activity; the brand sits underneath.
+                        name: projectActivity(project.title, project.client),
+                        sub: homeClientName(project.client ?? null, project.title),
                         cat: homeProjectTag(project.category ?? null, locale),
                         image: project.image,
                     }))}

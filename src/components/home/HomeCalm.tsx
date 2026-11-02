@@ -2,6 +2,7 @@ import Link from "next/link";
 import type { Phase2Locale } from "@/lib/phase2";
 import { homeCopy, type HomeServiceKey } from "@/lib/home-content";
 import { brands } from "@/lib/brands";
+import { projectActivity } from "@/lib/title-case";
 import { MsImg } from "@/components/site-ms/interactive";
 import type { HomeProject, HomeService } from "./HomeExperience";
 import "./home-calm.css";
@@ -212,7 +213,7 @@ export default function HomeCalm({
                                         <MsImg src={project.image} alt={project.title} sizes="(max-width: 700px) 100vw, 33vw" />
                                     </span>
                                     <span className="hc-item__tag">{project.client}</span>
-                                    <h3 className="hc-item__title">{project.title}</h3>
+                                    <h3 className="hc-item__title">{projectActivity(project.title, project.client)}</h3>
                                 </Link>
                             </li>
                         ))}

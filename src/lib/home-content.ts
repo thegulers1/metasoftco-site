@@ -1,4 +1,5 @@
 import { phase2CategorySlugs, phase2Routes, type Phase2Locale } from "@/lib/phase2";
+import { displayTitle } from "@/lib/title-case";
 import { SOFTWARE_CATEGORY_PATH } from "@/lib/software";
 
 /**
@@ -376,5 +377,5 @@ export function homeProjectTag(category: string | null, locale: Phase2Locale) {
 export function homeClientName(client: string | null, title: string) {
     const name = client?.trim() || title;
     const short = name.match(/\(([^)]+)\)/)?.[1];
-    return short || name;
+    return displayTitle(short || name);
 }

@@ -1,4 +1,5 @@
 import { isVideoUrl } from "@/lib/cloudinary";
+import { displayTitle } from "@/lib/title-case";
 import { capabilityListingImageOverrides } from "@/lib/phase2-content";
 
 /**
@@ -55,5 +56,5 @@ export function shortServiceTitle(title: string, homeTitle?: string | null): str
         .replace(/\s+(Etkinlik\s+)?Aktivasyonu$/i, "")
         .replace(/\s{2,}/g, " ")
         .trim();
-    return text || title.trim();
+    return displayTitle(text || title.trim());
 }
