@@ -39,7 +39,8 @@ const tr = {
     cursor: { go: "GİT", write: "YAZ", home: "ANA SAYFA", ask: "SOR" },
     closingKicker: "SIRADAKİ DENEYİM",
     labels: { email: "E-POSTA", phone: "TELEFON", address: "ADRES", follow: "TAKİP EDİN", explore: "KEŞFET" },
-    address: "İstanbul Teknokent No: 37/1, İç Kapı No: 28, Avcılar / İstanbul",
+    // Non-breaking spaces keep "No: 28" and "İç Kapı" from splitting across lines.
+    address: "İstanbul Teknokent No:\u00a037/1, İç\u00a0Kapı\u00a0No:\u00a028, Avcılar\u00a0/\u00a0İstanbul",
     legal: [
         { href: "/gizlilik", label: "GİZLİLİK POLİTİKASI" },
         { href: "/kullanim-kosullari", label: "KULLANIM KOŞULLARI" },
@@ -87,7 +88,7 @@ const en: MsChromeCopy = {
     cursor: { go: "GO", write: "WRITE", home: "HOME", ask: "ASK" },
     closingKicker: "YOUR NEXT EXPERIENCE",
     labels: { email: "EMAIL", phone: "PHONE", address: "ADDRESS", follow: "FOLLOW", explore: "EXPLORE" },
-    address: "İstanbul Teknokent No: 37/1, İç Kapı No: 28, Avcılar / Istanbul",
+    address: "İstanbul Teknokent No:\u00a037/1, İç\u00a0Kapı\u00a0No:\u00a028, Avcılar\u00a0/\u00a0Istanbul",
     legal: [
         { href: "/gizlilik", label: "PRIVACY POLICY (TR)" },
         { href: "/kullanim-kosullari", label: "TERMS OF USE (TR)" },

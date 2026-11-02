@@ -15,7 +15,6 @@ import "./home-calm.css";
  */
 
 const FEATURED: HomeServiceKey[] = ["ai-photo", "photobooth", "strip-photo", "gift-wheel"];
-const LOGO_COUNT = 10;
 /** Projects whose cover is an on-site photograph; poster-like covers with baked-in text are skipped. */
 const PROJECTS_PREFERRED = ["rollic-summer-party-x-seri-t-foto", "origins-x-kabin-fotograf-aktivitesi", "ray-ban-x-strip-photo"];
 const POSTER_COVERS = new Set(["tcmb-ai-greenbox-dijital-fotograf-aktivasyonu-istanbul-finans-merkezi"]);
@@ -141,14 +140,23 @@ export default function HomeCalm({
             </section>
 
             <section className="hc-proof" aria-label={t.trust}>
-                <ul className="hc-logos">
-                    {brands.slice(0, LOGO_COUNT).map((brand) => (
-                        <li key={brand.name}>
-                            {/* eslint-disable-next-line @next/next/no-img-element -- static SVG/PNG logos */}
-                            <img src={brand.src} alt={brand.name} loading="lazy" className={brand.variant ? `hc-logo hc-logo--${brand.variant}` : "hc-logo"} />
-                        </li>
-                    ))}
-                </ul>
+                {/* Every client logo, sliding slowly; the list is drawn twice so the loop is seamless. */}
+                <div className="hc-logos">
+                    <ul className="hc-logos__track">
+                        {[...brands, ...brands].map((brand, index) => (
+                            <li key={`${brand.name}-${index}`} aria-hidden={index >= brands.length ? true : undefined}>
+                                {/* eslint-disable-next-line @next/next/no-img-element -- static SVG/PNG logos */}
+                                <img
+                                    src={brand.src}
+                                    alt={index < brands.length ? brand.name : ""}
+                                    width={brand.width}
+                                    className={brand.variant ? `hc-logo hc-logo--${brand.variant}` : "hc-logo"}
+                                    style={{ width: Math.round(Math.min(brand.width, 120) * 0.85) }}
+                                />
+                            </li>
+                        ))}
+                    </ul>
+                </div>
                 <div className="hc-marquee" aria-hidden="true">
                     <div className="hc-marquee__track">
                         {marquee.map((item, index) => (
