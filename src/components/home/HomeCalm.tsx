@@ -16,6 +16,8 @@ import "./home-calm.css";
 
 const FEATURED: HomeServiceKey[] = ["ai-photo", "photobooth", "strip-photo", "gift-wheel"];
 const LOGO_COUNT = 10;
+/** A crowd photo reads best full width; poster-like covers do not. */
+const SHOWCASE_PREFERRED = ["rollic-summer-party-x-seri-t-foto", "ray-ban-x-strip-photo"];
 
 const calm = {
     tr: {
@@ -115,8 +117,8 @@ export default function HomeCalm({
     const copy = homeCopy(locale);
     const t = calm[locale];
     const featured = FEATURED.flatMap((key) => services.filter((service) => service.key === key && service.image));
-    const [showcase, ...rest] = projects;
-    const shownProjects = rest.slice(0, 3);
+    const showcase = SHOWCASE_PREFERRED.map((key) => projects.find((project) => project.key === key)).find(Boolean) ?? projects[0];
+    const shownProjects = projects.filter((project) => project !== showcase).slice(0, 3);
     const marquee = [...t.marquee, ...t.marquee];
 
     return (
