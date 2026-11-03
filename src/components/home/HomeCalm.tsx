@@ -9,8 +9,8 @@ import "./home-calm.css";
 
 /**
  * Homepage (November 2026). Calm, but with weight: a full-screen centred hero
- * with one accent phrase and a living light, oversized numbers drifting past,
- * large numbered rows, photography-led cards and one framed closing call.
+ * with one accent phrase and a living light, client logos sliding past, two
+ * doors (rent / buy), photography-led cards and one framed closing call.
  * Few elements, each one big. Navigation, footer and floating actions come
  * from the shared site chrome (src/components/site-ms/MsChrome.tsx).
  */
@@ -23,57 +23,85 @@ const POSTER_COVERS = new Set(["tcmb-ai-greenbox-dijital-fotograf-aktivasyonu-is
 const calm = {
     tr: {
         accent: "akılda kalan",
-        trust: "2020'den bu yana 100+ markanın etkinlik teknolojisi ortağı.",
+        trust: "100+ marka, 1.000+ etkinlik. Kendi yazılımımız, kendi cihazımız, kendi ekibimiz.",
+        rent: {
+            kicker: "Kiralama",
+            title: "Etkinliğiniz için kiralayın",
+            copy: "AI photobooth, fotoğraf ve interaktif oyunlar. Kurulum, markanıza özel tasarım ve sahadaki ekip dahil.",
+            points: ["3 gün önceden haber yeterli", "Fiyat aynı gün", "Türkiye geneli kurulum"],
+            cta: "Deneyimleri görün",
+            extra: [{ label: "Yılbaşı partisi", href: "/hizmetler/yilbasi-partisi-aktiviteleri" }, { label: "Kurumsal sunum", href: "/sunum" }],
+        },
+        buy: {
+            kicker: "Satın alma",
+            title: "Mekânınız için satın alın",
+            copy: "Mağaza, showroom, ofis ya da müze için kalıcı kurulum. Sistem mekânınıza göre üretilir, yazılımıyla birlikte teslim edilir.",
+            points: ["Mekâna özel üretim", "Kurulum ve eğitim", "Uzaktan destek"],
+            cta: "Satın alma seçenekleri",
+        },
         primary: "Etkinlik için teklif al",
         secondary: "Kalıcı kurulum için satın al",
-        marquee: ["1.000+ Etkinlik", "10 İl", "100+ Marka", "Aynı gün teklif"],
-        pathsTitle: "Size uygun yoldan başlayın",
-        pathsLede: "İhtiyacınızı seçin; sizi doğru deneyime, doğru bilgiye götürelim.",
+        pathsTitle: "Kiralamak mı, satın almak mı?",
+        pathsLede: "Tek seferlik bir etkinlik için kiralayın, kalıcı bir mekân için satın alın.",
         servicesTitle: "En çok kiralanan deneyimler",
         servicesLede: "Kurulum, markanıza özel tasarım ve sahadaki ekip her kiralamada dahil.",
         servicesAll: "Tüm deneyimler",
         projectsTitle: "Markalarla sahaya çıkardıklarımız",
         projectsLede: "Fikirden kuruluma, gece boyunca sahadaki ekibe kadar bizim imzamızı taşıyan işler.",
         projectsAll: "Tüm projeler",
-        whyTitle: "Neden MetasoftCo?",
-        whyLede: "Yazılımı kendimiz yazıyor, cihazı kendimiz kuruyor, sahada kendimiz duruyoruz.",
+        whyTitle: "3 gün yeter.",
+        whyLede: "Yazılımı kendimiz yazıyor, cihazı kendimiz kuruyor, sahada kendimiz duruyoruz; bu yüzden hızlıyız.",
         why: [
-            { value: "3 gün", label: "Etkinlikten 3 gün önce haber vermeniz yeterli." },
+            { value: "81 il", label: "Etkinlik nerede, biz oradayız; şehir dışında ulaşım ve konaklama teklife dahil." },
             { value: "Aynı gün", label: "Fiyat ve tarih uygunluğu aynı gün elinizde." },
-            { value: "1.000+", label: "İstanbul'dan Türkiye'nin 10 iline kurulum." },
-            { value: "2+", label: "Etkinlik boyunca sahada en az 2 teknik personel." },
+            { value: "1.000+", label: "Etkinlik, 100+ markayla; lansmandan yılbaşı partisine." },
+            { value: "0 aracı", label: "Yazılımı yazan ekip sahada; etkinlik boyunca en az 2 teknik personel." },
         ],
         softwareLink: "Markanıza özel yazılım da geliştiriyoruz",
-        ctaTitle: "Sıradaki etkinliğinizi",
-        ctaAccent: "birlikte kuralım",
+        ctaTitle: "Tarihinizi söyleyin,",
+        ctaAccent: "teklifi bugün alın",
         ctaLede: "Tarih, şehir ve kişi sayısını paylaşın; size uygun deneyimi ve fiyatı aynı gün iletelim.",
         ctaSecondary: "Sunumu inceleyin",
     },
     en: {
         accent: "Unforgettable",
-        trust: "Event technology partner of 100+ brands since 2020.",
+        trust: "100+ brands, 1,000+ events. Our own software, our own booths, our own crew.",
+        rent: {
+            kicker: "Rental",
+            title: "Rent for your event",
+            copy: "AI photobooths, photo experiences and interactive games. Setup, brand-specific design and the on-site crew included.",
+            points: ["Three days' notice is enough", "Price the same day", "Setup across Türkiye"],
+            cta: "See the experiences",
+            extra: [{ label: "Company deck (TR)", href: "/sunum" }],
+        },
+        buy: {
+            kicker: "Purchase",
+            title: "Buy for your space",
+            copy: "A permanent setup for a store, showroom, office or museum. Built for your space and delivered with its software.",
+            points: ["Built for your space", "Setup and training", "Remote support"],
+            cta: "Purchase options",
+        },
         primary: "Get an event quote",
         secondary: "Buy for a permanent spot",
-        marquee: ["1,000+ Events", "10 Provinces", "100+ Brands", "Same-day quotes"],
-        pathsTitle: "Start from where you are",
-        pathsLede: "Pick what you need; we will take you to the right experience and the right facts.",
+        pathsTitle: "Rent or buy?",
+        pathsLede: "Rent for a one-off event, buy for a permanent space.",
         servicesTitle: "Most rented experiences",
         servicesLede: "Setup, brand-specific design and the on-site team come with every rental.",
         servicesAll: "All experiences",
         projectsTitle: "Taken to the floor with brands",
         projectsLede: "From the idea to the setup and the crew on the night, work that carries our signature.",
         projectsAll: "All projects",
-        whyTitle: "Why MetasoftCo?",
+        whyTitle: "Three days is enough.",
         whyLede: "We write the software, build the booth and stand on site ourselves.",
         why: [
-            { value: "3 days", label: "Three days' notice before the event is enough." },
+            { value: "81 provinces", label: "Wherever the event is, we set up there; travel and stay included in the quote." },
             { value: "Same day", label: "Price and date availability in your inbox the same day." },
-            { value: "1,000+", label: "Events set up from Istanbul across 10 provinces." },
-            { value: "2+", label: "At least 2 technicians on site throughout the event." },
+            { value: "1,000+", label: "Events with 100+ brands, from launches to year-end parties." },
+            { value: "0 middlemen", label: "The team that writes the software is on site; at least 2 technicians all event." },
         ],
         softwareLink: "We also build custom software for brands",
-        ctaTitle: "Let's build your next event",
-        ctaAccent: "together",
+        ctaTitle: "Tell us the date,",
+        ctaAccent: "get the quote today",
         ctaLede: "Share the date, city and guest count; we send the right experience and price the same day.",
         ctaSecondary: "See the deck (TR)",
     },
@@ -118,7 +146,6 @@ export default function HomeCalm({
     const featured = FEATURED.flatMap((key) => services.filter((service) => service.key === key && service.image));
     const preferred = PROJECTS_PREFERRED.flatMap((key) => projects.filter((project) => project.key === key));
     const shownProjects = [...preferred, ...projects.filter((project) => !preferred.includes(project) && !POSTER_COVERS.has(project.key))].slice(0, 3);
-    const marquee = [...t.marquee, ...t.marquee];
 
     return (
         <article className="ms-page hc">
@@ -158,29 +185,32 @@ export default function HomeCalm({
                         ))}
                     </ul>
                 </div>
-                <div className="hc-marquee" aria-hidden="true">
-                    <div className="hc-marquee__track">
-                        {marquee.map((item, index) => (
-                            <span key={index}>{item}<i>•</i></span>
-                        ))}
-                    </div>
-                </div>
             </section>
+
 
             <section className="hc-section" aria-labelledby="hc-paths">
                 <SectionHead id="hc-paths" title={t.pathsTitle} lede={t.pathsLede} />
-                <ol className="hc-rows">
-                    {copy.audience.items.map((item, index) => (
-                        <li key={item.name} data-reveal>
-                            <Link href={item.href} className="hc-row">
-                                <span className="hc-row__num" aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
-                                <h3 className="hc-row__title">{item.name}</h3>
-                                <p className="hc-row__copy">{item.desc}</p>
-                                <span className="hc-row__go" aria-hidden="true">→</span>
-                            </Link>
-                        </li>
+                <div className="hc-doors">
+                    {([
+                        { key: "rent", data: t.rent, href: copy.routes.capabilities, primary: true },
+                        { key: "buy", data: t.buy, href: copy.routes.products, primary: false },
+                    ] as const).map(({ key, data, href, primary }, index) => (
+                        <article key={key} className={`hc-door${primary ? " hc-door--primary" : ""}`} data-reveal style={{ ["--d" as string]: `${index * 0.08}s` }}>
+                            <span className="hc-door__kicker">{data.kicker}</span>
+                            <h3 className="hc-door__title">{data.title}</h3>
+                            <p className="hc-door__copy">{data.copy}</p>
+                            <ul className="hc-door__points">
+                                {data.points.map((point) => <li key={point}>{point}</li>)}
+                            </ul>
+                            <div className="hc-door__foot">
+                                <Link href={href} className={`hc-btn ${primary ? "hc-btn--acc" : "hc-btn--dark"}`}>{data.cta} →</Link>
+                                {"extra" in data && data.extra.map((link) => (
+                                    <Link key={link.href} href={link.href} className="hc-link">{link.label} →</Link>
+                                ))}
+                            </div>
+                        </article>
                     ))}
-                </ol>
+                </div>
             </section>
 
             {featured.length > 0 && (

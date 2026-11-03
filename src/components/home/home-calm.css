@@ -573,6 +573,105 @@
 	margin-top: 0;
 }
 
+/* ---------- Two doors: rent / buy ---------- */
+
+.hc-doors {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: var(--hc-gap);
+	max-width: var(--hc-max);
+	margin: 0 auto;
+}
+
+.hc-door {
+	display: flex;
+	flex-direction: column;
+	gap: 18px;
+	padding: clamp(28px, 3.4vw, 52px);
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	border-radius: calc(var(--hc-radius) + 8px);
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+	transition: border-color 0.3s ease, transform 0.4s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+
+.hc-door:hover {
+	border-color: rgba(255, 255, 255, 0.22);
+	transform: translateY(-4px);
+}
+
+.hc-door--primary {
+	border-color: rgba(242, 255, 0, 0.22);
+	background:
+		radial-gradient(120% 80% at 0% 0%, rgba(242, 255, 0, 0.09), transparent 60%),
+		linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.01));
+}
+
+.hc-door--primary:hover {
+	border-color: rgba(242, 255, 0, 0.4);
+}
+
+.hc-door__kicker {
+	font-size: 14px;
+	color: rgba(237, 234, 227, 0.5);
+}
+
+.hc-door--primary .hc-door__kicker {
+	color: var(--ms-acc);
+}
+
+.hc-door__title {
+	margin: 0;
+	font-family: var(--mh-heading), sans-serif;
+	font-weight: 800;
+	font-size: clamp(30px, 3.2vw, 52px);
+	line-height: 1.05;
+	letter-spacing: -0.03em;
+}
+
+.hc-door__copy {
+	max-width: 44ch;
+	margin: 0;
+	font-size: 17px;
+	line-height: 1.6;
+	color: var(--hc-text);
+}
+
+.hc-door__points {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.hc-door__points li {
+	padding: 8px 14px;
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.06);
+	font-size: 14px;
+	color: rgba(237, 234, 227, 0.8);
+}
+
+.hc-door__foot {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 14px 24px;
+	margin-top: auto;
+	padding-top: 10px;
+}
+
+.hc-door__foot .hc-link {
+	margin: 0;
+}
+
+@media (max-width: 900px) {
+	.hc-doors {
+		grid-template-columns: minmax(0, 1fr);
+	}
+}
+
 /* ---------- Tablet & phone ---------- */
 
 @media (max-width: 1100px) {
