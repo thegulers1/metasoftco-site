@@ -8,10 +8,9 @@ import type { HomeProject, HomeService } from "./HomeExperience";
 import "./home-calm.css";
 
 /**
- * Homepage (November 2026). Calm, but with weight, and led by the product:
- * a split hero whose stage cross-fades real AI outputs, a slow strip of more
- * outputs from events, two doors (rent / buy), photography-led cards and one
- * framed closing call.
+ * Homepage (November 2026). Calm, but with weight: a full-screen centred hero
+ * with one accent phrase and a living light, client logos sliding past, two
+ * doors (rent / buy), photography-led cards and one framed closing call.
  * Few elements, each one big. Navigation, footer and floating actions come
  * from the shared site chrome (src/components/site-ms/MsChrome.tsx).
  */
@@ -21,31 +20,10 @@ const FEATURED: HomeServiceKey[] = ["ai-photo", "photobooth", "strip-photo", "gi
 const PROJECTS_PREFERRED = ["rollic-summer-party-x-seri-t-foto", "origins-x-kabin-fotograf-aktivitesi", "ray-ban-x-strip-photo"];
 const POSTER_COVERS = new Set(["tcmb-ai-greenbox-dijital-fotograf-aktivasyonu-istanbul-finans-merkezi"]);
 
-const CLD = "https://res.cloudinary.com/dqkehdebg/image/upload/";
-/** Real AI outputs from events: the photo taken on site (pinned, black and white) and what came out of the booth. */
-const OUTPUTS = [
-    { src: `${CLD}v1768755565/metasoftco/services/gallery/upgvuotswi0bnytltcp3.png`, tr: "AI Photo · Yılbaşı teması", en: "AI Photo · New Year theme" },
-    { src: `${CLD}v1775801105/metasoftco/services/zydnibirplvgtg5ld1r3.png`, tr: "AI Football Card", en: "AI Football Card" },
-    { src: `${CLD}v1768756604/metasoftco/services/gallery/wdrsw7mydwqdkzjyz3bh.png`, tr: "AI Photo · Uzay", en: "AI Photo · Space" },
-    { src: `${CLD}v1769016040/metasoftco/services/recommended/ai-style-collage-snow.png`, tr: "AI Style · Kış", en: "AI Style · Winter" },
-    { src: `${CLD}v1790190699/metasoftco/services/sbqvzmo5qtbrwqyvejoc.png`, tr: "AI Avatar", en: "AI Avatar" },
-    { src: `${CLD}v1768756609/metasoftco/services/gallery/pwokzxd5kdlq78wck0qf.png`, tr: "AI Photo · Dönem portresi", en: "AI Photo · Period portrait" },
-    { src: `${CLD}v1772112543/metasoftco/services/gallery/salm81nchvhtd9cz34l7.png`, tr: "AI Football Card", en: "AI Football Card" },
-    { src: `${CLD}v1769016038/metasoftco/services/recommended/ai-style-collage-paris.png`, tr: "AI Style · Paris", en: "AI Style · Paris" },
-    { src: `${CLD}v1774506540/metasoftco/services/c0vyx196fi7czmmd1w4d.jpg`, tr: "AI Photo · Bilim kurgu", en: "AI Photo · Sci-fi" },
-];
-/** The three outputs that cross-fade in the hero. */
-const HERO_OUTPUTS = [0, 2, 5];
-
 const calm = {
     tr: {
         accent: "akılda kalan",
         trust: "100+ marka, 1.000+ etkinlik. Kendi yazılımımız, kendi cihazımız, kendi ekibimiz.",
-        heroCaption: "Gerçek bir etkinlikten: çekilen kare ve saniyeler sonra çıkan sonuç.",
-        outputsTitle: "Sahadan yapay zekâ çıktıları",
-        outputsLede: "Hepsi gerçek etkinliklerde, gerçek katılımcılardan; makineden saniyeler içinde, markanın tasarımıyla çıktı.",
-        outputsAll: "AI deneyimleri",
-        outputsHref: "/hizmetler/yapay-zeka-etkinlik-cozumleri",
         rent: {
             kicker: "Kiralama",
             title: "Etkinliğiniz için kiralayın",
@@ -88,11 +66,6 @@ const calm = {
     en: {
         accent: "Unforgettable",
         trust: "100+ brands, 1,000+ events. Our own software, our own booths, our own crew.",
-        heroCaption: "From a real event: the shot taken on site and what came out seconds later.",
-        outputsTitle: "AI outputs from the floor",
-        outputsLede: "All from real events and real guests; out of the booth in seconds, in the brand's design.",
-        outputsAll: "AI experiences",
-        outputsHref: "/en/services/ai-event-solutions",
         rent: {
             kicker: "Rental",
             title: "Rent for your event",
@@ -173,11 +146,10 @@ export default function HomeCalm({
     const featured = FEATURED.flatMap((key) => services.filter((service) => service.key === key && service.image));
     const preferred = PROJECTS_PREFERRED.flatMap((key) => projects.filter((project) => project.key === key));
     const shownProjects = [...preferred, ...projects.filter((project) => !preferred.includes(project) && !POSTER_COVERS.has(project.key))].slice(0, 3);
-    const outputs = [...OUTPUTS, ...OUTPUTS];
 
     return (
         <article className="ms-page hc">
-            <section className="hc-hero hc-hero--split" aria-labelledby="hc-title">
+            <section className="hc-hero" aria-labelledby="hc-title">
                 <div className="hc-hero__light" aria-hidden="true">
                     <span />
                     <span />
@@ -192,17 +164,6 @@ export default function HomeCalm({
                     </div>
                     <p className="hc-hero__trust">{t.trust}</p>
                 </div>
-                {/* The product itself: real outputs cross-fading on a slowly tilting stage. */}
-                <figure className="hc-stage" aria-label={t.heroCaption}>
-                    <div className="hc-stage__frame">
-                        {HERO_OUTPUTS.map((index, order) => (
-                            <span key={index} className="hc-stage__slide" style={{ ["--i" as string]: order }}>
-                                <MsImg src={OUTPUTS[index].src} alt={OUTPUTS[index][locale]} sizes="(max-width: 900px) 80vw, 34vw" priority={order === 0} />
-                            </span>
-                        ))}
-                    </div>
-                    <figcaption className="hc-stage__cap">{t.heroCaption}</figcaption>
-                </figure>
                 <span className="hc-hero__down" aria-hidden="true">↓</span>
             </section>
 
@@ -226,21 +187,6 @@ export default function HomeCalm({
                 </div>
             </section>
 
-            <section className="hc-section hc-section--outputs" aria-labelledby="hc-out">
-                <SectionHead id="hc-out" title={t.outputsTitle} lede={t.outputsLede} href={t.outputsHref} linkLabel={t.outputsAll} />
-            </section>
-            <div className="hc-outputs" data-reveal>
-                <ul className="hc-outputs__track">
-                    {outputs.map((output, index) => (
-                        <li key={index} aria-hidden={index >= OUTPUTS.length ? true : undefined}>
-                            <span className="hc-outputs__media">
-                                <MsImg src={output.src} alt={index < OUTPUTS.length ? output[locale] : ""} sizes="280px" />
-                            </span>
-                            <span className="hc-outputs__label">{output[locale]}</span>
-                        </li>
-                    ))}
-                </ul>
-            </div>
 
             <section className="hc-section" aria-labelledby="hc-paths">
                 <SectionHead id="hc-paths" title={t.pathsTitle} lede={t.pathsLede} />
