@@ -168,8 +168,8 @@ export default async function EnglishProjectDetailPage({
     ]) : null;
 
     // FAQ JSON-LD schema — for Google featured snippets
-    const faqSchema = (project.faq_en || project.faq) ? (() => {
-        const items: { q: string; a: string }[] = JSON.parse(project.faq_en || project.faq!);
+    const faqSchema = project.faq_en ? (() => {
+        const items: { q: string; a: string }[] = JSON.parse(project.faq_en!);
         if (!items.length) return null;
         return {
             "@context": "https://schema.org",

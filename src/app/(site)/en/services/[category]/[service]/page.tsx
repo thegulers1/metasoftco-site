@@ -120,7 +120,7 @@ export default async function EnglishServiceDetailPage({ params }: PageProps) {
 
     // Mirrors the FAQ list the page renders, so every question in the schema is visible.
     const faqSchema = (() => {
-        const ownFaq: { q: string; a: string }[] = JSON.parse(service.faq_en || service.faq || "[]");
+        const ownFaq: { q: string; a: string }[] = JSON.parse(service.faq_en || "[]");
         const items = [
             ...(isSoftwareCategory(categoryData!.slug) ? ownFaq : mergeRentalFaq(ownFaq, service.title_en!, "en", toRentalOutput(service.outputType))),
             ...(service.dataCapture ? dataCaptureCopy("en", toRentalOutput(service.outputType) === "none").faq : []),

@@ -124,7 +124,7 @@ export default function ServiceDetailClient({
         : dictionary.routes.contact;
     // Shared questions are appended so the questions in the page's FAQ schema
     // are also visible on the page.
-    const ownFaqs = parseJsonList<{ q: string; a: string }>((isEn && service.faq_en) || service.faq);
+    const ownFaqs = parseJsonList<{ q: string; a: string }>(isEn ? service.faq_en : service.faq);
     const faqs = [
         ...(showRentalOps ? mergeRentalFaq(ownFaqs, title, isEn ? "en" : "tr", output) : ownFaqs),
         ...(showDataCapture ? dataCapture.faq : []),

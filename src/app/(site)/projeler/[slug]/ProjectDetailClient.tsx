@@ -112,7 +112,7 @@ export default function ProjectDetailClient({ project, nextProject, relatedServi
 
     const technologies = parseTechnologies(project.technologies);
     const gallery = parseGallery(project.gallery);
-    const faqs = parseJsonList<{ q: string; a: string }>((isEn && project.faq_en) || project.faq);
+    const faqs = parseJsonList<{ q: string; a: string }>(isEn ? project.faq_en : project.faq);
     const projectDate = project.projectDate ? new Date(project.projectDate) : null;
     const year = projectDate ? String(projectDate.getFullYear()) : null;
 
