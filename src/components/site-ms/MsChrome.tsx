@@ -12,22 +12,41 @@ import { msChromeCopy, msClosingFor } from "@/lib/ms-chrome";
 /**
  * Locale switch: the static screens map one-to-one, so the sibling href is
  * known at render time. Detail pages declare their sibling as an hreflang
- * alternate, so a real click upgrades the destination to the equivalent page.
+ * alternate; once mounted, the link's href is upgraded to that page so
+ * middle-click and Cmd/Ctrl-click land on the equivalent page too.
  */
 function useLocaleSwitch(pathname: string | null) {
     const locale = phase2LocaleFromPath(pathname);
     const target = locale === "tr" ? "en" : "tr";
     const fallback = phase2SiblingPath(pathname, locale);
+    const [alternate, setAlternate] = useState<{ from: string | null; path: string } | null>(null);
+
+    useEffect(() => {
+        const read = () => {
+            const href = document.querySelector<HTMLLinkElement>(`link[rel="alternate"][hreflang="${target}"]`)?.getAttribute("href");
+            const path = href ? new URL(href, window.location.origin).pathname : null;
+            setAlternate((prev) => {
+                if (!path) return prev === null ? prev : null;
+                return prev?.path === path && prev.from === pathname ? prev : { from: pathname, path };
+            });
+        };
+        read();
+        const observer = new MutationObserver(read);
+        observer.observe(document.head, { childList: true, subtree: true, attributes: true });
+        return () => observer.disconnect();
+    }, [pathname, target]);
+
+    const href = alternate && alternate.from === pathname ? alternate.path : fallback;
     const onClick = (event: MouseEvent<HTMLAnchorElement>) => {
         if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
-        const href = document.querySelector<HTMLLinkElement>(`link[rel="alternate"][hreflang="${target}"]`)?.getAttribute("href");
-        if (!href) return;
-        const path = new URL(href, window.location.origin).pathname;
-        if (path === fallback) return;
+        const live = document.querySelector<HTMLLinkElement>(`link[rel="alternate"][hreflang="${target}"]`)?.getAttribute("href");
+        if (!live) return;
+        const path = new URL(live, window.location.origin).pathname;
+        if (path === href) return;
         event.preventDefault();
         window.location.assign(path);
     };
-    return { locale, target, href: fallback, onClick };
+    return { locale, target, href, onClick };
 }
 
 /** Navigation for every page except the homepage, which draws its own. */
