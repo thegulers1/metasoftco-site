@@ -267,30 +267,32 @@ function galleryVideo(url: string) {
 }
 
 /**
- * A gallery tile. Images taller than the tile (printed frames, phone shots) take
- * their own shape so nothing is cut off; wider ones keep the cropped grid.
+ * A gallery tile. Every photo keeps its own shape (landscape, portrait, square)
+ * so nothing is cropped; the strip fixes the height and the width follows.
  */
 function MsGalleryTile({ image, onOpen }: { image: { url: string; alt: string }; onOpen: () => void }) {
-    const [tallRatio, setTallRatio] = useState<string | null>(null);
+    const [ratio, setRatio] = useState<string | null>(null);
     const video = galleryVideo(image.url);
     return (
-        <button type="button" onClick={onOpen} aria-label={image.alt} data-video={video ? "" : undefined} style={tallRatio ? { aspectRatio: tallRatio } : undefined}>
+        <button type="button" onClick={onOpen} aria-label={image.alt} data-video={video ? "" : undefined} style={ratio ? { aspectRatio: ratio } : undefined}>
             <MsImg
                 src={video ? video.poster : image.url}
                 alt={image.alt}
-                sizes="(max-width: 700px) 100vw, 33vw"
+                sizes="(max-width: 700px) 85vw, 50vw"
                 onLoad={(event) => {
                     const { naturalWidth, naturalHeight } = event.currentTarget;
-                    if (naturalWidth / naturalHeight < 0.8) setTallRatio(`${naturalWidth} / ${naturalHeight}`);
+                    if (naturalWidth && naturalHeight) setRatio(`${naturalWidth} / ${naturalHeight}`);
                 }}
             />
         </button>
     );
 }
 
-/** Tilted photo grid with a keyboard-friendly lightbox. */
+/** Swipeable photo strip (every photo shown whole) with a keyboard-friendly lightbox. */
 export function MsGallery({ images, labels }: { images: { url: string; alt: string }[]; labels: { close: string; prev: string; next: string } }) {
     const [open, setOpen] = useState<number | null>(null);
+    const strip = useRef<HTMLDivElement>(null);
+    const scrollBy = (dir: 1 | -1) => strip.current?.scrollBy({ left: dir * strip.current.clientWidth * 0.8, behavior: "smooth" });
     useEffect(() => {
         if (open === null) return;
         const onKey = (event: KeyboardEvent) => {
@@ -308,10 +310,18 @@ export function MsGallery({ images, labels }: { images: { url: string; alt: stri
     if (!images.length) return null;
     return (
         <>
-            <div className="ms-gallery" data-reveal>
-                {images.map((image, index) => (
-                    <MsGalleryTile key={`${index}-${image.url}`} image={image} onOpen={() => setOpen(index)} />
-                ))}
+            <div className="ms-gallery-wrap" data-reveal>
+                <div className="ms-gallery" ref={strip}>
+                    {images.map((image, index) => (
+                        <MsGalleryTile key={`${index}-${image.url}`} image={image} onOpen={() => setOpen(index)} />
+                    ))}
+                </div>
+                {images.length > 1 && (
+                    <>
+                        <button type="button" className="ms-gallery-nav ms-gallery-nav--prev" aria-label={labels.prev} onClick={() => scrollBy(-1)}>←</button>
+                        <button type="button" className="ms-gallery-nav ms-gallery-nav--next" aria-label={labels.next} onClick={() => scrollBy(1)}>→</button>
+                    </>
+                )}
             </div>
             {open !== null && (
                 <div className="ms-lightbox" role="dialog" aria-modal="true" aria-label={images[open].alt} onClick={() => setOpen(null)}>
