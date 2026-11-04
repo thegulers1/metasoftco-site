@@ -1551,7 +1551,8 @@ html[data-mh-js] .ms-w > span {
 
 .ms-gallery {
 	display: grid;
-	grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+	/* auto-fill: az fotoğrafta kutular satırı doldurmak için şişmesin */
+	grid-template-columns: repeat(auto-fill, minmax(min(260px, 100%), 1fr));
 	align-items: start;
 	gap: 1.6vw;
 }
