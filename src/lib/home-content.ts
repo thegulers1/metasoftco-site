@@ -291,7 +291,7 @@ const en: HomeCopy = {
         { key: "strip-photo", name: "Strip Photo", desc: "Frames on a single strip; instant print and a digital copy by QR code. Clients: Ray-Ban, Rollic.", href: `/en/services/${enCats.photo}/strip-photo`, image: { service: "strip-photo" } },
         { key: "cabin-photo", name: "Cabin Photo", desc: "A turnkey booth, from the outer shell design to the software interface. Clients: Origins, BUD.", href: `/en/services/${enCats.photo}/cabin-photo`, image: { service: "cabin-photo" } },
         { key: "glow-box", name: "Glow Box", desc: "An illuminated photo box. Client: AME'28.", href: `/en/services/${enCats.photo}/glow-box-photo`, image: { service: "glow-box-photo" } },
-        { key: "gift-wheel", name: "Gift Wheel", desc: "A digital gift wheel activation. Client: Pegasus.", href: `/en/services/${enCats.interactive}/dijital-hediye-carki-aktivasyonu`, image: { service: "dijital-hediye-carki-aktivasyonu" } },
+        { key: "gift-wheel", name: "Gift Wheel", desc: "A digital gift wheel activation. Client: Pegasus.", href: `/en/services/${enCats.interactive}/digital-gift-wheel-activation`, image: { service: "dijital-hediye-carki-aktivasyonu" } },
         { key: "game-quiz", name: "Interactive Games & Quiz", desc: "Brand-built Unity games; a live quiz for 400–500 players. Client: Enerjisa.", href: `/en/services/${enCats.interactive}`, image: { service: "quiz-bilgi-yarismasi" } },
     ],
     whyTitle: "One team from idea to venue",

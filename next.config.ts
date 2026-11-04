@@ -221,6 +221,12 @@ const nextConfig: NextConfig = {
       { source: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/photobooth-kiralama", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/photobooth-kirala", permanent: true },
       { source: "/hizmetler/yapay-zeka-etkinlik-cozumleri/wordportre-kirala", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/wordportre-kirala", permanent: true },
       { source: "/en/services/ai-event-solutions/ai-photo", destination: "/en/services/ai-event-solutions/ai-photobooth", permanent: true },
+      // English slugs that used to be copies of the Turkish ones.
+      { source: "/en/services/interactive-event-activities/interaktif-hafiza-oyunu-kiralama", destination: "/en/services/interactive-event-activities/interactive-memory-game-rental", permanent: true },
+      { source: "/en/services/interactive-event-activities/dijital-hediye-carki-aktivasyonu", destination: "/en/services/interactive-event-activities/digital-gift-wheel-activation", permanent: true },
+      { source: "/en/services/interactive-event-activities/geri-donusum-oyunu-recycle-win", destination: "/en/services/interactive-event-activities/recycle-win-recycling-game", permanent: true },
+      { source: "/en/services/ai-event-solutions/ai-fashion-mirror-akilli-ayna", destination: "/en/services/ai-event-solutions/ai-fashion-mirror-smart-mirror", permanent: true },
+      { source: "/en/projects/akbank-odu-bogazici-universty-x-photobooth-activity", destination: "/en/projects/akbank-metu-bogazici-university-x-photobooth-activity", permanent: true },
 
       // ---------------------------------------------------------
       // 4. GSC/SEMRUSH 404 DENETİMİNDE BULUNAN TEKİL ESKİ LİNKLER
