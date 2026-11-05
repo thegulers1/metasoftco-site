@@ -1,0 +1,4 @@
+/* Only what the AI Photobooth stylesheet does not provide: a four-step row. */
+ol.steps4 { grid-template-columns: repeat(4, 1fr); }
+@media (max-width: 1100px) { ol.steps4 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 640px) { ol.steps4 { grid-template-columns: 1fr; } }
