@@ -1,3 +1,4 @@
+import { serviceReferences } from "@/lib/service-template/references";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
@@ -155,6 +156,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
             )}
             <AdminEditUrlSetter url={`/editpanel/services/${service.id}/edit`} />
             <ServiceDetailClient
+                references={await serviceReferences(service.id, "tr", service.slug)}
                 service={service}
                 categoryData={categoryData}
                 relatedServices={relatedServices}

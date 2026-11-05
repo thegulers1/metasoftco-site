@@ -1,3 +1,4 @@
+import { serviceReferences } from "@/lib/service-template/references";
 import { Metadata } from "next";
 import { faqPlainText } from "@/lib/faq-text";
 import { notFound, permanentRedirect, redirect } from "next/navigation";
@@ -179,6 +180,7 @@ export default async function EnglishServiceDetailPage({ params }: PageProps) {
             )}
             <AdminEditUrlSetter url={`/editpanel/services/${service.id}/edit`} />
             <ServiceDetailClient
+                references={await serviceReferences(service.id, "en", service.slug)}
                 service={service}
                 categoryData={categoryData!}
                 relatedServices={relatedServices}

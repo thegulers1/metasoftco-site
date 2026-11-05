@@ -54,7 +54,13 @@ export interface ServiceTemplateProfile {
     blocks: (TemplateSectionCopy & { id: string; items: TemplateTitled[] })[];
     scope: { eyebrow: string; title: string; lede: string; cta: string; includedTitle: string; included: string[]; optionalTitle: string; optional: string[]; note: string };
     operations: TemplateSectionCopy & { id: string };
-    cases: { eyebrow: string; title: string; items: TemplateCaseProfile[] };
+    cases: {
+        eyebrow: string;
+        title: string;
+        items: TemplateCaseProfile[];
+        /** Show each project image whole at its own aspect ratio instead of a cropped card. */
+        fullFrame?: boolean;
+    };
     /** The visible FAQ; also the single list a future FAQPage JSON-LD must be built from. */
     faq: { eyebrow: string; title: string; lede: string; items: { q: string; a: string }[] };
     closing: { title: string; lede: string };
