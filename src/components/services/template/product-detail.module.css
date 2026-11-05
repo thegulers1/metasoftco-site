@@ -2,3 +2,32 @@
 ol.steps4 { grid-template-columns: repeat(4, 1fr); }
 @media (max-width: 1100px) { ol.steps4 { grid-template-columns: repeat(2, 1fr); } }
 @media (max-width: 640px) { ol.steps4 { grid-template-columns: 1fr; } }
+
+/* Portrait (2:3) galleries: whole frame visible, no cover-crop. */
+.portrait > div:first-child {
+  aspect-ratio: 2 / 3;
+  max-width: 460px;
+  margin-inline: auto;
+}
+.portrait > div:first-child img,
+.portrait > div:nth-child(2) img { object-fit: contain; object-position: center; }
+.portrait > div:nth-child(2) {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+  gap: 10px;
+  overflow: visible;
+  max-width: 460px;
+  margin-inline: auto;
+}
+.portrait > div:nth-child(2) button { flex: none; width: 100%; height: auto; aspect-ratio: 2 / 3; }
+.portrait > div:nth-child(2) button[aria-label^="Kullanım"] { aspect-ratio: 2 / 3; }
+.portrait > p { max-width: 460px; margin-inline: auto; }
+@media (min-width: 701px) {
+  .portrait > div:nth-child(2) { grid-template-columns: repeat(6, 1fr); gap: 8px; }
+}
+@media (max-width: 700px) {
+  .portrait > div:first-child, .portrait > div:nth-child(2), .portrait > p { max-width: none; }
+}
+.portrait > div:first-child img[data-active="false"] { opacity: 0; pointer-events: none; }
+.player { position: absolute; inset: 0; z-index: 2; width: 100%; height: 100%; border: 0; background: #000; }
+.playerHidden { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; visibility: hidden; pointer-events: none; }

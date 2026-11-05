@@ -46,6 +46,8 @@ export interface ServiceTemplateProfile {
         galleryFrames: TemplateGalleryFrame[];
         /** Project whose own video plays in the gallery. */
         videoProjectSlug?: string;
+        /** Set when every gallery photo is a 2:3 portrait that must not be cropped. */
+        portraitGallery?: boolean;
     };
     quoteCard: { eyebrow: string; title: string; lede: string; message: string };
     steps: TemplateSectionCopy & { items: TemplateTitled[] };
