@@ -9,12 +9,12 @@ import CapabilitiesIndexPrototype from "@/components/phase2/CapabilitiesIndexPro
 // Read database content at request time; Docker builds have no database access.
 export const dynamic = "force-dynamic";
 
-const ogTitle = "Etkinlik Teknolojisi Kiralama: AI, Photobooth, Oyun | MetasoftCo";
-const ogDescription = "Yapay zeka fotoğraf, photobooth, interaktif oyun ve AR aktivasyonlarını anahtar teslim kiralayın. İstanbul merkezli, Türkiye geneli kurulum ve saha ekibi.";
+const ogTitle = "Etkinlik Teknolojileri ve Özel Yazılım | MetasoftCo";
+const ogDescription = "Yapay zekâ etkinlik deneyimleri, AI Photobooth, interaktif oyunlar ve markaya özel yazılım geliştirme. İstanbul merkezli, Türkiye geneli çözümler.";
 const ogImage = ogImageUrl(ogTitle, ogDescription);
 
 export const metadata: Metadata = {
-    title: "Etkinlik Teknolojisi Kiralama: AI, Photobooth, Oyun | MetasoftCo",
+    title: ogTitle,
     description: ogDescription,
     openGraph: {
         title: ogTitle,
@@ -81,7 +81,7 @@ const serviceFAQs = [
     },
     {
         question: "KVKK kapsamında fotoğraf verileri nasıl korunuyor?",
-        answer: "Veri toplanan kurgularda form aydınlatma metniyle sunulur; pazarlama izni ayrı ve isteğe bağlı açık rızayla alınır. Veri sorumlusu müşteri marka, MetasoftCo ise müşterinin talimatlarıyla hareket eden veri işleyendir. Veriler standart olarak 90 gün saklanır ve süre sonunda sistemlerimizden silinir.",
+        answer: "Önceden saklama talebi yoksa fotoğraflar etkinlik sonrasında otomatik olarak silinir. Önceden talep edilmişse fotoğraflar en fazla 90 gün saklanır ve paylaşılır, süre sonunda sistemlerimizden silinir. Veri toplanan kurgularda form aydınlatma metniyle sunulur; pazarlama izni ayrı ve isteğe bağlı açık rızayla alınır. Veri sorumlusu müşteri marka, MetasoftCo ise müşterinin talimatlarıyla hareket eden veri işleyendir.",
     },
     {
         question: "Etkinlik sırasında teknik destek sağlıyor musunuz?",
@@ -137,7 +137,7 @@ export default async function HizmetlerPage() {
                 type="application/ld+json"
                 dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
             />
-            <CapabilitiesIndexPrototype capabilities={capabilities} categories={categoryTabs} locale="tr" faqs={serviceFAQs.map((item) => ({ q: item.question, a: item.answer }))} />
+            <CapabilitiesIndexPrototype capabilities={capabilities} categories={categoryTabs} locale="tr" showSoftware faqs={serviceFAQs.map((item) => ({ q: item.question, a: item.answer }))} />
         </>
     );
 }

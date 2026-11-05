@@ -237,6 +237,30 @@ export function MsBehaviour() {
         document.querySelector(".ms")?.classList.toggle("ms--chat", chatOpen);
     }, [chatOpen]);
 
+    // On phones the two round actions sit over the right edge of CTAs and text,
+    // so they slide away while the page scrolls down and return on scroll up or
+    // once the page rests. The CSS only acts under 760px.
+    useEffect(() => {
+        const root = document.querySelector(".ms");
+        if (!root) return;
+        let lastY = window.scrollY;
+        let rest: ReturnType<typeof setTimeout> | undefined;
+        const onScroll = () => {
+            const y = window.scrollY;
+            if (y > lastY + 6 && y > 80) root.classList.add("ms--floats-away");
+            else if (y < lastY - 6) root.classList.remove("ms--floats-away");
+            lastY = y;
+            clearTimeout(rest);
+            rest = setTimeout(() => root.classList.remove("ms--floats-away"), 1400);
+        };
+        window.addEventListener("scroll", onScroll, { passive: true });
+        return () => {
+            window.removeEventListener("scroll", onScroll);
+            clearTimeout(rest);
+            root.classList.remove("ms--floats-away");
+        };
+    }, [pathname]);
+
 
     return (
         <>

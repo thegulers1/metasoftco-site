@@ -898,9 +898,9 @@ const tr: Phase2Copy = {
 	},
 
 	capabilities: {
-		heroSolid: "Etkinliğiniz için",
-		heroOutline: "kiralık deneyimler.",
-		heroLabel: "Etkinliğiniz için kiralık deneyimler.",
+		heroSolid: "Markalar için",
+		heroOutline: "teknoloji ve deneyim çözümleri.",
+		heroLabel: "Markalar için teknoloji ve deneyim çözümleri.",
 		heroCopy:
 			"AI photobooth'tan interaktif oyunlara; kurulum, markanıza özel tasarım ve sahadaki ekip dahil, anahtar teslim kiralıyoruz. Etkinlikten 3 gün önce haber vermeniz yeterli.",
 		catalogAria: "Hizmetler",

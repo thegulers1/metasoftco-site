@@ -3,6 +3,7 @@ import type { Phase2Locale } from "@/lib/phase2";
 import { phase2Copy } from "@/lib/phase2-content";
 import { MsBand, MsFaq, MsSectionHead, MsSteps, MsWords, type MsFaqItem } from "@/components/site-ms/parts";
 import { MsCatalog, MsClock } from "@/components/site-ms/interactive";
+import SoftwareShowcase, { SOFTWARE_SECTION_ID } from "@/components/phase2/SoftwareShowcase";
 
 /** A capability card already resolved to the active locale by the page. */
 export interface P2CapabilityCard {
@@ -69,11 +70,14 @@ export default function CapabilitiesIndexPrototype({
     categories,
     locale,
     faqs = [],
+    showSoftware = false,
 }: {
     capabilities: P2CapabilityCard[];
     categories?: P2CapabilityCategory[];
     locale: Phase2Locale;
     faqs?: MsFaqItem[];
+    /** Turkish page only: adds the custom-software showcase and the hero jump link. */
+    showSoftware?: boolean;
 }) {
     const dictionary = phase2Copy(locale);
     const copy = dictionary.capabilities;
@@ -99,7 +103,12 @@ export default function CapabilitiesIndexPrototype({
                 </h1>
                 <div className="ms-hero__foot">
                     <p className="ms-lede" data-reveal style={{ maxWidth: 620 }}>{copy.heroCopy}</p>
-                    <Link href={dictionary.routes.contact} className="ms-pill ms-pill--acc" data-cursor={l.view.open}>{l.cta}</Link>
+                    <div className="ms-hero__actions">
+                        <Link href={dictionary.routes.contact} className="ms-pill ms-pill--acc" data-cursor={l.view.open}>{l.cta}</Link>
+                        {showSoftware && (
+                            <a href={`#${SOFTWARE_SECTION_ID}`} className="ms-hero__jump ms-mono">ÖZEL YAZILIM ↓</a>
+                        )}
+                    </div>
                 </div>
             </section>
 
@@ -116,6 +125,8 @@ export default function CapabilitiesIndexPrototype({
                     showToggle={false}
                 />
             </section>
+
+            {showSoftware && <SoftwareShowcase productsHref={dictionary.routes.products} />}
 
             <section className="ms-section" aria-labelledby="ms-process-title">
                 <MsSectionHead id="ms-process-title" title={copy.endToEndTitle.replace(/\n/g, " ")} meta={l.processMeta} />
