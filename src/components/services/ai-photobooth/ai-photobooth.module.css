@@ -1247,3 +1247,24 @@
     gap: 14px;
   }
 }
+
+/* Photos set the frame height themselves, including landscape uploads. */
+.gallery .mainPhoto.imagePhoto {
+  aspect-ratio: auto;
+  background: transparent;
+}
+.imagePhoto > button {
+  height: auto;
+}
+.imagePhoto > button > img {
+  position: relative !important;
+  inset: auto !important;
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+  object-fit: contain;
+  object-position: center;
+}
+.imagePhoto > button > img[data-active="false"] {
+  display: none;
+}

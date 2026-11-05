@@ -111,6 +111,7 @@ export const AI_GREENBOX_PROFILE: ServiceTemplateProfile = {
     cases: {
         eyebrow: "Gerçek projeler",
         title: "Seçili projeler",
+        fullFrame: true,
         items: [
             {
                 projectSlug: TCMB,

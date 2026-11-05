@@ -1,3 +1,4 @@
+import { serviceReferences } from "@/lib/service-template/references";
 import { Metadata } from "next";
 import { faqPlainText } from "@/lib/faq-text";
 import { notFound, permanentRedirect } from "next/navigation";
@@ -262,6 +263,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 serviceSchema={serviceSchema}
                 saleHref={saleCounterpart ? `/urunler/${saleCounterpart.slug}` : undefined}
             /> : <ServiceDetailClient
+                references={await serviceReferences(service.id, "tr", service.slug)}
                 service={service}
                 categoryData={categoryData}
                 relatedServices={relatedServices}

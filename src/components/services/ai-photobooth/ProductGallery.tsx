@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
-import Image from "next/image";
+import Image from "../template/ServiceImage";
 import styles from "./ai-photobooth.module.css";
 
 export default function ProductGallery({
@@ -20,7 +20,7 @@ export default function ProductGallery({
   if (!images.length) return null;
   return (
     <div className={styles.gallery}>
-      <div className={styles.mainPhoto}>
+      <div className={`${styles.mainPhoto} ${!playing ? styles.imagePhoto : ""}`}>
         {playing && youtube ? (
           <iframe
             src={`https://www.youtube-nocookie.com/embed/${youtube}?autoplay=1`}

@@ -5,7 +5,19 @@ import Link from "next/link";
 import { getAttribution } from "@/lib/attribution";
 import styles from "../ai-photobooth/ai-photobooth.module.css";
 
-export default function ProductQuoteForm({ product, message }: { product: string; message: string }) {
+export default function ProductQuoteForm({
+  product,
+  message,
+  locale = "tr",
+  eventRental = true,
+}: {
+  product: string;
+  message: string;
+  locale?: "tr" | "en";
+  eventRental?: boolean;
+}) {
+  const en = locale === "en";
+  const t = (tr: string, english: string) => (en ? english : tr);
   const [status, setStatus] = useState<"idle" | "sending" | "sent" | "error">(
     "idle",
   );
@@ -43,86 +55,107 @@ export default function ProductQuoteForm({ product, message }: { product: string
   if (status === "sent")
     return (
       <div role="status" className={styles.formSuccess}>
-        <h3>Talebiniz alındı.</h3>
-        <p>Etkinlik detaylarınız için sizinle iletişime geçeceğiz.</p>
-        <button onClick={() => setStatus("idle")}>Yeni talep oluştur</button>
+        <h3>{t("Talebiniz alındı.", "Request received.")}</h3>
+        <p>
+          {t(
+            "Talebinizle ilgili sizinle iletişime geçeceğiz.",
+            "We will contact you about your request.",
+          )}
+        </p>
+        <button onClick={() => setStatus("idle")}>
+          {t("Yeni talep oluştur", "Send another request")}
+        </button>
       </div>
     );
   return (
     <form onSubmit={submit} className={styles.form}>
       <label>
-        Ad soyad *
+        {t("Ad soyad *", "Full name *")}
         <input
           name="name"
           autoComplete="name"
           required
-          placeholder="Adınız ve soyadınız"
+          placeholder={t("Adınız ve soyadınız", "Your full name")}
           maxLength={120}
         />
       </label>
       <label>
-        E-posta *
+        {t("E-posta *", "Email *")}
         <input
           type="email"
           name="email"
           autoComplete="email"
           required
-          placeholder="ornek@sirket.com"
+          placeholder={t("ornek@sirket.com", "you@company.com")}
           maxLength={200}
         />
       </label>
       <label>
-        Telefon *
+        {t("Telefon *", "Phone *")}
         <input
           type="tel"
           name="phone"
           autoComplete="tel"
           required
-          placeholder="05xx xxx xx xx"
+          placeholder={t("05xx xxx xx xx", "+44 …")}
           maxLength={30}
         />
       </label>
       <details className={styles.formDetails}>
         <summary>
-          Etkinlik detaylarını ekleyin <span>+</span>
+          {eventRental
+            ? t("Etkinlik detaylarını ekleyin", "Add event details")
+            : t("Talep detaylarını ekleyin", "Add request details")}{" "}
+          <span>+</span>
         </summary>
         <label>
-          Şirket
+          {t("Şirket", "Company")}
           <input name="company" autoComplete="organization" maxLength={160} />
         </label>
+        {eventRental && (
+          <label>
+            {t("Etkinlik tarihi", "Event date")}
+            <input type="date" name="eventDate" />
+          </label>
+        )}
         <label>
-          Etkinlik tarihi
-          <input type="date" name="eventDate" />
-        </label>
-        <label>
-          Mekân ve şehir
+          {t("Mekân ve şehir", "Location and city")}
           <input name="city" maxLength={200} />
         </label>
-        <label>
-          Tahmini katılımcı
-          <select name="guests" defaultValue="">
-            <option value="">Seçin</option>
-            <option>0–200</option>
-            <option>200–1.000</option>
-            <option>1.000–5.000</option>
-            <option>5.000+</option>
-          </select>
-        </label>
+        {eventRental && (
+          <label>
+            {t("Tahmini katılımcı", "Estimated attendees")}
+            <select name="guests" defaultValue="">
+              <option value="">{t("Seçin", "Select")}</option>
+              <option>0–200</option>
+              <option>200–1.000</option>
+              <option>1.000–5.000</option>
+              <option>5.000+</option>
+            </select>
+          </label>
+        )}
       </details>
       <p className={styles.privacy}>
-        Bilgileriniz talebinize dönüş yapmak için kullanılır.{" "}
+        {t(
+          "Bilgileriniz talebinize dönüş yapmak için kullanılır.",
+          "We use your details to respond to your request.",
+        )}{" "}
         <Link href="/gizlilik" target="_blank">
-          Gizlilik politikası ↗
+          {t("Gizlilik politikası ↗", "Privacy policy ↗")}
         </Link>
       </p>
       {status === "error" && (
         <p role="alert" className={styles.formError}>
-          Talebiniz gönderilemedi. Yeniden deneyebilir veya telefonla
-          ulaşabilirsiniz.
+          {t(
+            "Talebiniz gönderilemedi. Yeniden deneyebilir veya telefonla ulaşabilirsiniz.",
+            "Your request could not be sent. Please try again or call us.",
+          )}
         </p>
       )}
       <button className={styles.primary} disabled={status === "sending"}>
-        {status === "sending" ? "Gönderiliyor…" : "Teklif talebi gönder ↗"}
+        {status === "sending"
+          ? t("Gönderiliyor…", "Sending…")
+          : t("Teklif talebi gönder ↗", "Request a quote ↗")}
       </button>
     </form>
   );

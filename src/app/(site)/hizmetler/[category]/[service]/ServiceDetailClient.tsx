@@ -1,370 +1,498 @@
 "use client";
 
-import { useEffect } from "react";
-import Image from "next/image";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import { MsCaps, MsCrumbs, MsFacts, MsFaq, MsProse, MsSectionHead, MsWords, splitHtmlSections } from "@/components/site-ms/parts";
-import { MsGallery, MsVideo, isWideVideo } from "@/components/site-ms/interactive";
+import Image from "next/image";
+import type { ServiceReference } from "@/lib/service-template/references";
+import { MsFaq, MsProse } from "@/components/site-ms/parts";
+import ProductQuoteForm from "@/components/services/template/ProductQuoteForm";
+import ServiceGallery from "@/components/services/template/ServiceGallery";
 import { dataCaptureCopy } from "@/lib/data-capture";
 import { DATA_CAPTURE_HUB_PATH } from "@/lib/data-capture-hub";
-import { mergeRentalFaq, rentalOpsCopy, rentalProductName, toRentalOutput } from "@/lib/rental-ops";
-import { SOFTWARE_CATEGORY_PATH, isSoftwareCategory, softwareServiceCopy } from "@/lib/software";
+import {
+  mergeRentalFaq,
+  rentalOpsCopy,
+  rentalProductName,
+  toRentalOutput,
+} from "@/lib/rental-ops";
+import { isSoftwareCategory } from "@/lib/software";
 import { phase2Copy } from "@/lib/phase2-content";
 import { useLanguage } from "@/providers/LanguageProvider";
 import { addHeadingAnchors } from "@/lib/utils";
+import { serviceContentSections } from "@/lib/service-template/content-sections";
+import { isEnglishServicePublishable } from "@/lib/publication";
 import type { Service, ServiceCategory } from "@prisma/client";
+import styles from "@/components/services/ai-photobooth/ai-photobooth.module.css";
+import extra from "@/components/services/template/service-detail.module.css";
 
 interface ServiceDetailClientProps {
-    service: Service;
-    categoryData: ServiceCategory;
-    relatedServices: Service[];
-    gallery: { url: string; alt?: string }[];
-    serviceSchema: Record<string, unknown>;
-    category: string;
-    /** "sale" renders the /urunler flat product screen instead of the /hizmetler rental screen. */
-    variant?: "rental" | "sale";
-    /** For rental services with a matching /urunler product, links to it as a third CTA. */
-    saleHref?: string;
+  service: Service;
+  categoryData: ServiceCategory;
+  relatedServices: Service[];
+  gallery: { url: string; alt?: string }[];
+  serviceSchema: Record<string, unknown>;
+  category: string;
+  variant?: "rental" | "sale";
+  saleHref?: string;
+  references?: ServiceReference[];
 }
-
-/** Parses an editor-managed JSON column, tolerating empty or malformed values. */
 function parseJsonList<T>(raw: string | null | undefined): T[] {
-    if (!raw) return [];
-    try {
-        const parsed = JSON.parse(raw);
-        return Array.isArray(parsed) ? (parsed as T[]) : [];
-    } catch {
-        return [];
-    }
+  try {
+    const value: unknown = JSON.parse(raw || "[]");
+    return Array.isArray(value) ? value : [];
+  } catch {
+    return [];
+  }
 }
 
-const labels = {
-    tr: {
-        aboutMeta: "HİZMET HAKKINDA",
-        specsMeta: "TEKNİK ÖZELLİKLER",
-        galleryMeta: "GALERİ",
-        faqAside: "Aradığınız cevap burada yoksa bize yazın; aynı gün dönüş yapalım.",
-        faqWhatsapp: "WHATSAPP’TAN SOR ↗",
-        whatsappText: (title: string) => `Merhaba, ${title} hakkında bilgi almak istiyorum.`,
-        relatedHeading: "Bunlar da ilginizi çekebilir",
-        relatedMeta: "İLGİLİ HİZMETLER",
-        relatedMetaSale: "DİĞER SİSTEMLER",
-        allServices: "TÜM HİZMETLER →",
-        allProducts: "TÜM SİSTEMLER →",
-        updated: "Son güncelleme",
-        gallery: { close: "KAPAT ×", prev: "← ÖNCEKİ", next: "SONRAKİ →" },
-        cursor: { write: "YAZ", go: "GİT", view: "İNCELE" },
-    },
-    en: {
-        aboutMeta: "ABOUT THE SERVICE",
-        specsMeta: "SPECIFICATIONS",
-        galleryMeta: "GALLERY",
-        faqAside: "If your question is not answered here, write to us and we will reply the same day.",
-        faqWhatsapp: "ASK ON WHATSAPP ↗",
-        whatsappText: (title: string) => `Hello, I would like information about ${title}.`,
-        relatedHeading: "You may also like",
-        relatedMeta: "RELATED SERVICES",
-        relatedMetaSale: "OTHER SYSTEMS",
-        allServices: "ALL SERVICES →",
-        allProducts: "ALL SYSTEMS →",
-        updated: "Last updated",
-        gallery: { close: "CLOSE ×", prev: "← PREV", next: "NEXT →" },
-        cursor: { write: "WRITE", go: "GO", view: "VIEW" },
-    },
-};
-
+/** Data-driven counterpart of the curated AI Photo layout, shared by all four detail routes. */
 export default function ServiceDetailClient({
-    service,
-    categoryData,
-    relatedServices,
-    gallery,
-    serviceSchema,
-    variant = "rental",
-    saleHref,
+  service,
+  categoryData,
+  relatedServices,
+  gallery,
+  serviceSchema,
+  variant = "rental",
+  saleHref,
+  references = [],
 }: ServiceDetailClientProps) {
-    const { language, setAlternateUrl } = useLanguage();
-    const dictionary = phase2Copy(language);
-    const isSoftware = variant === "rental" && language === "tr" && isSoftwareCategory(categoryData.slug);
-    const copy = isSoftware ? { ...dictionary.serviceDetail, ...softwareServiceCopy } : dictionary.serviceDetail;
-    const t = labels[language === "en" ? "en" : "tr"];
+  const { language, setAlternateUrl } = useLanguage();
+  const en = language === "en";
+  const [expanded, setExpanded] = useState(false);
+  const t = (tr: string, english: string) => (en ? english : tr);
+  const dictionary = phase2Copy(language);
+  const title = (en && service.title_en) || service.title;
+  const categoryName = (en && categoryData.name_en) || categoryData.name;
+  const description = (en && service.description_en) || service.description;
+  const content = (en && service.content_en) || service.content;
+  const eventRental =
+    variant === "rental" && !isSoftwareCategory(categoryData.slug);
+  const showCapture = variant === "rental" && service.dataCapture;
+  const output = toRentalOutput(service.outputType);
+  const operations = rentalOpsCopy(language);
+  const capture = dataCaptureCopy(language, output === "none");
+  const product = rentalProductName(title, language);
+  const quoteHref = `${dictionary.routes.contact}?urun=${encodeURIComponent(product)}`;
+  const whatsapp = `https://wa.me/905342334051?text=${encodeURIComponent(t(`Merhaba, ${product} hakkında bilgi almak istiyorum.`, `Hello, I would like information about ${product}.`))}`;
+  const specs = parseJsonList<{ label: string; value: string }>(
+    (en && service.specs_en) || service.specs,
+  ).filter(
+    (s) => s && typeof s.label === "string" && typeof s.value === "string",
+  );
+  const ownFaqs = parseJsonList<{ q: string; a: string }>(
+    en ? service.faq_en : service.faq,
+  );
+  const faqs = [
+    ...(eventRental
+      ? mergeRentalFaq(ownFaqs, title, language, output)
+      : ownFaqs),
+    ...(showCapture ? capture.faq : []),
+  ];
+  const photos = [
+    ...(service.image ? [{ url: service.image, alt: title }] : []),
+    ...gallery.map((item) => ({ url: item.url, alt: item.alt || title })),
+  ].filter(
+    (item, i, all) => all.findIndex((other) => other.url === item.url) === i,
+  );
+  const hasMedia = photos.length > 0 || !!service.video;
+  const categoryHref =
+    en && categoryData.slug_en
+      ? `/en/services/${categoryData.slug_en}`
+      : `/hizmetler/${categoryData.slug}`;
+  useEffect(() => {
+    const tr =
+      variant === "sale"
+        ? `/urunler/${service.slug}`
+        : `/hizmetler/${categoryData.slug}/${service.slug}`;
+    const english = isEnglishServicePublishable(service, categoryData)
+      ? variant === "sale"
+        ? `/en/products/${service.slug_en}`
+        : `/en/services/${categoryData.slug_en}/${service.slug_en}`
+      : variant === "sale"
+        ? "/en/products"
+        : "/en/services";
+    setAlternateUrl(tr, english);
+  }, [variant, service, categoryData, setAlternateUrl]);
+  const relatedHref = (item: Service) =>
+    variant === "sale"
+      ? en && item.slug_en
+        ? `/en/products/${item.slug_en}`
+        : `/urunler/${item.slug}`
+      : en && categoryData.slug_en && item.slug_en
+        ? `/en/services/${categoryData.slug_en}/${item.slug_en}`
+        : `/hizmetler/${categoryData.slug}/${item.slug}`;
 
-    useEffect(() => {
-        const trUrl = variant === "sale"
-            ? `/urunler/${service.slug}`
-            : `/hizmetler/${categoryData.slug}/${service.slug}`;
-        const enUrl = variant === "sale"
-            ? (service.slug_en ? `/en/products/${service.slug_en}` : "/en/products")
-            : (service.slug_en && categoryData.slug_en)
-                ? `/en/services/${categoryData.slug_en}/${service.slug_en}`
-                : "/en/services";
-        setAlternateUrl(trUrl, enUrl);
-    }, [variant, service.slug, service.slug_en, categoryData.slug, categoryData.slug_en, setAlternateUrl]);
-
-    const isEn = language === "en";
-    const title = isEn ? (service.title_en || service.title) : service.title;
-    const seoTitle = isEn
-        ? (service.metaTitle_en || service.metaTitle || title)
-        : (service.metaTitle || title);
-    const categoryName = isEn ? (categoryData.name_en || categoryData.name) : categoryData.name;
-    const description = isEn ? (service.description_en || service.description) : service.description;
-    const content = isEn ? (service.content_en || service.content) : service.content;
-
-    const specs = parseJsonList<{ label: string; value: string }>(
-        (isEn && service.specs_en) || service.specs
-    );
-    const showDataCapture = variant === "rental" && service.dataCapture;
-    // Event rentals (not software) get the shared logistics block and FAQ.
-    const showRentalOps = variant === "rental" && !isSoftwareCategory(categoryData.slug);
-    const rentalOps = rentalOpsCopy(isEn ? "en" : "tr");
-    const output = toRentalOutput(service.outputType);
-    const dataCapture = dataCaptureCopy(isEn ? "en" : "tr", output === "none");
-    // Quote links carry the product so the contact form arrives pre-filled.
-    const quoteHref = showRentalOps
-        ? `${dictionary.routes.contact}?urun=${encodeURIComponent(rentalProductName(title, isEn ? "en" : "tr"))}`
-        : dictionary.routes.contact;
-    // Shared questions are appended so the questions in the page's FAQ schema
-    // are also visible on the page.
-    const ownFaqs = parseJsonList<{ q: string; a: string }>(isEn ? service.faq_en : service.faq);
-    const faqs = [
-        ...(showRentalOps ? mergeRentalFaq(ownFaqs, title, isEn ? "en" : "tr", output) : ownFaqs),
-        ...(showDataCapture ? dataCapture.faq : []),
-    ];
-
-    const categoryHref = isEn && categoryData.slug_en
-        ? `/en/services/${categoryData.slug_en}`
-        : `/hizmetler/${categoryData.slug}`;
-
-    // The first specs double as the header facts when the editor supplied them,
-    // so the strip above the fold carries real data instead of boilerplate.
-    const facts = [
-        { term: copy.categoryTerm, value: categoryName },
-        ...(specs.length > 0
-            ? specs.slice(0, 3).map((spec) => ({ term: spec.label, value: spec.value }))
-            : copy.fallbackFacts.map((fact) => ({ term: fact.term, value: fact.value ?? "" }))),
-    ];
-
-    const about = content ? splitHtmlSections(addHeadingAnchors(content.replace(/&nbsp;/g, " "))) : null;
-    const relatedHref = (related: Service) =>
-        variant === "sale"
-            ? `/urunler/${related.slug}`
-            : isEn && categoryData.slug_en && related.slug_en
-                ? `/en/services/${categoryData.slug_en}/${related.slug_en}`
-                : `/hizmetler/${categoryData.slug}/${related.slug}`;
-
-    const crumbs = variant === "sale"
-        ? [
-            { href: dictionary.routes.home, label: copy.crumbHome.toLocaleUpperCase("tr-TR") },
-            { href: dictionary.routes.products, label: copy.crumbProducts.toLocaleUpperCase("tr-TR") },
-            { label: title },
-        ]
-        : [
-            { href: dictionary.routes.home, label: copy.crumbHome.toLocaleUpperCase("tr-TR") },
-            { href: dictionary.routes.capabilities, label: copy.crumbCapabilities.toLocaleUpperCase("tr-TR") },
-            { href: categoryHref, label: categoryName },
-        ];
-
-    return (
-        <article className="ms-page">
-            <script
-                type="application/ld+json"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
-            />
-
-            <section className="ms-hero ms-hero--split">
-                <div className="ms-hero__col">
-                    <MsCrumbs items={crumbs} />
-                    <h1 className={`ms-h1 ms-h1--detail${title.length > 34 ? " ms-h1--long" : ""}`} aria-label={seoTitle}>
-                        <MsWords text={title} accent="last" />
-                    </h1>
-                    {description && <p className="ms-lede" data-reveal>{description}</p>}
-                    <MsFacts facts={facts} />
-                    <div className="ms-actions">
-                        {variant === "sale" ? (
-                            <>
-                                <Link href={dictionary.routes.contact} className="ms-pill ms-pill--acc" data-cursor={t.cursor.write}>{copy.saleCtaPrimary.toLocaleUpperCase(isEn ? "en-US" : "tr-TR")} ↗</Link>
-                                <Link href={dictionary.routes.work} className="ms-pill ms-pill--line" data-cursor={t.cursor.go}>{copy.saleCtaSecondary.toLocaleUpperCase(isEn ? "en-US" : "tr-TR")}</Link>
-                            </>
-                        ) : (
-                            <>
-                                <Link href={quoteHref} className="ms-pill ms-pill--acc" data-cursor={t.cursor.write}>{copy.ctaPrimary.toLocaleUpperCase(isEn ? "en-US" : "tr-TR")} ↗</Link>
-                                <Link href={isSoftware ? SOFTWARE_CATEGORY_PATH : dictionary.routes.work} className="ms-pill ms-pill--line" data-cursor={t.cursor.go}>{copy.ctaSecondary.toLocaleUpperCase(isEn ? "en-US" : "tr-TR")}</Link>
-                                {saleHref && (
-                                    <Link href={saleHref} className="ms-pill ms-pill--line" data-cursor={t.cursor.go}>{copy.ctaTertiary.toLocaleUpperCase(isEn ? "en-US" : "tr-TR")}</Link>
-                                )}
-                            </>
-                        )}
-                    </div>
-                    <p className="ms-updated ms-mono">
-                        {t.updated}: {service.updatedAt.toLocaleDateString(isEn ? "en-GB" : "tr-TR", { year: "numeric", month: "long", day: "numeric" })}
-                    </p>
-                </div>
-                {(service.video || service.image) && (
-                    <div className={`ms-hero__media${service.video && isWideVideo(service.video) ? " ms-hero__media--wide" : ""}`} data-reveal>
-                        {service.video ? (
-                            <MsVideo src={service.video} title={title} poster={service.image} fill />
-                        ) : (
-                            <Image src={service.image!} alt={title} fill priority sizes="(max-width: 899px) 100vw, 46vw" />
-                        )}
-                        <span className="ms-hero__tag ms-mono"><MsCaps text={categoryName} /></span>
-                    </div>
-                )}
-            </section>
-
-            {about && (
-                <section className="ms-section" aria-labelledby="ms-about-title">
-                    <MsSectionHead id="ms-about-title" title={copy.aboutTitle} meta={t.aboutMeta} />
-                    {about.sections.length === 0 ? (
-                        <div data-reveal><MsProse html={about.intro} /></div>
-                    ) : (
-                        <>
-                            {about.intro && <div data-reveal><MsProse html={about.intro} /></div>}
-                            <div className="ms-cards">
-                                {about.sections.map((section, index) => (
-                                    <div key={`${index}-${section.title}`} className={`ms-card${index === 0 ? " ms-card--lead" : ""}`} data-reveal>
-                                        <span className="ms-card__num">{String(index + 1).padStart(2, "0")}</span>
-                                        <h3 className="ms-card__title" id={section.id}><MsCaps text={section.title} /></h3>
-                                        <div className="ms-card__body" dangerouslySetInnerHTML={{ __html: section.html }} />
-                                    </div>
-                                ))}
-                            </div>
-                        </>
-                    )}
-                </section>
+  return (
+    <article className={`${styles.page} ${extra.detail}`}>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(serviceSchema).replace(/</g, "\\u003c"),
+        }}
+      />
+      <div className={styles.main}>
+        <nav
+          className={styles.breadcrumb}
+          aria-label={t("Sayfa yolu", "Breadcrumb")}
+        >
+          <Link href={dictionary.routes.home}>{t("Ana sayfa", "Home")}</Link>
+          <span>/</span>
+          <Link
+            href={
+              variant === "sale"
+                ? dictionary.routes.products
+                : dictionary.routes.capabilities
+            }
+          >
+            {variant === "sale"
+              ? t("Sistemler", "Products")
+              : t("Hizmetler", "Services")}
+          </Link>
+          <span>/</span>
+          {variant === "rental" && (
+            <>
+              <Link href={categoryHref}>{categoryName}</Link>
+              <span>/</span>
+            </>
+          )}
+          <span>{product}</span>
+        </nav>
+        <section
+          className={`${styles.product} ${!hasMedia ? extra.noMedia : ""}`}
+          aria-labelledby="product-title"
+        >
+          <div className={styles.productCopy}>
+            <span className={styles.eyebrow}>{categoryName}</span>
+            <h1 id="product-title">{title}</h1>
+            {description && (
+              <p
+                id="product-description"
+                className={`${styles.intro} ${extra.description} ${expanded ? extra.expanded : ""}`}
+              >
+                {description}
+              </p>
             )}
-
-            {showDataCapture && (
-                <section id="data-capture" className="ms-accent" aria-labelledby="data-capture-title">
-                    <div className="ms-head">
-                        <div style={{ display: "flex", flexDirection: "column", gap: 14 }}>
-                            <span className="ms-mono">{dataCapture.eyebrow}</span>
-                            <h2 id="data-capture-title" className="ms-h2">{dataCapture.title}</h2>
-                        </div>
-                        {dataCapture.summary ? (
-                            <div className="ms-accent__summary">
-                                <p>{dataCapture.summary}</p>
-                                {dataCapture.more && (
-                                    <div className="ms-actions">
-                                        <Link href={DATA_CAPTURE_HUB_PATH} className="ms-pill ms-pill--dark" data-cursor={t.cursor.go}>{dataCapture.more.toLocaleUpperCase("tr-TR")} ↗</Link>
-                                    </div>
-                                )}
-                            </div>
-                        ) : (
-                            <p style={{ margin: 0, maxWidth: 440, fontSize: 16, lineHeight: 1.5 }}>{dataCapture.intro}</p>
-                        )}
-                    </div>
-                    {!dataCapture.summary && (
-                        <>
-                            <ol className="ms-accent__grid">
-                                {dataCapture.items.map((item, index) => (
-                                    <li key={item.title}>
-                                        <span className="ms-mono">{String(index + 1).padStart(2, "0")}</span>
-                                        <h3>{item.title}</h3>
-                                        <p>{item.body}</p>
-                                    </li>
-                                ))}
-                            </ol>
-                            <div className="ms-head">
-                                <p className="ms-accent__legal">{dataCapture.legal}</p>
-                                <div className="ms-actions">
-                                    <Link href={dictionary.routes.contact} className="ms-pill ms-pill--dark" data-cursor={t.cursor.write}>{dataCapture.cta.toLocaleUpperCase("en-US")} ↗</Link>
-                                </div>
-                            </div>
-                        </>
-                    )}
-                </section>
+            {description && description.length > 180 && (
+              <button
+                type="button"
+                className={extra.readMore}
+                aria-expanded={expanded}
+                aria-controls="product-description"
+                onClick={() => setExpanded(!expanded)}
+              >
+                {expanded
+                  ? t("Daha az göster", "Show less")
+                  : t("Devamını oku", "Read more")}
+              </button>
             )}
-
+            <div className={styles.heroActions}>
+              <a href="#teklif" className={styles.primary}>
+                {eventRental
+                  ? t("Etkinliğim için teklif al", "Get a quote for my event")
+                  : t(
+                      "Projem için teklif al",
+                      "Get a quote for my project",
+                    )}{" "}
+                ↗
+              </a>
+              <a
+                href={whatsapp}
+                className={styles.roundLink}
+                aria-label={t("WhatsApp üzerinden bilgi al", "Ask on WhatsApp")}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                ↗
+              </a>
+            </div>
+            {saleHref && (
+              <Link href={saleHref} className={styles.textLink}>
+                {t("Satın alma seçeneğini incele", "Explore purchase options")}{" "}
+                ↗
+              </Link>
+            )}
             {specs.length > 0 && (
-                <section className="ms-section" aria-labelledby="ms-specs-title">
-                    <MsSectionHead id="ms-specs-title" title={copy.specsTitle} meta={t.specsMeta} />
-                    <dl className="ms-dl" data-reveal>
-                        {specs.map((spec) => (
-                            <div key={spec.label}>
-                                <dt>{spec.label}</dt>
-                                <dd>{spec.value}</dd>
-                            </div>
-                        ))}
-                    </dl>
-                </section>
+              <dl className={styles.quickSpecs}>
+                {specs.slice(0, 3).map((s, i) => (
+                  <div key={`${s.label}-${i}`}>
+                    <dt>{s.label}</dt>
+                    <dd>{s.value}</dd>
+                  </div>
+                ))}
+              </dl>
             )}
-
-            {showRentalOps && (
-                <section id="kiralama" className="ms-section" aria-labelledby="rental-ops-title">
-                    <MsSectionHead id="rental-ops-title" title={rentalOps.title.replace(/\.$/, "")} meta={rentalOps.eyebrow} />
-                    <div className="ms-twocol">
-                        <div data-reveal>
-                            <h3 className="ms-col-label ms-mono" style={{ margin: 0 }}>{rentalOps.logisticsTitle.toLocaleUpperCase(isEn ? "en-US" : "tr-TR")}</h3>
-                            <dl className="ms-dl">
-                                {rentalOps.logistics(output).map((item) => (
-                                    <div key={item.term}>
-                                        <dt>{item.term}</dt>
-                                        <dd>{item.value}</dd>
-                                    </div>
-                                ))}
-                            </dl>
-                        </div>
-                        <div data-reveal>
-                            <h3 className="ms-col-label ms-mono" style={{ margin: 0 }}>{rentalOps.scopeTitle.toLocaleUpperCase(isEn ? "en-US" : "tr-TR")}</h3>
-                            <ul className="ms-checks">
-                                {rentalOps.scope(output).map((item) => <li key={item}>{item}</li>)}
-                            </ul>
-                        </div>
-                    </div>
-                    <p className="ms-note" data-reveal>{rentalOps.serviceArea}</p>
-                    <div className="ms-actions">
-                        <Link href={quoteHref} className="ms-pill ms-pill--acc" data-cursor={t.cursor.write}>{rentalOps.cta.toLocaleUpperCase(isEn ? "en-US" : "tr-TR")} ↗</Link>
-                    </div>
-                </section>
-            )}
-
-            {gallery.length > 0 && (
-                <section className="ms-section" aria-labelledby="ms-gallery-title">
-                    <MsSectionHead id="ms-gallery-title" title={copy.galleryTitle} meta={t.galleryMeta} />
-                    <MsGallery
-                        images={gallery.map((item, index) => ({ url: item.url, alt: item.alt || copy.galleryAlt(index + 1) }))}
-                        labels={t.gallery}
+            <p className={styles.small}>
+              {t("Son güncelleme", "Last updated")}:{" "}
+              {service.updatedAt.toLocaleDateString(en ? "en-GB" : "tr-TR", {
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+              })}
+            </p>
+          </div>
+          {hasMedia && (
+            <div className={styles.productMedia}>
+              <ServiceGallery
+                images={photos}
+                video={service.video}
+                title={title}
+                locale={language}
+              />
+            </div>
+          )}
+          <aside
+            id="teklif"
+            className={styles.quoteCard}
+            aria-labelledby="quote-title"
+          >
+            <span className={styles.eyebrow}>
+              {t("Birlikte planlayalım", "Let’s plan together")}
+            </span>
+            <h2 id="quote-title">{t("Teklif alın", "Request a quote")}</h2>
+            <p>
+              {t(
+                "İhtiyacınızı paylaşın, size özel çözümü birlikte belirleyelim.",
+                "Tell us what you need so we can plan a solution for you.",
+              )}
+            </p>
+            <ProductQuoteForm
+              product={product}
+              message={t(
+                `${title} için teklif talebi.`,
+                `Quote request for ${title}.`,
+              )}
+              locale={language}
+              eventRental={eventRental}
+            />
+            <div className={styles.or}>
+              <span>{t("veya", "or")}</span>
+            </div>
+            <a
+              href={whatsapp}
+              className={styles.whatsapp}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {t("WhatsApp’tan bilgi alın", "Ask on WhatsApp")} ↗
+            </a>
+            <a href="tel:+905342334051" className={styles.phone}>
+              +90 534 233 40 51
+            </a>
+          </aside>
+        </section>
+        {content &&
+          serviceContentSections(
+            addHeadingAnchors(
+              content
+                .replace(/&nbsp;/g, " ")
+                .replace(/<(\/?)(h1)(?=[\s>])/gi, "<$1h2"),
+            ),
+          ).map((block, index) => (
+            <section
+              key={index}
+              className={`${styles.section} ${styles.contentSection} ${extra.editorSection}`}
+              aria-label={
+                block.heading
+                  ? undefined
+                  : t("Hizmet hakkında", "About this service")
+              }
+            >
+              <div className={`${styles.contentHeading} ${extra.sectionTitle}`}>
+                <span className={styles.eyebrow}>{categoryName}</span>
+                {block.heading ? (
+                  <MsProse html={block.heading} />
+                ) : (
+                  <h2>{t("Hizmet hakkında", "About this service")}</h2>
+                )}
+              </div>
+              <div className={extra.prose}>
+                <MsProse html={block.html} />
+              </div>
+            </section>
+          ))}
+        {specs.length > 0 && (
+          <section
+            className={`${styles.section} ${styles.contentSection}`}
+            aria-labelledby="specs-title"
+          >
+            <div className={styles.contentHeading}>
+              <span className={styles.eyebrow}>
+                {t("Teknik bilgiler", "Technical details")}
+              </span>
+              <h2 id="specs-title">
+                {t("Teknik özellikler", "Specifications")}
+              </h2>
+            </div>
+            <dl className={styles.operationFacts}>
+              {specs.map((s, i) => (
+                <div key={`${s.label}-${i}`}>
+                  <dt>{s.label}</dt>
+                  <dd>{s.value}</dd>
+                </div>
+              ))}
+            </dl>
+          </section>
+        )}
+        {eventRental && (
+          <section
+            id="kiralama"
+            className={`${styles.section} ${styles.contentSection}`}
+            aria-labelledby="operations-title"
+          >
+            <div className={styles.contentHeading}>
+              <span className={styles.eyebrow}>{operations.eyebrow}</span>
+              <h2 id="operations-title">{operations.title}</h2>
+            </div>
+            <div className={styles.contentBody}>
+              <dl className={styles.operationFacts}>
+                {operations.logistics(output).map((item) => (
+                  <div key={item.term}>
+                    <dt>{item.term}</dt>
+                    <dd>{item.value}</dd>
+                  </div>
+                ))}
+              </dl>
+              <h3>{operations.scopeTitle}</h3>
+              <ul>
+                {operations
+                  .scope(output)
+                  .filter((item) => !item.includes("750"))
+                  .map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+              </ul>
+              <p>{operations.serviceArea}</p>
+            </div>
+          </section>
+        )}
+        {references.length > 0 && (
+          <section
+            id="projeler"
+            className={`${styles.section} ${styles.projectsSection}`}
+            aria-labelledby="projects-title"
+          >
+            <div className={styles.sectionHeading}>
+              <span className={styles.eyebrow}>
+                {t("Gerçek uygulamalar", "In practice")}
+              </span>
+              <h2 id="projects-title" className={styles.projectHeading}>
+                {t("Seçili projeler", "Selected projects")}
+              </h2>
+            </div>
+            <div className={styles.projects}>
+              {references.map((project) => (
+                <article key={project.href}>
+                  <Link href={project.href} className={styles.projectImage}>
+                    <Image
+                      src={project.image}
+                      alt={project.title}
+                      fill
+                      sizes="(max-width:700px) 90vw, 340px"
                     />
-                </section>
-            )}
-
-            {faqs.length > 0 && (
-                <section className="ms-faq-wrap" aria-labelledby="ms-faq-title">
-                    <div className="ms-faq-wrap__aside" data-reveal>
-                        <h2 id="ms-faq-title" className="ms-h2">{copy.faqTitle}<span className="ms-acc">.</span></h2>
-                        <p>{t.faqAside}</p>
-                        <a
-                            href={`https://wa.me/905342334051?text=${encodeURIComponent(t.whatsappText(title))}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="ms-pill ms-pill--line"
-                            data-cursor={t.cursor.write}>
-                            {t.faqWhatsapp}
-                        </a>
+                  </Link>
+                  <div className={styles.projectBody}>
+                    <h3>{project.title}</h3>
+                    {project.description && <p>{project.description}</p>}
+                    <Link href={project.href} className={styles.textLink}>
+                      {t("Projeyi incele", "Explore the project")} ↗
+                    </Link>
+                  </div>
+                </article>
+              ))}
+            </div>
+          </section>
+        )}
+        {showCapture && (
+          <section
+            id="data-capture"
+            className={`${styles.section} ${styles.contentSection}`}
+            aria-labelledby="capture-title"
+          >
+            <div className={styles.contentHeading}>
+              <span className={styles.eyebrow}>{capture.eyebrow}</span>
+              <h2 id="capture-title">{capture.title}</h2>
+            </div>
+            <div className={styles.contentBody}>
+              <p>{capture.summary || capture.intro}</p>
+              {!capture.summary && (
+                <>
+                  {capture.items.map((item) => (
+                    <div key={item.title}>
+                      <h3>{item.title}</h3>
+                      <p>{item.body}</p>
                     </div>
-                    <MsFaq items={faqs} />
-                </section>
-            )}
-
-            {relatedServices.length > 0 && (
-                <section className="ms-section" aria-labelledby="ms-related-title">
-                    <MsSectionHead id="ms-related-title" title={t.relatedHeading} meta={variant === "sale" ? t.relatedMetaSale : t.relatedMeta} />
-                    <div className="ms-rows">
-                        {relatedServices.slice(0, 4).map((related, index) => (
-                            <Link key={related.id} href={relatedHref(related)} className="ms-row" data-cursor={t.cursor.view}>
-                                <span className="ms-row__num">{String(index + 1).padStart(2, "0")}</span>
-                                <span className="ms-row__name ms-row__name--sm"><MsCaps text={isEn ? (related.title_en || related.title) : related.title} /></span>
-                                <span />
-                                <span className="ms-row__arrow" aria-hidden="true">↗</span>
-                            </Link>
-                        ))}
-                    </div>
-                    <div className="ms-actions">
-                        <Link href={variant === "sale" ? dictionary.routes.products : dictionary.routes.capabilities} className="ms-pill ms-pill--line" data-cursor={t.cursor.go}>
-                            {variant === "sale" ? t.allProducts : t.allServices}
-                        </Link>
-                    </div>
-                </section>
-            )}
-        </article>
-    );
+                  ))}
+                  <p>{capture.legal}</p>
+                </>
+              )}
+              <Link href={DATA_CAPTURE_HUB_PATH} className={styles.textLink}>
+                {t("Modülü incele", "Explore the module")} ↗
+              </Link>
+            </div>
+          </section>
+        )}
+        {faqs.length > 0 && (
+          <section
+            className={`${styles.section} ${styles.faqLayout}`}
+            aria-labelledby="faq-title"
+          >
+            <div>
+              <span className={styles.eyebrow}>FAQ</span>
+              <h2 id="faq-title">
+                {t("Sıkça sorulan sorular", "Frequently asked questions")}
+              </h2>
+              <a
+                href={whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={styles.textLink}
+              >
+                {t(
+                  "Sorunuzu WhatsApp’tan iletin",
+                  "Ask your question on WhatsApp",
+                )}{" "}
+                ↗
+              </a>
+            </div>
+            <div className={`${styles.faq} ${extra.faq}`}>
+              <MsFaq items={faqs} />
+            </div>
+          </section>
+        )}
+        <section className={`${styles.section} ${styles.closing}`}>
+          <div>
+            <h2>
+              {t("Birlikte hayata geçirelim.", "Let’s bring it to life.")}
+            </h2>
+            <p>{product}</p>
+          </div>
+          <div className={styles.closingActions}>
+            <a href="#teklif" className={styles.primary}>
+              {t("Teklif alın", "Request a quote")} ↗
+            </a>
+            <Link href={quoteHref} className={styles.textLink}>
+              {t("Detaylı talep formu", "Detailed enquiry form")} ↗
+            </Link>
+          </div>
+        </section>
+        {relatedServices.length > 0 && (
+          <section
+            className={`${styles.section} ${styles.related}`}
+            aria-labelledby="related-title"
+          >
+            <h2 id="related-title">
+              {t("Bunlar da ilginizi çekebilir", "You may also like")}
+            </h2>
+            <div>
+              {relatedServices.slice(0, 4).map((item) => (
+                <Link href={relatedHref(item)} key={item.id}>
+                  {(en && item.title_en) || item.title} ↗
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+      </div>
+    </article>
+  );
 }

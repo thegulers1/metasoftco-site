@@ -1,0 +1,141 @@
+/* Generic service data inside the established AI Photo product layout. */
+.detail h1 {
+  overflow-wrap: anywhere;
+  font-size: clamp(30px, 2.7vw, 46px);
+}
+.detail .description {
+  display: block;
+}
+.prose {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+.prose :global(.ms-prose) {
+  max-width: 80ch;
+}
+.prose :global(.ms-prose h2) {
+  font-size: clamp(23px, 2.4vw, 32px);
+  margin-top: 2em;
+}
+.prose :global(.ms-prose h3) {
+  font-size: 21px;
+  line-height: 1.5;
+  text-transform: none;
+}
+.prose :global(.ms-prose p),
+.prose :global(.ms-prose li) {
+  font-size: 15px;
+  line-height: 1.85;
+}
+.prose img,
+.prose video,
+.prose iframe {
+  max-width: 100%;
+}
+.prose table {
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
+}
+.media :global(.ms-video) {
+  width: 100%;
+  height: 100%;
+}
+.media img {
+  object-fit: contain !important;
+}
+.noMedia {
+  grid-template-columns: minmax(0, 1.8fr) minmax(280px, 0.82fr);
+}
+.noMedia > :first-child {
+  grid-column: 1;
+}
+.noMedia > aside {
+  grid-column: 2;
+}
+@media (max-width: 700px) {
+  .detail h1 {
+    font-size: 34px;
+  }
+  .detail .description {
+    font-size: 15px;
+  }
+}
+.detail .faq :global(.ms-faq summary) {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) 16px;
+  align-items: start;
+  text-align: left;
+  gap: 16px;
+  padding: 20px 0;
+}
+.detail .faq :global(.ms-faq summary > span) {
+  font-size: 11px;
+  transform: none;
+  color: var(--muted);
+  padding-top: 4px;
+}
+.detail .faq :global(.ms-faq h3) {
+  min-width: 0;
+  margin: 0;
+  text-align: left;
+  font-size: 15px;
+  line-height: 1.5;
+  letter-spacing: normal;
+  text-transform: none;
+}
+.faq :global(.ms-faq details > div) {
+  padding: 0 0 22px 40px;
+  max-width: none;
+}
+.faq :global(.ms-faq p) {
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--muted);
+}
+@media (max-width: 700px) {
+  .detail .description {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+}
+.readMore {
+  display: none;
+}
+@media (max-width: 700px) {
+  .detail .description.expanded {
+    display: block;
+  }
+  .readMore {
+    display: inline-block;
+    margin-top: 10px;
+    border: 0;
+    background: transparent;
+    padding: 0;
+    color: var(--accent);
+    font-size: 12px;
+    cursor: pointer;
+  }
+}
+@media (max-width: 700px) {
+  .detail [aria-label="Ürün görselleri"],
+  .detail [aria-label="Product media"] {
+    max-width: calc(100% - 64px);
+  }
+}
+/* Each verified editor heading owns a separate editorial row. */
+.sectionTitle :global(.ms-prose h2) {
+  font-size: clamp(23px, 2.1vw, 29px);
+  line-height: 1.25;
+  margin: 14px 0 0;
+  letter-spacing: -0.035em;
+  overflow-wrap: break-word;
+}
+.editorSection .prose :global(.ms-prose) > :first-child {
+  margin-top: 0;
+}
+.editorSection .prose :global(.ms-prose p) {
+  margin-bottom: 18px;
+}

@@ -170,7 +170,7 @@ export default function ProductDetail({ profile, service, category, projects, re
               <span className={styles.eyebrow}>{profile.cases.eyebrow}</span>
               <h2 id="projects-title" className={styles.projectHeading}>{profile.cases.title}</h2>
             </div>
-            <div className={styles.projects}>
+            <div className={`${styles.projects} ${profile.cases.fullFrame ? extra.fullFrame : ""}`}>
               {cases.map(({ item, project, image }) => (
                 <article key={project.slug}>
                   <Link href={`/projeler/${project.slug}`} className={styles.projectImage}>
