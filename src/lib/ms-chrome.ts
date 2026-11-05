@@ -12,8 +12,8 @@ type NavLink = { href: string; label: string };
 
 const tr = {
     nav: [
-        { href: phase2Routes.tr.capabilities, label: "KİRALAMA" },
-        { href: phase2Routes.tr.products, label: "SATIN ALMA" },
+        { href: phase2Routes.tr.capabilities, label: "HİZMETLER" },
+        { href: phase2Routes.tr.products, label: "ÜRÜNLER" },
         { href: phase2Routes.tr.work, label: "PROJELER" },
         { href: phase2Routes.tr.about, label: "HAKKIMIZDA" },
         { href: phase2Routes.tr.insights, label: "BLOG" },
@@ -64,8 +64,8 @@ export type MsChromeCopy = typeof tr;
 
 const en: MsChromeCopy = {
     nav: [
-        { href: phase2Routes.en.capabilities, label: "RENTAL" },
-        { href: phase2Routes.en.products, label: "BUY" },
+        { href: phase2Routes.en.capabilities, label: "SERVICES" },
+        { href: phase2Routes.en.products, label: "PRODUCTS" },
         { href: phase2Routes.en.work, label: "WORK" },
         { href: phase2Routes.en.about, label: "ABOUT" },
         { href: phase2Routes.en.insights, label: "INSIGHTS" },

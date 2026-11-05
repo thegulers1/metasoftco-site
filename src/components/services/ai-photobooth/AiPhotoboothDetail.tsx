@@ -231,7 +231,7 @@ export default function AiPhotoboothDetail({
         >
           <div className={styles.contentHeading}>
             <span className={styles.eyebrow}>Teknoloji ve deneyim</span>
-            <h2 id="technology-title">AI Photo teknolojisi</h2>
+            <h2 id="technology-title">AI Photo Teknolojisi</h2>
             <p>Katılımcının portresinden markanızın görsel dünyasına.</p>
           </div>
           <div className={styles.contentBody}>
@@ -283,7 +283,7 @@ export default function AiPhotoboothDetail({
         >
           <div className={styles.contentHeading}>
             <span className={styles.eyebrow}>Yaratıcı hazırlık</span>
-            <h2 id="concept-title">Markaya özel konsept</h2>
+            <h2 id="concept-title">Markaya Özel Konsept</h2>
             <p>Tema, arayüz ve çıktılar aynı hikâyenin parçaları.</p>
           </div>
           <div className={styles.contentBody}>
@@ -362,7 +362,7 @@ export default function AiPhotoboothDetail({
         >
           <div className={styles.contentHeading}>
             <span className={styles.eyebrow}>Etkinlik öncesi ve sahada</span>
-            <h2 id="operations-title">Kurulum ve operasyon</h2>
+            <h2 id="operations-title">Kurulum ve Operasyon</h2>
             <p>Donanım, hazırlık ve teknik ekip birlikte planlanır.</p>
           </div>
           <div className={styles.contentBody}>
@@ -459,7 +459,7 @@ export default function AiPhotoboothDetail({
         >
           <div>
             <span className={styles.eyebrow}>Veri yönetimi</span>
-            <h2 id="data-title">Fotoğraflar nasıl saklanır?</h2>
+            <h2 id="data-title">Fotoğraflar Nasıl Saklanır?</h2>
             <p>
               Etkinlik fotoğrafları, müşteri marka tarafından etkinlik öncesinde
               talep edilmezse etkinlik sonrasında otomatik silinir. Önceden

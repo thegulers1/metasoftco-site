@@ -449,6 +449,8 @@
   place-items: center;
   border-radius: 50%;
   background: var(--accent);
+  color: #111;
+  font-weight: 700;
   font-size: 13px;
   margin-bottom: 20px;
 }
@@ -779,10 +781,6 @@
   }
   .mainPhoto img {
     object-position: 70% center;
-  }
-  .thumbnails button {
-    flex-basis: 58px;
-    height: 60px;
   }
   .mediaCaption {
     font-size: 9px;
@@ -1140,11 +1138,19 @@
     scroll-margin-top: 100px;
   }
 }
-@media (max-width: 700px) {
-  .productMedia .thumbnails,
-  .productMedia .mediaCaption {
-    max-width: calc(100% - 60px);
-  }
+/* Thumbnails wrap into a grid so no frame is clipped (esp. the video tile on mobile). */
+.productMedia .thumbnails {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+  gap: 10px;
+  overflow: visible;
+  padding: 3px 2px;
+}
+.productMedia .thumbnails button {
+  flex: none;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1;
 }
 
 /* Long-form service information: open editorial rows, no repeated imagery. */

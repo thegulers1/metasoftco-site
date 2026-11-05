@@ -53,8 +53,8 @@ const tr = {
     routes: phase2Routes.tr as HomeRoutes,
     locales: { tr: phase2Routes.tr.home as string, en: phase2Routes.en.home as string },
     nav: [
-        { href: phase2Routes.tr.capabilities, label: "KİRALAMA" },
-        { href: phase2Routes.tr.products, label: "SATIN ALMA" },
+        { href: phase2Routes.tr.capabilities, label: "HİZMETLER" },
+        { href: phase2Routes.tr.products, label: "ÜRÜNLER" },
         { href: phase2Routes.tr.work, label: "PROJELER" },
         { href: phase2Routes.tr.about, label: "HAKKIMIZDA" },
         { href: phase2Routes.tr.insights, label: "BLOG" },
@@ -211,8 +211,8 @@ const en: HomeCopy = {
     routes: phase2Routes.en,
     locales: tr.locales,
     nav: [
-        { href: phase2Routes.en.capabilities, label: "RENTAL" },
-        { href: phase2Routes.en.products, label: "BUY" },
+        { href: phase2Routes.en.capabilities, label: "SERVICES" },
+        { href: phase2Routes.en.products, label: "PRODUCTS" },
         { href: phase2Routes.en.work, label: "WORK" },
         { href: phase2Routes.en.about, label: "ABOUT" },
         { href: phase2Routes.en.insights, label: "INSIGHTS" },
