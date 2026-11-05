@@ -81,7 +81,7 @@ const serviceFAQs = [
     },
     {
         question: "KVKK kapsamında fotoğraf verileri nasıl korunuyor?",
-        answer: "Önceden saklama talebi yoksa fotoğraflar etkinlik sonrasında otomatik olarak silinir. Önceden talep edilmişse fotoğraflar en fazla 90 gün saklanır ve paylaşılır, süre sonunda sistemlerimizden silinir. Veri toplanan kurgularda form aydınlatma metniyle sunulur; pazarlama izni ayrı ve isteğe bağlı açık rızayla alınır. Veri sorumlusu müşteri marka, MetasoftCo ise müşterinin talimatlarıyla hareket eden veri işleyendir.",
+        answer: "Önceden saklama talebi yoksa fotoğraflar etkinlik sonrasında otomatik olarak silinir. Önceden talep edilmişse fotoğraflar en fazla 90 gün saklanır ve kararlaştırılan süreç kapsamında paylaşılır. Veri toplanan kurgularda form aydınlatma metniyle sunulur; pazarlama izni ayrı ve isteğe bağlı açık rızayla alınır. Kişisel verilerin işlenmesine ilişkin tarafların sorumlulukları, veri işleme amaçları ve paylaşım koşulları etkinlik öncesinde proje kapsamında netleştirilir.",
     },
     {
         question: "Etkinlik sırasında teknik destek sağlıyor musunuz?",
