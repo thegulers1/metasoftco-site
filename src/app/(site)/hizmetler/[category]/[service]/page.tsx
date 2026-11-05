@@ -6,6 +6,8 @@ import { siteConfig, generateServiceSchema, generateBreadcrumbSchema } from "@/l
 import { cloudinaryOgImage } from "@/lib/cloudinary";
 import { cache } from "react";
 import ServiceDetailClient from "./ServiceDetailClient";
+import AiPhotoboothDetail from "@/components/services/ai-photobooth/AiPhotoboothDetail";
+import { AI_PHOTOBOOTH_CASES, aiPhotoboothFaq, isAiPhotoboothPage } from "@/lib/ai-photobooth";
 import { AdminEditUrlSetter } from "@/components/site/AdminBar";
 import { isEnglishServicePublishable } from "@/lib/publication";
 import { dataCaptureCopy } from "@/lib/data-capture";
@@ -141,6 +143,15 @@ export default async function ServiceDetailPage({ params }: PageProps) {
     // Bu hizmetin editörde eşleştirilmiş gerçek satış karşılığı varsa "Satın Al" CTA'sı için kullanılır
     const saleCounterpart = service.saleCounterpart?.published ? service.saleCounterpart : null;
 
+    // Only this TR rental route gets the editorial layout; EN and all other
+    // services/products continue using ServiceDetailClient unchanged.
+    const isAiPhoto = isAiPhotoboothPage(category, serviceSlug);
+    const aiFaqs = isAiPhoto ? aiPhotoboothFaq(service) : [];
+    const caseProjects = isAiPhoto ? await prisma.project.findMany({
+        where: { published: true, slug: { in: AI_PHOTOBOOTH_CASES.map((item) => item.slug) } },
+        select: { slug: true, title: true, image: true },
+    }) : [];
+
     // JSON-LD structured data
     const isEventRental = !isSoftwareCategory(categoryData.slug);
     const serviceSchema = generateServiceSchema({
@@ -161,8 +172,8 @@ export default async function ServiceDetailPage({ params }: PageProps) {
 
     // FAQ JSON-LD schema — Google featured snippet için
     const faqSchema = (() => {
-        const ownFaq: { q: string; a: string }[] = service.faq ? JSON.parse(service.faq) : [];
-        const items: { q: string; a: string }[] = [
+        const ownFaq: { q: string; a: string }[] = !isAiPhoto && service.faq ? JSON.parse(service.faq) : [];
+        const items: { q: string; a: string }[] = isAiPhoto ? aiFaqs : [
             ...(isEventRental ? mergeRentalFaq(ownFaq, service.title, "tr", toRentalOutput(service.outputType)) : ownFaq),
             ...(service.dataCapture ? dataCaptureCopy("tr", toRentalOutput(service.outputType) === "none").faq : []),
         ];
@@ -216,7 +227,16 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 />
             )}
             <AdminEditUrlSetter url={`/editpanel/services/${service.id}/edit`} />
-            <ServiceDetailClient
+            {isAiPhoto ? <AiPhotoboothDetail
+                service={service}
+                categoryData={categoryData}
+                relatedServices={relatedServices}
+                gallery={gallery}
+                projects={caseProjects}
+                faqs={aiFaqs}
+                serviceSchema={serviceSchema}
+                saleHref={saleCounterpart ? `/urunler/${saleCounterpart.slug}` : undefined}
+            /> : <ServiceDetailClient
                 service={service}
                 categoryData={categoryData}
                 relatedServices={relatedServices}
@@ -224,7 +244,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 serviceSchema={serviceSchema}
                 category={category}
                 saleHref={saleCounterpart ? `/urunler/${saleCounterpart.slug}` : undefined}
-            />
+            />}
         </>
     );
 }
