@@ -35,6 +35,7 @@ export const FASHION_MIRROR_PROFILE: ServiceTemplateProfile = {
             { projectSlug: ADIDAS, galleryIndex: 3 },
         ],
         videoProjectSlug: ADIDAS,
+        portraitGallery: true,
     },
     quoteCard: {
         eyebrow: "Etkinliğinize özel",

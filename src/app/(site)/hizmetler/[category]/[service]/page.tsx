@@ -10,6 +10,7 @@ import AiPhotoboothDetail from "@/components/services/ai-photobooth/AiPhotobooth
 import { AI_PHOTOBOOTH_CASES, aiPhotoboothFaq, isAiPhotoboothPage } from "@/lib/ai-photobooth";
 import ProductDetail from "@/components/services/template/ProductDetail";
 import { FASHION_MIRROR_PROFILE, isFashionMirrorPage } from "@/lib/service-template/fashion-mirror";
+import { AI_GREENBOX_PROFILE, isAiGreenboxPage } from "@/lib/service-template/ai-greenbox";
 import { loadServiceTemplate } from "@/lib/service-template/load";
 import { AdminEditUrlSetter } from "@/components/site/AdminBar";
 import { isEnglishServicePublishable } from "@/lib/publication";
@@ -155,11 +156,13 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         select: { slug: true, title: true, image: true },
     }) : [];
 
-    // AI Fashion Mirror renders the shared product layout; its visible FAQ and
-    // FAQPage JSON-LD come from the same profile list.
-    const isFashionMirror = isFashionMirrorPage(category, serviceSlug);
-    const fashion = isFashionMirror ? await loadServiceTemplate(FASHION_MIRROR_PROFILE) : null;
-    const useFashionLayout = Boolean(fashion);
+    // AI Fashion Mirror and AI Greenbox render the shared product layout; their
+    // visible FAQ and FAQPage JSON-LD come from the same profile list.
+    const templateProfile = isFashionMirrorPage(category, serviceSlug)
+        ? FASHION_MIRROR_PROFILE
+        : isAiGreenboxPage(category, serviceSlug) ? AI_GREENBOX_PROFILE : null;
+    const fashion = templateProfile ? await loadServiceTemplate(templateProfile) : null;
+    const useFashionLayout = Boolean(fashion && templateProfile);
 
     // JSON-LD structured data
     const isEventRental = !isSoftwareCategory(categoryData.slug);
@@ -182,7 +185,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
     // FAQ JSON-LD schema — Google featured snippet için
     const faqSchema = (() => {
         const ownFaq: { q: string; a: string }[] = !isAiPhoto && !useFashionLayout && service.faq ? JSON.parse(service.faq) : [];
-        const items: { q: string; a: string }[] = useFashionLayout ? FASHION_MIRROR_PROFILE.faq.items : isAiPhoto ? aiFaqs : [
+        const items: { q: string; a: string }[] = useFashionLayout && templateProfile ? templateProfile.faq.items : isAiPhoto ? aiFaqs : [
             ...(isEventRental ? mergeRentalFaq(ownFaq, service.title, "tr", toRentalOutput(service.outputType)) : ownFaq),
             ...(service.dataCapture ? dataCaptureCopy("tr", toRentalOutput(service.outputType) === "none").faq : []),
         ];
@@ -237,7 +240,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
             )}
             <AdminEditUrlSetter url={`/editpanel/services/${service.id}/edit`} />
             {fashion ? <ProductDetail
-                profile={FASHION_MIRROR_PROFILE}
+                profile={templateProfile!}
                 service={service}
                 category={categoryData}
                 projects={fashion.projects}

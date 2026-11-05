@@ -87,7 +87,7 @@ export default function ProductDetail({ profile, service, category, projects, re
             </dl>
           </div>
           <div className={styles.productMedia}>
-            <ProductGallery images={photos} video={video} name={profile.productName} />
+            <ProductGallery images={photos} video={video} name={profile.productName} portrait={profile.product.portraitGallery} />
           </div>
           <aside id="teklif" className={styles.quoteCard} aria-labelledby="quote-title">
             <span className={styles.eyebrow}>{profile.quoteCard.eyebrow}</span>
