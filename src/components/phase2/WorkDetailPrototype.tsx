@@ -2,8 +2,9 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Phase2Locale } from "@/lib/phase2";
 import { phase2Copy } from "@/lib/phase2-content";
-import { MsFacts, MsSectionHead, MsWords } from "@/components/site-ms/parts";
+import { MsCaps, MsFacts, MsSectionHead, MsWords } from "@/components/site-ms/parts";
 import { MsGallery } from "@/components/site-ms/interactive";
+import type { RelatedService } from "@/lib/project-services";
 
 type GalleryItem = { url: string; alt: string };
 
@@ -21,7 +22,7 @@ const t = {
 };
 
 /** Bespoke Ray-Ban × Strip Photo project page, in the October 2026 design. */
-export default function WorkDetailPrototype({ image, gallery, year, locale }: { image: string; gallery: GalleryItem[]; year: string; locale: Phase2Locale }) {
+export default function WorkDetailPrototype({ image, gallery, year, locale, relatedServices = [] }: { image: string; gallery: GalleryItem[]; year: string; locale: Phase2Locale; relatedServices?: RelatedService[] }) {
     const dictionary = phase2Copy(locale);
     const copy = dictionary.workDetail;
     const l = t[locale];
@@ -98,6 +99,17 @@ export default function WorkDetailPrototype({ image, gallery, year, locale }: { 
                 <MsSectionHead id="ms-rgallery" title={l.galleryTitle} meta={l.galleryMeta} />
                 <MsGallery images={supporting} labels={l.gallery} />
             </section>
+
+            {relatedServices.length > 0 && (
+                <div style={{ marginTop: "2vw" }}>
+                    {relatedServices.map((service) => (
+                        <Link key={service.href} href={service.href} className="ms-capability" data-cursor={locale === "en" ? "VIEW" : "İNCELE"}>
+                            <span>{dictionary.projectDetail.serviceLabel}</span>
+                            <strong><MsCaps text={service.title} /> ↗</strong>
+                        </Link>
+                    ))}
+                </div>
+            )}
 
             <section className="ms-section">
                 <Link href={copy.nextHref} className="ms-next">

@@ -199,7 +199,7 @@ export default async function EnglishProjectDetailPage({
             )}
             <AdminEditUrlSetter url={`/editpanel/projects/${project.id}/edit`} />
             {slug === PHASE_2_RAYBAN_SLUG && project.image ? (
-                <WorkDetailPrototype image={project.image} gallery={gallery} year="2025" locale="en" />
+                <WorkDetailPrototype image={project.image} gallery={gallery} year="2025" locale="en" relatedServices={relatedServices} />
             ) : slug === PHASE_2_CASE_SLUG ? (
                 <CaseStudyPrototype
                     image={project.image}
