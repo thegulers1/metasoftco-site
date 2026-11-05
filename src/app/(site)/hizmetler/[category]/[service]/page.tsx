@@ -8,6 +8,9 @@ import { cache } from "react";
 import ServiceDetailClient from "./ServiceDetailClient";
 import AiPhotoboothDetail from "@/components/services/ai-photobooth/AiPhotoboothDetail";
 import { AI_PHOTOBOOTH_CASES, aiPhotoboothFaq, isAiPhotoboothPage } from "@/lib/ai-photobooth";
+import ProductDetail from "@/components/services/template/ProductDetail";
+import { FASHION_MIRROR_PROFILE, isFashionMirrorPage } from "@/lib/service-template/fashion-mirror";
+import { loadServiceTemplate } from "@/lib/service-template/load";
 import { AdminEditUrlSetter } from "@/components/site/AdminBar";
 import { isEnglishServicePublishable } from "@/lib/publication";
 import { dataCaptureCopy } from "@/lib/data-capture";
@@ -152,6 +155,12 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         select: { slug: true, title: true, image: true },
     }) : [];
 
+    // AI Fashion Mirror renders the shared product layout; its visible FAQ and
+    // FAQPage JSON-LD come from the same profile list.
+    const isFashionMirror = isFashionMirrorPage(category, serviceSlug);
+    const fashion = isFashionMirror ? await loadServiceTemplate(FASHION_MIRROR_PROFILE) : null;
+    const useFashionLayout = Boolean(fashion);
+
     // JSON-LD structured data
     const isEventRental = !isSoftwareCategory(categoryData.slug);
     const serviceSchema = generateServiceSchema({
@@ -172,8 +181,8 @@ export default async function ServiceDetailPage({ params }: PageProps) {
 
     // FAQ JSON-LD schema — Google featured snippet için
     const faqSchema = (() => {
-        const ownFaq: { q: string; a: string }[] = !isAiPhoto && service.faq ? JSON.parse(service.faq) : [];
-        const items: { q: string; a: string }[] = isAiPhoto ? aiFaqs : [
+        const ownFaq: { q: string; a: string }[] = !isAiPhoto && !useFashionLayout && service.faq ? JSON.parse(service.faq) : [];
+        const items: { q: string; a: string }[] = useFashionLayout ? FASHION_MIRROR_PROFILE.faq.items : isAiPhoto ? aiFaqs : [
             ...(isEventRental ? mergeRentalFaq(ownFaq, service.title, "tr", toRentalOutput(service.outputType)) : ownFaq),
             ...(service.dataCapture ? dataCaptureCopy("tr", toRentalOutput(service.outputType) === "none").faq : []),
         ];
@@ -227,7 +236,20 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 />
             )}
             <AdminEditUrlSetter url={`/editpanel/services/${service.id}/edit`} />
-            {isAiPhoto ? <AiPhotoboothDetail
+            {fashion ? <ProductDetail
+                profile={FASHION_MIRROR_PROFILE}
+                service={service}
+                category={categoryData}
+                projects={fashion.projects}
+                related={relatedServices}
+                serviceSchema={serviceSchema}
+                alternates={{
+                    tr: `/hizmetler/${categoryData.slug}/${service.slug}`,
+                    en: isEnglishServicePublishable(service, categoryData)
+                        ? `/en/services/${categoryData.slug_en}/${service.slug_en}`
+                        : "/en/services",
+                }}
+            /> : isAiPhoto ? <AiPhotoboothDetail
                 service={service}
                 categoryData={categoryData}
                 relatedServices={relatedServices}
