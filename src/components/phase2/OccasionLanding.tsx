@@ -146,7 +146,7 @@ export default function OccasionLanding({
                 <section className="ms-faq-wrap" aria-labelledby="ms-occ-faq">
                     <div className="ms-faq-wrap__aside" data-reveal>
                         <h2 id="ms-occ-faq" className="ms-h2">Sıkça sorulan sorular<span className="ms-acc">.</span></h2>
-                        <p>Aradığınız cevap burada yoksa bize yazın; aynı gün dönüş yapalım.</p>
+                        <p>{occasion.faqAside ?? "Aradığınız cevap burada yoksa bize yazın; aynı gün dönüş yapalım."}</p>
                         <Link href={quote} className="ms-pill ms-pill--line">TEKLİF AL ↗</Link>
                     </div>
                     <MsFaq items={occasion.faqs} />
