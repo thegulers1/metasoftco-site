@@ -1,5 +1,6 @@
 "use client";
 
+import { isMomentoBallPage } from "@/lib/momento-ball";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
@@ -67,6 +68,7 @@ export default function ServiceDetailClient({
   const content = (en && service.content_en) || service.content;
   const eventRental =
     variant === "rental" && !isSoftwareCategory(categoryData.slug);
+  const momento = variant === "rental" && isMomentoBallPage(categoryData.slug, service.slug);
   const showCapture = variant === "rental" && service.dataCapture;
   const output = toRentalOutput(service.outputType);
   const operations = rentalOpsCopy(language);
@@ -83,7 +85,7 @@ export default function ServiceDetailClient({
     en ? service.faq_en : service.faq,
   );
   const faqs = [
-    ...(eventRental
+    ...(eventRental && !momento
       ? mergeRentalFaq(ownFaqs, title, language, output)
       : ownFaqs),
     ...(showCapture ? capture.faq : []),
@@ -162,7 +164,7 @@ export default function ServiceDetailClient({
           aria-labelledby="product-title"
         >
           <div className={styles.productCopy}>
-            <span className={styles.eyebrow}>{categoryName}</span>
+            <span className={styles.eyebrow}>{momento ? t("Yılbaşı etkinlikleri · Fotoğraflı hatıralar", "Year-end events · Personal photo keepsakes") : categoryName}</span>
             <h1 id="product-title">{title}</h1>
             {description && (
               <p
@@ -188,7 +190,7 @@ export default function ServiceDetailClient({
             <div className={styles.heroActions}>
               <a href="#teklif" className={styles.primary}>
                 {eventRental
-                  ? t("Etkinliğim için teklif al", "Get a quote for my event")
+                  ? t(momento ? "Yılbaşı etkinliğim için teklif al" : "Etkinliğim için teklif al", momento ? "Get a year-end event quote" : "Get a quote for my event")
                   : t(
                       "Projem için teklif al",
                       "Get a quote for my project",
@@ -238,6 +240,7 @@ export default function ServiceDetailClient({
                 title={title}
                 locale={language}
               />
+              {momento && <p className={styles.small}>{t("Galeri fotoğrafları yapay zekâ ile hazırlanmış temsili uygulamalardır. Gerçek DeFacto projesini aşağıda inceleyebilirsiniz.", "Gallery photos are AI-generated illustrations of the experience. Explore the real DeFacto project below.")}</p>}
             </div>
           )}
           <aside
@@ -251,8 +254,8 @@ export default function ServiceDetailClient({
             <h2 id="quote-title">{t("Teklif alın", "Request a quote")}</h2>
             <p>
               {t(
-                "İhtiyacınızı paylaşın, size özel çözümü birlikte belirleyelim.",
-                "Tell us what you need so we can plan a solution for you.",
+                momento ? "Tarih, şehir ve istediğiniz küre adedini paylaşın; etkinliğinize özel planlayalım." : "İhtiyacınızı paylaşın, size özel çözümü birlikte belirleyelim.",
+                momento ? "Share your date, city and required bauble quantity so we can plan your event." : "Tell us what you need so we can plan a solution for you.",
               )}
             </p>
             <ProductQuoteForm
@@ -333,7 +336,7 @@ export default function ServiceDetailClient({
             </dl>
           </section>
         )}
-        {eventRental && (
+        {eventRental && !momento && (
           <section
             id="kiralama"
             className={`${styles.section} ${styles.contentSection}`}

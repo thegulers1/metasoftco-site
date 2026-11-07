@@ -1,3 +1,4 @@
+import { isMomentoBallPage } from "@/lib/momento-ball";
 import { serviceReferences } from "@/lib/service-template/references";
 import { Metadata } from "next";
 import { faqPlainText } from "@/lib/faq-text";
@@ -187,7 +188,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
     const faqSchema = (() => {
         const ownFaq: { q: string; a: string }[] = !isAiPhoto && !useFashionLayout && service.faq ? JSON.parse(service.faq) : [];
         const items: { q: string; a: string }[] = useFashionLayout && templateProfile ? templateProfile.faq.items : isAiPhoto ? aiFaqs : [
-            ...(isEventRental ? mergeRentalFaq(ownFaq, service.title, "tr", toRentalOutput(service.outputType)) : ownFaq),
+            ...(isEventRental && !isMomentoBallPage(categoryData.slug, service.slug) ? mergeRentalFaq(ownFaq, service.title, "tr", toRentalOutput(service.outputType)) : ownFaq),
             ...(service.dataCapture ? dataCaptureCopy("tr", toRentalOutput(service.outputType) === "none").faq : []),
         ];
         if (!items.length) return null;

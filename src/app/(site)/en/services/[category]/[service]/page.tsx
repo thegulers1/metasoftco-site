@@ -1,3 +1,4 @@
+import { isMomentoBallPage } from "@/lib/momento-ball";
 import { serviceReferences } from "@/lib/service-template/references";
 import { Metadata } from "next";
 import { faqPlainText } from "@/lib/faq-text";
@@ -123,7 +124,7 @@ export default async function EnglishServiceDetailPage({ params }: PageProps) {
     const faqSchema = (() => {
         const ownFaq: { q: string; a: string }[] = JSON.parse(service.faq_en || "[]");
         const items = [
-            ...(isSoftwareCategory(categoryData!.slug) ? ownFaq : mergeRentalFaq(ownFaq, service.title_en!, "en", toRentalOutput(service.outputType))),
+            ...((isSoftwareCategory(categoryData!.slug) || isMomentoBallPage(categoryData!.slug, service.slug)) ? ownFaq : mergeRentalFaq(ownFaq, service.title_en!, "en", toRentalOutput(service.outputType))),
             ...(service.dataCapture ? dataCaptureCopy("en", toRentalOutput(service.outputType) === "none").faq : []),
         ];
         if (!items.length) return null;
