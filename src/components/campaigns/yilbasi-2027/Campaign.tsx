@@ -374,8 +374,8 @@ export default function Campaign({
               <em>başrol sizsiniz.</em>
             </h1>
             <p className={styles.heroLede}>
-              <strong>AI Photo</strong> ile çalışanlarınızın fotoğrafları,
-              şirketinize özel yılbaşı sahnelerine dönüşsün.
+              Şirket yılbaşı partileri için <strong>AI Photobooth kiralama</strong>.
+              Çalışanlarınızın fotoğraflarını şirketinize özel yılbaşı sahnelerine dönüştürüyoruz.
             </p>
             <div className={styles.actions}>
               <a href="#teklif" className={styles.primary}>
@@ -769,6 +769,7 @@ export default function Campaign({
           <div>
             <span className={styles.kicker}>AKLINIZDA KALMASIN</span>
             <h2 id="faq-title">Kısa cevaplar.</h2>
+            {occasion.faqAside && <p>{occasion.faqAside}</p>}
           </div>
           <div>
             {occasion.faqs.map((item) => (
