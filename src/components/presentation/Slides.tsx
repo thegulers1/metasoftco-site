@@ -166,18 +166,18 @@ function IndexSlide({ deck, full, pageNo }: { deck: Deck; full: Deck; pageNo: nu
                 <p>Her kategori, sunumun ilerleyen sayfalarında kendi ayracı ve hizmet sayfalarıyla yer alıyor.</p>
             </div>
             <div className="pz-index__grid" style={{ gridTemplateColumns: `repeat(${cols}, 1fr)` }}>
-                {full.categories.map((category) => (
-                    <div key={category.id} className={`pz-index__tile${category.cover ? "" : " is-text"}`}>
-                        {category.cover ? (
-                            <img src={category.cover} alt="" />
+                {full.categories.map(({ id, name, services, indexCover, cover }) => (
+                    <div key={id} className={`pz-index__tile${indexCover || cover ? "" : " is-text"}`}>
+                        {indexCover || cover ? (
+                            <img src={indexCover || cover || undefined} alt="" />
                         ) : (
                             <span className="pz-index__code" aria-hidden="true">
                                 {"<App>\n  mobil · web\n  panel · AI\n</App>"}
                             </span>
                         )}
                         <div className="pz-index__label">
-                            <b>{category.name}</b>
-                            <small>{category.services.length} hizmet</small>
+                            <b>{name}</b>
+                            <small>{services.length} hizmet</small>
                         </div>
                     </div>
                 ))}

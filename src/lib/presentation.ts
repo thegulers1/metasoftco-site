@@ -29,6 +29,16 @@ const COVER_IMAGE_WIDTH = 1080;
 
 const SOFTWARE_CATEGORY_SLUG = "yazilim-gelistirme";
 const COVER_SERVICE_SLUG = "ai-photobooth-kirala";
+const GREENBOX_SERVICE_SLUG = "ai-greenbox-kiralama";
+const TCMB_PROJECT_SLUG = "tcmb-ai-greenbox-dijital-fotograf-aktivasyonu-istanbul-finans-merkezi";
+const INDEX_COVERS: Partial<Record<string, string>> = {
+    "yapay-zeka-etkinlik-cozumleri": "ai",
+    "photobooth-ve-fotograf-aktivasyonlari": "photobooth",
+    "interaktif-etkinlik-aktiviteleri": "games",
+    video: "video",
+    "vr-ar-deneyimleri": "vr-ar",
+    "yazilim-gelistirme": "software",
+};
 
 const EVENT_SPECS: DeckSpec[] = [
     { label: "Kurulum", value: "Cihaz başı 30–40 dk" },
@@ -192,6 +202,12 @@ async function loadDeck(): Promise<Deck> {
         },
     });
 
+    const tcmbProject = await prisma.project.findFirst({
+        where: { slug: TCMB_PROJECT_SLUG, published: true },
+        select: { gallery: true },
+    });
+    const tcmbPhotos = galleryUrls(tcmbProject?.gallery ?? null).filter((url) => !isVideoUrl(url));
+
     const now = Date.now();
     let latest = 0;
     let coverImage = null as string | null;
@@ -201,6 +217,7 @@ async function loadDeck(): Promise<Deck> {
             .filter((category) => category.services.length > 0)
             .map(async (category, index): Promise<DeckCategory> => {
                 const isSoftware = category.slug === SOFTWARE_CATEGORY_SLUG;
+                const indexCover = INDEX_COVERS[category.slug];
                 latest = Math.max(latest, category.updatedAt.getTime());
 
                 const services = await Promise.all(
@@ -212,7 +229,8 @@ async function loadDeck(): Promise<Deck> {
 
                         let media: DeckService["media"] = null;
                         if (image) {
-                            const extras = gallery
+                            const thumbnailGallery = service.slug === GREENBOX_SERVICE_SLUG ? tcmbPhotos : gallery;
+                            const extras = [...new Set(thumbnailGallery)]
                                 .filter((url) => url !== image)
                                 .map(stillFrame)
                                 .filter((url): url is string => Boolean(url))
@@ -250,6 +268,7 @@ async function loadDeck(): Promise<Deck> {
                     name: category.name,
                     lead: CATEGORY_LEADS[category.slug] ?? heroLead,
                     cover: services.find((service) => service.image)?.image ?? null,
+                    indexCover: indexCover ? `/sunum/categories/${indexCover}.webp` : undefined,
                     services,
                 };
             }),
@@ -266,7 +285,7 @@ async function loadDeck(): Promise<Deck> {
 }
 
 // Bump the key suffix when the deck's shape changes, so a stale cached deck is not served after a deploy.
-export const getPresentationDeck = unstable_cache(loadDeck, [PRESENTATION_CACHE_TAG, "v4"], {
+export const getPresentationDeck = unstable_cache(loadDeck, [PRESENTATION_CACHE_TAG, "v5"], {
     revalidate: 300,
     tags: [PRESENTATION_CACHE_TAG],
 });

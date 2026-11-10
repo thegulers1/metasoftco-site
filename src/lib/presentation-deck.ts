@@ -28,6 +28,7 @@ export type DeckCategory = {
     name: string;
     lead: string;
     cover: string | null;
+    indexCover?: string;
     services: DeckService[];
 };
 
