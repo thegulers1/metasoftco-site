@@ -120,12 +120,19 @@
 .heroCopy {
   padding-block: 12px;
 }
-.hero h1 {
+.heroSlogan {
+  font-family: var(--mh-heading), Arial, sans-serif;
+  font-weight: 580;
   font-size: clamp(56px, 5.1vw, 74px);
   line-height: 0.98;
   letter-spacing: -0.055em;
 }
 .hero .kicker {
+  font-family: var(--mh-mono), monospace;
+  font-size: 10px;
+  line-height: 1.6;
+  letter-spacing: 0.075em;
+  margin-bottom: 20px;
   display: flex;
   align-items: center;
   gap: 9px;
@@ -828,7 +835,7 @@
     gap: 32px;
     grid-template-columns: 0.85fr 1.15fr;
   }
-  .hero h1 {
+  .heroSlogan {
     font-size: 56px;
   }
   .heroNote {
@@ -900,7 +907,7 @@
     font-size: 8px;
     margin-bottom: 18px;
   }
-  .hero h1 {
+  .heroSlogan {
     font-size: clamp(48px, 12.2vw, 72px);
     line-height: 0.98;
   }

@@ -20,6 +20,7 @@ export interface CapabilityCategoryScreenProps {
     /** Editor-supplied display heading; falls back to the category name. */
     heroTitle?: string | null;
     heroCopy?: string | null;
+    heroLink?: { href: string; label: string };
     /** Editor-authored long-form HTML (H2/H3 + lists), rendered below the service list. */
     contentHtml?: string | null;
     services: P2CategoryService[];
@@ -41,6 +42,7 @@ export default function CapabilityCategoryScreen({
     name,
     heroTitle,
     heroCopy,
+    heroLink,
     contentHtml,
     services,
     faqs,
@@ -73,6 +75,7 @@ export default function CapabilityCategoryScreen({
                 <div className="ms-hero__foot">
                     <div style={{ display: "flex", flexDirection: "column", gap: 14, maxWidth: 720 }}>
                         {heroCopy && <p className="ms-lede" data-reveal>{heroCopy}</p>}
+                        {heroLink && <Link href={heroLink.href} className="ms-hero__jump">{heroLink.label} ↗</Link>}
                         {formattedUpdatedAt && <p className="ms-updated ms-mono">{l.updated}: {formattedUpdatedAt}</p>}
                     </div>
                     <Link href={dictionary.routes.contact} className="ms-pill ms-pill--acc" data-cursor={l.write}>{up(copy.ctaButton)} ↗</Link>

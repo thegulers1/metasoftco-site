@@ -365,14 +365,14 @@ export default function Campaign({
       <main id="main-content">
         <section className={styles.hero} aria-labelledby="campaign-title">
           <div className={styles.heroCopy}>
-            <p className={styles.kicker}>
-              <span /> YILBAŞI PARTİNİZİN FOTOĞRAF DENEYİMİ
-            </p>
-            <h1 id="campaign-title">
+            <h1 id="campaign-title" className={styles.kicker}>
+              <span /> Kurumsal Yılbaşı Partisi Aktiviteleri
+            </h1>
+            <p className={styles.heroSlogan}>
               Bu yılbaşı,
               <br />
               <em>başrol sizsiniz.</em>
-            </h1>
+            </p>
             <p className={styles.heroLede}>
               Şirket yılbaşı partileri için <strong>AI Photobooth kiralama</strong>.
               Çalışanlarınızın fotoğraflarını şirketinize özel yılbaşı sahnelerine dönüştürüyoruz.

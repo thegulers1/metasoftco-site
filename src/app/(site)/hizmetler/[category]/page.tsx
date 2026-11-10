@@ -106,6 +106,9 @@ export default async function CategoryHubPage({ params }: PageProps) {
                 name={category.name}
                 heroTitle={category.heroTitle}
                 heroCopy={category.heroContent}
+                heroLink={categorySlug === "photobooth-ve-fotograf-aktivasyonlari" && category.services.some((service) => service.slug === "mirror-booth")
+                    ? { href: `/hizmetler/${categorySlug}/mirror-booth`, label: "Mirror Booth Kiralama" }
+                    : undefined}
                 contentHtml={category.content}
                 services={category.services.map((service) => ({
                     id: service.id,

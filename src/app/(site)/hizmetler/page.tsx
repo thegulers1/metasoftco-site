@@ -112,7 +112,7 @@ export default async function HizmetlerPage() {
         category.services
             .map((service) => ({
                 id: service.id,
-                title: shortServiceTitle(service.title, service.homeTitle),
+                title: `${shortServiceTitle(service.title, service.homeTitle)} Kiralama`,
                 image: serviceListingImage(service),
                 href: `/hizmetler/${category.slug}/${service.slug}`,
                 categorySlug: category.slug,

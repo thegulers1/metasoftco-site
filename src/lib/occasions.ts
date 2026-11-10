@@ -65,7 +65,7 @@ export const occasions: Record<string, Occasion> = {
         name: "Yılbaşı partisi",
         metaTitle: "Kurumsal Yılbaşı Partisi Aktiviteleri: AI Photobooth, Oyun ve Çekiliş | MetasoftCo",
         metaDescription:
-            "Şirket yılbaşı partiniz için AI photobooth, strip photo, 360 video booth, hediye çarkı ve canlı quiz kiralama. 2027 temalı deneyimler için teklif ve müsaitlik bilgisi alın.",
+            "Kurumsal yılbaşı partiniz için AI Photobooth, 360 Video Booth, hediye çarkı ve canlı quiz seçeneklerini inceleyin. Etkinliğiniz için kiralama teklifi alın.",
         keywords: [
             "kurumsal yılbaşı partisi",
             "yılbaşı partisi aktiviteleri",

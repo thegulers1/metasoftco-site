@@ -3380,3 +3380,9 @@ html[data-mh-js] .ms-w > span {
 		padding-bottom: 8px;
 	}
 }
+
+.ms-prose .ms-blog-rental-options {
+	padding: 1rem 1.25rem;
+	margin-block: 1.5rem;
+	border: 1px solid currentColor;
+}
