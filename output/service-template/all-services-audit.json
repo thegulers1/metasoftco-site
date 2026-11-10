@@ -1,0 +1,898 @@
+{
+  "services": 51,
+  "checked": 99,
+  "failed": [],
+  "results": [
+    {
+      "slug": "choose-your-background",
+      "locale": "tr",
+      "sections": 5,
+      "preserved": true,
+      "path": "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/choose-your-background",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "choose-your-background",
+      "locale": "en",
+      "sections": 5,
+      "preserved": true,
+      "path": "/en/services/photobooth-and-photo-activations/choose-your-background",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "kurumsal-surec-yazilimlari",
+      "locale": "tr",
+      "sections": 3,
+      "preserved": true,
+      "path": "/hizmetler/yazilim-gelistirme/kurumsal-surec-yazilimlari",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "kurumsal-surec-yazilimlari",
+      "locale": "en",
+      "sections": 3,
+      "preserved": true,
+      "path": "/en/services/software-development/enterprise-process-software",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "web-uygulamasi-ve-yonetim-paneli-gelistirme",
+      "locale": "tr",
+      "sections": 4,
+      "preserved": true,
+      "path": "/hizmetler/yazilim-gelistirme/web-uygulamasi-ve-yonetim-paneli-gelistirme",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "web-uygulamasi-ve-yonetim-paneli-gelistirme",
+      "locale": "en",
+      "sections": 4,
+      "preserved": true,
+      "path": "/en/services/software-development/web-application-and-admin-panel-development",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "cabin-photo",
+      "locale": "tr",
+      "sections": 8,
+      "preserved": true,
+      "path": "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/cabin-photo",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "cabin-photo",
+      "locale": "en",
+      "sections": 8,
+      "preserved": true,
+      "path": "/en/services/photobooth-and-photo-activations/cabin-photo",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "wordportre-kirala",
+      "locale": "tr",
+      "sections": 6,
+      "preserved": true,
+      "path": "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/wordportre-kirala",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "wordportre-kirala",
+      "locale": "en",
+      "sections": 6,
+      "preserved": true,
+      "path": "/en/services/photobooth-and-photo-activations/word-portrait",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "ai-photo-child",
+      "locale": "tr",
+      "sections": 5,
+      "preserved": true,
+      "path": "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photo-child",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "ai-photo-child",
+      "locale": "en",
+      "sections": 5,
+      "preserved": true,
+      "path": "/en/services/ai-event-solutions/ai-photo-child",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "oyun-ve-egitim-uygulamalari",
+      "locale": "tr",
+      "sections": 3,
+      "preserved": true,
+      "path": "/hizmetler/yazilim-gelistirme/oyun-ve-egitim-uygulamalari",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "oyun-ve-egitim-uygulamalari",
+      "locale": "en",
+      "sections": 3,
+      "preserved": true,
+      "path": "/en/services/software-development/game-and-learning-apps",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "yapay-zeka-entegrasyonu",
+      "locale": "tr",
+      "sections": 3,
+      "preserved": true,
+      "path": "/hizmetler/yazilim-gelistirme/yapay-zeka-entegrasyonu",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "yapay-zeka-entegrasyonu",
+      "locale": "en",
+      "sections": 3,
+      "preserved": true,
+      "path": "/en/services/software-development/ai-integration",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "ai-graffiti-wall",
+      "locale": "tr",
+      "sections": 8,
+      "preserved": true,
+      "path": "/hizmetler/interaktif-etkinlik-aktiviteleri/ai-graffiti-wall",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "ai-graffiti-wall",
+      "locale": "en",
+      "sections": 8,
+      "preserved": true,
+      "path": "/en/services/interactive-event-activities/ai-graffiti-wall",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "interaktif-hafiza-oyunu-kiralama",
+      "locale": "tr",
+      "sections": 2,
+      "preserved": true,
+      "path": "/hizmetler/interaktif-etkinlik-aktiviteleri/interaktif-hafiza-oyunu-kiralama",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "interaktif-hafiza-oyunu-kiralama",
+      "locale": "en",
+      "sections": 2,
+      "preserved": true,
+      "path": "/en/services/interactive-event-activities/interactive-memory-game-rental",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "prompt-battle-yapay-zeka-yarismasi",
+      "locale": "tr",
+      "sections": 6,
+      "preserved": true,
+      "path": "/hizmetler/interaktif-etkinlik-aktiviteleri/prompt-battle-yapay-zeka-yarismasi",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "prompt-battle-yapay-zeka-yarismasi",
+      "locale": "en",
+      "sections": 6,
+      "preserved": true,
+      "path": "/en/services/interactive-event-activities/prompt-battle-ai-competition",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "ai-greenbox-kiralama",
+      "locale": "tr",
+      "sections": 6,
+      "preserved": true,
+      "path": "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-greenbox-kiralama",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "ai-greenbox-kiralama",
+      "locale": "en",
+      "sections": 6,
+      "preserved": true,
+      "path": "/en/services/ai-event-solutions/ai-greenbox",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "gercek-mi-yapay-zeka-mi-human-vs-ai",
+      "locale": "tr",
+      "sections": 6,
+      "preserved": true,
+      "path": "/hizmetler/interaktif-etkinlik-aktiviteleri/gercek-mi-yapay-zeka-mi-human-vs-ai",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "gercek-mi-yapay-zeka-mi-human-vs-ai",
+      "locale": "en",
+      "sections": 6,
+      "preserved": true,
+      "path": "/en/services/interactive-event-activities/human-vs-ai-real-or-ai-game",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "collage-capture-photo",
+      "locale": "tr",
+      "sections": 5,
+      "preserved": true,
+      "path": "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/collage-capture-photo",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "collage-capture-photo",
+      "locale": "en",
+      "sections": 5,
+      "preserved": true,
+      "path": "/en/services/photobooth-and-photo-activations/collage-capture-photo",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "yapay-zeka-rozet-atolyesi-ai-sketch-to-badge",
+      "locale": "tr",
+      "sections": 6,
+      "preserved": true,
+      "path": "/hizmetler/yapay-zeka-etkinlik-cozumleri/yapay-zeka-rozet-atolyesi-ai-sketch-to-badge",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "yapay-zeka-rozet-atolyesi-ai-sketch-to-badge",
+      "locale": "en",
+      "sections": 6,
+      "preserved": true,
+      "path": "/en/services/ai-event-solutions/ai-sketch-to-badge-workshop",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "strip-photo",
+      "locale": "tr",
+      "sections": 5,
+      "preserved": true,
+      "path": "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/strip-photo",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "strip-photo",
+      "locale": "en",
+      "sections": 5,
+      "preserved": true,
+      "path": "/en/services/photobooth-and-photo-activations/strip-photo",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "cizim-robotu-kiralama",
+      "locale": "tr",
+      "sections": 8,
+      "preserved": true,
+      "path": "/hizmetler/interaktif-etkinlik-aktiviteleri/cizim-robotu-kiralama",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "cizim-robotu-kiralama",
+      "locale": "en",
+      "sections": 8,
+      "preserved": true,
+      "path": "/en/services/interactive-event-activities/drawing-robot",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "gif-video-booth",
+      "locale": "tr",
+      "sections": 4,
+      "preserved": true,
+      "path": "/hizmetler/video/gif-video-booth",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "gif-video-booth",
+      "locale": "en",
+      "sections": 4,
+      "preserved": true,
+      "path": "/en/services/video/gif-video-booth",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "i-ris-fotografciligi-iris-photo-ve-makro-goz-cekimi-etkinlik-aktivasyonu-kiralama",
+      "locale": "tr",
+      "sections": 3,
+      "preserved": true,
+      "path": "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/i-ris-fotografciligi-iris-photo-ve-makro-goz-cekimi-etkinlik-aktivasyonu-kiralama",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "i-ris-fotografciligi-iris-photo-ve-makro-goz-cekimi-etkinlik-aktivasyonu-kiralama",
+      "locale": "en",
+      "sections": 3,
+      "preserved": true,
+      "path": "/en/services/photobooth-and-photo-activations/iris-photography",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "glow-box-photo",
+      "locale": "tr",
+      "sections": 6,
+      "preserved": true,
+      "path": "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/glow-box-photo",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "glow-box-photo",
+      "locale": "en",
+      "sections": 6,
+      "preserved": true,
+      "path": "/en/services/photobooth-and-photo-activations/glow-box-photo",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "ar-photo",
+      "locale": "tr",
+      "sections": 5,
+      "preserved": true,
+      "path": "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/ar-photo",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "ar-photo",
+      "locale": "en",
+      "sections": 5,
+      "preserved": true,
+      "path": "/en/services/photobooth-and-photo-activations/ar-photo",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "momento-ball",
+      "locale": "tr",
+      "sections": 5,
+      "preserved": true,
+      "path": "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/momento-ball",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "momento-ball",
+      "locale": "en",
+      "sections": 5,
+      "preserved": true,
+      "path": "/en/services/photobooth-and-photo-activations/momento-ball",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "ai-bookmark",
+      "locale": "tr",
+      "sections": 6,
+      "preserved": true,
+      "path": "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-bookmark",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "ai-bookmark",
+      "locale": "en",
+      "sections": 6,
+      "preserved": true,
+      "path": "/en/services/ai-event-solutions/ai-bookmark",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "magazine-cover",
+      "locale": "tr",
+      "sections": 5,
+      "preserved": true,
+      "path": "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/magazine-cover",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "magazine-cover",
+      "locale": "en",
+      "sections": 5,
+      "preserved": true,
+      "path": "/en/services/photobooth-and-photo-activations/magazine-cover-rental",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "interactive-puzzle",
+      "locale": "tr",
+      "sections": 5,
+      "preserved": true,
+      "path": "/hizmetler/interaktif-etkinlik-aktiviteleri/interactive-puzzle",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "interactive-puzzle",
+      "locale": "en",
+      "sections": 5,
+      "preserved": true,
+      "path": "/en/services/interactive-event-activities/interactive-puzzle",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "ai-photobooth-kurumsal-satis",
+      "locale": "tr",
+      "sections": 10,
+      "preserved": true,
+      "path": "/urunler/ai-photobooth-kurumsal-satis",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "ai-photobooth-kurumsal-satis",
+      "locale": "en",
+      "sections": 10,
+      "preserved": true,
+      "path": "/en/products/ai-photobooth-commercial-sales",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "ai-star-talk",
+      "locale": "tr",
+      "sections": 4,
+      "preserved": true,
+      "path": "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-star-talk",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "ai-star-talk",
+      "locale": "en",
+      "sections": 5,
+      "preserved": true,
+      "path": "/en/services/ai-event-solutions/ai-star-talk",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "star-map",
+      "locale": "tr",
+      "sections": 6,
+      "preserved": true,
+      "path": "/hizmetler/interaktif-etkinlik-aktiviteleri/star-map",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "star-map",
+      "locale": "en",
+      "sections": 6,
+      "preserved": true,
+      "path": "/en/services/interactive-event-activities/star-map",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "ai-star-meetup",
+      "locale": "tr",
+      "sections": 9,
+      "preserved": true,
+      "path": "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-star-meetup",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "ai-star-meetup",
+      "locale": "en",
+      "sections": 6,
+      "preserved": true,
+      "path": "/en/services/ai-event-solutions/ai-star-meetup",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "charge-bike",
+      "locale": "tr",
+      "sections": 6,
+      "preserved": true,
+      "path": "/hizmetler/interaktif-etkinlik-aktiviteleri/charge-bike",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "charge-bike",
+      "locale": "en",
+      "sections": 6,
+      "preserved": true,
+      "path": "/en/services/interactive-event-activities/charge-bike",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "karaoke",
+      "locale": "tr",
+      "sections": 4,
+      "preserved": true,
+      "path": "/hizmetler/interaktif-etkinlik-aktiviteleri/karaoke",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "karaoke",
+      "locale": "en",
+      "sections": 4,
+      "preserved": true,
+      "path": "/en/services/interactive-event-activities/karaoke",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "ai-style",
+      "locale": "tr",
+      "sections": 4,
+      "preserved": true,
+      "path": "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-style",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "ai-style",
+      "locale": "en",
+      "sections": 4,
+      "preserved": true,
+      "path": "/en/services/ai-event-solutions/ai-style",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "ai-draw-portre-cizim",
+      "locale": "tr",
+      "sections": 6,
+      "preserved": true,
+      "path": "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-draw-portre-cizim",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "ai-draw-portre-cizim",
+      "locale": "en",
+      "sections": 7,
+      "preserved": true,
+      "path": "/en/services/ai-event-solutions/ai-draw",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "mobil-uygulama-gelistirme",
+      "locale": "tr",
+      "sections": 5,
+      "preserved": true,
+      "path": "/hizmetler/yazilim-gelistirme/mobil-uygulama-gelistirme",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "mobil-uygulama-gelistirme",
+      "locale": "en",
+      "sections": 5,
+      "preserved": true,
+      "path": "/en/services/software-development/mobile-app-development",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "reflex-wall",
+      "locale": "tr",
+      "sections": 4,
+      "preserved": true,
+      "path": "/hizmetler/interaktif-etkinlik-aktiviteleri/reflex-wall",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "reflex-wall",
+      "locale": "en",
+      "sections": 4,
+      "preserved": true,
+      "path": "/en/services/interactive-event-activities/reflex-wall",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "reflex-game-hiz-ve-rekabet-oyunu",
+      "locale": "tr",
+      "sections": 5,
+      "preserved": true,
+      "path": "/hizmetler/interaktif-etkinlik-aktiviteleri/reflex-game-hiz-ve-rekabet-oyunu",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "reflex-game-hiz-ve-rekabet-oyunu",
+      "locale": "en",
+      "sections": 5,
+      "preserved": true,
+      "path": "/en/services/interactive-event-activities/interactive-reflex-game-for-events",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "vr-beat-saber-kiralama",
+      "locale": "tr",
+      "sections": 5,
+      "preserved": true,
+      "path": "/hizmetler/vr-ar-deneyimleri/vr-beat-saber-kiralama",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "vr-beat-saber-kiralama",
+      "locale": "en",
+      "sections": 5,
+      "preserved": true,
+      "path": "/en/services/vr-ar-experiences/vr-beat-saber-rental",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "hareketli-fotograf-gif-kart-aktivasyonu-kiralama",
+      "locale": "tr",
+      "sections": 6,
+      "preserved": true,
+      "path": "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/hareketli-fotograf-gif-kart-aktivasyonu-kiralama",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "hareketli-fotograf-gif-kart-aktivasyonu-kiralama",
+      "locale": "en",
+      "sections": 6,
+      "preserved": true,
+      "path": "/en/services/photobooth-and-photo-activations/activation-of-animated-photo-and-gif-cards-rental",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "dijital-hediye-carki-aktivasyonu",
+      "locale": "tr",
+      "sections": 4,
+      "preserved": true,
+      "path": "/hizmetler/interaktif-etkinlik-aktiviteleri/dijital-hediye-carki-aktivasyonu",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "dijital-hediye-carki-aktivasyonu",
+      "locale": "en",
+      "sections": 5,
+      "preserved": true,
+      "path": "/en/services/interactive-event-activities/digital-gift-wheel-activation",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "ai-photobooth-kirala",
+      "locale": "tr",
+      "sections": 7,
+      "preserved": true,
+      "path": "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photobooth-kirala",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "ai-photobooth-kirala",
+      "locale": "en",
+      "sections": 10,
+      "preserved": true,
+      "path": "/en/services/ai-event-solutions/ai-photobooth",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "360-video-booth",
+      "locale": "tr",
+      "sections": 9,
+      "preserved": true,
+      "path": "/hizmetler/video/360-video-booth",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "360-video-booth",
+      "locale": "en",
+      "sections": 7,
+      "preserved": true,
+      "path": "/en/services/video/360-video-booth",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "mirror-booth",
+      "locale": "tr",
+      "sections": 10,
+      "preserved": true,
+      "path": "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/mirror-booth",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "mirror-booth",
+      "locale": "en",
+      "sections": 9,
+      "preserved": true,
+      "path": "/en/services/photobooth-and-photo-activations/mirror-booth",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "sipsak-fotograf-aktivasyonu",
+      "locale": "tr",
+      "sections": 4,
+      "preserved": true,
+      "path": "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/sipsak-fotograf-aktivasyonu",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "photobooth-kirala",
+      "locale": "tr",
+      "sections": 10,
+      "preserved": true,
+      "path": "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/photobooth-kirala",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "photobooth-kirala",
+      "locale": "en",
+      "sections": 8,
+      "preserved": true,
+      "path": "/en/services/photobooth-and-photo-activations/photobooth-rental",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "aura-photobooth-kiralama",
+      "locale": "tr",
+      "sections": 5,
+      "preserved": true,
+      "path": "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/aura-photobooth-kiralama",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "aura-photobooth-kiralama",
+      "locale": "en",
+      "sections": 5,
+      "preserved": true,
+      "path": "/en/services/photobooth-and-photo-activations/aura-photobooth-rental",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "catch-collect-game",
+      "locale": "tr",
+      "sections": 10,
+      "preserved": true,
+      "path": "/hizmetler/interaktif-etkinlik-aktiviteleri/catch-collect-game",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "catch-collect-game",
+      "locale": "en",
+      "sections": 10,
+      "preserved": true,
+      "path": "/en/services/interactive-event-activities/catch-collect-game",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "ai-avatar-ve-karakter-olusturma-studyosu-kiralama",
+      "locale": "tr",
+      "sections": 9,
+      "preserved": true,
+      "path": "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-avatar-ve-karakter-olusturma-studyosu-kiralama",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "ai-avatar-ve-karakter-olusturma-studyosu-kiralama",
+      "locale": "en",
+      "sections": 9,
+      "preserved": true,
+      "path": "/en/services/ai-event-solutions/ai-avatar-and-character-creation-studio-rental",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "ai-football-card",
+      "locale": "tr",
+      "sections": 9,
+      "preserved": true,
+      "path": "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-football-card",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "ai-football-card",
+      "locale": "en",
+      "sections": 9,
+      "preserved": true,
+      "path": "/en/services/ai-event-solutions/ai-football-card",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "geri-donusum-oyunu-recycle-win",
+      "locale": "tr",
+      "sections": 5,
+      "preserved": true,
+      "path": "/hizmetler/interaktif-etkinlik-aktiviteleri/geri-donusum-oyunu-recycle-win",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "geri-donusum-oyunu-recycle-win",
+      "locale": "en",
+      "sections": 5,
+      "preserved": true,
+      "path": "/en/services/interactive-event-activities/recycle-win-recycling-game",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "ai-fashion-mirror-akilli-ayna",
+      "locale": "tr",
+      "sections": 11,
+      "preserved": true,
+      "path": "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-fashion-mirror-akilli-ayna",
+      "status": 200,
+      "h1": 1
+    },
+    {
+      "slug": "ai-fashion-mirror-akilli-ayna",
+      "locale": "en",
+      "sections": 10,
+      "preserved": true,
+      "path": "/en/services/ai-event-solutions/ai-fashion-mirror-smart-mirror",
+      "status": 200,
+      "h1": 1
+    }
+  ]
+}

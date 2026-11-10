@@ -1,0 +1,563 @@
+{
+ "days": 14,
+ "generatedAt": "2026-11-10T00:00:00.000Z",
+ "source": "snapshot",
+ "totals": {
+  "sessions": 98,
+  "users": 25,
+  "pageViews": 384,
+  "keyEvents": 7,
+  "engagementRate": 0.541
+ },
+ "previous": {
+  "sessions": 67,
+  "users": 21,
+  "keyEvents": 10
+ },
+ "daily": [
+  {
+   "date": "2026-10-27",
+   "sessions": 4,
+   "users": 2,
+   "pageViews": 3,
+   "keyEvents": 0
+  },
+  {
+   "date": "2026-10-28",
+   "sessions": 4,
+   "users": 3,
+   "pageViews": 8,
+   "keyEvents": 0
+  },
+  {
+   "date": "2026-10-29",
+   "sessions": 0,
+   "users": 0,
+   "pageViews": 0,
+   "keyEvents": 0
+  },
+  {
+   "date": "2026-10-30",
+   "sessions": 2,
+   "users": 2,
+   "pageViews": 2,
+   "keyEvents": 0
+  },
+  {
+   "date": "2026-10-31",
+   "sessions": 0,
+   "users": 0,
+   "pageViews": 0,
+   "keyEvents": 0
+  },
+  {
+   "date": "2026-11-01",
+   "sessions": 7,
+   "users": 5,
+   "pageViews": 26,
+   "keyEvents": 2
+  },
+  {
+   "date": "2026-11-02",
+   "sessions": 13,
+   "users": 6,
+   "pageViews": 43,
+   "keyEvents": 1
+  },
+  {
+   "date": "2026-11-03",
+   "sessions": 7,
+   "users": 3,
+   "pageViews": 20,
+   "keyEvents": 0
+  },
+  {
+   "date": "2026-11-04",
+   "sessions": 9,
+   "users": 6,
+   "pageViews": 114,
+   "keyEvents": 0
+  },
+  {
+   "date": "2026-11-05",
+   "sessions": 14,
+   "users": 4,
+   "pageViews": 118,
+   "keyEvents": 3
+  },
+  {
+   "date": "2026-11-06",
+   "sessions": 16,
+   "users": 5,
+   "pageViews": 27,
+   "keyEvents": 1
+  },
+  {
+   "date": "2026-11-07",
+   "sessions": 11,
+   "users": 6,
+   "pageViews": 11,
+   "keyEvents": 0
+  },
+  {
+   "date": "2026-11-08",
+   "sessions": 1,
+   "users": 1,
+   "pageViews": 1,
+   "keyEvents": 0
+  },
+  {
+   "date": "2026-11-09",
+   "sessions": 9,
+   "users": 3,
+   "pageViews": 7,
+   "keyEvents": 0
+  },
+  {
+   "date": "2026-11-10",
+   "sessions": 1,
+   "users": 1,
+   "pageViews": 4,
+   "keyEvents": 0
+  }
+ ],
+ "channels": [
+  {
+   "source": "google / organic",
+   "sessions": 67,
+   "users": 12,
+   "engagementRate": 0.552,
+   "keyEvents": 1
+  },
+  {
+   "source": "(direct) / (none)",
+   "sessions": 16,
+   "users": 6,
+   "engagementRate": 0.625,
+   "keyEvents": 5
+  },
+  {
+   "source": "chatgpt.com / ai-assistant",
+   "sessions": 7,
+   "users": 6,
+   "engagementRate": 0.714,
+   "keyEvents": 1
+  },
+  {
+   "source": "search.google.com / referral",
+   "sessions": 3,
+   "users": 1,
+   "engagementRate": 0.333,
+   "keyEvents": 0
+  },
+  {
+   "source": "chatgpt.com / (none)",
+   "sessions": 1,
+   "users": 1,
+   "engagementRate": 1,
+   "keyEvents": 0
+  },
+  {
+   "source": "(not set)",
+   "sessions": 1,
+   "users": 1,
+   "engagementRate": 0,
+   "keyEvents": 0
+  },
+  {
+   "source": "eventco-site.pages.dev / referral",
+   "sessions": 1,
+   "users": 1,
+   "engagementRate": 0,
+   "keyEvents": 0
+  },
+  {
+   "source": "google / cpc",
+   "sessions": 1,
+   "users": 1,
+   "engagementRate": 0,
+   "keyEvents": 0
+  },
+  {
+   "source": "ig / paid",
+   "sessions": 1,
+   "users": 1,
+   "engagementRate": 0,
+   "keyEvents": 0
+  },
+  {
+   "source": "ig / social",
+   "sessions": 1,
+   "users": 1,
+   "engagementRate": 0,
+   "keyEvents": 0
+  }
+ ],
+ "landing": [
+  {
+   "page": "/",
+   "sessions": 32,
+   "engagementRate": 0.656,
+   "avgDuration": 591,
+   "keyEvents": 2
+  },
+  {
+   "page": "(not set)",
+   "sessions": 18,
+   "engagementRate": 0.167,
+   "avgDuration": 9.5,
+   "keyEvents": 0
+  },
+  {
+   "page": "/hizmetler/yilbasi-partisi-aktiviteleri",
+   "sessions": 5,
+   "engagementRate": 0.4,
+   "avgDuration": 484,
+   "keyEvents": 1
+  },
+  {
+   "page": "/projeler",
+   "sessions": 4,
+   "engagementRate": 0.75,
+   "avgDuration": 431,
+   "keyEvents": 0
+  },
+  {
+   "page": "/en",
+   "sessions": 3,
+   "engagementRate": 1,
+   "avgDuration": 180,
+   "keyEvents": 0
+  },
+  {
+   "page": "/hakkimizda",
+   "sessions": 3,
+   "engagementRate": 0.667,
+   "avgDuration": 103,
+   "keyEvents": 0
+  },
+  {
+   "page": "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-football-card",
+   "sessions": 3,
+   "engagementRate": 0,
+   "avgDuration": 1.9,
+   "keyEvents": 0
+  },
+  {
+   "page": "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photobooth-kirala",
+   "sessions": 3,
+   "engagementRate": 1,
+   "avgDuration": 781,
+   "keyEvents": 0
+  },
+  {
+   "page": "/en/products/ai-photobooth-commercial-sales",
+   "sessions": 2,
+   "engagementRate": 0.5,
+   "avgDuration": 3.9,
+   "keyEvents": 1
+  },
+  {
+   "page": "/hizmetler",
+   "sessions": 2,
+   "engagementRate": 1,
+   "avgDuration": 1880,
+   "keyEvents": 2
+  },
+  {
+   "page": "/hizmetler/istanbul-ai-photobooth",
+   "sessions": 2,
+   "engagementRate": 0.5,
+   "avgDuration": 850,
+   "keyEvents": 0
+  },
+  {
+   "page": "/design-preview/ai-photobooth-lab",
+   "sessions": 1,
+   "engagementRate": 1,
+   "avgDuration": 2403,
+   "keyEvents": 1
+  }
+ ],
+ "pages": [
+  {
+   "page": "/",
+   "views": 43,
+   "users": 13,
+   "avgDuration": 111
+  },
+  {
+   "page": "/hizmetler",
+   "views": 36,
+   "users": 7,
+   "avgDuration": 289
+  },
+  {
+   "page": "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photobooth-kirala",
+   "views": 36,
+   "users": 6,
+   "avgDuration": 249
+  },
+  {
+   "page": "/projeler",
+   "views": 22,
+   "users": 7,
+   "avgDuration": 113
+  },
+  {
+   "page": "/hizmetler/yilbasi-partisi-aktiviteleri",
+   "views": 11,
+   "users": 5,
+   "avgDuration": 251
+  },
+  {
+   "page": "/hakkimizda",
+   "views": 10,
+   "users": 5,
+   "avgDuration": 33
+  },
+  {
+   "page": "/hizmetler/interaktif-etkinlik-aktiviteleri/catch-collect-game",
+   "views": 8,
+   "users": 2,
+   "avgDuration": 369
+  },
+  {
+   "page": "/design-preview/ai-photobooth-lab",
+   "views": 7,
+   "users": 2,
+   "avgDuration": 1091
+  },
+  {
+   "page": "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-fashion-mirror-akilli-ayna",
+   "views": 7,
+   "users": 2,
+   "avgDuration": 775
+  },
+  {
+   "page": "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-star-meetup",
+   "views": 7,
+   "users": 2,
+   "avgDuration": 277
+  },
+  {
+   "page": "/iletisim",
+   "views": 7,
+   "users": 5,
+   "avgDuration": 261
+  },
+  {
+   "page": "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-football-card",
+   "views": 6,
+   "users": 4,
+   "avgDuration": 124
+  }
+ ],
+ "events": [
+  {
+   "name": "page_view",
+   "count": 384
+  },
+  {
+   "name": "user_engagement",
+   "count": 150
+  },
+  {
+   "name": "session_start",
+   "count": 97
+  },
+  {
+   "name": "scroll",
+   "count": 64
+  },
+  {
+   "name": "first_visit",
+   "count": 16
+  },
+  {
+   "name": "click",
+   "count": 11
+  },
+  {
+   "name": "form_start",
+   "count": 8
+  },
+  {
+   "name": "whatsapp_click",
+   "count": 4
+  },
+  {
+   "name": "form_submit",
+   "count": 2
+  },
+  {
+   "name": "generate_lead",
+   "count": 1
+  }
+ ],
+ "searchQueries": [
+  {
+   "query": "metasoftco",
+   "clicks": 7,
+   "impressions": 32,
+   "ctr": 0.219,
+   "position": 3.3
+  },
+  {
+   "query": "photobooth",
+   "clicks": 2,
+   "impressions": 701,
+   "ctr": 0.0029,
+   "position": 10.1
+  },
+  {
+   "query": "face swap porno ai",
+   "clicks": 1,
+   "impressions": 1,
+   "ctr": 1,
+   "position": 59
+  },
+  {
+   "query": "futbolcu kartı yapma sitesi",
+   "clicks": 1,
+   "impressions": 3,
+   "ctr": 0.33,
+   "position": 9.7
+  },
+  {
+   "query": "photo booth nedir",
+   "clicks": 1,
+   "impressions": 98,
+   "ctr": 0.0102,
+   "position": 6.6
+  },
+  {
+   "query": "porn ai face swap",
+   "clicks": 1,
+   "impressions": 1,
+   "ctr": 1,
+   "position": 27
+  },
+  {
+   "query": "yapay zeka yüz değiştirme",
+   "clicks": 1,
+   "impressions": 3,
+   "ctr": 0.33,
+   "position": 62
+  },
+  {
+   "query": "adidas virtual try on",
+   "clicks": 0,
+   "impressions": 5,
+   "ctr": 0,
+   "position": 7.4
+  },
+  {
+   "query": "ai avatar booth for marketing events",
+   "clicks": 0,
+   "impressions": 13,
+   "ctr": 0,
+   "position": 5.8
+  },
+  {
+   "query": "ai booth kiralama",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 49
+  },
+  {
+   "query": "ai face swap nsfw",
+   "clicks": 0,
+   "impressions": 5,
+   "ctr": 0,
+   "position": 83.2
+  },
+  {
+   "query": "ai face swap porn",
+   "clicks": 0,
+   "impressions": 3,
+   "ctr": 0,
+   "position": 55.3
+  },
+  {
+   "query": "afra saraçoğlu x",
+   "clicks": 0,
+   "impressions": 3,
+   "ctr": 0,
+   "position": 8.7
+  },
+  {
+   "query": "ai fashion mirror",
+   "clicks": 0,
+   "impressions": 1,
+   "ctr": 0,
+   "position": 2
+  }
+ ],
+ "searchPages": [
+  {
+   "page": "/",
+   "clicks": 8,
+   "impressions": 62,
+   "position": 4.4
+  },
+  {
+   "page": "/en/blog/how-ai-face-swap-technology-works",
+   "clicks": 7,
+   "impressions": 714,
+   "position": 21.3
+  },
+  {
+   "page": "/blog/yapay-zeka-yuz-degistirme-face-swap-nasil-calisir",
+   "clicks": 4,
+   "impressions": 197,
+   "position": 11.5
+  },
+  {
+   "page": "/hizmetler/istanbul-ai-photobooth",
+   "clicks": 4,
+   "impressions": 9,
+   "position": 9.7
+  },
+  {
+   "page": "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-football-card",
+   "clicks": 4,
+   "impressions": 120,
+   "position": 7.9
+  },
+  {
+   "page": "/blog/photobooth-nedir",
+   "clicks": 3,
+   "impressions": 1470,
+   "position": 8.9
+  },
+  {
+   "page": "/en",
+   "clicks": 3,
+   "impressions": 20,
+   "position": 4.1
+  },
+  {
+   "page": "/hizmetler/yilbasi-partisi-aktiviteleri",
+   "clicks": 3,
+   "impressions": 4,
+   "position": 1
+  },
+  {
+   "page": "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/cabin-photo",
+   "clicks": 2,
+   "impressions": 38,
+   "position": 23.6
+  },
+  {
+   "page": "/en/blog/what-is-a-photo-booth",
+   "clicks": 1,
+   "impressions": 314,
+   "position": 8.8
+  }
+ ],
+ "warnings": [
+  "Bu rakamlar 10 Kasım 2026'da Google Analytics'ten alınmış bir kopyadır (27 Ekim – 10 Kasım). Canlı veri için Google servis hesabı bağlanmalı. Oturum toplamında admin trafiği de bulunabilir."
+ ]
+}

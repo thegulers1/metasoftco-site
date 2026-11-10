@@ -1,0 +1,141 @@
+diff --git a/src/components/phase2/OccasionLanding.tsx b/src/components/phase2/OccasionLanding.tsx
+index 9ecb0bc..fc4d946 100644
+--- a/src/components/phase2/OccasionLanding.tsx
++++ b/src/components/phase2/OccasionLanding.tsx
+@@ -146,7 +146,7 @@ export default function OccasionLanding({
+                 <section className="ms-faq-wrap" aria-labelledby="ms-occ-faq">
+                     <div className="ms-faq-wrap__aside" data-reveal>
+                         <h2 id="ms-occ-faq" className="ms-h2">Sıkça sorulan sorular<span className="ms-acc">.</span></h2>
+-                        <p>Aradığınız cevap burada yoksa bize yazın; aynı gün dönüş yapalım.</p>
++                        <p>{occasion.faqAside ?? "Aradığınız cevap burada yoksa bize yazın; aynı gün dönüş yapalım."}</p>
+                         <Link href={quote} className="ms-pill ms-pill--line">TEKLİF AL ↗</Link>
+                     </div>
+                     <MsFaq items={occasion.faqs} />
+diff --git a/src/lib/occasions.ts b/src/lib/occasions.ts
+index 5fffa37..9ea7872 100644
+--- a/src/lib/occasions.ts
++++ b/src/lib/occasions.ts
+@@ -8,9 +8,8 @@
+  * sitemap line. Services and projects are referenced by their editpanel slug;
+  * an unpublished or missing slug is simply skipped, so the page never breaks.
+  *
+- * Facts used in the copy come from src/lib/rental-ops.ts (3-day notice,
+- * same-day reply, 220V, own 5G, 2 technicians, 90-day data retention).
+- * Do not add claims that are not true for every booking.
++ * Operational scope and timing are confirmed per booking. Do not infer
++ * availability, included printing or data-retention promises from shared copy.
+  */
+ 
+ export interface OccasionService {
+@@ -54,6 +53,8 @@ export interface Occasion {
+     themes?: { url: string; alt: string }[];
+     projectsTitle: string;
+     projectSlugs: string[];
++    /** Optional occasion-specific FAQ introduction; avoids an unverified response-time promise. */
++    faqAside?: string;
+     faqs: { q: string; a: string }[];
+     closing: { title: string; copy: string };
+ }
+@@ -64,7 +65,7 @@ export const occasions: Record<string, Occasion> = {
+         name: "Yılbaşı partisi",
+         metaTitle: "Kurumsal Yılbaşı Partisi Aktiviteleri: AI Photobooth, Oyun ve Çekiliş | MetasoftCo",
+         metaDescription:
+-            "Şirket yılbaşı partiniz için AI photobooth, strip photo, 360 video booth, hediye çarkı ve canlı quiz kiralama. Kurulum, 2027 temalı tasarım ve saha ekibi dahil; teklif aynı gün.",
++            "Şirket yılbaşı partiniz için AI photobooth, strip photo, 360 video booth, hediye çarkı ve canlı quiz kiralama. 2027 temalı deneyimler için teklif ve müsaitlik bilgisi alın.",
+         keywords: [
+             "kurumsal yılbaşı partisi",
+             "yılbaşı partisi aktiviteleri",
+@@ -75,22 +76,22 @@ export const occasions: Record<string, Occasion> = {
+         ],
+         h1: "Yılbaşı partiniz için AI photobooth, oyun ve çekiliş.",
+         lede:
+-            "Şirket içi yılbaşı partileri için anahtar teslim deneyimler: kurulum, 2027 temalı ve şirketinize özel tasarım, gece boyunca sahadaki ekip dahil. Teklifiniz aynı gün.",
++            "Şirket içi yılbaşı partileri için AI photobooth, oyun ve çekiliş deneyimleri. Kurulum, 2027 temalı ve şirketinize özel tasarım ile saha ekibinin kapsamını etkinliğinize göre birlikte planlayalım.",
+         notice:
+-            "Aralık en yoğun dönemimiz. Etkinlikten 3 gün önce haber vermeniz yeterli, ama yılbaşı haftası için tarihinizi şimdiden ayırtmak size daha fazla seçenek bırakır.",
++            "Aralık dönemi için tarih, şehir ve katılımcı sayısını paylaşın. Seçtiğiniz deneyimlerin müsaitliği ve hazırlık takvimi kontrol edildikten sonra rezervasyon koşulları netleştirilir.",
+         offer: null,
+         tiersTitle: "Kişi sayınıza göre öneri",
+         tiers: [
+             {
+                 range: "50–150 KİŞİ",
+                 title: "Butik parti",
+-                copy: "Herkesin en az bir kez fotoğraf çektirdiği tek bir fotoğraf noktası ve geceyi toparlayan bir çekiliş.",
++                copy: "Bir fotoğraf noktası ve gece akışına eşlik eden bir çekiliş önerisi; kapasite etkinlik süresi ve katılımcı akışına göre planlanır.",
+                 products: ["AI Photo", "Hediye Çarkı"],
+             },
+             {
+                 range: "150–500 KİŞİ",
+                 title: "Tüm şirket",
+-                copy: "Sıra oluşmaması için iki fotoğraf noktası, yemek arasında departmanlar arası canlı quiz ve sahnede çekiliş.",
++                copy: "Katılımcı akışını desteklemek için iki fotoğraf noktası, yemek arasında departmanlar arası canlı quiz ve sahnede çekiliş önerisi.",
+                 products: ["AI Photo", "Strip Photo", "İnteraktif Oyun", "Hediye Çarkı"],
+             },
+             {
+@@ -104,7 +105,7 @@ export const occasions: Record<string, Occasion> = {
+         flow: [
+             {
+                 title: "Karşılama",
+-                copy: "Girişte fotoğraf noktası: çalışanlar kar küresinde, Noel filminde ya da 2027 afişinde. Baskı ve QR ile anında ellerinde.",
++                copy: "Girişte fotoğraf noktası: çalışanlar kar küresinde, Noel filminde ya da 2027 afişinde. QR ile dijital paylaşım planlanabilir; baskı seçeneği ve kapsamı teklifte ayrıca belirtilir.",
+             },
+             {
+                 title: "Yemek",
+@@ -116,7 +117,7 @@ export const occasions: Record<string, Occasion> = {
+             },
+             {
+                 title: "Parti",
+-                copy: "360 video booth ve strip photo ile gecenin en çok paylaşılan anları; herkes eve bir hatırayla döner.",
++                copy: "360 video booth ve strip photo ile geceden paylaşılabilir hatıralar. Dijital teslim ve varsa baskı kapsamı seçilen deneyime göre netleştirilir.",
+             },
+         ],
+         servicesTitle: "Yılbaşına uyan deneyimler",
+@@ -134,30 +135,31 @@ export const occasions: Record<string, Occasion> = {
+         themes: [],
+         projectsTitle: "Şirket partilerinden",
+         projectSlugs: ["rollic-summer-party-x-seri-t-foto"],
++        faqAside: "Aradığınız cevap burada yoksa etkinlik detaylarınızı paylaşarak bilgi ve teklif talep edebilirsiniz.",
+         faqs: [
+             {
+                 q: "Yılbaşı partisi için ne kadar önceden haber vermeliyiz?",
+-                a: "Etkinlikten 3 gün önce haber vermeniz yeterli. Aralık en yoğun dönemimiz olduğu için tarihinizi erken netleştirmek, istediğiniz deneyimin o gece müsait olmasını garantiler.",
++                a: "Tarih, şehir, katılımcı sayısı ve seçtiğiniz deneyimleri mümkün olduğunca erken paylaşın. Müsaitlik, ekip ve hazırlık gereksinimleri kontrol edildikten sonra rezervasyon ve kurulum takvimi netleştirilir; erken başvuru tek başına müsaitlik garantisi oluşturmaz.",
+             },
+             {
+                 q: "Otel ya da restoran salonunda kurulum yapabiliyor musunuz?",
+-                a: "Evet. Tek bir standart 220V priz yeterli; interneti kendi 5G altyapımızla getiririz, mekânın ağına ihtiyaç duymayız. Kurulumu etkinlikten 1 gün önce ya da etkinlik günü 3–4 saat önce yaparız.",
++                a: "Otel ve restoranlarda kurulum, seçilen deneyimin elektrik, internet ve alan gereksinimleri ile mekânın erişim koşulları kontrol edilerek planlanır. Kurulum günü ve saati etkinlik öncesinde netleştirilir.",
+             },
+             {
+                 q: "Gece boyunca başında biri olacak mı?",
+-                a: "Evet. Etkinlik boyunca alanda en az 2 teknik personelimiz bulunur; kurulumdan sökümüne kadar sistemi aynı ekip yönetir. Bitiş saati teklifte birlikte netleşir.",
++                a: "Saha ekibinin görev kapsamı, personel sayısı ve çalışma saatleri seçilen deneyimlere göre teklifte netleştirilir. Kurulum ve söküm planı mekânla birlikte hazırlanır.",
+             },
+             {
+                 q: "Tasarımlar şirketimize özel mi hazırlanıyor?",
+                 a: "Evet. Logo, renkler, çerçeveler, ekran arayüzü ve yapay zekâ temaları şirketinize ve 2027 yılbaşı konseptine göre hazırlanır. Kurumsal onayınızdan sonra sahaya çıkar.",
+             },
+             {
+-                q: "Çalışan fotoğrafları KVKK'ya uygun saklanıyor mu?",
+-                a: "Evet. Veri sorumlusu şirketiniz, MetasoftCo ise talimatlarınızla hareket eden veri işleyendir. Fotoğraflar standart olarak 90 gün saklanır ve süre sonunda sistemlerimizden silinir; farklı bir süre sözleşmede kararlaştırılabilir.",
++                q: "Çalışan fotoğrafları nasıl saklanıyor ve veri sorumlulukları nasıl belirleniyor?",
++                a: "Fotoğraflar, müşteri marka etkinlik öncesinde talep ederse en fazla 90 gün saklanıp belirlenen süreç kapsamında paylaşılabilir. Böyle bir talep yoksa etkinlik sonrasında otomatik silinir. Veri sorumlusu ve veri işleyen rolleri, bilgilendirme, gerekli izinler ve paylaşım süreçleri projenin kapsamına göre değerlendirilir.",
+             },
+             {
+                 q: "Fiyat nasıl belirleniyor?",
+-                a: "Kişi sayısı, etkinlik süresi, şehir ve seçtiğiniz deneyim sayısına göre. Nakliye, kurulum, tasarım ve saha ekibi fiyata dahildir. Tarih, şehir ve kişi sayısını paylaşın, fiyatı aynı gün iletelim.",
++                a: "Fiyat; kişi sayısı, etkinlik süresi, şehir, seçilen deneyimler ve özelleştirme kapsamına göre belirlenir. Nakliye, kurulum, tasarım, saha ekibi ve varsa baskı gibi kalemlerin kapsamı teklifte belirtilir. Tarih, şehir ve kişi sayısını paylaşarak teklif talep edebilirsiniz.",
+             },
+             {
+                 q: "İstanbul dışında yılbaşı partisi için de geliyor musunuz?",
+@@ -165,8 +167,8 @@ export const occasions: Record<string, Occasion> = {
+             },
+         ],
+         closing: {
+-            title: "Yılbaşı tarihinizi ayırtalım",
+-            copy: "Tarih, şehir ve kişi sayısını paylaşın; size uygun kombinasyonu ve fiyatı aynı gün iletelim.",
++            title: "Yılbaşı etkinliğinizi planlayalım",
++            copy: "Tarih, şehir ve kişi sayısını paylaşın; müsaitlik ve ihtiyaçlarınıza göre deneyim kombinasyonu ve teklif kapsamını birlikte netleştirelim.",
+         },
+     },
+ };
