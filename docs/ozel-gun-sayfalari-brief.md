@@ -15,7 +15,7 @@ Etkinlik türüne göre arama yapanları ("lansman organizasyonu", "avm etkinlik
    - Buna karşılık "nişan organizasyon" (4.400/ay), "doğum günü organizasyonu" (3.600/ay) ve "lansman organizasyonu" (260/ay) aranıyor.
    - Sonuç: sayfa başlıkları etkinlik adıyla kurulmalı, ürün adıyla değil.
 2. **Site şu an bu konuların hiçbirinde görünmüyor.** Search Console'da etkinlik türüyle ilgili tek tük sorgu var ("kurumsal photobooth kiralama": 13 gösterim, ortalama sıra 46). Yeni sayfalar organikte haftalar içinde yükselir. Yılbaşı için asıl faydası reklam açılış sayfası olmaları.
-3. **Kurumsal aramalar az ama değerli.** "Şirket etkinliği" ayda 90 arama alıyor, ama tıklaması 159 TL. Bireysel aramalar (nişan, kına) çok ama tıklaması 15–30 TL; bu kitle bütçe hassas (örnek arama: "700 tl kına organizasyon").
+3. **Kurumsal aramalar az ama değerli.** Nişan, kına, düğün gibi bireysel davetler kapsam dışı; sayfalar yalnızca kurumsal alıcılara yazılacak. "Şirket etkinliği" ayda 90 arama alıyor, ama tıklaması 159 TL.
 
 ## Öncelik sırası
 
@@ -26,7 +26,6 @@ Etkinlik türüne göre arama yapanları ("lansman organizasyonu", "avm etkinlik
 | 3 | Çalışan etkinlikleri (yaz partisi, aile günü, ödül gecesi) | "şirket etkinliği" 90/ay, tıklama 159 TL; 2027 bütçeleri ocakta planlanır | Aralık |
 | 4 | Koşu ve maraton aktivasyonları | Aramadan az trafik gelir ("kurumsal koşu" 30/ay), asıl işi sponsor markalara satış sayfası olmak. Bahar koşuları için sponsorlar şimdiden planlıyor | Aralık–Ocak |
 | 5 | Mezuniyet balosu aktiviteleri | "mezuniyet balosu" 720/ay; alıcı okul ve öğrenci toplulukları; sezon mayıs–haziran | Şubat–Mart |
-| 6 | Nişan, kına ve özel davetler (**karar bekliyor**) | En yüksek hacim (nişan 4.400, kına 2.400, söz 1.300/ay) ama bireysel ve fiyat hassas kitle. Yalnızca uygun fiyatlı başlangıç paketi çıkarılacaksa yapılmalı | Selami Bey'in kararına göre |
 
 Ramazan (`ramazan-etkinlikleri`), yılbaşı (`yilbasi-partisi-aktiviteleri`) ve fuar (`fuar-aktivasyonlari`) sayfaları zaten var, yeniden yapılmayacak. Ramazan sayfasına yalnızca bir ekleme önerisi var (aşağıda).
 
@@ -152,12 +151,6 @@ Ramazan (`ramazan-etkinlikleri`), yılbaşı (`yilbasi-partisi-aktiviteleri`) ve
 - **h1:** Mezuniyet gecesinden paylaşılacak kareler.
 - **services:** `strip-photo`, `360-video-booth`, `magazine-cover`, `glow-box-photo`, `ai-photobooth-kirala`, `mirror-booth`
 - **Not:** Sayfa şubat–mart arasında yayına girsin, sezon mayıs–haziran.
-
-## 6. Nişan, kına ve özel davetler (karar bekliyor)
-
-Yapılmadan önce Selami Bey'in kararı gerekiyor. Bireysel kitlenin bütçesi kurumsal tekliflerimizin çok altında. Yalnızca sabit fiyatlı bir başlangıç paketi (örneğin 3 saat strip photo + dijital paylaşım) çıkarılırsa yapılmalı. Karar çıkarsa ayrı brief yazılacak.
-
-- Veri: nişan organizasyon 4.400/ay, kına organizasyon 2.400/ay, söz organizasyon 1.300/ay, doğum günü organizasyonu 3.600/ay. Tıklama 15–30 TL.
 
 ## Mevcut Ramazan sayfasına ek (yeni sayfa değil)
 
