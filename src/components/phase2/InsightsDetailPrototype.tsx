@@ -5,7 +5,7 @@ import { phase2Copy } from "@/lib/phase2-content";
 import { addHeadingAnchors } from "@/lib/utils";
 import type { FaqEntry } from "@/lib/site";
 import { MsCaps, MsCrumbs, MsFacts, MsFaq, MsProse, MsSectionHead } from "@/components/site-ms/parts";
-import { formatInsightDate, insightReadMinutes } from "./InsightsShared";
+import { formatInsightDate, insightReadMinutes, localizeCategory } from "./InsightsShared";
 import type { P2InsightCard } from "./InsightsIndexPrototype";
 
 export interface P2InsightArticle {
@@ -88,7 +88,7 @@ export default function InsightsDetailPrototype({
         post.author && { term: copy.authorTerm, value: post.author },
         publishedAt && { term: copy.dateTerm, value: publishedAt },
         updatedAt && { term: l.updated, value: updatedAt },
-        post.category && { term: copy.categoryTerm, value: post.category },
+        post.category && { term: copy.categoryTerm, value: localizeCategory(post.category, locale) ?? post.category },
         readMinutes && { term: copy.readTerm, value: copy.readValue(readMinutes) },
     ].filter((fact): fact is { term: string; value: string } => Boolean(fact));
 
@@ -98,7 +98,7 @@ export default function InsightsDetailPrototype({
                 <MsCrumbs items={[
                     { href: dictionary.routes.home, label: up(copy.crumbHome) },
                     { href: dictionary.routes.insights, label: up(copy.crumbInsights) },
-                    ...(post.category ? [{ label: up(post.category) }] : []),
+                    ...(post.category ? [{ label: up(localizeCategory(post.category, locale) ?? post.category) }] : []),
                 ]} />
                 <h1 className="ms-article-title">{post.title}{!endsWithMark(post.title) && <span className="ms-acc">.</span>}</h1>
                 {post.excerpt && <p className="ms-lede" data-reveal>{post.excerpt}</p>}
@@ -184,7 +184,7 @@ export default function InsightsDetailPrototype({
                             <Link key={item.id} href={`${dictionary.routes.insights}/${item.slug}`} className="ms-row ms-row--blog" data-cursor={l.open}>
                                 <span className="ms-row__num">{formatInsightDate(item.publishedAt, locale)}</span>
                                 <span className="ms-row__title">{item.title}</span>
-                                <span className="ms-row__cat">{item.category ? up(item.category) : ""}</span>
+                                <span className="ms-row__cat">{item.category ? up(localizeCategory(item.category, locale) ?? item.category) : ""}</span>
                                 <span className="ms-row__arrow" aria-hidden="true">↗</span>
                             </Link>
                         ))}

@@ -47,3 +47,23 @@ export function P2InsightMeta({ lead, date, topic }: { lead?: string; date?: str
         </span>
     );
 }
+
+const categoryEn: Record<string, string> = {
+    "Hakkımızda": "About Us",
+    "Yapay Zeka": "Artificial Intelligence",
+    "Etkinlik Teknolojileri": "Event Technology",
+    "Etkinlik Trendleri": "Event Trends",
+    "Marka Aktivasyonu": "Brand Activation",
+    "AI Photobooth": "AI Photobooth",
+    "Dijital Aktivasyon": "Digital Activation",
+};
+
+/**
+ * Blog categories are stored as Turkish free text (sometimes a comma list).
+ * English pages show the English name; unknown values pass through unchanged.
+ */
+export function localizeCategory(value: string | null | undefined, locale: Phase2Locale) {
+    if (!value) return value ?? null;
+    if (locale !== "en") return value;
+    return value.split(",").map((part) => part.trim()).map((part) => categoryEn[part] ?? part).join(", ");
+}

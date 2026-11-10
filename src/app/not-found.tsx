@@ -13,7 +13,7 @@ export default function NotFound() {
             className={homeFontClassName}
             style={{ minHeight: "100vh", display: "flex", flexDirection: "column", justifyContent: "center", gap: 28, padding: "0 max(16px, 3vw)", background: "#050505", color: "#edeae3", fontFamily: "var(--mh-sans), system-ui, sans-serif" }}>
             <span style={{ fontFamily: "var(--mh-mono), monospace", fontSize: 12, letterSpacing: "0.08em", color: "#8a8780" }}>(404) — SAYFA BULUNAMADI · PAGE NOT FOUND</span>
-            <h1 style={{ margin: 0, fontFamily: "var(--mh-display), sans-serif", fontWeight: 800, fontSize: "clamp(44px, 9vw, 170px)", lineHeight: 1, letterSpacing: "-0.03em", textTransform: "uppercase" }}>
+            <h1 style={{ margin: 0, fontFamily: "var(--mh-heading), sans-serif", fontWeight: 800, fontSize: "clamp(44px, 9vw, 170px)", lineHeight: 1, letterSpacing: "-0.03em", textTransform: "uppercase" }}>
                 404<span style={{ color: "#f2ff00" }}>.</span>
             </h1>
             <p style={{ margin: 0, maxWidth: 560, fontSize: 18, lineHeight: 1.5, color: "#cfccc4" }}>

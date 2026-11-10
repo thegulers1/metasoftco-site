@@ -3,7 +3,7 @@ import type { Phase2Locale } from "@/lib/phase2";
 import { phase2Copy } from "@/lib/phase2-content";
 import { MsWords } from "@/components/site-ms/parts";
 import { MsClock, MsPostRows } from "@/components/site-ms/interactive";
-import { formatInsightDate } from "./InsightsShared";
+import { formatInsightDate, localizeCategory } from "./InsightsShared";
 
 /** A blog post already resolved to the active locale by the page. */
 export interface P2InsightCard {
@@ -58,7 +58,7 @@ export default function InsightsIndexPrototype({ posts, locale }: { posts: P2Ins
                     <Link href={href(featured)} className="ms-feature" data-cursor={l.open} data-reveal>
                         <div className="ms-feature__main">
                             <span className="ms-mono">
-                                {[l.latest, formatInsightDate(featured.publishedAt, locale), featured.category].filter(Boolean).map((part) => up(String(part))).join(" · ")}
+                                {[l.latest, formatInsightDate(featured.publishedAt, locale), localizeCategory(featured.category, locale)].filter(Boolean).map((part) => up(String(part))).join(" · ")}
                             </span>
                             <h2 className="ms-feature__title">{featured.title}</h2>
                             <span className="ms-feature__go ms-mono">{l.read}</span>
@@ -68,7 +68,7 @@ export default function InsightsIndexPrototype({ posts, locale }: { posts: P2Ins
                     {rest.length > 0 && (
                         <section aria-label={copy.catalogAria}>
                             <MsPostRows
-                                posts={rest.map((post) => ({ key: post.id, href: href(post), title: post.title, date: shortDate(post.publishedAt, locale), cat: post.category }))}
+                                posts={rest.map((post) => ({ key: post.id, href: href(post), title: post.title, date: shortDate(post.publishedAt, locale), cat: localizeCategory(post.category, locale) }))}
                                 allLabel={l.all}
                                 countLabel={l.count}
                                 openLabel={l.open}
