@@ -105,6 +105,9 @@ export default function CapabilitiesIndexPrototype({
                     <p className="ms-lede" data-reveal style={{ maxWidth: 620 }}>{copy.heroCopy}</p>
                     <div className="ms-hero__actions">
                         <Link href={dictionary.routes.contact} className="ms-pill ms-pill--acc" data-cursor={l.view.open}>{l.cta}</Link>
+                        {locale === "tr" && (
+                            <Link href="/hizmetler/ramazan-etkinlikleri" className="ms-hero__jump ms-mono">RAMAZAN ETKİNLİKLERİ ↗</Link>
+                        )}
                         {showSoftware && (
                             <a href={`#${SOFTWARE_SECTION_ID}`} className="ms-hero__jump ms-mono">ÖZEL YAZILIM ↓</a>
                         )}

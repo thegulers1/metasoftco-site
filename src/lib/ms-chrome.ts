@@ -21,6 +21,7 @@ const tr = {
     ] as NavLink[],
     /** Shown in the mobile menu and the footer so these sections stay one click away. */
     more: [
+        { href: "/hizmetler/ramazan-etkinlikleri", label: "Ramazan Etkinlikleri" },
         { href: "/hizmetler/yilbasi-partisi-aktiviteleri", label: "Yılbaşı Partisi" },
         { href: phase2Routes.tr.insights, label: "Blog" },
         { href: SOFTWARE_CATEGORY_PATH, label: "Yazılım" },

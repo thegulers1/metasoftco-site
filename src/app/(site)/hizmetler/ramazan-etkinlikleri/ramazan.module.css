@@ -1,0 +1,480 @@
+.page {
+  max-width: 1540px;
+  margin: 0 auto;
+  padding: 120px var(--ms-gut) 0;
+}
+
+.page :is(section, nav)[id] {
+  scroll-margin-top: 100px;
+}
+
+.page :is(h1, h2, h3) {
+  font-family: var(--mh-heading), sans-serif;
+  font-weight: 750;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  text-wrap: balance;
+}
+
+.page h1 {
+  font-size: clamp(3.1rem, 6.15vw, 6.1rem);
+}
+.page h2 {
+  font-size: clamp(2.4rem, 5vw, 5rem);
+}
+.page h3 {
+  font-size: clamp(1.35rem, 2.1vw, 2rem);
+}
+.page p {
+  color: var(--ms-soft);
+  line-height: 1.6;
+}
+.page em {
+  font-style: normal;
+  color: var(--ms-acc);
+}
+
+.hero {
+  display: grid;
+  grid-template-columns: 1.13fr 1fr;
+  align-items: center;
+  gap: clamp(24px, 5vw, 78px);
+  padding: 30px 0 48px;
+}
+
+.page .crumb,
+.page .kicker,
+.page .note,
+.heroMedia figcaption,
+.zones span {
+  font-family: var(--mh-mono), monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+}
+
+.page .crumb {
+  margin-bottom: 32px;
+  color: var(--ms-mut);
+}
+.page .kicker {
+  color: var(--ms-acc);
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.page .note {
+  color: var(--ms-mut);
+  margin-top: 12px;
+}
+.page .lede {
+  max-width: 62ch;
+  font-size: clamp(1rem, 1.4vw, 1.22rem);
+  margin: 20px 0;
+}
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 26px;
+}
+
+.heroMedia img {
+  width: 100%;
+  height: clamp(480px, 44vw, 680px);
+  object-fit: cover;
+  object-position: center 19%;
+  border-radius: 12px;
+}
+
+.heroMedia figcaption {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  color: var(--ms-mut);
+  padding-top: 12px;
+  text-transform: uppercase;
+}
+
+.jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 28px;
+  padding: 18px 0;
+  border-top: 1px solid var(--ms-line);
+  font-family: var(--mh-mono), monospace;
+  font-size: 0.8rem;
+}
+
+.jump a {
+  padding: 6px 0;
+}
+.jump a:last-child {
+  color: var(--ms-acc);
+}
+
+.section {
+  padding: clamp(46px, 6.6vw, 100px) 0;
+  border-top: 1px solid var(--ms-line);
+}
+
+.zones,
+.memoryGrid,
+.gameGrid,
+.combinations,
+.steps {
+  display: grid;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.zones {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.zones a,
+.memory,
+.feature,
+.game,
+.combinations article,
+.steps li,
+.form {
+  border: 1px solid var(--ms-line);
+  background: var(--ms-panel);
+  border-radius: 12px;
+  min-width: 0;
+}
+
+.zones a,
+.combinations article,
+.steps li {
+  padding: clamp(18px, 2.5vw, 34px);
+}
+.zones a:hover {
+  border-color: var(--ms-acc);
+}
+.zones span {
+  display: block;
+  margin-bottom: 14px;
+  color: var(--ms-acc);
+}
+.page h3 + p {
+  margin-top: 10px;
+}
+
+.memoryGrid,
+.gameGrid,
+.combinations {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.feature {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 0.72fr) minmax(0, 1.28fr);
+  align-items: center;
+  gap: clamp(18px, 4vw, 54px);
+}
+
+.memory,
+.feature {
+  padding: clamp(16px, 2.25vw, 32px);
+}
+.memory {
+  display: flex;
+  flex-direction: column;
+}
+.memory figure {
+  margin-top: auto;
+}
+.memoryCopy {
+  margin-bottom: 18px;
+}
+.memoryImage,
+.prints,
+.gameImage {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: var(--ms-bg);
+  border-radius: 8px;
+}
+
+.memoryImage,
+.prints {
+  height: clamp(240px, 27vw, 420px);
+  padding: 10px;
+}
+.prints {
+  gap: 8px;
+}
+.prints .imageButton {
+  flex: 1;
+}
+.prints .imageButton:first-child {
+  flex: 2;
+}
+
+.imageButton {
+  position: relative;
+  display: grid;
+  place-items: center;
+  grid-template-columns: minmax(0, 1fr);
+  width: 100%;
+  min-width: 0;
+  border-radius: 8px;
+  cursor: zoom-in;
+}
+
+.imageButton img {
+  width: 100%;
+  height: auto;
+  border-radius: inherit;
+}
+:is(.memoryImage, .prints) .imageButton {
+  height: 100%;
+  grid-template-rows: minmax(0, 1fr);
+}
+:is(.memoryImage, .prints, .gameImage) img {
+  height: 100%;
+  object-fit: contain;
+}
+
+.imageButton span {
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  padding: 5px 10px;
+  border: 1px solid var(--ms-line-2);
+  border-radius: 50px;
+  color: var(--ms-fg);
+  background: var(--ms-bg);
+}
+
+.dialog {
+  inset: 0;
+  margin: auto;
+  width: fit-content;
+  max-width: calc(100% - 24px);
+  max-height: calc(100dvh - 24px);
+  overflow: auto;
+  padding: 12px;
+  color: var(--ms-fg);
+  background: var(--ms-panel);
+  border: 1px solid var(--ms-line-2);
+  border-radius: 12px;
+}
+
+.dialog::backdrop {
+  background: rgb(0 0 0 / 0.87);
+}
+.dialog button {
+  display: flex;
+  margin: 0 0 10px auto;
+}
+.dialog img {
+  width: auto;
+  height: auto;
+  max-height: calc(100dvh - 110px);
+  object-fit: contain;
+}
+.comparisonOptions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.add {
+  min-height: 40px;
+  padding: 8px 12px;
+  border: 1px solid var(--ms-line-2);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.add:hover,
+.add[aria-pressed="true"] {
+  color: var(--ms-acc);
+  border-color: var(--ms-acc);
+}
+.memoryCopy .add,
+.gameCopy .add,
+.combinations .add {
+  margin-top: 16px;
+}
+.game {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
+}
+.gameImage {
+  height: clamp(260px, 28vw, 390px);
+}
+.gameImage .imageButton {
+  height: 100%;
+  grid-template-rows: minmax(0, 1fr);
+}
+.gameCopy {
+  padding: 14px;
+}
+.steps {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  list-style: none;
+}
+.steps span {
+  display: block;
+}
+.faq,
+.quote {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  gap: clamp(20px, 5vw, 64px);
+}
+.faq details {
+  border-bottom: 1px solid var(--ms-line-2);
+  padding: 16px 0;
+}
+.faq details p {
+  padding-top: 10px;
+}
+.faq summary {
+  font-size: 1.06rem;
+  font-weight: 650;
+  cursor: pointer;
+}
+.form {
+  padding: clamp(16px, 3vw, 38px);
+}
+.form > p:empty {
+  margin: 0;
+}
+.form fieldset {
+  min-width: 0;
+  border: 0;
+  padding: 0;
+}
+.form label {
+  display: block;
+}
+.form :is(input:not([type="checkbox"]), textarea) {
+  width: 100%;
+  min-width: 0;
+  margin-top: 5px;
+  padding: 10px 12px;
+  color: var(--ms-fg);
+  background: var(--ms-bg);
+  border: 1px solid var(--ms-line-2);
+  border-radius: 5px;
+}
+
+.fields,
+.choices > div {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.fields {
+  margin: 14px 0 20px;
+}
+.form .choices {
+  margin-bottom: 20px;
+}
+.choices legend {
+  margin-bottom: 8px;
+  font-weight: 700;
+}
+.choices label {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+.choices input {
+  accent-color: var(--ms-acc);
+}
+.form p {
+  margin-bottom: 12px;
+}
+.form p a {
+  text-decoration: underline;
+}
+.form button[type="submit"] {
+  margin-top: 8px;
+}
+.form button:disabled {
+  opacity: 0.65;
+  cursor: wait;
+}
+
+@media (max-width: 1100px) {
+  .hero {
+    gap: 24px;
+  }
+  .heroMedia img {
+    height: 500px;
+  }
+  .steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
+  .gameGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .memoryGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .page {
+    padding-top: 82px;
+  }
+  .hero,
+  .feature,
+  .faq,
+  .quote {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .hero {
+    padding-top: 8px;
+    padding-bottom: 24px;
+  }
+  .page h1 {
+    font-size: clamp(2.55rem, 9vw, 4.4rem);
+  }
+  .page .crumb {
+    margin-bottom: 14px;
+  }
+  .page .lede {
+    margin: 14px 0;
+  }
+  .actions {
+    margin-top: 16px;
+  }
+  .heroMedia img {
+    height: auto;
+    aspect-ratio: 4 / 5;
+  }
+  .feature .memoryCopy {
+    margin-bottom: 0;
+  }
+}
+
+@media (max-width: 560px) {
+  .zones,
+  .memoryGrid,
+  .gameGrid,
+  .combinations,
+  .steps,
+  .fields,
+  .choices > div {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .gameImage {
+    height: min(118vw, 430px);
+  }
+  .memoryImage,
+  .prints {
+    height: min(98vw, 400px);
+  }
+}
