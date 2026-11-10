@@ -1,3 +1,4 @@
+import GoogleTagManager from "@/components/site/GoogleTagManager";
 import { AdminBarProvider } from "@/components/site/AdminBar";
 import AttributionCapture from "@/components/site/AttributionCapture";
 import { homeFontClassName } from "@/components/home/fonts";
@@ -16,6 +17,7 @@ export default function SiteLayout({
 }) {
     return (
         <AdminBarProvider>
+            <GoogleTagManager />
             <div className={`ms ${homeFontClassName}`}>
                 <MsNav />
                 <main id="main-content">{children}</main>

@@ -1,3 +1,4 @@
+import GoogleTagManager from "@/components/site/GoogleTagManager";
 import AttributionCapture from "@/components/site/AttributionCapture";
 
 /** Campaigns supply their own navigation and footer; root consent/analytics remain. */
@@ -8,6 +9,7 @@ export default function CampaignLayout({
 }) {
   return (
     <>
+      <GoogleTagManager />
       {children}
       <AttributionCapture />
     </>

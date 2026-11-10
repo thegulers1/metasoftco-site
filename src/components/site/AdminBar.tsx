@@ -3,7 +3,6 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { useSession, signOut } from "next-auth/react";
 import { usePathname } from "next/navigation";
-import Link from "next/link";
 
 // ─── Context ───────────────────────────────────────────────────────────────
 
@@ -45,8 +44,8 @@ export function AdminBarProvider({ children }: { children: ReactNode }) {
                     className="fixed top-0 inset-x-0 z-[9999] flex items-center justify-between px-4 text-white"
                     style={{ height: "32px", backgroundColor: "#1d2327", fontSize: "12px" }}
                 >
-                    {/* Sol: Admin Panel linki */}
-                    <Link
+                    {/* Full navigation clears the public page’s tracking scripts. */}
+                    <a
                         href="/editpanel"
                         className="flex items-center gap-1.5 opacity-80 hover:opacity-100 transition-opacity font-medium"
                     >
@@ -54,10 +53,10 @@ export function AdminBarProvider({ children }: { children: ReactNode }) {
                             <path d="M13 10V3L4 14h7v7l9-11h-7z" />
                         </svg>
                         Admin Panel
-                    </Link>
+                    </a>
 
                     {/* Orta: Düzenle butonu */}
-                    <Link
+                    <a
                         href={resolvedEditUrl}
                         className="flex items-center gap-1.5 bg-white/10 hover:bg-white/20 transition-colors px-3 py-0.5 rounded text-white font-medium"
                     >
@@ -66,7 +65,7 @@ export function AdminBarProvider({ children }: { children: ReactNode }) {
                             <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
                         </svg>
                         Bu Sayfayı Düzenle
-                    </Link>
+                    </a>
 
                     {/* Sağ: Kullanıcı + Çıkış */}
                     <div className="flex items-center gap-3 opacity-80">
