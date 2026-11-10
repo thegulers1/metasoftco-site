@@ -393,10 +393,9 @@
 	position: absolute;
 	left: 4cqw;
 	right: 4cqw;
-	top: 17.4cqw;
-	bottom: 7.6cqw;
+	top: 16.2cqw;
 	display: grid;
-	grid-auto-rows: 1fr;
+	justify-content: center;
 	gap: 1.2cqw;
 }
 .pz-index__tile {
@@ -409,20 +408,19 @@
 .pz-index__tile img {
 	display: block;
 	width: 100%;
-	height: 100%;
-	min-height: 0;
-	object-fit: contain;
-}
-.pz-index__tile:not(.is-text) {
-	display: grid;
-	grid-template-rows: minmax(0, 1fr) auto;
+	height: auto;
+	aspect-ratio: 21 / 10;
+	object-fit: cover;
 }
 .pz-index__tile:not(.is-text) .pz-index__label {
 	position: static;
-	padding: 0.8cqw 1.3cqw;
+	min-height: 4cqw;
+	padding: 0.3cqw 1cqw;
+	align-items: center;
 	background: #080b0e;
 }
 .pz-index__tile.is-text {
+	min-height: 15.4cqw;
 	background: linear-gradient(135deg, rgba(100, 229, 231, 0.16), rgba(139, 145, 255, 0.14) 50%, rgba(255, 116, 118, 0.16));
 }
 .pz-index__code {
