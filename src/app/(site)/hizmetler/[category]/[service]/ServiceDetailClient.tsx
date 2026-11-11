@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { ServiceReference } from "@/lib/service-template/references";
 import { MsFaq, MsProse } from "@/components/site-ms/parts";
+import TrackedContactLink from "@/components/services/template/TrackedContactLink";
 import ProductQuoteForm from "@/components/services/template/ProductQuoteForm";
 import ServiceGallery from "@/components/services/template/ServiceGallery";
 import { dataCaptureCopy } from "@/lib/data-capture";
@@ -197,7 +198,7 @@ export default function ServiceDetailClient({
                     )}{" "}
                 ↗
               </a>
-              <a
+              <TrackedContactLink
                 href={whatsapp}
                 className={styles.roundLink}
                 aria-label={t("WhatsApp üzerinden bilgi al", "Ask on WhatsApp")}
@@ -205,7 +206,7 @@ export default function ServiceDetailClient({
                 rel="noopener noreferrer"
               >
                 ↗
-              </a>
+              </TrackedContactLink>
             </div>
             {saleHref && (
               <Link href={saleHref} className={styles.textLink}>
@@ -270,17 +271,17 @@ export default function ServiceDetailClient({
             <div className={styles.or}>
               <span>{t("veya", "or")}</span>
             </div>
-            <a
+            <TrackedContactLink
               href={whatsapp}
               className={styles.whatsapp}
               target="_blank"
               rel="noopener noreferrer"
             >
               {t("WhatsApp’tan bilgi alın", "Ask on WhatsApp")} ↗
-            </a>
-            <a href="tel:+905342334051" className={styles.phone}>
+            </TrackedContactLink>
+            <TrackedContactLink href="tel:+905342334051" className={styles.phone}>
               +90 534 233 40 51
-            </a>
+            </TrackedContactLink>
           </aside>
         </section>
         {content &&
@@ -444,7 +445,7 @@ export default function ServiceDetailClient({
               <h2 id="faq-title">
                 {t("Sıkça sorulan sorular", "Frequently asked questions")}
               </h2>
-              <a
+              <TrackedContactLink
                 href={whatsapp}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -455,7 +456,7 @@ export default function ServiceDetailClient({
                   "Ask your question on WhatsApp",
                 )}{" "}
                 ↗
-              </a>
+              </TrackedContactLink>
             </div>
             <div className={`${styles.faq} ${extra.faq}`}>
               <MsFaq items={faqs} />
