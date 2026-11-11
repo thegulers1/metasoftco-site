@@ -61,6 +61,7 @@ function Photo({
   sizes?: string;
 }) {
   const modal = useRef<HTMLDialogElement>(null);
+  const [showFullImage, setShowFullImage] = useState(false);
   const photoWidth = image.width || 800;
   const photoHeight = image.height || 1200;
   return (
@@ -68,7 +69,10 @@ function Photo({
       <button
         type="button"
         className={styles.photoButton}
-        onClick={() => modal.current?.showModal()}
+        onClick={() => {
+          modal.current?.showModal();
+          setShowFullImage(true);
+        }}
         aria-label={`Fotoğrafı büyüt: ${image.alt}`}
       >
         <Image
@@ -85,13 +89,15 @@ function Photo({
         <form method="dialog">
           <button>Görseli kapat ×</button>
         </form>
-        <Image
-          src={image.url}
-          alt={image.alt}
-          width={photoWidth}
-          height={photoHeight}
-          sizes="95vw"
-        />
+        {showFullImage && (
+          <Image
+            src={image.url}
+            alt={image.alt}
+            width={photoWidth}
+            height={photoHeight}
+            sizes="95vw"
+          />
+        )}
       </dialog>
     </>
   );
@@ -783,7 +789,12 @@ export default function Campaign({
             >
               WhatsApp’tan konuşalım ↗
             </a>
-            <a href="tel:+905342334051">+90 534 233 40 51</a>
+            <a
+              href="tel:+905342334051"
+              onClick={() => trackEvent("phone_click", { source: "yilbasi_campaign" })}
+            >
+              +90 534 233 40 51
+            </a>
           </div>
           <Quote products={products} onProducts={setProducts} />
         </section>

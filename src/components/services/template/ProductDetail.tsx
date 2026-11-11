@@ -1,3 +1,4 @@
+import TrackedContactLink from "./TrackedContactLink";
 import Image from "next/image";
 import Link from "next/link";
 import type { Service, ServiceCategory } from "@prisma/client";
@@ -75,7 +76,7 @@ export default function ProductDetail({ profile, service, category, projects, re
             <p className={styles.description}>{profile.product.description}</p>
             <div className={styles.heroActions}>
               <a href="#teklif" className={styles.primary}>Etkinliğim için teklif al ↗</a>
-              <a href={whatsapp} className={styles.roundLink} aria-label="WhatsApp üzerinden bilgi al" target="_blank" rel="noopener noreferrer">↗</a>
+              <TrackedContactLink href={whatsapp} className={styles.roundLink} aria-label="WhatsApp üzerinden bilgi al" target="_blank" rel="noopener noreferrer">↗</TrackedContactLink>
             </div>
             <div className={styles.badges}>
               {profile.product.badges.map((badge) => <span key={badge}>{badge}</span>)}
@@ -95,8 +96,8 @@ export default function ProductDetail({ profile, service, category, projects, re
             <p>{profile.quoteCard.lede}</p>
             <ProductQuoteForm product={profile.productName} message={profile.quoteCard.message} />
             <div className={styles.or}><span>veya</span></div>
-            <a className={styles.whatsapp} href={whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp’tan bilgi alın ↗</a>
-            <a href="tel:+905342334051" className={styles.phone}>+90 534 233 40 51</a>
+            <TrackedContactLink className={styles.whatsapp} href={whatsapp} target="_blank" rel="noopener noreferrer">WhatsApp’tan bilgi alın ↗</TrackedContactLink>
+            <TrackedContactLink href="tel:+905342334051" className={styles.phone}>+90 534 233 40 51</TrackedContactLink>
           </aside>
         </section>
 
@@ -207,7 +208,7 @@ export default function ProductDetail({ profile, service, category, projects, re
               <span className={styles.eyebrow}>{profile.faq.eyebrow}</span>
               <h2 id="faq-title">{profile.faq.title}</h2>
               <p>{profile.faq.lede}</p>
-              <a href={whatsapp} target="_blank" rel="noopener noreferrer" className={styles.textLink}>Sorunuzu WhatsApp’tan iletin ↗</a>
+              <TrackedContactLink href={whatsapp} target="_blank" rel="noopener noreferrer" className={styles.textLink}>Sorunuzu WhatsApp’tan iletin ↗</TrackedContactLink>
             </div>
             <div className={styles.faq}>
               {profile.faq.items.map((item, i) => (

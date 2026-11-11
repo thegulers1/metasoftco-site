@@ -7,6 +7,11 @@ declare global {
 
 export function trackEvent(eventName: string, params: Record<string, unknown> = {}) {
     if (typeof window === "undefined") return;
+    // The published GTM container forwards leads and WhatsApp clicks, but has no phone trigger.
+    if (eventName === "phone_click" && window.gtag) {
+        window.gtag("event", eventName, { ...params, send_to: "G-4XMT8HPLWJ" });
+        return;
+    }
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({ event: eventName, ...params });
 }

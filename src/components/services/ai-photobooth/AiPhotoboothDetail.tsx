@@ -1,3 +1,4 @@
+import TrackedContactLink from "../template/TrackedContactLink";
 import Image from "next/image";
 import Link from "next/link";
 import type { Service, ServiceCategory } from "@prisma/client";
@@ -117,7 +118,7 @@ export default function AiPhotoboothDetail({
               <a href="#teklif" className={styles.primary}>
                 Etkinliğim için teklif al ↗
               </a>
-              <a
+              <TrackedContactLink
                 href={whatsapp}
                 className={styles.roundLink}
                 aria-label="WhatsApp üzerinden bilgi al"
@@ -125,7 +126,7 @@ export default function AiPhotoboothDetail({
                 rel="noopener noreferrer"
               >
                 ↗
-              </a>
+              </TrackedContactLink>
             </div>
             <div className={styles.badges}>
               <span>Markaya özel konsept</span>
@@ -171,17 +172,17 @@ export default function AiPhotoboothDetail({
             <div className={styles.or}>
               <span>veya</span>
             </div>
-            <a
+            <TrackedContactLink
               className={styles.whatsapp}
               href={whatsapp}
               target="_blank"
               rel="noopener noreferrer"
             >
               WhatsApp’tan bilgi alın ↗
-            </a>
-            <a href="tel:+905342334051" className={styles.phone}>
+            </TrackedContactLink>
+            <TrackedContactLink href="tel:+905342334051" className={styles.phone}>
               +90 534 233 40 51
-            </a>
+            </TrackedContactLink>
           </aside>
         </section>
 
@@ -485,14 +486,14 @@ export default function AiPhotoboothDetail({
             <span className={styles.eyebrow}>Merak edilenler</span>
             <h2 id="faq-title">Sıkça sorulan sorular</h2>
             <p>Kurulum, kapasite ve teslim seçenekleri hakkında.</p>
-            <a
+            <TrackedContactLink
               href={whatsapp}
               target="_blank"
               rel="noopener noreferrer"
               className={styles.textLink}
             >
               Sorunuzu WhatsApp’tan iletin ↗
-            </a>
+            </TrackedContactLink>
           </div>
           <div className={styles.faq}>
             {faqs.map((item, i) => (

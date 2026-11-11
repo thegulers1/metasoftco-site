@@ -2,6 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
+import { trackEvent } from "@/lib/analytics";
 import { getAttribution } from "@/lib/attribution";
 import styles from "../ai-photobooth/ai-photobooth.module.css";
 
@@ -45,7 +46,9 @@ export default function ProductQuoteForm({
           attribution: getAttribution(),
         }),
       });
-      if (!response.ok) throw new Error("Request failed");
+      const result = await response.json();
+      if (!response.ok || result.success !== true) throw new Error("Request failed");
+      trackEvent("generate_lead", { form_name: "service_quote", product });
       setStatus("sent");
       form.reset();
     } catch {
