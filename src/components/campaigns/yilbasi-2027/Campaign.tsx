@@ -44,6 +44,12 @@ const alternatives = [
     product: "Hediye Çarkı",
   },
 ];
+const roboPhotoImage: CampaignImage = {
+  url: "/images/yilbasi/robophoto.webp",
+  alt: "Yılbaşı temasıyla giydirilmiş RoboPhoto cihazı",
+  width: 1086,
+  height: 1448,
+};
 
 function Photo({
   image,
@@ -146,6 +152,7 @@ function Quote({
     "Strip Photo",
     "360 & GIF Video Booth",
     "Hediye Çarkı",
+    "RoboPhoto",
     "İnteraktif Oyun",
   ];
   async function submit(event: FormEvent<HTMLFormElement>) {
@@ -663,6 +670,22 @@ export default function Campaign({
                 </article>
               ) : null;
             })}
+            <article className={styles.roboPhoto}>
+              <Photo image={roboPhotoImage} sizes="(max-width:700px) 80vw, 250px" />
+              <div>
+                <h3>Yılbaşı RoboPhoto</h3>
+                <p>
+                  RoboPhoto fuaye alanında dolaşır, katılımcıların fotoğrafını
+                  çeker ve baskıyı etkinlikte kendilerine verir.
+                </p>
+                <small className={styles.conceptNote}>
+                  Görsel: örnek yılbaşı konsepti.
+                </small>
+                <a href="#teklif" onClick={() => setProducts(["RoboPhoto"])}>
+                  RoboPhoto için teklif al ↗
+                </a>
+              </div>
+            </article>
           </div>
         </section>
 
