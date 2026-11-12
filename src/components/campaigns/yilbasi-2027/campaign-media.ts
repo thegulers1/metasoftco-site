@@ -45,6 +45,15 @@ export interface CampaignTheme {
   frames: ThemeFrame[];
 }
 
+function themeFrame(
+  file: StaticImageData,
+  thumbnail: StaticImageData,
+  label: string,
+  alt: string,
+): ThemeFrame {
+  return { image: image(file, alt), thumbnail: image(thumbnail, label), label };
+}
+
 export const campaignHero = image(
   hero,
   "MetasoftCo kioskunun yanında poz veren kadın, yılbaşı temalı ekran arayüzü ve örnek AI fotoğraf çıktısı",
@@ -59,35 +68,65 @@ export const campaignThemes: CampaignTheme[] = [
     key: "winter",
     title: "Karlı bir yılbaşı hikâyesi.",
     description:
-      "Sıcak ışıklar, karla kaplı bir kulübe, hediye ve yılbaşı portresi. Markanızın konseptine uyarlanabilecek örnek AI çıktıları.",
-    frames: [winter1, winter2, winter3, winter4].map((file, i) => ({
-      image: image(
-        file,
-        `Karlı kulübede yılbaşı portresi — örnek AI tema görseli ${i + 1}`,
+      "Karla kaplı dağ evi, ışıklı yılbaşı pazarı, kuzey ışıkları ve havai fişeklerle aydınlanan buz pisti.",
+    frames: [
+      themeFrame(
+        winter1,
+        winterThumb1,
+        "Karlı dağ evi",
+        "Karla kaplı dağ evinin önünde, kırmızı atkısı ve hediyesiyle yılbaşı portresi",
       ),
-      thumbnail: image(
-        [winterThumb1, winterThumb2, winterThumb3, winterThumb4][i],
-        `Kış portresi ${i + 1}`,
+      themeFrame(
+        winter2,
+        winterThumb2,
+        "Yılbaşı pazarı",
+        "Yıldız fenerleriyle süslenmiş karlı yılbaşı pazarında sıcak içeceğiyle poz veren katılımcı",
       ),
-      label: `Kış portresi ${i + 1}`,
-    })),
+      themeFrame(
+        winter3,
+        winterThumb3,
+        "Kuzey ışıkları",
+        "Donmuş göl kıyısında, kuzey ışıkları ve ışıklı bir çam ağacıyla yılbaşı portresi",
+      ),
+      themeFrame(
+        winter4,
+        winterThumb4,
+        "Yılbaşı buz pisti",
+        "Havai fişekler altında açık hava buz pistinde paten kayan katılımcı",
+      ),
+    ],
   },
   {
     key: "retro",
-    title: "Kutlama 80’lere dönsün.",
+    title: "80’lerden 2050’ye yılbaşı.",
     description:
-      "Neon ışıkları, disko topu ve retro bir parti atmosferi. Daha renkli bir şirket kutlaması için örnek AI tema serisi.",
-    frames: [retro1, retro2, retro3, retro4].map((file, i) => ({
-      image: image(
-        file,
-        `Neon ışıklı 1980’ler yılbaşı partisi — örnek AI tema görseli ${i + 1}`,
+      "2000’lerin milenyum partisi, neon ışıklı 80’ler, 1990’ın atari salonu ve 2050’nin şehir terası.",
+    frames: [
+      themeFrame(
+        retro1,
+        retroThumb1,
+        "2000 milenyum partisi",
+        "Pembe kapaklı telefon ve 2000 yazan folyo balonlarla milenyum yılbaşı portresi",
       ),
-      thumbnail: image(
-        [retroThumb1, retroThumb2, retroThumb3, retroThumb4][i],
-        `Retro portre ${i + 1}`,
+      themeFrame(
+        retro2,
+        retroThumb2,
+        "80’ler neon partisi",
+        "Neon ışıkları altında, omzunda kasetçalarla 80’ler yılbaşı portresi",
       ),
-      label: `Retro portre ${i + 1}`,
-    })),
+      themeFrame(
+        retro3,
+        retroThumb3,
+        "1990 atari partisi",
+        "Atari salonunda, filmli fotoğraf makinesiyle 1990 yılbaşı portresi",
+      ),
+      themeFrame(
+        retro4,
+        retroThumb4,
+        "2050 teras partisi",
+        "Holografik tabela ve havai fişekler eşliğinde 2050 yılbaşı portresi",
+      ),
+    ],
   },
 ];
 export const themeCollections = [
