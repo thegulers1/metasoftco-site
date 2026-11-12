@@ -102,8 +102,12 @@ export default async function EnCategoryHubPage({ params }: PageProps) {
                     title: shortServiceTitle(service.title_en || service.title, service.homeTitle_en),
                     image: service.image,
                     href: isEnglishServicePublishable(service, category)
-                        ? `/en/services/${categorySlugEn}/${service.slug_en}`
-                        : `/hizmetler/${category.slug}/${service.slug}`,
+                        ? service.type === "SALE"
+                            ? `/en/products/${service.slug_en}`
+                            : `/en/services/${categorySlugEn}/${service.slug_en}`
+                        : service.type === "SALE"
+                            ? `/urunler/${service.slug}`
+                            : `/hizmetler/${category.slug}/${service.slug}`,
                 }))}
                 faqs={faqs}
             />

@@ -88,7 +88,9 @@ export default async function EnglishServicesPage() {
                 id: service.id,
                 title: shortServiceTitle(service.title_en!, service.homeTitle_en),
                 image: serviceListingImage(service),
-                href: `/en/services/${category.slug_en}/${service.slug_en}`,
+                href: service.type === "SALE"
+                    ? `/en/products/${service.slug_en}`
+                    : `/en/services/${category.slug_en}/${service.slug_en}`,
                 categorySlug: category.slug_en!,
             }))
     );
