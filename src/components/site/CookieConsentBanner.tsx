@@ -38,15 +38,17 @@ export default function CookieConsentBanner() {
 
     if (!visible) return null;
 
+    // Phones get a tighter layout (same text, same two buttons): at the old size the
+    // banner covered the first call-to-action of landing pages on short screens.
     return (
         <div
-            className="fixed inset-x-0 bottom-0 z-[300] border-t border-white/10 bg-[#0a0a0f]/95 backdrop-blur px-6 py-5 sm:px-10"
+            className="fixed inset-x-0 bottom-0 z-[300] border-t border-white/10 bg-[#0a0a0f]/95 backdrop-blur px-4 py-3 sm:px-10 sm:py-5"
             role="dialog"
             aria-label={t("Çerez tercihleri", "Cookie preferences")}
         >
-            <div className="mx-auto flex max-w-[1240px] flex-col items-start gap-4 sm:flex-row sm:items-center sm:justify-between">
+            <div className="mx-auto flex max-w-[1240px] flex-col items-start gap-2.5 sm:flex-row sm:items-center sm:justify-between sm:gap-4">
                 <p
-                    className="text-[13.5px] leading-relaxed text-[rgba(255,255,255,.7)]"
+                    className="text-[12.5px] leading-snug text-[rgba(255,255,255,.7)] sm:text-[13.5px] sm:leading-relaxed"
                     style={{ fontFamily: "var(--mh-sans), system-ui, sans-serif" }}
                 >
                     {t(
@@ -63,14 +65,14 @@ export default function CookieConsentBanner() {
                 <div className="flex shrink-0 items-center gap-3">
                     <button
                         onClick={() => decide("denied")}
-                        className="rounded-full border border-white/15 px-5 py-2.5 text-[13px] font-semibold text-white/80 hover:border-white/30 hover:text-white transition-colors"
+                        className="rounded-full border border-white/15 px-4 py-2 text-[12.5px] font-semibold text-white/80 hover:border-white/30 hover:text-white transition-colors sm:px-5 sm:py-2.5 sm:text-[13px]"
                         style={{ fontFamily: "var(--mh-sans), system-ui, sans-serif" }}
                     >
                         {t("Reddet", "Reject")}
                     </button>
                     <button
                         onClick={() => decide("granted")}
-                        className="rounded-full bg-white px-5 py-2.5 text-[13px] font-semibold text-[#0a0a0f] hover:bg-gray-200 transition-colors"
+                        className="rounded-full bg-white px-4 py-2 text-[12.5px] font-semibold text-[#0a0a0f] hover:bg-gray-200 transition-colors sm:px-5 sm:py-2.5 sm:text-[13px]"
                         style={{ fontFamily: "var(--mh-sans), system-ui, sans-serif" }}
                     >
                         {t("Kabul Et", "Accept")}
