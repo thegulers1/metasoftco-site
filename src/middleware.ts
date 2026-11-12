@@ -19,7 +19,7 @@ const authMiddleware = withAuth({
 });
 
 // Write endpoints visitors legitimately call without an admin session.
-const PUBLIC_API_WRITES = ["/api/auth", "/api/contact", "/api/quote-request", "/api/ai-chat"];
+const PUBLIC_API_WRITES = ["/api/auth", "/api/contact", "/api/quote-request", "/api/ai-chat", "/api/teklif-view"];
 const READ_METHODS = new Set(["GET", "HEAD", "OPTIONS"]);
 
 function isProtectedApiWrite(request: NextRequest) {

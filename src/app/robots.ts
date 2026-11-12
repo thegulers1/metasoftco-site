@@ -5,6 +5,8 @@ const disallow = [
   "/editpanel",
   "/api",
   "/login",
+  // Müşteriye özel teklif sayfaları (src/lib/teklifler.ts)
+  "/teklif",
   // WordPress döneminden kalma, artık var olmayan yollar — bot taramalarının
   // Search Console'da 403/404 gürültüsü üretmemesi için açıkça engellenir.
   // Vercel'in edge güvenlik duvarı bunları zaten kalıcı olarak reddediyor.
