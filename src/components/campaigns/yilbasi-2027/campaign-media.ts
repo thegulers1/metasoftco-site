@@ -100,14 +100,8 @@ export const campaignThemes: CampaignTheme[] = [
     key: "retro",
     title: "80’lerden 2050’ye yılbaşı.",
     description:
-      "2000’lerin milenyum partisi, neon ışıklı 80’ler, 1990’ın atari salonu ve 2050’nin şehir terası.",
+      "Neon ışıklı 80’ler, 1990’ın atari salonu, 2000’lerin milenyum partisi ve 2050’nin şehir terası.",
     frames: [
-      themeFrame(
-        retro1,
-        retroThumb1,
-        "2000 milenyum partisi",
-        "Pembe kapaklı telefon ve 2000 yazan folyo balonlarla milenyum yılbaşı portresi",
-      ),
       themeFrame(
         retro2,
         retroThumb2,
@@ -119,6 +113,12 @@ export const campaignThemes: CampaignTheme[] = [
         retroThumb3,
         "1990 atari partisi",
         "Atari salonunda, filmli fotoğraf makinesiyle 1990 yılbaşı portresi",
+      ),
+      themeFrame(
+        retro1,
+        retroThumb1,
+        "2000 milenyum partisi",
+        "Pembe kapaklı telefon ve 2000 yazan folyo balonlarla milenyum yılbaşı portresi",
       ),
       themeFrame(
         retro4,
