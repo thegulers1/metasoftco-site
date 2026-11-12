@@ -792,6 +792,7 @@ export default function Campaign({
                 width={1600}
                 height={900}
                 priority
+                fetchPriority="high"
                 sizes="100vw"
               />
             </div>
