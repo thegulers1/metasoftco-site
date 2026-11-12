@@ -8,11 +8,7 @@ import { getAttribution } from "@/lib/attribution";
 import type { loadCampaign, CampaignImage } from "./load";
 import styles from "./campaign.module.css";
 import {
-  campaignHero,
-  kioskExperience,
   holidayGiftWheel,
-  holidayPhotobooth,
-  holiday360Photo,
   campaignThemes,
   themeCollections,
   type CampaignTheme,
@@ -21,6 +17,33 @@ import {
 type Props = NonNullable<Awaited<ReturnType<typeof loadCampaign>>> & {
   preview?: boolean;
 };
+const presentationImages = {
+  hero: {
+    url: "/images/yilbasi/sunum/kapak.webp",
+    alt: "AI Photo kioskunun yanında katılımcı ve yılbaşı temalı örnek portresi",
+    width: 1600,
+    height: 900,
+  },
+  kiosk: {
+    url: "/images/yilbasi/sunum/ai-photo-kiosk.webp",
+    alt: "Yılbaşı etkinliği için AI Photo kiosk konsepti",
+    width: 1536,
+    height: 1024,
+  },
+  photobooth: {
+    url: "/images/yilbasi/sunum/photobooth.webp",
+    alt: "Yılbaşı photobooth konsepti",
+    width: 1200,
+    height: 800,
+  },
+  video360: {
+    url: "/images/yilbasi/sunum/360-video.webp",
+    alt: "Yılbaşı etkinliği için 360 video platformu konsepti",
+    width: 1200,
+    height: 800,
+  },
+} satisfies Record<string, CampaignImage>;
+
 const alternatives = [
   {
     slug: "strip-photo",
@@ -45,7 +68,7 @@ const alternatives = [
   },
 ];
 const roboPhotoImage: CampaignImage = {
-  url: "/images/yilbasi/robophoto.webp",
+  url: "/images/yilbasi/sunum/robophoto.webp",
   alt: "Yılbaşı temasıyla giydirilmiş RoboPhoto cihazı",
   width: 1086,
   height: 1448,
@@ -378,47 +401,30 @@ export default function Campaign({
       <main id="main-content">
         <section className={styles.hero} aria-labelledby="campaign-title">
           <div className={styles.heroCopy}>
-            <h1 id="campaign-title" className={styles.kicker}>
-              <span /> Kurumsal Yılbaşı Partisi Aktiviteleri
+            <h1 id="campaign-title" className={styles.heroSlogan}>
+              Kurumsal yılbaşı <em>aktiviteleri.</em>
             </h1>
-            <p className={styles.heroSlogan}>
-              Bu yılbaşı,
-              <br />
-              <em>başrol sizsiniz.</em>
-            </p>
             <p className={styles.heroLede}>
-              Şirket yılbaşı partileri için <strong>AI Photobooth kiralama</strong>.
-              Çalışanlarınızın fotoğraflarını şirketinize özel yılbaşı sahnelerine dönüştürüyoruz.
+              Markanıza özel AI Photo, fuayede gezen RoboPhoto, 360 video ve
+              interaktif oyunlarla şirketinizin yılbaşı gecesini planlayın.
             </p>
             <div className={styles.actions}>
               <a href="#teklif" className={styles.primary}>
                 Yılbaşı etkinliğim için teklif al ↗
               </a>
-              <a href="#ornekler" className={styles.textLink}>
-                Örnekleri keşfet ↓
+              <a href="#alternatives-title" className={styles.textLink}>
+                Aktiviteleri keşfet ↓
               </a>
-            </div>
-            <div className={styles.heroNote}>
-              <span>01 / FOTOĞRAF</span>
-              <span>02 / AI DÖNÜŞÜMÜ</span>
-              <span>03 / DİJİTAL HATIRA</span>
             </div>
           </div>
           <figure className={styles.heroVisual}>
-            <div className={styles.photoLabel}>
-              <span>METASOFTCO AI PHOTO</span>
-              <span>YILBAŞI KONSEPTİ</span>
-            </div>
             <Photo
-              image={campaignHero}
+              image={presentationImages.hero}
               priority
               sizes="(max-width:700px) 100vw, 60vw"
             />
             <figcaption>
-              Kiosk. Katılımcı. Yılbaşı hikâyesi.
-              <span>
-                Etkinlik alanı ve AI sonucu için örnek deneyim kurgusu.
-              </span>
+              AI Photo · Örnek yılbaşı konsepti
             </figcaption>
           </figure>
         </section>
@@ -435,6 +441,85 @@ export default function Campaign({
           </p>
           {preview && <span>TASARIM ÖNİZLEMESİ / YAYINDA DEĞİL</span>}
         </div>
+
+        <section
+          className={styles.alternatives}
+          aria-labelledby="alternatives-title"
+        >
+          <div className={styles.sectionIntro}>
+            <h2 id="alternatives-title">
+              Yılbaşı gecesi için <em>aktivite seçenekleri.</em>
+            </h2>
+          </div>
+          <div className={styles.alternativeRows}>
+            {alternatives.map((item, i) => {
+              const service = services.find((row) => row.slug === item.slug);
+              const displayImage =
+                item.slug === "dijital-hediye-carki-aktivasyonu"
+                  ? holidayGiftWheel
+                  : item.slug === "strip-photo"
+                    ? presentationImages.photobooth
+                    : presentationImages.video360;
+              return service ? (
+                <article key={item.slug}>
+                  {displayImage && (
+                    <Link
+                      className={styles.alternativeImage}
+                      href={service.href}
+                    >
+                      <Image
+                        src={displayImage.url}
+                        alt={displayImage.alt}
+                        width={displayImage.width || 500}
+                        height={displayImage.height || 375}
+                        sizes="(max-width:700px) 90vw, 30vw"
+                      />
+                    </Link>
+                  )}
+                  <div>
+                    <span className={styles.kicker}>
+                      0{i + 1} / {item.why}
+                    </span>
+                    <h3>{item.name}</h3>
+                    <p>{item.body}</p>
+                    {
+                      <small className={styles.conceptNote}>
+                        Görsel: örnek yılbaşı konsepti.
+                      </small>
+                    }
+                    <a
+                      href="#teklif"
+                      onClick={() =>
+                        setProducts([...new Set(["AI Photo", item.product])])
+                      }
+                    >
+                      AI Photo ile birlikte planla ↗
+                    </a>
+                  </div>
+                  <Link href={service.href} className={styles.detailLink}>
+                    Detay ↗
+                  </Link>
+                </article>
+              ) : null;
+            })}
+            <article className={styles.roboPhoto}>
+              <Photo image={roboPhotoImage} sizes="(max-width:700px) 80vw, 250px" />
+              <div>
+                <h3>Yılbaşı RoboPhoto</h3>
+                <p>
+                  RoboPhoto fuaye alanında dolaşır, katılımcıların fotoğrafını
+                  çeker ve baskıyı etkinlikte kendilerine verir.
+                </p>
+                <small className={styles.conceptNote}>
+                  Görsel: örnek yılbaşı konsepti.
+                </small>
+                <a href="#teklif" onClick={() => setProducts(["RoboPhoto"])}>
+                  RoboPhoto için teklif al ↗
+                </a>
+              </div>
+            </article>
+          </div>
+        </section>
 
         <section
           id="ornekler"
@@ -524,7 +609,7 @@ export default function Campaign({
           </div>
           <figure>
             <Photo
-              image={kioskExperience}
+              image={presentationImages.kiosk}
               sizes="(max-width:700px) 100vw, 75vw"
             />
             <figcaption>
@@ -610,88 +695,6 @@ export default function Campaign({
                 <p>{body}</p>
               </article>
             ))}
-          </div>
-        </section>
-
-        <section
-          className={styles.alternatives}
-          aria-labelledby="alternatives-title"
-        >
-          <div className={styles.sectionIntro}>
-            <span className={styles.kicker}>GECEYE BİR ŞEY DAHA EKLEYİN</span>
-            <h2 id="alternatives-title">
-              Fotoğraf mı, video mu,
-              <br />
-              <em>biraz da heyecan mı?</em>
-            </h2>
-          </div>
-          <div className={styles.alternativeRows}>
-            {alternatives.map((item, i) => {
-              const service = services.find((row) => row.slug === item.slug);
-              const displayImage =
-                item.slug === "dijital-hediye-carki-aktivasyonu"
-                  ? holidayGiftWheel
-                  : item.slug === "strip-photo"
-                    ? holidayPhotobooth
-                    : holiday360Photo;
-              return service ? (
-                <article key={item.slug}>
-                  {displayImage && (
-                    <Link
-                      className={styles.alternativeImage}
-                      href={service.href}
-                    >
-                      <Image
-                        src={displayImage.url}
-                        alt={displayImage.alt}
-                        width={displayImage.width || 500}
-                        height={displayImage.height || 375}
-                        sizes="(max-width:700px) 90vw, 30vw"
-                      />
-                    </Link>
-                  )}
-                  <div>
-                    <span className={styles.kicker}>
-                      0{i + 1} / {item.why}
-                    </span>
-                    <h3>{item.name}</h3>
-                    <p>{item.body}</p>
-                    {
-                      <small className={styles.conceptNote}>
-                        Görsel: örnek yılbaşı konsepti.
-                      </small>
-                    }
-                    <a
-                      href="#teklif"
-                      onClick={() =>
-                        setProducts([...new Set(["AI Photo", item.product])])
-                      }
-                    >
-                      AI Photo ile birlikte planla ↗
-                    </a>
-                  </div>
-                  <Link href={service.href} className={styles.detailLink}>
-                    Detay ↗
-                  </Link>
-                </article>
-              ) : null;
-            })}
-            <article className={styles.roboPhoto}>
-              <Photo image={roboPhotoImage} sizes="(max-width:700px) 80vw, 250px" />
-              <div>
-                <h3>Yılbaşı RoboPhoto</h3>
-                <p>
-                  RoboPhoto fuaye alanında dolaşır, katılımcıların fotoğrafını
-                  çeker ve baskıyı etkinlikte kendilerine verir.
-                </p>
-                <small className={styles.conceptNote}>
-                  Görsel: örnek yılbaşı konsepti.
-                </small>
-                <a href="#teklif" onClick={() => setProducts(["RoboPhoto"])}>
-                  RoboPhoto için teklif al ↗
-                </a>
-              </div>
-            </article>
           </div>
         </section>
 

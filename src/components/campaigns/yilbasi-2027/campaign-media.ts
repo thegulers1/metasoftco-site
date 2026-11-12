@@ -24,8 +24,14 @@ import winterThumb4 from "./assets/winter-04-thumb.webp";
 import worlds1 from "./assets/theme-worlds-01.webp";
 import worlds2 from "./assets/theme-worlds-02.webp";
 
+// Tam boy dosyayı her cihaza göndermemek için büyük görseller
+// public/images/yilbasi/v/ altındaki boyutlu sürümlerden servis edilir
+// (scripts/make-campaign-variants.mjs). Küçük resimler olduğu gibi kalır.
 function image(file: StaticImageData, alt: string): CampaignImage {
-  return { url: file.src, width: file.width, height: file.height, alt };
+  const name = file.src.match(/\/([^/]+?)\.[0-9a-f]{6,}\.webp$/)?.[1];
+  const url =
+    name && !name.endsWith("-thumb") ? `/images/yilbasi/v/${name}.webp` : file.src;
+  return { url, width: file.width, height: file.height, alt };
 }
 export interface ThemeFrame {
   image: CampaignImage;
