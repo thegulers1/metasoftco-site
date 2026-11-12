@@ -332,6 +332,23 @@ function AutoVideo({
   label: string;
 }) {
   const ref = useRef<HTMLVideoElement>(null);
+  // Poster, görünüme yaklaşana kadar indirilmez (ilk ekranda 145 KB boşa gitmesin).
+  const [near, setNear] = useState(false);
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+    const prefetch = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setNear(true);
+          prefetch.disconnect();
+        }
+      },
+      { rootMargin: "400px" },
+    );
+    prefetch.observe(node);
+    return () => prefetch.disconnect();
+  }, []);
   useEffect(() => {
     const node = ref.current;
     if (!node) return;
@@ -357,7 +374,7 @@ function AutoVideo({
       ref={ref}
       className={styles.video}
       src={src}
-      poster={poster}
+      poster={near ? poster : undefined}
       aria-label={label}
       muted
       loop

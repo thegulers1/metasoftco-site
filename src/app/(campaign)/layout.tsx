@@ -9,7 +9,7 @@ export default function CampaignLayout({
 }) {
   return (
     <>
-      <GoogleTagManager />
+      <GoogleTagManager defer />
       {children}
       <AttributionCapture />
     </>

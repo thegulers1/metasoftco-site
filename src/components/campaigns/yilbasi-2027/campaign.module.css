@@ -168,6 +168,11 @@
   animation: kenburns 24s ease-in-out infinite alternate;
   transform-origin: 75% 40%;
 }
+@media (max-width: 800px), (prefers-reduced-motion: reduce) {
+  .heroMedia img {
+    animation: none;
+  }
+}
 @keyframes kenburns {
   from {
     transform: scale(1);
