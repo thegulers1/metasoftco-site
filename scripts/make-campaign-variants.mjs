@@ -1,7 +1,7 @@
 // Yılbaşı kampanyası görsellerinin küçük sürümlerini üretir.
 // Neden: images.loader "custom" olduğu için /_next/image kapalı; yerel görseller
 // srcset'te hep aynı tam boy dosya olarak gidiyordu. Loader (src/lib/cloudinaryLoader.ts)
-// /images/yilbasi/v/ altındaki -480 / -800 / tam boy dosyalardan uygun olanı seçer.
+// /images/yilbasi/v/ altındaki -480 / -800 / -1200 / tam boy dosyalardan uygun olanı seçer.
 // Kullanım: node scripts/make-campaign-variants.mjs
 import { createRequire } from "node:module";
 // sharp, Next ile gelen geçişli bağımlılık (pnpm'de üst düzeyde değil); Next üzerinden çözülür.
@@ -21,7 +21,8 @@ for (const dir of srcDirs) {
     const input = join(dir, file);
     const { width } = await sharp(input).metadata();
     await sharp(input).webp({ quality: 80 }).toFile(join(out, `${name}.webp`));
-    for (const w of [480, 800]) {
+    // 1200: phones with a 3x screen ask for ~1100-1300 px; without it they got the full-size file.
+    for (const w of [480, 800, 1200]) {
       if (w >= width) continue;
       await sharp(input).resize({ width: w }).webp({ quality: 74 }).toFile(join(out, `${name}-${w}.webp`));
     }
