@@ -44,8 +44,8 @@ export interface SaleProduct {
   addons: SaleOption[];
   credits?: {
     free: number;
-    unitPrice: number;
-    packs: number[];
+    /** Per-image price falls with pack size (USD, VAT excluded). */
+    packs: { images: number; unitPrice: number }[];
   };
   included: Text[];
   specs: { label: Text; value: Text }[];

@@ -56,8 +56,11 @@ export default function ProductSale({
     size.price +
     (bothModules ? product.extraModulePrice : 0) +
     chosenAddons.reduce((sum, item) => sum + item.price, 0);
-  const packPrice = product.credits ? pack * product.credits.unitPrice : 0;
-  const total = validQuantity ? units * unitPrice + packPrice : null;
+  const packs = product.credits?.packs ?? [];
+  const packPrice = (images: number) =>
+    images * (packs.find((item) => item.images === images)?.unitPrice ?? 0);
+  const baseRate = Math.max(0, ...packs.map((item) => item.unitPrice));
+  const total = validQuantity ? units * unitPrice + packPrice(pack) : null;
   const moduleName = bothModules
     ? product.modules.map((item) => tx(item.name)).join(" + ")
     : tx(product.modules.find((item) => item.id === moduleId)!.name);
@@ -77,8 +80,8 @@ export default function ProductSale({
     `${units} × ${tx(product.name)} · ${tx(size.name)}`,
     `${t("Modül", "Module")}: ${moduleName}`,
     t(
-      "Dahil: QR paylaşım, ilk 1.000 görsel, kurulum ve eğitim",
-      "Included: QR sharing, first 1,000 images, installation and training",
+      "Dahil: QR paylaşım, ilk 1.000 görsel ücretsiz, kurulum ve eğitim",
+      "Included: QR sharing, first 1,000 images free, installation and training",
     ),
     ...chosenAddons.map((item) => `+ ${tx(item.name)}`),
     ...(pack ? [`+ ${pack.toLocaleString(t("tr-TR", "en-US"))} ${t("görsel kredisi", "image credits")}`] : []),
@@ -137,7 +140,12 @@ export default function ProductSale({
               <strong>{usd(size.price)}</strong>
               {size.listPrice && <s>{usd(size.listPrice)}</s>}
             </div>
-            <small>{t("+ KDV · yazılım, kurulum ve eğitim dahil", "+ VAT · software, installation and training included")}</small>
+            <small>
+              {t(
+                "+ KDV · yazılım, kurulum ve eğitim dahil · ilk 1.000 görsel ücretsiz",
+                "+ VAT · software, installation and training included · first 1,000 images free",
+              )}
+            </small>
             {kit.length > 0 && product.fullKitLabel && (
               <p className={sale.fullKit}>
                 {tx(product.fullKitLabel)}:{" "}
@@ -244,12 +252,15 @@ export default function ProductSale({
               <legend>{t("Ek görsel kredisi", "Extra image credits")}</legend>
               <p className={sale.hint}>
                 {t(
-                  `İlk ${product.credits.free.toLocaleString("tr-TR")} görsel hediye. Sonrası görsel başına ${cents.format(product.credits.unitPrice)}; şimdi almak zorunda değilsiniz.`,
-                  `The first ${product.credits.free.toLocaleString("en-US")} images are free. After that it is ${cents.format(product.credits.unitPrice)} per image; you don’t have to buy now.`,
+                  `İlk ${product.credits.free.toLocaleString("tr-TR")} görsel hediye. Büyük pakette görsel başına fiyat düşer; şimdi almak zorunda değilsiniz.`,
+                  `The first ${product.credits.free.toLocaleString("en-US")} images are free. Larger packs cost less per image; you don’t have to buy now.`,
                 )}
               </p>
               <div className={sale.segmented}>
-                {[0, ...product.credits.packs].map((amount) => (
+                {[0, ...packs.map((item) => item.images)].map((amount) => {
+                  const rate = packs.find((item) => item.images === amount)?.unitPrice ?? 0;
+                  const saving = rate ? Math.round((1 - rate / baseRate) * 100) : 0;
+                  return (
                   <label key={amount}>
                     <input
                       type="radio"
@@ -258,12 +269,21 @@ export default function ProductSale({
                       onChange={() => setPack(amount)}
                     />
                     <span>
-                      {amount === 0
-                        ? t("Şimdilik yok", "Not now")
-                        : `${amount.toLocaleString(t("tr-TR", "en-US"))} · ${usd(amount * product.credits!.unitPrice)}`}
+                      {amount === 0 ? (
+                        t("Şimdilik yok", "Not now")
+                      ) : (
+                        <>
+                          {amount.toLocaleString(t("tr-TR", "en-US"))} · {usd(packPrice(amount))}
+                          <small>
+                            {cents.format(rate)}/{t("görsel", "image")}
+                            {saving > 0 && ` · ${t(`%${saving} avantaj`, `${saving}% less`)}`}
+                          </small>
+                        </>
+                      )}
                     </span>
                   </label>
-                ))}
+                  );
+                })}
               </div>
             </fieldset>
           )}
@@ -299,6 +319,7 @@ export default function ProductSale({
               <strong>{total !== null ? usd(total) : "—"}</strong>
               <small>+ {t("KDV", "VAT")}</small>
             </div>
+            <p>{t("Sayfadaki tüm fiyatlar USD’dir ve KDV hariçtir.", "All prices on this page are in USD and exclude VAT.")}</p>
             {total !== null && (
               <p>
                 {t(

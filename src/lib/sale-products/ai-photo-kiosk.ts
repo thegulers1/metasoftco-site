@@ -130,7 +130,13 @@ export const AI_PHOTO_KIOSK: SaleProduct = {
       price: 400,
     },
   ],
-  credits: { free: 1000, unitPrice: 0.4, packs: [500, 1000] },
+  credits: {
+    free: 1000,
+    packs: [
+      { images: 500, unitPrice: 0.4 },
+      { images: 1000, unitPrice: 0.32 },
+    ],
+  },
   included: [
     { tr: "Dokunmatik ekran, bilgisayar ve LED aydınlatmalı kiosk gövdesi", en: "Touchscreen, computer and LED-lit kiosk housing" },
     { tr: "QR ile anında dijital paylaşım", en: "Instant digital sharing by QR code" },
@@ -189,8 +195,8 @@ export const AI_PHOTO_KIOSK: SaleProduct = {
     {
       title: { tr: "Görsel kredisi", en: "Image credits" },
       body: {
-        tr: "İlk 1.000 görsel hediye. Sonrası görsel başına 0,40 $; 500 veya 1.000’lik paketler, kullanılmayan kredi devreder.",
-        en: "First 1,000 images free. After that $0.40 per image in packs of 500 or 1,000; unused credits carry over.",
+        tr: "İlk 1.000 görsel hediye. Sonrası 500’lük pakette görsel başına 0,40 $, 1.000’lik pakette 0,32 $; kullanılmayan kredi devreder.",
+        en: "First 1,000 images free. After that $0.40 per image in packs of 500, or $0.32 in packs of 1,000; unused credits carry over.",
       },
     },
     {
@@ -219,8 +225,8 @@ export const AI_PHOTO_KIOSK: SaleProduct = {
     {
       q: { tr: "Görsel kredisi nasıl çalışıyor?", en: "How do image credits work?" },
       a: {
-        tr: "Her yapay zekâ görseli bir kredi kullanır. İlk 1.000 görsel kiosk ile birlikte hediyedir. Sonrası görsel başına 0,40 $ + KDV’dir ve 500 ya da 1.000 adetlik paketlerle alınır; kullanılmayan kredi sonraki etkinliklere devreder.",
-        en: "Each AI image uses one credit. The first 1,000 come free with the kiosk. After that it is $0.40 + VAT per image, bought in packs of 500 or 1,000; unused credits carry over to later events.",
+        tr: "Her yapay zekâ görseli bir kredi kullanır. İlk 1.000 görsel kiosk ile birlikte hediyedir. Sonrası paketlerle alınır: 500 görsel 200 $ (görsel başına 0,40 $), 1.000 görsel 320 $ (görsel başına 0,32 $), fiyatlara KDV hariçtir. Kullanılmayan kredi sonraki etkinliklere devreder.",
+        en: "Each AI image uses one credit. The first 1,000 come free with the kiosk. After that credits come in packs: 500 images for $200 ($0.40 each) or 1,000 images for $320 ($0.32 each), VAT excluded. Unused credits carry over to later events.",
       },
     },
     {

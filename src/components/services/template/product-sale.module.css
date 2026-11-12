@@ -259,6 +259,13 @@
   font-size: 13px;
   padding: 11px 6px;
 }
+.segmented small {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+  opacity: 0.75;
+  margin-block-start: 2px;
+}
 .segmented label + label {
   border-inline-start: 1px solid var(--line);
 }
