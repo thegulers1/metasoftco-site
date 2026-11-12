@@ -21,3 +21,11 @@ Saklama: etkinlikten önce talep varsa en fazla 90 gün ve belirlenen paylaşım
 ## Kontroller
 
 Typecheck, ESLint, tam pnpm build (Prisma generate/runtime validation/Next production build). Mobil ilk ekranda CTA ve kiosk görseli, taşma yok. Tek H1, canonical ve görünür/schema 8 FAQ eşleşmesi. Galeri seçimi, tema seçkisi, görsel büyütme ve paket ürün ön seçimi kontrol edildi. SMTP bağlantısı/auth mesaj göndermeden doğrulandı; form gönderilmedi ve sahte lead üretilmedi. Production deploy sırasında canlı HTTP/görsel kontroller ayrıca yapılır. DB içerik yazımı yok.
+
+## Kasım 2026 yenilemesi
+
+Sayfa, müşteri sunumundaki dille (koyu kapak, kâğıt renkli oyun bölümü, büyük başlık, mono etiketler) ve sitenin sarı vurgusuyla yeniden kuruldu. Sunumdaki deneyimler eklendi: AI Photo + Video, Momento Ball, AI Karikatür Video, Hediye Çantası, 20.27 Saniye, Kartopu Düellosu, Ağacı Birlikte Süsle, Yılın Quiz’i, Reflex Wall ve VR; ayrıca Mirror Booth, AI Draw Portre, Karaoke, Dans Düellosu. Müşteri adı ve etkinlik bilgisi sayfaya taşınmadı.
+
+Görseller `public/images/yilbasi/sunum/` altında, videolar `public/videos/yilbasi/` altında; boyutlu sürümler `node scripts/make-campaign-variants.mjs` ile `public/images/yilbasi/v/` altına üretilir (yeni görsel eklenince yeniden çalıştırın). Genişliği 800 pikselden küçük görsellerin `-800` sürümü yoktur; bunlar yalnızca video kapağı olarak kullanılır.
+
+Her deneyimde "Teklife ekle" düğmesi seçimi teklif formuna taşır; seçim yapılınca altta bir özet çubuğu görünür. "Detay" bağlantısı yalnızca hizmet yayındaysa çıkar. `/design-preview/yilbasi-2027` veritabanı tüneli kapalıyken statik içerikle açılır.

@@ -20,7 +20,13 @@ export default async function Preview() {
     import("@/components/campaigns/yilbasi-2027/load"),
     import("@/components/campaigns/yilbasi-2027/Campaign"),
   ]);
-  const data = await loadCampaign();
+  // Veritabanı tüneli kapalıyken de tasarıma bakılabilsin: hizmet bağlantıları
+  // ve referanslar olmadan, yalnızca statik içerikle çizilir.
+  const data = await loadCampaign().catch(async () => {
+    const { getOccasion } = await import("@/lib/occasions");
+    const occasion = getOccasion("yilbasi-partisi-aktiviteleri");
+    return occasion ? { occasion, services: [], references: [] } : null;
+  });
   if (!data) notFound();
   return <Campaign {...data} preview />;
 }

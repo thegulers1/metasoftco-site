@@ -34,6 +34,8 @@ export async function loadCampaign() {
             "strip-photo",
             "360-video-booth",
             "dijital-hediye-carki-aktivasyonu",
+            "quiz-bilgi-yarismasi",
+            "karaoke",
           ],
         },
       },

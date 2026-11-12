@@ -10,7 +10,7 @@ const sharp = require("sharp");
 import { readdirSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
 
-const srcDirs = ["src/components/campaigns/yilbasi-2027/assets", "public/images/yilbasi"];
+const srcDirs = ["src/components/campaigns/yilbasi-2027/assets", "public/images/yilbasi", "public/images/yilbasi/sunum"];
 const out = "public/images/yilbasi/v";
 mkdirSync(out, { recursive: true });
 
