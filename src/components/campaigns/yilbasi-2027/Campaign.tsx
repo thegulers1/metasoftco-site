@@ -14,6 +14,8 @@ import Image from "@/components/services/template/ServiceImage";
 import { trackEvent } from "@/lib/analytics";
 import { getAttribution } from "@/lib/attribution";
 import { brands } from "@/lib/brands";
+import { MsBehaviour, MsClosing, MsNav } from "@/components/site-ms/MsChrome";
+import "@/components/site-ms/ms.css";
 import type { loadCampaign, CampaignImage } from "./load";
 import styles from "./campaign.module.css";
 import {
@@ -724,7 +726,6 @@ export default function Campaign({
   const [touched, setTouched] = useState(false);
   const [quoteVisible, setQuoteVisible] = useState(false);
   const [theme, setTheme] = useState("one");
-  const root = useRef<HTMLDivElement>(null);
   const quote = useRef<HTMLElement>(null);
   const collection =
     themeCollections.find((item) => item.key === theme) ?? themeCollections[0];
@@ -735,32 +736,12 @@ export default function Campaign({
     );
 
   useEffect(() => {
-    const page = root.current;
-    if (!page) return;
-    // Bölümler JS çalışıyorsa kayarak belirir; çalışmıyorsa hep görünür kalır.
-    page.dataset.js = "1";
-    const reveal = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
-          (entry.target as HTMLElement).dataset.shown = "1";
-          reveal.unobserve(entry.target);
-        }
-      },
-      { rootMargin: "0px 0px -8% 0px", threshold: 0.08 },
-    );
-    page
-      .querySelectorAll("[data-reveal]")
-      .forEach((node) => reveal.observe(node));
     const form = new IntersectionObserver(
       ([entry]) => setQuoteVisible(entry.isIntersecting),
       { threshold: 0.05 },
     );
     if (quote.current) form.observe(quote.current);
-    return () => {
-      reveal.disconnect();
-      form.disconnect();
-    };
+    return () => form.disconnect();
   }, []);
 
   const toggle = (product: string) => {
@@ -783,31 +764,8 @@ export default function Campaign({
 
   return (
     <Selection.Provider value={{ products, toggle, hrefOf }}>
-      <div className={styles.page} ref={root}>
-        <header className={styles.header}>
-          <Link
-            href="/"
-            className={styles.logo}
-            aria-label="MetasoftCo ana sayfa"
-          >
-            <Image
-              src="/blackLogo.png"
-              alt="MetasoftCo"
-              width={155}
-              height={50}
-              priority
-            />
-          </Link>
-          <nav className={styles.nav} aria-label="Sayfa içi">
-            <a href="#deneyimler">Deneyimler</a>
-            <a href="#oyunlar">Oyunlar</a>
-            <a href="#temalar">Temalar</a>
-            <a href="#sss">Sorular</a>
-          </nav>
-          <a href="#teklif" className={styles.navCta}>
-            Teklif al ↗
-          </a>
-        </header>
+      <div className={`ms ${styles.page}`}>
+        <MsNav />
         <main id="main-content">
           <section className={styles.hero} aria-labelledby="campaign-title">
             <div className={styles.heroMedia}>
@@ -1375,17 +1333,8 @@ export default function Campaign({
             </div>
           </section>
         </main>
-        <footer className={styles.footer}>
-          <Link href="/" className={styles.footerWordmark}>
-            MetasoftCo
-          </Link>
-          <p>Yılbaşı 2027 / şirketinize özel deneyimler</p>
-          <div>
-            <Link href="/hizmetler">Tüm deneyimler ↗</Link>
-            <Link href="/gizlilik">Gizlilik</Link>
-            <a href="mailto:info@metasoftco.com">info@metasoftco.com</a>
-          </div>
-        </footer>
+        <MsClosing />
+        <MsBehaviour />
 
         <div
           className={styles.tray}

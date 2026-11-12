@@ -1,6 +1,6 @@
 # Yılbaşı 2027 kampanyası
 
-Canlı rota: `/hizmetler/yilbasi-partisi-aktiviteleri`. Kampanya route grubu kendi sade navigasyon/footer'ını kullanır. Diğer hizmetlerin ortak tasarımı değişmez. Kök layout'un consent ve analytics akışı korunur; AttributionCapture kampanya layout'unda çalışır.
+Canlı rota: `/hizmetler/yilbasi-partisi-aktiviteleri`. Sayfa sitenin ortak menüsünü ve kapanış/footer bloğunu (MsNav, MsClosing, MsBehaviour) kendi içinde çizer; reveal animasyonu da oradan gelir. Diğer hizmetlerin ortak tasarımı değişmez. Kök layout'un consent ve analytics akışı korunur; AttributionCapture kampanya layout'unda çalışır.
 
 ## Kaynaklar
 

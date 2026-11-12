@@ -15,8 +15,12 @@
   --gut: clamp(20px, 4vw, 64px);
   --pad: max(var(--gut), calc((100% - 1320px) / 2));
   --radius: 20px;
+  /* MsNav yüksekliği: masaüstünde 112px, 900px altında 80px. */
+  --nav-h: 112px;
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
   min-height: 100vh;
+  /* Sitenin sabit menüsü (MsNav) için üst boşluk. */
+  padding-top: var(--nav-h);
   background: var(--bg);
   color: var(--fg);
   font-family: var(--mh-sans), Arial, sans-serif;
@@ -53,7 +57,7 @@
   outline-color: var(--ink);
 }
 .page [id] {
-  scroll-margin-top: 96px;
+  scroll-margin-top: calc(var(--nav-h) + 16px);
 }
 .page :is(h1, h2, h3, h4) {
   font-family: var(--mh-heading), Arial, sans-serif;
@@ -91,67 +95,6 @@
   display: block;
   color: var(--muted);
   margin-bottom: 20px;
-}
-
-/* Reveal: yalnızca JS çalışınca gizlenir. */
-.page[data-js] [data-reveal] {
-  opacity: 0;
-  transform: translateY(32px);
-  transition:
-    opacity 0.9s var(--ease),
-    transform 0.9s var(--ease);
-}
-.page[data-js] [data-reveal][data-shown] {
-  opacity: 1;
-  transform: none;
-}
-
-/* ---------- Üst çubuk ---------- */
-.header {
-  position: sticky;
-  top: 0;
-  z-index: 30;
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  padding: 14px var(--pad);
-  background: rgb(10 11 9 / 0.9);
-  backdrop-filter: blur(16px) saturate(1.4);
-  -webkit-backdrop-filter: blur(16px) saturate(1.4);
-  border-bottom: 1px solid rgb(241 239 231 / 0.08);
-}
-.logo {
-  display: block;
-  flex-shrink: 0;
-  margin-right: auto;
-}
-.logo img {
-  display: block;
-  filter: grayscale(1) invert(1);
-  width: 132px;
-  height: auto;
-}
-.nav {
-  display: flex;
-  gap: 28px;
-  font-size: 14px;
-  color: var(--muted);
-}
-.nav a {
-  padding-block: 8px;
-  transition: color 0.2s;
-}
-.nav a:hover {
-  color: var(--fg);
-}
-.navCta {
-  font-size: 14px;
-  font-weight: 600;
-  padding: 11px 20px;
-  border-radius: 99px;
-  background: var(--yellow);
-  color: var(--ink) !important;
-  white-space: nowrap;
 }
 
 /* ---------- Düğmeler ---------- */
@@ -1331,34 +1274,6 @@
   color: var(--muted);
 }
 
-/* ---------- Alt bilgi ---------- */
-.footer {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 30px;
-  padding: 48px var(--pad) 120px;
-  border-top: 1px solid var(--line);
-}
-.footerWordmark {
-  font-family: var(--mh-heading), Arial, sans-serif;
-  font-size: 28px;
-  font-weight: 650;
-  letter-spacing: -0.04em;
-}
-.footer > p {
-  font-size: 13px;
-  color: var(--muted);
-}
-.footer > div {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 24px;
-  margin-left: auto;
-  font-size: 13px;
-  color: var(--muted);
-}
-
 /* ---------- Seçim çubuğu ---------- */
 .tray {
   position: fixed;
@@ -1452,11 +1367,14 @@
   cursor: pointer;
 }
 
+@media (max-width: 899px) {
+  .page {
+    --nav-h: 80px;
+  }
+}
+
 /* ---------- Tablet ---------- */
 @media (max-width: 1000px) {
-  .nav {
-    display: none;
-  }
   .gameGrid {
     grid-template-columns: 1fr 1fr;
   }
@@ -1470,19 +1388,6 @@
 
 /* ---------- Telefon ---------- */
 @media (max-width: 800px) {
-  .page [id] {
-    scroll-margin-top: 76px;
-  }
-  .header {
-    padding-block: 10px;
-  }
-  .logo img {
-    width: 108px;
-  }
-  .navCta {
-    font-size: 13px;
-    padding: 10px 16px;
-  }
   .hero {
     min-height: 0;
     padding: 0;
@@ -1598,16 +1503,16 @@
     grid-template-columns: minmax(0, 1fr);
     gap: 16px;
   }
-  .footer {
-    padding-bottom: 130px;
-  }
-  .footer > div {
-    width: 100%;
-    margin-left: 0;
-  }
+  /* Sağdaki WhatsApp / AI düğmelerine yer bırakır. */
   .tray {
-    bottom: 12px;
+    left: 16px;
+    bottom: 16px;
+    width: calc(100vw - 84px);
     padding-left: 18px;
+    transform: translateY(24px);
+  }
+  .tray[data-open="true"] {
+    transform: none;
   }
 }
 
@@ -1618,9 +1523,5 @@
     scroll-behavior: auto !important;
     transition: none !important;
     animation: none !important;
-  }
-  .page[data-js] [data-reveal] {
-    opacity: 1;
-    transform: none;
   }
 }
