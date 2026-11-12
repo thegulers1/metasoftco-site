@@ -67,3 +67,31 @@ export async function serviceReferences(
     })
     .slice(0, 4);
 }
+
+/** Published projects by slug, in the given order, for curated proof lists. */
+export async function projectCards(
+  slugs: string[],
+  locale: "tr" | "en",
+): Promise<(ServiceReference & { slug: string })[]> {
+  const projects = await publishedProjects();
+  return slugs.flatMap((slug) => {
+    const project = projects.find((item) => item.slug === slug);
+    if (!project?.image) return [];
+    if (locale === "en" && !isEnglishProjectPublishable(project)) return [];
+    return [
+      {
+        slug,
+        href:
+          locale === "en"
+            ? `/en/projects/${project.slug_en}`
+            : `/projeler/${project.slug}`,
+        title: (locale === "en" && project.title_en) || project.title,
+        description:
+          (locale === "en" && project.description_en) ||
+          project.description ||
+          "",
+        image: project.image,
+      },
+    ];
+  });
+}

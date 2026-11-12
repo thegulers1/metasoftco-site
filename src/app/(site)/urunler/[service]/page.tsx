@@ -1,4 +1,5 @@
-import { serviceReferences } from "@/lib/service-template/references";
+import { saleFaqSchema, saleProduct, saleProductSchema } from "@/lib/sale-products";
+import { projectCards, serviceReferences } from "@/lib/service-template/references";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
@@ -107,7 +108,17 @@ export default async function ProductDetailPage({ params }: PageProps) {
         { name: service.title, url: `${siteConfig.url}/urunler/${serviceSlug}` },
     ]);
 
-    const faqSchema = service.faq ? (() => {
+    const saleConfig = saleProduct(service.slug);
+    const productSchema = saleConfig
+        ? saleProductSchema(
+              saleConfig,
+              "tr",
+              `${siteConfig.url}/urunler/${serviceSlug}`,
+              `${siteConfig.url}${saleConfig.images[0].url}`,
+          )
+        : null;
+
+    const faqSchema = saleConfig ? saleFaqSchema(saleConfig, "tr") : service.faq ? (() => {
         const items: { q: string; a: string }[] = JSON.parse(service.faq);
         if (!items.length) return null;
         return {
@@ -148,6 +159,12 @@ export default async function ProductDetailPage({ params }: PageProps) {
                     dangerouslySetInnerHTML={{ __html: JSON.stringify(videoSchema) }}
                 />
             )}
+            {productSchema && (
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(productSchema) }}
+                />
+            )}
             {faqSchema && (
                 <script
                     type="application/ld+json"
@@ -164,6 +181,14 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 serviceSchema={serviceSchema}
                 category={categoryData.slug}
                 variant="sale"
+                sale={
+                    saleConfig
+                        ? {
+                              product: saleConfig,
+                              showcase: await projectCards(saleConfig.showcase, "tr"),
+                          }
+                        : undefined
+                }
             />
         </>
     );

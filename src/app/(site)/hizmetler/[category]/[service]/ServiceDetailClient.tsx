@@ -8,6 +8,8 @@ import type { ServiceReference } from "@/lib/service-template/references";
 import { MsFaq, MsProse } from "@/components/site-ms/parts";
 import TrackedContactLink from "@/components/services/template/TrackedContactLink";
 import ProductQuoteForm from "@/components/services/template/ProductQuoteForm";
+import ProductSale, { type ShowcaseCard } from "@/components/services/template/ProductSale";
+import type { SaleProduct } from "@/lib/sale-products";
 import ServiceGallery from "@/components/services/template/ServiceGallery";
 import { dataCaptureCopy } from "@/lib/data-capture";
 import { DATA_CAPTURE_HUB_PATH } from "@/lib/data-capture-hub";
@@ -36,6 +38,7 @@ interface ServiceDetailClientProps {
   category: string;
   variant?: "rental" | "sale";
   saleHref?: string;
+  sale?: { product: SaleProduct; showcase: ShowcaseCard[] };
   references?: ServiceReference[];
 }
 function parseJsonList<T>(raw: string | null | undefined): T[] {
@@ -56,6 +59,7 @@ export default function ServiceDetailClient({
   serviceSchema,
   variant = "rental",
   saleHref,
+  sale,
   references = [],
 }: ServiceDetailClientProps) {
   const { language, setAlternateUrl } = useLanguage();
@@ -85,7 +89,9 @@ export default function ServiceDetailClient({
   const ownFaqs = parseJsonList<{ q: string; a: string }>(
     en ? service.faq_en : service.faq,
   );
-  const faqs = [
+  const faqs = sale
+    ? sale.product.faq.map((item) => ({ q: item.q[language], a: item.a[language] }))
+    : [
     ...(eventRental && !momento
       ? mergeRentalFaq(ownFaqs, title, language, output)
       : ownFaqs),
@@ -160,6 +166,9 @@ export default function ServiceDetailClient({
           )}
           <span>{product}</span>
         </nav>
+        {sale ? (
+          <ProductSale product={sale.product} title={title} locale={language} showcase={sale.showcase} />
+        ) : (
         <section
           className={`${styles.product} ${!hasMedia ? extra.noMedia : ""}`}
           aria-labelledby="product-title"
@@ -284,7 +293,8 @@ export default function ServiceDetailClient({
             </TrackedContactLink>
           </aside>
         </section>
-        {content &&
+        )}
+        {!sale && content &&
           serviceContentSections(
             addHeadingAnchors(
               content
@@ -314,7 +324,7 @@ export default function ServiceDetailClient({
               </div>
             </section>
           ))}
-        {specs.length > 0 && (
+        {!sale && specs.length > 0 && (
           <section
             className={`${styles.section} ${styles.contentSection}`}
             aria-labelledby="specs-title"
@@ -369,7 +379,7 @@ export default function ServiceDetailClient({
             </div>
           </section>
         )}
-        {references.length > 0 && (
+        {!sale && references.length > 0 && (
           <section
             id="projeler"
             className={`${styles.section} ${styles.projectsSection}`}
