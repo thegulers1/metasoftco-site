@@ -17,6 +17,7 @@ import {
   comparisons,
   games,
   memories,
+  ramadanSrcSet,
   type Media,
 } from "./content";
 import styles from "./ramazan.module.css";
@@ -100,21 +101,27 @@ export function GalleryImage({
   sizes: string;
 }) {
   const dialog = useRef<HTMLDialogElement>(null);
+  const [expanded, setExpanded] = useState(false);
   return (
     <>
       <button
         className={styles.imageButton}
         type="button"
-        onClick={() => dialog.current?.showModal()}
+        onClick={() => {
+          dialog.current?.showModal();
+          setExpanded(true);
+        }}
         aria-label={`Görseli büyüt · ${media.alt}`}
       >
-        <Image {...media} alt={media.alt} sizes={sizes} unoptimized />
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img {...media} srcSet={ramadanSrcSet(media)} sizes={sizes} loading="lazy" decoding="async" />
         <span aria-hidden="true">↗</span>
       </button>
       <dialog
         ref={dialog}
         className={styles.dialog}
         aria-label="Konsept görseli"
+        onClose={() => setExpanded(false)}
       >
         <button
           autoFocus
@@ -124,7 +131,7 @@ export function GalleryImage({
         >
           Kapat ×
         </button>
-        <Image {...media} alt={media.alt} loading="lazy" unoptimized />
+        {expanded && <Image {...media} alt={media.alt} unoptimized />}
       </dialog>
     </>
   );

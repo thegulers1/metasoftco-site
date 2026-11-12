@@ -170,7 +170,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
     const isEventRental = !isSoftwareCategory(categoryData.slug);
     const serviceSchema = generateServiceSchema({
         name: service.title,
-        description: service.description || "",
+        description: service.description?.trim() || service.metaDescription || "",
         url: `${siteConfig.url}/hizmetler/${category}/${serviceSlug}`,
         image: service.image || undefined,
         category: categoryData.name,

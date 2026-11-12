@@ -39,6 +39,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   // Reklam açılış sayfası: üçüncü taraf betikler ilk boyamayı beklesin (sayfa yüklenince
   // ya da ilk etkileşimde başlar). Diğer sayfalar eskisi gibi hemen yükler.
   const lateTags = pathname.startsWith("/hizmetler/yilbasi-partisi-aktiviteleri");
+  const ramadanLanding = pathname === "/hizmetler/ramazan-etkinlikleri";
   const late = (code: string) =>
     lateTags
       ? `(function(){var d=false;function r(){if(d)return;d=true;${code}}['pointerdown','keydown','scroll','touchstart'].forEach(function(e){addEventListener(e,r,{once:true,passive:true})});function l(){setTimeout(r,1500)}if(document.readyState==='complete')l();else addEventListener('load',l);})();`
@@ -71,12 +72,16 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           }}
         />
         {/* Google Ads */}
-        {!lateTags && <script async src="https://www.googletagmanager.com/gtag/js?id=AW-862345276" />}
+        {!ramadanLanding && !lateTags && <script async src="https://www.googletagmanager.com/gtag/js?id=AW-862345276" />}
         <script
           dangerouslySetInnerHTML={{
-            __html: late(
-              `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}${lateTags ? `var s=document.createElement('script');s.async=1;s.src='https://www.googletagmanager.com/gtag/js?id=AW-862345276';document.head.appendChild(s);` : ""}gtag('js',new Date());gtag('config','AW-862345276');`,
-            ),
+            // Wait for the GTM-loaded Google tag to initialize before adding
+            // Ads so it doesn't race a separate Ads script in the document.
+            __html: ramadanLanding
+              ? "gtag('get','G-4XMT8HPLWJ','client_id',function(){gtag('config','AW-862345276');});"
+              : late(
+                `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}${lateTags ? `var s=document.createElement('script');s.async=1;s.src='https://www.googletagmanager.com/gtag/js?id=AW-862345276';document.head.appendChild(s);` : ""}gtag('js',new Date());gtag('config','AW-862345276');`,
+              ),
           }}
         />
         {/* Ahrefs Analytics is loaded client-side after consent, see CookieConsentBanner */}

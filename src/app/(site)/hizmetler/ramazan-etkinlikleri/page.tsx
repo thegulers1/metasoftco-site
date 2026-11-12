@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Image from "next/image";
 import Link from "next/link";
 import {
   generateBreadcrumbSchema,
@@ -14,6 +13,7 @@ import {
   hero,
   memories,
   path,
+  ramadanSrcSet,
   steps,
   title,
 } from "./content";
@@ -104,7 +104,9 @@ export default function RamazanPage() {
           </div>
         </div>
         <figure className={styles.heroMedia}>
-          <Image {...hero} alt={hero.alt} preload sizes="(max-width: 760px) 92vw, 40vw" />
+          {/* The static WebP variants use their real widths in srcSet. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img {...hero} srcSet={ramadanSrcSet(hero)} sizes="(max-width: 760px) 92vw, 40vw" fetchPriority="high" />
           <figcaption>
             <span>01 / 360 Video Booth</span>
             <span>Örnek konsept görseli</span>

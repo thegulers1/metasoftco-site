@@ -5,6 +5,14 @@ export const path = "/hizmetler/ramazan-etkinlikleri";
 
 export type Media = { src: string; alt: string; width: number; height: number };
 
+export function ramadanSrcSet({ src, width }: Media) {
+  const base = src.slice(0, -".webp".length);
+  return [
+    ...[480, 800].filter((size) => size < width).map((size) => `${base}-${size}.webp ${size}w`),
+    `${src} ${width}w`,
+  ].join(", ");
+}
+
 function media(file: string, alt: string, width = 1024, height = 1536): Media {
   return {
     src: `${path.replace("/hizmetler", "")}/${file}.webp`,

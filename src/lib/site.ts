@@ -472,13 +472,15 @@ export function generateServiceSchema(service: {
     category: string;
     areaServed?: Record<string, unknown>[];
 }) {
+    const description = service.description.trim();
+    const image = cloudinaryOptimize(service.image?.trim(), 1200);
     return {
         "@context": "https://schema.org",
         "@type": "Service",
         name: service.name,
-        description: service.description,
+        ...(description && { description }),
         url: service.url,
-        image: cloudinaryOptimize(service.image, 1200),
+        ...(image && { image }),
         serviceType: service.category,
         provider: {
             "@type": "Organization",
