@@ -6,7 +6,10 @@ import { siteConfig } from "@/lib/site";
 
 export const dynamic = "force-dynamic";
 const SLUG = "yilbasi-partisi-aktiviteleri";
-export const metadata = occasionMetadata(SLUG);
+export const metadata = occasionMetadata(SLUG, {
+  url: `${siteConfig.url}/images/yilbasi/yilbasi-partisi-paylasim.jpg`,
+  alt: "Yılbaşı etkinliğinde AI Photo kiosku, katılımcı ve karlı yılbaşı portresi",
+});
 
 export default async function YilbasiPartisiPage() {
   const data = await loadCampaign();

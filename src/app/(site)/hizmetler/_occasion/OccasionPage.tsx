@@ -11,16 +11,16 @@ import OccasionLanding from "@/components/phase2/OccasionLanding";
 // services and projects resolved from the database by slug at request time.
 // Each occasion has its own thin page.tsx so the route stays static.
 
-export function occasionMetadata(slug: string): Metadata {
+export function occasionMetadata(slug: string, socialImage?: { url: string; alt: string }): Metadata {
     const occasion = getOccasion(slug);
     if (!occasion) return {};
     const url = `${siteConfig.url}/hizmetler/${slug}`;
-    const image = ogImageUrl(occasion.h1, occasion.lede);
+    const image = socialImage ?? { url: ogImageUrl(occasion.h1, occasion.lede) };
     return {
         title: occasion.metaTitle,
         description: occasion.metaDescription,
         keywords: occasion.keywords,
-        openGraph: { title: occasion.metaTitle, description: occasion.metaDescription, url, siteName: siteConfig.name, images: [{ url: image, width: 1200, height: 630 }], locale: "tr_TR", type: "website" },
+        openGraph: { title: occasion.metaTitle, description: occasion.metaDescription, url, siteName: siteConfig.name, images: [{ ...image, width: 1200, height: 630 }], locale: "tr_TR", type: "website" },
         twitter: { card: "summary_large_image", title: occasion.metaTitle, description: occasion.metaDescription, images: [image] },
         alternates: { canonical: url },
     };
