@@ -205,16 +205,26 @@
   margin-bottom: 28px !important;
 }
 .heroKicker > span {
+  position: relative;
   width: 8px;
   height: 8px;
   border-radius: 50%;
   background: var(--yellow);
-  box-shadow: 0 0 0 0 rgb(242 255 0 / 0.6);
+}
+/* The ring grows with transform/opacity (compositor only); animating
+   box-shadow repainted on the main thread for as long as the page was open. */
+.heroKicker > span::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: rgb(242 255 0 / 0.6);
   animation: pulse 2.4s ease-out infinite;
 }
 @keyframes pulse {
   to {
-    box-shadow: 0 0 0 14px rgb(242 255 0 / 0);
+    transform: scale(4.5);
+    opacity: 0;
   }
 }
 .page .heroSlogan {
@@ -299,6 +309,14 @@
 }
 
 /* ---------- Bölümler ---------- */
+/* The page is ~18,000 px tall on a phone. Sections below the cover skip their
+   style, layout and paint work until they come near the viewport; the size
+   hint keeps the scrollbar steady and is replaced by the real height once a
+   section has been rendered. */
+.page main > :not(.hero) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 900px;
+}
 .index,
 .features,
 .games,
@@ -1529,5 +1547,15 @@
     scroll-behavior: auto !important;
     transition: none !important;
     animation: none !important;
+  }
+}
+
+/* Short phones (iPhone 13/14 in Safari: ~660 px tall): a wider cover crop lifts
+   the first "teklif al" button above the cookie banner, which every new visitor
+   from an ad sees. Taller phones keep the 5/4 crop. */
+@media (max-width: 800px) and (max-height: 720px) {
+  .heroMedia,
+  .heroShade {
+    aspect-ratio: 16 / 9;
   }
 }

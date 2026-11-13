@@ -86,7 +86,8 @@ export function MsNav() {
             <a href="#main-content" className="ms-skip">{copy.skipLink}</a>
             <header className="ms-nav">
                 <Link href={home} className="ms-nav__logo" aria-label={copy.homeAria} data-cursor={copy.cursor.home}>
-                    <Image src="/blackLogo.png" alt="MetasoftCo" width={160} height={40} priority unoptimized />
+                    {/* 400 px copy of blackLogo.png (1803 px, 30 KB): the nav shows it at most 160 px wide. */}
+                    <Image src="/blackLogo-nav.webp" alt="MetasoftCo" width={160} height={63} priority unoptimized />
                 </Link>
                 <span className="ms-nav__spacer" />
                 <nav className="ms-nav__links" aria-label={copy.navAria}>

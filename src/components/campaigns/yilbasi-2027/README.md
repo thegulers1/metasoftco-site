@@ -29,3 +29,7 @@ Sayfa, müşteri sunumundaki dille (koyu kapak, kâğıt renkli oyun bölümü, 
 Görseller `public/images/yilbasi/sunum/` altında, videolar `public/videos/yilbasi/` altında; boyutlu sürümler `node scripts/make-campaign-variants.mjs` ile `public/images/yilbasi/v/` altına üretilir (yeni görsel eklenince yeniden çalıştırın). Genişliği 800 pikselden küçük görsellerin `-800` sürümü yoktur; bunlar yalnızca video kapağı olarak kullanılır.
 
 Her deneyimde "Teklife ekle" düğmesi seçimi teklif formuna taşır; seçim yapılınca altta bir özet çubuğu görünür. "Detay" bağlantısı yalnızca hizmet yayındaysa çıkar. `/design-preview/yilbasi-2027` veritabanı tüneli kapalıyken statik içerikle açılır.
+
+## Mobil hız (12 Kasım 2026)
+
+Yavaş 4G'de kapak görseli, ön yüklenen 300 KB yazı tipiyle bant genişliğini paylaşıyordu. Yapılanlar: Türkçe harfler (Ğ ğ İ Ş ş) için ~3 KB'lık alt küme dosyaları (`scripts/make-turkish-font-subsets.py`; latin-ext dosyaları Türkçe metinde artık inmez), bu sayfada yalnızca Inter Tight ön yüklenir; menü logosu 30 KB → 7 KB (`blackLogo-nav.webp`); 3x ekranlı telefonlar için `-1200` görsel sürümleri; kapağın altındaki bölümlerde `content-visibility: auto`; kapaktaki nokta animasyonu transform/opacity ile. Yerel Lighthouse (mobil, üretim derlemesi): puan 72–76 → 79–87, gerçek kısıtlamayla LCP 3,8 sn → 2,3 sn. Bölümleri Suspense ile ayırmak denendi, ölçülebilir fayda vermediği için alınmadı.

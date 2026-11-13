@@ -48,18 +48,25 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   return (
     <html lang={lang} suppressHydrationWarning>
       <head>
-        {/* Preload the site's own faces (Turkish letters live in the latin-ext files),
-            so headings don't paint in a fallback font and then jump. */}
+        {/* Preload the site's own faces so headings don't paint in a fallback font and
+            then jump. Turkish pages add the ~3 KB "turkish" subsets (Ğ ğ İ Ş ş) instead
+            of the 90–118 KB latin-ext files, which no longer load for Turkish text. */}
         {[
           "inter-tight-300-900-normal-latin",
-          "inter-tight-300-900-normal-latin-ext",
           "unbounded-500-900-normal-latin",
-          "unbounded-500-900-normal-latin-ext",
           "geist-400-600-normal-latin",
-          "geist-400-600-normal-latin-ext",
           "geist-mono-400-500-normal-latin",
+          ...(lang === "tr"
+            ? [
+                "inter-tight-300-900-normal-turkish",
+                "unbounded-500-900-normal-turkish",
+                "geist-400-600-normal-turkish",
+              ]
+            : []),
         ]
-          .filter((file) => !(lateTags && file.startsWith("geist")))
+          // The ad landing page sets headings in Inter Tight only; every other face
+          // would compete with its hero image for a phone's bandwidth.
+          .filter((file) => !lateTags || file.startsWith("inter-tight"))
           .map((file) => (
           <link key={file} rel="preload" href={`/fonts/${file}.woff2`} as="font" type="font/woff2" crossOrigin="anonymous" />
         ))}
