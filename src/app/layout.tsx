@@ -72,10 +72,15 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         ))}
         {/* Homepage intro: decided before first paint, see src/lib/home-intro.ts */}
         <script dangerouslySetInnerHTML={{ __html: homeIntroScript }} />
-        {/* Google Consent Mode v2 - default: denied until the user accepts the cookie banner */}
+        {/* Google Consent Mode v2. Default is GRANTED: the site serves Turkey, where
+            measurement needs no opt-in (the EEA/UK rule does not apply). With the old
+            "denied until accepted" default, Analytics recorded 1 of 34 ad clicks in
+            30 days, so no form or WhatsApp result from ads was ever counted. The cookie
+            banner still works as an opt-out: "Reddet" switches everything to denied
+            (src/lib/analytics.ts), and that choice is remembered on later visits. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',wait_for_update:500});`,
+            __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{ad_storage:'granted',ad_user_data:'granted',ad_personalization:'granted',analytics_storage:'granted',wait_for_update:500});`,
           }}
         />
         {/* Google Ads */}

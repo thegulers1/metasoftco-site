@@ -27,6 +27,8 @@ export default function CookieConsentBanner() {
             applyConsent(stored);
             if (stored === "granted") loadAhrefsScript();
         }
+        // No stored choice: Google tags already run under the granted default set in
+        // app/layout.tsx; only Ahrefs waits for an explicit "Kabul Et".
     }, []);
 
     const decide = (state: ConsentState) => {
