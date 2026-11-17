@@ -35,12 +35,20 @@ export function getTransporter(): Transporter {
     return cached;
 }
 
-/** Formlardan gelen mesajların gönderileceği kutu. */
+/** Ana kutuya ek olarak her form bildiriminin kopyasının gideceği adresler. */
+const EXTRA_RECIPIENTS = ["selami@metasoftco.com"];
+
+/** Formlardan gelen mesajların gönderileceği kutular (virgülle ayrılmış). */
 export function getRecipient(): string {
-    return requiredEnv(
+    const primary = requiredEnv(
         "CONTACT_TO",
         process.env.CONTACT_TO ?? process.env.SMTP_REPLY_TO ?? process.env.SMTP_USER,
     );
+    const all = [...primary.split(","), ...EXTRA_RECIPIENTS]
+        .map((address) => address.trim())
+        .filter(Boolean);
+    const unique = [...new Map(all.map((a) => [a.toLowerCase(), a])).values()];
+    return unique.join(", ");
 }
 
 /** Zarf gönderici adresi; SMTP_USER ile uyumlu olmalı (Gmail aksi halde reddeder). */
