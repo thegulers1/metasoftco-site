@@ -42,11 +42,11 @@ export const softwareHomeCopy = {
     title: "Etkinliklerin arkasındaki\n{yazılım gücü.}",
     titleLabel: "Etkinliklerin arkasındaki yazılım gücü.",
     lede:
-        "Sahada gördüğünüz her yapay zeka deneyimini, paneli ve oyunu kendi ekibimiz yazıyor. Aynı ekip; mobil uygulamadan şirket içi süreç yazılımlarına kadar markanıza özel projeler geliştiriyor.",
+        "Etkinlik ve marka aktivasyonlarında kullanılan yapay zeka deneyimlerini, interaktif oyunları ve katılımcı ekranlarını kendi ekibimiz geliştiriyor. Bu yazılım birikimiyle markanıza özel mobil uygulama ve web projeleri de üretiyoruz.",
     cards: [
         { title: "Mobil Uygulama", body: "iOS ve Android için tek kod tabanıyla cross-platform uygulamalar." },
-        { title: "Web Uygulaması & Panel", body: "Yönetim panelleri, portallar ve kuruma özel CRM çözümleri." },
-        { title: "Süreç Yazılımları", body: "Talep, onay, iş akışı ve raporlama sistemleri." },
+        { title: "Web Uygulaması & Panel", body: "Kampanya mikro siteleri, katılımcı ekranları ve Data-Capture yönetim panelleri." },
+        { title: "Etkinlik Yazılımları", body: "Katılımcı akışları, QR ile paylaşım, skor tabloları ve aktivasyon raporlaması." },
         { title: "Yapay Zeka & Oyun", body: "AI entegrasyonları, Unity ile oyun ve eğitim uygulamaları." },
     ],
     proof: [

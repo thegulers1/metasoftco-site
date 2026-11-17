@@ -6,17 +6,17 @@ import { getSectors, hasEnglish } from "@/lib/industry-pages";
 // Read database content at request time; Docker builds have no database access.
 export const dynamic = "force-dynamic";
 
-const ogTitle = "Industry-Specific Software & Digital Transformation | MetasoftCo";
-const ogDescription = "Interactive event and software solutions tailored for your industry.";
+const ogTitle = "Industry Event & Brand Activation Solutions | MetasoftCo";
+const ogDescription = "Photo booths, interactive games and brand activations tailored for your industry.";
 const ogImage = ogImageUrl(ogTitle, ogDescription);
 
 export const metadata: Metadata = {
-    title: "Industry-Specific Software & Digital Transformation | MetasoftCo",
+    title: "Industry Event & Brand Activation Solutions | MetasoftCo",
     description:
         "Interactive event technologies and software solutions tailored for textile, healthcare, food, automotive, retail, finance, and technology sectors.",
     keywords: [
-        "industry software solutions",
-        "digital transformation",
+        "industry event solutions",
+        "industry brand activations",
         "sector-specific event technology",
         "interactive event solutions",
         "brand activation solutions turkey",

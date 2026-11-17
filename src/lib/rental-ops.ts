@@ -84,6 +84,10 @@ const tr: RentalOpsCopy = {
     serviceArea: `İstanbul Teknokent (Avcılar) merkezli MetasoftCo olarak ${cityList("tr")} başta olmak üzere Türkiye genelindeki kurumsal etkinlik, lansman ve fuarlar için anahtar teslim kurulum sağlıyoruz.`,
     cta: "Etkinlik İçin Teklif Al",
     faq: (serviceTitle, output) => [
+        {
+            q: "Etkinliğim için teklif almak üzere hangi bilgileri paylaşmalıyım?",
+            a: "Etkinlik tarihi, şehir ve mekân, kullanım süresi, tahmini katılımcı sayısı ve ilgilendiğiniz aktiviteyi paylaşın. Baskı ihtiyacı, cihaz veya ekip sayısı ve marka tasarımı kapsamını birlikte netleştirip etkinliğinize özel teklif hazırlayalım.",
+        },
         output === "instant"
             ? {
                 q: `${serviceTitle} fiyatı nasıl belirlenir?`,
@@ -150,6 +154,10 @@ const en: RentalOpsCopy = {
     serviceArea: `Based at İstanbul Teknokent (Avcılar), MetasoftCo provides turnkey installations for corporate events, launches and trade shows across Türkiye, including ${cityList("en")}.`,
     cta: "Get a Quote for Your Event",
     faq: (serviceTitle, output) => [
+        {
+            q: "What information do you need for an event quote?",
+            a: "Share the date, city and venue, duration, expected attendance and the activity you are interested in. We clarify print requirements, device or crew count and brand design scope, then prepare a quote for your event.",
+        },
         output === "instant"
             ? {
                 q: `How is ${serviceTitle} pricing determined?`,

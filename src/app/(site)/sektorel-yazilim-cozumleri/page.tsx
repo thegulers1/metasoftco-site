@@ -7,22 +7,22 @@ import { getSectors } from "@/lib/industry-pages";
 export const dynamic = "force-dynamic";
 
 export const metadata: Metadata = {
-    title: "Sektörel Yazılım Çözümleri ve Dijital Dönüşüm | MetasoftCo",
+    title: "Sektörel Etkinlik ve Marka Aktivasyonu Çözümleri | MetasoftCo",
     description:
         "Tekstil, sağlık, gıda, otomotiv, perakende, finans ve teknoloji sektörlerine özel interaktif etkinlik teknolojileri ve yazılım çözümleri. MetasoftCo sektörünüzü anlıyor.",
     keywords: [
-        "sektörel yazılım çözümleri",
-        "dijital dönüşüm",
+        "sektörel etkinlik çözümleri",
+        "sektörel marka aktivasyonu",
         "sektöre özel etkinlik teknolojisi",
         "interaktif etkinlik çözümleri",
         "marka aktivasyonu çözümleri türkiye",
     ],
     openGraph: {
-        title: "Sektörel Yazılım Çözümleri ve Dijital Dönüşüm | MetasoftCo",
-        description: "Sektörünüze özel interaktif etkinlik ve yazılım çözümleri.",
+        title: "Sektörel Etkinlik ve Marka Aktivasyonu Çözümleri | MetasoftCo",
+        description: "Sektörünüze özel photobooth, interaktif oyun ve marka aktivasyonu çözümleri.",
         url: `${siteConfig.url}/sektorel-yazilim-cozumleri`,
         siteName: siteConfig.name,
-        images: [{ url: `${siteConfig.url}/og?title=Sektörel+Yazılım+Çözümleri&desc=Dijital+dönüşüm+ve+etkinlik+teknolojileri`, width: 1200, height: 630 }],
+        images: [{ url: `${siteConfig.url}/og?title=Sektörel+Etkinlik+Çözümleri&desc=Marka+aktivasyonu+ve+etkinlik+teknolojileri`, width: 1200, height: 630 }],
         locale: siteConfig.locale,
         type: "website",
     },

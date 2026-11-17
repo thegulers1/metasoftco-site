@@ -5,7 +5,7 @@ export const siteConfig = {
     name: "MetasoftCo",
     title: "MetasoftCo | Yapay Zeka Etkinlik & İnteraktif Aktivasyon Ajansı — İstanbul",
     description:
-        "Etkinlik, lansman ve fuarlar için yapay zeka photobooth, interaktif oyun ve aktivasyon kiralama. Kurulum dahil, İstanbul merkezli, Türkiye geneli.",
+        "MetasoftCo, İstanbul merkezli bir etkinlik teknolojisi şirketidir. Türkiye genelinde AI photobooth, interaktif oyun ve marka aktivasyonu çözümleri sunar.",
     url: "https://www.metasoftco.com",
     locale: "tr_TR",
 
@@ -159,6 +159,7 @@ export function generateOrganizationSchema() {
         name: siteConfig.name,
         legalName: siteConfig.company.legalName,
         description: siteConfig.description,
+        knowsAbout: ["Etkinlik teknolojileri", "Marka aktivasyonu", "AI photobooth", "İnteraktif etkinlik oyunları", "Etkinlik yazılımı geliştirme"],
         url: siteConfig.url,
         logo: `${siteConfig.url}/blackLogo.png`,
         image: `${siteConfig.url}/og`,

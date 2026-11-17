@@ -31,10 +31,10 @@ const CITIES_EN = "Istanbul, Ankara, Izmir, Antalya, Muğla (Bodrum), Adana, Diy
 const tr: AboutDetail = {
     introTitle: "MetasoftCo nedir?",
     intro: [
-        "MetasoftCo, İstanbul Teknokent'te (Avcılar) bulunan bir etkinlik teknolojisi şirketidir. Markaların lansman, fuar, kurumsal etkinlik ve mağaza aktivasyonlarında kullandığı yapay zeka fotoğraf deneyimlerini, photobooth sistemlerini, interaktif oyunları ve VR/AR uygulamalarını kendi yazılımımızla geliştiriyor, anahtar teslim kiralıyoruz.",
+        "MetasoftCo, İstanbul Teknokent'te (Avcılar) bulunan bir etkinlik teknolojisi şirketidir. Markaların lansman, fuar, kurumsal etkinlik ve mağaza aktivasyonlarında kullandığı yapay zeka fotoğraf deneyimlerini, photobooth sistemlerini, interaktif oyunları ve VR/AR uygulamalarını kendi yazılımımızla geliştiriyor, anahtar teslim kiralıyoruz. Resmî web sitemiz www.metasoftco.com adresidir.",
         `2020'den bu yana Türkiye genelinde 1.000'i aşkın etkinlikte sahadayız. Kurulum yaptığımız şehirler arasında ${CITIES_TR} var. Adidas, Mercedes-Benz, Samsung, Turkcell, Garanti BBVA, Allianz, DeFacto ve Türkiye Cumhuriyet Merkez Bankası birlikte çalıştığımız markalardan bazıları.`,
     ],
-    originTitle: "Neden yazılım şirketi olarak başladık?",
+    originTitle: "Etkinlik deneyimlerini kendi yazılımımızla geliştiriyoruz",
     origin: [
         "MetasoftCo 2020'de bir yazılım şirketi olarak kuruldu; etkinlik teknolojilerine bu birikimle geçtik. Bu yüzden sahada çalışan deneyimlerin yazılımını hazır paketlerden değil, kendi ekibimizle geliştiriyoruz: kiosk ekran akışları, yapay zeka görüntü işleme hatları, QR ile paylaşım, skor tabloları ve Data-Capture paneli.",
         "Yazılımın bizde olması iki şey sağlıyor. Birincisi, bir deneyimi markanın kampanyasına göre gerçekten uyarlayabiliyoruz; yalnızca logo değiştirmekle kalmıyor, akışı, görsel dünyayı ve çıktıyı baştan kurguluyoruz. İkincisi, etkinlik günü bir sorun çıktığında bekleyeceğimiz bir üçüncü taraf yok; müdahaleyi sistemi yazan ekip yapıyor.",
@@ -49,7 +49,7 @@ const tr: AboutDetail = {
         { name: "VR ve AR deneyimleri", copy: "Sanal ve artırılmış gerçeklikle stant ve lansman deneyimleri.", href: "/hizmetler/vr-ar-deneyimleri" },
         { name: "Video aktivasyonları", copy: "360 Video Booth ve paylaşılabilir video çıktıları.", href: "/hizmetler/video" },
         { name: "Data-Capture ve CRM", copy: "Deneyimi KVKK'ya uygun bir potansiyel müşteri listesine çeviren isteğe bağlı modül.", href: "/hizmetler/data-capture-crm" },
-        { name: "Yazılım geliştirme", copy: "Etkinlik mikro siteleri, uygulamalar ve markaya özel yazılımlar.", href: "/hizmetler/yazilim-gelistirme" },
+        { name: "Etkinlik ve marka aktivasyonu yazılımları", copy: "Etkinlik mikro siteleri, uygulamalar ve markaya özel yazılımlar.", href: "/hizmetler/yazilim-gelistirme" },
     ],
     fieldTitle: "Sahada nasıl çalışıyoruz",
     fieldMeta: "ANAHTAR TESLİM",
@@ -96,10 +96,10 @@ const tr: AboutDetail = {
 const en: AboutDetail = {
     introTitle: "What is MetasoftCo?",
     intro: [
-        "MetasoftCo is an event technology company based at İstanbul Teknokent (Avcılar). We build AI photo experiences, photo booth systems, interactive games and VR/AR applications on our own software, and rent them turnkey to brands for launches, trade shows, corporate events and in-store activations.",
+        "MetasoftCo is an event technology company based at İstanbul Teknokent (Avcılar). We build AI photo experiences, photo booth systems, interactive games and VR/AR applications on our own software, and rent them turnkey to brands for launches, trade shows, corporate events and in-store activations. Our official website is www.metasoftco.com.",
         `Since 2020 we have delivered more than 1,000 events across Türkiye, with installations in ${CITIES_EN}. Brands we have worked with include Adidas, Mercedes-Benz, Samsung, Turkcell, Garanti BBVA, Allianz, DeFacto and the Central Bank of the Republic of Türkiye.`,
     ],
-    originTitle: "Why we started as a software company",
+    originTitle: "Our own software powers the event experience",
     origin: [
         "MetasoftCo was founded in 2020 as a software company and moved into event technology with that background. That is why the software behind our experiences is written by our own team rather than bought off the shelf: kiosk screen flows, AI image pipelines, QR sharing, leaderboards and the Data-Capture dashboard.",
         "Owning the software does two things. We can genuinely adapt an experience to a brand's campaign, rebuilding the flow, the visual world and the output rather than only swapping a logo. And when something goes wrong on the day, there is no third party to wait for; the people who wrote the system fix it.",
@@ -113,7 +113,7 @@ const en: AboutDetail = {
         { name: "Interactive event games", copy: "Reflex Game, Reflex Wall, digital gift wheel, memory game and branded custom games.", href: "/en/services/interactive-event-activities" },
         { name: "VR and AR experiences", copy: "Virtual and augmented reality for stands and launches.", href: "/en/services/vr-ar-experiences" },
         { name: "Video activations", copy: "360 video booth and shareable video output.", href: "/en/services/video" },
-        { name: "Software development", copy: "Event micro-sites, apps and custom software for brands.", href: "/en/services/software-development" },
+        { name: "Event and brand activation software", copy: "Event micro-sites, apps and custom software for brands.", href: "/en/services/software-development" },
     ],
     fieldTitle: "How we work on site",
     fieldMeta: "TURNKEY",

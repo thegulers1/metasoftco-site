@@ -1,0 +1,272 @@
+{
+  "checkedAt": "2026-11-17T17:42:07.818201+00:00",
+  "results": [
+    {
+      "url": "http://metasoftco.com/",
+      "status": 301,
+      "location": "https://metasoftco.com/",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [
+        "301 Moved Permanently"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "http://www.metasoftco.com/",
+      "status": 301,
+      "location": "https://www.metasoftco.com/",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [
+        "301 Moved Permanently"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "https://metasoftco.com/",
+      "status": 301,
+      "location": "https://www.metasoftco.com/",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [],
+      "apexLinks": []
+    },
+    {
+      "url": "https://www.metasoftco.com/",
+      "error": "curl: (28) Operation timed out after 20004 milliseconds with 0 bytes received"
+    },
+    {
+      "url": "http://metasoftco.com/hakkimizda",
+      "status": 301,
+      "location": "https://metasoftco.com/hakkimizda",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [
+        "301 Moved Permanently"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "http://www.metasoftco.com/hakkimizda",
+      "status": 301,
+      "location": "https://www.metasoftco.com/hakkimizda",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [
+        "301 Moved Permanently"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "https://metasoftco.com/hakkimizda",
+      "status": 301,
+      "location": "https://www.metasoftco.com/hakkimizda",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [],
+      "apexLinks": []
+    },
+    {
+      "url": "https://www.metasoftco.com/hakkimizda",
+      "error": "curl: (28) Connection timed out after 20006 milliseconds"
+    },
+    {
+      "url": "http://metasoftco.com/blog/yapay-zeka-yuz-degistirme-face-swap-nasil-calisir",
+      "status": 301,
+      "location": "https://metasoftco.com/blog/yapay-zeka-yuz-degistirme-face-swap-nasil-calisir",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [
+        "301 Moved Permanently"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "http://www.metasoftco.com/blog/yapay-zeka-yuz-degistirme-face-swap-nasil-calisir",
+      "status": 301,
+      "location": "https://www.metasoftco.com/blog/yapay-zeka-yuz-degistirme-face-swap-nasil-calisir",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [
+        "301 Moved Permanently"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "https://metasoftco.com/blog/yapay-zeka-yuz-degistirme-face-swap-nasil-calisir",
+      "error": "curl: (28) Connection timed out after 20005 milliseconds"
+    },
+    {
+      "url": "https://www.metasoftco.com/blog/yapay-zeka-yuz-degistirme-face-swap-nasil-calisir",
+      "error": "curl: (28) Connection timed out after 20004 milliseconds"
+    },
+    {
+      "url": "http://metasoftco.com/hizmetler/interaktif-etkinlik-aktiviteleri/reflex-game-hiz-ve-rekabet-oyunu",
+      "status": 301,
+      "location": "https://metasoftco.com/hizmetler/interaktif-etkinlik-aktiviteleri/reflex-game-hiz-ve-rekabet-oyunu",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [
+        "301 Moved Permanently"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "http://www.metasoftco.com/hizmetler/interaktif-etkinlik-aktiviteleri/reflex-game-hiz-ve-rekabet-oyunu",
+      "status": 301,
+      "location": "https://www.metasoftco.com/hizmetler/interaktif-etkinlik-aktiviteleri/reflex-game-hiz-ve-rekabet-oyunu",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [
+        "301 Moved Permanently"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "https://metasoftco.com/hizmetler/interaktif-etkinlik-aktiviteleri/reflex-game-hiz-ve-rekabet-oyunu",
+      "status": 301,
+      "location": "https://www.metasoftco.com/hizmetler/interaktif-etkinlik-aktiviteleri/reflex-game-hiz-ve-rekabet-oyunu",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [],
+      "apexLinks": []
+    },
+    {
+      "url": "https://www.metasoftco.com/hizmetler/interaktif-etkinlik-aktiviteleri/reflex-game-hiz-ve-rekabet-oyunu",
+      "error": "curl: (28) Operation timed out after 20002 milliseconds with 84197 bytes received"
+    },
+    {
+      "url": "http://metasoftco.com/projeler/defacto-x-afra-saracoglu-ai-fashion-experience",
+      "status": 301,
+      "location": "https://metasoftco.com/projeler/defacto-x-afra-saracoglu-ai-fashion-experience",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [
+        "301 Moved Permanently"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "http://www.metasoftco.com/projeler/defacto-x-afra-saracoglu-ai-fashion-experience",
+      "status": 301,
+      "location": "https://www.metasoftco.com/projeler/defacto-x-afra-saracoglu-ai-fashion-experience",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [
+        "301 Moved Permanently"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "https://metasoftco.com/projeler/defacto-x-afra-saracoglu-ai-fashion-experience",
+      "status": 301,
+      "location": "https://www.metasoftco.com/projeler/defacto-x-afra-saracoglu-ai-fashion-experience",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [],
+      "apexLinks": []
+    },
+    {
+      "url": "https://www.metasoftco.com/projeler/defacto-x-afra-saracoglu-ai-fashion-experience",
+      "error": "curl: (28) Connection timed out after 20002 milliseconds"
+    },
+    {
+      "url": "http://metasoftco.com/en/blog/how-ai-face-swap-technology-works",
+      "status": 301,
+      "location": "https://metasoftco.com/en/blog/how-ai-face-swap-technology-works",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [
+        "301 Moved Permanently"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "http://www.metasoftco.com/en/blog/how-ai-face-swap-technology-works",
+      "status": 301,
+      "location": "https://www.metasoftco.com/en/blog/how-ai-face-swap-technology-works",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [
+        "301 Moved Permanently"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "https://metasoftco.com/en/blog/how-ai-face-swap-technology-works",
+      "status": 301,
+      "location": "https://www.metasoftco.com/en/blog/how-ai-face-swap-technology-works",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [],
+      "apexLinks": []
+    },
+    {
+      "url": "https://www.metasoftco.com/en/blog/how-ai-face-swap-technology-works",
+      "error": "curl: (28) Operation timed out after 20004 milliseconds with 39656 bytes received"
+    },
+    {
+      "url": "https://metasoftco.com/hakkimizda?utm_source=canonical-audit",
+      "status": 301,
+      "location": "https://www.metasoftco.com/hakkimizda?utm_source=canonical-audit",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [],
+      "apexLinks": []
+    },
+    {
+      "url": "https://event.metasoftco.com/",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://event.metasoftco.com/"
+      ],
+      "robots": [
+        "noindex, nofollow"
+      ],
+      "xRobots": [
+        "noindex, nofollow"
+      ],
+      "title": [
+        "EventCo — Photo booth &amp; AI event experience software for agencies"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "https://www.metasoftco.com/sitemap.xml",
+      "error": "curl: (28) Operation timed out after 20005 milliseconds with 13672 bytes received",
+      "urlCount": 0,
+      "nonCanonicalHosts": []
+    },
+    {
+      "url": "https://www.metasoftco.com/robots.txt",
+      "status": 200,
+      "location": null,
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [],
+      "apexLinks": [],
+      "text": "User-Agent: *\nAllow: /\nDisallow: /editpanel\nDisallow: /api\nDisallow: /login\nDisallow: /teklif\nDisallow: /wp-admin\nDisallow: /wp-content\nDisallow: /wp-includes\nDisallow: /wp-json\nDisallow: /wp-login.php\nDisallow: /xmlrpc.php\n\nUser-Agent: GPTBot\nAllow: /\nDisallow: /editpanel\nDisallow: /api\nDisallow: /login\nDisallow: /teklif\nDisallow: /wp-admin\nDisallow: /wp-content\nDisallow: /wp-includes\nDisallow: /wp-json\nDisallow: /wp-login.php\nDisallow: /xmlrpc.php\n\nUser-Agent: ClaudeBot\nAllow: /\nDisallow: /editpanel\nDisallow: /api\nDisallow: /login\nDisallow: /teklif\nDisallow: /wp-admin\nDisallow: /wp-content\nDisallow: /wp-includes\nDisallow: /wp-json\nDisallow: /wp-login.php\nDisallow: /xmlrpc.php\n\nUser-Agent: PerplexityBot\nAllow: /\nDisallow: /editpanel\nDisallow: /api\nDisallow: /login\nDisallow: /teklif\nDisallow: /wp-admin\nDisallow: /wp-content\nDisallow: /wp-includes\nDisallow: /wp-json\nDisallow: /wp-login.php\nDisallow: /xmlrpc.php\n\nUser-Agent: Google-Extended\nAllow: /\nDisallow: /editpanel\nDisallow: /api\nDisallow: /login\nDisallow: /teklif\nDisallow: /wp-admin\nDisallow: /wp-content\nDisallow: /wp-includes\nDisallow: /wp-json\nDisallow: /wp-login.php\nDisallow: /xmlrpc.php\n\nUser-Agent: Meta-ExternalAgent\nAllow: /\nDisallow: /editpanel\nDisallow: /api\nDisallow: /login\nDisallow: /teklif\nDisallow: /wp-admin\nDisallow: /wp-content\nDisallow: /wp-includes\nDisallow: /wp-json\nDisallow: /wp-login.php\nDisallow: /xmlrpc.php\n\nUser-Agent: cohere-ai\nAllow: /\nDisallow: /editpanel\nDisallow: /api\nDisallow: /login\nDisallow: /teklif\nDisallow: /wp-admin\nDisallow: /wp-content\nDisallow: /wp-includes\nDisallow: /wp-json\nDisallow: /wp-login.php\nDisallow: /xmlrpc.php\n\nSitemap: https://www.metasoftco.com/sitemap.xml\n"
+    }
+  ]
+}

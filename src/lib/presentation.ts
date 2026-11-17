@@ -65,7 +65,7 @@ const CATEGORY_LEADS: Record<string, string> = {
     "vr-ar-deneyimleri":
         "Sanal ve artırılmış gerçeklikle katılımcıları başka bir dünyaya taşıyan, izleyenleri de heyecanlandıran sahne deneyimleri.",
     [SOFTWARE_CATEGORY_SLUG]:
-        "Etkinlik teknolojilerini geliştiren aynı ekip: mobil uygulama, web paneli, süreç yazılımı ve yapay zekâ entegrasyonu.",
+        "Etkinlik ve marka aktivasyonları için aynı ekipten mikro site, mobil uygulama, katılımcı paneli ve yapay zekâ entegrasyonu.",
 };
 
 const TR_MONTHS = ["Ocak", "Şubat", "Mart", "Nisan", "Mayıs", "Haziran", "Temmuz", "Ağustos", "Eylül", "Ekim", "Kasım", "Aralık"];

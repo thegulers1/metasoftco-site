@@ -1,0 +1,350 @@
+{
+  "checkedAt": "2026-11-17T17:43:14.418905+00:00",
+  "results": [
+    {
+      "url": "http://metasoftco.com/",
+      "status": 301,
+      "location": "https://metasoftco.com/",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [
+        "301 Moved Permanently"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "http://www.metasoftco.com/",
+      "status": 301,
+      "location": "https://www.metasoftco.com/",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [
+        "301 Moved Permanently"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "https://metasoftco.com/",
+      "status": 301,
+      "location": "https://www.metasoftco.com/",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [],
+      "apexLinks": []
+    },
+    {
+      "url": "https://www.metasoftco.com/",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://www.metasoftco.com"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "xRobots": [],
+      "title": [
+        "MetasoftCo | Yapay Zeka Etkinlik &amp; İnteraktif Aktivasyon Ajansı — İstanbul"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "http://metasoftco.com/hakkimizda",
+      "status": 301,
+      "location": "https://metasoftco.com/hakkimizda",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [
+        "301 Moved Permanently"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "http://www.metasoftco.com/hakkimizda",
+      "status": 301,
+      "location": "https://www.metasoftco.com/hakkimizda",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [
+        "301 Moved Permanently"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "https://metasoftco.com/hakkimizda",
+      "status": 301,
+      "location": "https://www.metasoftco.com/hakkimizda",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [],
+      "apexLinks": []
+    },
+    {
+      "url": "https://www.metasoftco.com/hakkimizda",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://www.metasoftco.com/hakkimizda"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "xRobots": [],
+      "title": [
+        "Hakkımızda | MetasoftCo — İstanbul Dijital Deneyim &amp; Aktivasyon Ajansı"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "http://metasoftco.com/blog/yapay-zeka-yuz-degistirme-face-swap-nasil-calisir",
+      "status": 301,
+      "location": "https://metasoftco.com/blog/yapay-zeka-yuz-degistirme-face-swap-nasil-calisir",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [
+        "301 Moved Permanently"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "http://www.metasoftco.com/blog/yapay-zeka-yuz-degistirme-face-swap-nasil-calisir",
+      "status": 301,
+      "location": "https://www.metasoftco.com/blog/yapay-zeka-yuz-degistirme-face-swap-nasil-calisir",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [
+        "301 Moved Permanently"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "https://metasoftco.com/blog/yapay-zeka-yuz-degistirme-face-swap-nasil-calisir",
+      "status": 301,
+      "location": "https://www.metasoftco.com/blog/yapay-zeka-yuz-degistirme-face-swap-nasil-calisir",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [],
+      "apexLinks": []
+    },
+    {
+      "url": "https://www.metasoftco.com/blog/yapay-zeka-yuz-degistirme-face-swap-nasil-calisir",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://www.metasoftco.com/blog/yapay-zeka-yuz-degistirme-face-swap-nasil-calisir"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "xRobots": [],
+      "title": [
+        "Face Swap Ne Demek? Yapay Zeka ile Yüz Değiştirme Rehberi"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "http://metasoftco.com/hizmetler/interaktif-etkinlik-aktiviteleri/reflex-game-hiz-ve-rekabet-oyunu",
+      "status": 301,
+      "location": "https://metasoftco.com/hizmetler/interaktif-etkinlik-aktiviteleri/reflex-game-hiz-ve-rekabet-oyunu",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [
+        "301 Moved Permanently"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "http://www.metasoftco.com/hizmetler/interaktif-etkinlik-aktiviteleri/reflex-game-hiz-ve-rekabet-oyunu",
+      "status": 301,
+      "location": "https://www.metasoftco.com/hizmetler/interaktif-etkinlik-aktiviteleri/reflex-game-hiz-ve-rekabet-oyunu",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [
+        "301 Moved Permanently"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "https://metasoftco.com/hizmetler/interaktif-etkinlik-aktiviteleri/reflex-game-hiz-ve-rekabet-oyunu",
+      "status": 301,
+      "location": "https://www.metasoftco.com/hizmetler/interaktif-etkinlik-aktiviteleri/reflex-game-hiz-ve-rekabet-oyunu",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [],
+      "apexLinks": []
+    },
+    {
+      "url": "https://www.metasoftco.com/hizmetler/interaktif-etkinlik-aktiviteleri/reflex-game-hiz-ve-rekabet-oyunu",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://www.metasoftco.com/hizmetler/interaktif-etkinlik-aktiviteleri/reflex-game-hiz-ve-rekabet-oyunu"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "xRobots": [],
+      "title": [
+        "Reflex Game Kiralama | Refleks Oyunu — MetasoftCo"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "http://metasoftco.com/projeler/defacto-x-afra-saracoglu-ai-fashion-experience",
+      "status": 301,
+      "location": "https://metasoftco.com/projeler/defacto-x-afra-saracoglu-ai-fashion-experience",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [
+        "301 Moved Permanently"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "http://www.metasoftco.com/projeler/defacto-x-afra-saracoglu-ai-fashion-experience",
+      "status": 301,
+      "location": "https://www.metasoftco.com/projeler/defacto-x-afra-saracoglu-ai-fashion-experience",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [
+        "301 Moved Permanently"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "https://metasoftco.com/projeler/defacto-x-afra-saracoglu-ai-fashion-experience",
+      "status": 301,
+      "location": "https://www.metasoftco.com/projeler/defacto-x-afra-saracoglu-ai-fashion-experience",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [],
+      "apexLinks": []
+    },
+    {
+      "url": "https://www.metasoftco.com/projeler/defacto-x-afra-saracoglu-ai-fashion-experience",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://www.metasoftco.com/projeler/defacto-x-afra-saracoglu-ai-fashion-experience"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "xRobots": [],
+      "title": [
+        "DeFacto x Afra Saraçoğlu: Yapay Zeka ile Sanal Deneme"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "http://metasoftco.com/en/blog/how-ai-face-swap-technology-works",
+      "status": 301,
+      "location": "https://metasoftco.com/en/blog/how-ai-face-swap-technology-works",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [
+        "301 Moved Permanently"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "http://www.metasoftco.com/en/blog/how-ai-face-swap-technology-works",
+      "status": 301,
+      "location": "https://www.metasoftco.com/en/blog/how-ai-face-swap-technology-works",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [
+        "301 Moved Permanently"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "https://metasoftco.com/en/blog/how-ai-face-swap-technology-works",
+      "error": "curl: (28) Connection timed out after 25002 milliseconds"
+    },
+    {
+      "url": "https://www.metasoftco.com/en/blog/how-ai-face-swap-technology-works",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://www.metasoftco.com/en/blog/how-ai-face-swap-technology-works"
+      ],
+      "robots": [
+        "index, follow"
+      ],
+      "xRobots": [],
+      "title": [
+        "What Is Face Swap? How AI Face Swapping Works | MetasoftCo"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "https://metasoftco.com/hakkimizda?utm_source=canonical-audit",
+      "status": 301,
+      "location": "https://www.metasoftco.com/hakkimizda?utm_source=canonical-audit",
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [],
+      "apexLinks": []
+    },
+    {
+      "url": "https://event.metasoftco.com/",
+      "status": 200,
+      "location": null,
+      "canonical": [
+        "https://event.metasoftco.com/"
+      ],
+      "robots": [
+        "noindex, nofollow"
+      ],
+      "xRobots": [
+        "noindex, nofollow"
+      ],
+      "title": [
+        "EventCo — Photo booth &amp; AI event experience software for agencies"
+      ],
+      "apexLinks": []
+    },
+    {
+      "url": "https://www.metasoftco.com/sitemap.xml",
+      "status": 200,
+      "location": null,
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [],
+      "apexLinks": [],
+      "urlCount": 245,
+      "nonCanonicalHosts": []
+    },
+    {
+      "url": "https://www.metasoftco.com/robots.txt",
+      "status": 200,
+      "location": null,
+      "canonical": [],
+      "robots": [],
+      "xRobots": [],
+      "title": [],
+      "apexLinks": [],
+      "text": "User-Agent: *\nAllow: /\nDisallow: /editpanel\nDisallow: /api\nDisallow: /login\nDisallow: /teklif\nDisallow: /wp-admin\nDisallow: /wp-content\nDisallow: /wp-includes\nDisallow: /wp-json\nDisallow: /wp-login.php\nDisallow: /xmlrpc.php\n\nUser-Agent: GPTBot\nAllow: /\nDisallow: /editpanel\nDisallow: /api\nDisallow: /login\nDisallow: /teklif\nDisallow: /wp-admin\nDisallow: /wp-content\nDisallow: /wp-includes\nDisallow: /wp-json\nDisallow: /wp-login.php\nDisallow: /xmlrpc.php\n\nUser-Agent: ClaudeBot\nAllow: /\nDisallow: /editpanel\nDisallow: /api\nDisallow: /login\nDisallow: /teklif\nDisallow: /wp-admin\nDisallow: /wp-content\nDisallow: /wp-includes\nDisallow: /wp-json\nDisallow: /wp-login.php\nDisallow: /xmlrpc.php\n\nUser-Agent: PerplexityBot\nAllow: /\nDisallow: /editpanel\nDisallow: /api\nDisallow: /login\nDisallow: /teklif\nDisallow: /wp-admin\nDisallow: /wp-content\nDisallow: /wp-includes\nDisallow: /wp-json\nDisallow: /wp-login.php\nDisallow: /xmlrpc.php\n\nUser-Agent: Google-Extended\nAllow: /\nDisallow: /editpanel\nDisallow: /api\nDisallow: /login\nDisallow: /teklif\nDisallow: /wp-admin\nDisallow: /wp-content\nDisallow: /wp-includes\nDisallow: /wp-json\nDisallow: /wp-login.php\nDisallow: /xmlrpc.php\n\nUser-Agent: Meta-ExternalAgent\nAllow: /\nDisallow: /editpanel\nDisallow: /api\nDisallow: /login\nDisallow: /teklif\nDisallow: /wp-admin\nDisallow: /wp-content\nDisallow: /wp-includes\nDisallow: /wp-json\nDisallow: /wp-login.php\nDisallow: /xmlrpc.php\n\nUser-Agent: cohere-ai\nAllow: /\nDisallow: /editpanel\nDisallow: /api\nDisallow: /login\nDisallow: /teklif\nDisallow: /wp-admin\nDisallow: /wp-content\nDisallow: /wp-includes\nDisallow: /wp-json\nDisallow: /wp-login.php\nDisallow: /xmlrpc.php\n\nSitemap: https://www.metasoftco.com/sitemap.xml\n"
+    }
+  ]
+}

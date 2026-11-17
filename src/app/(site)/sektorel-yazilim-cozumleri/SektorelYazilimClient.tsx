@@ -16,8 +16,8 @@ interface SektorelYazilimClientProps {
 }
 
 const copy = {
-    tr: { kicker: (n: number) => `(SEKTÖRE ÖZEL DİJİTAL DÖNÜŞÜM) — ${n} SEKTÖR`, city: "İSTANBUL", title: "Sektörel yazılım\nçözümleri.", lede: "Her sektörün iş akışı, mevzuatı ve kullanıcısı farklıdır. Etkinlik yazılımlarını geliştiren aynı ekip; sektörünüze özel panel, mobil uygulama ve süreç yazılımlarını da geliştirir.", open: "İNCELE", all: "TÜM YAZILIM HİZMETLERİ →", allHref: "/hizmetler/yazilim-gelistirme" },
-    en: { kicker: (n: number) => `(SECTOR-SPECIFIC DIGITAL TRANSFORMATION) — ${n} SECTORS`, city: "ISTANBUL", title: "Sectoral software\nsolutions.", lede: "Every sector has its own workflow, regulation and users. The team that builds our event software also builds sector-specific panels, mobile apps and process software.", open: "VIEW", all: "ALL SOFTWARE SERVICES →", allHref: "/en/services/software-development" },
+    tr: { kicker: (n: number) => `(SEKTÖRE ÖZEL MARKA AKTİVASYONU) — ${n} SEKTÖR`, city: "İSTANBUL", title: "Sektörel etkinlik\nçözümleri.", lede: "Her sektörün hedef kitlesi ve etkinlik amacı farklıdır. Lansman, fuar ve mağaza aktivasyonları için photobooth, interaktif oyun ve markaya özel etkinlik yazılımlarını sektörünüze göre tasarlıyoruz.", open: "İNCELE", all: "ETKİNLİK YAZILIMI GELİŞTİRME →", allHref: "/hizmetler/yazilim-gelistirme" },
+    en: { kicker: (n: number) => `(INDUSTRY BRAND ACTIVATIONS) — ${n} SECTORS`, city: "ISTANBUL", title: "Industry event\nsolutions.", lede: "Every industry has its own audience and event goals. We tailor photo booths, interactive games and branded event software for launches, trade shows and in-store activations.", open: "VIEW", all: "EVENT SOFTWARE DEVELOPMENT →", allHref: "/en/services/software-development" },
 };
 
 /** /sektorel-yazilim-cozumleri and /en/industry-software-solutions, as full-width rows. */

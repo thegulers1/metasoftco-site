@@ -23,19 +23,20 @@ type SitemapEntry = MetadataRoute.Sitemap[number];
  * listing pages take their date from the newest item they list instead.
  */
 const codePageUpdated = {
-    home: "2026-10-23",
+    home: "2026-11-17",
     /** Templates of /hizmetler, /projeler, /blog, /urunler; their date is at least this. */
     listings: "2026-10-21",
-    about: "2026-10-21",
+    about: "2026-11-17",
     contact: "2026-10-21",
     legal: "2026-10-16",
+    industry: "2026-11-17",
     corporate: "2026-10-09",
     fairs: "2026-10-09",
     ramadan: "2026-11-10",
     newYear: "2026-11-02",
     dataCapture: "2026-09-23",
     microSite: "2026-09-29",
-    presentation: "2026-09-26",
+    presentation: "2026-11-17",
     team: "2026-10-20",
 } as const;
 
@@ -84,7 +85,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const blogList = newest(posts.map((p) => p.updatedAt), codePageUpdated.listings);
     const products = newest(saleServices.map((s) => s.updatedAt), codePageUpdated.listings);
     const sectors = await getSectors();
-    const industryList = newest(sectors.map((s) => s.updatedAt), codePageUpdated.legal);
+    const industryList = newest(sectors.map((s) => s.updatedAt), codePageUpdated.industry);
     const sectorList = newest(sectorPages.map((p) => p.updatedAt), codePageUpdated.legal);
 
     const staticPages = [

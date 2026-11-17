@@ -47,7 +47,7 @@ const SOLUTION_PAGES = [
     { title: "Ankara Photobooth Kiralama", path: "/hizmetler/ankara-photobooth-kiralama", note: "Ankara'da photobooth ve etkinlik teknolojisi kiralama." },
     { title: "İzmir Photobooth Kiralama", path: "/hizmetler/izmir-photobooth-kiralama", note: "İzmir'de photobooth ve etkinlik teknolojisi kiralama." },
     { title: "Antalya Photobooth Kiralama", path: "/hizmetler/antalya-photobooth-kiralama", note: "Antalya'da photobooth ve etkinlik teknolojisi kiralama." },
-    { title: "Yazılım Geliştirme", path: `/hizmetler/${SOFTWARE_CATEGORY_SLUG}`, note: "Mobil uygulama, web uygulaması ve panel, süreç yazılımı, yapay zeka entegrasyonu, oyun ve eğitim uygulamaları." },
+    { title: "Yazılım Geliştirme", path: `/hizmetler/${SOFTWARE_CATEGORY_SLUG}`, note: "Etkinlik ve marka aktivasyonu için mikro site, mobil uygulama, katılımcı paneli, yapay zeka entegrasyonu ve interaktif oyun geliştirme." },
 ];
 
 const OUTPUT_LABEL: Record<RentalOutput, string> = {
@@ -114,7 +114,7 @@ function header(): string[] {
     return [
         "# MetasoftCo — Kurumsal Etkinlik Teknolojileri, Yapay Zeka Aktivasyonları ve Kiralama",
         "",
-        "> İstanbul Teknokent merkezli etkinlik teknolojisi ve yazılım şirketi. 2020'den bu yana 1.000+ etkinlik, 100+ marka. Yapay zeka fotoğraf, photobooth, interaktif oyun ve AR aktivasyonlarını Türkiye genelinde anahtar teslim kiralar; mikro site, uygulama ve lead toplama (Data-Capture & CRM) yazılımını aynı ekiple geliştirir.",
+        "> İstanbul Teknokent merkezli etkinlik teknolojisi şirketi. 2020'den bu yana 1.000+ etkinlik, 100+ marka. Yapay zeka fotoğraf, photobooth, interaktif oyun ve AR aktivasyonlarını Türkiye genelinde anahtar teslim kiralar; mikro site, uygulama ve lead toplama (Data-Capture & CRM) yazılımını aynı ekiple geliştirir.",
         "",
         "## Doğrulanmış bilgiler",
         "",
@@ -138,7 +138,7 @@ function contact(): string[] {
         "",
         "## English summary",
         "",
-        `MetasoftCo is an event technology and software company based at İstanbul Teknokent, founded in 2020 as a software company. 1,000+ events and 100+ brands. It rents AI photo, photobooth, interactive game and AR activations turnkey across Türkiye (${SERVICE_CITIES.join(", ")}): transport, setup, at least 2 on-site technicians, branded kiosk wrap and interface included; own 5G connectivity, a single 220V socket needed; print activations include 750 prints. The same team builds event micro-sites (delivered in 2 days), apps and the Data-Capture & CRM lead module. Contact: ${siteConfig.contact.email} · ${base}/en`,
+        `MetasoftCo is an event technology company based at İstanbul Teknokent, founded in 2020 as a software company. 1,000+ events and 100+ brands. It rents AI photo, photobooth, interactive game and AR activations turnkey across Türkiye (${SERVICE_CITIES.join(", ")}): transport, setup, at least 2 on-site technicians, branded kiosk wrap and interface included; own 5G connectivity, a single 220V socket needed; print activations include 750 prints. The same team builds event micro-sites (delivered in 2 days), apps and the Data-Capture & CRM lead module. Contact: ${siteConfig.contact.email} · ${base}/en`,
         "",
     ];
 }
