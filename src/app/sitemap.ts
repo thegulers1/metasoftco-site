@@ -12,6 +12,7 @@ import {
 } from "@/lib/publication";
 import { getSectors, hasEnglish } from "@/lib/industry-pages";
 import { team, teamMemberPath } from "@/lib/team";
+import { newYearProductSlugs } from "@/lib/new-year-products";
 
 export const dynamic = "force-dynamic";
 
@@ -34,6 +35,8 @@ const codePageUpdated = {
     fairs: "2026-10-09",
     ramadan: "2026-11-10",
     newYear: "2026-11-02",
+    /** /hizmetler/yilbasi-<urun>-kiralama pages (src/lib/new-year-products.ts). */
+    newYearProducts: "2026-11-18",
     dataCapture: "2026-09-23",
     microSite: "2026-09-29",
     presentation: "2026-11-17",
@@ -105,6 +108,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         entry("/hizmetler/fuar-aktivasyonlari", day(codePageUpdated.fairs), 0.6),
         entry("/hizmetler/ramazan-etkinlikleri", day(codePageUpdated.ramadan), 0.7),
         entry("/hizmetler/yilbasi-partisi-aktiviteleri", day(codePageUpdated.newYear), 0.7),
+        ...newYearProductSlugs.map((slug) => entry(`/hizmetler/${slug}`, day(codePageUpdated.newYearProducts), 0.6)),
         ...sectorPages.filter((page) => page.slug === "magaza-ici-kalici-photobooth").map((page) => entry(`/hizmetler/${page.slug}`, page.updatedAt, 0.6)),
         ...sectorPages.filter((page) => cityLandingSlugs.includes(page.slug)).flatMap((page) => [
             entry(`/hizmetler/${page.slug}`, page.updatedAt, 0.6),
