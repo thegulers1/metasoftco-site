@@ -26,7 +26,7 @@ const codePageUpdated = {
     home: "2026-11-17",
     /** Templates of /hizmetler, /projeler, /blog, /urunler; their date is at least this. */
     listings: "2026-10-21",
-    about: "2026-11-17",
+    about: "2026-11-18",
     contact: "2026-10-21",
     legal: "2026-10-16",
     industry: "2026-11-18",

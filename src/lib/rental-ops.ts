@@ -45,6 +45,15 @@ export interface RentalOpsCopy {
     faq: (serviceTitle: string, output: RentalOutput) => { q: string; a: string }[];
 }
 
+/**
+ * Named clients outside İstanbul, confirmed by the team (Nov 2026). One
+ * sentence per locale so FAQ, About, llms.txt and the services hub agree.
+ */
+export const CITY_CLIENTS: Record<RentalOpsLocale, string> = {
+    tr: "Şehir dışı referanslarımızdan bazıları: Ankara'da TRT ve Anadolu Ajansı; İzmir, Çorum ve Diyarbakır'da Turkcell; Antalya'da Rijk Zwaan; Adana'da DeFacto.",
+    en: "Out-of-town references include TRT and Anadolu Agency in Ankara; Turkcell in Izmir, Çorum and Diyarbakır; Rijk Zwaan in Antalya; and DeFacto in Adana.",
+};
+
 const cityList = (locale: RentalOpsLocale) => {
     const joiner = locale === "en" ? " and " : " ve ";
     return `${SERVICE_CITIES.slice(0, -1).join(", ")}${joiner}${SERVICE_CITIES.at(-1)}`;
@@ -115,7 +124,7 @@ const tr: RentalOpsCopy = {
         }]),
         {
             q: "Hangi şehirlerde hizmet veriyorsunuz?",
-            a: `İstanbul merkezliyiz ve Türkiye genelinde hizmet veriyoruz. Bugüne kadar ${cityList("tr")} başta olmak üzere birçok şehirde kurulum yaptık. Şehir dışı etkinliklerde ulaşım ve konaklama teklife dahil edilir ya da sizin organizasyonunuzla planlanır.`,
+            a: `İstanbul merkezliyiz ve Türkiye genelinde hizmet veriyoruz. Bugüne kadar ${cityList("tr")} başta olmak üzere birçok şehirde kurulum yaptık. ${CITY_CLIENTS.tr} Şehir dışı etkinliklerde ulaşım ve konaklama teklife dahil edilir ya da sizin organizasyonunuzla planlanır.`,
         },
     ],
 };
@@ -185,7 +194,7 @@ const en: RentalOpsCopy = {
         }]),
         {
             q: "Which cities do you serve?",
-            a: `We are based in İstanbul and work across Türkiye, with installations so far in ${cityList("en")}, among others. For events outside İstanbul, travel and accommodation are either included in the quote or arranged by your team.`,
+            a: `We are based in İstanbul and work across Türkiye, with installations so far in ${cityList("en")}, among others. ${CITY_CLIENTS.en} For events outside İstanbul, travel and accommodation are either included in the quote or arranged by your team.`,
         },
     ],
 };

@@ -1,3 +1,4 @@
+import { CITY_CLIENTS } from "@/lib/rental-ops";
 import type { Phase2Locale } from "./phase2";
 
 /**
@@ -80,7 +81,7 @@ const tr: AboutDetail = {
         },
         {
             q: "Hangi şehirlerde hizmet veriyorsunuz?",
-            a: `İstanbul merkezliyiz ve Türkiye genelinde çalışıyoruz. Bugüne kadar ${CITIES_TR}'da kurulum yaptık. Şehir dışı etkinliklerde ulaşım ve konaklama teklife eklenir ya da sizin organizasyonunuzla planlanır.`,
+            a: `İstanbul merkezliyiz ve Türkiye genelinde çalışıyoruz. Bugüne kadar ${CITIES_TR}'da kurulum yaptık. ${CITY_CLIENTS.tr} Şehir dışı etkinliklerde ulaşım ve konaklama teklife eklenir ya da sizin organizasyonunuzla planlanır.`,
         },
         {
             q: "Ürünleri kiralıyor musunuz, satıyor musunuz?",
@@ -144,7 +145,7 @@ const en: AboutDetail = {
         },
         {
             q: "Which cities do you work in?",
-            a: `We are based in Istanbul and work across Türkiye. So far we have installed in ${CITIES_EN}. For events outside Istanbul, travel and accommodation are either added to the quote or arranged by you.`,
+            a: `We are based in Istanbul and work across Türkiye. So far we have installed in ${CITIES_EN}. ${CITY_CLIENTS.en} For events outside Istanbul, travel and accommodation are either added to the quote or arranged by you.`,
         },
         {
             q: "Do you rent or sell the systems?",

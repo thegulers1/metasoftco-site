@@ -77,7 +77,7 @@ const serviceFAQs = [
     },
     {
         question: "İstanbul dışında hizmet veriyor musunuz?",
-        answer: "Evet. İstanbul Teknokent merkezliyiz ve Türkiye'nin 81 iline kurulum yapıyoruz; etkinlik nerede, biz oradayız. Bugüne kadar İstanbul, Ankara, İzmir, Antalya, Muğla (Bodrum), Adana, Diyarbakır, Kocaeli, Sakarya (Sapanca) ve Çorum gibi illerde çalıştık. Şehir dışı etkinliklerde ulaşım ve konaklama teklife dahil edilir ya da sizin organizasyonunuzla planlanır.",
+        answer: "Evet. İstanbul Teknokent merkezliyiz ve Türkiye'nin 81 iline kurulum yapıyoruz; etkinlik nerede, biz oradayız. Bugüne kadar İstanbul, Ankara, İzmir, Antalya, Muğla (Bodrum), Adana, Diyarbakır, Kocaeli, Sakarya (Sapanca) ve Çorum gibi illerde çalıştık. Ankara'da TRT ve Anadolu Ajansı; İzmir, Çorum ve Diyarbakır'da Turkcell; Antalya'da Rijk Zwaan; Adana'da DeFacto ile çalıştık. Şehir dışı etkinliklerde ulaşım ve konaklama teklife dahil edilir ya da sizin organizasyonunuzla planlanır.",
     },
     {
         question: "KVKK kapsamında fotoğraf verileri nasıl korunuyor?",
