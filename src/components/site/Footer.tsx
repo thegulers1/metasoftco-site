@@ -70,7 +70,7 @@ export default function Footer() {
                                 <Link href={localizedHref(language, "/hizmetler", "/en/services")} className="text-[rgba(255,255,255,.7)] hover:text-white transition-colors">
                                     {t("Hizmetler", "Services")}
                                 </Link>
-                                <Link href={localizedHref(language, "/sektorel-yazilim-cozumleri", "/en/industry-software-solutions")} className="text-[rgba(255,255,255,.7)] hover:text-white transition-colors">
+                                <Link href={localizedHref(language, "/sektorel-etkinlik-cozumleri", "/en/industry-event-solutions")} className="text-[rgba(255,255,255,.7)] hover:text-white transition-colors">
                                     {t("Sektörel Çözümler", "Industry Solutions")}
                                 </Link>
                                 <Link href={localizedHref(language, "/blog", "/en/blog")} className="text-[rgba(255,255,255,.7)] hover:text-white transition-colors">

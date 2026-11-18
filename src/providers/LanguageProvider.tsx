@@ -23,7 +23,7 @@ const staticAlternates: Record<string, { tr: string; en: string }> = {
     "/hakkimizda": { tr: "/hakkimizda", en: "/en/about" },
     "/iletisim": { tr: "/iletisim", en: "/en/contact" },
     "/sektorel-cozumler": { tr: "/sektorel-cozumler", en: "/en/sector-solutions" },
-    "/sektorel-yazilim-cozumleri": { tr: "/sektorel-yazilim-cozumleri", en: "/en/industry-software-solutions" },
+    "/sektorel-etkinlik-cozumleri": { tr: "/sektorel-etkinlik-cozumleri", en: "/en/industry-event-solutions" },
 };
 
 function getStaticAlternate(pathname: string | null) {

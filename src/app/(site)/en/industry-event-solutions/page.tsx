@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { siteConfig, ogImageUrl } from "@/lib/site";
-import SektorelYazilimClient from "@/app/(site)/sektorel-yazilim-cozumleri/SektorelYazilimClient";
+import SektorelYazilimClient from "@/app/(site)/sektorel-etkinlik-cozumleri/SektorelYazilimClient";
 import { getSectors, hasEnglish } from "@/lib/industry-pages";
 
 // Read database content at request time; Docker builds have no database access.
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     openGraph: {
         title: ogTitle,
         description: ogDescription,
-        url: `${siteConfig.url}/en/industry-software-solutions`,
+        url: `${siteConfig.url}/en/industry-event-solutions`,
         siteName: siteConfig.name,
         images: [{ url: ogImage, width: 1200, height: 630, alt: ogTitle }],
         locale: "en_US",
@@ -37,11 +37,11 @@ export const metadata: Metadata = {
         images: [ogImage],
     },
     alternates: {
-        canonical: `${siteConfig.url}/en/industry-software-solutions`,
+        canonical: `${siteConfig.url}/en/industry-event-solutions`,
         languages: {
-            "x-default": `${siteConfig.url}/sektorel-yazilim-cozumleri`,
-            tr: `${siteConfig.url}/sektorel-yazilim-cozumleri`,
-            en: `${siteConfig.url}/en/industry-software-solutions`,
+            "x-default": `${siteConfig.url}/sektorel-etkinlik-cozumleri`,
+            tr: `${siteConfig.url}/sektorel-etkinlik-cozumleri`,
+            en: `${siteConfig.url}/en/industry-event-solutions`,
         },
     },
 };

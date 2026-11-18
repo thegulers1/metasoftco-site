@@ -57,6 +57,10 @@ const nextConfig: NextConfig = {
   // Eski site URL'leri için kalıcı yönlendirmeler (301)
   async redirects() {
     return [
+      // Preserve every existing sector URL, including deep pages and query strings.
+      { source: "/sektorel-yazilim-cozumleri/tekstil-sektoru", destination: "/sektorel-etkinlik-cozumleri/tekstil-sektoru-dijital-donusum", statusCode: 301 },
+      { source: "/sektorel-yazilim-cozumleri/:path*", destination: "/sektorel-etkinlik-cozumleri/:path*", statusCode: 301 },
+      { source: "/en/industry-software-solutions/:path*", destination: "/en/industry-event-solutions/:path*", statusCode: 301 },
       // Intent-preserving public migrations.
       { source: "/isler", destination: "/projeler", permanent: true },
       { source: "/en/hakkimizda", destination: "/en/about", permanent: true },
@@ -147,9 +151,9 @@ const nextConfig: NextConfig = {
       // ---------------------------------------------------------
       // 3. TEKİL ESKİ SAYFA VE HİZMET YÖNLENDİRMELERİ
       // ---------------------------------------------------------
-      { source: "/cozumler", destination: "/sektorel-yazilim-cozumleri", permanent: true },
-      { source: "/cozumler/:path*", destination: "/sektorel-yazilim-cozumleri/:path*", permanent: true },
-      { source: "/sektorel-yazilim-cozumleri/tekstil-sektoru", destination: "/sektorel-yazilim-cozumleri/tekstil-sektoru-dijital-donusum", permanent: true },
+      { source: "/cozumler", destination: "/sektorel-etkinlik-cozumleri", permanent: true },
+      { source: "/cozumler/:path*", destination: "/sektorel-etkinlik-cozumleri/:path*", permanent: true },
+      { source: "/sektorel-etkinlik-cozumleri/tekstil-sektoru", destination: "/sektorel-etkinlik-cozumleri/tekstil-sektoru-dijital-donusum", statusCode: 301 },
 
       { source: "/hizmetler/yapay-zeka", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri", permanent: true },
       { source: "/hizmetler/yapay-zeka/:path*", destination: "/hizmetler/yapay-zeka-etkinlik-cozumleri/:path*", permanent: true },

@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const sector = await getSectorBySlugEn(sektor);
     if (!sector) return {};
 
-    const url = `${siteConfig.url}/en/industry-software-solutions/${sector.slug_en}`;
+    const url = `${siteConfig.url}/en/industry-event-solutions/${sector.slug_en}`;
     const image = `${siteConfig.url}/og?title=${encodeURIComponent(sector.name_en)}&desc=${encodeURIComponent(sector.title_en)}`;
 
     return {
@@ -36,9 +36,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         alternates: {
             canonical: url,
             languages: {
-                tr: `${siteConfig.url}/sektorel-yazilim-cozumleri/${sector.slug}`,
+                tr: `${siteConfig.url}/sektorel-etkinlik-cozumleri/${sector.slug}`,
                 en: url,
-                "x-default": `${siteConfig.url}/sektorel-yazilim-cozumleri/${sector.slug}`,
+                "x-default": `${siteConfig.url}/sektorel-etkinlik-cozumleri/${sector.slug}`,
             },
         },
     };
@@ -52,8 +52,8 @@ export default async function SektorEnPage({ params }: PageProps) {
     const faqSchema = generateFAQSchema(sector.faqs_en);
     const breadcrumbSchema = generateBreadcrumbSchema([
         { name: "Home", url: siteConfig.url },
-        { name: "Sectoral Solutions", url: `${siteConfig.url}/en/industry-software-solutions` },
-        { name: sector.name_en, url: `${siteConfig.url}/en/industry-software-solutions/${sector.slug_en}` },
+        { name: "Sectoral Solutions", url: `${siteConfig.url}/en/industry-event-solutions` },
+        { name: sector.name_en, url: `${siteConfig.url}/en/industry-event-solutions/${sector.slug_en}` },
     ]);
 
     return (

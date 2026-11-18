@@ -26,9 +26,9 @@ export function industryPageData(body: Body) {
 export function revalidateIndustryPage(page: { slug: string; slug_en: string | null }, previous?: { slug: string; slug_en: string | null }) {
     for (const p of [page, previous]) {
         if (!p) continue;
-        revalidatePath(`/sektorel-yazilim-cozumleri/${p.slug}`);
-        if (p.slug_en) revalidatePath(`/en/industry-software-solutions/${p.slug_en}`);
+        revalidatePath(`/sektorel-etkinlik-cozumleri/${p.slug}`);
+        if (p.slug_en) revalidatePath(`/en/industry-event-solutions/${p.slug_en}`);
     }
-    revalidatePath("/sektorel-yazilim-cozumleri");
-    revalidatePath("/en/industry-software-solutions");
+    revalidatePath("/sektorel-etkinlik-cozumleri");
+    revalidatePath("/en/industry-event-solutions");
 }

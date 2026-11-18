@@ -2,7 +2,7 @@ import { cache } from "react";
 import type { IndustryPage } from "@prisma/client";
 import { prisma } from "@/lib/db";
 
-// Sector pages (/sektorel-yazilim-cozumleri, /en/industry-software-solutions)
+// Sector pages (/sektorel-etkinlik-cozumleri, /en/industry-event-solutions)
 // are editor-managed rows; this module turns a row into the shape the pages render.
 
 export interface IndustryService {

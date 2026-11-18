@@ -29,7 +29,7 @@ const codePageUpdated = {
     about: "2026-11-17",
     contact: "2026-10-21",
     legal: "2026-10-16",
-    industry: "2026-11-17",
+    industry: "2026-11-18",
     corporate: "2026-10-09",
     fairs: "2026-10-09",
     ramadan: "2026-11-10",
@@ -98,8 +98,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         entry("/en/projects", projectsList, 0.8), entry("/en/blog", blogList, 0.7),
         entry("/en/about", about, 0.7), entry("/en/contact", contact, 0.7),
         entry("/en/products", products, 0.7),
-        entry("/sektorel-yazilim-cozumleri", industryList, 0.5),
-        entry("/en/industry-software-solutions", industryList, 0.5),
+        entry("/sektorel-etkinlik-cozumleri", industryList, 0.5),
+        entry("/en/industry-event-solutions", industryList, 0.5),
         entry("/sektorel-cozumler", sectorList, 0.4), entry("/en/sector-solutions", sectorList, 0.4),
         entry("/hizmetler/kurumsal-etkinlik-teknolojisi", day(codePageUpdated.corporate), 0.7),
         entry("/hizmetler/fuar-aktivasyonlari", day(codePageUpdated.fairs), 0.6),
@@ -111,6 +111,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             ...(isEnglishSectorPagePublishable(page) ? [entry(`/en/services/${page.slug_en}`, page.updatedAt, 0.6)] : []),
         ]),
         entry("/hizmetler/data-capture-crm", day(codePageUpdated.dataCapture), 0.7),
+        entry("/hizmetler/markaya-ozel-etkinlik-yazilimi", day("2026-11-18"), 0.7),
         entry("/hizmetler/etkinlik-mikro-site-ve-uygulama", day(codePageUpdated.microSite), 0.7),
         entry("/sunum", day(codePageUpdated.presentation), 0.6),
         ...team.flatMap((member) => [
@@ -120,8 +121,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     ];
 
     const industryPages = sectors.flatMap((sector) => [
-        entry(`/sektorel-yazilim-cozumleri/${sector.slug}`, sector.updatedAt, 0.5),
-        ...(hasEnglish(sector) ? [entry(`/en/industry-software-solutions/${sector.slug_en}`, sector.updatedAt, 0.5)] : []),
+        entry(`/sektorel-etkinlik-cozumleri/${sector.slug}`, sector.updatedAt, 0.5),
+        ...(hasEnglish(sector) ? [entry(`/en/industry-event-solutions/${sector.slug_en}`, sector.updatedAt, 0.5)] : []),
     ]);
     const categoryPages = categories.filter((category) => category.services.length > 0).flatMap((category) => {
         const pages: SitemapEntry[] = [entry(`/hizmetler/${category.slug}`, category.updatedAt, 0.7)];

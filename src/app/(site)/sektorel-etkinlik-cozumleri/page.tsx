@@ -20,18 +20,18 @@ export const metadata: Metadata = {
     openGraph: {
         title: "Sektörel Etkinlik ve Marka Aktivasyonu Çözümleri | MetasoftCo",
         description: "Sektörünüze özel photobooth, interaktif oyun ve marka aktivasyonu çözümleri.",
-        url: `${siteConfig.url}/sektorel-yazilim-cozumleri`,
+        url: `${siteConfig.url}/sektorel-etkinlik-cozumleri`,
         siteName: siteConfig.name,
         images: [{ url: `${siteConfig.url}/og?title=Sektörel+Etkinlik+Çözümleri&desc=Marka+aktivasyonu+ve+etkinlik+teknolojileri`, width: 1200, height: 630 }],
         locale: siteConfig.locale,
         type: "website",
     },
     alternates: {
-        canonical: `${siteConfig.url}/sektorel-yazilim-cozumleri`,
+        canonical: `${siteConfig.url}/sektorel-etkinlik-cozumleri`,
         languages: {
-            "x-default": `${siteConfig.url}/sektorel-yazilim-cozumleri`,
-            "tr": `${siteConfig.url}/sektorel-yazilim-cozumleri`,
-            "en": `${siteConfig.url}/en/industry-software-solutions`,
+            "x-default": `${siteConfig.url}/sektorel-etkinlik-cozumleri`,
+            "tr": `${siteConfig.url}/sektorel-etkinlik-cozumleri`,
+            "en": `${siteConfig.url}/en/industry-event-solutions`,
         },
     },
 };

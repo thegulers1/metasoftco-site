@@ -141,9 +141,9 @@ export default function IndustryPageForm({ initialData, mode }: { initialData?: 
                         {mode === "new" ? "Yeni Sektörel Yazılım Sayfası" : "Sayfayı Düzenle"}
                     </h1>
                     {mode === "edit" && initialData?.slug && (
-                        <a href={`/sektorel-yazilim-cozumleri/${initialData.slug}`} target="_blank" rel="noopener noreferrer"
+                        <a href={`/sektorel-etkinlik-cozumleri/${initialData.slug}`} target="_blank" rel="noopener noreferrer"
                             className="text-xs text-black/40 hover:text-black mt-1 inline-block transition">
-                            /sektorel-yazilim-cozumleri/{initialData.slug} ↗
+                            /sektorel-etkinlik-cozumleri/{initialData.slug} ↗
                         </a>
                     )}
                 </div>
@@ -203,7 +203,7 @@ export default function IndustryPageForm({ initialData, mode }: { initialData?: 
                         <div>
                             <label className={label}>TR Slug <span className="text-red-500">*</span></label>
                             <div className="flex items-center border border-black/15 rounded-lg overflow-hidden focus-within:border-black/40">
-                                <span className="px-3 py-3 bg-black/[0.03] text-black/40 text-xs border-r border-black/10 whitespace-nowrap">/sektorel-yazilim-cozumleri/</span>
+                                <span className="px-3 py-3 bg-black/[0.03] text-black/40 text-xs border-r border-black/10 whitespace-nowrap">/sektorel-etkinlik-cozumleri/</span>
                                 <input value={form.slug} onChange={(e) => set("slug", e.target.value)} placeholder="saglik-sektoru"
                                     className="flex-1 px-3 py-3 text-sm focus:outline-none" />
                             </div>

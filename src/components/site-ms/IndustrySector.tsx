@@ -14,14 +14,14 @@ export interface IndustrySectorView {
 
 const copy = {
     tr: {
-        home: "ANA SAYFA", list: "SEKTÖREL ÇÖZÜMLER", listHref: "/sektorel-yazilim-cozumleri", kicker: "SEKTÖREL ÇÖZÜM",
+        home: "ANA SAYFA", list: "SEKTÖREL ÇÖZÜMLER", listHref: "/sektorel-etkinlik-cozumleri", kicker: "SEKTÖREL ÇÖZÜM",
         approach: (n: string) => `${n} sektöründe yaklaşımımız`, approachMeta: "YAKLAŞIM",
         services: (n: string) => `${n} için sunduğumuz hizmetler`, servicesMeta: "HİZMETLER",
         faq: (n: string) => `${n} hakkında sıkça sorulan sorular`,
         quote: "TEKLİF AL ↗", contact: "/iletisim", all: "HİZMETLERİ GÖR →", allHref: "/hizmetler", open: "İNCELE",
     },
     en: {
-        home: "HOME", list: "SECTORAL SOLUTIONS", listHref: "/en/industry-software-solutions", kicker: "SECTORAL SOLUTION",
+        home: "HOME", list: "SECTORAL SOLUTIONS", listHref: "/en/industry-event-solutions", kicker: "SECTORAL SOLUTION",
         approach: (n: string) => `Our approach in ${n}`, approachMeta: "APPROACH",
         services: (n: string) => `What we offer for ${n}`, servicesMeta: "SERVICES",
         faq: (n: string) => `${n}: frequently asked questions`,
@@ -29,7 +29,7 @@ const copy = {
     },
 };
 
-/** /sektorel-yazilim-cozumleri/[sektor] and its English twin, in the October 2026 design. */
+/** /sektorel-etkinlik-cozumleri/[sektor] and its English twin, in the October 2026 design. */
 export function IndustrySector({ sector, lang }: { sector: IndustrySectorView; lang: "tr" | "en" }) {
     const t = copy[lang];
     const up = (text: string) => text.toLocaleUpperCase(lang === "en" ? "en-US" : "tr-TR");

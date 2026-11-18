@@ -12,7 +12,7 @@ export default async function IndustryPagesListPage() {
                 <div>
                     <h1 className="text-2xl font-bold text-black">Sektörel Yazılım</h1>
                     <p className="text-sm text-black/50 mt-1">
-                        {pages.length} sayfa · <a href="/sektorel-yazilim-cozumleri" target="_blank" rel="noopener noreferrer" className="hover:text-black">/sektorel-yazilim-cozumleri ↗</a>
+                        {pages.length} sayfa · <a href="/sektorel-etkinlik-cozumleri" target="_blank" rel="noopener noreferrer" className="hover:text-black">/sektorel-etkinlik-cozumleri ↗</a>
                     </p>
                 </div>
                 <Link href="/editpanel/sektorel-yazilim/new"
@@ -48,7 +48,7 @@ export default async function IndustryPagesListPage() {
                                 <td className="px-6 py-4 text-black/50">{page.order}</td>
                                 <td className="px-6 py-4">
                                     <div className="flex items-center gap-3 justify-end">
-                                        <a href={`/sektorel-yazilim-cozumleri/${page.slug}`} target="_blank" rel="noopener noreferrer"
+                                        <a href={`/sektorel-etkinlik-cozumleri/${page.slug}`} target="_blank" rel="noopener noreferrer"
                                             className="text-xs text-black/40 hover:text-black transition">Görüntüle ↗</a>
                                         <Link href={`/editpanel/sektorel-yazilim/${page.id}/edit`}
                                             className="px-3 py-1.5 bg-black text-white text-xs rounded-lg hover:bg-black/80 transition">Düzenle</Link>

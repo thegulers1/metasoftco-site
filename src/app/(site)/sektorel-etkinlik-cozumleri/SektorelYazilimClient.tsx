@@ -16,11 +16,11 @@ interface SektorelYazilimClientProps {
 }
 
 const copy = {
-    tr: { kicker: (n: number) => `(SEKTÖRE ÖZEL MARKA AKTİVASYONU) — ${n} SEKTÖR`, city: "İSTANBUL", title: "Sektörel etkinlik\nçözümleri.", lede: "Her sektörün hedef kitlesi ve etkinlik amacı farklıdır. Lansman, fuar ve mağaza aktivasyonları için photobooth, interaktif oyun ve markaya özel etkinlik yazılımlarını sektörünüze göre tasarlıyoruz.", open: "İNCELE", all: "ETKİNLİK YAZILIMI GELİŞTİRME →", allHref: "/hizmetler/yazilim-gelistirme" },
+    tr: { kicker: (n: number) => `(SEKTÖRE ÖZEL MARKA AKTİVASYONU) — ${n} SEKTÖR`, city: "İSTANBUL", title: "Sektörel etkinlik\nçözümleri.", lede: "Her sektörün hedef kitlesi ve etkinlik amacı farklıdır. Lansman, fuar ve mağaza aktivasyonları için photobooth, interaktif oyun ve markaya özel etkinlik yazılımlarını sektörünüze göre tasarlıyoruz.", open: "İNCELE", all: "ETKİNLİK YAZILIMI GELİŞTİRME →", allHref: "/hizmetler/markaya-ozel-etkinlik-yazilimi" },
     en: { kicker: (n: number) => `(INDUSTRY BRAND ACTIVATIONS) — ${n} SECTORS`, city: "ISTANBUL", title: "Industry event\nsolutions.", lede: "Every industry has its own audience and event goals. We tailor photo booths, interactive games and branded event software for launches, trade shows and in-store activations.", open: "VIEW", all: "EVENT SOFTWARE DEVELOPMENT →", allHref: "/en/services/software-development" },
 };
 
-/** /sektorel-yazilim-cozumleri and /en/industry-software-solutions, as full-width rows. */
+/** /sektorel-etkinlik-cozumleri and /en/industry-event-solutions, as full-width rows. */
 export default function SektorelYazilimClient({ lang = "tr", sectors }: SektorelYazilimClientProps) {
     const t = copy[lang];
     const isEn = lang === "en";
@@ -45,7 +45,7 @@ export default function SektorelYazilimClient({ lang = "tr", sectors }: Sektorel
                     {sectors.map((sector, index) => (
                         <Link
                             key={sector.slug}
-                            href={isEn ? `/en/industry-software-solutions/${sector.slug_en}` : `/sektorel-yazilim-cozumleri/${sector.slug}`}
+                            href={isEn ? `/en/industry-event-solutions/${sector.slug_en}` : `/sektorel-etkinlik-cozumleri/${sector.slug}`}
                             className="ms-row"
                             data-cursor={t.open}>
                             <span className="ms-row__num">{String(index + 1).padStart(2, "0")}</span>
