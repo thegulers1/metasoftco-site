@@ -40,6 +40,8 @@ interface ServiceDetailClientProps {
   saleHref?: string;
   sale?: { product: SaleProduct; showcase: ShowcaseCard[] };
   references?: ServiceReference[];
+  /** TR only: link to this product's New Year landing page. */
+  newYearPage?: { href: string; label: string };
 }
 function parseJsonList<T>(raw: string | null | undefined): T[] {
   try {
@@ -61,6 +63,7 @@ export default function ServiceDetailClient({
   saleHref,
   sale,
   references = [],
+  newYearPage,
 }: ServiceDetailClientProps) {
   const { language, setAlternateUrl } = useLanguage();
   const en = language === "en";
@@ -222,6 +225,13 @@ export default function ServiceDetailClient({
                 {t("Satın alma seçeneğini incele", "Explore purchase options")}{" "}
                 ↗
               </Link>
+            )}
+            {!en && newYearPage && (
+              <div>
+                <Link href={newYearPage.href} className={styles.textLink}>
+                  Yılbaşı partisi için: {newYearPage.label} ↗
+                </Link>
+              </div>
             )}
             {specs.length > 0 && (
               <dl className={styles.quickSpecs}>

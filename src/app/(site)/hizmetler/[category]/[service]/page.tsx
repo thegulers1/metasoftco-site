@@ -19,6 +19,7 @@ import { isEnglishServicePublishable } from "@/lib/publication";
 import { dataCaptureCopy } from "@/lib/data-capture";
 import { isSoftwareCategory } from "@/lib/software";
 import { mergeRentalFaq, rentalAreaServed, rentalMetaTitle, toRentalOutput } from "@/lib/rental-ops";
+import { newYearPageForService } from "@/lib/new-year-products";
 
 export const revalidate = 3600;
 
@@ -263,6 +264,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 faqs={aiFaqs}
                 serviceSchema={serviceSchema}
                 saleHref={saleCounterpart ? `/urunler/${saleCounterpart.slug}` : undefined}
+                newYearPage={newYearPageForService(service.slug)}
             /> : <ServiceDetailClient
                 references={await serviceReferences(service.id, "tr", service.slug)}
                 service={service}
@@ -272,6 +274,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 serviceSchema={serviceSchema}
                 category={category}
                 saleHref={saleCounterpart ? `/urunler/${saleCounterpart.slug}` : undefined}
+                newYearPage={newYearPageForService(service.slug)}
             />}
         </>
     );

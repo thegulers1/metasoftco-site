@@ -333,3 +333,9 @@ export function getNewYearProduct(slug: string): NewYearProduct | undefined {
 }
 
 export const newYearProductSlugs = newYearProducts.map((item) => item.slug);
+
+/** The New Year page of a rental product (by its service slug), for a link from the product page. */
+export function newYearPageForService(serviceSlug: string): { href: string; label: string } | undefined {
+    const item = newYearProducts.find((entry) => entry.product.href.endsWith(`/${serviceSlug}`));
+    return item ? { href: `/hizmetler/${item.slug}`, label: item.h1 } : undefined;
+}

@@ -25,7 +25,9 @@ import {
   type CampaignTheme,
 } from "./campaign-media";
 
-type Props = NonNullable<Awaited<ReturnType<typeof loadCampaign>>> & {
+type Loaded = NonNullable<Awaited<ReturnType<typeof loadCampaign>>>;
+type Props = Omit<Loaded, "productPages"> & {
+  productPages?: Loaded["productPages"];
   preview?: boolean;
 };
 
@@ -737,6 +739,7 @@ export default function Campaign({
   occasion,
   services,
   references,
+  productPages = [],
   preview = false,
 }: Props) {
   const [products, setProducts] = useState<string[]>(["AI Photo"]);
@@ -1191,6 +1194,29 @@ export default function Campaign({
               ))}
             </ol>
           </section>
+
+          {productPages.length > 0 && (
+            <section className={styles.productPages} aria-labelledby="product-pages-title">
+              <div className={styles.sectionIntro} data-reveal>
+                <span className={styles.kicker}>ÜRÜNE GÖRE YILBAŞI</span>
+                <h2 id="product-pages-title">
+                  Her deneyimin <em>yılbaşı sayfası.</em>
+                </h2>
+                <p>Alan, kapasite, akış ve sık sorulan sorular ürün ürün.</p>
+              </div>
+              <ul data-reveal>
+                {productPages.map((page) => (
+                  <li key={page.href}>
+                    <Link href={page.href}>
+                      <h3>{page.name}</h3>
+                      <p>{page.trName}</p>
+                      <span aria-hidden="true">↗</span>
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
 
           <section className={styles.why} aria-labelledby="why-title">
             <span className={styles.kicker}>NEDEN METASOFTCO</span>

@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/db";
 import { getOccasion } from "@/lib/occasions";
+import { newYearProducts } from "@/lib/new-year-products";
 
 export interface CampaignImage {
   url: string;
@@ -95,5 +96,6 @@ export async function loadCampaign() {
     },
     services,
     references,
+    productPages: newYearProducts.map((item) => ({ href: `/hizmetler/${item.slug}`, name: item.h1, trName: item.trName })),
   };
 }

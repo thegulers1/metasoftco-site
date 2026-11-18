@@ -30,6 +30,7 @@ interface Props {
   faqs: { q: string; a: string }[];
   serviceSchema: Record<string, unknown>;
   saleHref?: string;
+  newYearPage?: { href: string; label: string };
 }
 
 /** Target TR rental presentation; the existing route owns SEO and publication. */
@@ -42,6 +43,7 @@ export default function AiPhotoboothDetail({
   faqs,
   serviceSchema,
   saleHref,
+  newYearPage,
 }: Props) {
   const trUrl = `/hizmetler/${categoryData.slug}/${service.slug}`;
   const enUrl = isEnglishServicePublishable(service, categoryData)
@@ -128,6 +130,13 @@ export default function AiPhotoboothDetail({
                 ↗
               </TrackedContactLink>
             </div>
+            {newYearPage && (
+              <div>
+                <Link href={newYearPage.href} className={styles.textLink}>
+                  Yılbaşı partisi için: {newYearPage.label} ↗
+                </Link>
+              </div>
+            )}
             <div className={styles.badges}>
               <span>Markaya özel konsept</span>
               <span>
