@@ -662,7 +662,7 @@ const tr: Phase2Copy = {
 		closeMenu: "Menüyü kapat",
 		localeSwitchAria: "İngilizceye geç",
 		localeSwitchLabel: "TR / EN",
-		aiCta: "Metasoft AI’ya Sorun",
+		aiCta: "MetasoftCo AI’ya Sorun",
 		aiCtaAria: "Etkinlik önerileri için yapay zeka asistanını aç",
 		items: [
 			{ href: trPaths.routes.home, label: "Anasayfa" },

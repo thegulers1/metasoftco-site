@@ -169,7 +169,7 @@ const tr = {
     ],
     baseline: "FİKİR · YAZILIM · FİZİKSEL ÜRETİM · SAHA OPERASYONU",
     whatsappText: "Merhaba, bilgi almak istiyorum.",
-    aiButton: "✶ METASOFT AI'YA SOR",
+    aiButton: "✶ METASOFTCO AI'YA SOR",
     /** `name` arrives already upper-cased for display. */
     toastAdded: (name: string) => `+ ${name} TEKLİF LİSTESİNE EKLENDİ`,
     toastOpen: "LİSTEYİ AÇ",
@@ -324,7 +324,7 @@ const en: HomeCopy = {
     ],
     baseline: "IDEA · SOFTWARE · PHYSICAL BUILD · FIELD OPERATIONS",
     whatsappText: "Hello, I would like some information.",
-    aiButton: "✶ ASK METASOFT AI",
+    aiButton: "✶ ASK METASOFTCO AI",
     toastAdded: (name: string) => `+ ${name} ADDED TO YOUR QUOTE LIST`,
     toastOpen: "OPEN LIST",
     cart: {

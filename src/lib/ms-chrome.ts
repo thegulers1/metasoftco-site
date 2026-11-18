@@ -48,7 +48,7 @@ const tr = {
     ],
     baseline: "FİKİR · YAZILIM · FİZİKSEL ÜRETİM · SAHA OPERASYONU",
     whatsappText: "Merhaba, bilgi almak istiyorum.",
-    ai: "✶ METASOFT AI'YA SOR",
+    ai: "✶ METASOFTCO AI'YA SOR",
     closing: {
         serviceDetail: { lede: "Bu hizmeti etkinliğinize uyarlayalım.", word: "Uyarlayalım." },
         services: { lede: "Fikrinizi canlı bir deneyime dönüştürelim.", word: "Planlayalım." },
@@ -96,7 +96,7 @@ const en: MsChromeCopy = {
     ],
     baseline: "IDEA · SOFTWARE · PHYSICAL BUILD · FIELD OPERATIONS",
     whatsappText: "Hello, I would like some information.",
-    ai: "✶ ASK METASOFT AI",
+    ai: "✶ ASK METASOFTCO AI",
     closing: {
         serviceDetail: { lede: "Let's tailor this service to your event.", word: "Let's tailor it." },
         services: { lede: "Let's turn your idea into a live experience.", word: "Let's plan." },
