@@ -61,6 +61,9 @@ const nextConfig: NextConfig = {
       { source: "/sektorel-yazilim-cozumleri/tekstil-sektoru", destination: "/sektorel-etkinlik-cozumleri/tekstil-sektoru-dijital-donusum", statusCode: 301 },
       { source: "/sektorel-yazilim-cozumleri/:path*", destination: "/sektorel-etkinlik-cozumleri/:path*", statusCode: 301 },
       { source: "/en/industry-software-solutions/:path*", destination: "/en/industry-event-solutions/:path*", statusCode: 301 },
+      // Retired empty software category hubs now have dedicated sector pages.
+      { source: "/hizmetler/sektorel-yazilim-cozumleri", destination: "/sektorel-etkinlik-cozumleri", statusCode: 301 },
+      { source: "/en/services/industry-specific-software-solutions", destination: "/en/industry-event-solutions", statusCode: 301 },
       // Intent-preserving public migrations.
       { source: "/isler", destination: "/projeler", permanent: true },
       { source: "/en/hakkimizda", destination: "/en/about", permanent: true },
@@ -265,7 +268,6 @@ const nextConfig: NextConfig = {
 
       { source: "/star-map", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/star-map", permanent: true },
       { source: "/star-map/", destination: "/hizmetler/interaktif-etkinlik-aktiviteleri/star-map", permanent: true },
-      { source: "/en/services/photobooth-and-photo-activations/glambot-robot", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari", permanent: true },
       { source: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/360-video-booth", destination: "/hizmetler/video/360-video-booth", permanent: true },
       { source: "/hashtag-photo", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari", permanent: true },
       { source: "/hashtag-photo/", destination: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari", permanent: true },

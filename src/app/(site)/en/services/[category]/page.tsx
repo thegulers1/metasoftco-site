@@ -27,14 +27,14 @@ function parseFaqs(raw: string | null) {
 async function getCategoryBySlugEn(slugEn: string) {
     return prisma.serviceCategory.findFirst({
         where: { slug_en: slugEn },
-        include: { services: { where: { published: true }, orderBy: { order: "asc" } } },
+        include: { services: { where: { published: true, type: "RENTAL" }, orderBy: { order: "asc" } } },
     });
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { category: categorySlugEn } = await params;
     const category = await getCategoryBySlugEn(categorySlugEn);
-    if (!category) return {};
+    if (!category || category.services.length === 0) notFound();
 
     const title = category.metaTitle_en || category.metaTitle || `${category.name_en || category.name} | MetasoftCo`;
     const description = category.metaDescription_en || category.metaDescription || siteConfig.description;
@@ -69,7 +69,7 @@ export default async function EnCategoryHubPage({ params }: PageProps) {
     const { category: categorySlugEn } = await params;
     const category = await getCategoryBySlugEn(categorySlugEn);
 
-    if (!category) notFound();
+    if (!category || category.services.length === 0) notFound();
 
     const breadcrumbSchema = generateBreadcrumbSchema([
         { name: "Home", url: `${siteConfig.url}/en` },

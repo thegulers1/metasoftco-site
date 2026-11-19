@@ -2,7 +2,7 @@ import { isMomentoBallPage } from "@/lib/momento-ball";
 import { serviceReferences } from "@/lib/service-template/references";
 import { Metadata } from "next";
 import { faqPlainText } from "@/lib/faq-text";
-import { notFound, permanentRedirect } from "next/navigation";
+import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { siteConfig, generateServiceSchema, generateBreadcrumbSchema } from "@/lib/site";
 import { cloudinaryOgImage } from "@/lib/cloudinary";
@@ -115,16 +115,8 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         notFound();
     }
 
-    // Draft or deleted services permanently redirect to their category (or the
-    // services index when the category has nothing live), so old links and
-    // indexed URLs land somewhere useful instead of a 404.
     const service = await getServiceBySlug(serviceSlug, categoryData.id);
-    if (!service || !service.published) {
-        const liveInCategory = await prisma.service.count({
-            where: { categoryId: categoryData.id, published: true, type: "RENTAL" },
-        });
-        permanentRedirect(liveInCategory > 0 ? `/hizmetler/${category}` : "/hizmetler");
-    }
+    if (!service || !service.published) notFound();
 
     // Galeri parse et (eski string[] formatını ve yeni {url,alt}[] formatını destekle)
     const gallery: { url: string; alt: string }[] = service.gallery

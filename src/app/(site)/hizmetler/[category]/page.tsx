@@ -38,7 +38,7 @@ async function getCategoryWithServices(slug: string) {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
     const { category: categorySlug } = await params;
     const category = await getCategoryWithServices(categorySlug);
-    if (!category) return {};
+    if (!category || category.services.length === 0) notFound();
 
     const title = category.metaTitle || `${category.name} | MetasoftCo`;
     const description = category.metaDescription || siteConfig.description;
@@ -48,8 +48,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
         title,
         description,
         keywords: category.metaKeywords || undefined,
-        // An empty category (e.g. one still being drafted) is not worth indexing.
-        ...(category.services.length === 0 && { robots: { index: false, follow: true } }),
         openGraph: {
             title,
             description,
@@ -77,7 +75,7 @@ export default async function CategoryHubPage({ params }: PageProps) {
     const { category: categorySlug } = await params;
     const category = await getCategoryWithServices(categorySlug);
 
-    if (!category) notFound();
+    if (!category || category.services.length === 0) notFound();
 
     const breadcrumbSchema = generateBreadcrumbSchema([
         { name: "Anasayfa", url: siteConfig.url },
