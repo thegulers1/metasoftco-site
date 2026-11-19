@@ -545,7 +545,7 @@
 .gameCopy h3 { font: 29px/1.15 Georgia,serif; color: #f1d5a1; }
 .gameCopy > p { font-size: 13px; }
 .combinations { gap: 24px; }
-.combinations article { background: #19372f; padding: 35px; border-radius: 5px; border-top: 3px solid #d1b17b; }
+.combinations article { background: #19372f; padding: 35px; border-radius: 0; border-top: 3px solid #d1b17b; }
 .combinations h3 { font: 30px Georgia,serif; color: #f1d5a1; }
 .combinations p { font-size: 14px; }
 .steps li { background: transparent; border: 0; border-top: 1px solid #bca16b68; border-radius: 0; padding: 25px 0; }
