@@ -20,8 +20,8 @@ export const AI_GREENBOX_PROFILE: ServiceTemplateProfile = {
     productName: "AI Greenbox",
     product: {
         eyebrow: "Yapay zekâ ile arka plan üretimi",
-        titleLines: ["AI Greenbox", "Kiralama"],
-        intro: "Hayal gücü mü, marka dünyası mı? Seçim sizin.",
+        titleLines: ["AI Greenbox Kiralama", "Yapay Zekâ Fotoğraf Aktivasyonu"],
+        intro: "Lansman, fuar ve kurumsal etkinlikler için markaya özel yapay zekâ fotoğraf deneyimi.",
         description: "Katılımcı pozunu verir; yapay zekâ fotoğrafı saniyeler içinde seçilen dünyaya yerleştirir. Dünyayı katılımcı kendi komutuyla yazar ya da markanız için hazırladığımız konseptlerden biri kullanılır.",
         badges: ["Fiziksel yeşil perde şart değil", "QR ile dijital teslim", "Türkiye geneli kurulum"],
         specs: [
