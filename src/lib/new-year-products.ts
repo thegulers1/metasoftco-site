@@ -50,7 +50,7 @@ export const newYearProducts: NewYearProduct[] = [
         lede:
             "Yılbaşı AI Photobooth, çalışanların fotoğrafını yapay zekâ ile kar küresine, Noel filmi sahnesine ya da 2027 afişine dönüştüren bir fotoğraf istasyonudur. Şirket içi yılbaşı partisi düzenleyen İK, iç iletişim ve etkinlik ekipleri için; herkesin aynı gece kendi yılbaşı karesiyle ayrılmasını isteyenler için kuruyoruz.",
         product: { href: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photobooth-kirala", label: "AI Photobooth ana sayfası" },
-        image: { url: "https://res.cloudinary.com/dqkehdebg/image/upload/v1787118787/metasoftco/services/ai-photobooth.webp", alt: "Etkinlikte AI Photobooth kiosku ve yapay zekâ ile dönüştürülmüş fotoğraf" },
+        image: { url: "/images/yilbasi/v/kiosk-event-hero.webp", alt: "Yılbaşı süslemeli AI Photo kiosku, katılımcı ve örnek yılbaşı portresi" },
         angleTitle: "Yılbaşı gecesinde neden AI fotoğraf?",
         angle: [
             { title: "Tema şirketinize göre yazılır", body: "Kar küresi, Noel filmi, retro yılbaşı kartı ya da 2027 afişi: yapay zekâ senaryosu ve görsel stil şirketinizin renklerine ve parti konseptine göre hazırlanır, onayınızdan sonra sahaya çıkar." },
@@ -95,7 +95,7 @@ export const newYearProducts: NewYearProduct[] = [
         lede:
             "Yılbaşı Mirror Booth, boy aynası görünümündeki dokunmatik ekranın arkasına kamera yerleştirilmiş, fotoğrafı saniyeler içinde basan bir fotoğraf kabinidir. Otel salonunda ya da şık bir mekânda yılbaşı galası, şirket yemeği veya ödül gecesi düzenleyen ve dekora yakışan bir fotoğraf noktası arayan ekipler için.",
         product: { href: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/mirror-booth", label: "Mirror Booth ana sayfası" },
-        image: { url: "https://res.cloudinary.com/dqkehdebg/image/upload/v1770927632/metasoftco/services/gd8p7ortcqyqb5kpkmnq.png", alt: "Dokunmatik ayna ekranlı Mirror Booth fotoğraf kabini" },
+        image: { url: "/images/yilbasi/v/holiday-mirror-booth.webp", alt: "Işıklı yılbaşı ağacının yanında bordo Mirror Booth ve gala katılımcısı — örnek konsept" },
         angleTitle: "Gala gecesine uyan fotoğraf noktası",
         angle: [
             { title: "Salonun dekoruna karışır", body: "Kiosk değil boy aynası gibi durur; giydirmesi ve ekran animasyonları yılbaşı temasına ve şirket renklerine göre hazırlanır." },
@@ -135,7 +135,7 @@ export const newYearProducts: NewYearProduct[] = [
         lede:
             "Yılbaşı 360 Video Booth, çalışanların yuvarlak bir platformda durduğu, kamera kolunun etraflarında dönerek yavaş çekim video kaydettiği bir video aktivasyonudur. Gecenin parti kısmını hareketli kılmak ve ekiplerin sosyal medyada paylaşacağı kısa videolar üretmek isteyen kurumsal yılbaşı partileri için.",
         product: { href: "/hizmetler/video/360-video-booth", label: "360 Video Booth ana sayfası" },
-        image: { url: "https://res.cloudinary.com/dqkehdebg/image/upload/v1786706094/metasoftco/services/recommended/360-video-booth.jpg", alt: "360 Video Booth platformu ve dönen kamera kolu" },
+        image: { url: "/images/yilbasi/v/holiday-360-photo.webp", alt: "Yılbaşı dekoru önünde 360 video platformu ve katılımcı — örnek konsept" },
         angleTitle: "Gecenin parti kısmı için",
         angle: [
             { title: "Ekipçe çıkılan platform", body: "Departmanlar platforma birlikte çıkar; konfeti, kostüm aksesuarı ya da dans, dönen kamerayla yavaş çekim bir videoya dönüşür." },
@@ -175,7 +175,7 @@ export const newYearProducts: NewYearProduct[] = [
         lede:
             "Yılbaşı Photobooth, çalışanların kendi fotoğrafını çekip yılbaşı çerçevesiyle saniyeler içinde baskı aldığı kompakt bir fotoğraf kabinidir. Ofiste, restoranda ya da otel salonunda yılbaşı partisi yapan ve az yer kaplayan, kalabalığa yetişen bir fotoğraf köşesi isteyen şirketler için.",
         product: { href: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/photobooth-kirala", label: "Photobooth ana sayfası" },
-        image: { url: "https://res.cloudinary.com/dqkehdebg/image/upload/v1770930595/metasoftco/services/udq9nx0poeyevnzhiqh0.jpg", alt: "Etkinlikte kompakt photobooth fotoğraf kabini" },
+        image: { url: "/images/yilbasi/v/holiday-photobooth.webp", alt: "Yılbaşı temalı fotoğraf kabini, katılımcılar ve fotoğraf şeridi — örnek konsept" },
         angleTitle: "Kalabalık partinin fotoğraf köşesi",
         angle: [
             { title: "Dar alana sığar", body: "2 m² alan yeterli. Ofis partisinde koridor köşesine, restoranda giriş alanına kurulabilir." },
@@ -215,7 +215,7 @@ export const newYearProducts: NewYearProduct[] = [
         lede:
             "Yılbaşı GIF Kart, çalışanın arka arkaya verdiği iki pozu optik lens yüzeyli tek bir kartta birleştiren fiziksel bir hatıradır; kart sağa sola eğildikçe iki kare arasında geçiş olur. Yılbaşı partisinde çalışanlara masalarında duracak, basılı ama hareketli bir yeni yıl kartı vermek isteyen şirketler için.",
         product: { href: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/hareketli-fotograf-gif-kart-aktivasyonu-kiralama", label: "GIF Kart ana sayfası" },
-        image: { url: "https://res.cloudinary.com/dqkehdebg/image/upload/v1788763586/metasoftco/services/wesdtfavbwprvecgf1vr.png", alt: "İki pozu birleştiren hareketli fotoğraf GIF kartı" },
+        image: { url: "/images/yilbasi/v/holiday-gif-card.webp", alt: "Yılbaşı desenleriyle hazırlanmış hareketli fotoğraf kartı — örnek konsept" },
         angleTitle: "Yeni yıl kartının hareketli hâli",
         angle: [
             { title: "2026'dan 2027'ye", body: "İki poz iki yılı anlatabilir: ilk karede yorgun bir 2026 ifadesi, ikincisinde 2027 kutlaması. Kart eğildikçe hikâye değişir." },
@@ -254,7 +254,7 @@ export const newYearProducts: NewYearProduct[] = [
         lede:
             "Yılbaşı Dijital Çarkıfelek, çalışanların dokunmatik ekrandaki çarkı çevirerek yılbaşı hediyesini kazandığı interaktif bir oyundur; çark durduğunda kazanılan hediye ekranda gösterilir. Yılbaşı partisinde hediyeleri sahnede ya da girişte, herkesin gözü önünde ve gösterili biçimde dağıtmak isteyen şirketler için.",
         product: { href: "/hizmetler/interaktif-etkinlik-aktiviteleri/dijital-hediye-carki-aktivasyonu", label: "Hediye Çarkı ana sayfası" },
-        image: { url: "https://res.cloudinary.com/dqkehdebg/image/upload/v1771005998/metasoftco/projects/bhyvljjgigsttqxbpomu.png", alt: "Dokunmatik ekranda markalı dijital hediye çarkı" },
+        image: { url: "/images/yilbasi/v/holiday-gift-wheel.webp", alt: "Yılbaşı temalı dijital hediye çarkı ve katılımcı — örnek konsept" },
         angleTitle: "Hediye dağıtımını gösteriye çevirin",
         angle: [
             { title: "Kurallar önceden belli", body: "Dilim sayısı, hediye türleri ve her hediyenin çıkma oranı etkinlik öncesinde sizinle birlikte belirlenir; stok bitmeden dağıtım planlanır." },
@@ -294,7 +294,7 @@ export const newYearProducts: NewYearProduct[] = [
         lede:
             "Yılbaşı Momento Ball, partide çekilen fotoğrafın basılıp şeffaf bir kürenin içine yerleştirildiği bir fotoğraf aktivitesidir; küre yılbaşı ağacına asılan bir süs ya da masada duran bir obje olur. Çalışanlarına gecenin sonunda kendi fotoğrafını taşıyan kişisel bir yılbaşı hediyesi vermek isteyen şirketler için.",
         product: { href: "/hizmetler/photobooth-ve-fotograf-aktivasyonlari/momento-ball", label: "Momento Ball ana sayfası" },
-        image: { url: "https://res.cloudinary.com/dqkehdebg/image/upload/v1794069710/metasoftco/services/momento-ball-2026/momento-ball-tr-bordo.png", alt: "Momento Ball şeffaf fotoğraf küresi" },
+        image: { url: "/images/yilbasi/v/momento-ball.webp", alt: "Işıklı yılbaşı ağacına asılmış fotoğraflı şeffaf Momento Ball küresi" },
         angleTitle: "Fotoğraf köşesi ve hediye bir arada",
         angle: [
             { title: "Hediye çantasına giren fotoğraf", body: "Ayrı bir yılbaşı hediyesi düşünmek yerine, çalışanın o geceki fotoğrafı kürenin içinde kişisel bir hediyeye dönüşür." },

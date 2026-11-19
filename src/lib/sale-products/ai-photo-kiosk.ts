@@ -10,23 +10,58 @@ export const AI_PHOTO_KIOSK: SaleProduct = {
   },
   images: [
     {
-      url: "/images/ai-photo-kiosk/uc-ceyrek.webp",
+      url: "/images/ai-photo-kiosk/kirmizi-sag.webp",
       alt: {
-        tr: "Siyah AI Photo Kiosk, sağ çapraz görünüm ve yan LED şeridi",
-        en: "Black AI Photo Kiosk, front-right view with side LED strip",
+        tr: "Siyah AI Photo Kiosk, sağ çapraz görünüm ve kırmızı yan LED",
+        en: "Black AI Photo Kiosk, front-right view with red side LED",
       },
     },
     {
-      url: "/images/ai-photo-kiosk/on.webp",
+      url: "/images/ai-photo-kiosk/kirmizi-on.webp",
       alt: {
-        tr: "Siyah AI Photo Kiosk, tam ön görünüm ve fotoğraf çıkış tepsisi",
-        en: "Black AI Photo Kiosk, front view with photo output tray",
+        tr: "AI Photo Kiosk, tam ön görünüm ve fotoğraf çıkış tepsisi",
+        en: "AI Photo Kiosk, straight-on view with photo output tray",
+      },
+    },
+    {
+      url: "/images/ai-photo-kiosk/kirmizi-sol.webp",
+      alt: {
+        tr: "AI Photo Kiosk, sol çapraz görünüm ve kırmızı yan LED",
+        en: "AI Photo Kiosk, front-left view with red side LED",
+      },
+    },
+    {
+      url: "/images/ai-photo-kiosk/kirmizi-yan.webp",
+      alt: {
+        tr: "AI Photo Kiosk, yan profil ve gövdeyi takip eden kırmızı LED",
+        en: "AI Photo Kiosk, side profile with red LED following the housing",
+      },
+    },
+    {
+      url: "/images/ai-photo-kiosk/kirmizi-arka-bombeli.webp",
+      alt: {
+        tr: "AI Photo Kiosk, bombeli arka panel ve iki servis kapağı",
+        en: "AI Photo Kiosk, curved rear panel with two service doors",
+      },
+    },
+    {
+      url: "/images/ai-photo-kiosk/kirmizi-kamera.webp",
+      alt: {
+        tr: "AI Photo Kiosk, kamera ve ekran çerçevesi detayı",
+        en: "AI Photo Kiosk, camera and screen frame close-up",
+      },
+    },
+    {
+      url: "/images/ai-photo-kiosk/kirmizi-yazici.webp",
+      alt: {
+        tr: "AI Photo Kiosk, fotoğraf çıkış yuvası ve tepsi detayı",
+        en: "AI Photo Kiosk, photo output slot and tray close-up",
       },
     },
   ],
   imageNote: {
-    tr: "Mat siyah gövde · Temsili ürün renderları",
-    en: "Matte black housing · Illustrative product renders",
+    tr: "Mat siyah gövde ve kırmızı yan LED · Temsili ürün renderları",
+    en: "Matte black housing and red side LEDs · Illustrative product renders",
   },
   sizeLabel: { tr: "Ekran boyutu", en: "Screen size" },
   sizes: [

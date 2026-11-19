@@ -45,6 +45,18 @@
   object-position: center !important;
   padding: 24px;
 }
+.visual > div > div:has(> button[aria-pressed]) {
+  flex-wrap: wrap;
+}
+.visual button[aria-pressed] {
+  background: #fff;
+}
+.visual button[aria-pressed="true"] {
+  border-color: #e31b23;
+}
+.visual button[aria-pressed] img {
+  object-fit: contain;
+}
 .visual figcaption {
   color: var(--muted);
   font-size: 12px;

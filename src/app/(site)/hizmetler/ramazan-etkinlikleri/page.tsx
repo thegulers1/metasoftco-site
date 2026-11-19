@@ -80,13 +80,14 @@ export default function RamazanPage() {
         }}
       />
       <section className={styles.hero} aria-labelledby="ramazan-title">
-        <div>
+        <div className={styles.heroCopy}>
           <p className={styles.crumb}>
             <Link href="/hizmetler" prefetch={false}>Hizmetler</Link> / Ramazan
           </p>
-          <p className={styles.kicker}>Belediyeler için Ramazan deneyimleri</p>
+          <p className={styles.kicker}>✧ &nbsp; BİRLİKTE GÜZEL, BİRLİKTE RAMAZAN</p>
+          <p className={styles.heroGreeting}>Işıklar yansın,</p>
           <h1 id="ramazan-title">
-            Ramazan Etkinlikleri <em>ve İnteraktif Aktiviteler</em>
+            hatıralar biriksin.<em>Ramazan Etkinlikleri ve İnteraktif Aktiviteler</em>
           </h1>
           <p className={styles.lede}>
             Ramazan çadırları, meydanlar ve etkinlik alanları için ailece
@@ -104,14 +105,16 @@ export default function RamazanPage() {
           </div>
         </div>
         <figure className={styles.heroMedia}>
+          <span className={styles.archLabel}>RAMAZAN AKŞAMLARINDAN BİR HATIRA</span>
           {/* The static WebP variants use their real widths in srcSet. */}
           {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img {...hero} srcSet={ramadanSrcSet(hero)} sizes="(max-width: 760px) 92vw, 40vw" fetchPriority="high" />
+          <img {...hero} alt={hero.alt} srcSet={ramadanSrcSet(hero)} sizes="(max-width: 760px) 92vw, 40vw" fetchPriority="high" />
           <figcaption>
             <span>01 / 360 Video Booth</span>
             <span>Örnek konsept görseli</span>
           </figcaption>
         </figure>
+        <div className={styles.heroSeal}><span aria-hidden="true">✧</span> Ailece bir arada.<br /><em>Güzel bir akşamın hatırası.</em></div>
       </section>
       <nav className={styles.jump} aria-label="Ramazan sayfası bölümleri">
         <a href="#hatiralar">Hatıra Deneyimleri</a>

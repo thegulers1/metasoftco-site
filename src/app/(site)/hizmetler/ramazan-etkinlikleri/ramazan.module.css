@@ -478,3 +478,171 @@
     height: min(98vw, 400px);
   }
 }
+
+/* Ramadan evening collection: scoped tokens also carry through the existing controls. */
+.page {
+  --ms-bg: #0a172d;
+  --ms-panel: #11243a;
+  --ms-panel-2: #152d43;
+  --ms-fg: #faf0d8;
+  --ms-soft: #d3d5ce;
+  --ms-mut: #a9b6b4;
+  --ms-line: #bca16b35;
+  --ms-line-2: #bca16b68;
+  --ms-acc: #eac987;
+  --ms-on-acc: #11243a;
+  max-width: none;
+  padding: 100px 0 0;
+  background: var(--ms-bg);
+  color: var(--ms-fg);
+}
+.page h2 { font-family: Georgia, serif; font-weight: 400; line-height: 1.12; font-size: clamp(36px, 4.4vw, 65px); }
+.page h3 { line-height: 1.2; font-weight: 550; }
+.hero { position: relative; isolation: isolate; padding: 65px max(50px, 8vw) 110px; gap: 6vw; min-height: 810px; overflow: hidden; grid-template-columns: 1.1fr .85fr; background: url('/ramazan-etkinlikleri/ramazan-gecesi.webp') center/cover; }
+.hero::before { content: ''; position: absolute; inset: 0; background: linear-gradient(90deg,#07132977, #07132955 50%,#07132900); z-index: -1; }
+.heroCopy { padding-left: 3vw; }
+.page .heroGreeting { font: italic clamp(40px,4.2vw,65px)/1.1 Georgia,serif; color: #eac987; margin: 0 0 8px; }
+.page h1 { font: 400 clamp(48px,5.5vw,82px)/1.03 Georgia,serif; letter-spacing: -.045em; }
+.page h1 em { display: block; font: 500 14px/1.6 var(--mh-sans),sans-serif; letter-spacing: .015em; max-width: 360px; margin-top: 25px; color: #f3ddb3; }
+.hero .lede { font-size: 14px; line-height: 1.85; max-width: 470px; color: #e1e4dc; }
+.hero .crumb { font-size: 10px; margin-bottom: 38px; }
+.hero .kicker { font-size: 9px; letter-spacing: .16em; margin-bottom: 24px; }
+.hero .actions { gap: 12px; }
+.hero .actions a { font-size: 10px; padding: 14px 20px; }
+.heroMedia { position: relative; padding: 12px; border: 1px solid #eac98799; border-radius: 220px 220px 8px 8px; background: #a17c3c16; box-shadow: 0 0 70px #d5a35213; margin-top: 30px; }
+.heroMedia::before { content: ''; position: absolute; inset: -9px; border: 1px solid #eac98740; border-radius: inherit; pointer-events: none; }
+.heroMedia img { border-radius: 220px 220px 0 0; height: 490px; object-position: center; }
+.heroMedia figcaption { font-size: 8px; padding: 14px 5px 3px; color: #d9c394; }
+.archLabel { display: block; position: absolute; top: -33px; width: 100%; left: 0; text-align: center; color: #eac987; letter-spacing: .18em; font-size: 8px; }
+.heroSeal { position: absolute; bottom: 28px; left: 0; right: 0; text-align: center; font: 16px/1.4 Georgia,serif; color: #f4dcac; }
+.heroSeal > span { display: inline-block; margin-right: 10px; font-size: 24px; }
+.heroSeal em { font-size: 13px; font-style: italic; }
+.jump { justify-content: center; gap: 40px; padding: 20px; background: #16362f; border-block: 1px solid #c6a46960; color: #f2deba; font-size: 11px; }
+.section { padding: 85px max(28px,7vw); }
+.section > .kicker { letter-spacing: .16em; font-size: 10px; }
+.zones { gap: 25px; }
+.zones a { position: relative; padding: 36px; border-radius: 70px 8px 8px 8px; background: #17382f; }
+.zones a:nth-child(2) { background: #392c36; }
+.zones h3 { font: 34px Georgia,serif; color: #f2d7a2; }
+.zones p { font-size: 14px; max-width: 420px; }
+.zones span { font-size: 10px; }
+.memoryGrid { gap: 24px; }
+.feature { border-radius: 10px; background: linear-gradient(125deg,#183b35,#10253a); border-color: #bca16b60; padding: 40px; }
+.memory { border-radius: 110px 110px 8px 8px; padding: 38px 24px 24px; }
+.memoryCopy { padding-top: 10px; }
+.memory .memoryCopy { text-align: center; }
+.memoryCopy > p:not(.kicker) { font-size: 14px; line-height: 1.8; }
+.memory h3 { font: 30px/1.2 Georgia,serif; color: #ecd09b; }
+.memoryGrid .memoryImage,.memoryGrid .prints { background: #0a1925; }
+.add { border-radius: 99px; font-size: 12px; padding: 10px 17px; }
+.gameGrid { gap: 25px; }
+.game { border-radius: 120px 120px 8px 8px; padding: 15px; background: #10263a; }
+.game:nth-child(3n+2) { background: #17352f; }
+.game:nth-child(3n) { background: #30293b; }
+.gameImage { overflow: hidden; border-radius: 110px 110px 4px 4px; background: #0a1928; }
+.gameImage img { border-radius: 100px 100px 4px 4px; }
+.gameCopy { padding: 24px 14px 15px; }
+.gameCopy h3 { font: 29px/1.15 Georgia,serif; color: #f1d5a1; }
+.gameCopy > p { font-size: 13px; }
+.combinations { gap: 24px; }
+.combinations article { background: #19372f; padding: 35px; border-radius: 5px; border-top: 3px solid #d1b17b; }
+.combinations h3 { font: 30px Georgia,serif; color: #f1d5a1; }
+.combinations p { font-size: 14px; }
+.steps li { background: transparent; border: 0; border-top: 1px solid #bca16b68; border-radius: 0; padding: 25px 0; }
+.steps li > span { font: italic 35px Georgia,serif; margin-bottom: 20px; }
+.steps li > p { font-size: 14px; }
+.quote { background: radial-gradient(ellipse at top left,#234839,#0b1d30 65%); border-top-color: #bca16b75; }
+.quote h2 { color: #f1d5a1; }
+.form { background: #0b1c2dc9; border-color: #bca16b60; }
+:global(.ms):has(.page) { --ms-bg:#0a172d; --ms-fg:#faf0d8; --ms-soft:#d3d5ce; --ms-mut:#a9b6b4; --ms-acc:#eac987; --ms-on-acc:#11243a; --ms-line:#bca16b35; }
+:global(.ms):has(.page) :global(.ms-nav) { border-bottom:1px solid #bca16b35; padding-block:15px; }
+:global(.ms):has(.page) :global(.ms-closing__top), :global(.ms):has(.page) :global(.ms-closing__mid) { display:none; }
+:global(.ms):has(.page) :global(.ms-closing) { padding-top:0; }
+@media(max-width:1100px) { .hero { padding-inline:5vw; gap:35px; } .heroCopy { padding-left:0; } .heroMedia img { height:440px; } .section { padding-inline:4vw; } }
+@media(max-width:760px) {
+.page { padding-top:82px; }
+.hero { padding:35px 22px 100px; gap:55px; background-position:35% top; grid-template-columns:1fr; }
+.hero::before { background:linear-gradient(#07132955,#071329b0 35%,#07132920); }
+.hero .crumb { margin-bottom:30px; }
+.hero .kicker { font-size:8px; }
+.page .heroGreeting { font-size:40px; }
+.page h1 { font-size:51px; }
+.page h1 em { font-size:12px; }
+.hero .lede { font-size:13px; }
+.heroMedia { width:min(360px,90%); margin:0 auto; }
+.heroMedia img { height:410px; aspect-ratio:auto; }
+.heroSeal { bottom:22px; }
+.jump { gap:10px 24px; padding:16px 20px; font-size:10px; }
+.section { padding:55px 22px; }
+.page h2 { font-size:39px; }
+.feature { padding:24px; gap:22px; }
+.zones a { padding:30px; }
+.memory { border-radius:70px 70px 6px 6px; }
+.game { border-radius:85px 85px 6px 6px; }
+.gameImage { border-radius:75px 75px 3px 3px; }
+.combinations article { padding:28px; }
+}
+.heroMedia img { object-position: center 22%; }
+.heroMedia figcaption { background: #0a172de6; padding: 12px 8px 5px; }
+@media(max-width:760px) {
+  .hero { background-size: auto 900px; background-repeat: no-repeat; background-position: 18% top; background-color: #09162c; }
+  .hero::before { background: linear-gradient(90deg,#071329b8,#07132955),linear-gradient(transparent 600px,#09162c 900px); }
+}
+
+/* Keep the arch in the frame; UI screenshots must remain fully readable. */
+.game {
+  padding: 12px;
+  border-radius: 100px 100px 8px 8px;
+}
+.gameImage {
+  position: relative;
+  height: auto;
+  aspect-ratio: 3 / 4;
+  padding: 55px 12px 12px;
+  border-radius: 90px 90px 5px 5px;
+  overflow: hidden;
+  background: linear-gradient(180deg, #d7b6740e, #07142480);
+  border: 1px solid #c4a76c33;
+}
+.gameImage::before {
+  content: '✧';
+  position: absolute;
+  top: 8px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font: 30px/1 Georgia, serif;
+  color: #eac987;
+  pointer-events: none;
+}
+.gameImage .imageButton {
+  align-self: stretch;
+  border-radius: 3px;
+  overflow: visible;
+}
+.gameImage .imageButton img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  object-fit: contain;
+  border-radius: 3px;
+}
+.gameImage .imageButton span {
+  right: 5px;
+  bottom: 5px;
+  padding: 3px 9px;
+  font-size: 16px;
+  background: #09172de8;
+}
+.gameCopy { flex: 1; display: flex; flex-direction: column; align-items: flex-start; }
+.gameCopy .add { margin-top: auto; }
+.gameCopy > p:last-of-type { margin-bottom: 18px; }
+/* Printed keepsakes also retain their rectangular corners and full content. */
+.memoryImage, .prints { overflow: visible; }
+.memoryImage .imageButton img, .prints .imageButton img { border-radius: 3px; object-fit: contain; }
+@media (max-width: 760px) {
+  .game { border-radius: 80px 80px 7px 7px; }
+  .gameImage { border-radius: 70px 70px 4px 4px; padding: 48px 10px 10px; }
+  .gameImage::before { top: 7px; font-size: 28px; }
+}
