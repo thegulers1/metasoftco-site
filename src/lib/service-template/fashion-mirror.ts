@@ -18,7 +18,7 @@ export const FASHION_MIRROR_PROFILE: ServiceTemplateProfile = {
     productName: "AI Fashion Mirror",
     product: {
         eyebrow: "Yapay zekâ ile sanal kıyafet deneme",
-        titleLines: ["AI Fashion Mirror", "Kiralama"],
+        titleLines: ["AI Fashion Mirror Kiralama", "Yapay Zekâ ile Sanal Kıyafet Deneme"],
         intro: "Markanızın gerçek koleksiyonunu, etkinlik katılımcılarının üzerinde yapay zekâ ile gösterin.",
         description: "Katılımcı kıyafet değiştirmeden, tek bir fotoğrafla kişiselleştirilmiş bir AI Try-On görseline ulaşır. Koleksiyon hazırlığı, kiosk, kurulum ve saha desteğini birlikte planlıyoruz.",
         badges: ["Markanın gerçek koleksiyonu", "QR ile dijital teslim", "Türkiye geneli kurulum"],

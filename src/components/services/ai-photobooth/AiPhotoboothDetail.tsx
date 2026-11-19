@@ -103,9 +103,9 @@ export default function AiPhotoboothDetail({
           <div className={styles.productCopy}>
             <span className={styles.eyebrow}>Yapay zekâ fotoğraf deneyimi</span>
             <h1 id="product-title">
-              AI Photobooth
+              AI Photobooth Kiralama
               <br />
-              Kiralama
+              Yapay Zekâ Fotoğraf Deneyimi
             </h1>
             <p className={styles.intro}>
               Etkinliğinizde çekilen fotoğrafları, markanıza özel karakterlere
