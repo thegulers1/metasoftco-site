@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
-import { ArrowDown, ArrowUpRight, Check, PawPrint, Plus } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Check, PawPrint, Plus, Smartphone, QrCode, MoveHorizontal, Bone } from "lucide-react";
 import { homeFontClassName } from "@/components/home/fonts";
 import { getAttribution } from "@/lib/attribution";
 import { trackEvent } from "@/lib/analytics";
@@ -12,13 +12,14 @@ import styles from "./pet-events.module.css";
 const media = "/images/pet-events/";
 
 function ConceptImage({ name, alt, priority = false }: { name: string; alt: string; priority?: boolean }) {
+  const wide = name.endsWith("-story");
   // Static, locally optimised concept images extracted from the supplied presentation.
   return (
     // eslint-disable-next-line @next/next/no-img-element
     <img
       src={`${media}${name}-960.webp`}
-      srcSet={`${media}${name}-480.webp 480w, ${media}${name}-960.webp 960w`}
-      sizes={priority ? "(max-width: 760px) 88vw, 40vw" : "(max-width: 760px) 90vw, (max-width: 1100px) 44vw, 30vw"}
+      srcSet={`${media}${name}-480.webp 480w, ${media}${name}-960.webp 960w${wide ? `, ${media}${name}-1600.webp 1600w` : ""}`}
+      sizes={wide ? "(max-width: 760px) 90vw, 50vw" : priority ? "(max-width: 760px) 88vw, 40vw" : "(max-width: 760px) 90vw, (max-width: 1100px) 44vw, 30vw"}
       width={960}
       height={1280}
       alt={alt}
@@ -30,8 +31,9 @@ function ConceptImage({ name, alt, priority = false }: { name: string; alt: stri
 }
 
 export default function PetEventsExperience() {
-  const [occasion, setOccasion] = useState(occasions[0]);
+  const [occasion, setOccasion] = useState(occasions[1]);
   const [selected, setSelected] = useState<string[]>([]);
+  const [portraitMode, setPortraitMode] = useState<"portrait-story" | "hero-story">("portrait-story");
   const [filter, setFilter] = useState("Tümü");
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
   const [error, setError] = useState("");
@@ -84,7 +86,7 @@ export default function PetEventsExperience() {
             <p className={styles.breadcrumb}><Link href="/hizmetler">Hizmetler</Link><span>/</span>Patili etkinlikler</p>
             <p className={styles.eyebrow}><PawPrint size={17} /> PATİLER BİR ARAYA GELİNCE</p>
             <h1 id="pet-title">Petshop ve veteriner etkinlikleri.<span>Patili dostlara,<br /><em>büyük anılar.</em></span></h1>
-            <p className={styles.lede}>Petshop açılışlarından Hayvanları Koruma Günü’ne; insanları, patili dostlarını ve markanızı aynı güzel hikâyede buluşturan interaktif aktiviteler.</p>
+            <p className={styles.lede}>Petshop açılışından veteriner kongresine, Hayvanları Koruma Günü’nden marka buluşmalarına. Fotoğrafı sanata, kısa bir molayı oyuna, etkinliğinizi kişisel bir hatıraya dönüştürelim.</p>
             <div className={styles.heroActions}>
               <a className={styles.button} href="#aktiviteler">Deneyimleri keşfet <ArrowDown size={19} /></a>
               <a className={styles.textLink} href="#teklif">Etkinliğini anlat <ArrowUpRight size={19} /></a>
@@ -94,13 +96,13 @@ export default function PetEventsExperience() {
           <div className={styles.heroVisual}>
             <div className={styles.heroOrbit} aria-hidden="true" />
             <figure className={styles.heroPortrait}>
-              <ConceptImage name="ai-photo" alt="Kedisiyle birlikte pati desenli fonda çekilen AI fotoğraf konsepti" priority />
-              <figcaption>Bir fotoğraf. İki iyi dost.</figcaption>
+              <ConceptImage name="pati-portresi" alt="Katılımcı ve köpeğinin yağlı boya stilindeki AI Pati Portresi konsepti" priority />
+              <figcaption>İki iyi dost. Bir sanat eseri.</figcaption>
             </figure>
             <div className={styles.pawStamp} aria-hidden="true"><PawPrint strokeWidth={1.5} /></div>
             <figure className={styles.miniPortrait}>
-              <ConceptImage name="ai-greenbox" alt="Köpeğiyle fantastik bir sahnede AI Greenbox fotoğraf konsepti" />
-              <figcaption>Hayal dünyaları dahil.</figcaption>
+              <ConceptImage name="pati-superhero" alt="Pati amblemli süper kahramana dönüştürülen katılımcı için AI Photo konsepti" />
+              <figcaption>Kahramanı sizsiniz.</figcaption>
             </figure>
             <p className={styles.conceptNote}>Örnek konsept görselleri</p>
           </div>
@@ -110,7 +112,7 @@ export default function PetEventsExperience() {
           <div className={styles.sectionHead}>
             <p className={styles.eyebrow}>HER BULUŞMANIN BİR HİKÂYESİ VAR</p>
             <h2 id="occasion-title">Sizin hikâyeniz<br /><em>nerede başlıyor?</em></h2>
-            <p>Mağaza, klinik ya da bir farkındalık günü. Deneyimi etkinliğinizin alanına ve amacına göre birlikte kuralım.</p>
+            <p>Mağaza, klinik, kongre ya da bir farkındalık günü. Deneyimi etkinliğinizin alanına ve amacına göre birlikte kuralım.</p>
           </div>
           <div className={styles.occasionPanel}>
             <div className={styles.occasionTabs} aria-label="Etkinlik türünüz">
@@ -124,6 +126,27 @@ export default function PetEventsExperience() {
             </div>
           </div>
         </section>
+        <section className={styles.portraitFeature} aria-labelledby="portrait-title">
+          <div className={styles.portraitIntro}>
+            <p className={styles.eyebrow}>AI PHOTO + AI STYLE / PATİ PORTRESİ</p>
+            <h2 id="portrait-title">Telefonunda bir pati.<br /><em>Elinde bir sanat eseri.</em></h2>
+            <p>Birlikte gelmeniz gerekmiyor. Siz poz verin; patili dostunuz telefonunuzdaki fotoğrafıyla hikâyeye katılsın. Ya da tek başınıza kendi kahramanınıza dönüşün.</p>
+            <div className={styles.portraitTabs} role="group" aria-label="Pati Portresi konseptleri">
+              <button type="button" aria-pressed={portraitMode === "portrait-story"} onClick={() => setPortraitMode("portrait-story")}>Patili dostuyla</button>
+              <button type="button" aria-pressed={portraitMode === "hero-story"} onClick={() => setPortraitMode("hero-story")}>Tek başına kahraman</button>
+            </div>
+            <div className={styles.styleChips}><span>Yağlı boya</span><span>Suluboya</span><span>Pop art</span><span>Süper kahraman</span><span>Markanıza özel tema</span></div>
+            <button type="button" className={styles.button} onClick={() => toggle("ai-photo")}>{selected.includes("ai-photo") ? "Pati Portresi planımda" : "Pati Portresi’ni planıma ekle"}{selected.includes("ai-photo") ? <Check size={19} /> : <Plus size={19} />}</button>
+          </div>
+          <figure className={styles.portraitStory}>
+            <a href={`${media}${portraitMode}-1600.webp`} target="_blank" rel="noopener noreferrer" aria-label="Pati Portresi önce ve sonra konseptini büyük aç">
+              <ConceptImage name={portraitMode} alt={portraitMode === "portrait-story" ? "Katılımcı ve köpeğinin ayrı fotoğraflardan ortak yağlı boya portresine dönüşümü" : "Katılımcının fotoğrafından pati amblemli süper kahraman portresine dönüşümü"} />
+              <span>Konsepti büyük incele <ArrowUpRight size={16} /></span>
+            </a>
+            <figcaption>Örnek konsept çalışması. Görsel dil ve tema markanıza göre hazırlanır.</figcaption>
+          </figure>
+          <div className={styles.takeaways}><div><span>01 / ÇEKİM</span><h3>Sizin fotoğrafınızla başlar.</h3><p>Tek başına katılım veya patili dost fotoğrafıyla ortak portre.</p></div><div><span>02 / TASARIM</span><h3>Markanızla şekillenir.</h3><p>Etkinliğinize özel tema, çerçeve ve görsel dünya.</p></div><div><span>03 / HATIRA</span><h3>Elde baskı, telefonda kopya.</h3><p>Seçilen kapsama göre yerinde baskı ve QR ile dijital teslim.</p></div></div>
+        </section>
         <section className={styles.activitiesSection} id="aktiviteler" aria-labelledby="activities-title">
           <div className={styles.activityHeader}><div><p className={styles.eyebrow}>MARKANIZLA ŞEKİLLENEN DENEYİMLER</p><h2 id="activities-title">Biraz teknoloji.<br /><em>Bolca pati sevgisi.</em></h2></div><p>Fotoğraf çekilsin, sohbet başlasın, oyun oynansın.<br />Etkinliğinize yakıştırdıklarınızı planınıza ekleyin.</p></div>
           <div className={styles.filterBar}>
@@ -135,7 +158,7 @@ export default function PetEventsExperience() {
               const active = selected.includes(item.id);
               return <article key={item.id} className={styles.activityCard}>
                 <div className={`${styles.cardImage} ${styles[item.id.replaceAll("-", "_")] || ""}`}>
-                  <ConceptImage name={item.image} alt={item.alt} />
+                  {item.id === "mama-kabini-doldur" ? <div className={styles.phoneGame} aria-label="Telefonla kontrol edilen mama toplama oyununun örnek akışı"><p>TELEFONUN KUMANDAN.</p><div className={styles.gameScreen}><span><Bone size={23} /><Bone size={18} /><Bone size={27} /></span><PawPrint size={55} /><small>MAMA KABINI DOLDUR</small></div><div className={styles.phoneController}><Smartphone size={60} strokeWidth={1.3} /><MoveHorizontal size={25} /></div><span className={styles.qrStep}><QrCode size={19} /> QR ile bağlan. Hareket ettir. Topla.</span><small>Kontrol akışı / örnek kurgu</small></div> : <ConceptImage name={item.image} alt={item.alt} />}
                   <span className={styles.categoryTag}>{item.category}</span>
                   <button type="button" className={styles.addButton} aria-pressed={active} aria-label={`${item.name} ${active ? "planımdan çıkar" : "planıma ekle"}`} onClick={() => toggle(item.id)}>{active ? <Check size={21} /> : <Plus size={21} />}</button>
                 </div>
@@ -145,7 +168,7 @@ export default function PetEventsExperience() {
           </div>
         </section>
         <section className={styles.gameFeature} aria-labelledby="basket-title">
-          <div className={styles.gameIllustration}><ConceptImage name="pet-basket" alt="Pati Sepeti ürün toplama oyunu ekranı" /><span className={styles.gameSticker}><PawPrint size={32} /> HAREKETE<br />GEÇ!</span></div>
+          <div className={styles.gameIllustration}><ConceptImage name="pati-sepeti-event" alt="Pati Sepeti oyununu büyük ekran önünde vücut hareketleriyle oynayan katılımcı için örnek konsept" /><span className={styles.gameSticker}><PawPrint size={32} /> HAREKETE<br />GEÇ!</span></div>
           <div className={styles.gameCopy}><p className={styles.eyebrow}>PET BASKET / HAREKETLE OYNANAN OYUN</p><h2 id="basket-title">Düşen mamalar.<br />Yükselen <em>heyecan.</em></h2><p>Eller serbest, rekabet tatlı. Katılımcılar vücut hareketleriyle sepeti yönlendirir; mama ve ürünleri toplarken engellerden kaçınır. Mağazanızın ürünlerini oyunun bir parçasına dönüştürelim.</p><button type="button" className={styles.button} onClick={() => toggle("pet-basket")}>{selected.includes("pet-basket") ? "Pet Basket planımda" : "Pet Basket’i planıma ekle"}{selected.includes("pet-basket") ? <Check size={19} /> : <Plus size={19} />}</button></div>
         </section>
         <section className={styles.processSection} id="kurulum" aria-labelledby="process-title">
@@ -158,7 +181,7 @@ export default function PetEventsExperience() {
           <p className={styles.comfortNote}>Patili dostların rahatlığı da planın bir parçası. Evcil hayvanlı çekimleri mekânın koşullarına ve hayvan sahibinin tercihine göre düzenleyelim.</p>
         </section>
         <section className={styles.quoteSection} id="teklif" aria-labelledby="quote-title">
-          <div className={styles.quoteIntro}><p className={styles.eyebrow}>BİRLİKTE PLANLAYALIM</p><h2 id="quote-title">Bir fikriniz var.<br /><em>Bir pati de bizden.</em></h2><p>Petshop açılışı, veteriner kliniği tanıtımı ya da Hayvanları Koruma Günü etkinliğiniz için ihtiyaçlarınıza uygun bir kurgu hazırlayalım.</p><div className={styles.selection}><p>Etkinlik planınız <span>{chosen.length} aktivite</span></p>{chosen.length ? <ul>{chosen.map(item => <li key={item.id}><span>{item.name}</span><button type="button" aria-label={`${item.name} planımdan çıkar`} onClick={() => toggle(item.id)}>Çıkar</button></li>)}</ul> : <p className={styles.empty}>Henüz aktivite seçmediniz. İsterseniz size birlikte öneri hazırlayalım.</p>}</div><a className={styles.whatsapp} href={`https://wa.me/905342334051?text=${encodeURIComponent(whatsappText)}`} target="_blank" rel="noopener noreferrer">WhatsApp’tan konuşalım <ArrowUpRight size={18} /></a></div>
+          <div className={styles.quoteIntro}><p className={styles.eyebrow}>BİRLİKTE PLANLAYALIM</p><h2 id="quote-title">Bir fikriniz var.<br /><em>Bir pati de bizden.</em></h2><p>Petshop açılışı, veteriner kongresi, klinik tanıtımı ya da Hayvanları Koruma Günü etkinliğiniz için ihtiyaçlarınıza uygun bir kurgu hazırlayalım.</p><div className={styles.selection}><p>Etkinlik planınız <span>{chosen.length} aktivite</span></p>{chosen.length ? <ul>{chosen.map(item => <li key={item.id}><span>{item.name}</span><button type="button" aria-label={`${item.name} planımdan çıkar`} onClick={() => toggle(item.id)}>Çıkar</button></li>)}</ul> : <p className={styles.empty}>Henüz aktivite seçmediniz. İsterseniz size birlikte öneri hazırlayalım.</p>}</div><a className={styles.whatsapp} href={`https://wa.me/905342334051?text=${encodeURIComponent(whatsappText)}`} target="_blank" rel="noopener noreferrer">WhatsApp’tan konuşalım <ArrowUpRight size={18} /></a></div>
           <div className={styles.formPanel}>
             {status === "success" ? <div className={styles.success} role="status"><Check size={38} /><h3>Talebiniz bize ulaştı.</h3><p>Etkinlik detaylarınızı değerlendirmek üzere sizinle iletişime geçeceğiz.</p><button type="button" className={styles.textLink} onClick={() => setStatus("idle")}>Yeni bir talep oluştur <ArrowUpRight size={18} /></button></div> : <form onSubmit={submit}>
               <h3>Etkinliğinizden biraz bahsedin.</h3>

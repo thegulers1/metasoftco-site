@@ -21,3 +21,57 @@
 @media(max-width:760px){.hero{padding:27px 6% 45px;display:flex;flex-direction:column;gap:30px;min-height:0;align-items:stretch}.breadcrumb{margin-bottom:27px;font-size:10px}.hero .eyebrow{font-size:9px}.hero h1{font-size:13px;margin-top:15px;margin-bottom:0}.hero h1>span{font-size:clamp(48px,11.9vw,83px);margin-top:19px;line-height:1.01;letter-spacing:-.04em}.hero .lede{font-size:15px;line-height:1.75;max-width:500px;margin-top:23px}.heroActions{gap:20px}.heroActions .button{font-size:12px;min-height:49px;padding:13px 18px}.heroActions .textLink{font-size:12px}.heroNote{margin-top:25px;font-size:11px}.heroVisual{height:540px;min-height:0;max-width:470px;align-self:center;margin:10px 0 0;flex-shrink:0}.heroPortrait{height:90%;width:87%;right:2%}.heroOrbit{right:-4%}.heroVisual .miniPortrait{left:0;bottom:5%;width:36%;height:37%}.pawStamp{right:0;top:1%;width:75px;height:75px}.pawStamp svg{width:42px;height:42px}.conceptNote{bottom:-3px;font-size:9px}.heroPortrait figcaption{font-size:17px;bottom:20px;left:15px}.ribbon{padding:17px 5%;gap:12px;font-size:19px;flex-wrap:wrap;justify-content:center}.ribbon svg{width:17px;height:17px}.ribbon>svg:last-child{display:none}.occasionSection,.quoteSection,.faqSection{display:flex;flex-direction:column;gap:30px;padding:65px 6%}.sectionHead h2,.activityHeader h2,.gameCopy h2,.quoteIntro h2{font-size:43px;line-height:1.07;letter-spacing:-.045em}.eyebrow{font-size:9px}.sectionHead>p:last-child{font-size:14px;max-width:500px}.occasionPanel{width:100%}.occasionCopy{padding:27px;min-height:350px}.occasionCopy h3{font-size:27px}.occasionCopy>p{font-size:14px}.occasionTabs{gap:1px;padding:7px}.occasionTabs button{font-size:10px;min-height:49px}.recommendations span{font-size:10px;padding:5px 9px}.occasionCopy .textLink{font-size:12px}.activitiesSection{padding:65px 6%}.activityHeader{display:block}.activityHeader>p{font-size:14px;margin:20px 0 28px}.filterBar{align-items:flex-start;flex-direction:column;margin:0 0 27px;padding-top:17px;gap:6px}.filterBar button{font-size:11px;padding:8px 13px}.filterBar>p{font-size:9px;margin:8px 0 0}.activityGrid{grid-template-columns:1fr;gap:38px}.cardImage{aspect-ratio:4/4.35}.activityCard:nth-child(3n+2) .cardImage{border-radius:12px}.cardCopy{padding-top:19px}.cardCopy h3{font-size:25px}.cardCopy h3 span{font-size:23px}.cardCopy>p{font-size:14px}.cardCopy .output{font-size:10px}.gameFeature{padding:65px 8%;display:flex;flex-direction:column;gap:45px}.gameIllustration{height:420px;width:85%;max-width:350px}.gameSticker{right:-20px;width:95px;height:95px;font-size:10px}.gameCopy{width:100%}.gameCopy>p:not(.eyebrow){font-size:14px}.gameCopy .button{font-size:12px}.processSection{padding:65px 6%}.processGrid{grid-template-columns:1fr;gap:20px;margin:30px 0}.processGrid>div{padding-left:60px;padding-top:20px}.processDot{position:absolute;top:20px;left:0;width:40px;height:40px}.processGrid h3{font-size:20px;margin-top:7px}.processGrid p{max-width:100%;font-size:13px}.comfortNote{font-size:11px}.quoteIntro,.formPanel{width:100%}.quoteIntro>p:not(.eyebrow){font-size:14px}.selection{max-width:none}.formPanel{padding:25px 20px}.formPanel h3{font-size:23px}.formGrid{gap:17px 12px}.formPanel input,.formPanel textarea,.formPanel select{font-size:16px;padding:11px 9px}.formPanel label{font-size:10px}.formPanel .button{font-size:12px}.faqList{width:100%}.faqList summary{font-size:14px;padding:20px 0}.faqList details p{font-size:13px}.closing{padding:5px 6% 60px;flex-wrap:wrap;justify-content:flex-start;gap:17px}.closing>svg{width:28px}.closing>p{font-size:27px}.closing>a{margin-left:45px;font-size:12px}.planDock{bottom:15px;padding:13px 17px;gap:10px;font-size:11px;max-width:94vw}.planDock>span:last-child{gap:5px;padding-left:11px}.success{min-height:420px}}
 @media(max-width:390px){.heroVisual{height:440px}.heroActions{gap:15px}.heroActions .button{padding-inline:15px}.ribbon{font-size:16px;gap:9px}.ribbon svg{width:13px}.formGrid{grid-template-columns:1fr}.occasionTabs button{font-size:9px}}
 @media(prefers-reduced-motion:reduce){.page *, .page *::before,.page *::after{animation:none!important;scroll-behavior:auto!important;transition:none!important}}
+
+/* Portrait studio: keep artwork complete, with a quieter editorial frame. */
+.portraitFeature{padding:95px 5.5%;display:grid;grid-template-columns:.85fr 1.15fr;gap:50px 6%;align-items:center;background:#eee5f2;border-top:1px solid var(--line)}
+.portraitIntro h2{font-size:clamp(38px,4.1vw,65px);line-height:1.09;letter-spacing:-.045em;font-weight:650;margin:18px 0 24px}
+.portraitIntro>p:not(.eyebrow){max-width:490px;color:#65546b;font-size:16px;line-height:1.8}
+.portraitTabs{display:flex;gap:7px;flex-wrap:wrap;margin:25px 0 18px}
+.portraitTabs button{background:transparent;color:var(--ink);border:1px solid #baa9c7;border-radius:99px;padding:11px 17px;font-size:12px}
+.portraitTabs button[aria-pressed=true]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.styleChips{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 28px;max-width:420px}
+.styleChips span{font-family:var(--mh-mono),monospace;font-size:10px;color:#786381;padding:4px 8px;border-left:1px solid #baa9c7}
+.portraitStory{margin:0;min-width:0}
+.portraitStory a{display:block;background:#101014;border:8px solid #fffdf8;box-shadow:0 12px 35px #30203916;border-radius:8px;overflow:hidden}
+.portraitStory img{display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:contain}
+.portraitStory a>span{display:flex;align-items:center;justify-content:space-between;padding:14px 17px;font-size:11px;color:#eee6f2;background:#302039}
+.portraitStory figcaption{font-size:10px;color:#786381;line-height:1.7;margin-top:15px}
+.takeaways{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:35px;border-top:1px solid #cbbbd4;padding-top:30px;margin-top:12px}
+.takeaways span{font:10px var(--mh-mono),monospace;color:#786381;letter-spacing:.06em}
+.takeaways h3{font-size:19px;letter-spacing:-.02em;font-weight:600;margin:13px 0 9px;line-height:1.3}
+.takeaways p{font-size:13px;line-height:1.7;color:#6b5c70;margin:0;max-width:320px}
+.ai_photo img,.ai_magazine img,.robo_selfie img,.human_vs_ai img{object-fit:contain;background:#11151a}
+.activityCard:hover :is(.ai_photo,.ai_magazine,.robo_selfie,.human_vs_ai) img{transform:none}
+.heroPortrait{border-radius:24px;transform:rotate(3deg)}
+.heroPortrait img{object-position:center 40%}
+.occasionTabs{flex-wrap:wrap}
+.occasionTabs button{flex:1 1 40%;min-height:46px}
+@media(max-width:760px){
+.portraitFeature{padding:65px 6%;grid-template-columns:1fr;gap:32px}
+.portraitIntro h2{font-size:43px}
+.portraitIntro>p:not(.eyebrow){font-size:14px}
+.portraitIntro .button{font-size:12px}
+.portraitTabs button{font-size:11px;padding:10px 14px}
+.takeaways{grid-template-columns:1fr;gap:24px;padding-top:25px;margin-top:0}
+.takeaways h3{font-size:20px;margin-top:10px}
+.takeaways p{max-width:none}
+.portraitStory a{border-width:5px}
+.heroPortrait{border-radius:18px}
+}
+.phoneGame{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:55px 22px 32px;background:radial-gradient(ellipse at top,#f5f1d5,#dce4c7);color:#354b35;text-align:center}
+.phoneGame>p{font:600 11px var(--mh-mono),monospace;letter-spacing:.1em;margin:0}
+.gameScreen{width:85%;padding:22px 20px 16px;border:9px solid #302039;border-bottom-width:16px;border-radius:12px;background:#f5f4e3;display:flex;flex-direction:column;align-items:center;gap:16px;box-shadow:0 15px 20px #30203918;transform:rotate(-3deg)}
+.gameScreen>span{display:flex;gap:22px;color:#a17a34;align-items:center}
+.gameScreen small{font-size:9px;letter-spacing:.06em;font-weight:650}
+.phoneController{display:flex;gap:14px;align-items:center;transform:rotate(9deg);color:#684797}
+.qrStep{display:flex;gap:8px;align-items:center;font-size:11px;font-weight:600}
+.phoneGame>small{font-size:9px;color:#687462}
+.heroPortrait figcaption{left:auto;right:18px;bottom:22px;font-size:17px;max-width:65%;text-align:right}
+@media(max-width:760px){.heroPortrait figcaption{left:auto;right:12px;font-size:15px;max-width:62%}}
+/* The new event rendering keeps its full composition and natural colours. */
+.pet_basket{aspect-ratio:4/5}
+.pet_basket img{object-fit:contain;padding:0;background:#e2d8f0}
+.activityCard:hover .pet_basket img{transform:none}
+.gameIllustration{height:auto;aspect-ratio:4/5;border-radius:16px;transform:rotate(-2deg);background:#e2d8f0}
+.gameIllustration>img{width:100%;height:100%;object-fit:contain;mix-blend-mode:normal;border-radius:16px}
+@media(max-width:760px){.gameIllustration{height:auto;width:100%;max-width:380px}}
