@@ -2,7 +2,7 @@
 
 import { useState, type FormEvent } from "react";
 import Link from "next/link";
-import { ArrowDown, ArrowUpRight, Check, PawPrint, Plus, Smartphone, QrCode, MoveHorizontal, Bone } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Check, PawPrint, Plus } from "lucide-react";
 import { homeFontClassName } from "@/components/home/fonts";
 import { getAttribution } from "@/lib/attribution";
 import { trackEvent } from "@/lib/analytics";
@@ -21,7 +21,7 @@ function ConceptImage({ name, alt, priority = false }: { name: string; alt: stri
       srcSet={`${media}${name}-480.webp 480w, ${media}${name}-960.webp 960w${wide ? `, ${media}${name}-1600.webp 1600w` : ""}`}
       sizes={wide ? "(max-width: 760px) 90vw, 50vw" : priority ? "(max-width: 760px) 88vw, 40vw" : "(max-width: 760px) 90vw, (max-width: 1100px) 44vw, 30vw"}
       width={960}
-      height={1280}
+      height={name.endsWith("-v2") ? 960 : 1280}
       alt={alt}
       loading={priority ? "eager" : "lazy"}
       fetchPriority={priority ? "high" : "auto"}
@@ -96,7 +96,7 @@ export default function PetEventsExperience() {
           <div className={styles.heroVisual}>
             <div className={styles.heroOrbit} aria-hidden="true" />
             <figure className={styles.heroPortrait}>
-              <ConceptImage name="pati-portresi" alt="Katılımcı ve köpeğinin yağlı boya stilindeki AI Pati Portresi konsepti" priority />
+              <ConceptImage name="pati-art-v2" alt="Katılımcı ve köpeğinin yağlı boya stilindeki AI Pati Portresi konsepti" priority />
               <figcaption>İki iyi dost. Bir sanat eseri.</figcaption>
             </figure>
             <div className={styles.pawStamp} aria-hidden="true"><PawPrint strokeWidth={1.5} /></div>
@@ -132,15 +132,15 @@ export default function PetEventsExperience() {
             <h2 id="portrait-title">Telefonunda bir pati.<br /><em>Elinde bir sanat eseri.</em></h2>
             <p>Birlikte gelmeniz gerekmiyor. Siz poz verin; patili dostunuz telefonunuzdaki fotoğrafıyla hikâyeye katılsın. Ya da tek başınıza kendi kahramanınıza dönüşün.</p>
             <div className={styles.portraitTabs} role="group" aria-label="Pati Portresi konseptleri">
-              <button type="button" aria-pressed={portraitMode === "portrait-story"} onClick={() => setPortraitMode("portrait-story")}>Patili dostuyla</button>
-              <button type="button" aria-pressed={portraitMode === "hero-story"} onClick={() => setPortraitMode("hero-story")}>Tek başına kahraman</button>
+              <button type="button" aria-pressed={portraitMode === "portrait-story"} onClick={() => setPortraitMode("portrait-story")}>Yağlı boya portre</button>
+              <button type="button" aria-pressed={portraitMode === "hero-story"} onClick={() => setPortraitMode("hero-story")}>Süper kahraman</button>
             </div>
             <div className={styles.styleChips}><span>Yağlı boya</span><span>Suluboya</span><span>Pop art</span><span>Süper kahraman</span><span>Markanıza özel tema</span></div>
             <button type="button" className={styles.button} onClick={() => toggle("ai-photo")}>{selected.includes("ai-photo") ? "Pati Portresi planımda" : "Pati Portresi’ni planıma ekle"}{selected.includes("ai-photo") ? <Check size={19} /> : <Plus size={19} />}</button>
           </div>
           <figure className={styles.portraitStory}>
-            <a href={`${media}${portraitMode}-1600.webp`} target="_blank" rel="noopener noreferrer" aria-label="Pati Portresi önce ve sonra konseptini büyük aç">
-              <ConceptImage name={portraitMode} alt={portraitMode === "portrait-story" ? "Katılımcı ve köpeğinin ayrı fotoğraflardan ortak yağlı boya portresine dönüşümü" : "Katılımcının fotoğrafından pati amblemli süper kahraman portresine dönüşümü"} />
+            <a href={`${media}${portraitMode === "portrait-story" ? "pati-art-v2" : "pati-superhero"}-960.webp`} target="_blank" rel="noopener noreferrer" aria-label="Pati Portresi konseptini büyük aç">
+              <ConceptImage name={portraitMode === "portrait-story" ? "pati-art-v2" : "pati-superhero"} alt={portraitMode === "portrait-story" ? "Katılımcı ve köpeği için yağlı boya stili portre konsepti" : "Katılımcı için pati amblemli süper kahraman portresi konsepti"} />
               <span>Konsepti büyük incele <ArrowUpRight size={16} /></span>
             </a>
             <figcaption>Örnek konsept çalışması. Görsel dil ve tema markanıza göre hazırlanır.</figcaption>
@@ -158,11 +158,9 @@ export default function PetEventsExperience() {
               const active = selected.includes(item.id);
               return <article key={item.id} className={styles.activityCard}>
                 <div className={`${styles.cardImage} ${styles[item.id.replaceAll("-", "_")] || ""}`}>
-                  {item.id === "mama-kabini-doldur" ? <div className={styles.phoneGame} aria-label="Telefonla kontrol edilen mama toplama oyununun örnek akışı"><p>TELEFONUN KUMANDAN.</p><div className={styles.gameScreen}><span><Bone size={23} /><Bone size={18} /><Bone size={27} /></span><PawPrint size={55} /><small>MAMA KABINI DOLDUR</small></div><div className={styles.phoneController}><Smartphone size={60} strokeWidth={1.3} /><MoveHorizontal size={25} /></div><span className={styles.qrStep}><QrCode size={19} /> QR ile bağlan. Hareket ettir. Topla.</span><small>Kontrol akışı / örnek kurgu</small></div> : <ConceptImage name={item.image} alt={item.alt} />}
-                  <span className={styles.categoryTag}>{item.category}</span>
-                  <button type="button" className={styles.addButton} aria-pressed={active} aria-label={`${item.name} ${active ? "planımdan çıkar" : "planıma ekle"}`} onClick={() => toggle(item.id)}>{active ? <Check size={21} /> : <Plus size={21} />}</button>
+                  <ConceptImage name={item.image} alt={item.alt} />
                 </div>
-                <div className={styles.cardCopy}><h3>{item.name}<span>{item.heading}</span></h3><p>{item.description}</p><p className={styles.output}>{item.output}</p><div className={styles.cardActions}><button type="button" aria-pressed={active} onClick={() => toggle(item.id)}>{active ? <><Check size={16} /> Planımda</> : <>Planıma ekle <Plus size={16} /></>}</button>{item.href && <Link href={item.href}>Hizmet detayları <ArrowUpRight size={15} /></Link>}</div></div>
+                <div className={styles.cardCopy}><p className={styles.cardMeta}>{item.category}</p><h3>{item.name}</h3><p className={styles.cardTagline}>{item.heading}</p><p>{item.description}</p><p className={styles.output}>{item.output}</p><div className={styles.cardActions}><button type="button" aria-pressed={active} aria-label={`${item.name} ${active ? "planımdan çıkar" : "planıma ekle"}`} onClick={() => toggle(item.id)}>{active ? <><Check size={16} /> Planımda</> : <>Planıma ekle <Plus size={16} /></>}</button>{item.href && <Link href={item.href}>Hizmet detayları <ArrowUpRight size={15} /></Link>}</div></div>
               </article>;
             })}
           </div>

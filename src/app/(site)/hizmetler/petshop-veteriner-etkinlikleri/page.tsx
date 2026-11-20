@@ -4,13 +4,13 @@ import { description, faqs, path, title, activities } from "./content";
 import PetEventsExperience from "./Experience";
 
 const url = siteConfig.url + path;
-const image = siteConfig.url + "/images/pet-events/pati-portresi-960.webp";
+const image = siteConfig.url + "/images/pet-events/pati-art-v2-960.webp";
 export const metadata: Metadata = {
   title: { absolute: `${title} | MetasoftCo` },
   description,
   keywords: ["petshop açılış etkinlikleri", "veteriner kliniği açılış aktiviteleri", "hayvanları koruma günü etkinlikleri", "4 Ekim etkinlik fikirleri", "pet marka aktivasyonu", "petshop interaktif aktiviteler", "veteriner kongresi aktiviteleri", "AI pati portresi", "veteriner fuaye etkinlikleri"],
   alternates: { canonical: url },
-  openGraph: { title, description, url, siteName: siteConfig.name, locale: "tr_TR", type: "website", images: [{ url: image, width: 960, height: 915, alt: "Patili dostlarla interaktif etkinlik ve fotoğraf konsepti" }] },
+  openGraph: { title, description, url, siteName: siteConfig.name, locale: "tr_TR", type: "website", images: [{ url: image, width: 960, height: 960, alt: "Patili dostlarla interaktif etkinlik ve fotoğraf konsepti" }] },
   twitter: { card: "summary_large_image", title, description, images: [image] },
 };
 const schemas = [

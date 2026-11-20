@@ -40,7 +40,7 @@
 .takeaways span{font:10px var(--mh-mono),monospace;color:#786381;letter-spacing:.06em}
 .takeaways h3{font-size:19px;letter-spacing:-.02em;font-weight:600;margin:13px 0 9px;line-height:1.3}
 .takeaways p{font-size:13px;line-height:1.7;color:#6b5c70;margin:0;max-width:320px}
-.ai_photo img,.ai_magazine img,.robo_selfie img,.human_vs_ai img{object-fit:contain;background:#11151a}
+
 .activityCard:hover :is(.ai_photo,.ai_magazine,.robo_selfie,.human_vs_ai) img{transform:none}
 .heroPortrait{border-radius:24px;transform:rotate(3deg)}
 .heroPortrait img{object-position:center 40%}
@@ -58,14 +58,6 @@
 .portraitStory a{border-width:5px}
 .heroPortrait{border-radius:18px}
 }
-.phoneGame{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:55px 22px 32px;background:radial-gradient(ellipse at top,#f5f1d5,#dce4c7);color:#354b35;text-align:center}
-.phoneGame>p{font:600 11px var(--mh-mono),monospace;letter-spacing:.1em;margin:0}
-.gameScreen{width:85%;padding:22px 20px 16px;border:9px solid #302039;border-bottom-width:16px;border-radius:12px;background:#f5f4e3;display:flex;flex-direction:column;align-items:center;gap:16px;box-shadow:0 15px 20px #30203918;transform:rotate(-3deg)}
-.gameScreen>span{display:flex;gap:22px;color:#a17a34;align-items:center}
-.gameScreen small{font-size:9px;letter-spacing:.06em;font-weight:650}
-.phoneController{display:flex;gap:14px;align-items:center;transform:rotate(9deg);color:#684797}
-.qrStep{display:flex;gap:8px;align-items:center;font-size:11px;font-weight:600}
-.phoneGame>small{font-size:9px;color:#687462}
 .heroPortrait figcaption{left:auto;right:18px;bottom:22px;font-size:17px;max-width:65%;text-align:right}
 @media(max-width:760px){.heroPortrait figcaption{left:auto;right:12px;font-size:15px;max-width:62%}}
 /* The new event rendering keeps its full composition and natural colours. */
@@ -75,3 +67,27 @@
 .gameIllustration{height:auto;aspect-ratio:4/5;border-radius:16px;transform:rotate(-2deg);background:#e2d8f0}
 .gameIllustration>img{width:100%;height:100%;object-fit:contain;mix-blend-mode:normal;border-radius:16px}
 @media(max-width:760px){.gameIllustration{height:auto;width:100%;max-width:380px}}
+
+/* One image format, one reading rhythm across the collection. */
+.activityGrid{gap:52px 28px;align-items:start}
+.cardImage,.pet_basket{aspect-ratio:1;border-radius:10px;background:#eee4ef}
+.cardImage img,.pet_basket img{display:block;width:100%;height:100%;object-fit:cover;padding:0;background:transparent}
+.activityCard:hover .cardImage img{transform:none}
+.cardCopy{padding:20px 0 0}
+.cardCopy .cardMeta{font:10px/1.4 var(--mh-mono),monospace;letter-spacing:.1em;text-transform:uppercase;color:#74677a;margin:0 0 10px}
+.cardCopy h3{font-size:clamp(23px,2vw,30px);line-height:1.15;margin:0 0 10px}
+.cardCopy .cardTagline{font:italic 23px/1.25 Georgia,serif;color:#4c604a;letter-spacing:-.025em;margin:0 0 17px;min-height:0}
+.cardCopy>p:not(.cardMeta):not(.cardTagline):not(.output){font-size:14px;line-height:1.75;margin-bottom:20px}
+.cardCopy .output{margin-top:0}
+.cardActions{border-top:1px solid #b6bca8;padding-top:12px}
+.cardActions button{border:1px solid #b7beab;border-radius:99px;padding:10px 15px;font-size:12px;min-height:42px}
+.cardActions button[aria-pressed=true]{background:#d8eb86;border-color:#bdcd85;color:#354b35}
+.portraitStory a{background:#e3d5e9;border:0;box-shadow:none;border-radius:12px}
+.portraitStory img{aspect-ratio:1;object-fit:contain;max-height:560px;background:#e3d5e9}
+.portraitStory a>span{background:transparent;color:#4b3b54;border-top:1px solid #cbbbd4;padding-inline:18px}
+@media(max-width:760px){
+.activityGrid{gap:40px}
+.cardImage,.pet_basket{aspect-ratio:1}
+.cardCopy .cardTagline{min-height:0;font-size:23px}
+.portraitStory img{max-height:none}
+}
