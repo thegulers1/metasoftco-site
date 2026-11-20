@@ -57,6 +57,7 @@ const nextConfig: NextConfig = {
   // Eski site URL'leri için kalıcı yönlendirmeler (301)
   async redirects() {
     return [
+      { source: "/petshop-veteriner-etkinlikleri", destination: "/hizmetler/petshop-veteriner-etkinlikleri", statusCode: 301 },
       // Preserve every existing sector URL, including deep pages and query strings.
       { source: "/sektorel-yazilim-cozumleri/tekstil-sektoru", destination: "/sektorel-etkinlik-cozumleri/tekstil-sektoru-dijital-donusum", statusCode: 301 },
       { source: "/sektorel-yazilim-cozumleri/:path*", destination: "/sektorel-etkinlik-cozumleri/:path*", statusCode: 301 },

@@ -38,6 +38,7 @@ const CITY_REFERENCES = [
 ];
 
 const SOLUTION_PAGES = [
+    { title: "Petshop ve Veteriner Etkinlikleri", path: "/hizmetler/petshop-veteriner-etkinlikleri", note: "Petshop açılışı, veteriner kliniği tanıtımı ve Hayvanları Koruma Günü için fotoğraf, sohbet ve oyun aktiviteleri." },
     { title: "Markaya Özel Etkinlik Yazılımı", path: "/hizmetler/markaya-ozel-etkinlik-yazilimi", note: "Lansman ve marka aktivasyonu için interaktif oyun, kiosk arayüzü, AI fotoğraf deneyimi ve mikro site geliştirme." },
     { title: "Etkinlik Mikro Sitesi & Uygulaması + Fiziksel Kurulum", path: EVENT_SOFTWARE_HUB_PATH, note: eventSoftwareHub.metaDescription },
     { title: "Data-Capture & CRM (etkinlikte lead toplama)", path: DATA_CAPTURE_HUB_PATH, note: dataCaptureHub.metaDescription },

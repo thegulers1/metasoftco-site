@@ -41,6 +41,7 @@ export function AdminBarProvider({ children }: { children: ReactNode }) {
         <AdminEditContext.Provider value={{ editUrl, setEditUrl }}>
             {isAdmin && (
                 <div
+                    data-site-admin-bar
                     className="fixed top-0 inset-x-0 z-[9999] flex items-center justify-between px-4 text-white"
                     style={{ height: "32px", backgroundColor: "#1d2327", fontSize: "12px" }}
                 >

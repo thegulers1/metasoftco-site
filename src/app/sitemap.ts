@@ -106,6 +106,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         entry("/sektorel-cozumler", sectorList, 0.4), entry("/en/sector-solutions", sectorList, 0.4),
         entry("/hizmetler/kurumsal-etkinlik-teknolojisi", day(codePageUpdated.corporate), 0.7),
         entry("/hizmetler/fuar-aktivasyonlari", day(codePageUpdated.fairs), 0.6),
+        entry("/hizmetler/petshop-veteriner-etkinlikleri", day("2026-11-19"), 0.7),
         entry("/hizmetler/ramazan-etkinlikleri", day(codePageUpdated.ramadan), 0.7),
         entry("/hizmetler/yilbasi-partisi-aktiviteleri", day(codePageUpdated.newYear), 0.7),
         ...newYearProductSlugs.map((slug) => entry(`/hizmetler/${slug}`, day(codePageUpdated.newYearProducts), 0.6)),

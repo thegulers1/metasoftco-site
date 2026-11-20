@@ -340,6 +340,10 @@ body:has(.ms) {
 	top: 12px;
 }
 
+body:has([data-site-admin-bar]) .ms-nav {
+	top: 32px;
+}
+
 .ms-nav {
 	position: fixed;
 	top: 0;
