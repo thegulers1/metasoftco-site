@@ -66,7 +66,7 @@ export async function buildTrafficReport(days: number): Promise<TrafficReport> {
     }, fallback);
     const propertyId = config.ga4PropertyId;
     const siteUrl = config.gscSiteUrl;
-    const startDate = `${days}daysAgo`;
+    const startDate = `${days - 1}daysAgo`;
     const endDate = "today";
     const pageFilter = NOT_ADMIN("pagePath");
     const landingFilter = NOT_ADMIN("landingPage");
@@ -91,7 +91,7 @@ export async function buildTrafficReport(days: number): Promise<TrafficReport> {
     }
 
     if (propertyId) {
-        const [daily, channels, landing, pages, events, previous] = await Promise.all([
+        const [daily, channels, landing, pages, events, previous, totals] = await Promise.all([
             read("Günlük trafik", () => ga4Report({
                 propertyId, startDate, endDate, dimensions: ["date"],
                 metrics: ["sessions", "totalUsers", "screenPageViews", "keyEvents"], limit: 100,
@@ -120,8 +120,12 @@ export async function buildTrafficReport(days: number): Promise<TrafficReport> {
                 orderBys: [{ metric: { metricName: "eventCount" }, desc: true }],
             }), []),
             read("Önceki dönem", () => ga4Report({
-                propertyId, startDate: `${days * 2}daysAgo`, endDate: `${days + 1}daysAgo`, dimensions: [],
+                propertyId, startDate: `${days * 2 - 1}daysAgo`, endDate: `${days}daysAgo`, dimensions: [],
                 metrics: ["sessions", "totalUsers", "keyEvents"], limit: 1,
+            }), []),
+            read("Dönem toplamları", () => ga4Report({
+                propertyId, startDate, endDate, dimensions: [],
+                metrics: ["sessions", "totalUsers", "screenPageViews", "keyEvents", "engagementRate"], limit: 1,
             }), []),
         ]);
 
@@ -143,14 +147,14 @@ export async function buildTrafficReport(days: number): Promise<TrafficReport> {
             report.previous = { sessions: previous[0].mets[0], users: previous[0].mets[1], keyEvents: previous[0].mets[2] };
         }
 
-        const sessions = report.channels.reduce((sum, row) => sum + row.sessions, 0);
-        const weighted = report.channels.reduce((sum, row) => sum + row.engagementRate * row.sessions, 0);
+        // Unique users cannot be added across days; top-channel rows are capped.
+        const total = totals[0]?.mets;
         report.totals = {
-            sessions,
-            users: report.daily.reduce((sum, row) => sum + row.users, 0),
-            pageViews: report.daily.reduce((sum, row) => sum + row.pageViews, 0),
-            keyEvents: report.daily.reduce((sum, row) => sum + row.keyEvents, 0),
-            engagementRate: sessions ? weighted / sessions : 0,
+            sessions: total?.[0] ?? 0,
+            users: total?.[1] ?? 0,
+            pageViews: total?.[2] ?? 0,
+            keyEvents: total?.[3] ?? 0,
+            engagementRate: total?.[4] ?? 0,
         };
     } else {
         warnings.push("GA4_PROPERTY_ID tanımlı değil.");
@@ -158,7 +162,7 @@ export async function buildTrafficReport(days: number): Promise<TrafficReport> {
 
     if (siteUrl) {
         // Search Console runs 2-3 days behind.
-        const gscStart = isoDaysAgo(days + 3);
+        const gscStart = isoDaysAgo(days + 2);
         const gscEnd = isoDaysAgo(3);
         const [queries, pages] = await Promise.all([
             read("Aramalar", () => gscQuery({ siteUrl, startDate: gscStart, endDate: gscEnd, dimensions: ["query"], rowLimit: 25 }), [] as GscRow[]),
