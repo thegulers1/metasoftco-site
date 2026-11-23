@@ -31,8 +31,8 @@ const codePageUpdated = {
     contact: "2026-10-21",
     legal: "2026-10-16",
     industry: "2026-11-18",
-    corporate: "2026-10-09",
-    fairs: "2026-10-09",
+    corporate: "2026-11-23",
+    fairs: "2026-11-23",
     ramadan: "2026-11-10",
     newYear: "2026-11-02",
     /** /hizmetler/yilbasi-<urun>-kiralama pages (src/lib/new-year-products.ts). */
@@ -116,6 +116,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
             entry(`/hizmetler/${page.slug}`, page.updatedAt, 0.6),
             ...(isEnglishSectorPagePublishable(page) ? [entry(`/en/services/${page.slug_en}`, page.updatedAt, 0.6)] : []),
         ]),
+        entry("/hizmetler/photobooth-kiralama-fiyatlari", day("2026-11-23"), 0.7),
         entry("/hizmetler/data-capture-crm", day(codePageUpdated.dataCapture), 0.7),
         entry("/hizmetler/markaya-ozel-etkinlik-yazilimi", day("2026-11-18"), 0.7),
         entry("/hizmetler/etkinlik-mikro-site-ve-uygulama", day(codePageUpdated.microSite), 0.7),

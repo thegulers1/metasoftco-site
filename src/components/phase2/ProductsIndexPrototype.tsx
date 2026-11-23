@@ -65,7 +65,10 @@ export default function ProductsIndexPrototype({ products, locale }: { products:
                 </h1>
                 <div className="ms-hero__foot">
                     <p className="ms-lede" data-reveal style={{ maxWidth: 620 }}>{copy.heroCopy}</p>
-                    <Link href={`${dictionary.routes.contact}?tur=satin-alma`} className="ms-pill ms-pill--acc" data-cursor={l.write}>{up(copy.ctaButton)} ↗</Link>
+                    <div className="ms-actions">
+                        <Link href={`${dictionary.routes.contact}?tur=satin-alma`} className="ms-pill ms-pill--acc" data-cursor={l.write}>{up(copy.ctaButton)} ↗</Link>
+                        {locale === "tr" && <Link href="/sunum" className="ms-pill ms-pill--line">HİZMETLERİ SEÇ · PDF SUNUM OLUŞTUR ↗</Link>}
+                    </div>
                 </div>
             </section>
 
@@ -96,6 +99,7 @@ export default function ProductsIndexPrototype({ products, locale }: { products:
                     </ul>
                 </div>
                 <div className="ms-actions">
+                    {locale === "tr" && <Link href="/hizmetler/photobooth-kiralama-fiyatlari" className="ms-pill ms-pill--line">PHOTOBOOTH İÇİN TEKLİF REHBERİ ↗</Link>}
                     <Link href={buying[locale].rentHref} className="ms-pill ms-pill--line">{buying[locale].rentLabel}</Link>
                     {buying[locale].storeHref && buying[locale].storeLabel && (
                         <Link href={buying[locale].storeHref} className="ms-pill ms-pill--line">{buying[locale].storeLabel}</Link>

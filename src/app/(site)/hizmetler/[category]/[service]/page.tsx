@@ -1,6 +1,7 @@
 import { isMomentoBallPage } from "@/lib/momento-ball";
 import { serviceReferences } from "@/lib/service-template/references";
 import { Metadata } from "next";
+import Link from "next/link";
 import { faqPlainText } from "@/lib/faq-text";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
@@ -59,7 +60,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     const service = await getServiceBySlug(serviceSlug, categoryData.id);
     if (!service || !service.published) return {};
 
-    const title = service.metaTitle || (isSoftwareCategory(categoryData.slug)
+    const title = isAiGreenboxPage(category, serviceSlug)
+        ? "AI Greenbox Kiralama | Yapay Zekâ Fotoğraf Aktivasyonu"
+        : service.metaTitle || (isSoftwareCategory(categoryData.slug)
         ? `${service.title} | ${categoryData.name}`
         : rentalMetaTitle(service.title, "tr"));
     const description = service.metaDescription || service.description || siteConfig.description;
@@ -268,6 +271,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 saleHref={saleCounterpart ? `/urunler/${saleCounterpart.slug}` : undefined}
                 newYearPage={newYearPageForService(service.slug)}
             />}
+            {serviceSlug === "photobooth-kirala" && <section className="ms-section" aria-label="Photobooth kiralama teklifi"><h2 className="ms-h2">Etkinliğinize özel photobooth teklifi</h2><p className="ms-lede">Ekipman, çalışma süresi, baskı ve kurulum kapsamını birlikte belirleyelim.</p><Link href="/hizmetler/photobooth-kiralama-fiyatlari" className="ms-pill ms-pill--line">KİRALAMA FİYATINI BELİRLEYENLER ↗</Link></section>}
         </>
     );
 }

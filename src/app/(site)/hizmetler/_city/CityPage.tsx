@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { landingServiceSchema } from "@/lib/service-schema";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { siteConfig } from "@/lib/site";
@@ -99,8 +100,15 @@ export async function CityPage({ slug, lang = "tr" }: { slug: string; lang?: Cit
         })),
     } : null;
 
+    const serviceSchema = landingServiceSchema({
+        name: lang === "en" ? page.h1_en || page.title : page.h1 || page.title,
+        description: (lang === "en" ? page.excerpt_en || page.metaDescription_en : page.excerpt || page.metaDescription) || "",
+        url: lang === "en" ? `${siteConfig.url}/en/services/${page.slug_en}` : `${siteConfig.url}/hizmetler/${slug}`,
+        category: lang === "en" ? "Event activation rental" : "Etkinlik aktivasyonu kiralama",
+    }, page.customSchema);
     return (
         <>
+            {serviceSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema).replace(/</g, "\\u003c") }} />}
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
             {faqSchema && (
                 <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />

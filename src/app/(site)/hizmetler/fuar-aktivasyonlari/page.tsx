@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { landingServiceSchema } from "@/lib/service-schema";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/db";
 import { siteConfig } from "@/lib/site";
@@ -74,8 +75,10 @@ export default async function FuarAktivasyonlariPage() {
         })),
     } : null;
 
+    const serviceSchema = landingServiceSchema({ name: page.h1 || page.title, description: page.excerpt || page.metaDescription || "", url: `${siteConfig.url}/hizmetler/${SLUG}`, category: page.title }, page.customSchema);
     return (
         <>
+            {serviceSchema && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema).replace(/</g, "\\u003c") }} />}
             <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
             {faqSchema && (
                 <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />

@@ -118,6 +118,14 @@ export default function CapabilitiesIndexPrototype({
                 </div>
             </section>
 
+            {locale === "tr" && <section className="ms-section" aria-labelledby="event-contexts">
+                <h2 id="event-contexts" className="ms-h2">Etkinliğinize göre çözümler</h2>
+                <div className="ms-cards">
+                    <section className="ms-card"><h3 className="ms-card__title">Kurumsal etkinlik teknolojisi</h3><p className="ms-card__body">Lansman, şirket buluşması ve davetler için fotoğraf, oyun ve dijital katılım deneyimleri.</p><Link href="/hizmetler/kurumsal-etkinlik-teknolojisi" className="ms-hero__jump">KURUMSAL ETKİNLİK ÇÖZÜMLERİ ↗</Link></section>
+                    <section className="ms-card"><h3 className="ms-card__title">Fuar ve stant aktivasyonları</h3><p className="ms-card__body">Stant alanına, ziyaretçi akışına ve markanızın hedeflerine göre planlanan interaktif deneyimler.</p><Link href="/hizmetler/fuar-aktivasyonlari" className="ms-hero__jump">FUAR AKTİVASYONLARINI İNCELEYİN ↗</Link></section>
+                </div>
+            </section>}
+
             {categories && categories.length > 0 && <MsBand words={categories.map((category) => category.name)} />}
 
             <section aria-label={copy.catalogAria}>

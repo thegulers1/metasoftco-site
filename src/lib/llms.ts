@@ -45,6 +45,7 @@ const SOLUTION_PAGES = [
     { title: "Kurumsal Etkinlik Teknolojisi", path: "/hizmetler/kurumsal-etkinlik-teknolojisi", note: "Lansman, fuar ve kurumsal etkinlikler için uçtan uca etkinlik teknolojisi." },
     { title: "Fuar Aktivasyonları", path: "/hizmetler/fuar-aktivasyonlari", note: "Fuar standında katılım ve lead toplama odaklı aktivasyonlar." },
     { title: "Sevgililer Günü Etkinlikleri", path: "/hizmetler/sevgililer-gunu-etkinlikleri", note: "AVM, mağaza ve markalar için 14 Şubat: AI Photo, fotoğraf şeridi, 360 video, interaktif oyun ve hediye çarkı; mekâna göre kurgu ve kiralama planlaması." },
+    { title: "Photobooth Kiralama Fiyatları", path: "/hizmetler/photobooth-kiralama-fiyatlari", note: "Rakam içermeyen teklif rehberi: ekipman, süre, baskı, tasarım ve lojistiğe göre kapsam belirleme." },
     { title: "Kurumsal Yılbaşı Partisi Aktiviteleri", path: "/hizmetler/yilbasi-partisi-aktiviteleri", note: "Şirket yılbaşı partileri için AI photobooth, quiz, hediye çarkı ve 360 video; kişi sayısına göre öneriler." },
     { title: "Mağaza İçi Kalıcı Photobooth", path: "/hizmetler/magaza-ici-kalici-photobooth", note: "Mağaza ve showroom için kalıcı photobooth ve kiosk sistemleri; DeFacto mağazalarında kullanıldı." },
     { title: "İstanbul AI Photobooth", path: "/hizmetler/istanbul-ai-photobooth", note: "İstanbul'da yapay zeka photobooth kiralama." },
