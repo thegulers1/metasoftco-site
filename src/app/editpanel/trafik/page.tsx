@@ -67,7 +67,8 @@ export default async function TrafficPage({ searchParams }: { searchParams: Prom
             <div className="flex items-center justify-between">
                 <div>
                     <h1 className="text-2xl font-bold text-black">Trafik</h1>
-                    <p className="text-sm text-black/50 mt-1">Ziyaretçiler nereden geldi, nereleri gezdi, neden aramadı. Admin sayfaları sayılmaz.</p>
+                    <p className="text-sm text-black/50 mt-1">Ziyaretçiler nereden geldi, nereleri gezdi, neden aramadı.</p>
+                    <p className="text-xs text-black/50 mt-2">{report.source === "unavailable" ? "Güncel veri bağlantısı yok. Gösterilecek canlı rapor bulunmuyor." : `Google API sorgulama zamanı: ${new Date(report.generatedAt).toLocaleString("tr-TR", { timeZone: "Europe/Istanbul" })}. Google verileri gecikmeli işlenebilir.`}</p>
                 </div>
                 <div className="flex gap-2">
                     {RANGES.map((range) => (
@@ -100,6 +101,7 @@ export default async function TrafficPage({ searchParams }: { searchParams: Prom
                 </details>
             )}
 
+            {report.source !== "unavailable" && <>
             <div className="grid grid-cols-2 lg:grid-cols-5 gap-4">
                 <Card label="Oturum" value={totals.sessions} hint={delta(totals.sessions, previous?.sessions)} />
                 <Card label="Kullanıcı" value={totals.users} hint={delta(totals.users, previous?.users)} />
@@ -199,6 +201,7 @@ export default async function TrafficPage({ searchParams }: { searchParams: Prom
                     }))}
                 />
             </section>
+            </>}
         </div>
     );
 }

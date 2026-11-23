@@ -11,6 +11,9 @@ export async function POST(request: NextRequest) {
         const { days } = await request.json().catch(() => ({ days: 14 }));
         const range = [7, 14, 30].includes(days) ? days : 14;
         const report = await buildTrafficReport(range);
+        if (report.source === "unavailable" || report.source === "snapshot") {
+            return NextResponse.json({ error: "Güncel Google verisi alınamıyor. Analiz için önce Google bağlantısını kurun." }, { status: 503 });
+        }
         if (!report.totals.sessions && !report.searchQueries.length) {
             return NextResponse.json({ error: "Analiz edilecek veri yok. Google bağlantısını kontrol edin." }, { status: 400 });
         }

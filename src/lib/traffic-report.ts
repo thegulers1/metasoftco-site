@@ -4,7 +4,6 @@
  * Admin pages (/editpanel) are excluded so our own work does not look like visitors.
  */
 
-import snapshot from "@/data/traffic-snapshot.json";
 import { ga4Report, gscQuery, googleConfigStatus, type GscRow } from "./google-api";
 
 export interface DailyPoint { date: string; sessions: number; users: number; pageViews: number; keyEvents: number }
@@ -17,7 +16,7 @@ export interface SearchPageRow { page: string; clicks: number; impressions: numb
 
 export interface TrafficReport {
     days: number;
-    source?: "live" | "snapshot";
+    source?: "live" | "snapshot" | "unavailable";
     generatedAt: string;
     totals: { sessions: number; users: number; pageViews: number; keyEvents: number; engagementRate: number };
     previous: { sessions: number; users: number; keyEvents: number } | null;
@@ -58,9 +57,13 @@ async function safe<T>(label: string, warnings: string[], run: () => Promise<T>,
 
 export async function buildTrafficReport(days: number): Promise<TrafficReport> {
     const config = googleConfigStatus();
-    // Without a Google service account the screen shows the saved copy instead of staying empty.
-    if (!config.hasKey || !config.ga4PropertyId) return snapshot as TrafficReport;
     const warnings: string[] = [];
+    let successfulQueries = 0;
+    const read = <T>(label: string, run: () => Promise<T>, fallback: T) => safe(label, warnings, async () => {
+        const data = await run();
+        successfulQueries += 1;
+        return data;
+    }, fallback);
     const propertyId = config.ga4PropertyId;
     const siteUrl = config.gscSiteUrl;
     const startDate = `${days}daysAgo`;
@@ -70,7 +73,7 @@ export async function buildTrafficReport(days: number): Promise<TrafficReport> {
 
     const report: TrafficReport = {
         days,
-        source: "live",
+        source: !config.hasKey || (!propertyId && !siteUrl) ? "unavailable" : "live",
         generatedAt: new Date().toISOString(),
         totals: { sessions: 0, users: 0, pageViews: 0, keyEvents: 0, engagementRate: 0 },
         previous: null,
@@ -78,36 +81,45 @@ export async function buildTrafficReport(days: number): Promise<TrafficReport> {
         searchQueries: [], searchPages: [], warnings,
     };
 
+    if (!config.hasKey) {
+        warnings.push("Google bağlantısı kurulmamış veya servis hesabı anahtarı geçersiz. Güncel veri alınamıyor; eski kayıt güncel rapor olarak gösterilmez.");
+        return report;
+    }
+    if (!propertyId && !siteUrl) {
+        warnings.push("GA4 mülkü ve Search Console adresi tanımlı değil. Güncel veri alınamıyor.");
+        return report;
+    }
+
     if (propertyId) {
         const [daily, channels, landing, pages, events, previous] = await Promise.all([
-            safe("Günlük trafik", warnings, () => ga4Report({
+            read("Günlük trafik", () => ga4Report({
                 propertyId, startDate, endDate, dimensions: ["date"],
                 metrics: ["sessions", "totalUsers", "screenPageViews", "keyEvents"], limit: 100,
                 orderBys: [{ dimension: { dimensionName: "date" } }],
             }), []),
-            safe("Kaynaklar", warnings, () => ga4Report({
+            read("Kaynaklar", () => ga4Report({
                 propertyId, startDate, endDate, dimensions: ["sessionSourceMedium"],
                 metrics: ["sessions", "totalUsers", "engagementRate", "keyEvents"], limit: 25,
                 orderBys: [{ metric: { metricName: "sessions" }, desc: true }],
             }), []),
-            safe("Giriş sayfaları", warnings, () => ga4Report({
+            read("Giriş sayfaları", () => ga4Report({
                 propertyId, startDate, endDate, dimensions: ["landingPage"],
                 metrics: ["sessions", "engagementRate", "averageSessionDuration", "keyEvents"], limit: 25,
                 dimensionFilter: landingFilter,
                 orderBys: [{ metric: { metricName: "sessions" }, desc: true }],
             }), []),
-            safe("Sayfalar", warnings, () => ga4Report({
+            read("Sayfalar", () => ga4Report({
                 propertyId, startDate, endDate, dimensions: ["pagePath"],
                 metrics: ["screenPageViews", "totalUsers", "averageSessionDuration"], limit: 25,
                 dimensionFilter: pageFilter,
                 orderBys: [{ metric: { metricName: "screenPageViews" }, desc: true }],
             }), []),
-            safe("Olaylar", warnings, () => ga4Report({
+            read("Olaylar", () => ga4Report({
                 propertyId, startDate, endDate, dimensions: ["eventName"],
                 metrics: ["eventCount"], limit: 30,
                 orderBys: [{ metric: { metricName: "eventCount" }, desc: true }],
             }), []),
-            safe("Önceki dönem", warnings, () => ga4Report({
+            read("Önceki dönem", () => ga4Report({
                 propertyId, startDate: `${days * 2}daysAgo`, endDate: `${days + 1}daysAgo`, dimensions: [],
                 metrics: ["sessions", "totalUsers", "keyEvents"], limit: 1,
             }), []),
@@ -149,8 +161,8 @@ export async function buildTrafficReport(days: number): Promise<TrafficReport> {
         const gscStart = isoDaysAgo(days + 3);
         const gscEnd = isoDaysAgo(3);
         const [queries, pages] = await Promise.all([
-            safe("Aramalar", warnings, () => gscQuery({ siteUrl, startDate: gscStart, endDate: gscEnd, dimensions: ["query"], rowLimit: 25 }), [] as GscRow[]),
-            safe("Arama sayfaları", warnings, () => gscQuery({ siteUrl, startDate: gscStart, endDate: gscEnd, dimensions: ["page"], rowLimit: 15 }), [] as GscRow[]),
+            read("Aramalar", () => gscQuery({ siteUrl, startDate: gscStart, endDate: gscEnd, dimensions: ["query"], rowLimit: 25 }), [] as GscRow[]),
+            read("Arama sayfaları", () => gscQuery({ siteUrl, startDate: gscStart, endDate: gscEnd, dimensions: ["page"], rowLimit: 15 }), [] as GscRow[]),
         ]);
         report.searchQueries = queries.map((row) => ({
             query: row.keys[0], clicks: row.clicks, impressions: row.impressions, ctr: row.ctr, position: row.position,
@@ -163,5 +175,6 @@ export async function buildTrafficReport(days: number): Promise<TrafficReport> {
         warnings.push("GSC_SITE_URL tanımlı değil.");
     }
 
+    if (successfulQueries === 0) report.source = "unavailable";
     return report;
 }
