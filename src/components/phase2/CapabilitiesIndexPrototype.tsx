@@ -32,6 +32,9 @@ const t = {
         faqAside: "Aradığınız cevap burada yoksa bize yazın; aynı gün dönüş yapalım.",
         faqCta: "SORUNUZU İLETİN ↗",
         popularLabel: "En çok kiralananlar",
+        categoriesTitle: "Hizmet kategorileri",
+        categoriesMeta: "DENEYİMİNİZİ SEÇİN",
+        catalog: "HİZMET KATALOĞU · PDF SUNUM ↗",
         // Plain text links with the exact rental phrasing people search for.
         popular: [
             { label: "AI Photobooth kiralama", href: "/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-photobooth-kirala" },
@@ -53,6 +56,8 @@ const t = {
         faqAside: "If your question is not answered here, write to us and we will reply the same day.",
         faqCta: "SEND YOUR QUESTION ↗",
         popularLabel: "Most rented",
+        categoriesTitle: "Service categories",
+        categoriesMeta: "EXPLORE EXPERIENCES",
         popular: [
             { label: "AI photo booth rental", href: "/en/services/ai-event-solutions/ai-photobooth" },
             { label: "Photo booth rental", href: "/en/services/photobooth-and-photo-activations/photobooth-rental" },
@@ -126,6 +131,20 @@ export default function CapabilitiesIndexPrototype({
                 </div>
             </section>}
 
+            {categories && categories.length > 0 && (
+                <section className="ms-section" aria-labelledby="service-categories">
+                    <MsSectionHead id="service-categories" title={l.categoriesTitle} meta={l.categoriesMeta} />
+                    <nav className="ms-category-links" aria-label={l.categoriesTitle}>
+                        {categories.map((category) => (
+                            <Link key={category.slug} href={`${locale === "tr" ? "/hizmetler" : "/en/services"}/${category.slug}`} className="ms-pill ms-pill--line">
+                                {category.name} ↗
+                            </Link>
+                        ))}
+                    </nav>
+                    {locale === "tr" && <Link href="/sunum" className="ms-hero__jump ms-mono">{t.tr.catalog}</Link>}
+                </section>
+            )}
+
             {categories && categories.length > 0 && <MsBand words={categories.map((category) => category.name)} />}
 
             <section aria-label={copy.catalogAria}>
@@ -138,6 +157,13 @@ export default function CapabilitiesIndexPrototype({
                     labels={l.view}
                     showToggle={false}
                 />
+            </section>
+
+            <section className="ms-section" aria-labelledby="popular-rentals">
+                <MsSectionHead id="popular-rentals" title={l.popularLabel} />
+                <nav className="ms-category-links" aria-label={l.popularLabel}>
+                    {l.popular.map((item) => <Link key={item.href} href={item.href} className="ms-hero__jump">{item.label} ↗</Link>)}
+                </nav>
             </section>
 
             {showSoftware && <SoftwareShowcase productsHref={dictionary.routes.products} />}

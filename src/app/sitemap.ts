@@ -12,6 +12,7 @@ import {
 } from "@/lib/publication";
 import { getSectors, hasEnglish } from "@/lib/industry-pages";
 import { team, teamMemberPath } from "@/lib/team";
+import { softwareCaseStudies } from "@/lib/software-case-studies";
 import { newYearProductSlugs } from "@/lib/new-year-products";
 
 export const dynamic = "force-dynamic";
@@ -27,6 +28,9 @@ const codePageUpdated = {
     home: "2026-11-17",
     /** Templates of /hizmetler, /projeler, /blog, /urunler; their date is at least this. */
     listings: "2026-10-21",
+    serviceHub: "2026-11-23",
+    softwareCases: "2026-11-23",
+    mirrorPilot: "2026-11-23",
     about: "2026-11-18",
     contact: "2026-10-21",
     legal: "2026-10-16",
@@ -83,7 +87,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     const about = day(codePageUpdated.about);
     const contact = day(codePageUpdated.contact);
     const legal = day(codePageUpdated.legal);
-    const services = newest([...rentalServices.map((s) => s.updatedAt), ...categories.map((c) => c.updatedAt)], codePageUpdated.listings);
+    const services = newest([...rentalServices.map((s) => s.updatedAt), ...categories.map((c) => c.updatedAt)], codePageUpdated.serviceHub);
     const projectsList = newest(projects.map((p) => p.updatedAt), codePageUpdated.listings);
     const blogList = newest(posts.map((p) => p.updatedAt), codePageUpdated.listings);
     const products = newest(saleServices.map((s) => s.updatedAt), codePageUpdated.listings);
@@ -137,8 +141,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         return pages;
     });
     const servicePages = categories.flatMap((category) => category.services.flatMap((service) => {
-        const pages: SitemapEntry[] = [entry(`/hizmetler/${category.slug}/${service.slug}`, service.updatedAt, 0.6)];
-        if (isEnglishServicePublishable(service, category)) pages.push(entry(`/en/services/${category.slug_en}/${service.slug_en}`, service.updatedAt, 0.6));
+        const pages: SitemapEntry[] = [entry(`/hizmetler/${category.slug}/${service.slug}`, service.slug === "mirror-booth" ? newest([service.updatedAt], codePageUpdated.mirrorPilot) : service.updatedAt, 0.6)];
+        if (isEnglishServicePublishable(service, category)) pages.push(entry(`/en/services/${category.slug_en}/${service.slug_en}`, service.slug === "mirror-booth" ? newest([service.updatedAt], codePageUpdated.mirrorPilot) : service.updatedAt, 0.6));
         return pages;
     }));
     const productPages = saleServices.flatMap((service) => {
@@ -147,7 +151,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         return pages;
     });
     const projectPages = projects.flatMap((project) => {
-        const pages: SitemapEntry[] = [entry(`/projeler/${project.slug}`, project.updatedAt, 0.6)];
+        const pages: SitemapEntry[] = [entry(`/projeler/${project.slug}`, softwareCaseStudies[project.slug] ? newest([project.updatedAt], codePageUpdated.softwareCases) : project.updatedAt, 0.6)];
         if (isEnglishProjectPublishable(project)) pages.push(entry(`/en/projects/${project.slug_en}`, project.updatedAt, 0.6));
         return pages;
     });

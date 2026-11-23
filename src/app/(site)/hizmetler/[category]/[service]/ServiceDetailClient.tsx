@@ -77,6 +77,7 @@ export default function ServiceDetailClient({
   const eventRental =
     variant === "rental" && !isSoftwareCategory(categoryData.slug);
   const momento = variant === "rental" && isMomentoBallPage(categoryData.slug, service.slug);
+  const mirror = eventRental && categoryData.slug === "photobooth-ve-fotograf-aktivasyonlari" && service.slug === "mirror-booth";
   const showCapture = variant === "rental" && service.dataCapture;
   const output = toRentalOutput(service.outputType);
   const operations = rentalOpsCopy(language);
@@ -89,6 +90,13 @@ export default function ServiceDetailClient({
   ).filter(
     (s) => s && typeof s.label === "string" && typeof s.value === "string",
   );
+  if (mirror && specs.length === 0) {
+    specs.push(
+      { label: t("Alan", "Space"), value: "4 m²" },
+      { label: t("Katılım", "Throughput"), value: t("Saatte 60–80 kişi", "60–80 guests per hour") },
+      { label: t("Baskı", "Prints"), value: t("Pakete 750 baskı dahil", "750 prints included") },
+    );
+  }
   const ownFaqs = parseJsonList<{ q: string; a: string }>(
     en ? service.faq_en : service.faq,
   );
@@ -303,6 +311,22 @@ export default function ServiceDetailClient({
             </TrackedContactLink>
           </aside>
         </section>
+        )}
+        {mirror && !en && (
+          <section className={`${styles.section} ${styles.contentSection}`} aria-labelledby="mirror-choice">
+            <div className={styles.contentHeading}>
+              <span className={styles.eyebrow}>Aynalı fotoğraf kabini</span>
+              <h2 id="mirror-choice">Mirror Booth etkinliğiniz için doğru seçim mi?</h2>
+            </div>
+            <div className={extra.prose}><div className="ms-prose">
+              <p>Gala, lansman ve kurumsal davette dokunmatik ayna, fotoğrafa imza ve basılı hatıra istiyorsanız Mirror Booth uygun bir seçenektir. Alan ve katılımcı akışını birlikte planlayalım.</p>
+              <h3>Klasik photobooth ile farkı</h3>
+              <p>Mirror Booth büyük dokunmatik aynasıyla 4 m² alan ister. Daha kompakt bir fotoğraf noktası arıyorsanız <Link href="/hizmetler/photobooth-ve-fotograf-aktivasyonlari/photobooth-kirala">klasik photobooth kiralama</Link> seçeneğini inceleyin.</p>
+              <h3>AI Fashion Mirror ile farkı</h3>
+              <p>Mirror Booth fotoğraf çekimi, aynaya imza ve baskı deneyimidir. Sanal kıyafet deneme hedefiniz varsa <Link href="/hizmetler/yapay-zeka-etkinlik-cozumleri/ai-fashion-mirror-akilli-ayna">AI Fashion Mirror</Link> farklı bir çözümdür.</p>
+              <p>Teklif için tarih, şehir, çalışma süresi ve katılımcı sayısını paylaşın. <Link href="/hizmetler/photobooth-kiralama-fiyatlari">Photobooth teklif kapsamını inceleyin</Link> veya <a href="#teklif">Mirror Booth için teklif alın</a>.</p>
+            </div></div>
+          </section>
         )}
         {!sale && content &&
           serviceContentSections(

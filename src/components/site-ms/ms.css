@@ -3409,3 +3409,16 @@ html[data-mh-js] .ms-w > span {
 .ms-menu > a {
 	letter-spacing: -0.01em;
 }
+
+/* Public hub links complement the in-page catalog filters. */
+.ms-category-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+.ms-category-links .ms-pill {
+    white-space: normal;
+    overflow-wrap: anywhere;
+    max-width: 100%;
+}

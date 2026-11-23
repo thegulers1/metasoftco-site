@@ -1,5 +1,6 @@
 "use client";
 
+import { softwareCaseStudies } from "@/lib/software-case-studies";
 import { useEffect } from "react";
 import { displayTitle } from "@/lib/title-case";
 import Image from "next/image";
@@ -110,6 +111,7 @@ export default function ProjectDetailClient({ project, nextProject, relatedServi
     const description = isEn ? (project.description_en || project.description) : project.description;
     const content = isEn ? (project.content_en || project.content) : project.content;
 
+    const softwareCase = !isEn ? softwareCaseStudies[project.slug] : undefined;
     const technologies = parseTechnologies(project.technologies);
     const gallery = parseGallery(project.gallery);
     const faqs = parseJsonList<{ q: string; a: string }>(isEn ? project.faq_en : project.faq);
@@ -156,6 +158,19 @@ export default function ProjectDetailClient({ project, nextProject, relatedServi
                     </div>
                 )}
             </section>
+
+            {softwareCase && (
+                <section className="ms-section" aria-labelledby="software-case-frame">
+                    <MsSectionHead id="software-case-frame" title="İhtiyaçtan çalışan yazılıma" meta="YAZILIM PROJESİ" />
+                    <div className="ms-cards">
+                        {[
+                            ["İhtiyaç", softwareCase.need],
+                            ["Geliştirdiğimiz çözüm", softwareCase.solution],
+                            ["Projedeki çıktı", softwareCase.evidence],
+                        ].map(([heading, body]) => <section key={heading} className="ms-card"><h3 className="ms-card__title">{heading}</h3><p className="ms-card__body">{body}</p></section>)}
+                    </div>
+                </section>
+            )}
 
             {project.video && (
                 <section className="ms-section" aria-labelledby="ms-pvideo">
