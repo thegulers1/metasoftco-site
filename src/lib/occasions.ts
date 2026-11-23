@@ -179,5 +179,6 @@ export function getOccasion(slug: string): Occasion | undefined {
 
 /** Contact form tag for ?durum=<slug>. */
 export function occasionLabel(slug: string | null | undefined): string | undefined {
+    if (slug === "sevgililer-gunu-etkinlikleri") return "Sevgililer Günü";
     return slug ? occasions[slug]?.name : undefined;
 }
