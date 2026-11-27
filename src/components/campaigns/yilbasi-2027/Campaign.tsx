@@ -108,12 +108,12 @@ const media = {
 
 const videos = {
   aiFilm: {
-    src: "/videos/yilbasi/ai-photo-video.mp4",
+    src: "/api/campaign-video/ai-photo-video.mp4",
     poster: `${V}ai-video-kapak.webp`,
     label: "AI portreden üretilen kısa yılbaşı filmi",
   },
   caricature: {
-    src: "/videos/yilbasi/karikatur-video.mp4",
+    src: "/api/campaign-video/karikatur-video.mp4",
     poster: `${V}karikatur-kapak.webp`,
     label: "Karikatürün çizilişini gösteren örnek video",
   },
@@ -379,6 +379,7 @@ function AutoVideo({
       poster={near ? poster : undefined}
       aria-label={label}
       muted
+      controls
       loop
       playsInline
       preload="none"
