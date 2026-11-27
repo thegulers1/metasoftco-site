@@ -51,6 +51,10 @@ const nextConfig: NextConfig = {
         source: "/api/:path*",
         headers: [{ key: "Cache-Control", value: "no-store" }],
       },
+      {
+        source: "/api/campaign-video/:path*",
+        headers: [{ key: "Cache-Control", value: "no-store, no-transform" }],
+      },
     ];
   },
 

@@ -13,6 +13,7 @@ export async function GET(request: Request, context: { params: Promise<{ name: s
   const size = data.length;
   const headers = new Headers({
     "Content-Type": "video/mp4",
+    "Content-Encoding": "identity",
     "Accept-Ranges": "bytes",
     "Cache-Control": "no-store, no-transform",
   });
